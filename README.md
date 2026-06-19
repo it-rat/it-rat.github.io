@@ -60,7 +60,7 @@ flowchart LR
 flowchart TD
     NAV[Sticky nav + scroll progress bar]
     HERO[Hero — headline, CTAs, trust line, constellation canvas]
-    PROOF[Proof marquee — NatWest · Okta · PETRONAS · clients]
+    PROOF[Marquee — cloud, security & AI ecosystem names]
     PAIN[The problem — 3 pain cards on dark]
     SVC[Services — 4 cards]
     AIB[AI under control — feature band]
