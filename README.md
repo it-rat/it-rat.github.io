@@ -179,7 +179,7 @@ flowchart LR
       <b>Yurii Kostiuk</b><br>
       Cloud Security &amp; IAM<br>
       <sub>Lead Security Architect, PETRONAS · ex-Okta</sub><br>
-      <a href="https://www.linkedin.com/in/yuriy-kostyuk-778900ab/">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/">LinkedIn</a>
     </td>
     <td align="center" width="50%">
       <img src="img/Tania.gif" width="180" alt="Tania Fedirko"><br>
