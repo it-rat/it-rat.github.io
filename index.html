@@ -454,7 +454,7 @@
             </div>
         </div>
         <div class="formcard reveal">
-            <form id="form_1" action="https://formspree.io/itratmail@gmail.com" method="POST">
+            <form id="form_1" action="mailto:itratmail@gmail.com" method="POST" enctype="text/plain">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input id="name" type="text" name="name" required>
@@ -468,7 +468,7 @@
                     <textarea id="message" name="message" rows="4" required></textarea>
                 </div>
                 <button class="btn btn--primary" type="submit">Send message <span class="arr">&rarr;</span></button>
-                <p class="formnote">We reply within two business days.</p>
+                <p class="formnote" id="formNote">Opens your email app · we reply within two business days.</p>
             </form>
         </div>
     </div>
@@ -552,6 +552,22 @@
 
     // current year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // contact form: compose an email to itratmail@gmail.com
+    var contactForm = document.getElementById('form_1');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var name = (document.getElementById('name').value || '').trim();
+            var email = (document.getElementById('email').value || '').trim();
+            var msg = (document.getElementById('message').value || '').trim();
+            var subject = encodeURIComponent('New enquiry from ' + (name || 'website') + ' — IT-RAT');
+            var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+            var note = document.getElementById('formNote');
+            if (note) note.textContent = 'Opening your email app to send…';
+            window.location.href = 'mailto:itratmail@gmail.com?subject=' + subject + '&body=' + body;
+        });
+    }
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
