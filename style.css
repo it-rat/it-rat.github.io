@@ -196,10 +196,20 @@ h1, h2, h3, h4 {
 @keyframes dash-draw { from { stroke-dasharray: 520; stroke-dashoffset: 520; } to { stroke-dasharray: 520; stroke-dashoffset: 0; } }
 .hero-dash__area { animation: dash-fade 1.2s ease .7s backwards; }
 @keyframes dash-fade { from { opacity: 0; } }
-.hero-dash__bar { transform-box: fill-box; transform-origin: bottom; animation: dash-bar .7s var(--ease) backwards; }
-@keyframes dash-bar { from { transform: scaleY(0); } }
+.hero-dash__bar { transform-box: fill-box; transform-origin: bottom; animation: dash-bar 3.2s ease-in-out infinite; }
+@keyframes dash-bar { 0% { transform: scaleY(.22); } 45% { transform: scaleY(1); } 75% { transform: scaleY(1); } 100% { transform: scaleY(.22); } }
 .hero-dash__dot { animation: dash-pulse 2s ease-in-out infinite; }
 @keyframes dash-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* live cost-graph: a point that tracks the declining line, + a pulsing endpoint */
+.hero-dash__travel {
+  offset-path: path('M44 150 L116 166 L188 146 L260 178 L332 172 L404 194 L440 202');
+  offset-rotate: 0deg;
+  animation: dash-travel 4.5s linear infinite;
+}
+@keyframes dash-travel { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+.hero-dash__end { transform-box: fill-box; transform-origin: center; animation: dash-ring 2.2s ease-out infinite; }
+@keyframes dash-ring { 0% { transform: scale(.5); opacity: .7; } 100% { transform: scale(2.4); opacity: 0; } }
 .hero__badge {
   position: absolute;
   font-family: var(--font-head);

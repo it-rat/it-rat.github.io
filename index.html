@@ -79,14 +79,17 @@
                 <!-- cost card -->
                 <rect x="20" y="58" width="440" height="172" rx="14" fill="#ffffff" stroke="#14110f"/>
                 <text x="40" y="92" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="600" letter-spacing="1.5" fill="#8a8175">CLOUD + AI SPEND</text>
-                <text x="40" y="128" font-family="'Space Grotesk', sans-serif" font-size="34" font-weight="700" fill="#d98c00">&#8722;30%</text>
+                <text id="costNum" x="40" y="128" font-family="'Space Grotesk', sans-serif" font-size="34" font-weight="700" fill="#d98c00">&#8722;30%</text>
                 <text x="150" y="128" font-family="'Inter', sans-serif" font-size="13" fill="#8a8175">this quarter</text>
                 <!-- chart -->
                 <path class="hero-dash__area" d="M44,150 L116,166 L188,146 L260,178 L332,172 L404,194 L440,202 L440,212 L44,212 Z" fill="#f4a91b" fill-opacity="0.16"/>
                 <path class="hero-dash__line" d="M44,150 L116,166 L188,146 L260,178 L332,172 L404,194 L440,202" fill="none" stroke="#f4a91b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 <g fill="#e8431c">
-                    <circle cx="44" cy="150" r="3.5"/><circle cx="188" cy="146" r="3.5"/><circle cx="440" cy="202" r="4" fill="#14110f"/>
+                    <circle cx="44" cy="150" r="3.5"/><circle cx="188" cy="146" r="3.5"/>
                 </g>
+                <circle class="hero-dash__end" cx="440" cy="202" r="5" fill="none" stroke="#14110f" stroke-width="1.5"/>
+                <circle cx="440" cy="202" r="4" fill="#14110f"/>
+                <circle class="hero-dash__travel" r="4.5" fill="#e8431c"/>
                 <line x1="40" y1="212" x2="440" y2="212" stroke="#14110f" stroke-opacity="0.12"/>
 
                 <!-- security tile -->
@@ -522,6 +525,18 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // hero dashboard: count up the cost-reduction figure
+    var costEl = document.getElementById('costNum');
+    if (costEl && !reduced) {
+        var n = 0;
+        costEl.textContent = '−0%';
+        var ci = setInterval(function () {
+            n += 2;
+            if (n >= 30) { n = 30; clearInterval(ci); }
+            costEl.textContent = '−' + n + '%';
+        }, 45);
+    }
 
     // scroll progress bar
     var bar = document.getElementById('scrollbar');
