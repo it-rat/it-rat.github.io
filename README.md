@@ -14,8 +14,10 @@
 # IT-RAT
 
 Marketing site for **IT-RAT** — a boutique cloud consultancy. The company is
-positioned around two disciplines its founders practise at enterprise scale:
-**Cloud Security & IAM** and **FinOps & Cloud Cost Governance**.
+positioned around two disciplines its founders practise at enterprise scale —
+**Cloud Security & IAM** and **FinOps & Cloud Cost Governance** — now applied to
+a full-scale **AI rollout**: adopting AI across cloud, FinOps and security while
+keeping it secure, cost-governed and compliant.
 
 The site is a single, self-contained landing page: hand-written HTML, CSS and
 vanilla JavaScript with **no frameworks, no build step and no runtime
@@ -43,9 +45,9 @@ section pushes the visitor one step further toward booking a call.
 
 ```mermaid
 flowchart LR
-    A["🎯 Attention<br/>Hero<br/><i>Secure your cloud.<br/>Control your spend.</i>"]
-    I["💡 Interest<br/>Proof bar + 'The problem'<br/><i>cost, identity, late security</i>"]
-    D["🔥 Desire<br/>Services · FinOps for AI<br/>Capabilities · Team · Process"]
+    A["🎯 Attention<br/>Hero<br/><i>Scale AI safely.<br/>Control the spend.</i>"]
+    I["💡 Interest<br/>Proof bar + 'The problem'<br/><i>AI spend, identity, late security</i>"]
+    D["🔥 Desire<br/>Services · AI under control<br/>Capabilities · Team · Process"]
     Act["✅ Action<br/>CTA + contact form<br/><i>Book a discovery call</i>"]
     A --> I --> D --> Act
 ```
@@ -61,8 +63,8 @@ flowchart TD
     PROOF[Proof marquee — NatWest · Okta · PETRONAS · clients]
     PAIN[The problem — 3 pain cards on dark]
     SVC[Services — 4 cards]
-    AIB[FinOps for AI — feature band]
-    CAP[Capabilities — tech / security / finops / compliance tags]
+    AIB[AI under control — feature band]
+    CAP[Capabilities — cloud / security / finops / AI / compliance tags]
     TEAM[Team — Yurii & Tania]
     PROC[How we engage — Assess · Architect · Embed]
     CTA[CTA + contact form]
@@ -78,17 +80,22 @@ flowchart TD
 ```mermaid
 mindmap
   root((IT-RAT))
+    AI Adoption & Governance
+      AI across cloud · FinOps · security
+      Securing AI / LLM / model access
+      FinOps for AI / token guardrails
+      AI policy & compliance
     Cloud Security & IAM
       Zero Trust / least privilege
       IAM across AWS · GCP · Okta · Auth0
       DevSecOps & secure CI/CD
-      Threat modelling
+      Securing AI workloads
       ISO 27001 · NIST · SOC 2 · GDPR
     FinOps & Cost Governance
       Cost optimization & rightsizing
       Tagging / allocation / chargeback
       Anomaly detection & budget guardrails
-      Forecasting & dashboards
+      FinOps for AI / token cost
       Multi-cloud & GreenOps
     Cloud & Platform Architecture
       AWS & GCP solution design
