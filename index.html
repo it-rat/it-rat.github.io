@@ -526,6 +526,18 @@
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // hero dashboard: keep the AI-token bars alive with gentle random motion
+    var tokenBars = document.querySelectorAll('.hero-dash__bar');
+    if (tokenBars.length && !reduced) {
+        var jiggleBars = function () {
+            for (var i = 0; i < tokenBars.length; i++) {
+                tokenBars[i].style.transform = 'scaleY(' + (0.38 + Math.random() * 0.62).toFixed(3) + ')';
+            }
+        };
+        jiggleBars();
+        setInterval(jiggleBars, 1150);
+    }
+
     // hero dashboard: count up the cost-reduction figure
     var costEl = document.getElementById('costNum');
     if (costEl && !reduced) {
