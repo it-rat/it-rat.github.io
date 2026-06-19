@@ -175,8 +175,8 @@ flowchart LR
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="img/Yuriy.gif" width="180" alt="Yurii Kostyuk"><br>
-      <b>Yurii Kostyuk</b><br>
+      <img src="img/Yuriy.gif" width="180" alt="Yurii Kostiuk"><br>
+      <b>Yurii Kostiuk</b><br>
       Cloud Security &amp; IAM<br>
       <sub>Lead Security Architect, PETRONAS · ex-Okta</sub><br>
       <a href="https://www.linkedin.com/in/yuriy-kostyuk-778900ab/">LinkedIn</a>
