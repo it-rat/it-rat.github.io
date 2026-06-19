@@ -188,6 +188,18 @@ h1, h2, h3, h4 {
   will-change: transform;
 }
 .hero__art img { border-radius: 10px; transform: translateZ(30px); }
+.hero__panel { width: 100%; height: auto; display: block; transform: translateZ(30px); }
+
+/* hero dashboard animations — base state is the final (visible) state,
+   so reduced-motion users still see the full chart */
+.hero-dash__line { animation: dash-draw 1.8s var(--ease) .3s backwards; }
+@keyframes dash-draw { from { stroke-dasharray: 520; stroke-dashoffset: 520; } to { stroke-dasharray: 520; stroke-dashoffset: 0; } }
+.hero-dash__area { animation: dash-fade 1.2s ease .7s backwards; }
+@keyframes dash-fade { from { opacity: 0; } }
+.hero-dash__bar { transform-box: fill-box; transform-origin: bottom; animation: dash-bar .7s var(--ease) backwards; }
+@keyframes dash-bar { from { transform: scaleY(0); } }
+.hero-dash__dot { animation: dash-pulse 2s ease-in-out infinite; }
+@keyframes dash-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 .hero__badge {
   position: absolute;
   font-family: var(--font-head);
