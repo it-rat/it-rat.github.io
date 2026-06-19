@@ -343,7 +343,7 @@ h1, h2, h3, h4 {
 .member:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
 .member__media { background: var(--paper); border-bottom: 1px solid var(--ink); display: grid; place-items: center; padding: 20px; }
 .member__media img { width: 240px; max-width: 80%; }
-.member__body { padding: 30px 32px 34px; }
+.member__body { padding: 30px 32px 34px; display: flex; flex-direction: column; flex: 1; }
 .member__role { font-family: var(--font-head); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
 .member h3 { font-size: 27px; margin: 8px 0 6px; }
 .member .where { font-size: 14.5px; color: var(--muted); font-weight: 500; margin-bottom: 16px; }
@@ -357,7 +357,7 @@ h1, h2, h3, h4 {
 .member__certs li:hover { border-color: var(--amber-deep); transform: translateY(-2px); }
 .member__certs li svg { width: 15px; height: 15px; flex: 0 0 auto; stroke: var(--amber-deep); fill: none; }
 
-.member__link { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 600; font-size: 15px; }
+.member__link { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 600; font-size: 15px; margin-top: auto; align-self: flex-start; }
 .member__link svg { width: 18px; height: 18px; }
 .member__link:hover { color: var(--red); }
 
