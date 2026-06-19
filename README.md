@@ -25,13 +25,14 @@ dependencies** beyond Google Fonts. It is hosted on GitHub Pages.
 
 ## 🌐 Live site
 
-Served from the `master` branch via GitHub Pages:
+> ## **https://it-rat.github.io/**
 
-> **https://taipanbox.github.io/it-rat.github.io/**
+Served from the `master` branch of this repository via GitHub Pages.
 
 > [!NOTE]
-> If the page 404s, enable Pages under **Settings → Pages → Source: Deploy from a
-> branch → `master` / `root`**.
+> **`it-rat/it-rat.github.io` is the canonical repository** — it powers the live
+> `it-rat.github.io` site. `TAIPANBOX/it-rat.github.io` is only a personal fork
+> used to prepare changes.
 
 ---
 
@@ -112,7 +113,7 @@ flowchart LR
     subgraph Repo["📦 Repository (master)"]
         HTML["index.html<br/>structure + inline JS"]
         CSS["style.css<br/>design system + animation"]
-        ASSETS["img/ · fonts/ · favicon.png"]
+        ASSETS["img/ · favicon.png"]
         DOCS["docs/banner.svg"]
     end
     FONTS["Google Fonts<br/>Space Grotesk · Inter"]
@@ -218,8 +219,7 @@ it-rat.github.io/
 ├── favicon.png
 ├── docs/
 │   └── banner.svg    # README banner
-├── img/              # logo, team illustrations, client logos
-└── fonts/            # legacy icon webfonts (kept for assets)
+└── img/              # logo, team illustrations, client logos
 ```
 
 ---
