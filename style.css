@@ -238,8 +238,9 @@ h1, h2, h3, h4 {
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .marquee__track img { height: 30px; width: auto; opacity: .5; filter: grayscale(1); transition: opacity .25s, filter .25s; }
 .marquee__track img:hover { opacity: 1; filter: none; }
-.marquee__track .txt { font-family: var(--font-head); font-weight: 600; font-size: 20px; color: var(--ink); opacity: .4; letter-spacing: -.01em; transition: opacity .25s; white-space: nowrap; }
+.marquee__track .txt { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 600; font-size: 20px; color: var(--ink); opacity: .4; letter-spacing: -.01em; transition: opacity .25s; white-space: nowrap; }
 .marquee__track .txt:hover { opacity: 1; }
+.marquee__track .txt .logo { width: 22px; height: 22px; flex: 0 0 auto; fill: currentColor; }
 @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 
