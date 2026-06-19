@@ -57,8 +57,8 @@
   <rect x="178" y="220" width="196" height="10" rx="3" fill="#f4a91b" opacity="0.9"/>
 
   <!-- tagline -->
-  <text x="80" y="290" font-size="26" font-weight="600" fill="#f7f3ec">Secure your cloud. Control your spend.</text>
-  <text x="80" y="324" font-size="17" fill="#cfc8bc">Boutique cloud consultancy · Cloud Security &amp; IAM · FinOps &amp; Cost Governance</text>
+  <text x="80" y="290" font-size="26" font-weight="600" fill="#f7f3ec">Scale AI safely. Control the spend.</text>
+  <text x="80" y="324" font-size="17" fill="#cfc8bc">Cloud Security &amp; IAM · FinOps &amp; Cost Governance · Secure, governed AI</text>
 
   <!-- chips -->
   <g font-size="14" font-weight="600">
@@ -68,7 +68,7 @@
     </g>
     <g transform="translate(242,348)">
       <rect width="120" height="34" rx="17" fill="none" stroke="#f7f3ec" stroke-opacity="0.3"/>
-      <text x="60" y="22" text-anchor="middle" fill="#f7f3ec">FinOps for AI</text>
+      <text x="60" y="22" text-anchor="middle" fill="#f7f3ec">Governed AI</text>
     </g>
     <g transform="translate(374,348)">
       <rect width="150" height="34" rx="17" fill="none" stroke="#f7f3ec" stroke-opacity="0.3"/>
