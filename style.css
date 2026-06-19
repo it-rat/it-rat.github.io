@@ -196,8 +196,7 @@ h1, h2, h3, h4 {
 @keyframes dash-draw { from { stroke-dasharray: 520; stroke-dashoffset: 520; } to { stroke-dasharray: 520; stroke-dashoffset: 0; } }
 .hero-dash__area { animation: dash-fade 1.2s ease .7s backwards; }
 @keyframes dash-fade { from { opacity: 0; } }
-.hero-dash__bar { transform-box: fill-box; transform-origin: bottom; animation: dash-bar 3.2s ease-in-out infinite; }
-@keyframes dash-bar { 0% { transform: scaleY(.22); } 45% { transform: scaleY(1); } 75% { transform: scaleY(1); } 100% { transform: scaleY(.22); } }
+.hero-dash__bar { transform-box: fill-box; transform-origin: bottom; transition: transform 1s cubic-bezier(.4, 0, .2, 1); }
 .hero-dash__dot { animation: dash-pulse 2s ease-in-out infinite; }
 @keyframes dash-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 
