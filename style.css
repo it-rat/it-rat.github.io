@@ -242,13 +242,6 @@ h1, h2, h3, h4 {
 .marquee__track .txt:hover { opacity: 1; }
 @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* ---------- Certifications marquee ---------- */
-.certs { border-top: 1px solid rgba(20,17,15,.12); border-bottom: 1px solid rgba(20,17,15,.12); padding: 28px 0; background: var(--paper); }
-.certs .marquee__track { gap: 40px; animation-duration: 46s; }
-.cert { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; opacity: .82; transition: opacity .25s; }
-.cert:hover { opacity: 1; }
-.cert__seal { width: 40px; height: 40px; flex: 0 0 auto; }
-.cert__name { font-family: var(--font-head); font-weight: 500; font-size: 14px; color: var(--ink-soft); }
 
 /* ---------- Section heads ---------- */
 .shead { max-width: 720px; margin-bottom: 56px; }
@@ -357,6 +350,13 @@ h1, h2, h3, h4 {
 .member p { color: var(--ink-soft); font-size: 15.5px; margin: 0 0 18px; }
 .member__skills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 .member__skills span { font-size: 13px; font-family: var(--font-head); font-weight: 500; padding: 5px 12px; background: var(--paper-2); border-radius: 999px; border: 1px solid rgba(20,17,15,.18); }
+.member__certs { margin-bottom: 22px; }
+.member__certs-label { display: block; font-family: var(--font-head); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 11px; }
+.member__certs ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.member__certs li { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-head); font-size: 12.5px; font-weight: 500; color: var(--ink-soft); background: var(--white); border: 1px solid rgba(20,17,15,.16); border-radius: 999px; padding: 6px 13px 6px 10px; transition: border-color .2s, transform .2s var(--ease); }
+.member__certs li:hover { border-color: var(--amber-deep); transform: translateY(-2px); }
+.member__certs li svg { width: 15px; height: 15px; flex: 0 0 auto; stroke: var(--amber-deep); fill: none; }
+
 .member__link { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-head); font-weight: 600; font-size: 15px; }
 .member__link svg { width: 18px; height: 18px; }
 .member__link:hover { color: var(--red); }
