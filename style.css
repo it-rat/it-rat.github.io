@@ -419,6 +419,7 @@ h1, h2, h3, h4 {
 .footer__social svg { width: 19px; height: 19px; fill: currentColor; }
 .footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 26px; font-size: 14px; color: var(--muted); }
 .footer__bottom a:hover { color: var(--paper); }
+.flag-ua { width: 24px; height: 16px; border-radius: 2px; margin-left: 9px; vertical-align: -3px; box-shadow: 0 0 0 1px rgba(247,243,236,.18); }
 
 /* ---------- Reveal animation (only hide when JS is active) ---------- */
 .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
