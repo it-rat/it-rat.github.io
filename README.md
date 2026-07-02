@@ -120,7 +120,8 @@ flowchart LR
     subgraph Repo["📦 Repository (master)"]
         HTML["index.html<br/>structure + inline JS"]
         CSS["style.css<br/>design system + animation"]
-        ASSETS["img/ · favicon.png"]
+        ASSETS["img/ · favicon.png<br/>og-card.png (social)"]
+        SEO["robots.txt · sitemap.xml"]
         DOCS["docs/banner.svg"]
     end
     FONTS["Google Fonts<br/>Space Grotesk · Inter"]
@@ -182,14 +183,14 @@ flowchart LR
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="img/Yuriy.gif" width="180" alt="Yurii Kostiuk"><br>
+      <img src="img/Yuriy.webp" width="180" alt="Yurii Kostiuk"><br>
       <b>Yurii Kostiuk</b><br>
       Cloud Security &amp; IAM<br>
       <sub>Lead Security Architect, PETRONAS · ex-Okta</sub><br>
       <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/">LinkedIn</a>
     </td>
     <td align="center" width="50%">
-      <img src="img/Tania.gif" width="180" alt="Tania Fedirko"><br>
+      <img src="img/Tania.webp" width="180" alt="Tania Fedirko"><br>
       <b>Tania Fedirko</b><br>
       FinOps &amp; Cost Governance<br>
       <sub>Principal FinOps Architect, NatWest · AWS Community Builder</sub><br>
@@ -224,9 +225,12 @@ it-rat.github.io/
 ├── index.html        # the whole page (markup + inline JS)
 ├── style.css         # design system, layout, animation
 ├── favicon.png
+├── robots.txt        # crawler directives
+├── sitemap.xml       # single-URL sitemap
 ├── docs/
 │   └── banner.svg    # README banner
-└── img/              # logo, team illustrations, client logos
+└── img/              # logo, client logos, og-card.png (social),
+                      # team photos as animated WebP + GIF fallback
 ```
 
 ---
