@@ -343,6 +343,9 @@ h1, h2, h3, h4 {
 }
 .member:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
 .member__media { background: var(--paper); border-bottom: 1px solid var(--ink); display: grid; place-items: center; padding: 20px; }
+/* Team photos: keep square (source ~515x521) at 480px. `height: auto` is
+   required because the <img> carries width/height attrs — without it the
+   images render stretched. Do not change the size/shape without asking. */
 .member__media img { width: 480px; max-width: 100%; height: auto; }
 .member__body { padding: 30px 32px 34px; display: flex; flex-direction: column; flex: 1; }
 .member__role { font-family: var(--font-head); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
