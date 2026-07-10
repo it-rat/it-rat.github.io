@@ -710,3 +710,29 @@ h1, h2, h3, h4 {
   .pgrid { grid-template-columns: 1fr; }
   .phero { padding-top: 52px; }
 }
+
+/* ---------- Products: animated per-service diagrams ---------- */
+/* Base (static) state is always the final, readable state, so the
+   prefers-reduced-motion rule above (which kills all animation) leaves
+   every diagram fully legible. Motion only enhances. */
+.dg .flowline { fill: none; stroke-width: 1.6; stroke-dasharray: 7 7; animation: dg-march 1s linear infinite; }
+.dg .draw { stroke-dasharray: var(--dl, 600); stroke-dashoffset: 0; animation: dg-drawin 2.4s var(--ease); }
+.dg .scorearc { stroke-dasharray: 352; stroke-dashoffset: 70; animation: dg-score 2.4s var(--ease); }
+.dg .pulse { animation: dg-pulse 1.9s ease-in-out infinite; }
+.dg .blink { animation: dg-blink 1.6s ease-in-out infinite; }
+.dg .ring { transform-box: fill-box; transform-origin: center; animation: dg-ring 2.6s ease-out infinite; }
+.dg .float { transform-box: fill-box; transform-origin: center; animation: dg-float 4.5s ease-in-out infinite; }
+.dg .sweep { transform-box: fill-box; animation: dg-sweep 3.4s ease-in-out infinite; }
+.dg .fadeup { animation: dg-fadeup .6s var(--ease) both; }
+.dg .travel { offset-rotate: 0deg; animation: dg-travel 3s linear infinite; }
+
+@keyframes dg-march { to { stroke-dashoffset: -14; } }
+@keyframes dg-drawin { from { stroke-dashoffset: var(--dl, 600); } }
+@keyframes dg-score { from { stroke-dashoffset: 352; } }
+@keyframes dg-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+@keyframes dg-blink { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+@keyframes dg-ring { 0% { transform: scale(.5); opacity: .6; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes dg-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes dg-sweep { 0% { transform: translateX(0); opacity: 0; } 12% { opacity: .55; } 88% { opacity: .55; } 100% { transform: translateX(266px); opacity: 0; } }
+@keyframes dg-fadeup { from { opacity: 0; transform: translateY(8px); } }
+@keyframes dg-travel { from { offset-distance: 0%; } to { offset-distance: 100%; } }
