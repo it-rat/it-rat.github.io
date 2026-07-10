@@ -327,6 +327,10 @@
                         <text class="lbl lbl--sub" x="20" y="330">$0</text>
                         <text x="417" y="330" font-size="11.5" font-weight="600" fill="#e8431c" text-anchor="middle">cut here</text>
                         <text class="lbl lbl--sub" x="500" y="330" text-anchor="end">cap</text>
+                    
+                        <circle r="4.5" fill="#14110f" class="travel" style="offset-path:path('M150 72 H374')"/>
+                        <circle cx="264" cy="201" r="33" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.5" class="pulse"/>
+                        <circle r="5" fill="#e8431c" class="travel" style="offset-path:path('M22 296 H452');animation-duration:2.9s"/>
                     </svg>
                     <div class="cap">Enforcement, not observability: the circuit is cut before the money is gone</div>
                 </div>
@@ -373,9 +377,9 @@
                         <text class="lbl" x="80" y="295" text-anchor="middle" font-size="13.5">why()</text>
                         <text class="lbl lbl--sub" x="80" y="312" text-anchor="middle">provenance</text>
 
-                        <path d="M140 58 H196" stroke="#14110f" stroke-width="1.6" fill="none" marker-end="url(#arr3)"/>
-                        <path d="M196 178 H140" stroke="#14110f" stroke-width="1.6" fill="none" marker-end="url(#arr3)"/>
-                        <path d="M196 298 H140" stroke="#14110f" stroke-width="1.6" fill="none" marker-end="url(#arr3)"/>
+                        <path d="M140 58 H196" class="flowline" stroke="#14110f" marker-end="url(#arr3)"/>
+                        <path d="M196 178 H140" class="flowline" stroke="#14110f" marker-end="url(#arr3)"/>
+                        <path d="M196 298 H140" class="flowline" stroke="#14110f" marker-end="url(#arr3)"/>
 
                         <rect x="200" y="20" width="300" height="320" rx="16" fill="#fff" stroke="#14110f" stroke-width="1.6"/>
                         <rect x="200" y="20" width="300" height="42" rx="16" fill="#f4a91b"/>
@@ -395,8 +399,8 @@
 
                         <rect class="box box--soft" x="222" y="220" width="256" height="96" rx="9"/>
                         <text class="lbl" x="350" y="243" text-anchor="middle" font-size="12.5">importance decay</text>
-                        <path d="M242 300 C282 258 330 254 380 262 C420 268 448 274 462 278" stroke="#e8431c" stroke-width="2" fill="none"/>
-                        <circle cx="298" cy="257" r="3.5" fill="#d98c00"/>
+                        <path class="draw" style="--dl:340" d="M242 300 C282 258 330 254 380 262 C420 268 448 274 462 278" stroke="#e8431c" stroke-width="2" fill="none"/>
+                        <circle cx="298" cy="257" r="3.5" fill="#d98c00" class="pulse"/>
                         <text class="lbl lbl--sub" x="306" y="252" font-size="10.5">reinforced</text>
                     </svg>
                     <div class="cap">Memory that fades, reinforces and explains itself, in one local file</div>
@@ -433,9 +437,10 @@
                 <div class="diagram-card">
                     <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="SphereOS: twelve life domains arranged around one Life Score, each with its own agent and on-device Engram memory.">
                         <circle cx="260" cy="175" r="56" fill="#f4a91b" stroke="#14110f" stroke-width="1.6"/>
+                        <circle cx="260" cy="175" r="56" fill="none" stroke="#d98c00" stroke-width="3" class="scorearc" transform="rotate(-90 260 175)"/>
                         <text x="260" y="170" text-anchor="middle" font-size="14" font-weight="600" fill="#14110f">Life Score</text>
                         <text x="260" y="188" text-anchor="middle" font-size="10.5" fill="#4b443d">one number, honest</text>
-                        <g font-size="11.5" font-weight="500" fill="#14110f" text-anchor="middle">
+                        <g class="float" font-size="11.5" font-weight="500" fill="#14110f" text-anchor="middle">
                             <g transform="translate(260,45)"><rect x="-42" y="-14" width="84" height="28" rx="14" fill="#fff" stroke="#14110f" stroke-width="1.2"/><text y="4">Health</text></g>
                             <g transform="translate(388,72)"><rect x="-42" y="-14" width="84" height="28" rx="14" fill="#fff" stroke="#14110f" stroke-width="1.2"/><text y="4">Learning</text></g>
                             <g transform="translate(452,140)"><rect x="-40" y="-14" width="80" height="28" rx="14" fill="#fff" stroke="#14110f" stroke-width="1.2"/><text y="4">Career</text></g>
@@ -479,7 +484,33 @@
                     </div>
                     <div class="pdetail__links"><span class="chip chip--status">Private beta</span></div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="Idryx identity graph: one runaway AI agent at the centre, with its blast radius reaching a human, a service account, a key and another agent.">
+    <line x1="260" y1="180" x2="84" y2="71" class="flowline" stroke="#14110f"/>
+    <line x1="260" y1="180" x2="422" y2="65" class="flowline" stroke="#14110f"/>
+    <line x1="260" y1="180" x2="426" y2="271" class="flowline" stroke="#14110f"/>
+    <line x1="260" y1="180" x2="90" y2="289" class="flowline" stroke="#14110f"/>
+    <circle cx="260" cy="180" r="40" fill="none" stroke="#e8431c" stroke-width="1.5" class="ring"/>
+    <circle cx="260" cy="180" r="40" fill="none" stroke="#e8431c" stroke-width="1.5" class="ring" style="animation-delay:1.3s"/>
+    <rect class="box" x="24" y="48" width="120" height="46" rx="10"/>
+    <text class="lbl" x="84" y="72" text-anchor="middle" font-size="13">Human</text>
+    <text class="lbl lbl--sub" x="84" y="88" text-anchor="middle">person</text>
+    <rect class="box" x="352" y="42" width="140" height="46" rx="10"/>
+    <text class="lbl" x="422" y="66" text-anchor="middle" font-size="13">Service acct</text>
+    <text class="lbl lbl--sub" x="422" y="82" text-anchor="middle">non-human</text>
+    <rect class="box" x="360" y="248" width="132" height="46" rx="10"/>
+    <text class="lbl" x="426" y="272" text-anchor="middle" font-size="13">API key</text>
+    <text class="lbl lbl--sub" x="426" y="288" text-anchor="middle">non-human</text>
+    <rect class="box" x="24" y="266" width="132" height="46" rx="10"/>
+    <text class="lbl" x="90" y="290" text-anchor="middle" font-size="13">AI agent</text>
+    <text class="lbl lbl--sub" x="90" y="306" text-anchor="middle">non-human</text>
+    <circle cx="260" cy="180" r="38" fill="#e8431c" stroke="#14110f" stroke-width="1.5"/>
+    <text x="260" y="176" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">AI agent</text>
+    <text x="260" y="192" text-anchor="middle" font-size="10.5" fill="#ffd9cf">runaway</text>
+    <text x="260" y="242" text-anchor="middle" font-size="11" font-weight="600" fill="#e8431c">runaway_agent &#183; high</text>
+  </svg>
+  <div class="cap">One graph for every identity, and the blast radius when one goes rogue</div>
+</div>
             </div>
         </div>
 
@@ -506,7 +537,55 @@
                     </div>
                     <div class="pdetail__links"><span class="chip chip--status">Private beta</span></div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="Qryx crypto inventory: a grid of scanned cryptographic assets coloured by post-quantum risk, a moving scan line, and the NCSC migration timeline to 2035.">
+    <text class="lbl lbl--sub" x="32" y="34">Crypto assets scanned</text>
+    <rect x="32" y="44" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="62" y="44" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="92" y="44" width="22" height="22" rx="4" fill="#e8431c" stroke="#14110f" stroke-width="1"/>
+    <rect x="122" y="44" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="152" y="44" width="22" height="22" rx="4" fill="#f4a91b" stroke="#14110f" stroke-width="1"/>
+    <rect x="182" y="44" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="212" y="44" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="242" y="44" width="22" height="22" rx="4" fill="#e8431c" stroke="#14110f" stroke-width="1"/>
+    <rect x="272" y="44" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="32" y="78" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="62" y="78" width="22" height="22" rx="4" fill="#e8431c" stroke="#14110f" stroke-width="1"/>
+    <rect x="92" y="78" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="122" y="78" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="152" y="78" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="182" y="78" width="22" height="22" rx="4" fill="#f4a91b" stroke="#14110f" stroke-width="1"/>
+    <rect x="212" y="78" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="242" y="78" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="272" y="78" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="32" y="112" width="22" height="22" rx="4" fill="#e8431c" stroke="#14110f" stroke-width="1"/>
+    <rect x="62" y="112" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="92" y="112" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="122" y="112" width="22" height="22" rx="4" fill="#f4a91b" stroke="#14110f" stroke-width="1"/>
+    <rect x="152" y="112" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="182" y="112" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="212" y="112" width="22" height="22" rx="4" fill="#1c7a3d" stroke="#14110f" stroke-width="1"/>
+    <rect x="242" y="112" width="22" height="22" rx="4" fill="#efe8dc" stroke="#14110f" stroke-width="1"/>
+    <rect x="272" y="112" width="22" height="22" rx="4" fill="#e8431c" stroke="#14110f" stroke-width="1"/>
+    <g class="sweep"><rect x="28" y="40" width="10" height="104" rx="3" fill="#f4a91b" opacity=".5"/></g>
+    <rect x="330" y="44" width="16" height="16" rx="4" fill="#e8431c" stroke="#14110f"/>
+    <text class="lbl lbl--sub" x="354" y="57">quantum-vulnerable &#183; 5</text>
+    <rect x="330" y="74" width="16" height="16" rx="4" fill="#f4a91b" stroke="#14110f"/>
+    <text class="lbl lbl--sub" x="354" y="87">weak &#183; 3</text>
+    <rect x="330" y="104" width="16" height="16" rx="4" fill="#1c7a3d" stroke="#14110f"/>
+    <text class="lbl lbl--sub" x="354" y="117">post-quantum safe &#183; 7</text>
+    <text class="lbl lbl--sub" x="40" y="232">PQC migration deadlines</text>
+    <line x1="60" y1="262" x2="470" y2="262" stroke="#14110f" stroke-width="1.5"/>
+    <g stroke="#14110f" stroke-width="1.5"><line x1="150" y1="256" x2="150" y2="268"/><line x1="300" y1="256" x2="300" y2="268"/><line x1="450" y1="256" x2="450" y2="268"/></g>
+    <text class="lbl" x="150" y="286" text-anchor="middle" font-size="12.5">2028</text>
+    <text class="lbl" x="300" y="286" text-anchor="middle" font-size="12.5">2031</text>
+    <text class="lbl blink" x="450" y="286" text-anchor="middle" font-size="12.5" fill="#e8431c">2035</text>
+    <text class="lbl lbl--sub" x="450" y="304" text-anchor="middle" fill="#e8431c">at risk</text>
+    <text class="lbl lbl--sub" x="60" y="248" text-anchor="middle">now</text>
+    <circle r="5.5" fill="#e8431c" class="travel" style="offset-path:path('M60 262 H450')"/>
+  </svg>
+  <div class="cap">Every use of crypto, scored for post-quantum risk</div>
+</div>
             </div>
         </div>
 
@@ -532,7 +611,38 @@
                     </div>
                     <div class="pdetail__links"><span class="chip chip--status">Private beta</span></div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="Wardryx policy decision point: one call in, three answers out - allow to the provider, hold for human approval, or deny with 403.">
+    <rect class="box box--soft" x="20" y="152" width="120" height="48" rx="10"/>
+    <text class="lbl" x="80" y="174" text-anchor="middle" font-size="13">LLM / tool</text>
+    <text class="lbl lbl--sub" x="80" y="190" text-anchor="middle">call</text>
+    <line x1="140" y1="176" x2="176" y2="176" class="flowline" stroke="#14110f"/>
+    <rect class="box box--amber" x="176" y="146" width="120" height="60" rx="10"/>
+    <text class="lbl" x="236" y="172" text-anchor="middle" font-size="14">Wardryx</text>
+    <text class="lbl lbl--sub" x="236" y="190" text-anchor="middle">decide</text>
+    <line x1="296" y1="160" x2="396" y2="62" stroke="#1c7a3d" stroke-width="1.6"/>
+    <line x1="296" y1="176" x2="396" y2="176" stroke="#d98c00" stroke-width="1.6"/>
+    <line x1="296" y1="192" x2="396" y2="252" stroke="#e8431c" stroke-width="1.6"/>
+    <rect class="box" x="396" y="40" width="104" height="44" rx="10" stroke="#1c7a3d"/>
+    <text class="lbl" x="448" y="61" text-anchor="middle" font-size="12.5" fill="#1c7a3d">Provider</text>
+    <text class="lbl lbl--sub" x="448" y="76" text-anchor="middle">allowed</text>
+    <rect class="box" x="396" y="154" width="104" height="44" rx="10" stroke="#d98c00"/>
+    <text class="lbl" x="448" y="175" text-anchor="middle" font-size="12.5" fill="#d98c00">Human</text>
+    <text class="lbl lbl--sub" x="448" y="190" text-anchor="middle">approve</text>
+    <rect class="box" x="396" y="240" width="104" height="44" rx="10" stroke="#e8431c"/>
+    <text class="lbl" x="448" y="261" text-anchor="middle" font-size="12.5" fill="#e8431c">403</text>
+    <text class="lbl lbl--sub" x="448" y="276" text-anchor="middle">denied</text>
+    <path d="M448 198 C448 300 300 300 236 210" class="flowline" stroke="#d98c00"/>
+    <text class="lbl lbl--tag" x="330" y="44" text-anchor="middle" fill="#1c7a3d">ALLOW</text>
+    <text class="lbl lbl--tag" x="336" y="168" text-anchor="middle" fill="#d98c00">HOLD</text>
+    <text class="lbl lbl--tag" x="330" y="238" text-anchor="middle" fill="#e8431c">DENY</text>
+    <text class="lbl lbl--sub" x="236" y="300" text-anchor="middle">signed token, resubmit</text>
+    <circle r="5" fill="#1c7a3d" class="travel" style="offset-path:path('M236 176 L396 62')"/>
+    <circle r="5" fill="#d98c00" class="travel" style="offset-path:path('M236 176 H396');animation-delay:1s"/>
+    <circle r="5" fill="#e8431c" class="travel" style="offset-path:path('M236 176 L396 252');animation-delay:2s"/>
+  </svg>
+  <div class="cap">One call in, three answers out: allow, deny, or hold</div>
+</div>
             </div>
         </div>
 
@@ -557,7 +667,24 @@
                     </div>
                     <div class="pdetail__links"><span class="chip chip--status">Private beta</span></div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="Verdryx cost-per-outcome: cost per call versus cost per resolved case, with a quality-drift line dipping below baseline into a flagged regression.">
+    <rect class="box box--soft" x="28" y="34" width="214" height="84" rx="12"/>
+    <text class="lbl lbl--sub" x="46" y="60">PER CALL</text>
+    <text x="46" y="98" font-size="30" font-weight="700" fill="#4b443d" font-variant-numeric="tabular-nums">$0.004</text>
+    <rect class="box box--amber" x="270" y="34" width="222" height="84" rx="12"/>
+    <text class="lbl lbl--sub" x="288" y="60" fill="#7a3d00">PER RESOLVED CASE</text>
+    <text x="288" y="100" font-size="34" font-weight="700" fill="#14110f" font-variant-numeric="tabular-nums">$0.19</text>
+    <text class="lbl lbl--sub" x="40" y="150">quality drift vs baseline</text>
+    <line x1="40" y1="214" x2="492" y2="214" stroke="#14110f" stroke-width="1.2" stroke-dasharray="5 5" stroke-opacity=".5"/>
+    <text class="lbl lbl--sub" x="492" y="208" text-anchor="end">baseline</text>
+    <path class="draw" style="--dl:480" d="M44 176 L118 170 L192 182 L266 176 L340 196 L410 236 L470 252" fill="none" stroke="#e8431c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="470" cy="252" r="6" fill="#e8431c" class="pulse"/>
+    <text class="lbl lbl--tag" x="470" y="278" text-anchor="middle" fill="#e8431c">regressed</text>
+    <text class="lbl lbl--sub" x="44" y="330">time &#8594;</text>
+  </svg>
+  <div class="cap">Not cost per call, but cost per resolved case, watched for drift</div>
+</div>
             </div>
         </div>
 
@@ -582,7 +709,39 @@
                     </div>
                     <div class="pdetail__links"><span class="chip chip--status">Private beta</span></div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="Mockryx fire drills: three hostile scenarios replayed against your own guardrails, each guardrail firing, gated in CI by exit code.">
+    <rect class="box box--soft" x="24" y="40" width="168" height="44" rx="10"/>
+    <text class="lbl" x="108" y="67" text-anchor="middle" font-size="12.5">runaway budget</text>
+    <line x1="192" y1="62" x2="238" y2="62" class="flowline" stroke="#14110f"/>
+    <rect class="box" x="238" y="40" width="150" height="44" rx="10"/>
+    <text class="lbl" x="313" y="67" text-anchor="middle" font-size="12.5">Breaker 402</text>
+    <circle cx="430" cy="62" r="15" fill="#1c7a3d" class="fadeup" style="animation-delay:.3s"/>
+    <path d="M423 62 l5 5 9-9" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="fadeup" style="animation-delay:.5s"/>
+    <rect class="box box--soft" x="24" y="104" width="168" height="44" rx="10"/>
+    <text class="lbl" x="108" y="131" text-anchor="middle" font-size="12.5">forbidden tool</text>
+    <line x1="192" y1="126" x2="238" y2="126" class="flowline" stroke="#14110f"/>
+    <rect class="box" x="238" y="104" width="150" height="44" rx="10"/>
+    <text class="lbl" x="313" y="131" text-anchor="middle" font-size="12.5">Wardryx deny</text>
+    <circle cx="430" cy="126" r="15" fill="#1c7a3d" class="fadeup" style="animation-delay:.8s"/>
+    <path d="M423 126 l5 5 9-9" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="fadeup" style="animation-delay:1s"/>
+    <rect class="box box--soft" x="24" y="168" width="168" height="44" rx="10"/>
+    <text class="lbl" x="108" y="195" text-anchor="middle" font-size="12.5">secret leak</text>
+    <line x1="192" y1="190" x2="238" y2="190" class="flowline" stroke="#14110f"/>
+    <rect class="box" x="238" y="168" width="150" height="44" rx="10"/>
+    <text class="lbl" x="313" y="195" text-anchor="middle" font-size="12.5">DLP block</text>
+    <circle cx="430" cy="190" r="15" fill="#1c7a3d" class="fadeup" style="animation-delay:1.3s"/>
+    <path d="M423 190 l5 5 9-9" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="fadeup" style="animation-delay:1.5s"/>
+    <text class="lbl lbl--sub" x="24" y="256">CI exit code</text>
+    <rect x="24" y="266" width="150" height="40" rx="10" fill="#1c7a3d"/>
+    <text x="99" y="291" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">0 &#183; all held</text>
+    <rect class="box" x="186" y="266" width="120" height="40" rx="10" stroke="#d98c00"/>
+    <text class="lbl" x="246" y="291" text-anchor="middle" font-size="12.5" fill="#d98c00">1 &#183; gap</text>
+    <rect class="box" x="318" y="266" width="120" height="40" rx="10"/>
+    <text class="lbl lbl--sub" x="378" y="291" text-anchor="middle">2 &#183; broken</text>
+  </svg>
+  <div class="cap">Fire drills against your own guardrails, gated in CI</div>
+</div>
             </div>
         </div>
 
@@ -611,7 +770,33 @@
                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
                     </div>
                 </div>
-                <div class="diagram-slot"></div>
+                <div class="diagram-card">
+  <svg class="dg" viewBox="0 0 520 360" role="img" aria-label="agent-stack-go: one shared contract module with the event, passport and chain packages, imported by Idryx, Wardryx, Mockryx and the Terraform provider.">
+    <rect class="box box--ink" x="176" y="128" width="168" height="104" rx="12"/>
+    <text x="260" y="156" text-anchor="middle" font-size="14" font-weight="600" fill="#f7f3ec">agent-stack-go</text>
+    <rect x="192" y="170" width="60" height="24" rx="7" fill="#f4a91b"/>
+    <text x="222" y="186" text-anchor="middle" font-size="10.5" font-weight="600" fill="#14110f">event</text>
+    <rect x="258" y="170" width="72" height="24" rx="7" fill="#f4a91b"/>
+    <text x="294" y="186" text-anchor="middle" font-size="10.5" font-weight="600" fill="#14110f">passport</text>
+    <rect x="216" y="200" width="88" height="24" rx="7" fill="#efe8dc" stroke="#14110f"/>
+    <text x="260" y="216" text-anchor="middle" font-size="10.5" font-weight="600" fill="#14110f">chain</text>
+    <rect class="box" x="30" y="40" width="118" height="42" rx="10"/>
+    <text class="lbl" x="89" y="66" text-anchor="middle" font-size="12.5">Idryx</text>
+    <rect class="box" x="372" y="40" width="118" height="42" rx="10"/>
+    <text class="lbl" x="431" y="66" text-anchor="middle" font-size="12.5">Wardryx</text>
+    <rect class="box" x="30" y="278" width="118" height="42" rx="10"/>
+    <text class="lbl" x="89" y="304" text-anchor="middle" font-size="12.5">Mockryx</text>
+    <rect class="box" x="366" y="278" width="124" height="42" rx="10"/>
+    <text class="lbl" x="428" y="304" text-anchor="middle" font-size="12.5">Terraform</text>
+    <line x1="130" y1="78" x2="192" y2="140" class="flowline" stroke="#14110f"/>
+    <line x1="390" y1="78" x2="330" y2="140" class="flowline" stroke="#14110f"/>
+    <line x1="130" y1="282" x2="192" y2="222" class="flowline" stroke="#14110f"/>
+    <line x1="388" y1="282" x2="330" y2="222" class="flowline" stroke="#14110f"/>
+    <text class="lbl lbl--sub" x="260" y="252" text-anchor="middle">imported &#183; pinned by tag</text>
+    <rect width="16" height="11" rx="2" fill="#e8431c" class="travel" style="offset-path:path('M260 232 V270 H150')"/>
+  </svg>
+  <div class="cap">One contract every service imports, so they never drift</div>
+</div>
             </div>
         </div>
 
@@ -753,38 +938,7 @@
         tabbar.style.display = 'none';
         Object.keys(panes).forEach(function (k) { panes[k].style.display = 'none'; });
         d.classList.add('open');
-        injectStackDiagram(d);
         d.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
-    }
-
-    // clone the big stack SVG into service detail slots, highlighting one node
-    var stackSvg = document.querySelector('#tab-stack .diagram-card svg');
-    function injectStackDiagram(detail) {
-        var slot = detail.querySelector('.diagram-slot');
-        var hl = detail.dataset.hl;
-        if (!slot || !hl || slot.dataset.done) return;
-        var card = document.createElement('div');
-        card.className = 'diagram-card';
-        var clone = stackSvg.cloneNode(true);
-        clone.classList.add('dg-hl');
-        // unique marker ids per clone to avoid collisions
-        var suffix = '-' + hl;
-        [].forEach.call(clone.querySelectorAll('marker'), function (m) { m.id += suffix; });
-        [].forEach.call(clone.querySelectorAll('[marker-end]'), function (p) {
-            p.setAttribute('marker-end', p.getAttribute('marker-end').replace(')', suffix + ')'));
-        });
-        var node = clone.querySelector('[data-node="' + hl + '"]');
-        if (node) node.classList.add('on');
-        // tokenfuse stays visible as the anchor everything relates to
-        var tf = clone.querySelector('[data-node="tokenfuse"]');
-        if (tf && hl !== 'tokenfuse') tf.classList.add('on');
-        card.appendChild(clone);
-        var cap = document.createElement('div');
-        cap.className = 'cap';
-        cap.textContent = 'Where it sits in the stack';
-        card.appendChild(cap);
-        slot.appendChild(card);
-        slot.dataset.done = '1';
     }
 
     tabs.forEach(function (t) {
