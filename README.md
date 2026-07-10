@@ -87,7 +87,7 @@ mindmap
       AI policy & compliance
     Cloud Security & IAM
       Zero Trust / least privilege
-      IAM across AWS · GCP · Okta · Auth0
+      IAM across AWS · GCP
       DevSecOps & secure CI/CD
       Securing AI workloads
       ISO 27001 · NIST · SOC 2 · GDPR
@@ -186,14 +186,14 @@ flowchart LR
       <img src="img/Yuriy.webp" width="180" alt="Yurii Kostiuk"><br>
       <b>Yurii Kostiuk</b><br>
       Cloud Security &amp; IAM<br>
-      <sub>Lead Security Architect, PETRONAS · ex-Okta</sub><br>
+      <sub>Lead Security Architect</sub><br>
       <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/">LinkedIn</a>
     </td>
     <td align="center" width="50%">
       <img src="img/Tania.webp" width="180" alt="Tania Fedirko"><br>
       <b>Tania Fedirko</b><br>
       FinOps &amp; Cost Governance<br>
-      <sub>Principal FinOps Architect, NatWest · AWS Community Builder</sub><br>
+      <sub>Principal FinOps Architect · AWS Community Builder</sub><br>
       <a href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/">LinkedIn</a>
     </td>
   </tr>
