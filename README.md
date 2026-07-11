@@ -87,7 +87,7 @@ mindmap
       AI policy & compliance
     Cloud Security & IAM
       Zero Trust / least privilege
-      IAM across AWS · GCP
+      IAM across AWS · GCP · Okta · Auth0
       DevSecOps & secure CI/CD
       Securing AI workloads
       ISO 27001 · NIST · SOC 2 · GDPR
