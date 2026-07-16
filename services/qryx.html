@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qryx: your cryptography, inventoried before the quantum bill arrives · IT-RAT</title>
+<meta name="description" content="Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.">
+<link rel="canonical" href="https://it-rat.com/services/qryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/qryx.html">
+<meta property="og:title" content="Qryx: your cryptography, inventoried before the quantum bill arrives · IT-RAT">
+<meta property="og:description" content="Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qryx: your cryptography, inventoried before the quantum bill arrives · IT-RAT">
+<meta name="twitter:description" content="Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#B48CFF}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="qryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">qryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/qryx" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">crypto plane &#183; wave 1</div>
+        <h1 class="rv d1"><span class="nm">Qryx</span>. Find every key and algorithm, grade the quantum risk, migrate on your schedule.</h1>
+        <p class="lede rv d2">A crypto audit tells you what your architecture documents say you run. Qryx tells you what is actually running: it scans binaries, containers, live TLS, certificates, dependencies and cloud KMS, and comes back with a cryptographic asset graph instead of a slide deck. Every asset gets a post-quantum grade against the NCSC's 2028, 2031 and 2035 milestones, and CI fails the day a new weak key ships, not at the next audit cycle.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch it find the keys <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/qryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">release</span><span class="v">v0.2.0 &#183; prebuilt binaries</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go 1.27 &#183; ML-DSA (FIPS 204)</span></div>
+        <div class="row"><span class="k">scans</span><span class="v">binaries &#183; containers &#183; TLS &#183; cloud KMS &#183; source &#183; certs</span></div>
+        <div class="row"><span class="k">output</span><span class="v">CBOM &#183; NCSC report &#183; signed evidence</span></div>
+        <div class="row"><span class="k">milestones</span><span class="v">NCSC 2028 &#183; 2031 &#183; 2035</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one estate</div>
+      <h2>Watch it find every key in the building.</h2>
+      <p class="lede">This is a simulation, but the shape is real: it replays a live run against 25,586 ELF binaries, a container image and a live TLS endpoint. A quantum-vulnerable cert turns up mid-sweep. The evidence at the end is signed with a post-quantum algorithm, not a promise.</p>
+    </div>
+    <div class="rv" id="qx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One graph. Every report reads the same one.</h2>
+      <p class="lede">Five kinds of sources feed one scan engine: binaries, containers, live TLS, cloud KMS, and source plus Terraform. Findings dedupe into an asset graph keyed on algorithm, key size and risk class, so a certificate that is both expired and quantum-vulnerable gets two nodes, not one silently overwriting the other. CBOM, the CNSA audit, the NCSC readiness report and the migration plan all read that same graph, so they cannot disagree with each other.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 350" role="img" aria-label="Qryx architecture">
+        <defs><marker id="a3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="14" y="14" width="180" height="54" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="104" y="35" fill="#E9EFF6" font-size="11.5" font-weight="700">binaries</text>
+          <text x="104" y="52" fill="#8A97A6" font-size="10.5">ELF &#183; PE &#183; Mach-O</text>
+
+          <rect x="14" y="80" width="180" height="54" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="104" y="101" fill="#E9EFF6" font-size="11.5" font-weight="700">containers</text>
+          <text x="104" y="118" fill="#8A97A6" font-size="10.5">docker save &#183; OCI</text>
+
+          <rect x="14" y="146" width="180" height="54" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="104" y="167" fill="#E9EFF6" font-size="11.5" font-weight="700">live TLS</text>
+          <text x="104" y="184" fill="#8A97A6" font-size="10.5">handshake + leaf cert</text>
+
+          <rect x="14" y="212" width="180" height="54" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="104" y="233" fill="#E9EFF6" font-size="11.5" font-weight="700">cloud KMS</text>
+          <text x="104" y="250" fill="#8A97A6" font-size="10.5">AWS &#183; GCP &#183; Azure</text>
+
+          <rect x="14" y="278" width="180" height="54" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="104" y="299" fill="#E9EFF6" font-size="11.5" font-weight="700">source + IaC</text>
+          <text x="104" y="316" fill="#8A97A6" font-size="10.5">Go &#183; Py &#183; JS/TS &#183; HCL</text>
+
+          <rect x="246" y="14" width="280" height="318" rx="16" fill="#10161F" stroke="#B48CFF" stroke-width="1.4"/>
+          <text x="386" y="42" fill="#B48CFF" font-size="14" font-weight="700">qryx core</text>
+          <text x="386" y="60" fill="#5A6675" font-size="10.5">one graph, every report agrees</text>
+
+          <rect x="266" y="78" width="240" height="70" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="386" y="107" fill="#E9EFF6" font-size="11" font-weight="700">detectors</text>
+          <text x="386" y="124" fill="#8A97A6" font-size="10.5">7 sources &#8594; one model</text>
+
+          <rect x="266" y="160" width="240" height="70" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="386" y="189" fill="#E9EFF6" font-size="11" font-weight="700">dedup graph</text>
+          <text x="386" y="206" fill="#8A97A6" font-size="10.5">risk-class-aware keys</text>
+
+          <rect x="266" y="242" width="240" height="70" rx="10" fill="#141C27" stroke="#B48CFF"/>
+          <text x="386" y="271" fill="#E9EFF6" font-size="11" font-weight="700">CNSA &#183; NCSC grading</text>
+          <text x="386" y="288" fill="#B48CFF" font-size="10.5">context risk beats compliance</text>
+
+          <rect x="560" y="14" width="386" height="170" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="753" y="42" fill="#E9EFF6" font-size="12.5" font-weight="700">reports + evidence</text>
+          <text x="753" y="66" fill="#8A97A6" font-size="10.5">CBOM &#183; CycloneDX 1.6</text>
+          <text x="753" y="86" fill="#8A97A6" font-size="10.5">CNSA 2.0 audit &#8594; NCSC PQC readiness</text>
+          <text x="753" y="106" fill="#8A97A6" font-size="10.5">migration plan, ranked by agility</text>
+          <text x="753" y="130" fill="#34D399" font-size="10.5">ed25519 &#183; ECDSA P-256 &#183; ML-DSA</text>
+          <text x="753" y="152" fill="#5A6675" font-size="10.5">sha256 digest, self-verifying</text>
+
+          <rect x="560" y="204" width="386" height="128" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="753" y="232" fill="#93A8C4" font-size="12.5" font-weight="700">agent-events</text>
+          <text x="753" y="254" fill="#8A97A6" font-size="10.5">crypto_finding &#183; crypto_drift</text>
+          <text x="753" y="274" fill="#8A97A6" font-size="10.5">policy_violation &#183; evidence_signed</text>
+          <text x="753" y="300" fill="#5A6675" font-size="10.5">onto the shared bus &#183; agent-passport SPEC.md &#167;6.2</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="194" y1="41" x2="238" y2="41" marker-end="url(#a3)"/>
+          <line x1="194" y1="107" x2="238" y2="107" marker-end="url(#a3)"/>
+          <line x1="194" y1="173" x2="238" y2="173" marker-end="url(#a3)"/>
+          <line x1="194" y1="239" x2="238" y2="239" marker-end="url(#a3)"/>
+          <line x1="194" y1="305" x2="238" y2="305" marker-end="url(#a3)"/>
+          <line x1="526" y1="99" x2="552" y2="99" marker-end="url(#a3)"/>
+          <line x1="526" y1="268" x2="552" y2="268" marker-end="url(#a3)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a PDF audit. A graph that grades itself.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>CBOM</h3><p>CycloneDX 1.6, one component per unique asset and risk class, every occurrence attached. It plugs into the same supply-chain tooling that already tracks your SBOMs, so cryptography stops living in its own isolated report.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Harvest now, decrypt later</h3><p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. NIST standardized the replacements in 2024; NCSC's clock runs discovery by 2028, the highest-priority systems by 2031, everything by 2035.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Post-quantum signing</h3><p>Evidence attestations sign with ML-DSA (FIPS 204) straight from Go's stdlib, crypto/mldsa, no cosign dependency. All three security levels, ML-DSA-44/65/87, live-verified end to end against real openssl-generated keys.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Context beats compliance</h3><p>The asset graph keys on risk class as well as algorithm and key size, so a certificate that is both expired and quantum-vulnerable gets two findings instead of one silently overwriting the other. That exact bug turned up scanning a real endpoint, and it is fixed.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>CI drift gate</h3><p>Snapshot the graph, then fail the build the moment a new weak or quantum-vulnerable asset appears: a baseline diff exits 2 on new high-risk findings. The policy engine exits 3 on a standards violation; a regressed compliance trend exits 3 too.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Agent-aware</h3><p>The agents connector inventories the governance stack's own trust surface: Agent Passport attestation crypto and the agent-event hash chain's prev_hash integrity. Identity stays Idryx's job; this connector stays strictly on the crypto axis.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>You cannot migrate what you cannot see.</h2>
+      <p class="lede">A crypto audit and a CSPM checkbox both ask about cryptography. Neither one reads the binary.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Qryx</th><th>Annual crypto audit</th><th>CSPM checkbox</th></tr></thead>
+        <tbody>
+          <tr><td>Cadence</td><td class="yes">Every commit</td><td class="no">Yearly PDF</td><td class="warn">Weekly dashboard</td></tr>
+          <tr><td>Sees binaries</td><td class="yes">Symbol-level, incl. static fallback</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Post-quantum grading</td><td class="yes">NCSC + CNSA milestones</td><td class="warn">A consultant's opinion</td><td class="no">None</td></tr>
+          <tr><td>Evidence</td><td class="yes">Signed, ML-DSA optional</td><td class="no">Slide deck</td><td class="no">Screenshot</td></tr>
+          <tr><td>Cost of a finding</td><td class="yes">A failed CI run</td><td class="warn">A remediation project</td><td class="no">A ticket nobody owns</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The inventory the rest of the stack borrows from.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Qryx emits every finding as an agent-event onto the shared bus that <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> defines and every service writes to. It watches the same estate <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a> spends against, the binaries, endpoints and keys underneath the calls TokenFuse meters. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> can demand a crypto reaction in its drills too: an expect.event assertion that a fire drill actually produced a crypto_finding, not silence.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>scan</b> .</span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>tls</b> api.anthropic.com:443</span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Grab a v0.2.0 binary from the <a href="https://github.com/TAIPANBOX/qryx/releases" style="color:var(--dim);text-decoration:underline">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source: the ML-DSA toolchain downloads itself on the first build, Go 1.27.</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/qryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The estate-sweep scenario. Shape mirrors the live validation record:
+   25,586 real ELF binaries scanned with zero crashes, a live TLS probe against
+   api.anthropic.com flagged ECDSA-256, evidence signed with ML-DSA-65. */
+Sim.mount(document.getElementById("qx-sim"),{
+  title:"simulated replay · scanning a real server estate",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"25,586 ELF binaries · 0 crashes",color:"#34D399"},{label:"NCSC 2028 · 2031 · 2035",color:"#B48CFF"}],
+  stage:{mode:"sweep", sweep:[2,57], signT:50, findings:[
+    {t:22,label:"RSA-2048 cert",cls:"vuln"},
+    {t:31,label:"expired cert",cls:"legacy"},
+    {t:40,label:"ECDSA-256 · live TLS",cls:"vuln"}
+  ]},
+  series:[
+    {id:"files",label:"files scanned",color:"#8A97A6",max:26000,points:[
+      [0,0],[10,6000],[20,12500],[30,18000],[40,22000],[50,24800],[60,25586]]},
+    {id:"assets",label:"crypto assets",color:"#B48CFF",max:250,fill:false,points:[
+      [0,0],[12,0],[12.5,42],[22,42],[22.5,97],[31,97],[31.5,131],[40,131],[40.5,176],[50,176],[50.5,206],[57,206],[57.5,210],[60,210]]}
+  ],
+  counters:[
+    {id:"c1",label:"files scanned",color:"#8A97A6",from:"files"},
+    {id:"c2",label:"crypto assets found",color:"#B48CFF",from:"assets"},
+    {id:"c3",label:"quantum-vulnerable",color:"#FF574B",from:t=>t<22.5?0:t<31.5?14:t<40.5?21:37},
+    {id:"c4",label:"crashes",color:"#34D399",from:()=>0}
+  ],
+  events:[
+    {t:2,cls:"info",label:"qryx bin sweep starts · /usr/bin and friends"},
+    {t:12,cls:"ok",label:"OpenSSL 3.x EVP_* symbols detected (the modern API, not just legacy)"},
+    {t:22,cls:"warn",label:"RSA-2048 in a long-lived cert · quantum-vulnerable, NCSC 2035 at risk"},
+    {t:31,cls:"bad",label:"expired cert found · kept its real algorithm, still counted as expired"},
+    {t:40,cls:"ok",label:"live TLS probe: api.anthropic.com flags ECDSA-256 · quantum-vulnerable"},
+    {t:50,cls:"ok",label:"evidence signed with ML-DSA-65 · stdlib crypto/mldsa"},
+    {t:57,cls:"info",label:"live run: 25,586 real ELF binaries, zero crashes"}
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Idryx - one identity graph for humans, keys and agents · IT-RAT</title>
+<meta name="description" content="Read-only connectors stitch humans, service accounts, keys and AI agents into one identity graph: delegation chains, blast radius, 21 deterministic detectors and a CycloneDX 1.6 Agent-BOM. Proposes diffs, never applies.">
+<link rel="canonical" href="https://it-rat.com/services/idryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/idryx.html">
+<meta property="og:title" content="Idryx - one identity graph for humans, keys and agents · IT-RAT">
+<meta property="og:description" content="Read-only connectors stitch humans, service accounts, keys and AI agents into one identity graph: delegation chains, blast radius, 21 deterministic detectors and a CycloneDX 1.6 Agent-BOM. Proposes diffs, never applies.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Idryx - one identity graph for humans, keys and agents · IT-RAT">
+<meta name="twitter:description" content="Read-only connectors stitch humans, service accounts, keys and AI agents into one identity graph: delegation chains, blast radius, 21 deterministic detectors and a CycloneDX 1.6 Agent-BOM. Proposes diffs, never applies.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#34D399}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="idryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">idryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/idryx" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">access plane &#183; wave 1</div>
+        <h1 class="rv d1"><span class="nm">Idryx</span>. Every identity on one graph, every unused grant on notice.</h1>
+        <p class="lede rv d2">Your IdP counts the humans. Nobody counts the keys, the service accounts, or the agents acting on their behalf. Idryx reads what Okta, Entra, AWS, GCP and Azure already log, adds the agent-event bus, stitches all of it into one identity graph with delegation chains and blast radius, and runs 21 deterministic detectors over the result. Read-only by design: it proposes Terraform diffs, it never applies.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch a runaway get caught <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/idryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">release</span><span class="v">v0.2.0 &#183; prebuilt binaries</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go &#183; 21 detectors</span></div>
+        <div class="row"><span class="k">connectors</span><span class="v">Okta &#183; Entra &#183; AWS &#183; GCP &#183; Azure</span></div>
+        <div class="row"><span class="k">output</span><span class="v">CycloneDX 1.6 Agent-BOM</span></div>
+        <div class="row"><span class="k">posture</span><span class="v">read-only, proposes diffs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one graph</div>
+      <h2>Watch the graph catch a runaway.</h2>
+      <p class="lede">This is a simulation, but it replays the shape of the live validation run: TokenFuse agent-event NDJSON and Agent Passports land in a Postgres-backed graph, the detectors read the state back, and findings fire. The same three detectors fired against a real Postgres 16 during validation: runaway_agent, attestation_missing, orphaned_nhi.</p>
+    </div>
+    <div class="rv" id="ix-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>Sources in. Findings out. Nothing written back.</h2>
+      <p class="lede">Five read-only connectors describe the humans, keys and service accounts; the agent-event bus streams what TokenFuse, Wardryx, Mockryx and Verdryx watched the agents do. One core resolves the graph, walks delegation chains root-first, and runs the 21 detectors. Everything that leaves is an alert, a BOM, or a proposed diff a human applies.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 340" role="img" aria-label="Idryx architecture: identity sources feed the graph core, which emits alerts, an Agent-BOM, proposed Terraform diffs and a read-only dashboard">
+        <defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <g font-size="12" font-weight="700">
+            <rect x="16" y="24" width="132" height="34" rx="10" fill="#141C27" stroke="#2a3547"/><text x="82" y="45" fill="#E9EFF6">Okta</text>
+            <rect x="16" y="68" width="132" height="34" rx="10" fill="#141C27" stroke="#2a3547"/><text x="82" y="89" fill="#E9EFF6">Entra</text>
+            <rect x="16" y="112" width="132" height="34" rx="10" fill="#141C27" stroke="#2a3547"/><text x="82" y="133" fill="#E9EFF6">AWS</text>
+            <rect x="16" y="156" width="132" height="34" rx="10" fill="#141C27" stroke="#2a3547"/><text x="82" y="177" fill="#E9EFF6">GCP</text>
+            <rect x="16" y="200" width="132" height="34" rx="10" fill="#141C27" stroke="#2a3547"/><text x="82" y="221" fill="#E9EFF6">Azure</text>
+            <rect x="16" y="244" width="132" height="52" rx="10" fill="#141C27" stroke="#93A8C4"/><text x="82" y="262" fill="#93A8C4" font-size="11.5">agent-event bus</text>
+          </g>
+          <text x="82" y="276" fill="#8A97A6" font-size="10.5">tokenfuse &#183; wardryx</text>
+          <text x="82" y="288" fill="#8A97A6" font-size="10.5">mockryx &#183; verdryx</text>
+
+          <rect x="196" y="36" width="300" height="252" rx="16" fill="#10161F" stroke="#34D399" stroke-width="1.4"/>
+          <text x="346" y="66" fill="#34D399" font-size="14" font-weight="700">idryx core</text>
+          <g font-size="10.5">
+            <rect x="216" y="84" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="103" fill="#E9EFF6">identity graph</text>
+            <rect x="352" y="84" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="103" fill="#E9EFF6">delegation chains</text>
+            <rect x="216" y="122" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="141" fill="#E9EFF6">21 detectors</text>
+            <rect x="352" y="122" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="141" fill="#E9EFF6">blast radius</text>
+            <rect x="216" y="160" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="179" fill="#E9EFF6">baseline engine</text>
+            <rect x="352" y="160" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="179" fill="#E9EFF6">postgres 16 graph</text>
+          </g>
+          <text x="346" y="222" fill="#5A6675" font-size="10.5">chains resolve root-first</text>
+          <text x="346" y="250" fill="#34D399" font-size="11" font-weight="700">reads everything, applies nothing</text>
+
+          <g>
+            <rect x="640" y="36" width="300" height="52" rx="12" fill="#141C27" stroke="#2a3547"/>
+            <text x="790" y="57" fill="#E9EFF6" font-size="12" font-weight="700">alerts</text>
+            <text x="790" y="74" fill="#8A97A6" font-size="10.5">Slack &#183; SIEM webhook, filtered by severity</text>
+            <rect x="640" y="102" width="300" height="52" rx="12" fill="#141C27" stroke="#2a3547"/>
+            <text x="790" y="123" fill="#E9EFF6" font-size="12" font-weight="700">Agent-BOM</text>
+            <text x="790" y="140" fill="#8A97A6" font-size="10.5">CycloneDX 1.6 &#183; idryx bom</text>
+            <rect x="640" y="168" width="300" height="52" rx="12" fill="#141C27" stroke="#2a3547"/>
+            <text x="790" y="189" fill="#E9EFF6" font-size="12" font-weight="700">right_size</text>
+            <text x="790" y="206" fill="#8A97A6" font-size="10.5">proposed Terraform diff &#183; PR, never applied</text>
+            <rect x="640" y="234" width="300" height="52" rx="12" fill="#141C27" stroke="#2a3547"/>
+            <text x="790" y="255" fill="#E9EFF6" font-size="12" font-weight="700">serve :8080</text>
+            <text x="790" y="272" fill="#8A97A6" font-size="10.5">read-only dashboard + JSON API</text>
+          </g>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="148" y1="41" x2="188" y2="41" marker-end="url(#ar)"/>
+          <line x1="148" y1="85" x2="188" y2="85" marker-end="url(#ar)"/>
+          <line x1="148" y1="129" x2="188" y2="129" marker-end="url(#ar)"/>
+          <line x1="148" y1="173" x2="188" y2="173" marker-end="url(#ar)"/>
+          <line x1="148" y1="217" x2="188" y2="217" marker-end="url(#ar)"/>
+          <line x1="148" y1="270" x2="188" y2="270" marker-end="url(#ar)"/>
+          <line x1="496" y1="62" x2="632" y2="62" marker-end="url(#ar)"/>
+          <line x1="496" y1="128" x2="632" y2="128" marker-end="url(#ar)"/>
+          <line x1="496" y1="194" x2="632" y2="194" marker-end="url(#ar)"/>
+          <line x1="496" y1="260" x2="632" y2="260" marker-end="url(#ar)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Five identity kinds. One set of answers.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>One graph, every identity</h3><p>Humans, service accounts, keys, MCP servers and AI agents: five node kinds in one graph, not five tools. Agents are first-class, keyed name@url, with owner, runtime and attestation pinned to the node instead of lost in a generic service-account bucket.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Delegation chains</h3><p>on_behalf_of edges record who acts for whom: agent to sub-agent to service account to human. The walk is cycle-safe and resolves root-first, so the question audits stall on for weeks gets answered from the graph in one query.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>21 deterministic detectors</h3><p>runaway_agent, impossible_travel, mfa_fatigue, data_exfiltration, tainted_agent, mcp_drift and fifteen more. Statistics and rules over the graph; the LLM is never in the detection path, so every finding is reproducible and auditable.</p></div>
+      <div class="card hover feature b-4 rv"><h3>The Agent-BOM</h3><p>When the auditor asks what agents you run, the answer is a CycloneDX 1.6 document: owner, runtime, attestation, tools and delegation chain for every agent identity. Its companion detector, bom_incomplete, flags the agents the BOM cannot yet prove.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Blast radius</h3><p>What does this key reach, transitively? Idryx computes the union of every permission reachable through an identity's delegation chain. excessive_agency fires when an agent reaches admin-equivalent power through that chain (OWASP LLM06).</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>eBPF network sensor</h3><p>A Linux-only sensor on the sys_enter_connect tracepoint captures real outbound connections and flags egress to known LLM APIs. unmanaged_egress fires for identities the sensor is the only evidence of: no IAM record, no passport, just traffic.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>Built for the identities that never log in.</h2>
+      <p class="lede">SailPoint and CyberArk are serious IGA products for the identities they were built around: employees with logins. Idryx does not replace them, and it reads Okta and Entra as sources of truth. The difference is who gets first-class treatment: the keys, service accounts and agents that never log in at all.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Idryx</th><th>IGA suites</th><th>Spreadsheets + scripts</th></tr></thead>
+        <tbody>
+          <tr><td>Covers AI agents natively</td><td class="yes">Yes: agents are a node kind</td><td class="warn">Bolted on</td><td class="no">No</td></tr>
+          <tr><td>Time to first insight</td><td class="yes">Minutes: point it at logs</td><td class="no">Quarters of rollout</td><td class="warn">Weeks of grep</td></tr>
+          <tr><td>Enforcement stance</td><td class="yes">Read-only, proposes diffs</td><td class="warn">Heavy write access</td><td class="no">Manual</td></tr>
+          <tr><td>Delegation chains for agents</td><td class="yes">First-class, root-first</td><td class="warn">Rare</td><td class="no">No</td></tr>
+          <tr><td>Evidence output</td><td class="yes">CycloneDX Agent-BOM</td><td class="warn">Proprietary reports</td><td class="no">None</td></tr>
+          <tr><td>Price</td><td class="yes">Apache-2.0</td><td class="no">Six figures</td><td class="warn">Your weekends</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The one that reads everything and touches nothing.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Idryx consumes the same envelope <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>, <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a>, <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> and <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a> write: the agent-event. It validates Agent Passports against the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">platform contract</a>, and the loop closes at the policy plane: its attestation_missing detector is the reason an unattested agent meets a 403 from Wardryx policies instead of your production data.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">idryx detect <b>events.ndjson</b></span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">idryx serve <b>events.ndjson</b></span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Download a <a href="https://github.com/TAIPANBOX/idryx/releases" target="_blank" rel="noopener" style="color:var(--accent)">v0.2.0 release binary</a> (SHA256SUMS ships next to it), run detect against a log, then serve for the read-only dashboard on <span class="mono" style="font-size:12px">:8080</span>.</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/idryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The runaway-agent scenario. Shape mirrors the live validation record:
+   TokenFuse agent-event NDJSON + Agent Passports ingested into a Postgres-backed
+   graph, then runaway_agent, attestation_missing and orphaned_nhi fired off real
+   state (16/16 integration tests on real Postgres 16). Counts here are the sim's. */
+const EV=[[0,0],[2,0],[3,14],[6,38],[10,62],[15,80],[20,96],[25,110],[30,124],[34,132],[38,140],[42,150],[46,158],[50,165],[54,170],[58,174],[60,176]];
+const at=(p,t)=>{if(t<=p[0][0])return p[0][1];for(let i=1;i<p.length;i++){if(t<=p[i][0]){const a=p[i-1],b=p[i];return a[1]+(b[1]-a[1])*((t-a[0])/(b[0]-a[0]));}}return p[p.length-1][1];};
+Sim.mount(document.getElementById("ix-sim"),{
+  title:"simulated replay · a runaway agent gets caught",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"21 detectors armed",color:"#34D399"},{label:"read-only plane",color:"#93A8C4"}],
+  stage:{mode:"graph", ingest:[3,10],
+    detections:[{t:30,kind:"runaway"},{t:38,kind:"attest"},{t:46,kind:"orphan"}],
+    bomT:54},
+  series:[
+    {id:"ev",label:"events ingested",color:"#8A97A6",max:200,points:EV},
+    {id:"det",label:"detections",color:"#34D399",max:5,fill:false,points:[
+      [0,0],[29.8,0],[30.2,1],[37.8,1],[38.2,2],[45.8,2],[46.2,3],[60,3]]}
+  ],
+  counters:[
+    {id:"c1",label:"events ingested",color:"#8A97A6",from:t=>Math.round(at(EV,t))},
+    {id:"c2",label:"identities in graph",color:"#E9EFF6",from:t=>t<3?0:t<10?Math.round(6*(t-3)):42},
+    {id:"c3",label:"detections",color:"#34D399",from:t=>t<30?0:t<38?1:t<46?2:3},
+    {id:"c4",label:"BOM exports",color:"#93A8C4",from:t=>t<54?0:1}
+  ],
+  events:[
+    {t:3,cls:"info",label:"ingesting tokenfuse NDJSON + passports into the graph"},
+    {t:10,cls:"info",label:"identity graph: humans, service accounts, keys, agents linked"},
+    {t:20,cls:"warn",label:"scraper-7 passport has attestation: none"},
+    {t:30,cls:"bad",label:"runaway_agent: HIGH &#183; 43 calls/min against one budget"},
+    {t:38,cls:"bad",label:"attestation_missing fired for scraper-7"},
+    {t:46,cls:"warn",label:"orphaned_nhi: key with no living owner"},
+    {t:54,cls:"ok",label:"CycloneDX Agent-BOM exported &#183; every agent accounted for"},
+    {t:58,cls:"info",label:"same three detectors fired live on real Postgres 16"}
+  ]
+});
+</script>
+</body>
+</html>

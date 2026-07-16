@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TokenFuse - the runtime kill switch for AI agents · IT-RAT</title>
+<meta name="description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
+<link rel="canonical" href="https://it-rat.com/services/tokenfuse.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/tokenfuse.html">
+<meta property="og:title" content="TokenFuse - the runtime kill switch for AI agents · IT-RAT">
+<meta property="og:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TokenFuse - the runtime kill switch for AI agents · IT-RAT">
+<meta name="twitter:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#F4B23E}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="tokenfuse" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">tokenfuse</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/tokenfuse" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">money plane &#183; wave 1</div>
+        <h1 class="rv d1"><span class="nm">TokenFuse</span>. The breaker between your agents and your invoice.</h1>
+        <p class="lede rv d2">Observability tells you about the fire in next month's bill. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the second the money stops making sense. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch a runaway die <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/tokenfuse" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">release</span><span class="v">v0.4.0 &#183; ghcr images</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Rust &#183; 513 tests</span></div>
+        <div class="row"><span class="k">consensus</span><span class="v">raft &#183; redb ledger</span></div>
+        <div class="row"><span class="k">enforcement</span><span class="v">HTTP 402, in-line</span></div>
+        <div class="row"><span class="k">proven on</span><span class="v">Hetzner &#183; AWS &#183; GCP</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one runaway</div>
+      <h2>Watch the breaker do its job.</h2>
+      <p class="lede">This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget. Four calls land. The reserve for the fifth would cross the cap, so the raft ledger refuses it, and every node agrees.</p>
+    </div>
+    <div class="rv" id="tf-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One gateway in the path. One ledger everyone trusts.</h2>
+      <p class="lede">Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook. Behind it: a raft-replicated spend ledger, so five gateways on five machines still admit exactly what one budget allows.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 330" role="img" aria-label="TokenFuse architecture">
+        <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="8" y="120" width="136" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="76" y="146" fill="#E9EFF6" font-size="12.5" font-weight="700">agent SDK</text>
+          <text x="76" y="163" fill="#8A97A6" font-size="10">base_url = tokenfuse</text>
+
+          <rect x="196" y="52" width="300" height="196" rx="16" fill="#10161F" stroke="#F4B23E" stroke-width="1.4"/>
+          <text x="346" y="80" fill="#F4B23E" font-size="14" font-weight="700">tokenfuse-gateway :4100</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <rect x="216" y="96" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="115" fill="#E9EFF6">budgets &#183; breaker</text>
+            <rect x="352" y="96" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="115" fill="#E9EFF6">loop detection</text>
+            <rect x="216" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="153" fill="#E9EFF6">model router</text>
+            <rect x="352" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="153" fill="#E9EFF6">semantic cache</text>
+            <rect x="216" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="191" fill="#E9EFF6">DLP &#183; firewall</text>
+            <rect x="352" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2DD4BF"/><text x="414" y="191" fill="#2DD4BF">Wardryx PEP</text>
+            <text x="346" y="228" fill="#5A6675" font-size="10.5">every decision emitted as an agent-event</text>
+          </g>
+
+          <rect x="529" y="120" width="184" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="621" y="146" fill="#E9EFF6" font-size="12.5" font-weight="700">provider</text>
+          <text x="621" y="163" fill="#8A97A6" font-size="10.5">Anthropic &#183; OpenAI &#183; local</text>
+
+          <rect x="742" y="30" width="200" height="118" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="56" fill="#E9EFF6" font-size="12.5" font-weight="700">raft spend ledger</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <circle cx="792" cy="92" r="17" fill="#141C27" stroke="#F4B23E"/><text x="792" y="96" fill="#F4B23E">n1</text>
+            <circle cx="842" cy="112" r="17" fill="#141C27" stroke="#2a3547"/><text x="842" y="116">n2</text>
+            <circle cx="892" cy="92" r="17" fill="#141C27" stroke="#2a3547"/><text x="892" y="96">n3</text>
+          </g>
+          <text x="842" y="140" fill="#5A6675" font-size="10.5">no double-spend, ever</text>
+
+          <rect x="742" y="196" width="200" height="86" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="224" fill="#E9EFF6" font-size="12.5" font-weight="700">Cloud + dashboard</text>
+          <text x="842" y="243" fill="#8A97A6" font-size="10">incidents &#183; savings &#183; evidence</text>
+          <text x="842" y="260" fill="#22D3EE" font-size="10.5">Pocket app pairs here &#183; iOS</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="146" y1="149" x2="188" y2="149" marker-end="url(#a2)"/>
+          <line x1="496" y1="149" x2="523" y2="149" marker-end="url(#a2)"/>
+          <line x1="496" y1="100" x2="734" y2="80" marker-end="url(#a2)"/>
+          <line x1="496" y1="210" x2="734" y2="230" marker-end="url(#a2)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a dashboard. A set of hands on the wheel.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Per-run budgets</h3><p>Company, team, agent, run: budgets nest, and the run is the unit that pays. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens, with the 2026 model price book built in. The estimate is fast and honest about being an estimate.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones keep the big brain. In live runs the router and cache together stripped about 22% of routine spend.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Raft-replicated ledger</h3><p>Four physical machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>FOCUS export</h3><p>Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>Where the breaker lives matters.</h2>
+      <p class="lede">The closest comparable tool, Pipelock, does real work in the same category. The architectural difference is where the stop button sits: inside the request path it protects, or outside it.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>TokenFuse</th><th>Pipelock</th><th>Observability dashboards</th></tr></thead>
+        <tbody>
+          <tr><td>Enforcement</td><td class="yes">In-line 402, seconds</td><td class="yes">In-line, in-process</td><td class="no">Alert after the fact</td></tr>
+          <tr><td>Kill switch location</td><td class="yes">Out of band: iPhone / Watch, Secure&#160;Enclave-signed</td><td class="warn">Inside the same process it protects</td><td class="no">None</td></tr>
+          <tr><td>Shared budget across machines</td><td class="yes">Raft consensus, byte-identical state</td><td class="no">Single node</td><td class="no">n/a</td></tr>
+          <tr><td>Cost optimization</td><td class="yes">Router + semantic cache, measured 22%</td><td class="no">Not a goal</td><td class="warn">Recommendations only</td></tr>
+          <tr><td>FinOps handoff</td><td class="yes">FOCUS-format export</td><td class="no">Custom logs</td><td class="warn">Vendor lock</td></tr>
+          <tr><td>Fleet, incidents, evidence</td><td class="yes">Cloud plane + audit hash chain</td><td class="no">No fleet layer</td><td class="yes">Strong, read-only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The loud neighbor everyone listens to.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          TokenFuse asks <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a> prices outcomes from. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> attacks it on purpose in pre-prod. <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> correlates its events into the identity graph, and <a href="pocket.html" data-dir="fwd" style="color:var(--cyan)">Pocket</a> carries its kill switch on a wrist. Everything travels as one envelope: the agent-event.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">docker run -p 4100:4100 <b>ghcr.io/taipanbox/tokenfuse</b></span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Then point <span class="mono" style="font-size:12px">ANTHROPIC_BASE_URL</span> at <span class="mono" style="font-size:12px">localhost:4100</span> and give your next run a budget header. That's the whole migration.</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/tokenfuse.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The runaway-run scenario. Shape mirrors the live validation record:
+   4 calls admitted ($0.00499), reserve for #5 would exceed the $0.006 cap,
+   breaker opens, calls 5-8 answered 402, ledger identical on every node.
+   Rendered by the "fuse" stage: sparks on a wire, a budget bar, a breaker. */
+const settled=t=>t<7?0:t<15?0.00121:t<23?0.0025:t<31?0.0037:0.00499;
+Sim.mount(document.getElementById("tf-sim"),{
+  title:"simulated replay · runaway vs $0.006 budget",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"breaker armed",color:"#F4B23E"},{label:"3-node ledger",color:"#34D399"}],
+  stage:{mode:"fuse", cap:0.006, trip:36,
+    calls:[{t:7},{t:15},{t:23},{t:31}],
+    blocked:[38,44,50,56],
+    settled},
+  counters:[
+    {id:"c1",label:"calls admitted",color:"#34D399",from:t=>t<7?0:t<15?1:t<23?2:t<31?3:4},
+    {id:"c2",label:"blocked with 402",color:"#FF574B",from:t=>t<38?0:t<44?1:t<50?2:t<56?3:4},
+    {id:"c3",label:"spent",prefix:"$",decimals:5,color:"#F4B23E",from:t=>t<7?0:t<15?0.00121:t<23?0.0025:t<31?0.0037:0.00499},
+    {id:"c4",label:"of budget used",unit:"%",color:"#E9EFF6",from:t=>Math.round((t<7?0:t<15?0.00121:t<23?0.0025:t<31?0.0037:0.00499)/0.006*100)}
+  ],
+  events:[
+    {t:2,cls:"info",label:"run my-agent-task-1 opens · budget $0.006"},
+    {t:7,cls:"ok",label:"call #1 admitted · settle $0.00121"},
+    {t:15,cls:"ok",label:"call #2 admitted · settle $0.00129"},
+    {t:23,cls:"ok",label:"call #3 admitted · settle $0.00120"},
+    {t:28,cls:"warn",label:"burn forecast: next reserve crosses the cap"},
+    {t:31,cls:"ok",label:"call #4 admitted · settle $0.00129"},
+    {t:36,cls:"bad",label:"reserve #5 refused by the raft ledger · CIRCUIT OPEN"},
+    {t:38,cls:"bad",label:"call #5 &#8594; 402 budget_exceeded"},
+    {t:44,cls:"bad",label:"call #6 &#8594; 402 · loop signature detected"},
+    {t:50,cls:"bad",label:"call #7 &#8594; 402"},
+    {t:56,cls:"bad",label:"call #8 &#8594; 402 · incident logged to Cloud"},
+    {t:59,cls:"info",label:"ledger state byte-identical on n1 n2 n3"}
+  ]
+});
+</script>
+</body>
+</html>

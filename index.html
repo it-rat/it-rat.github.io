@@ -1,759 +1,409 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>document.documentElement.className += ' js';</script>
-    <title>IT-RAT: Secure AI, Cloud Security &amp; FinOps for Enterprise</title>
-    <meta name="description" content="IT-RAT is a boutique cloud consultancy. We help enterprises adopt AI across cloud, FinOps and security, and keep that full-scale AI rollout secure, cost-governed and compliant. Zero Trust, IAM, FinOps for AI and platform engineering across AWS and GCP.">
-    <meta name="keywords" content="Secure AI, AI Governance, FinOps for AI, LLM, GenAI, AI workloads, Cloud Security, IAM, Zero Trust, FinOps, Cloud Cost Optimization, DevSecOps, AWS, GCP, Kubernetes, Terraform">
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
-    <link rel="canonical" href="https://it-rat.com/">
-    <meta property="og:title" content="IT-RAT: Secure, Governed AI for Enterprise">
-    <meta property="og:description" content="Adopt AI everywhere, kept secure, cost-governed and compliant. Senior cloud security, FinOps and AI architecture for complex, high-stakes projects.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://it-rat.com/">
-    <meta property="og:image" content="https://it-rat.com/img/og-card.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="IT-RAT: Secure, Governed AI for Enterprise">
-    <meta name="twitter:description" content="Adopt AI everywhere, kept secure, cost-governed and compliant. Senior cloud security, FinOps and AI architecture for complex, high-stakes projects.">
-    <meta name="twitter:image" content="https://it-rat.com/img/og-card.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT-RAT - Run AI agents like a workforce, not a wildfire</title>
+<meta name="description" content="IT-RAT builds and runs the open-source agent-governance stack: runtime spend control, policy decisions, memory, identity, cryptography, quality and pre-production drills for AI agents. Cloud security, IAM and FinOps consulting for AWS and GCP.">
+<link rel="canonical" href="https://it-rat.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/">
+<meta property="og:title" content="IT-RAT - Run AI agents like a workforce, not a wildfire">
+<meta property="og:description" content="The open-source agent-governance stack: runtime spend control, policy, memory, identity, cryptography, quality and pre-production drills for AI agents. Cloud security, IAM and FinOps for AWS and GCP.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="IT-RAT: run AI agents like a workforce, not a wildfire">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IT-RAT - Run AI agents like a workforce, not a wildfire">
+<meta name="twitter:description" content="The open-source agent-governance stack for AI agents: metered, policed, remembered, identified and audited at runtime.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  :root{--accent:#F4B23E}
+  /* ---- hero ---- */
+  .hero{position:relative;min-height:min(86vh,920px);display:flex;align-items:center;overflow:hidden}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+  .hero .wrap{position:relative;width:100%;padding-top:70px;padding-bottom:70px}
+  .hero h1{max-width:13ch}
+  .hero h1 .grad{
+    background:linear-gradient(92deg,#34D399 0%,#F4B23E 55%,#FF574B 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .lede{margin-top:22px}
+  .hero .cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+  .ticker{
+    display:flex;gap:clamp(18px,4vw,44px);flex-wrap:wrap;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:22px;
+  }
+  .tick .n{font-family:var(--font-m);font-weight:700;font-size:clamp(20px,2.4vw,28px);font-variant-numeric:tabular-nums}
+  .tick .l{font-size:12px;color:var(--faint);margin-top:3px;max-width:170px;line-height:1.4}
+  /* ---- rail cards ---- */
+  .svc{min-height:210px;display:flex;flex-direction:column;gap:10px;border-top:2px solid transparent}
+  .svc:hover{border-top-color:var(--c)}
+  .svc .head{display:flex;align-items:center;gap:10px}
+  .svc .g{width:11px;height:11px;border-radius:4px;background:var(--c);box-shadow:0 0 14px var(--c)}
+  .svc .plane{margin-left:auto;font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .svc h3{font-size:20px}
+  .svc .what{color:var(--dim);font-size:14px;line-height:1.55;flex:1}
+  .svc .go{font-family:var(--font-m);font-size:12px;color:var(--c);display:flex;align-items:center;gap:7px}
+  .svc .go::after{content:"\2192";transition:transform .18s}
+  .svc:hover .go::after{transform:translateX(4px)}
+  .rail-hint{display:flex;align-items:center;gap:10px;color:var(--faint);font-family:var(--font-m);font-size:11px;margin-top:6px}
+  .rail-hint .bar{flex:0 0 90px;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+  /* ---- planes strip ---- */
+  .planes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:900px){.planes{grid-template-columns:repeat(2,1fr)}}
+  .plane-card{padding:18px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel)}
+  .plane-card .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase}
+  .plane-card .d{font-size:13px;color:var(--dim);margin-top:7px;line-height:1.5}
+  /* ---- quote ---- */
+  .pull{
+    border-left:2px solid var(--accent);padding:8px 0 8px 28px;
+    font-family:var(--font-d);font-size:clamp(21px,3vw,30px);font-weight:650;letter-spacing:-.015em;line-height:1.35;max-width:26ch;
+  }
+  .pull .who{display:block;margin-top:16px;font:12.5px var(--font-m);color:var(--faint);letter-spacing:.04em}
+  /* ---- consulting ---- */
+  .consult{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,4vw,56px);align-items:start}
+  @media(max-width:900px){.consult{grid-template-columns:1fr}}
+  .consult ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+  .consult li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.55}
+  .consult li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .consult li b{color:var(--fg)}
+</style>
 </head>
-<body>
+<body data-root="">
 
-<div class="scrollbar" id="scrollbar"></div>
-
-<!-- ============ NAV ============ -->
-<header class="nav" id="nav">
-    <div class="wrap nav__inner">
-        <a class="brand" href="#top" aria-label="IT-RAT home">
-            <img src="img/29.png" alt="IT-RAT logo"><span class="brand__txt">IT<i>-RAT</i></span>
-        </a>
-        <nav class="nav__links" id="navlinks">
-            <a href="#services">Services</a>
-            <a href="products/">Products</a>
-            <a href="#ai">AI</a>
-            <a href="#capabilities">Capabilities</a>
-            <a href="#team">Team</a>
-            <a class="btn btn--primary nav__cta" href="#contact">Book a call</a>
-        </nav>
-        <button class="nav__toggle" id="navtoggle" aria-label="Toggle menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">agent governance<span class="sep">/</span><span class="here">the stack</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="#stack">Stack</a>
+    <a class="tb-link" href="#proof">Proof</a>
+    <a class="tb-link" href="#consulting">Consulting</a>
+    <span class="tb-link tb-soon" aria-disabled="true" title="Enterprise control room. Coming soon.">Enterprise<span class="soon-pill">soon</span></span>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
 </header>
 
-<main id="top">
-
-<!-- ============ HERO (Attention) ============ -->
+<!-- ======================= HERO ======================= -->
 <section class="hero">
-    <canvas class="hero__fx" id="heroFx" aria-hidden="true"></canvas>
-    <div class="wrap hero__grid">
-        <div class="hero__copy reveal">
-            <span class="eyebrow">AI Adoption · Cloud Security · FinOps</span>
-            <h1>Scale AI safely.<br><span class="hl">Control</span> the spend.</h1>
-            <p class="lede">IT-RAT is a boutique cloud consultancy for complex, high-stakes projects. We put AI to work across cloud platforms, FinOps practices and security: frontier AI and LLM workloads, identity and Zero Trust, cost governance. Then we keep that full-scale rollout secure, compliant and under control. Senior, hands-on architects taking on the hardest problems in modern cloud, security and AI.</p>
-            <div class="hero__cta">
-                <a class="btn btn--primary" href="#contact">Book a discovery call <span class="arr">&rarr;</span></a>
-                <a class="btn btn--ghost" href="#services">What we do</a>
-            </div>
-            <div class="hero__trust">
-                <span>AWS Community Builder</span>
-                <span>Secure &amp; governed AI</span>
-                <span>FinOps for AI</span>
-                <span>Zero Trust &amp; IAM</span>
-                <span>ISO 27001 / SOC 2 / NIST</span>
-            </div>
-        </div>
-        <div class="hero__art reveal">
-            <span class="hero__badge hero__badge--1">AI, governed</span>
-            <span class="hero__badge hero__badge--2">Zero Trust</span>
-            <svg class="hero__panel" viewBox="0 0 480 400" role="img" xmlns="http://www.w3.org/2000/svg"
-                 aria-label="AI cost and security dashboard: cloud and AI spend down 30%, Zero Trust security, token usage guardrailed.">
-                <title>AI under control: cost, security and token governance dashboard</title>
-
-                <!-- header -->
-                <text x="22" y="34" font-family="'Space Grotesk', sans-serif" font-size="19" font-weight="700" fill="#14110f">AI under control</text>
-                <g>
-                    <rect x="330" y="16" width="130" height="28" rx="14" fill="#edf7ee" stroke="#2ea44f" stroke-opacity="0.6"/>
-                    <circle class="hero-dash__dot" cx="348" cy="30" r="4.5" fill="#2ea44f"/>
-                    <text x="362" y="35" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#14110f">Governed</text>
-                </g>
-
-                <!-- cost card -->
-                <rect x="20" y="58" width="440" height="172" rx="14" fill="#ffffff" stroke="#14110f"/>
-                <text x="40" y="92" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="600" letter-spacing="1.5" fill="#8a8175">CLOUD + AI SPEND</text>
-                <text id="costNum" x="40" y="128" font-family="'Space Grotesk', sans-serif" font-size="34" font-weight="700" fill="#d98c00">-30%</text>
-                <text x="150" y="128" font-family="'Inter', sans-serif" font-size="13" fill="#8a8175">this quarter</text>
-                <!-- chart -->
-                <path class="hero-dash__area" d="M44,150 L116,166 L188,146 L260,178 L332,172 L404,194 L440,202 L440,212 L44,212 Z" fill="#f4a91b" fill-opacity="0.16"/>
-                <path class="hero-dash__line" d="M44,150 L116,166 L188,146 L260,178 L332,172 L404,194 L440,202" fill="none" stroke="#f4a91b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <g fill="#e8431c">
-                    <circle cx="44" cy="150" r="3.5"/><circle cx="188" cy="146" r="3.5"/>
-                </g>
-                <circle class="hero-dash__end" cx="440" cy="202" r="5" fill="none" stroke="#14110f" stroke-width="1.5"/>
-                <circle cx="440" cy="202" r="4" fill="#14110f"/>
-                <circle class="hero-dash__travel" r="4.5" fill="#e8431c"/>
-                <line x1="40" y1="212" x2="440" y2="212" stroke="#14110f" stroke-opacity="0.12"/>
-
-                <!-- security tile -->
-                <rect x="20" y="244" width="212" height="138" rx="14" fill="#faf7f1" stroke="#14110f"/>
-                <g transform="translate(40,268)" stroke="#e8431c" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 1l13 5v8c0 8-5.5 13-13 16-7.5-3-13-8-13-16V6l13-5z"/>
-                    <path d="M9 15l5 5 9-9"/>
-                </g>
-                <text x="84" y="278" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="600" letter-spacing="1.2" fill="#8a8175">SECURITY</text>
-                <text x="84" y="300" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="600" fill="#14110f">Zero Trust</text>
-                <text x="40" y="338" font-family="'Inter', sans-serif" font-size="13" fill="#4b443d">Least-privilege access,</text>
-                <text x="40" y="358" font-family="'Inter', sans-serif" font-size="13" fill="#4b443d">identity &amp; models secured</text>
-
-                <!-- tokens tile -->
-                <rect x="248" y="244" width="212" height="138" rx="14" fill="#faf7f1" stroke="#14110f"/>
-                <text x="268" y="278" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="600" letter-spacing="1.2" fill="#8a8175">AI TOKENS</text>
-                <line x1="268" y1="300" x2="440" y2="300" stroke="#e8431c" stroke-width="1.4" stroke-dasharray="4 4" stroke-opacity="0.7"/>
-                <text x="404" y="296" font-family="'Inter', sans-serif" font-size="10" fill="#e8431c">cap</text>
-                <g fill="#14110f">
-                    <rect class="hero-dash__bar" style="animation-delay:.5s"  x="280" y="318" width="26" height="40" rx="3"/>
-                    <rect class="hero-dash__bar" style="animation-delay:.65s" x="320" y="306" width="26" height="52" rx="3" fill="#f4a91b"/>
-                    <rect class="hero-dash__bar" style="animation-delay:.8s"  x="360" y="312" width="26" height="46" rx="3"/>
-                    <rect class="hero-dash__bar" style="animation-delay:.95s" x="400" y="322" width="26" height="36" rx="3" fill="#f4a91b"/>
-                </g>
-                <line x1="268" y1="358" x2="440" y2="358" stroke="#14110f" stroke-opacity="0.18"/>
-            </svg>
-        </div>
+  <canvas id="fusewire" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker rv">IT-RAT &#183; cloud security &#183; IAM &#183; FinOps</div>
+    <h1 class="rv d1" style="margin-top:18px">Run AI agents like a <span class="grad">workforce</span>, not a wildfire.</h1>
+    <p class="lede rv d2">A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source stack that closes that gap: seven services that meter, police, remember, identify, audit and rehearse your agents at runtime, proven on real infrastructure before anyone saw a slide about it.</p>
+    <div class="cta rv d3">
+      <a class="btn primary" href="services/tokenfuse.html" data-dir="fwd">Enter the stack <span class="mono">&#8594;</span></a>
+      <button class="btn" data-cmdk type="button">Jump anywhere <span class="mono">&#8984;K</span></button>
     </div>
+    <div class="ticker rv d3">
+      <div class="tick"><div class="n" style="color:var(--amber)"><span data-count="176">0</span></div><div class="l">real Claude calls in one governed validation run</div></div>
+      <div class="tick"><div class="n" style="color:var(--mint)"><span data-count="71" data-suffix="%">0</span></div><div class="l">of would-be overspend intercepted before it happened</div></div>
+      <div class="tick"><div class="n" style="color:var(--teal)"><span data-count="583" data-suffix=" ms">0</span></div><div class="l">leader re-election across four machines, mid-crash</div></div>
+      <div class="tick"><div class="n" style="color:var(--iris)"><span data-count="0">0</span></div><div class="l">double-spends under 500 concurrent agents</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- ============ PROOF ============ -->
-<section class="proof">
-    <div class="wrap">
-        <p class="proof__label">Fluent across the modern cloud, security &amp; AI ecosystem</p>
-        <div class="marquee reveal">
-            <div class="marquee__track" id="logoTrack">
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4-1.952a6.016 6.016 0 0 0-.796.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.733-.035-1.095-.097v1.325c.3.035.61.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.971-.053v1.864H24V4.063zm0 10.326v1.131c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237H8.94c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.739 3.11M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936z"/></svg>NVIDIA</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>Apple</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>Alphabet</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 0v11.408h11.408V0zm12.594 0v11.408H24V0zM0 12.594V24h11.408V12.594zm12.594 0V24H24V12.594z"/></svg>Microsoft</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></svg>Amazon</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg>Meta</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.119-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5683 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611 0-.2383.0112-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1132.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727"/></svg>Cloudflare</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>OpenAI</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>Anthropic</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"/></svg>Stripe</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.57 17.04l-1.997-1.316-1.665 2.782-1.937-.567-1.706 2.604.087.82 9.274-1.71-.538-5.794zm-8.649-2.498l1.488-.204c.241.108.409.15.697.223.45.117.97.23 1.741-.16.18-.088.553-.43.704-.625l6.096-1.106.622 7.527-10.444 1.882zm11.325-2.712l-.602.115L20.488 0 .789 2.285l2.427 19.693 2.306-.334c-.184-.263-.471-.581-.96-.989-.68-.564-.44-1.522-.039-2.127.53-1.022 3.26-2.322 3.106-3.956-.056-.594-.15-1.368-.702-1.898-.02.22.017.432.017.432s-.227-.289-.34-.683c-.112-.15-.2-.199-.319-.4-.085.233-.073.503-.073.503s-.186-.437-.216-.807c-.11.166-.137.48-.137.48s-.241-.69-.186-1.062c-.11-.323-.436-.965-.343-2.424.6.421 1.924.321 2.44-.439.171-.251.288-.939-.086-2.293-.24-.868-.835-2.16-1.066-2.651l-.028.02c.122.395.374 1.223.47 1.625.293 1.218.372 1.642.234 2.204-.116.488-.397.808-1.107 1.165-.71.358-1.653-.514-1.713-.562-.69-.55-1.224-1.447-1.284-1.883-.062-.477.275-.763.445-1.153-.243.07-.514.192-.514.192s.323-.334.722-.624c.165-.109.262-.178.436-.323a9.762 9.762 0 0 0-.456.003s.42-.227.855-.392c-.318-.014-.623-.003-.623-.003s.937-.419 1.678-.727c.509-.208 1.006-.147 1.286.257.367.53.752.817 1.569.996.501-.223.653-.337 1.284-.509.554-.61.99-.688.99-.688s-.216.198-.274.51c.314-.249.66-.455.66-.455s-.134.164-.259.426l.03.043c.366-.22.797-.394.797-.394s-.123.156-.268.358c.277-.002.838.012 1.056.037 1.285.028 1.552-1.374 2.045-1.55.618-.22.894-.353 1.947.68.903.888 1.609 2.477 1.259 2.833-.294.295-.874-.115-1.516-.916a3.466 3.466 0 0 1-.716-1.562 1.533 1.533 0 0 0-.497-.85s.23.51.23.96c0 .246.03 1.165.424 1.68-.039.076-.057.374-.1.43-.458-.554-1.443-.95-1.604-1.067.544.445 1.793 1.468 2.273 2.449.453.927.186 1.777.416 1.997.065.063.976 1.197 1.15 1.767.306.994.019 2.038-.381 2.685l-1.117.174c-.163-.045-.273-.068-.42-.153.08-.143.241-.5.243-.572l-.063-.111c-.348.492-.93.97-1.414 1.245-.633.359-1.363.304-1.838.156-1.348-.415-2.623-1.327-2.93-1.566 0 0-.01.191.048.234.34.383 1.119 1.077 1.872 1.56l-1.605.177.759 5.908c-.337.048-.39.071-.757.124-.325-1.147-.946-1.895-1.624-2.332-.599-.384-1.424-.47-2.214-.314l-.05.059a2.851 2.851 0 0 1 1.863.444c.654.413 1.181 1.481 1.375 2.124.248.822.42 1.7-.248 2.632-.476.662-1.864 1.028-2.986.237.3.481.705.876 1.25.95.809.11 1.577-.03 2.106-.574.452-.464.69-1.434.628-2.456l.714-.104.258 1.834 11.827-1.424zM15.05 6.848c-.034.075-.085.125-.007.37l.004.014.013.032.032.073c.14.287.295.558.552.696.067-.011.136-.019.207-.023.242-.01.395.028.492.08.009-.048.01-.119.005-.222-.018-.364.072-.982-.626-1.308-.264-.122-.634-.084-.757.068a.302.302 0 0 1 .058.013c.186.066.06.13.027.207m1.958 3.392c-.092-.05-.52-.03-.821.005-.574.068-1.193.267-1.328.372-.247.191-.135.523.047.66.511.382.96.638 1.432.575.29-.038.546-.497.728-.914.124-.288.124-.598-.058-.698m-5.077-2.942c.162-.154-.805-.355-1.556.156-.554.378-.571 1.187-.041 1.646.053.046.096.078.137.104a4.77 4.77 0 0 1 1.396-.412c.113-.125.243-.345.21-.745-.044-.542-.455-.456-.146-.749"/></svg>Datadog</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 3.459c0 .646-.418 1.18-1.141 1.18-.723 0-1.142-.534-1.142-1.18 0-.647.419-1.18 1.142-1.18.723 0 1.141.533 1.141 1.18zm-.228 0c0-.533-.38-.951-.913-.951s-.913.38-.913.95c0 .533.38.952.913.952.57 0 .913-.419.913-.951zm-1.37-.533h.495c.266 0 .456.152.456.38 0 .153-.076.229-.19.305l.19.266v.038h-.266l-.19-.266h-.229v.266h-.266zm.495.228h-.229v.267h.229c.114 0 .152-.038.152-.114.038-.077-.038-.153-.152-.153zM7.602 12.4c.038-.151.076-.304.076-.456 0-.114-.038-.228-.038-.342-.114-.343-.304-.647-.646-.838l-4.87-2.777c-.685-.38-1.56-.152-1.94.533-.381.685-.153 1.56.532 1.94l2.701 1.56-2.701 1.56c-.685.38-.913 1.256-.533 1.94.38.685 1.256.914 1.94.533l4.832-2.777c.343-.267.571-.533.647-.876zm1.332 2.626c-.266-.038-.57.038-.837.19l-4.832 2.777c-.685.38-.913 1.256-.532 1.94.38.686 1.255.914 1.94.533l2.701-1.56v3.12c0 .8.647 1.408 1.446 1.408.799 0 1.407-.647 1.407-1.408v-5.592c0-.761-.57-1.37-1.293-1.408zm4.946-6.088c.266.038.57-.038.837-.19l4.832-2.777c.685-.38.913-1.256.532-1.94-.38-.686-1.255-.914-1.94-.533l-2.701 1.56V1.975c0-.799-.647-1.408-1.446-1.408-.799 0-1.446.609-1.446 1.408V7.53c0 .76.609 1.37 1.332 1.407zM3.265 5.97l4.832 2.777c.266.152.533.19.837.19.723-.038 1.331-.684 1.331-1.407V1.975c0-.799-.646-1.408-1.407-1.408-.799 0-1.446.647-1.446 1.408v3.12l-2.701-1.56c-.685-.38-1.56-.152-1.94.533-.419.646-.19 1.521.494 1.902zm9.093 6.011a.412.412 0 00-.114-.266l-.57-.571a.346.346 0 00-.267-.114.412.412 0 00-.266.114l-.571.57a.411.411 0 00-.114.267c0 .076.038.19.114.267l.57.57a.345.345 0 00.267.114c.076 0 .19-.038.266-.114l.571-.57a.412.412 0 00.114-.267zm1.598.533L11.94 14.53c-.039.038-.153.114-.229.114h-.608a.411.411 0 01-.267-.114L8.82 12.514a.408.408 0 01-.076-.229v-.608c0-.076.038-.19.114-.267l2.016-2.016a.41.41 0 01.267-.114h.608a.41.41 0 01.267.114l2.016 2.016a.347.347 0 01.114.267v.608c-.076.077-.114.19-.19.229zm5.593 5.44l-4.832-2.777c-.266-.152-.57-.19-.837-.152-.723.038-1.332.684-1.332 1.408v5.554c0 .8.647 1.408 1.408 1.408.799 0 1.446-.647 1.446-1.408v-3.12l2.7 1.56c.686.38 1.561.152 1.941-.533.419-.646.19-1.521-.494-1.94zm2.549-7.533l-2.701 1.56 2.7 1.56c.686.38.914 1.256.533 1.94-.38.685-1.255.913-1.94.533l-4.832-2.778a1.644 1.644 0 01-.647-.798c-.037-.153-.076-.305-.076-.457 0-.114.039-.228.039-.342.114-.343.342-.647.646-.837l4.832-2.778c.685-.38 1.56-.152 1.94.533.457.609.19 1.484-.494 1.864"/></svg>Snowflake</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.114 4.094 4.215 7.5v13.09L.666 18.542V5.45L10.114 0v4.094zm3.772 13.37 3.549-2.049V2.05L13.885 0v10.426h-3.77v-3.89L6.562 8.585v13.357l3.551 2.054V13.599h3.772v3.865zM19.783 3.41V16.5l-5.897 3.405V24l9.448-5.45V5.458l-3.551-2.05z"/></svg>HashiCorp</span>
-                <span class="txt"><svg class="logo" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.389 0 0 5.35 0 12s5.35 12 12 12 12-5.35 12-12S18.611 0 12 0zm0 18c-3.325 0-6-2.675-6-6s2.675-6 6-6 6 2.675 6 6-2.675 6-6 6z"/></svg>Okta</span>
-            </div>
-        </div>
+<!-- ======================= STACK RAIL ======================= -->
+<section class="sec" id="stack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the stack</div>
+      <h2>Ten doors, one corridor.</h2>
+      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Walk the corridor with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
+    <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
+    <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
+  </div>
 </section>
 
-<!-- ============ PAIN (Interest) ============ -->
-<section class="section pain">
-    <div class="wrap">
-        <div class="shead">
-            <span class="eyebrow">The problem</span>
-            <h2>Cloud got expensive and exposed at the same time.</h2>
-            <p class="lede">Spend climbs faster than anyone forecast, AI workloads add a brand-new line item nobody owns, and every new service widens the attack surface. Most teams are firefighting both, without the architecture to fix the root cause.</p>
-        </div>
-        <div class="pain__grid">
-            <div class="pain__card reveal">
-                <span class="n">01</span>
-                <h3>The bill nobody can explain</h3>
-                <p>Untagged resources, idle capacity, and AI/LLM usage with no cost ownership. Finance and engineering point at each other while the invoice grows.</p>
-            </div>
-            <div class="pain__card reveal">
-                <span class="n">02</span>
-                <h3>Identity sprawl</h3>
-                <p>Over-permissioned roles, standing access, and fragmented IAM across AWS, GCP, Okta and Auth0. One leaked key away from a very bad week.</p>
-            </div>
-            <div class="pain__card reveal">
-                <span class="n">03</span>
-                <h3>Security bolted on too late</h3>
-                <p>Audits become fire drills. Compliance (ISO 27001, SOC 2, NIST) is documented, not enforced. Pipelines ship faster than guardrails can keep up.</p>
-            </div>
-        </div>
+<!-- ======================= WIRING ======================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">how it wires</div>
+      <h2>One passport, one event bus, four planes of control.</h2>
+      <p class="lede">Every request carries an Agent Passport. Money and policy sit in the request path; memory, identity, crypto, quality and rehearsal watch the same NDJSON event stream off-path. Nothing here is a dashboard after the fact: the gateway enforces in-line, in seconds.</p>
     </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 380" role="img" aria-label="Stack wiring diagram">
+        <defs>
+          <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+        </defs>
+        <!-- agent -->
+        <rect x="20" y="150" width="130" height="64" rx="14" fill="#141C27" stroke="#2a3547"/>
+        <text x="85" y="178" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="13" font-weight="700">agent</text>
+        <text x="85" y="196" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">carries a passport</text>
+        <!-- tokenfuse -->
+        <rect x="240" y="140" width="170" height="84" rx="14" fill="#141C27" stroke="#F4B23E" stroke-width="1.4"/>
+        <text x="325" y="172" text-anchor="middle" fill="#F4B23E" font-family="ui-monospace,Menlo" font-size="14" font-weight="700">TokenFuse</text>
+        <text x="325" y="190" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">budgets &#183; breaker &#183; router</text>
+        <text x="325" y="205" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">402 when the money stops</text>
+        <!-- wardryx -->
+        <rect x="240" y="20" width="170" height="64" rx="14" fill="#141C27" stroke="#2DD4BF" stroke-width="1.4"/>
+        <text x="325" y="47" text-anchor="middle" fill="#2DD4BF" font-family="ui-monospace,Menlo" font-size="13" font-weight="700">Wardryx</text>
+        <text x="325" y="64" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">allow &#183; deny &#183; hold</text>
+        <!-- provider -->
+        <rect x="485" y="150" width="170" height="64" rx="14" fill="#141C27" stroke="#2a3547"/>
+        <text x="570" y="178" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="12.5" font-weight="700">model provider</text>
+        <text x="570" y="196" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">Anthropic &#183; OpenAI &#183; local</text>
+        <!-- bus -->
+        <line x1="325" y1="252" x2="325" y2="292" stroke="#5A6675" stroke-width="1.4" class="flow"/>
+        <rect x="60" y="292" width="840" height="34" rx="10" fill="#0F151E" stroke="#2a3547"/>
+        <text x="480" y="313" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="11" letter-spacing="2">agent-event bus &#183; NDJSON &#183; taipanbox.dev/agent-event</text>
+        <!-- request path arrows -->
+        <line x1="150" y1="182" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)" class="flow"/>
+        <line x1="410" y1="182" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)" class="flow"/>
+        <line x1="325" y1="140" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" marker-end="url(#arr)" class="flow"/>
+        <text x="338" y="120" fill="#2DD4BF" font-family="ui-monospace,Menlo" font-size="9.5">/v1/decide</text>
+        <!-- off-path consumers -->
+        <g font-family="ui-monospace,Menlo" font-size="12" font-weight="700" text-anchor="middle">
+          <rect x="80" y="346" width="120" height="30" rx="9" fill="#141C27" stroke="#6C7BFF"/><text x="140" y="366" fill="#6C7BFF">Engram</text>
+          <rect x="240" y="346" width="120" height="30" rx="9" fill="#141C27" stroke="#34D399"/><text x="300" y="366" fill="#34D399">Idryx</text>
+          <rect x="400" y="346" width="120" height="30" rx="9" fill="#141C27" stroke="#B48CFF"/><text x="460" y="366" fill="#B48CFF">Qryx</text>
+          <rect x="560" y="346" width="120" height="30" rx="9" fill="#141C27" stroke="#FF7AA2"/><text x="620" y="366" fill="#FF7AA2">Verdryx</text>
+          <rect x="720" y="346" width="120" height="30" rx="9" fill="#141C27" stroke="#FF8A5B"/><text x="780" y="366" fill="#FF8A5B">Mockryx</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.1" class="flow">
+          <line x1="140" y1="326" x2="140" y2="344"/><line x1="300" y1="326" x2="300" y2="344"/>
+          <line x1="460" y1="326" x2="460" y2="344"/><line x1="620" y1="326" x2="620" y2="344"/>
+          <line x1="780" y1="326" x2="780" y2="344"/>
+        </g>
+      </svg>
+    </div>
+    <div class="planes rv" style="margin-top:14px">
+      <div class="plane-card"><div class="t" style="color:var(--amber)">money</div><div class="d">Per-run budgets, loop detection, burn forecast, a breaker that answers 402 in seconds.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--teal)">policy</div><div class="d">Deterministic allow, deny or hold-for-a-human. No model in the decision path.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--iris)">knowledge</div><div class="d">Memory with provenance: what the agent knew, when it knew it, and why.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--mint)">trust</div><div class="d">Identity, crypto posture, quality drift and pre-prod drills over the same events.</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- ============ SERVICES (Desire) ============ -->
-<section class="section" id="services">
-    <div class="wrap">
-        <div class="shead">
-            <span class="eyebrow">What we do</span>
-            <h2>Cloud security and FinOps, with AI through all of it.</h2>
-            <p class="lede">We pair deep cloud-security architecture with hands-on FinOps governance, and we weave AI into every layer, so adopting it makes you faster without making you less safe, compliant or cost-efficient.</p>
-        </div>
-        <div class="svc__grid">
-
-            <article class="svc svc--red reveal">
-                <div class="svc__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-                </div>
-                <h3>Cloud Security &amp; IAM</h3>
-                <p>Identity-first security architecture that holds up to real audits and real attackers.</p>
-                <ul>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Zero Trust &amp; least-privilege access models</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>IAM design across AWS, GCP, Okta &amp; Auth0</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>DevSecOps &amp; secure CI/CD pipelines</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Securing AI: LLM access, data &amp; model guardrails</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Threat modelling &amp; reference architectures</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Compliance: ISO 27001, NIST, SOC 2, GDPR</li>
-                </ul>
-            </article>
-
-            <article class="svc svc--amber reveal">
-                <div class="svc__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16l3-4 3 2 5-7"/></svg>
-                </div>
-                <h3>FinOps &amp; Cost Governance</h3>
-                <p>Turn cloud spend into a managed, forecastable number that finance and engineering both trust.</p>
-                <ul>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Cost optimization: rightsizing, commitments, waste cuts</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Tagging, allocation &amp; chargeback that actually works</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Anomaly detection &amp; automated budget guardrails</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>FinOps for AI: LLM &amp; token cost visibility and guardrails</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Forecasting, dashboards &amp; financial observability</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Multi-cloud governance &amp; GreenOps</li>
-                </ul>
-            </article>
-
-            <article class="svc svc--ink reveal">
-                <div class="svc__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18"/><path d="M12 3l-3 6 3 12 3-12-3-6z"/></svg>
-                </div>
-                <h3>Cloud &amp; Platform Architecture</h3>
-                <p>The foundation underneath both: scalable, resilient infrastructure built secure-by-default.</p>
-                <ul>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>End-to-end AWS &amp; GCP solution architecture</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Kubernetes, GitOps &amp; container platforms</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Infrastructure as code with Terraform / Terragrunt</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>AI &amp; LLM workloads, RAG &amp; ML data pipelines</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Migration, replatforming &amp; data pipelines</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>"Golden paths" for secure-by-default delivery</li>
-                </ul>
-            </article>
-
-            <article class="svc svc--red reveal">
-                <div class="svc__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
-                </div>
-                <h3>Advisory &amp; Architecture Reviews</h3>
-                <p>A senior, independent read on where your cloud stands, plus a roadmap to fix it.</p>
-                <ul>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Security &amp; cost posture assessments</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Multi-year cloud strategy &amp; reference standards</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Stakeholder alignment across eng, finance &amp; security</li>
-                    <li><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>Team enablement, mentoring &amp; FinOps training</li>
-                </ul>
-            </article>
-
-        </div>
+<!-- ======================= PROOF ======================= -->
+<section class="sec" id="proof" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">proof, not promises</div>
+      <h2>Validated on real infrastructure. Then torn down.</h2>
+      <p class="lede">Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend. Live testing found real bugs; every one was fixed and re-verified before launch. The bug ledger is public in each repo's VALIDATION.md.</p>
     </div>
+    <div class="stats rv">
+      <div class="stat"><div class="n" style="color:var(--amber)"><span data-count="8000">0</span><span class="unit">/8000</span></div><div class="l">requests served under 100-500 concurrent agents, none dropped</div></div>
+      <div class="stat"><div class="n" style="color:var(--mint)"><span data-count="25586">0</span></div><div class="l">real Linux binaries scanned by Qryx, zero crashes</div></div>
+      <div class="stat"><div class="n" style="color:var(--teal)"><span data-count="34">0</span></div><div class="l">concurrent agents filtered exactly right: 6 served, 10 blocked, 6 denied</div></div>
+      <div class="stat"><div class="n" style="color:var(--iris)"><span data-count="17">0</span></div><div class="l">semantic facts distilled from live model output, with provenance</div></div>
+      <div class="stat"><div class="n" style="color:var(--rose)"><span data-count="0.00042" data-decimals="5" data-prefix="$">0</span></div><div class="l">measured cost of one correctly resolved case</div></div>
+      <div class="stat"><div class="n" style="color:var(--coral)"><span data-count="0">0</span></div><div class="l">guardrail gaps in Mockryx fire drills, three hostile scenarios</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- ============ AI FINOPS BAND (Desire) ============ -->
-<section class="section section--tight" id="ai">
-    <div class="wrap">
-        <div class="aiband reveal">
-            <div class="aiband__inner">
-                <div>
-                    <span class="eyebrow">AI, under control</span>
-                    <h2>Full-scale AI adoption, kept under control.</h2>
-                    <p>We're putting AI to work across everything we do: cloud platforms, FinOps practices and security. The hard part isn't adopting AI, it's governing a full-scale rollout. We make AI secure, cost-controlled and compliant by design: from LLM APIs and token-based usage to cloud-native AI services and autonomous agents.</p>
-                </div>
-                <div class="aiband__stats">
-                    <div class="stat">
-                        <div class="big">Adopt</div>
-                        <div class="lbl">AI embedded across cloud, data &amp; workflows</div>
-                    </div>
-                    <div class="stat">
-                        <div class="big">Secure</div>
-                        <div class="lbl">Identity, data &amp; model access locked down</div>
-                    </div>
-                    <div class="stat">
-                        <div class="big">Cost</div>
-                        <div class="lbl">Token usage attributed, budgeted &amp; guardrailed</div>
-                    </div>
-                    <div class="stat">
-                        <div class="big">Govern</div>
-                        <div class="lbl">Policy &amp; compliance enforced for every model</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- ======================= QUOTE ======================= -->
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <blockquote class="pull rv">
+      &#8220;Your AI agents are employees. You just forgot to onboard them.&#8221;
+      <span class="who">Tania Fedirko, FinOps expert, on why this stack exists</span>
+    </blockquote>
+  </div>
 </section>
 
-<!-- ============ PRODUCTS TEASER ============ -->
-<section class="section section--tight" id="products">
-    <div class="wrap">
-        <div class="pband reveal">
-            <div class="pband__inner">
-                <div>
-                    <span class="eyebrow">Products</span>
-                    <h2>We build the tooling we recommend.</h2>
-                    <p>Advisory backed by working software: a runtime FinOps gateway for AI agents, a local-first
-                    memory layer, and a six-service governance stack. Built and run by the same architects
-                    you work with.</p>
-                    <a class="btn btn--primary" href="products/">Explore the products <span class="arr">&rarr;</span></a>
-                </div>
-                <div class="pband__cards">
-                    <div class="mini"><b>TokenFuse</b><span>runtime spend kill-switch</span></div>
-                    <div class="mini"><b>Engram</b><span>the SQLite of agent memory</span></div>
-                    <div class="mini"><b>Governance stack</b><span>6 services · one event contract</span></div>
-                </div>
-            </div>
-        </div>
+<!-- ======================= CONSULTING ======================= -->
+<section class="sec" id="consulting" style="padding-top:26px">
+  <div class="wrap">
+    <div class="consult">
+      <div class="rv">
+        <div class="kicker">the consultancy behind it</div>
+        <h2 style="margin-top:14px">Boutique by choice. Senior by default.</h2>
+        <p class="lede" style="margin-top:16px">IT-RAT is a small cloud practice: Zero Trust and IAM architecture, FinOps that survives an auditor, and AI adoption that doesn't end up on the front page for the wrong reason. The stack on this site is how we work in the open; if we ever take an engagement together, this is roughly what it looks like.</p>
+        <ul>
+          <li><b>Cloud security &amp; IAM.</b> Identity-first architecture on AWS and GCP: least privilege that people can actually live with.</li>
+          <li><b>FinOps for AI.</b> Budgets, showback and unit economics for LLM workloads, wired into the tooling your finance team already reads.</li>
+          <li><b>Agent governance.</b> Deploying this stack, or the ideas behind it, inside your perimeter: runtime enforcement, not another dashboard.</li>
+        </ul>
+      </div>
+      <div class="card rv d1">
+        <div class="kicker" style="--accent:var(--mint)">engagement, roughly</div>
+        <table class="tbl" style="margin-top:12px">
+          <tr><td>Week 0</td><td>A short, honest call. If we're not the right fit, we say so and point you somewhere better.</td></tr>
+          <tr><td>Weeks 1-2</td><td>Assessment on your real estate: identities, spend paths, agent surfaces. No slideware.</td></tr>
+          <tr><td>Weeks 3+</td><td>Architecture and hands-on build with your team. We leave runbooks, not lock-in.</td></tr>
+          <tr><td>Always</td><td>Everything reproducible, everything explainable to an auditor.</td></tr>
+        </table>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ============ CAPABILITIES (Desire) ============ -->
-<section class="section" id="capabilities">
-    <div class="wrap">
-        <div class="shead">
-            <span class="eyebrow">Capabilities</span>
-            <h2>The stack we work in every day.</h2>
-        </div>
-        <div class="cap__cols">
-            <div>
-                <div class="cap__group reveal">
-                    <h3>Cloud &amp; Platform</h3>
-                    <div class="tags">
-                        <span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">Kubernetes</span>
-                        <span class="tag">Terraform</span><span class="tag">Terragrunt</span><span class="tag">Docker</span>
-                        <span class="tag">ArgoCD</span><span class="tag">GitOps</span><span class="tag">Istio</span>
-                        <span class="tag">Serverless</span><span class="tag">Kafka</span><span class="tag">Go</span>
-                    </div>
-                </div>
-                <div class="cap__group reveal">
-                    <h3>Security &amp; Identity</h3>
-                    <div class="tags">
-                        <span class="tag">IAM</span><span class="tag">Okta</span><span class="tag">Auth0</span>
-                        <span class="tag">Zero Trust</span><span class="tag">DevSecOps</span><span class="tag">Secure CI/CD</span>
-                        <span class="tag">Threat Modelling</span><span class="tag">API Security</span>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="cap__group reveal">
-                    <h3>FinOps &amp; Cost</h3>
-                    <div class="tags">
-                        <span class="tag">FinOps</span><span class="tag">FinOps for AI</span><span class="tag">Cost Optimization</span>
-                        <span class="tag">Tagging &amp; Allocation</span><span class="tag">Forecasting</span>
-                        <span class="tag">Anomaly Detection</span><span class="tag">Multi-cloud</span><span class="tag">GreenOps</span>
-                    </div>
-                </div>
-                <div class="cap__group reveal">
-                    <h3>AI &amp; GenAI</h3>
-                    <div class="tags">
-                        <span class="tag">LLM APIs</span><span class="tag">GenAI</span><span class="tag">RAG</span>
-                        <span class="tag">AI Workloads</span><span class="tag">AWS Bedrock</span><span class="tag">Vertex AI</span>
-                        <span class="tag">SageMaker</span><span class="tag">MLOps</span><span class="tag">AI Governance</span>
-                    </div>
-                </div>
-                <div class="cap__group reveal">
-                    <h3>Governance &amp; Compliance</h3>
-                    <div class="compliance">
-                        <span class="c">ISO 27001</span>
-                        <span class="c">NIST</span>
-                        <span class="c">SOC 2</span>
-                        <span class="c">GDPR</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- ======================= PEOPLE ======================= -->
+<section class="sec" id="people" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the people</div>
+      <h2>Two of us, plus the agents.</h2>
+      <p class="lede">IT-RAT is built and run by two people who spend their working lives in exactly the two rooms this stack lives in: cloud security and cloud money.</p>
     </div>
+    <div class="bento">
+      <div class="card hover b-6 rv" style="--accent:var(--mint)">
+        <div class="person">
+          <span class="ph"><img src="assets/img/team/yurii.jpg" alt="Yurii Kostiuk" loading="lazy"></span>
+          <div>
+            <div class="role">co-founder &#183; cloud security &amp; IAM</div>
+            <h3>Yurii Kostiuk</h3>
+            <div class="title">Lead Security Architect &#183; ex AWS Community Builder</div>
+            <p>IAM solutions architect and cloud security consultant: Zero Trust, identity, DevSecOps and platform resilience across AWS and GCP. The stack's view that an agent deserves a badge, a budget and a boundary comes straight from this desk.</p>
+            <div class="tags"><span class="tag">IAM</span><span class="tag">Zero Trust</span><span class="tag">Cloud Security</span><span class="tag">Data Security</span><span class="tag">Cryptography</span><span class="tag">AWS / GCP</span><span class="tag">Kubernetes</span><span class="tag">Go</span></div>
+            <div class="certs">CISSP &#183; CCSP &#183; TOGAF 9 &#183; CKA / CKS &#183; AWS SA Professional &#183; Google Professional Cloud Architect</div>
+            <a class="li-link" href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/" target="_blank" rel="noopener"><span class="in">in</span>Connect on LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="card hover b-6 rv d1" style="--accent:var(--amber)">
+        <div class="person">
+          <span class="ph"><img src="assets/img/team/tania.jpg" alt="Tania Fedirko" loading="lazy"></span>
+          <div>
+            <div class="role">co-founder &#183; finops &amp; cost governance</div>
+            <h3>Tania Fedirko</h3>
+            <div class="title">Principal FinOps Architect &#183; AWS Community Builder</div>
+            <p>FinOps expert in cloud financial governance, cost optimization and multi-cloud strategy. Tania aligns engineering, finance and business, and applies FinOps practice to LLM APIs and token-based usage: the reason this stack meters money before it meters anything else.</p>
+            <div class="tags"><span class="tag">FinOps</span><span class="tag">FinOps for AI</span><span class="tag">Cost governance</span><span class="tag">Multi-cloud</span><span class="tag">GreenOps</span></div>
+            <div class="certs">FinOps Certified Professional &#183; FinOps Certified Practitioner</div>
+            <a class="li-link" href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/" target="_blank" rel="noopener"><span class="in">in</span>Connect on LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="people-note rv">
+      <b>Status, honestly:</b> IT-RAT is not a commercial organization today. This site exists to explain the stack and the thinking behind it. Right now our energy goes into open-source agent governance and helping people adopt it, not into commercial engagements. For now.
+    </div>
+  </div>
 </section>
 
-<!-- ============ TEAM (Desire / credibility) ============ -->
-<section class="section team" id="team">
-    <div class="wrap">
-        <div class="shead center">
-            <span class="eyebrow">Who you work with</span>
-            <h2>Senior architects. No hand-offs.</h2>
-            <p class="lede" style="margin:0 auto;">You work directly with the people who do this at enterprise scale every day, not a layer of account managers.</p>
-        </div>
-        <div class="team__grid">
-
-            <article class="member reveal">
-                <div class="member__media"><picture><source srcset="img/Yuriy.webp" type="image/webp"><img src="img/Yuriy.gif" alt="Yurii Kostiuk" width="515" height="521" loading="lazy"></picture></div>
-                <div class="member__body">
-                    <span class="member__role">Co-founder · Cloud Security &amp; IAM</span>
-                    <h3>Yurii Kostiuk</h3>
-                    <p class="where">Lead Security Architect</p>
-                    <p>IAM solutions architect and cloud security consultant. Yurii defines enterprise-wide security strategy and designs secure, scalable architectures across hybrid and cloud-native environments: Zero Trust, identity, DevSecOps and platform resilience on AWS and GCP.</p>
-                    <div class="member__skills">
-                        <span>IAM</span><span>Zero Trust</span><span>AWS / GCP</span><span>Terraform</span><span>Kubernetes</span><span>Go</span>
-                    </div>
-                    <div class="member__certs">
-                        <span class="member__certs-label">Certifications</span>
-                        <ul>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>TOGAF 9 Certified</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>CISSP</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>CCSP</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Certified Kubernetes Administrator (CKA)</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Certified Kubernetes Security Specialist (CKS)</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>AWS Solutions Architect Professional</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>AWS Security Specialty</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Google Professional Cloud Architect</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Okta Certified Professional</li>
-                        </ul>
-                    </div>
-                    <a class="member__link" href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/></svg>
-                        Connect on LinkedIn
-                    </a>
-                </div>
-            </article>
-
-            <article class="member reveal">
-                <div class="member__media"><picture><source srcset="img/Tania.webp" type="image/webp"><img src="img/Tania.gif" alt="Tania Fedirko" width="516" height="521" loading="lazy"></picture></div>
-                <div class="member__body">
-                    <span class="member__role">Co-founder · FinOps &amp; Cost Governance</span>
-                    <h3>Tania Fedirko</h3>
-                    <p class="where">Principal FinOps Architect · AWS Community Builder</p>
-                    <p>FinOps expert in cloud financial governance, cost optimization and multi-cloud strategy. Tania aligns engineering, finance and business across cloud, Kubernetes and AI workloads, applying FinOps best practices to LLM APIs and token-based usage while keeping things sustainable and scalable.</p>
-                    <div class="member__skills">
-                        <span>FinOps</span><span>FinOps for AI</span><span>Cost Governance</span><span>Multi-cloud</span><span>GreenOps</span><span>AWS</span>
-                    </div>
-                    <div class="member__certs">
-                        <span class="member__certs-label">Certifications</span>
-                        <ul>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>FinOps Certified Practitioner</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>FinOps Certified Professional</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>FinOps Certified Engineer</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>FinOps for AI Certified</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>FinOps Certified Instructor</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Cloud Sustainability (GreenOps)</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>Certified Kubernetes Administrator (CKA)</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>HashiCorp Terraform Associate</li>
-                            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 9l2 2 4-4"/><path d="M8.5 14.5 7 22l5-2.5L17 22l-1.5-7.5"/></svg>AWS Solutions Architect Associate</li>
-                        </ul>
-                    </div>
-                    <a class="member__link" href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/></svg>
-                        Connect on LinkedIn
-                    </a>
-                </div>
-            </article>
-
-        </div>
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="foot-cta">
+      <div class="rv">
+        <div class="kicker" style="--accent:var(--mint)">before you go</div>
+        <h2 style="margin-top:14px">Leave a note with the desk agent.</h2>
+        <p class="lede" style="margin-top:14px">A question about the stack, an idea for a pilot, or just a hello. The agent collects your note and hands it to your own mail client: deterministic, transparent, and it keeps no copy. Prefer plain email? <a href="mailto:itratmail@gmail.com" style="color:var(--fg);border-bottom:1px solid var(--line-2)">itratmail@gmail.com</a></p>
+      </div>
+      <div class="rv d1" data-concierge></div>
     </div>
-</section>
-
-
-<!-- ============ PROCESS (Desire) ============ -->
-<section class="section">
-    <div class="wrap">
-        <div class="shead">
-            <span class="eyebrow">How we engage</span>
-            <h2>Lightweight to start. Senior throughout.</h2>
-        </div>
-        <div class="steps">
-            <div class="step reveal">
-                <h3>Assess</h3>
-                <p>A focused review of your cloud security posture and cost structure. You get a clear, prioritized picture of risk and waste, usually within weeks.</p>
-            </div>
-            <div class="step reveal">
-                <h3>Architect</h3>
-                <p>We design the target state: identity model, guardrails, FinOps operating model and reference architectures, mapped to your compliance obligations.</p>
-            </div>
-            <div class="step reveal">
-                <h3>Embed</h3>
-                <p>We implement alongside your team, automate the guardrails, and hand over with the standards and training that keep it secure and efficient long after.</p>
-            </div>
-        </div>
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div id="foot-stack"><!-- injected --></div>
+      <div>
+        <a href="services/pocket.html">TokenFuse Pocket &#183; iOS</a>
+        <a href="services/sphere.html">Sphere &#183; iOS</a>
+        <a href="services/platform.html">Platform &#183; the contract</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+      <div>
+        <a href="#people">The people</a>
+        <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/" target="_blank" rel="noopener">Yurii on LinkedIn &#8599;</a>
+        <a href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/" target="_blank" rel="noopener">Tania on LinkedIn &#8599;</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+      </div>
     </div>
-</section>
-
-<!-- ============ CTA / CONTACT (Action) ============ -->
-<section class="section cta" id="contact">
-    <div class="wrap cta__inner">
-        <div class="reveal">
-            <span class="eyebrow">Get started</span>
-            <h2>Let's make your cloud safer and cheaper.</h2>
-            <p>Tell us where it hurts: runaway spend, a looming audit, an identity mess, or an AI rollout nobody's governing. We'll come back with a concrete first step.</p>
-            <div class="cta__meta">
-                <a href="mailto:itratmail@gmail.com">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-                    itratmail@gmail.com
-                </a>
-                <a href="https://www.linkedin.com/in/it-rat-117084146/" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/></svg>
-                    IT-RAT on LinkedIn
-                </a>
-            </div>
-        </div>
-        <div class="formcard reveal">
-            <form id="form_1" action="mailto:itratmail@gmail.com" method="POST" enctype="text/plain">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Work e-mail</label>
-                    <input id="email" type="email" name="_replyto" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">What can we help with?</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button class="btn btn--primary" type="submit">Send message <span class="arr">&rarr;</span></button>
-                <p class="formnote" id="formNote">Opens your email app · we reply within two business days.</p>
-            </form>
-        </div>
-    </div>
-</section>
-
-</main>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-    <div class="wrap">
-        <div class="footer__top">
-            <div>
-                <a class="brand" href="#top"><img src="img/29.png" alt="IT-RAT logo"><span class="brand__txt">IT<i>-RAT</i></span></a>
-                <p class="footer__tag">Boutique cloud consultancy for enterprise. We adopt AI across cloud, FinOps and security, and keep it secure, cost-governed and compliant.</p>
-            </div>
-            <div class="footer__social">
-                <a href="https://www.linkedin.com/in/it-rat-117084146/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.75 1.86-2.75 3.78V24h-4V8z"/></svg>
-                </a>
-                <a href="https://twitter.com/ITRatSoftDev" target="_blank" rel="noopener" aria-label="Twitter / X">
-                    <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1 2h7l4.8 6.4L18.9 2zm-2.4 18h1.9L7.6 4H5.6l10.9 16z"/></svg>
-                </a>
-                <a href="https://www.facebook.com/ItRatSoftDev/" target="_blank" rel="noopener" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/itratsoftdev/" target="_blank" rel="noopener" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                </a>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <span>&copy; <span id="year">2026</span> IT-RAT. All rights reserved.<svg class="flag-ua" viewBox="0 0 24 16" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="24" height="8" fill="#0057B7"/><rect y="8" width="24" height="8" fill="#FFD700"/></svg></span>
-            <span>AI Governance · Cloud Security · FinOps</span>
-        </div>
-    </div>
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
 </footer>
 
+<script src="assets/site.js"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+<script src="assets/concierge.js"></script>
 <script>
-(function () {
-    var nav = document.getElementById('nav');
-    var toggle = document.getElementById('navtoggle');
-    var links = document.getElementById('navlinks');
+/* inject stack cards into the rail + footer links */
+(function(){
+  const rail=document.getElementById("svc-rail");
+  rail.innerHTML = STACK.map(s=>
+    `<a class="card hover svc" style="--c:${s.color}" href="${s.href}" data-dir="fwd">
+       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span><span class="plane">${s.plane}</span></span>
+       <h3>${s.name}</h3>
+       <p class="what">${s.what}.</p>
+       <span class="go">open the room</span>
+     </a>`).join("");
+  document.getElementById("foot-stack").innerHTML =
+    STACK.slice(0,8).map(s=>`<a href="${s.href}">${s.name}</a>`).join("");
+})();
 
-    // sticky border on scroll
-    var onScroll = function () {
-        nav.classList.toggle('scrolled', window.scrollY > 12);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // mobile menu
-    toggle.addEventListener('click', function () {
-        var open = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    links.addEventListener('click', function (e) {
-        if (e.target.tagName === 'A') nav.classList.remove('open');
-    });
-
-    // scroll reveal (rect-based, fires reliably on real and programmatic scroll)
-    var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
-    var revealCheck = function () {
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        for (var i = revealEls.length - 1; i >= 0; i--) {
-            if (revealEls[i].getBoundingClientRect().top < vh * 0.9) {
-                revealEls[i].classList.add('in');
-                revealEls.splice(i, 1);
-            }
-        }
-    };
-    var rafQueued = false;
-    var onReveal = function () {
-        if (rafQueued) return;
-        rafQueued = true;
-        requestAnimationFrame(function () { rafQueued = false; revealCheck(); });
-    };
-    window.addEventListener('scroll', onReveal, { passive: true });
-    window.addEventListener('resize', onReveal);
-    window.addEventListener('load', revealCheck);
-    revealCheck();
-
-    // current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // contact form: compose an email to itratmail@gmail.com
-    var contactForm = document.getElementById('form_1');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var name = (document.getElementById('name').value || '').trim();
-            var email = (document.getElementById('email').value || '').trim();
-            var msg = (document.getElementById('message').value || '').trim();
-            var subject = encodeURIComponent('IT-RAT enquiry from ' + (name || 'website'));
-            var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
-            var note = document.getElementById('formNote');
-            if (note) note.textContent = 'Opening your email app to send…';
-            window.location.href = 'mailto:itratmail@gmail.com?subject=' + subject + '&body=' + body;
+/* ---- hero canvas: the fuse wire ----
+   Amber sparks flow along faint conduits; every few seconds one line
+   overloads, flashes ember, and the breaker cuts it: sparks die, line
+   cools to mint, flow resumes. The whole thesis in one animation. */
+(function(){
+  const cv=document.getElementById("fusewire"), ctx=cv.getContext("2d");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W,H,dpr,lines=[];
+  function resize(){
+    dpr=Math.min(2,devicePixelRatio||1);
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    build();
+  }
+  function build(){
+    lines=[];const n=Math.max(5,Math.round(H/130));
+    for(let i=0;i<n;i++){
+      const y=H*(i+0.7)/(n+0.8);
+      lines.push({
+        y, amp:8+Math.random()*18, ph:Math.random()*9, speed:.35+Math.random()*.5,
+        sparks:Array.from({length:2+Math.floor(Math.random()*3)},()=>({x:Math.random(),v:(.04+Math.random()*.06)})),
+        state:"ok", tState:0, next: 4+Math.random()*9
+      });
+    }
+  }
+  function yAt(l,x){ return l.y + Math.sin(x*0.006 + l.ph)*l.amp; }
+  let last=0;
+  function frame(t){
+    const dt=Math.min(.05,(t-last)/1000)||0.016; last=t;
+    ctx.clearRect(0,0,W,H);
+    lines.forEach(l=>{
+      l.tState+=dt;
+      if(l.state==="ok" && l.tState>l.next){l.state="hot";l.tState=0;}
+      if(l.state==="hot" && l.tState>1.1){l.state="cut";l.tState=0;}
+      if(l.state==="cut" && l.tState>1.6){l.state="ok";l.tState=0;l.next=6+Math.random()*10;}
+      const col = l.state==="hot" ? "255,87,75" : l.state==="cut" ? "52,211,153" : "244,178,62";
+      /* conduit */
+      ctx.beginPath();
+      for(let x=0;x<=W;x+=14){const y=yAt(l,x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+      ctx.strokeStyle=`rgba(${col},${l.state==="hot"?.28:.13})`;ctx.lineWidth=1;ctx.stroke();
+      /* sparks */
+      if(l.state!=="cut"){
+        l.sparks.forEach(s=>{
+          s.x+=s.v*dt*(l.state==="hot"?2.6:1)* l.speed*3;
+          if(s.x>1.02)s.x=-0.02;
+          const x=s.x*W, y=yAt(l,x);
+          const r=l.state==="hot"?2.6:1.8;
+          const g=ctx.createRadialGradient(x,y,0,x,y,r*5);
+          g.addColorStop(0,`rgba(${col},.9)`);g.addColorStop(1,`rgba(${col},0)`);
+          ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*5,0,7);ctx.fill();
+          ctx.fillStyle=`rgba(${col},1)`;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();
         });
-    }
-
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // hero dashboard: keep the AI-token bars alive with smooth, continuous motion
-    var tokenBars = document.querySelectorAll('.hero-dash__bar');
-    if (tokenBars.length && !reduced) {
-        var phases = [0, 1.3, 2.6, 3.9];
-        var freqs = [0.55, 0.74, 0.62, 0.83];
-        var waveBars = function (ts) {
-            var t = ts / 1000;
-            for (var i = 0; i < tokenBars.length; i++) {
-                var s = 0.68 + 0.25 * Math.sin(t * freqs[i] + phases[i]) + 0.05 * Math.sin(t * freqs[i] * 2.7 + phases[i]);
-                tokenBars[i].style.transform = 'scaleY(' + s.toFixed(3) + ')';
-            }
-            requestAnimationFrame(waveBars);
-        };
-        requestAnimationFrame(waveBars);
-    }
-
-    // hero dashboard: count up the cost-reduction figure
-    var costEl = document.getElementById('costNum');
-    if (costEl && !reduced) {
-        var n = 0;
-        costEl.textContent = '-0%';
-        var ci = setInterval(function () {
-            n += 2;
-            if (n >= 30) { n = 30; clearInterval(ci); }
-            costEl.textContent = '-' + n + '%';
-        }, 45);
-    }
-
-    // scroll progress bar
-    var bar = document.getElementById('scrollbar');
-    var onProgress = function () {
-        var h = document.documentElement;
-        var max = h.scrollHeight - h.clientHeight;
-        bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-    };
-    window.addEventListener('scroll', onProgress, { passive: true });
-    onProgress();
-
-    // seamless logo marquee (duplicate track content once)
-    var track = document.getElementById('logoTrack');
-    if (track) track.innerHTML += track.innerHTML;
-
-    if (!reduced) {
-        // ---- magnetic buttons ----
-        document.querySelectorAll('.btn--primary').forEach(function (btn) {
-            btn.addEventListener('mousemove', function (e) {
-                var r = btn.getBoundingClientRect();
-                var x = e.clientX - r.left - r.width / 2;
-                var y = e.clientY - r.top - r.height / 2;
-                btn.style.transform = 'translate(' + x * 0.25 + 'px,' + (y * 0.35 - 2) + 'px)';
-            });
-            btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
-        });
-
-        // ---- hero art 3D tilt + badge parallax ----
-        var hero = document.querySelector('.hero');
-        var art = document.querySelector('.hero__art');
-        var b1 = document.querySelector('.hero__badge--1');
-        var b2 = document.querySelector('.hero__badge--2');
-        if (hero && art) {
-            hero.addEventListener('mousemove', function (e) {
-                var r = hero.getBoundingClientRect();
-                var px = (e.clientX - r.left) / r.width - 0.5;
-                var py = (e.clientY - r.top) / r.height - 0.5;
-                art.style.transform = 'perspective(900px) rotateY(' + px * 7 + 'deg) rotateX(' + (-py * 7) + 'deg)';
-                if (b1) b1.style.transform = 'translate(' + px * -22 + 'px,' + (py * -22) + 'px)';
-                if (b2) b2.style.transform = 'translate(' + px * 22 + 'px,' + (py * 22) + 'px)';
-            });
-            hero.addEventListener('mouseleave', function () {
-                art.style.transform = '';
-                if (b1) b1.style.transform = '';
-                if (b2) b2.style.transform = '';
-            });
-        }
-
-        // ---- hero constellation canvas ----
-        var cv = document.getElementById('heroFx');
-        if (cv && cv.getContext) {
-            var ctx = cv.getContext('2d');
-            var W, H, DPR, nodes, mouse = { x: -999, y: -999 };
-            var COLORS = ['#14110f', '#f4a91b', '#e8431c'];
-
-            var resize = function () {
-                DPR = Math.min(window.devicePixelRatio || 1, 2);
-                W = cv.clientWidth; H = cv.clientHeight;
-                cv.width = W * DPR; cv.height = H * DPR;
-                ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-                var count = Math.round(Math.min(70, (W * H) / 14000));
-                nodes = [];
-                for (var i = 0; i < count; i++) {
-                    nodes.push({
-                        x: Math.random() * W, y: Math.random() * H,
-                        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-                        c: COLORS[i % 3 === 0 ? (Math.random() < 0.5 ? 1 : 2) : 0]
-                    });
-                }
-            };
-
-            var draw = function () {
-                ctx.clearRect(0, 0, W, H);
-                for (var i = 0; i < nodes.length; i++) {
-                    var n = nodes[i];
-                    n.x += n.vx; n.y += n.vy;
-                    if (n.x < 0 || n.x > W) n.vx *= -1;
-                    if (n.y < 0 || n.y > H) n.vy *= -1;
-
-                    var dmx = n.x - mouse.x, dmy = n.y - mouse.y;
-                    var dm = Math.sqrt(dmx * dmx + dmy * dmy);
-                    if (dm < 130) { n.x += dmx / dm * 0.6; n.y += dmy / dm * 0.6; }
-
-                    for (var j = i + 1; j < nodes.length; j++) {
-                        var m = nodes[j];
-                        var dx = n.x - m.x, dy = n.y - m.y;
-                        var d = Math.sqrt(dx * dx + dy * dy);
-                        if (d < 120) {
-                            ctx.globalAlpha = (1 - d / 120) * 0.16;
-                            ctx.strokeStyle = '#14110f';
-                            ctx.lineWidth = 1;
-                            ctx.beginPath();
-                            ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); ctx.stroke();
-                        }
-                    }
-                    ctx.globalAlpha = n.c === '#14110f' ? 0.35 : 0.9;
-                    ctx.fillStyle = n.c;
-                    ctx.beginPath();
-                    ctx.arc(n.x, n.y, n.c === '#14110f' ? 2 : 2.6, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                ctx.globalAlpha = 1;
-                requestAnimationFrame(draw);
-            };
-
-            cv.parentElement.addEventListener('mousemove', function (e) {
-                var r = cv.getBoundingClientRect();
-                mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
-            });
-            cv.parentElement.addEventListener('mouseleave', function () { mouse.x = mouse.y = -999; });
-            window.addEventListener('resize', resize);
-            resize();
-            draw();
-        }
-    }
-}());
+      } else {
+        /* breaker cut marker */
+        const x=W*.62, y=yAt(l,x);
+        ctx.strokeStyle="rgba(52,211,153,.85)";ctx.lineWidth=1.6;
+        ctx.beginPath();ctx.moveTo(x-7,y-7);ctx.lineTo(x+7,y+7);ctx.moveTo(x+7,y-7);ctx.lineTo(x-7,y+7);ctx.stroke();
+      }
+    });
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  resize();addEventListener("resize",resize);
+  if(reduce){frame(16);} else requestAnimationFrame(frame);
+})();
 </script>
-
 </body>
 </html>

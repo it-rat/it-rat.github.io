@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://it-rat.com/sitemap.xml

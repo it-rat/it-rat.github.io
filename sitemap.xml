@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://it-rat.com/</loc>
-    <lastmod>2026-07-10</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://it-rat.com/products/</loc>
-    <lastmod>2026-07-10</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
+  <url><loc>https://it-rat.com/</loc></url>
+  <url><loc>https://it-rat.com/services/tokenfuse.html</loc></url>
+  <url><loc>https://it-rat.com/services/wardryx.html</loc></url>
+  <url><loc>https://it-rat.com/services/engram.html</loc></url>
+  <url><loc>https://it-rat.com/services/idryx.html</loc></url>
+  <url><loc>https://it-rat.com/services/qryx.html</loc></url>
+  <url><loc>https://it-rat.com/services/verdryx.html</loc></url>
+  <url><loc>https://it-rat.com/services/mockryx.html</loc></url>
+  <url><loc>https://it-rat.com/services/platform.html</loc></url>
+  <url><loc>https://it-rat.com/services/pocket.html</loc></url>
+  <url><loc>https://it-rat.com/services/sphere.html</loc></url>
 </urlset>

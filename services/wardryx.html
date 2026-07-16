@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wardryx - the policy brain your agents ask before acting · IT-RAT</title>
+<meta name="description" content="Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.">
+<link rel="canonical" href="https://it-rat.com/services/wardryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/wardryx.html">
+<meta property="og:title" content="Wardryx - the policy brain your agents ask before acting · IT-RAT">
+<meta property="og:description" content="Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wardryx - the policy brain your agents ask before acting · IT-RAT">
+<meta name="twitter:description" content="Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#2DD4BF}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="wardryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">wardryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/wardryx" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">policy plane &#183; wave 2</div>
+        <h1 class="rv d1"><span class="nm">Wardryx</span>. Deterministic allow, deny or hold, with a human on the expensive stuff.</h1>
+        <p class="lede rv d2">Your gateway asks one question before an agent acts: POST /v1/decide. Wardryx answers allow, deny or hold in one deterministic pass. No LLM sits in the decision path, so the same policy and the same request always return the same verdict, and a big spend waits for a human who signs off with a short-lived token. The pattern is old and good: PDP/PEP, XACML's good ideas, pointed at what agents do.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch 34 agents hit the gate <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/wardryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">pre-1.0 &#183; main is supported</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go &#183; deterministic PDP</span></div>
+        <div class="row"><span class="k">API</span><span class="v">POST /v1/decide on :8090</span></div>
+        <div class="row"><span class="k">primitives</span><span class="v" style="text-align:right">deny_tool &#183; deny_if_unattested &#183; require_human_above_usd &#183; deny_above_usd &#183; max_steps &#183; allow_domains</span></div>
+        <div class="row"><span class="k">lineage</span><span class="v">PDP/PEP &#183; XACML's good ideas</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, thirty-four agents</div>
+      <h2>Watch the gate sort a stampede.</h2>
+      <p class="lede">This is a simulation, and it says so. It replays the shape of the live validation record: a 34-request concurrent burst, different agents, budgets and policies, all hitting /v1/decide at once. In the real run the filtering came back exact: 6/6 permission oversteppers denied with 403, unattested calls denied until attested, 176 decisions across the full campaign.</p>
+    </div>
+    <div class="rv" id="wx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One question in. One of three answers out.</h2>
+      <p class="lede">The PEP posts the proposed action: agent, tools, declared domains, step count, estimated cost, attestation. Wardryx matches policies by agent:// glob and applies the rules in a fixed order, where deny_above_usd outranks every approval and the hold check comes after it. The verdict returns with a cacheable flag, the caller's cache keys on agent, tool set and attestation, and every decision leaves as an event.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 340" role="img" aria-label="Wardryx architecture: TokenFuse PEP posts /v1/decide, the Wardryx PDP returns allow, deny or hold with a cacheable flag; holds resolve via signed approval tokens; events and OTLP spans flow out; Terraform manages policies as code">
+        <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="10" y="120" width="118" height="58" rx="12" fill="#141C27" stroke="#F4B23E" stroke-width="1.4"/>
+          <text x="69" y="146" fill="#F4B23E" font-size="12.5" font-weight="700">TokenFuse PEP</text>
+          <text x="69" y="163" fill="#8A97A6" font-size="10.5">asks per request</text>
+          <text x="165" y="140" fill="#5A6675" font-size="10">/v1/decide</text>
+
+          <rect x="210" y="46" width="300" height="200" rx="16" fill="#10161F" stroke="#2DD4BF" stroke-width="1.4"/>
+          <text x="360" y="74" fill="#2DD4BF" font-size="14" font-weight="700">wardryx PDP :8090</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <rect x="228" y="90" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="292" y="108" fill="#E9EFF6">policy set</text>
+            <text x="292" y="123" font-size="9.5">YAML &#183; agent:// globs</text>
+            <rect x="364" y="90" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="428" y="108" fill="#E9EFF6">rule order</text>
+            <text x="428" y="123" font-size="9.5">deny_above_usd wins</text>
+            <rect x="228" y="140" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="292" y="158" fill="#E9EFF6">attestation</text>
+            <text x="292" y="173" font-size="9.5">&#8220;None&#8221; never passes</text>
+            <rect x="364" y="140" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="428" y="158" fill="#E9EFF6">decision cache</text>
+            <text x="428" y="173" font-size="9.5">agent+tools+attest</text>
+            <text x="360" y="208" fill="#5A6675" font-size="10.5">deterministic: same request, same verdict</text>
+            <text x="360" y="224" fill="#5A6675" font-size="10.5">no LLM anywhere in the decision path</text>
+          </g>
+
+          <rect x="570" y="118" width="140" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="640" y="140" fill="#E9EFF6" font-size="12.5" font-weight="700">verdict</text>
+          <text x="640" y="156" fill="#2DD4BF" font-size="10.5">allow &#183; deny &#183; hold</text>
+          <text x="640" y="170" fill="#8A97A6" font-size="10.5">+ cacheable flag</text>
+
+          <rect x="742" y="28" width="200" height="112" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="54" fill="#E9EFF6" font-size="12.5" font-weight="700">approval tokens</text>
+          <text x="842" y="76" fill="#8A97A6" font-size="10.5">HMAC-signed &#183; short-lived</text>
+          <text x="842" y="92" fill="#8A97A6" font-size="10.5">cost-bound &#183; single-use</text>
+          <text x="842" y="108" fill="#F4B23E" font-size="10.5">a hold resolves out of band</text>
+
+          <rect x="742" y="196" width="200" height="96" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="222" fill="#E9EFF6" font-size="12.5" font-weight="700">agent-event bus</text>
+          <text x="842" y="240" fill="#2DD4BF" font-size="10.5">source: wardryx</text>
+          <text x="842" y="256" fill="#8A97A6" font-size="10">policy_allow &#183; policy_deny</text>
+          <text x="842" y="272" fill="#8A97A6" font-size="10.5">+ one OTLP span per decision</text>
+
+          <rect x="210" y="286" width="300" height="40" rx="10" fill="#141C27" stroke="#93A8C4"/>
+          <text x="360" y="304" fill="#93A8C4" font-size="10.5" font-weight="700">policies as code &#183; terraform-provider-taipan</text>
+          <text x="360" y="318" fill="#8A97A6" font-size="10">PUT /v1/policies/{id}</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="128" y1="149" x2="202" y2="149" marker-end="url(#a2)"/>
+          <line x1="510" y1="149" x2="562" y2="149" marker-end="url(#a2)"/>
+          <line x1="710" y1="132" x2="734" y2="92" marker-end="url(#a2)"/>
+          <line x1="710" y1="166" x2="734" y2="230" marker-end="url(#a2)"/>
+          <line x1="360" y1="284" x2="360" y2="254" marker-end="url(#a2)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it decides</div>
+      <h2>Six primitives. One fixed order. No moods.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Three verdicts, zero improvisation</h3><p>Every answer is allow, deny or hold. No LLM sits in the decision path, so the same policy set and the same request return the same verdict, every time. A decision you can replay in a test is a decision you can defend in an audit.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hold means a human</h3><p>require_human_above_usd turns a big spend into a hold, not a guess. A human grants it out of band, and Wardryx mints a signed approval token bound to the cost the human actually saw. The agent resubmits with the token; nothing parks a connection waiting for a signature.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>A hard ceiling that outranks approvals</h3><p>deny_above_usd is the rule no token can talk past. It is checked before the hold logic ever runs, so even a granted approval cannot authorize a spend over the ceiling. Some numbers should end the conversation, and this one does.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Attestation as a first-class gate</h3><p>deny_if_unattested demands a live attestation before an agent touches the sensitive rules. Methods are trimmed and lowercased on the way in, so a literal &#8220;None&#8221; string reads as no attestation instead of sneaking past as a value.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Fail-open or fail-closed, your call</h3><p>When the PDP is unreachable, the enforcement point picks the failure mode per deployment. Fail-open keeps traffic moving and silently drops policy for the outage; fail-closed blocks every governed action until Wardryx is back. The default is documented, and so is the tradeoff.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Policy admin API + Terraform</h3><p>PUT, GET and DELETE /v1/policies/{id} manage a runtime policy layer with validate-then-apply semantics; the file-loaded set stays a permanent floor no API write can erase. The taipan_wardryx_policy resource drives the same API from Terraform.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>Where the no comes from matters.</h2>
+      <p class="lede">Two substitutes get proposed for a policy plane: asking the model to behave in the system prompt, and pointing at the IAM you already run. Keep your IAM; it answers a different question. Neither substitute sees tools, dollars and runs in one place.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Wardryx</th><th>&#8220;Prompt the model to behave&#8221;</th><th>IAM alone</th></tr></thead>
+        <tbody>
+          <tr><td>Deterministic</td><td class="yes">Yes: same input, same verdict</td><td class="no">No</td><td class="yes">Yes</td></tr>
+          <tr><td>Knows about cost</td><td class="yes">Holds above $X</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Human approval flow</td><td class="yes">Built in, token-bound</td><td class="no">No</td><td class="warn">Ticket queue</td></tr>
+          <tr><td>Sees declared-but-not-invoked tools</td><td class="yes">Yes, since the live-found bypass was fixed</td><td class="no">n/a</td><td class="no">No</td></tr>
+          <tr><td>Auditability</td><td class="yes">Every decision an event</td><td class="no">Vibes</td><td class="warn">Partial</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The desk every expensive idea stops at.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> correlates into the identity graph. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> rehearses the denials in pre-prod, so the first real no is never the first no ever. And the policies themselves are code: the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> page's Terraform provider creates, changes and destroys them like any other resource.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">make build &amp;&amp; <b>./bin/wardryx</b> serve</span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Boots on <span class="mono" style="font-size:12px">:8090</span> with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:</p>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>./bin/wardryx</b> check ./passports ./policies/finance.yaml</span></div>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/wardryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The 34-agent burst scenario. Shape mirrors the live validation record:
+   a 34-request concurrent burst with differentiated per-agent rights,
+   6/6 permission oversteppers denied (403), unattested denied until
+   attested, one big spend held for a human and resubmitted with a
+   signed, cost-bound token. 176 decisions in the full campaign. */
+Sim.mount(document.getElementById("wx-sim"),{
+  title:"simulated replay · 34 agents hit the gate at once",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"deterministic PDP",color:"#2DD4BF"},{label:"PEP: TokenFuse",color:"#F4B23E"}],
+  stage:{mode:"gate", chips:[
+    {t:8, v:"allow",id:"analyst-3"},
+    {t:12,v:"allow",id:"ops-1"},
+    {t:15,v:"deny", id:"scraper-9"},
+    {t:20,v:"deny", id:"intern-bot"},
+    {t:24,v:"hold", id:"treasury-1",resolve:37},
+    {t:27,v:"deny", id:"scraper-4"},
+    {t:31,v:"allow",id:"analyst-7"},
+    {t:41,v:"allow",id:"builder-2"},
+    {t:44,v:"deny", id:"no-attest"},
+    {t:48,v:"allow",id:"qa-5"},
+    {t:52,v:"deny", id:"scraper-2"},
+    {t:56,v:"allow",id:"ops-3"}
+  ]},
+  counters:[
+    {id:"c1",label:"decisions",color:"#E9EFF6",from:t=>t<8?0:t<15?6:t<20?12:t<24?14:t<27?18:t<31?20:t<37?24:t<44?26:t<48?28:t<52?31:34},
+    {id:"c2",label:"allowed",color:"#34D399",from:t=>t<8?0:t<15?6:t<24?9:t<31?12:t<37?16:t<48?18:t<52?19:22},
+    {id:"c3",label:"denied 403",color:"#2DD4BF",from:t=>t<15?0:t<20?3:t<27?5:t<44?7:t<48?9:t<52?11:12},
+    {id:"c4",label:"holds resolved",color:"#F4B23E",from:t=>t<37?0:1}
+  ],
+  events:[
+    {t:2,cls:"info",label:"34 concurrent requests &#183; different agents, budgets, policies"},
+    {t:8,cls:"ok",label:"analyst-3: benign tools &#183; allow (200)"},
+    {t:15,cls:"bad",label:"scraper-9 declared shell_exec &#183; deny_tool &#8594; 403"},
+    {t:24,cls:"warn",label:"treasury-1: wire_transfer at $740 &#183; hold: needs a human"},
+    {t:31,cls:"info",label:"approval token minted out of band &#183; bound to max_cost_usd"},
+    {t:37,cls:"ok",label:"treasury-1 resubmits with token &#183; allow"},
+    {t:44,cls:"bad",label:"unattested agent &#183; deny_if_unattested &#8594; 403 (cache keys include attestation since PR #110)"},
+    {t:52,cls:"ok",label:"6/6 good served &#183; 6/6 permission oversteppers denied"},
+    {t:58,cls:"info",label:"decisions cached: hot path answers in milliseconds"}
+  ]
+});
+</script>
+</body>
+</html>

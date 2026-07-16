@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TokenFuse Pocket - the kill switch on your wrist · IT-RAT</title>
+<meta name="description" content="The iPhone and Apple Watch companion for TokenFuse: watch fleet burn live and pull a Secure Enclave-signed kill switch, out of band from the request path it protects. iOS and watchOS only, no Android, no web.">
+<link rel="canonical" href="https://it-rat.com/services/pocket.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/pocket.html">
+<meta property="og:title" content="TokenFuse Pocket - the kill switch on your wrist · IT-RAT">
+<meta property="og:description" content="The iPhone and Apple Watch companion for TokenFuse: watch fleet burn live and pull a Secure Enclave-signed kill switch, out of band from the request path it protects. iOS and watchOS only, no Android, no web.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TokenFuse Pocket - the kill switch on your wrist · IT-RAT">
+<meta name="twitter:description" content="The iPhone and Apple Watch companion for TokenFuse: watch fleet burn live and pull a Secure Enclave-signed kill switch, out of band from the request path it protects. iOS and watchOS only, no Android, no web.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#22D3EE}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="pocket" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">pocket</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/tokenfuse-mobile" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">companion app &#183; iOS and watchOS only</div>
+        <h1 class="rv d1"><span class="nm">Pocket</span>. Watch the fleet burn live, and cut it from a device no attacker touched.</h1>
+        <p class="lede rv d2">TokenFuse's gateway enforces the budget in the request path your agent runs on. Pocket is the control that lives outside that path: it watches every run's burn rate live and pulls the kill switch with a command signed by hardware the agent's host never touches. iOS &#183; watchOS &#183; no Android, no web: the whole security story rests on the Secure Enclave, a chip only Apple ships.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch the kill from the wrist <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/tokenfuse-mobile" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">platform</span><span class="v">iOS &#183; watchOS &#183; SwiftUI</span></div>
+        <div class="row"><span class="k">signing</span><span class="v">Secure Enclave, keys never leave the device</span></div>
+        <div class="row"><span class="k">pairs with</span><span class="v">TokenFuse Cloud</span></div>
+        <div class="row"><span class="k">surfaces</span><span class="v">Dynamic Island &#183; widgets &#183; Watch faces</span></div>
+        <div class="row"><span class="k">demo</span><span class="v">live mockups at taipanbox.github.io/tokenfuse-mobile</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one kill</div>
+      <h2>Watch the Breaker get pulled from a wrist.</h2>
+      <p class="lede">This is a simulation, but it replays a shape the app is built for: a run drifts from baseline to 2.4x its burn rate, crosses a budget, and gets killed from an Apple Watch before anyone opens a laptop. The signature that authorizes the kill never leaves the Secure Enclave; the gateway only has to trust the result.</p>
+    </div>
+    <div class="rv" id="pk-sim"></div>
+  </div>
+</section>
+
+<!-- ================= SCREENS ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">design mocks, live</div>
+      <h2>Do not watch it. Drive it.</h2>
+      <p class="lede">An interactive design mock of the iPhone and Watch apps, running here as a web page. Five iPhone screens and five Watch screens, all live: the burn ticks, the segmented control filters, the kill is a breaker you drag to arm, and a kill from the wrist updates the phone. Drive it with the steps, the tab bar, or the Watch switch.</p>
+    </div>
+    <div class="appshow rv">
+      <div id="pk-live"></div>
+      <div class="as-steps" id="pk-steps">
+        <div class="as-step"><span class="as-n mono">01</span><span class="as-body"><b>Runs, the deck</b><span>Fleet burn up top with a live sparkline, then every run as a fuse. The over-cap one sorts itself to the top, ember and pulsing. The Active / All / Killed control filters the list.</span></span></div>
+        <div class="as-step"><span class="as-n mono">02</span><span class="as-body"><b>Run detail, pull the breaker</b><span>Tap a run for spend against cap, model and steps. The kill is a physical breaker: drag the knob all the way to arm and fire it. Signed on-device.</span></span></div>
+        <div class="as-step"><span class="as-n mono">03</span><span class="as-body"><b>Always in view</b><span>The burn rate rides the Dynamic Island, an expanded long-press card, and the Lock Screen Live Activity. Glance instead of opening the app. The Kill button works from here too.</span></span></div>
+        <div class="as-step"><span class="as-n mono">04</span><span class="as-body"><b>Pairing, trust on-device</b><span>A one-time QR links the phone to your org. The Secure Enclave keypair is what actually authorizes a kill, so a stolen token alone cannot stop your agents.</span></span></div>
+        <div class="as-step"><span class="as-n mono">05</span><span class="as-body"><b>Alerts that mean act</b><span>The server pushes the moment a run crosses its cap or gets killed. Tap a banner to jump straight to the run. And on the wrist: use the Face, Fleet, Runs and Kill switch under the Watch, then hold to kill.</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One phone. One key. A path the gateway never sees.</h2>
+      <p class="lede">The app pairs to TokenFuse Cloud, not to the gateway your agent talks to. A kill or a budget change is signed on-device by the Secure Enclave, sent to Cloud, and pushed out to every gateway in the fleet from there. The request path and the kill path never share a wire.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 980 340" role="img" aria-label="Pocket architecture: the kill path stays out of band from the agent's request path">
+        <defs>
+          <marker id="pkarrGrey" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="pkarrRed" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#FF574B"/></marker>
+          <marker id="pkarrCyan" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#22D3EE"/></marker>
+        </defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="20" y="34" width="130" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="85" y="64" fill="#E9EFF6" font-size="12.5" font-weight="700">agent</text>
+          <text x="85" y="81" fill="#8A97A6" font-size="10.5">the host it runs on</text>
+
+          <rect x="580" y="104" width="190" height="88" rx="14" fill="#141C27" stroke="#2a3547"/>
+          <text x="675" y="136" fill="#E9EFF6" font-size="13" font-weight="700">gateways / runs</text>
+          <text x="675" y="154" fill="#8A97A6" font-size="10.5">breaker still lives here</text>
+
+          <rect x="810" y="120" width="150" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="885" y="148" fill="#E9EFF6" font-size="12.5" font-weight="700">provider</text>
+          <text x="885" y="165" fill="#8A97A6" font-size="10.5">the model API</text>
+
+          <rect x="20" y="228" width="170" height="84" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="105" y="258" fill="#22D3EE" font-size="13" font-weight="700">iPhone + Watch</text>
+          <text x="105" y="276" fill="#8A97A6" font-size="10.5">SwiftUI</text>
+          <text x="105" y="292" fill="#8A97A6" font-size="10.5">Secure Enclave key</text>
+
+          <rect x="250" y="204" width="250" height="120" rx="16" fill="#10161F" stroke="#22D3EE" stroke-width="1.6"/>
+          <text x="375" y="236" fill="#22D3EE" font-size="14" font-weight="700">TokenFuse Cloud</text>
+          <text x="375" y="258" fill="#8A97A6" font-size="10">pairing &#183; fleet API &#183; incidents</text>
+
+          <text x="365" y="104" fill="#FF574B" font-size="11" font-weight="700">compromised path?</text>
+          <text x="365" y="120" fill="#5A6675" font-size="10.5">the kill path does not share it</text>
+          <text x="540" y="198" fill="#22D3EE" font-size="10.5">signed commands, out of band</text>
+        </g>
+        <line x1="150" y1="80" x2="580" y2="138" stroke="#FF574B" stroke-width="1.6" marker-end="url(#pkarrRed)" class="flow"/>
+        <g stroke="#22D3EE" stroke-width="1.6" class="flow">
+          <line x1="190" y1="264" x2="250" y2="258" marker-end="url(#pkarrCyan)"/>
+          <line x1="500" y1="224" x2="580" y2="176" marker-end="url(#pkarrCyan)"/>
+        </g>
+        <line x1="770" y1="148" x2="810" y2="148" stroke="#5A6675" stroke-width="1.5" marker-end="url(#pkarrGrey)" class="flow"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a bigger dashboard. A switch you can actually reach.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>The fuse, everywhere</h3><p>Mint under budget, amber warming, ember at the cap. The run list, the Dynamic Island, and the watch face all read the fuse the same way, so nothing needs translating between screens.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hardware-signed kill</h3><p>Every kill and every budget change is signed on-device by the Secure Enclave. A fully compromised server cannot forge that order, and it cannot block it from reaching your side either.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Out of band by design</h3><p>The phone talks to TokenFuse Cloud, not through the gateway or the agent's own network path. If the request path is exactly what's compromised, the kill still lands.</p></div>
+      <div class="card hover feature b-4 rv"><h3>The fleet at a glance</h3><p>Every run with its spend, its burn rate in dollars per minute, and how close it sits to a budget break, sorted hottest first, red once it's over.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Pairing in seconds</h3><p>Scan a QR code against your own Cloud plane. The app generates a key inside the Secure Enclave on the spot; the key never leaves it, not even to the app.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>An honest demo</h3><p>No screenshots dressed up as a product. The interactive design mockups are public and run live at <a href="https://taipanbox.github.io/tokenfuse-mobile/" target="_blank" rel="noopener" style="color:var(--accent)">taipanbox.github.io/tokenfuse-mobile</a>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>A kill switch is only as fast as the hand on it.</h2>
+      <p class="lede">PagerDuty tells a human there's a fire. SSH lets a human put it out, if the human, the laptop, and the VPN all cooperate at 2am. Pocket skips the coordination problem: the hand that can pull the Breaker is already on your wrist.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Pocket</th><th>PagerDuty alert</th><th>SSH from a laptop</th></tr></thead>
+        <tbody>
+          <tr><td>Time to stop a runaway</td><td class="yes">Seconds, from a wrist</td><td class="warn">Minutes, if someone's awake</td><td class="warn">Minutes, if the laptop is near and the VPN cooperates</td></tr>
+          <tr><td>Works when the server path is compromised</td><td class="yes">Yes, out of band</td><td class="warn">Alert maybe arrives</td><td class="no">No, you're in the same path</td></tr>
+          <tr><td>Can spend be cut by accident</td><td class="yes">Hold-to-confirm, cost-bound</td><td class="no">n/a</td><td class="warn">One wrong kill -9</td></tr>
+          <tr><td>Audit trail</td><td class="yes">Every kill logged as an incident</td><td class="warn">Alert history</td><td class="no">Shell history on a laptop</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The human end of a machine decision.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Pocket is the human end of <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>: the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. Every kill lands as an incident on the same event bus the rest of the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> reads. What actually gets enforced was decided upstream, by <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> and the budgets you set. Pocket doesn't make that call; it gives you a fast, honest way to see it and override it.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">git clone <b>github.com/TAIPANBOX/tokenfuse-mobile</b></span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Clone the repo and run the SwiftUI app from Xcode against your own Cloud plane; or poke the live interactive mockups first: <a href="https://taipanbox.github.io/tokenfuse-mobile/" target="_blank" rel="noopener" style="color:var(--cyan)">taipanbox.github.io/tokenfuse-mobile</a></p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/pocket.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script src="../assets/livemock.js"></script>
+<script>LiveMock.pocket(document.getElementById("pk-live"), document.getElementById("pk-steps"));</script>
+<script>
+/* The wrist-kill scenario. A run drifts from baseline burn to 2.4x,
+   crosses a $25 budget, and gets killed from the Apple Watch: the
+   Secure Enclave signs the command, Cloud confirms, burn returns to
+   baseline. Numbers are illustrative; the shape is what the app is for. */
+Sim.mount(document.getElementById("pk-sim"),{
+  title:"simulated replay · a runaway dies from the wrist",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"Enclave-signed",color:"#22D3EE"},{label:"out of band",color:"#34D399"}],
+  stage:{mode:"outofband",
+    burn:[[0,0.42],[12,0.42],[14,1.1],[22,1.9],[30,2.3],[36,2.3],[41,0.6],[50,0.42],[60,0.42]],
+    hotT:14, pushT:22, confirmT:30, signT:36, killT:41, calmT:50},
+  series:[
+    {id:"burn",label:"burn $/min",color:"#22D3EE",max:2.6,points:[
+      [0,0.42],[12,0.42],[14,1.1],[22,1.9],[30,2.3],[36,2.3],[41,0.6],[50,0.42],[60,0.42]]},
+    {id:"spend",label:"fleet spend $",color:"#8A97A6",max:30,fill:false,points:[
+      [0,18.3],[22,24.5],[36,26.1],[41,26.4],[60,26.5]]}
+  ],
+  counters:[
+    {id:"c1",label:"burn $/min",prefix:"$",decimals:2,color:"#22D3EE",from:"burn"},
+    {id:"c2",label:"fleet spend",prefix:"$",decimals:2,color:"#8A97A6",from:"spend"},
+    {id:"c3",label:"incidents",color:"#FF574B",from:t=>t<22?0:1},
+    {id:"c4",label:"kills today",color:"#34D399",from:t=>t<41?0:1}
+  ],
+  events:[
+    {t:3,cls:"info",label:"fleet quiet &#183; burn $0.42/min across 4 runs"},
+    {t:14,cls:"warn",label:"run 7f3a2b: burn 2.4x baseline &#183; Dynamic Island goes amber"},
+    {t:22,cls:"bad",label:"push: OVER CAP &#183; $26.10 against a $25.00 budget"},
+    {t:30,cls:"info",label:"wrist: one turn of the crown, hold to confirm"},
+    {t:36,cls:"ok",label:"kill command signed by the Secure Enclave &#183; sent out of band"},
+    {t:41,cls:"ok",label:"gateway confirms: run killed &#183; breaker open"},
+    {t:50,cls:"ok",label:"burn back to baseline &#183; incident logged in Cloud"},
+    {t:57,cls:"info",label:"the server never had to be reachable from the phone's network path"}
+  ]
+});
+</script>
+</body>
+</html>

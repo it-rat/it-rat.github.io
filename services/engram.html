@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engram - the SQLite of agent memory · IT-RAT</title>
+<meta name="description" content="Embeddable agent memory in one SQLite file: episodic, semantic and procedural memory, bitemporal facts, hybrid BM25 + vector recall, why() provenance and GDPR forget. Validated on real Claude: 5 episodes became 10 facts, zero contradictions.">
+<link rel="canonical" href="https://it-rat.com/services/engram.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/engram.html">
+<meta property="og:title" content="Engram - the SQLite of agent memory · IT-RAT">
+<meta property="og:description" content="Embeddable agent memory in one SQLite file: episodic, semantic and procedural memory, bitemporal facts, hybrid BM25 + vector recall, why() provenance and GDPR forget. Validated on real Claude: 5 episodes became 10 facts, zero contradictions.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Engram - the SQLite of agent memory · IT-RAT">
+<meta name="twitter:description" content="Embeddable agent memory in one SQLite file: episodic, semantic and procedural memory, bitemporal facts, hybrid BM25 + vector recall, why() provenance and GDPR forget. Validated on real Claude: 5 episodes became 10 facts, zero contradictions.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#6C7BFF}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="engram" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">engram</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/engram" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">knowledge plane &#183; wave 1</div>
+        <h1 class="rv d1"><span class="nm">Engram</span>. The memory that remembers why.</h1>
+        <p class="lede rv d2">Vector search finds text that looks similar. It cannot say when a fact was true, where a belief came from, or that two beliefs disagree. Engram can: an embeddable memory in one SQLite file that stores raw episodes, distills them into facts with confidence scores, and answers why() for every belief it holds. No server, no Docker, and writing the first memory needs zero API keys.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch episodes become facts <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/engram" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">release</span><span class="v">v2.2.1 &#183; PyPI engdbram</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Python 3.11+ &#183; 424 tests</span></div>
+        <div class="row"><span class="k">storage</span><span class="v">single SQLite file + sqlite-vec</span></div>
+        <div class="row"><span class="k">recall</span><span class="v">hybrid BM25 + vector</span></div>
+        <div class="row"><span class="k">integrations</span><span class="v">MCP &#183; LangChain &#183; LlamaIndex</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one reflection</div>
+      <h2>Watch five episodes become ten facts.</h2>
+      <p class="lede">This is a simulation, but not a fantasy: it replays the shape of the live validation run, the first time Engram's reflection pipeline processed real Claude output instead of fixtures. Five episodes go in, reflect() reasons over them, ten subject-predicate-object facts come out: each scored for confidence, each traceable to its source episodes, zero contradictions. Three independent runs gave the same result.</p>
+    </div>
+    <div class="rv" id="en-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One file on disk. One optional network call.</h2>
+      <p class="lede">Your agent calls observe() and recall() against one .engram file: SQLite plus sqlite-vec, in-process, nothing between the agent and its memory. Inside: three kinds of memory, bitemporal facts, spreading activation and Ebbinghaus decay. The only part that ever touches a network is reflect(), through a pluggable LLM adapter, and even that can route through TokenFuse.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 330" role="img" aria-label="Engram architecture">
+        <defs><marker id="a3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="16" y="120" width="120" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="76" y="146" fill="#E9EFF6" font-size="12.5" font-weight="700">agent</text>
+          <text x="76" y="163" fill="#8A97A6" font-size="10.5">observe &#183; recall</text>
+
+          <rect x="196" y="52" width="300" height="196" rx="16" fill="#10161F" stroke="#6C7BFF" stroke-width="1.4"/>
+          <text x="346" y="80" fill="#6C7BFF" font-size="14" font-weight="700">engram.db &#183; SQLite + sqlite-vec</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <rect x="216" y="96" width="261" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="346" y="115" fill="#E9EFF6">episodic &#183; semantic &#183; procedural</text>
+            <rect x="216" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="153" fill="#E9EFF6">bitemporal facts</text>
+            <rect x="352" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="153" fill="#E9EFF6" font-size="10">spreading activation</text>
+            <rect x="216" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="191" fill="#E9EFF6">Ebbinghaus decay</text>
+            <rect x="352" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="191" fill="#E9EFF6">working memory</text>
+            <text x="346" y="228" fill="#5A6675" font-size="10.5">writes in ~4 ms &#183; no LLM in the write path</text>
+          </g>
+
+          <rect x="544" y="106" width="158" height="86" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="623" y="130" fill="#E9EFF6" font-size="12.5" font-weight="700">LLM adapter</text>
+          <text x="623" y="149" fill="#8A97A6" font-size="10.5">Anthropic/OpenAI/Ollama</text>
+          <text x="623" y="168" font-size="10.5"><tspan fill="#8A97A6">via </tspan><tspan fill="#F4B23E">TokenFuse</tspan><tspan fill="#8A97A6"> base_url</tspan></text>
+          <text x="520" y="116" fill="#5A6675" font-size="9.5">reflect</text>
+          <text x="520" y="188" fill="#5A6675" font-size="10.5">facts</text>
+
+          <rect x="742" y="34" width="200" height="104" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="60" fill="#E9EFF6" font-size="12.5" font-weight="700">MCP server &#183; stdio</text>
+          <text x="842" y="79" fill="#8A97A6" font-size="10.5">Claude Desktop &#183; Cursor</text>
+          <text x="842" y="96" fill="#8A97A6" font-size="10.5">remember/recall/why/forget</text>
+          <text x="842" y="115" fill="#5A6675" font-size="10.5">no network listener</text>
+
+          <rect x="742" y="196" width="200" height="100" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="222" fill="#E9EFF6" font-size="12.5" font-weight="700">agent-event NDJSON</text>
+          <text x="842" y="241" fill="#8A97A6" font-size="10.5">memory_written&#183;reflection_run</text>
+          <text x="842" y="256" fill="#8A97A6" font-size="10.5">contradiction&#183;memory_forgotten</text>
+          <text x="842" y="276" fill="#5A6675" font-size="10.5">opt-in &#183; off by default</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="136" y1="149" x2="188" y2="149" marker-end="url(#a3)"/>
+          <line x1="496" y1="126" x2="536" y2="126" marker-end="url(#a3)"/>
+          <line x1="544" y1="172" x2="504" y2="172" marker-end="url(#a3)"/>
+          <line x1="734" y1="88" x2="504" y2="102" marker-end="url(#a3)"/>
+          <line x1="496" y1="212" x2="734" y2="232" marker-end="url(#a3)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a log of text. Beliefs with receipts.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Single file, embeddable</h3><p>One .engram file on SQLite plus sqlite-vec: no server, no Docker, no config file. pip install, two lines of Python, and the first memory is on disk. Writes land in about 4 ms because no LLM sits in the write path.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>reflect() distills facts</h3><p>A background reflection loop groups recent episodes and asks an LLM to extract subject-predicate-object facts, each with a confidence score. Every fact keeps a why() chain: which episodes produced it, which run extracted it, which model, at what confidence.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Facts that know their dates</h3><p>Every fact carries two timelines: when it was true in reality and when the system learned it. Ask what the agent believed as of March and get that answer, not today's. When Ivan changes jobs, the old fact is closed with an end date, not deleted.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Three ways to recall</h3><p>Cosine vectors for meaning, BM25 blended with vectors when exact terms matter, and spreading activation that walks the entity graph. A query about Ivan can surface Project X because the graph connects them, even when the texts share no words.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>GDPR forget, scoped</h3><p>forget() erases an episode, forget_fact() a single semantic fact, forget_entity() cascades across episodes, facts and graph edges. Erasure is agent-scoped as of 2.2.1: one agent cannot delete another agent's episodes.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>MCP server, stdio only</h3><p>engram-mcp speaks stdio: no network listener, no port to guard. Claude Desktop, Claude Code and Cursor get remember, recall, why and forget against the same store with zero integration code. reflect() is deliberately not exposed to clients.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>Similarity is a fraction of memory.</h2>
+      <p class="lede">Pinecone, Weaviate and pgvector are good at the problem they chose: similarity search over large corpora. Engram ships a vector index too, in-process. The difference is everything similarity cannot answer: when a fact was true, where it came from, whether two beliefs disagree. The third column is what most agents actually run on today.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Engram</th><th>Vector DBs</th><th>Raw chat history</th></tr></thead>
+        <tbody>
+          <tr><td>What it stores</td><td class="yes">Memories with provenance</td><td class="warn">Embeddings of text</td><td class="no">Transcripts</td></tr>
+          <tr><td>Reasons over time</td><td class="yes">Bitemporal: valid + recorded</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Explains itself</td><td class="yes">why() chain to source episodes</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Contradiction handling</td><td class="yes">Detected, flagged as events</td><td class="no">Not a concept</td><td class="no">None</td></tr>
+          <tr><td>Runs where</td><td class="yes">In-process, one file</td><td class="warn">Managed service</td><td class="warn">In your prompt window</td></tr>
+          <tr><td>Forget a person</td><td class="yes">Targeted GDPR erase</td><td class="warn">Delete by id, if you kept the ids</td><td class="no">Impossible</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The plane that remembers.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Engram is the knowledge plane of the stack. Its own reflect() calls can point base_url at <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>, so even thinking has a budget. Every memory_written, reflection_run, contradiction_found and memory_forgotten goes out as an agent-event on the same NDJSON bus <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> correlates into the identity graph. The envelope they travel in is the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Agent Passport contract</a>: one spec, every service, including this one.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">pip install <b>engdbram</b></span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">The PyPI name is engdbram (the plain name was taken); the import stays <span class="mono" style="font-size:12px">from engram import Engram</span>. Your first memory needs zero API keys: an LLM enters the picture only when you ask for reflect().</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/engram.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* Five episodes become ten facts. Shape mirrors the live validation record:
+   Engram's Anthropic adapter ran against real Claude on disposable boxes,
+   5 episodes -> 10 facts (twice, on two topologies) and 8 -> 17 in the
+   enriched run; zero contradictions, every fact with why() provenance. */
+Sim.mount(document.getElementById("en-sim"),{
+  title:"simulated replay · five episodes become ten facts",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"reflect() armed",color:"#6C7BFF"},{label:"one .engram file",color:"#34D399"}],
+  stage:{mode:"reflect",
+    episodes:[4,10,16,22,28],
+    reflectT:34, checkT:56,
+    facts:[
+      {t:40.6,from:[1],conf:0.95},
+      {t:40.6,from:[1],conf:0.89},
+      {t:43.6,from:[3],conf:0.92},
+      {t:43.6,from:[3,0],conf:0.84},
+      {t:46.6,from:[2],conf:0.88},
+      {t:46.6,from:[2],conf:0.81},
+      {t:49.6,from:[4],conf:0.90},
+      {t:49.6,from:[4],conf:0.86},
+      {t:52.6,from:[0],conf:0.91},
+      {t:52.6,from:[0],conf:0.88}
+    ]},
+  series:[
+    {id:"eps",label:"episodes",color:"#8A97A6",max:12,points:[
+      [0,0],[4,0],[4.6,1],[10,1],[10.6,2],[16,2],[16.6,3],[22,3],[22.6,4],[28,4],[28.6,5],[60,5]]},
+    {id:"facts",label:"facts",color:"#6C7BFF",max:12,points:[
+      [0,0],[40,0],[40.6,2],[43,2],[43.6,4],[46,4],[46.6,6],[49,6],[49.6,8],[52,8],[52.6,10],[60,10]]}
+  ],
+  counters:[
+    {id:"c1",label:"episodes observed",color:"#8A97A6",from:t=>t<4?0:t<10?1:t<16?2:t<22?3:t<28?4:5},
+    {id:"c2",label:"facts extracted",color:"#6C7BFF",from:t=>t<40?0:t<43?2:t<46?4:t<49?6:t<52?8:10},
+    {id:"c3",label:"contradictions",color:"#34D399",from:t=>0},
+    {id:"c4",label:"recall ready",unit:"%",color:"#E9EFF6",from:t=>(t<40?0:t<43?2:t<46?4:t<49?6:t<52?8:10)*10}
+  ],
+  events:[
+    {t:2,cls:"info",label:"store opens · ./agent.engram · no API key"},
+    {t:4,cls:"info",label:"episode observed · &quot;customer asked about refunds&quot;"},
+    {t:10,cls:"info",label:"episode observed · &quot;Ivan moved from Acme to Globex&quot;"},
+    {t:16,cls:"info",label:"episode observed · &quot;Alice presented the Q3 roadmap&quot;"},
+    {t:22,cls:"info",label:"episode observed · &quot;customer prefers email over calls&quot;"},
+    {t:28,cls:"info",label:"episode observed · &quot;team shipped payment service v2&quot;"},
+    {t:34,cls:"warn",label:"reflect() starts · Claude reasons over 5 episodes"},
+    {t:40,cls:"ok",label:"fact: Ivan works_at Globex · confidence 0.95 · derived_from ep-2"},
+    {t:43,cls:"ok",label:"fact: customer_X prefers email · confidence 0.92 · derived_from ep-4"},
+    {t:46,cls:"ok",label:"fact: Alice presented Q3 roadmap · confidence 0.88 · derived_from ep-3"},
+    {t:49,cls:"ok",label:"fact: payment_service at v2 · confidence 0.90 · derived_from ep-5"},
+    {t:52,cls:"ok",label:"facts 9-10 land · refund policy pair · derived_from ep-1"},
+    {t:56,cls:"ok",label:"10 facts, 0 contradictions, full why() provenance"},
+    {t:59,cls:"info",label:"same run live on real Claude: 5 episodes &#8594; 10 facts"}
+  ]
+});
+</script>
+</body>
+</html>

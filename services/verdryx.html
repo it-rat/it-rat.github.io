@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verdryx - cost per correct answer, not cost per token · IT-RAT</title>
+<meta name="description" content="Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.">
+<link rel="canonical" href="https://it-rat.com/services/verdryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/verdryx.html">
+<meta property="og:title" content="Verdryx - cost per correct answer, not cost per token · IT-RAT">
+<meta property="og:description" content="Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verdryx - cost per correct answer, not cost per token · IT-RAT">
+<meta name="twitter:description" content="Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#FF7AA2}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="verdryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">verdryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/verdryx" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">quality plane &#183; wave 2</div>
+        <h1 class="rv d1"><span class="nm">Verdryx</span>. The denominator your LLM bill is missing.</h1>
+        <p class="lede rv d2">Cost-per-token dashboards report what a call cost and stop there. They cannot tell a successful call from a wasted one. Verdryx grades the output, exact match, regex, a production outcome tag, or an LLM judge, and prices the result that actually matters: cost per resolved case, not cost per call. On the last live run: $0.00042 to resolve a case, $0.00025 spent on one that went nowhere.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch an afternoon get priced <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/verdryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">version</span><span class="v">0.1.0 &#183; Python 3.11+</span></div>
+        <div class="row"><span class="k">tests</span><span class="v">217 &#183; fully offline suite</span></div>
+        <div class="row"><span class="k">core deps</span><span class="v">zero (stdlib + optional extras)</span></div>
+        <div class="row"><span class="k">reads</span><span class="v">tokenfuse Parquet traces &#183; NDJSON &#183; CSV</span></div>
+        <div class="row"><span class="k">exports</span><span class="v">agent-events v0.2 &#183; OTLP spans</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, one shift</div>
+      <h2>Watch spend turn into a verdict.</h2>
+      <p class="lede">This is a simulation, but shaped by the real run: 176 real Claude calls read back as outcome-tagged traces. A shift's worth of support cases gets graded, a real cost per resolved case comes out the other side, and a drift check runs against a stored baseline before one OTLP span closes the loop.</p>
+    </div>
+    <div class="rv" id="vx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>Four graders in, one honest number out.</h2>
+      <p class="lede">Traces and eval sets go in. Exact match, regex, an outcome tag straight off the gateway, or an LLM judge decide what happened, and the judge's own calls get priced like everything else. What comes out: a cost-per-outcome report, a drift verdict against a stored baseline, a SQLite file, and an event or a span for whatever is already watching your stack.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 330" role="img" aria-label="Verdryx architecture">
+        <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="16" y="40" width="168" height="46" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="100" y="63" fill="#E9EFF6" font-size="11" font-weight="700">tokenfuse Parquet</text>
+          <text x="100" y="77" fill="#8A97A6" font-size="10.5">trace dir</text>
+
+          <rect x="16" y="98" width="168" height="46" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="100" y="125" fill="#E9EFF6" font-size="11.5" font-weight="700">outcomes.ndjson</text>
+
+          <rect x="16" y="156" width="168" height="46" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="100" y="183" fill="#E9EFF6" font-size="11.5" font-weight="700">evalset.json</text>
+
+          <rect x="240" y="20" width="360" height="272" rx="16" fill="#10161F" stroke="#FF7AA2" stroke-width="1.4"/>
+          <text x="420" y="48" fill="#FF7AA2" font-size="14" font-weight="700">verdryx core</text>
+
+          <text x="420" y="70" fill="#8A97A6" font-size="10">graders</text>
+          <g font-size="10" fill="#E9EFF6">
+            <rect x="260" y="78" width="76" height="28" rx="8" fill="#141C27" stroke="#2a3547"/><text x="298" y="96">exact</text>
+            <rect x="344" y="78" width="76" height="28" rx="8" fill="#141C27" stroke="#2a3547"/><text x="382" y="96">regex</text>
+            <rect x="428" y="78" width="80" height="28" rx="8" fill="#141C27" stroke="#2a3547"/><text x="468" y="96">outcome-tag</text>
+            <rect x="516" y="78" width="64" height="28" rx="8" fill="#141C27" stroke="#FF7AA2"/><text x="548" y="96" fill="#FF7AA2">judge</text>
+          </g>
+          <text x="420" y="120" fill="#5A6675" font-size="10.5">the judge&#8217;s calls are priced too</text>
+
+          <rect x="260" y="134" width="320" height="42" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="420" y="152" fill="#E9EFF6" font-size="10.5" font-weight="700">cost model</text>
+          <text x="420" y="168" fill="#8A97A6" font-size="10">the evaluated model&#8217;s completion is priced too</text>
+
+          <rect x="260" y="188" width="320" height="42" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="420" y="206" fill="#E9EFF6" font-size="10.5" font-weight="700">multi-tag runs</text>
+          <text x="420" y="222" fill="#8A97A6" font-size="10.5">reduce to last outcome in step order</text>
+
+          <text x="420" y="256" fill="#5A6675" font-size="10.5">every case resolves to a Score in [0.0, 1.0]</text>
+
+          <rect x="742" y="20" width="200" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="46" fill="#E9EFF6" font-size="12.5" font-weight="700">reports</text>
+          <text x="842" y="66" fill="#8A97A6" font-size="10.5">CostPerOutcomeReport</text>
+          <text x="842" y="82" fill="#8A97A6" font-size="10.5">DriftReport + baseline</text>
+          <text x="842" y="102" fill="#5A6675" font-size="10.5">Welch&#8217;s-t &#183; bootstrap CI</text>
+
+          <rect x="742" y="140" width="200" height="54" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="163" fill="#E9EFF6" font-size="12.5" font-weight="700">store</text>
+          <text x="842" y="181" fill="#8A97A6" font-size="10.5">SQLite &#183; verdryx.db</text>
+
+          <rect x="742" y="204" width="200" height="86" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="230" fill="#E9EFF6" font-size="12.5" font-weight="700">event bus + traces</text>
+          <text x="842" y="249" fill="#8A97A6" font-size="10.5">agent-events &#183; verdryx</text>
+          <text x="842" y="267" fill="#22D3EE" font-size="10">OTLP &#8594; VERDRYX_OTLP_ENDPOINT</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="184" y1="63" x2="232" y2="90" marker-end="url(#a2)"/>
+          <line x1="184" y1="121" x2="232" y2="155" marker-end="url(#a2)"/>
+          <line x1="184" y1="179" x2="232" y2="210" marker-end="url(#a2)"/>
+          <line x1="600" y1="80" x2="734" y2="70" marker-end="url(#a2)"/>
+          <line x1="600" y1="160" x2="734" y2="167" marker-end="url(#a2)"/>
+          <line x1="600" y1="220" x2="734" y2="247" marker-end="url(#a2)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it grades</div>
+      <h2>Not a bigger number. A truer one.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Cost per outcome</h3><p>Resolved, abandoned, escalated: real outcome tags straight off the TokenFuse gateway turn into a dollar figure per case, not a total nobody can act on.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Drift with statistics</h3><p>A flat threshold catches the obvious drop. A two-sample significance check beside it, Welch's t plus a bootstrap interval, catches the small, consistent regression a threshold tuned for noise would miss. Point it at a baseline whose source run is gone and it fails loudly, not silently.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>The LLM judge is metered</h3><p>An llm_judge case's Score.cost_usd is a real dollar figure, priced against the same book TokenFuse uses, not the zero placeholder the other three graders leave behind. Quality measurement gets an honest price too.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Zero-dependency core</h3><p>The eval runner, graders and drift math import nothing but the standard library. Anthropic and Parquet support are opt-in extras, not a tax on the common path.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Offline test suite</h3><p>217 tests run against a deterministic StubLLMAdapter, no network, no API key. It's what Verdryx's own CI runs, and what --model stub gives you too.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Defensive by design</h3><p>Grades an operator's own agents against an eval set or a production outcome tag. The README puts it plainly: it &#8220;never manipulates outputs, never crafts adversarial prompts, and never attacks anything.&#8221;</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>Cost per call was never the question.</h2>
+      <p class="lede">Cost-per-token dashboards answer a question nobody asked: what did the call cost. Verdryx answers the one that matters: what did getting it right cost, and did that number just get worse.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Verdryx</th><th>cost-per-token dashboards</th><th>&#8220;eyeball the transcripts&#8221;</th></tr></thead>
+        <tbody>
+          <tr><td>Unit</td><td>Correct case</td><td>Token</td><td>Vibe</td></tr>
+          <tr><td>Catches quality regressions</td><td class="yes">Drift vs baseline, significance-tested</td><td class="no">No</td><td class="warn">Sometimes, too late</td></tr>
+          <tr><td>Knows what an abandoned attempt cost</td><td class="yes">Yes, $0.00025 in the live run</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Needs a platform</td><td class="yes">pip install, one SQLite file</td><td class="no">A SaaS contract</td><td class="warn">Nothing but tears</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">The line that turns spend into a verdict.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Verdryx prices the traces <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a> writes: outcome tags and spend data share the same request path, so cost and quality can never quietly drift apart. Its <span class="mono" style="font-size:12.5px">quality_drift</span> events ride the same bus as <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a>'s Agent Passport contract. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> can require an off-path reaction from Verdryx as part of a pre-prod drill.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>verdryx eval</b> evalset.json --model stub --db verdryx.db</span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">No network, no key: <span class="mono" style="font-size:12px">--model stub</span> is deterministic. Then price the traces it left behind.</p>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>verdryx cost-per-correct</b> --traces $TOKENFUSE_DATA_DIR</span></div>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/verdryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The afternoon-shift scenario. Shape mirrors the live validation record:
+   176 real Claude calls read back as outcome-tagged traces, graded in
+   batches, resolved rate settling at 60%, cost per resolved case measured
+   at $0.00042 against $0.00025 burned on each abandoned attempt, then a
+   drift check against a stored baseline holds stable and closes with one
+   OTLP span. */
+Sim.mount(document.getElementById("vx-sim"),{
+  title:"simulated replay · an afternoon of support agents, priced by outcome",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"offline suite",color:"#34D399"},{label:"217 tests",color:"#FF7AA2"}],
+  stage:{mode:"priced",
+    batches:[{t:10,n:12},{t:20,n:12},{t:30,n:11},{t:38,n:10},{t:48,n:9},{t:56,n:8}],
+    lockT:30, lockV:0.00042, bandT:38, driftT:48, otlpT:56, tol:0.00007, yMax:0.00095},
+  series:[
+    {id:"graded",label:"cases graded",color:"#8A97A6",max:130,points:[
+      [0,0],[8,0],[10,24],[18,24],[20,46],[28,46],[30,68],[36,68],[38,88],[46,88],[48,104],[54,104],[56,120],[60,120]]},
+    {id:"costres",label:"cost per resolved ($ x 0.0001)",color:"#FF7AA2",max:6,fill:false,points:[[0,0],[29,0],[30,4.2],[60,4.2]]}
+  ],
+  counters:[
+    {id:"c1",label:"cases graded",color:"#8A97A6",from:t=>t<10?0:t<20?24:t<30?46:t<38?68:t<48?88:t<56?104:120},
+    {id:"c2",label:"resolved",unit:"%",color:"#34D399",from:t=>t<10?0:60},
+    {id:"c3",label:"cost per resolved",prefix:"$",decimals:5,color:"#FF7AA2",from:t=>t<30?0:0.00042},
+    {id:"c4",label:"drift checks passed",color:"#2DD4BF",from:t=>t<48?0:1}
+  ],
+  events:[
+    {t:2,cls:"info",label:"reading tokenfuse traces &#183; outcome tags: case_resolved / abandoned / escalated"},
+    {t:10,cls:"ok",label:"batch 1 graded &#183; resolved 60%"},
+    {t:20,cls:"warn",label:"abandoned attempts still cost money: $0.00025 each, for nothing"},
+    {t:30,cls:"ok",label:"cost per resolved case: $0.00042 &#183; measured, not estimated"},
+    {t:38,cls:"info",label:"baseline snapshotted for drift"},
+    {t:48,cls:"ok",label:"drift check vs baseline: stable (two-sample significance, not just a threshold)"},
+    {t:56,cls:"ok",label:"OTLP span exported &#183; one per eval/drift run"},
+    {t:59,cls:"info",label:"same numbers measured on the live 176-call run"}
+  ]
+});
+</script>
+</body>
+</html>

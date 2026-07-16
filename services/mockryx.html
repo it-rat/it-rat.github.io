@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockryx - fire drills for your guardrails, before production &#183; IT-RAT</title>
+<meta name="description" content="Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.">
+<link rel="canonical" href="https://it-rat.com/services/mockryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/mockryx.html">
+<meta property="og:title" content="Mockryx - fire drills for your guardrails, before production &#183; IT-RAT">
+<meta property="og:description" content="Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mockryx - fire drills for your guardrails, before production &#183; IT-RAT">
+<meta name="twitter:description" content="Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  :root{--accent:#FF8A5B}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+</style>
+</head>
+<body data-service="mockryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">mockryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="https://github.com/TAIPANBOX/mockryx" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">pre-prod plane &#183; wave 2</div>
+        <h1 class="rv d1"><span class="nm">Mockryx</span>. Prove every guardrail holds, against your own gateway, before real traffic.</h1>
+        <p class="lede rv d2">A guardrail nobody has ever fired is a guess. Mockryx replays five hostile scenarios (a fake secret in a prompt, a budget burn, a denied tool, a forged delegation chain, an unapproved action) against the one URL you hand it: your own pre-production gateway, with a fake provider behind it. The enforcement path is the real one; the spend is not. CI reads the verdict as an exit code.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch the fire drill <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/mockryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">pre-1.0 &#183; main is supported</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go &#183; outbound-only CLI</span></div>
+        <div class="row"><span class="k">scenarios</span><span class="v">5 shipped &#183; YAML</span></div>
+        <div class="row"><span class="k">target</span><span class="v">your own gateway &#183; /v1/messages</span></div>
+        <div class="row"><span class="k">verdicts</span><span class="v">exit 0 held &#183; 1 real gap &#183; 2 broken</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">sixty seconds, five drills</div>
+      <h2>Watch every guardrail answer for itself.</h2>
+      <p class="lede">This is a simulation, and the shape is the real drill record: three of these five scenarios ran live against a real gateway on disposable boxes, twice, and held both times, 0 gaps, $0 real spend. The other two are the Wardryx scenarios that ship in the same set. The provider behind the gateway is fake, so the burn the runaway drill attempts never reaches an invoice.</p>
+    </div>
+    <div class="rv" id="mx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One target URL. One report. Three exit codes.</h2>
+      <p class="lede">A scenario file names a request in the Anthropic Messages shape, the status it must be answered with, the headers that must ride the response and, optionally, the off-path event that must follow. The runner sends it at your gateway's /v1/messages, reads the gateway's own answer, polls the NDJSON event logs the off-path services write, and folds everything into a report and an exit code a CI gate can act on. It never talks to anything but the gateway you name.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 336" role="img" aria-label="Mockryx architecture">
+        <defs><marker id="a3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="16" y="24" width="200" height="188" rx="16" fill="#10161F" stroke="#FF8A5B" stroke-width="1.4"/>
+          <text x="116" y="50" fill="#FF8A5B" font-size="14" font-weight="700">mockryx CLI</text>
+          <text x="116" y="66" fill="#8A97A6" font-size="10.5">one scenario = one YAML</text>
+          <g font-size="10.5" fill="#E9EFF6">
+            <rect x="32" y="76" width="168" height="22" rx="7" fill="#141C27" stroke="#2a3547"/><text x="116" y="90">request body</text>
+            <rect x="32" y="102" width="168" height="22" rx="7" fill="#141C27" stroke="#2a3547"/><text x="116" y="116">expect.status &#183; header</text>
+            <rect x="32" y="128" width="168" height="36" rx="7" fill="#141C27" stroke="#2a3547"/>
+            <text x="116" y="142">expect.event</text>
+            <text x="116" y="156" font-size="10.5" fill="#5A6675">source &#183; type &#183; &lt;10s</text>
+          </g>
+          <text x="116" y="184" fill="#5A6675" font-size="10.5">emits sim_run &#183; sim_finding</text>
+          <text x="116" y="198" fill="#5A6675" font-size="10.5">outbound-only &#183; one target</text>
+
+          <rect x="330" y="24" width="240" height="188" rx="16" fill="#10161F" stroke="#2a3547"/>
+          <text x="450" y="50" fill="#E9EFF6" font-size="12.5" font-weight="700">your pre-prod gateway :8080</text>
+          <text x="450" y="66" fill="#8A97A6" font-size="10.5">TokenFuse + Wardryx + DLP</text>
+          <g font-size="10.5">
+            <rect x="348" y="78" width="204" height="24" rx="7" fill="#141C27" stroke="#F4B23E"/><text x="450" y="93" fill="#F4B23E">TokenFuse breaker &#183; 402</text>
+            <rect x="348" y="108" width="204" height="24" rx="7" fill="#141C27" stroke="#F4B23E"/><text x="450" y="123" fill="#F4B23E">DLP &#183; 403 on a secret shape</text>
+            <rect x="348" y="138" width="204" height="24" rx="7" fill="#141C27" stroke="#2DD4BF"/><text x="450" y="153" fill="#2DD4BF">Wardryx PEP &#183; deny / hold</text>
+          </g>
+          <text x="450" y="184" fill="#5A6675" font-size="10.5">the real enforcement path</text>
+          <text x="450" y="198" fill="#5A6675" font-size="10.5">never prod &#183; never anyone else's</text>
+
+          <rect x="680" y="88" width="180" height="60" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="770" y="112" fill="#E9EFF6" font-size="12.5" font-weight="700">fake provider</text>
+          <text x="770" y="129" fill="#8A97A6" font-size="10.5">mock upstream &#183; $0 spend</text>
+
+          <rect x="16" y="252" width="200" height="64" rx="12" fill="#10161F" stroke="#2a3547"/>
+          <text x="116" y="274" fill="#E9EFF6" font-size="12" font-weight="700">report + exit code</text>
+          <text x="116" y="291" fill="#8A97A6" font-size="10.5">human / json &#183; gates CI</text>
+          <text x="116" y="305" fill="#FF8A5B" font-size="10.5">0 held &#183; 1 gap &#183; 2 broken</text>
+
+          <rect x="330" y="252" width="240" height="64" rx="12" fill="#10161F" stroke="#2a3547"/>
+          <text x="450" y="274" fill="#E9EFF6" font-size="12" font-weight="700">watch files</text>
+          <text x="450" y="291" fill="#8A97A6" font-size="10.5">Verdryx / Idryx / Qryx NDJSON</text>
+          <text x="450" y="305" fill="#8A97A6" font-size="10.5">polled every 200ms</text>
+
+          <text x="269" y="106" fill="#5A6675" font-size="10.5">POST /v1/messages</text>
+          <text x="458" y="232" fill="#5A6675" font-size="10.5" text-anchor="start">async reactions</text>
+          <text x="272" y="240" fill="#5A6675" font-size="10.5">expect.event &#183; polled</text>
+          <text x="770" y="282" fill="#5A6675" font-size="10.5">a drill on every merge,</text>
+          <text x="770" y="298" fill="#5A6675" font-size="10.5">instead of a report once a year</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="216" y1="118" x2="322" y2="118" marker-end="url(#a3)"/>
+          <line x1="570" y1="118" x2="672" y2="118" marker-end="url(#a3)"/>
+          <line x1="450" y1="212" x2="450" y2="244" marker-end="url(#a3)"/>
+          <line x1="326" y1="250" x2="224" y2="214" marker-end="url(#a3)"/>
+          <line x1="116" y1="212" x2="116" y2="244" marker-end="url(#a3)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it proves</div>
+      <h2>Not a mock of your gateway. Your gateway.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Scenarios are YAML, not code</h3><p>One drill is one file: the request to send, the status the guardrail must answer, the headers it must stamp. It reads like the real call it imitates. A malformed file fails the whole load, because a safety check that vanishes silently is worse than one that fails loudly.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>In-path checks, on the real path</h3><p>Assertions read the gateway's own answers: the breaker's 402, DLP's 403, the deny or hold riding the x-fuse-wardryx header. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Async reaction checks</h3><p>expect.event demands the off-path services actually react: name a source and a type, and the watcher polls the agent-event NDJSON logs Verdryx, Idryx and Qryx already write, correlated by run_id. A gateway that blocks while nobody downstream notices is half a defense.</p></div>
+      <div class="card hover feature b-4 rv"><h3>A skip cannot hide a gap</h3><p>A guardrail that is off looks exactly like one that is broken. The runner takes the x-fuse header family as evidence a feature is wired in, reports skipped_not_configured when it is not, and --fail-on-skip turns even a skip into a failure when you know the guardrail must be there.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>CI-native exit codes</h3><p>Exit 0: every drill held. Exit 1: a real defensive gap, fail the build. Exit 2: the harness itself is broken (bad flag, unreadable scenarios), so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Zero real spend by design</h3><p>The provider behind the gateway is fake, so the runaway scenario can burn all it wants: the meter it trips is real, the invoice is not. And every hostile input stays inside your perimeter; Mockryx only ever talks to the one gateway URL you hand it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">an honest comparison</div>
+      <h2>The drill you can afford to run every release.</h2>
+      <p class="lede">A yearly pentest does real work Mockryx cannot: people, phishing, infrastructure. What it cannot do is tell you tomorrow morning that yesterday's config change broke the DLP. And unit tests with a mocked gateway mostly prove the mocks still pass. Mockryx drills the assembled thing.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Mockryx</th><th>Annual pentest</th><th>&#8220;Trust the unit tests&#8221;</th></tr></thead>
+        <tbody>
+          <tr><td>Cadence</td><td class="yes">Every release</td><td class="warn">Yearly</td><td class="no">Whenever</td></tr>
+          <tr><td>Tests the assembled system</td><td class="yes">Real gateway, real policies</td><td class="warn">Sometimes</td><td class="no">No: mocks all the way down</td></tr>
+          <tr><td>Costs real tokens</td><td class="yes">No</td><td class="no">n/a</td><td class="warn">Sometimes</td></tr>
+          <tr><td>Proves off-path services react</td><td class="yes">Yes: expect.event</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Who reads the result</td><td class="yes">A CI gate, every merge</td><td class="warn">A PDF for the board</td><td class="no">Nobody</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">It picks fights with the rest of the stack. On purpose, in pre-prod.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          In the request path, Mockryx rehearses <a href="tokenfuse.html" data-dir="back" style="color:var(--amber)">TokenFuse</a>: the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a>, asserting that deny and hold verdicts land in the x-fuse-wardryx header. Off path, expect.event demands that <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>, <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> and <a href="qryx.html" data-dir="fwd" style="color:var(--violet)">Qryx</a> visibly react to what just happened. And every finding it makes travels as sim_run and sim_finding events on the same bus as everything else: <a href="platform.html" data-dir="fwd" style="color:var(--steel)">the shared contract</a>.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx run</b> --gateway http://127.0.0.1:8080 ./scenarios</span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx report</b> out/report.json</span></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Add <span class="mono" style="font-size:12px">--save out/report.json</span> to keep the evidence. Point it at pre-prod, never at prod: the URL you pass is the only place it will ever send traffic.</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/mockryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The five-drill replay. Shape follows the real record (VALIDATION.md):
+   dlp-secret-leak, runaway-budget and wardryx-denied-tool ran live against
+   a real gateway, twice, 0 gaps, $0 real spend. approval-required and
+   on-behalf-of-forged-chain are the Wardryx scenarios shipped in the same
+   set. Exit 0 means every guardrail held. */
+Sim.mount(document.getElementById("mx-sim"),{
+  title:"simulated replay · five hostile scenarios, zero real spend",
+  window:60, duration:16000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"fire drill, not a fire",color:"#FF8A5B"},{label:"fake provider · $0",color:"#34D399"}],
+  stage:{mode:"drills",
+    drills:[
+      {t:9,label:"dlp-secret-leak",code:"403"},
+      {t:18,label:"runaway-budget",code:"402"},
+      {t:27,label:"wardryx-denied-tool",code:"403"},
+      {t:36,label:"approval-required",code:"403"},
+      {t:45,label:"forged-chain",code:"403"}
+    ],
+    skipNoteT:52, verdictT:58},
+  series:[
+    {id:"checks",label:"checks run",color:"#8A97A6",max:6,points:[
+      [0,0],[8,0],[9,1],[17,1],[18,2],[26,2],[27,3],[35,3],[36,4],[44,4],[45,5],[60,5]]},
+    {id:"gaps",label:"gaps found",color:"#FF8A5B",max:6,fill:false,points:[[0,0],[60,0]]}
+  ],
+  counters:[
+    {id:"c1",label:"scenarios",color:"#FF8A5B",from:t=>t<9?0:t<18?1:t<27?2:t<36?3:t<45?4:5},
+    {id:"c2",label:"guardrails held",color:"#34D399",from:t=>t<9?0:t<18?1:t<27?2:t<36?3:t<45?4:5},
+    {id:"c3",label:"gaps",color:"#FF574B",from:()=>0},
+    {id:"c4",label:"exit code",color:"#E9EFF6",from:()=>0}
+  ],
+  events:[
+    {t:2,cls:"info",label:"gateway pointed at a fake provider · no real money can burn"},
+    {t:9,cls:"ok",label:"dlp-secret-leak: AWS key shape in the prompt · blocked, 403"},
+    {t:18,cls:"ok",label:"runaway-budget: burn past the cap · breaker answers 402"},
+    {t:27,cls:"ok",label:"wardryx-denied-tool: declared shell_exec · 403 + x-fuse-wardryx: deny"},
+    {t:36,cls:"ok",label:"approval-required: costly action · 403 + hold header (no token present)"},
+    {t:45,cls:"ok",label:"on-behalf-of-forged-chain: cyclic delegation · deny"},
+    {t:52,cls:"warn",label:"a skipped guardrail can be a lie: --fail-on-skip makes it a failure"},
+    {t:58,cls:"ok",label:"verdict: 5/5 held · 0 gaps · exit 0"}
+  ]
+});
+</script>
+</body>
+</html>
