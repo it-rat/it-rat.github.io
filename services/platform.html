@@ -71,6 +71,7 @@
         <p class="lede rv d2">Under the seven services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch one envelope cross the stack <span class="mono">&#9654;</span></a>
+          <a class="btn" href="#run">Run the whole stack locally</a>
           <a class="btn" href="https://github.com/TAIPANBOX/agent-passport" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
         </div>
       </div>
@@ -212,6 +213,41 @@
       <div class="card hover feature b-4 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped. Exit 0 or exit 1; it has already caught a real 63-versus-64 hex character prev_hash defect.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Governance as code</h3><p>Three Terraform resources: taipan_budget, taipan_agent_passport, taipan_wardryx_policy. Budgets and policies get PRs, plans and diffs like everything else, and edits made out of band surface on the next plan. Where the API has no delete, the provider says so instead of pretending.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is not on the Terraform Registry yet: you build from source and wire it in with dev_overrides, exactly as the README says. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RUN LOCALLY ================= -->
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try the whole thing</div>
+      <h2>Run the whole stack locally.</h2>
+      <p class="lede">One command builds the open services from source, starts them on a fixed loopback port map, and opens the money-plane dashboard in your browser. No Docker, no account, nothing leaves your machine. Press Ctrl-C and it stops clean, with no orphaned processes.</p>
+    </div>
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">two commands</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
+          <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
+        </div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The first run builds tokenfuse in release mode and can take a few minutes; after that startup is seconds. Then open the link it prints, and you are looking at your own local money plane, live, with a short demo dataset already in it. Point an agent's OpenAI base URL at the gateway to feed it your own.</p>
+        <div style="margin-top:18px">
+          <a class="btn" href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener">stack-up on GitHub &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">what comes up</div>
+        <div class="hero-side" style="margin-top:14px">
+          <div class="row"><span class="k">gateway</span><span class="v">:4100 &#183; budgets</span></div>
+          <div class="row"><span class="k">cloud + dashboard</span><span class="v">:8080 &#183; :3000</span></div>
+          <div class="row"><span class="k">wardryx</span><span class="v">:8090 &#183; policy</span></div>
+          <div class="row"><span class="k">idryx</span><span class="v">:8081 &#183; identity</span></div>
+          <div class="row"><span class="k">every bind</span><span class="v">127.0.0.1 only</span></div>
+        </div>
+        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">Needs git, Rust and Node; Go adds the policy and identity planes. macOS or Linux. A local sandbox to try the stack, not a production deployment.</p>
+      </div>
     </div>
   </div>
 </section>
