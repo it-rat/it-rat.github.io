@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enterprise · Genaryx, the control room over the stack - in the works · IT-RAT</title>
+<meta name="description" content="Genaryx is the enterprise control room we are building over the open agent-governance stack: one desktop app for money, policy, identity, quality and evidence, a hardware-signed kill switch, a phone and watch pager, and Felyx, a local-first AI copilot that can read everything and touch nothing. In the works: no pricing, no downloads yet.">
+<link rel="canonical" href="https://it-rat.com/enterprise.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/enterprise.html">
+<meta property="og:title" content="Enterprise · Genaryx, the control room over the stack - in the works · IT-RAT">
+<meta property="og:description" content="One desktop control room over the open agent-governance stack: hardware-signed kill switch, WireGuard remote, iPhone + Watch pager, and a local-first AI copilot. Shown honestly, before it ships.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise · Genaryx, the control room over the stack - in the works · IT-RAT">
+<meta name="twitter:description" content="One desktop control room over the open agent-governance stack: hardware-signed kill switch, WireGuard remote, iPhone + Watch pager, and a local-first AI copilot. Shown honestly, before it ships.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  :root{--accent:var(--violet)}
+  .svc-hero{padding:clamp(40px,7vw,80px) 0 34px}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg);text-align:right}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+
+  /* ---- the "in the works" ribbon ---- */
+  .ent-ribbon{border-bottom:1px solid var(--line)}
+  .ent-ribbon .wrap{display:flex;align-items:center;gap:10px;padding:10px 24px;
+    font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+  .ent-ribbon .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:entPulse 2.4s infinite}
+  @keyframes entPulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .ent-ribbon b{color:var(--fg);font-weight:650}
+
+  /* ---- screenshots: framed, enlargeable (shotbox.js) ---- */
+  .shot{position:relative;margin:0;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;
+    background:var(--panel);box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
+  .shot img{display:block;width:100%;height:auto}
+  .shot figcaption{padding:10px 14px;border-top:1px solid var(--line);color:var(--dim);
+    font-family:var(--font-m);font-size:11.5px;line-height:1.55}
+
+  /* ---- console tab explorer ---- */
+  .gxc{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:start}
+  @media(max-width:860px){.gxc{grid-template-columns:1fr}
+    .gxc-rail{display:flex;flex-wrap:wrap;gap:7px}}
+  .gxc-rail{display:flex;flex-direction:column;gap:7px}
+  .gxc-tab{text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:11px;
+    background:var(--panel);color:var(--dim);padding:9px 13px;
+    font-family:var(--font-t);font-weight:600;font-size:13px;
+    transition:color .15s,border-color .15s,background .15s}
+  .gxc-tab:hover{color:var(--fg);border-color:var(--line-2)}
+  .gxc-tab.on{color:var(--fg);border-color:color-mix(in srgb,var(--accent) 60%,var(--line-2));
+    background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
+  .gxc-tab .mono{display:block;font-size:9.5px;letter-spacing:.09em;color:var(--faint);margin-top:2px;text-transform:uppercase}
+  .gxc-stage img{transition:opacity .28s ease}
+  .gxc-stage img.fade{opacity:0}
+  .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
+
+  /* ---- Genaryx Bus ---- */
+  .bus-grid{display:grid;grid-template-columns:1fr 420px;gap:clamp(20px,4vw,44px);align-items:center}
+  @media(max-width:900px){.bus-grid{grid-template-columns:1fr}}
+
+  /* ---- watch legend ---- */
+  .wa-legend{margin-top:18px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:6px 16px}
+  .wa-legend .lg{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.55}
+  .wa-legend .lg:last-child{border-bottom:0}
+  .wa-legend .lg b{font-family:var(--font-m);font-size:12px;color:var(--accent);flex:0 0 168px;padding-top:1px}
+  .wa-legend .lg span{color:var(--dim)}
+  @media(max-width:640px){.wa-legend .lg{flex-direction:column;gap:4px}.wa-legend .lg b{flex:none}}
+
+  /* ---- Felyx ---- */
+  .felyx-quote{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:22px}
+  .felyx-quote .q{font-family:var(--font-m);font-size:13px;line-height:1.7;color:var(--fg)}
+  .felyx-quote .src{margin-top:10px;font-family:var(--font-m);font-size:10.5px;letter-spacing:.06em;color:var(--faint)}
+  .prov-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .prov{font-family:var(--font-m);font-size:11.5px;color:var(--dim);border:1px solid var(--line-2);
+    border-radius:999px;padding:6px 12px}
+  .prov b{color:var(--fg);font-weight:600}
+  .prov.loc{border-color:color-mix(in srgb,var(--mint) 45%,var(--line-2))}
+  .prov.byo{border-color:color-mix(in srgb,var(--amber) 40%,var(--line-2))}
+</style>
+</head>
+<body data-service="enterprise" data-root="./">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">enterprise</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="index.html#stack">The open stack</a>
+    <a class="tb-link" href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<div class="ent-ribbon">
+  <div class="wrap"><span class="dot"></span><b>In the works.</b> Genaryx is not released: no pricing, no downloads. This page shows what we are building, with real screenshots of it running.</div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">enterprise &#183; genaryx &#183; in the works</div>
+        <h1 class="rv d1"><span class="nm">Genaryx</span>. One control room over the whole agent stack.</h1>
+        <p class="lede rv d2">The seven open services each govern one plane of an agent fleet. Genaryx is the paid, closed desktop console we are building on top of them for companies that run real fleets: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch signed by hardware, remote reach over its own WireGuard tunnel, an iPhone and Watch pager, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted only: your plane, your data, our software.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#console">See the real app <span class="mono">&#8594;</span></a>
+          <a class="btn" href="#felyx">Felyx, the copilot</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">in the works</span></div>
+        <div class="row"><span class="k">shells</span><span class="v">native SwiftUI &#183; Tauri 2</span></div>
+        <div class="row"><span class="k">core</span><span class="v">one shared Rust core, UniFFI</span></div>
+        <div class="row"><span class="k">signing</span><span class="v">Secure Enclave &#183; ES256</span></div>
+        <div class="row"><span class="k">remote</span><span class="v">WireGuard, plane off the internet</span></div>
+        <div class="row"><span class="k">copilot</span><span class="v">Felyx &#183; local-first</span></div>
+        <div class="row"><span class="k">hosting</span><span class="v">self-hosted only</span></div>
+        <div class="row"><span class="k">licenses</span><span class="v">offline files, ML-DSA-signed</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPEN STAYS OPEN ================= -->
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="card rv" style="--accent:var(--mint)">
+      <div class="kicker" style="--accent:var(--mint)">first, the honest part</div>
+      <h3 style="margin-top:12px">The open stack stays open.</h3>
+      <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+        Everything the stack does today - metering, policy, identity, quality, memory, drills, evidence - is Apache-2.0 and stays that way, bug fixes and security fixes included. Genaryx does not take any of it away; it is the room built on top, for teams that want one pane of glass, hardware ceremonies and a pager instead of seven dashboards and a terminal. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, <span class="mono" style="font-size:12.5px">meridian.example</span>, run on real infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY / COMPARISON ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">why a room over a stack</div>
+      <h2>What the console adds that the stack alone does not.</h2>
+      <p class="lede">You can run the whole open stack yourself in one command, and plenty of teams should. Genaryx exists for the moment the fleet stops being a side project: when the person on call is not the person who built it, when an auditor asks for proof, when 2am happens.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>The open stack, by hand</th><th>Genaryx</th></tr></thead>
+        <tbody>
+          <tr><td>One place to look</td><td class="warn">Per-service dashboards, curl, logs</td><td class="yes">16 live tabs over one Rust core</td></tr>
+          <tr><td>Killing a runaway</td><td class="warn">A curl with an admin key</td><td class="yes">Touch ID + a typed reason: a break-glass ceremony, Secure Enclave-signed, journaled</td></tr>
+          <tr><td>Reaching a private plane</td><td class="warn">SSH tunnels you babysit</td><td class="yes">The app raises its own WireGuard tunnel; the control plane never faces the internet</td></tr>
+          <tr><td>On call at 2am</td><td class="no">Laptop, VPN, luck</td><td class="yes">iPhone + Watch pager through a hardened relay; kill from the wrist</td></tr>
+          <tr><td>When something is off</td><td class="warn">You read six dashboards</td><td class="yes">Felyx explains it across planes with cited ids - and can only propose, never act</td></tr>
+          <tr><td>Proving it to an auditor</td><td class="warn">Exports from each service</td><td class="yes">One signed evidence pack: EU AI Act, SR 11-7, SOC 2 mappings built in</td></tr>
+          <tr><td>Where your data lives</td><td class="yes">Your infrastructure</td><td class="yes">Still your infrastructure: self-hosted only, licenses are offline files</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONSOLE, REAL SHOTS ================= -->
+<section class="sec" id="console" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the real app, captured live</div>
+      <h2>Sixteen tabs, one Rust core. Here are ten.</h2>
+      <p class="lede">The actual macOS build against a live plane: $4,314 of governed spend, 9,288 runs, 178 incidents. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
+    </div>
+    <div class="gxc rv">
+      <div class="gxc-rail" id="gxc-rail" role="tablist" aria-label="Genaryx tabs"></div>
+      <div class="gxc-stage">
+        <figure class="shot" id="gxc-shot">
+          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="927">
+          <figcaption id="gxc-cap">$4,314 fleet spend, $2,994.86 governed savings, 178 open incidents - the hero wall.</figcaption>
+        </figure>
+        <div class="gxc-note">captured 2026-07-19 &#183; the live validation campaign &#183; the numbers are the campaign's, not a mockup's</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GENARYX BUS ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bus-grid">
+      <div>
+        <div class="sec-head rv" style="margin-bottom:14px">
+          <div class="kicker">genaryx bus &#183; the menu bar</div>
+          <h2>The whole fleet, one glance up and to the right.</h2>
+        </div>
+        <p class="lede rv d1" style="max-width:56ch">Genaryx Bus is the always-on menu bar companion. The fleet's governed spend ticks live next to your clock; open it and you get active runs, the last runaway by name, and what it just cost. The red line is a real control: <b style="color:var(--ember)">Kill last runaway</b> carries the same hardware-signed ceremony as the big app - it just spares you opening it.</p>
+        <p class="rv d2" style="margin-top:14px;color:var(--dim);font-size:14px;line-height:1.65;max-width:56ch">It reads the same <span class="mono" style="font-size:12.5px">genaryx-core</span> over UniFFI the console does, so the number in your menu bar, the number on the Overview wall and the number in the audit trail are the same number. Overspend shows up where your eyes already are: no browser, no tab, no dashboard fatigue.</p>
+      </div>
+      <figure class="shot rv d1">
+        <img src="assets/shots/enterprise/gx-bus.webp" alt="Genaryx Bus in the macOS menu bar: live spend, active runs, the last runaway and a kill control" width="726" height="404" loading="lazy">
+        <figcaption>the fleet's spend, ticking live in the menu bar &#183; 9,288 active &#183; the last runaway, and the kill that needs Touch ID</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENTERPRISE PAGER ================= -->
+<section class="sec" id="pager" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">enterprise pager &#183; iphone + apple watch</div>
+      <h2>The fleet in your pocket. The kill switch on your wrist.</h2>
+      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap. The screens below are real screenshots of the running app; the tour advances itself, or click a step.</p>
+    </div>
+    <div class="rv" id="ent-pager"></div>
+    <div class="wa-legend rv d1">
+      <div class="lg"><b>Digital Crown</b><span>Scroll the fleet without a finger covering the screen. The list keeps the same fuse language as the phone: mint under budget, amber warming, ember over the cap.</span></div>
+      <div class="lg"><b>Side switch</b><span>Flip between the watch face, the fleet and a single run. The face complication shows burn rate and goes ember the moment anything is over cap - a glance, not an app launch.</span></div>
+      <div class="lg"><b>Hold &#8220;Kill run&#8221;</b><span>The kill is signed on the wrist with the watch's own key (ES256). Release early and nothing happens. Hold it, and the run dies through the same relay path and lands in the same audit chain as a kill from the console.</span></div>
+      <div class="lg"><b>After the kill</b><span>The run flips to KILLED on the watch, the phone, the console and the menu bar in the same tick: one event, one truth, no refresh button.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FELYX ================= -->
+<section class="sec" id="felyx" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">felyx &#183; the copilot</div>
+      <h2>An AI that reads everything and can touch nothing.</h2>
+      <p class="lede">Felyx is the fleet's analyst. It answers money questions with numbers pulled by tools, chains an incident across money, identity, policy and memory into a root cause with cited ids, drafts the kill you were about to write, and annotates the page that wakes you. It is also an AI we can honestly ask you to trust, because the trust is structural, not a system prompt.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Local first, by default</h3><p>Out of the box Felyx talks to a model on your own hardware: Ollama, LM Studio, vLLM - any OpenAI-compatible endpoint on localhost or your private network. A residency gate refuses any other destination, so a sensitive install cannot leak a prompt or a number by misconfiguration.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Cloud only if you choose it</h3><p>An operator can explicitly opt into a bring-your-own-key cloud model - Anthropic or OpenRouter - per install, in config, off by default. The app's residency banner always states which mode you are in; there is no silent fallback.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Numbers from tools, never vibes</h3><p>Every figure in an answer comes from a typed read tool over the same connectors the tabs use. The model does not do arithmetic in prose, and when a plane is not configured Felyx says what it cannot see instead of inventing it.</p></div>
+      <div class="card hover feature b-4 rv"><h3>No signing key. Not restrained - absent.</h3><p>The copilot crate has no dependency on the signing crate, and a build-time test asserts it stays that way. A proposal becomes action only through the same Touch ID ceremony a human uses; the audit trail reads &#8220;human approved copilot proposal&#8221;, never &#8220;copilot did it&#8221;.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>It cannot silence the pager</h3><p>In the relay, the hard floor is deterministic code: an over-cap or runaway event pushes immediately, before any model is called. Felyx may only add a short annotation inside a strict time budget. A slow, wrong or absent model changes nothing about whether you get paged.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Metered like any other agent</h3><p>Felyx's own LLM calls route through TokenFuse under their own run id, so the assistant that watches your budgets has a budget: visible, cappable, killable. The thesis, dogfooded.</p></div>
+    </div>
+    <div class="felyx-quote rv">
+      <div class="q">&#8220;reconciliation-batch-eod-002-LIVE is stuck in a sustained loop and burning resources unattended - review and kill it now to prevent runaway costs or duplicate or corrupt EOD reconciliation output.&#8221;</div>
+      <div class="src">felyx's live annotation on a HARD page &#183; from the relay log, 2026-07-19 &#183; written two seconds after the deterministic push had already gone out</div>
+    </div>
+    <div class="prov-row rv d1">
+      <span class="prov loc"><b>Ollama</b> &#183; local</span>
+      <span class="prov loc"><b>LM Studio</b> &#183; local</span>
+      <span class="prov loc"><b>vLLM</b> &#183; local</span>
+      <span class="prov loc"><b>any OpenAI-compatible</b> &#183; local</span>
+      <span class="prov byo"><b>Anthropic</b> &#183; BYO key, opt-in</span>
+      <span class="prov byo"><b>OpenRouter</b> &#183; BYO key, opt-in</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section class="sec" id="hood" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>Your plane stays yours. Every path in is signed.</h2>
+      <p class="lede">The console reaches a client-hosted Cloud over a WireGuard tunnel it raises itself, so the control plane never faces the internet. The pager reaches it only through a relay that can read and forward but not act. And Felyx sits beside both with no signing key at all.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 980 360" role="img" aria-label="Genaryx architecture: console over WireGuard to a firewalled Cloud plane; phone and watch through a relay that cannot act; Felyx with no signer">
+        <defs>
+          <marker id="enarrGrey" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="enarrVio" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#B48CFF"/></marker>
+          <marker id="enarrMint" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#34D399"/></marker>
+        </defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="24" y="40" width="200" height="96" rx="14" fill="#10161F" stroke="#B48CFF" stroke-width="1.5"/>
+          <text x="124" y="70" fill="#B48CFF" font-size="13" font-weight="700">Genaryx console</text>
+          <text x="124" y="90" fill="#8A97A6" font-size="10.5">SwiftUI &#183; Tauri 2</text>
+          <text x="124" y="106" fill="#8A97A6" font-size="10.5">one Rust core &#183; UniFFI</text>
+          <text x="124" y="122" fill="#8A97A6" font-size="10.5">Secure Enclave ES256</text>
+
+          <rect x="24" y="240" width="200" height="80" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="124" y="270" fill="#22D3EE" font-size="12.5" font-weight="700">iPhone + Watch</text>
+          <text x="124" y="288" fill="#8A97A6" font-size="10.5">device keys sign kills</text>
+          <text x="124" y="304" fill="#8A97A6" font-size="10.5">Face ID &#183; on-wrist ES256</text>
+
+          <rect x="390" y="88" width="230" height="130" rx="16" fill="#10161F" stroke="#34D399" stroke-width="1.6"/>
+          <text x="505" y="118" fill="#34D399" font-size="13.5" font-weight="700">your Cloud plane</text>
+          <text x="505" y="138" fill="#8A97A6" font-size="10.5">TokenFuse &#183; Wardryx &#183; Idryx</text>
+          <text x="505" y="154" fill="#8A97A6" font-size="10.5">self-hosted &#183; firewalled</text>
+          <text x="505" y="170" fill="#8A97A6" font-size="10.5">never faces the internet</text>
+          <text x="505" y="196" fill="#5A6675" font-size="10">audit chain &#183; evidence packs</text>
+
+          <rect x="404" y="252" width="202" height="68" rx="13" fill="#10161F" stroke="#2a3547"/>
+          <text x="505" y="278" fill="#E9EFF6" font-size="12" font-weight="700">genaryx-relay &#183; 24/7</text>
+          <text x="505" y="296" fill="#8A97A6" font-size="10">viewer key: reads + pushes</text>
+          <text x="505" y="310" fill="#8A97A6" font-size="10">forwards signed kills verbatim</text>
+
+          <rect x="770" y="104" width="186" height="98" rx="14" fill="#141C27" stroke="#2a3547"/>
+          <text x="863" y="134" fill="#E9EFF6" font-size="12.5" font-weight="700">gateways &#8594; agents</text>
+          <text x="863" y="153" fill="#8A97A6" font-size="10.5">budgets enforced in-path</text>
+          <text x="863" y="169" fill="#8A97A6" font-size="10.5">breakers &#183; policy checks</text>
+          <text x="863" y="185" fill="#8A97A6" font-size="10.5">kills land fleet-wide</text>
+
+          <rect x="742" y="252" width="214" height="68" rx="13" fill="#10161F" stroke="#B48CFF" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <text x="849" y="278" fill="#B48CFF" font-size="12" font-weight="700">Felyx &#183; the copilot</text>
+          <text x="849" y="296" fill="#8A97A6" font-size="10">local model by default</text>
+          <text x="849" y="310" fill="#8A97A6" font-size="10">reads + proposes &#183; no signer</text>
+
+          <text x="307" y="70" fill="#B48CFF" font-size="10.5" font-weight="700">WireGuard</text>
+          <text x="307" y="85" fill="#B48CFF" font-size="10">raised by the app</text>
+          <text x="307" y="100" fill="#5A6675" font-size="10">the only road in</text>
+          <text x="300" y="262" fill="#5A6675" font-size="10">TLS, pinned from the QR</text>
+          <text x="690" y="128" fill="#5A6675" font-size="10">push &#183; poll</text>
+        </g>
+        <line x1="224" y1="110" x2="390" y2="130" stroke="#B48CFF" stroke-width="1.7" marker-end="url(#enarrVio)" class="flow"/>
+        <line x1="224" y1="278" x2="418" y2="284" stroke="#5A6675" stroke-width="1.5" marker-end="url(#enarrGrey)" class="flow"/>
+        <line x1="505" y1="252" x2="505" y2="218" stroke="#34D399" stroke-width="1.5" marker-end="url(#enarrMint)" class="flow"/>
+        <line x1="620" y1="140" x2="770" y2="146" stroke="#34D399" stroke-width="1.6" marker-end="url(#enarrMint)" class="flow"/>
+        <line x1="849" y1="252" x2="849" y2="210" stroke="#B48CFF" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#enarrVio)" class="flow"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECHNOLOGY ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the technology</div>
+      <h2>Two shells. One Rust brain. Hardware where it counts.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Two shells, one core</h3><p>A native SwiftUI app for macOS and a Tauri 2 app for everything else, both thin skins over one shared Rust core bridged by UniFFI. The logic - stores, connectors, ceremonies, the graph - is written once and tested once; the shells stay honest by construction.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures</h3><p>Kills and budget changes are ES256-signed by the Secure Enclave behind Touch ID, with a typed break-glass reason journaled next to the signature. A stolen laptop session or a compromised server cannot forge an order.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>WireGuard built in</h3><p>The console bundles wireguard-go and raises its own tunnel: generate a keypair, exchange with the box, handshake, done. Your control plane answers on a private address and nowhere else. SSH stays for ops; the console does not need it.</p></div>
+      <div class="card hover feature b-4 rv"><h3>A relay that cannot act</h3><p>The pager's relay holds a read-only viewer key, binds to exactly one device, pins its TLS identity into the pairing QR, and forwards device-signed mutations byte-for-byte. Compromise the relay and you can watch: you still cannot kill, budget or grant.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Post-quantum licensing</h3><p>Licenses are offline entitlement files signed with ML-DSA, the NIST post-quantum standard. No license server, no phone-home: it works in an air-gapped room, which is exactly where some of this software will live.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Self-hosted, full stop</h3><p>We never run your Cloud plane and never hold your agent data: there is nothing to subpoena, breach or outgrow on our side. The console, the relay and the licenses all work entirely inside your walls.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHERE THIS STANDS ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where this stands</div>
+      <h2>Built and proven. Not yet packaged.</h2>
+    </div>
+    <div class="bento">
+      <div class="card b-6 rv">
+        <div class="kicker" style="--accent:var(--mint)">already true</div>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">The console has driven a real fleet over its own WireGuard tunnel and put a hardware-signed kill through it, against a plane closed to the internet. The pager has killed a run from a wrist. Felyx has run against a live model and proposed the right kill with cited evidence, on a fleet of 9,288 runs. Every claim above has a captured run behind it.</p>
+      </div>
+      <div class="card b-6 rv d1">
+        <div class="kicker" style="--accent:var(--amber)">not yet</div>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">Packaging, notarization, the licensing flow, pricing: none of it is public, and we are not promising dates. When Genaryx ships, it will show up here first. Until then the stack underneath is open today - <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run it locally in one command</a> and see the same numbers without us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Enterprise</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/shotbox.js"></script>
+<script src="assets/appshow.js"></script>
+<script>
+/* ---- console tab explorer: real screenshots, lightbox via shotbox ---- */
+(function(){
+const TABS=[
+ {id:"overview",l:"Overview",m:"the hero wall",img:"gx-overview.webp",
+  cap:"$4,314 fleet spend, $2,994.86 governed savings, 178 open incidents - the hero wall."},
+ {id:"money",l:"Money",m:"runs &#183; kill &#183; budgets",img:"gx-money.webp",
+  cap:"9,288 runs ranked by spend, with Replay, Budget and Kill on every row and an incidents rail with one-tap Ack."},
+ {id:"policy",l:"Policy",m:"wardryx &#183; approvals",img:"gx-policy.webp",
+  cap:"The approvals inbox: five holds pending a human, each with its cost bound and a Grant / Deny that needs Touch ID."},
+ {id:"identity",l:"Identity",m:"idryx &#183; 29 identities",img:"gx-identity.webp",
+  cap:"29 identities, 43 detector alerts, 21 attestation gaps surfaced honestly instead of hidden."},
+ {id:"quality",l:"Quality",m:"verdryx &#183; drift",img:"gx-quality.webp",
+  cap:"Eval runs with a drift rail: mean score 0.780, and the one regressed case is impossible to miss."},
+ {id:"evidence",l:"Evidence",m:"signed packs",img:"gx-evidence.webp",
+  cap:"An evidence pack built in-app: Cloud audit chain VERIFIED, Qryx CNSA evidence, a CycloneDX CBOM - signed, four artifacts."},
+ {id:"copilot",l:"Copilot &#183; Felyx",m:"read + propose",img:"gx-copilot.webp",
+  cap:"Felyx live: five tool calls, then a kill proposal at 80% confidence with cited evidence. Approve routes into the same Touch ID ceremony."},
+ {id:"memory",l:"Memory",m:"engram &#183; recall",img:"gx-memory.webp",
+  cap:"Semantic recall over the fleet's memory: the quarter-end false-alarm ruling surfaces first, with provenance."},
+ {id:"graph",l:"Graph",m:"delegation",img:"gx-graph.webp",
+  cap:"The delegation graph off the event bus: 36 nodes, one orchestrator at the hub, the human in gold."},
+ {id:"posture",l:"Posture",m:"stack sanity",img:"gx-posture.webp",
+  cap:"The console audits its own stack: snapshot age, detector freshness, fail-open risks - each finding with a FIX line."}
+];
+const rail=document.getElementById("gxc-rail"),img=document.getElementById("gxc-img"),cap=document.getElementById("gxc-cap");
+rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}<span class="mono">${t.m}</span></button>`).join("");
+const btns=[...rail.querySelectorAll(".gxc-tab")];
+rail.addEventListener("click",e=>{
+  const b=e.target.closest(".gxc-tab"); if(!b) return;
+  const t=TABS[+b.dataset.i];
+  btns.forEach(x=>x.classList.toggle("on",x===b));
+  img.classList.add("fade");
+  setTimeout(()=>{
+    img.src="assets/shots/enterprise/"+t.img;
+    img.alt="Genaryx "+t.l+" tab";
+    cap.innerHTML=t.cap;
+    img.onload=()=>img.classList.remove("fade");
+  },140);
+});
+})();
+
+/* ---- the pager tour: real phone + watch screenshots ---- */
+AppShow.mount(document.getElementById("ent-pager"),{
+  interval:5200,
+  phone:[
+    {img:"assets/shots/enterprise/ph-connect.webp",t:"Pair against your own plane",
+     d:"A QR from the desktop carries the relay's pinned TLS identity and a one-time code. A signing key is born on this iPhone; a certificate mismatch aborts the pairing."},
+    {img:"assets/shots/enterprise/ph-finops.webp",t:"FinOps that match the console",
+     d:"$2,994.86 saved this month - blocked runaways, cache hits, cheaper routes. The same numbers the desktop and the audit trail hold, sized for a pocket."},
+    {img:"assets/shots/enterprise/ph-incidents.webp",t:"Exceptions, not noise",
+     d:"Only what crossed a line: one reconciliation batch with 13 budget trips and a sustained loop, two fan-outs. Acknowledging needs Face ID."},
+    {img:"assets/shots/enterprise/ph-alert.webp",t:"The push that means act",
+     d:"Agent running hot: over budget, breaker tripped 13 times. Tap the banner and you land on the run itself, not on a dashboard's front door."},
+    {img:"assets/shots/enterprise/ph-kill-arm.webp",t:"Slide to arm the kill",
+     d:"The kill is deliberately physical: drag to arm. It is signed by this device and gated by Face ID - a stolen API token cannot do this."},
+    {img:"assets/shots/enterprise/ph-faceid.webp",t:"Face ID, then the signature",
+     d:"The order is ES256-signed on the phone. The relay forwards it byte-for-byte and cannot mint one itself; the Cloud verifies the device's key."},
+    {img:"assets/shots/enterprise/ph-killed.webp",t:"KILLED, everywhere at once",
+     d:"The run flips to KILLED on the phone, the console, the menu bar and the audit trail - one event, one truth, no refresh."}
+  ],
+  watch:[
+    {img:"assets/shots/enterprise/watch-fleet.webp",t:"Fleet, hottest first"},
+    {img:"assets/shots/enterprise/watch-kill.webp",t:"Hold to kill &#183; signed on the wrist"}
+  ]
+});
+</script>
+</body>
+</html>

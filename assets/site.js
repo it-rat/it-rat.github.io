@@ -105,7 +105,7 @@ k.className="cmdk"; k.innerHTML =
    </div>`;
 document.body.appendChild(k);
 const kin = k.querySelector("input"), klist = k.querySelector(".cmdk-list");
-const pages = [{id:"home",name:"Home",plane:"the stack",color:"#E9EFF6",what:"The whole control room",href:"index.html"}].concat(STACK);
+const pages = [{id:"home",name:"Home",plane:"the stack",color:"#E9EFF6",what:"The whole control room",href:"index.html"}].concat(STACK).concat([{id:"enterprise",name:"Enterprise",plane:"genaryx · soon",color:"#B48CFF",what:"The enterprise control room, in the works",href:"enterprise.html"}]);
 let ksel=0, khits=pages;
 function kOpen(){k.classList.add("open");kin.value="";ksel=0;kRender("");setTimeout(()=>kin.focus(),10);}
 function kClose(){k.classList.remove("open");}

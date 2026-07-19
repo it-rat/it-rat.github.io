@@ -56,7 +56,8 @@
     <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
     <span class="crumb">the stack<span class="sep">/</span><span class="here">pocket</span></span>
     <span class="spacer"></span>
-    <a class="tb-link" href="https://github.com/TAIPANBOX/tokenfuse-mobile" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <a class="tb-link" href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+    <a class="tb-link" href="../enterprise.html" title="Genaryx, the enterprise control room. In the works.">Enterprise<span class="soon-pill">soon</span></a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
 </header>
@@ -66,12 +67,12 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="kicker rv">companion app &#183; iOS and watchOS only</div>
+        <div class="kicker rv">enterprise companion &#183; ships with genaryx &#183; iOS and watchOS only</div>
         <h1 class="rv d1"><span class="nm">Pocket</span>. Watch the fleet burn live, and cut it from a device no attacker touched.</h1>
         <p class="lede rv d2">TokenFuse's gateway enforces the budget in the request path your agent runs on. Pocket is the control that lives outside that path: it watches every run's burn rate live and pulls the kill switch with a command signed by hardware the agent's host never touches. iOS &#183; watchOS &#183; no Android, no web: the whole security story rests on the Secure Enclave, a chip only Apple ships.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch the kill from the wrist <span class="mono">&#9654;</span></a>
-          <a class="btn" href="https://github.com/TAIPANBOX/tokenfuse-mobile" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+          <a class="btn" href="../enterprise.html">Part of Genaryx <span class="soon-pill">soon</span></a>
         </div>
       </div>
       <div class="hero-side rv d2">
@@ -79,8 +80,20 @@
         <div class="row"><span class="k">signing</span><span class="v">Secure Enclave, keys never leave the device</span></div>
         <div class="row"><span class="k">pairs with</span><span class="v">TokenFuse Cloud</span></div>
         <div class="row"><span class="k">surfaces</span><span class="v">Dynamic Island &#183; widgets &#183; Watch faces</span></div>
-        <div class="row"><span class="k">demo</span><span class="v">live mockups at taipanbox.github.io/tokenfuse-mobile</span></div>
+        <div class="row"><span class="k">ships with</span><span class="v">Genaryx Enterprise &#183; in the works</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENTERPRISE CALLOUT ================= -->
+<section class="sec" style="padding-top:8px;padding-bottom:0">
+  <div class="wrap">
+    <div class="card rv" style="--accent:var(--violet);display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+      <p style="color:var(--dim);font-size:14px;line-height:1.6;margin:0;max-width:72ch">
+        <b style="color:var(--fg)">Part of Enterprise.</b> Pocket and the Watch pair to <em>your</em> TokenFuse data through <span style="color:var(--violet)">Genaryx</span>, the enterprise control room we are building: the hardened 24/7 relay beside a firewalled plane, push alerts the moment a cap breaks, the wrist kill. The plane it reads stays open; the pager around it is the Enterprise part.
+      </p>
+      <a class="btn" href="../enterprise.html" style="flex:0 0 auto">Enterprise &#183; in the works <span class="soon-pill">soon</span></a>
     </div>
   </div>
 </section>
@@ -155,9 +168,9 @@
           <text x="375" y="236" fill="#22D3EE" font-size="14" font-weight="700">TokenFuse Cloud</text>
           <text x="375" y="258" fill="#8A97A6" font-size="10">pairing &#183; fleet API &#183; incidents</text>
 
-          <text x="365" y="104" fill="#FF574B" font-size="11" font-weight="700">compromised path?</text>
-          <text x="365" y="120" fill="#5A6675" font-size="10.5">the kill path does not share it</text>
-          <text x="540" y="198" fill="#22D3EE" font-size="10.5">signed commands, out of band</text>
+          <text x="365" y="146" fill="#FF574B" font-size="11" font-weight="700">compromised path?</text>
+          <text x="365" y="162" fill="#5A6675" font-size="10.5">the kill path does not share it</text>
+          <text x="620" y="238" fill="#22D3EE" font-size="10.5">signed commands, out of band</text>
         </g>
         <line x1="150" y1="80" x2="580" y2="138" stroke="#FF574B" stroke-width="1.6" marker-end="url(#pkarrRed)" class="flow"/>
         <g stroke="#22D3EE" stroke-width="1.6" class="flow">
@@ -183,7 +196,7 @@
       <div class="card hover feature b-4 rv d2"><h3>Out of band by design</h3><p>The phone talks to TokenFuse Cloud, not through the gateway or the agent's own network path. If the request path is exactly what's compromised, the kill still lands.</p></div>
       <div class="card hover feature b-4 rv"><h3>The fleet at a glance</h3><p>Every run with its spend, its burn rate in dollars per minute, and how close it sits to a budget break, sorted hottest first, red once it's over.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Pairing in seconds</h3><p>Scan a QR code against your own Cloud plane. The app generates a key inside the Secure Enclave on the spot; the key never leaves it, not even to the app.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>An honest demo</h3><p>No screenshots dressed up as a product. The interactive design mockups are public and run live at <a href="https://taipanbox.github.io/tokenfuse-mobile/" target="_blank" rel="noopener" style="color:var(--accent)">taipanbox.github.io/tokenfuse-mobile</a>.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>An honest demo</h3><p>No mockups dressed up as a product. The interactive mock on this page is driveable end to end, and the <a href="../enterprise.html" style="color:var(--accent)">Enterprise page</a> shows the real app captured live against a live plane.</p></div>
     </div>
   </div>
 </section>
@@ -221,10 +234,10 @@
           Pocket is the human end of <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>: the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. Every kill lands as an incident on the same event bus the rest of the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> reads. What actually gets enforced was decided upstream, by <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> and the budgets you set. Pocket doesn't make that call; it gives you a fast, honest way to see it and override it.</p>
       </div>
       <div class="card b-4 rv d1">
-        <div class="kicker" style="--accent:var(--mint)">try it now</div>
+        <div class="kicker" style="--accent:var(--violet)">where it ships</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">git clone <b>github.com/TAIPANBOX/tokenfuse-mobile</b></span></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">Clone the repo and run the SwiftUI app from Xcode against your own Cloud plane; or poke the live interactive mockups first: <a href="https://taipanbox.github.io/tokenfuse-mobile/" target="_blank" rel="noopener" style="color:var(--cyan)">taipanbox.github.io/tokenfuse-mobile</a></p>
+          <p class="dim" style="font-size:13px;line-height:1.6">Pocket pairs through <a href="../enterprise.html" style="color:var(--violet)">Genaryx</a>, the enterprise control room, to a TokenFuse plane you host yourself - and ships with it. In the works, shown honestly: real screenshots, no pricing yet.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">The plane it reads is open today: <a href="platform.html#run" style="color:var(--cyan)">run the whole stack locally in one command</a> and see the same numbers on your own machine.</p>
         </div>
       </div>
     </div>
@@ -234,7 +247,7 @@
 
 <footer class="footer">
   <div class="wrap">
-    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Enterprise</div>
   </div>
 </footer>
 
