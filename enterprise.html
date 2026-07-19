@@ -120,7 +120,7 @@
       <div>
         <div class="kicker rv">enterprise &#183; genaryx &#183; in the works</div>
         <h1 class="rv d1"><span class="nm">Genaryx</span>. One control room over the whole agent stack.</h1>
-        <p class="lede rv d2">The seven open services each govern one plane of an agent fleet. Genaryx is the paid, closed desktop console we are building on top of them for companies that run real fleets: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch signed by hardware, remote reach over its own WireGuard tunnel, an iPhone and Watch pager, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted only: your plane, your data, our software.</p>
+        <p class="lede rv d2">The seven open services each govern one plane of an agent fleet. Genaryx is the paid, closed desktop console we are building on top of them for companies that run real fleets: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch signed by hardware, remote reach over its own WireGuard tunnel, an iPhone and Watch pager, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted on infrastructure you own, any cloud or on-prem: your plane, your data, our software.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#console">See the real app <span class="mono">&#8594;</span></a>
           <a class="btn" href="#felyx">Felyx, the copilot</a>
@@ -133,7 +133,7 @@
         <div class="row"><span class="k">signing</span><span class="v">Secure Enclave &#183; ES256</span></div>
         <div class="row"><span class="k">remote</span><span class="v">WireGuard, plane off the internet</span></div>
         <div class="row"><span class="k">copilot</span><span class="v">Felyx &#183; local-first</span></div>
-        <div class="row"><span class="k">hosting</span><span class="v">self-hosted only</span></div>
+        <div class="row"><span class="k">hosting</span><span class="v">self-hosted &#183; any cloud or on-prem</span></div>
         <div class="row"><span class="k">licenses</span><span class="v">offline files, ML-DSA-signed</span></div>
       </div>
     </div>
@@ -170,7 +170,7 @@
           <tr><td>On call at 2am</td><td class="no">Laptop, VPN, luck</td><td class="yes">iPhone + Watch pager through a hardened relay; kill from the wrist</td></tr>
           <tr><td>When something is off</td><td class="warn">You read six dashboards</td><td class="yes">Felyx explains it across planes with cited ids - and can only propose, never act</td></tr>
           <tr><td>Proving it to an auditor</td><td class="warn">Exports from each service</td><td class="yes">One signed evidence pack: EU AI Act, SR 11-7, SOC 2 mappings built in</td></tr>
-          <tr><td>Where your data lives</td><td class="yes">Your infrastructure</td><td class="yes">Still your infrastructure: self-hosted only, licenses are offline files</td></tr>
+          <tr><td>Where your data lives</td><td class="yes">Your infrastructure</td><td class="yes">Still your infrastructure - AWS, GCP, Azure, a VPS or on-prem - self-hosted only; licenses are offline files</td></tr>
         </tbody>
       </table>
     </div>
@@ -346,7 +346,7 @@
       <div class="card hover feature b-4 rv d2"><h3>WireGuard built in</h3><p>The console bundles wireguard-go and raises its own tunnel: generate a keypair, exchange with the box, handshake, done. Your control plane answers on a private address and nowhere else. SSH stays for ops; the console does not need it.</p></div>
       <div class="card hover feature b-4 rv"><h3>A relay that cannot act</h3><p>The pager's relay holds a read-only viewer key, binds to exactly one device, pins its TLS identity into the pairing QR, and forwards device-signed mutations byte-for-byte. Compromise the relay and you can watch: you still cannot kill, budget or grant.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Post-quantum licensing</h3><p>Licenses are offline entitlement files signed with ML-DSA, the NIST post-quantum standard. No license server, no phone-home: it works in an air-gapped room, which is exactly where some of this software will live.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Self-hosted, full stop</h3><p>We never run your Cloud plane and never hold your agent data: there is nothing to subpoena, breach or outgrow on our side. The console, the relay and the licenses all work entirely inside your walls.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Self-hosted, your cloud or on-prem</h3><p>Self-hosted means we never run your Cloud plane and never hold your agent data. The plane (TokenFuse, Wardryx, Idryx) and the 24/7 relay run on infrastructure you own - AWS, GCP, Azure, a plain VPS or bare metal on-prem - and the console is the desktop app that reaches in over WireGuard. Nothing is tied to one provider: the open stack has already run live across Hetzner, AWS and GCP. There is nothing to subpoena, breach or outgrow on our side.</p></div>
     </div>
   </div>
 </section>
