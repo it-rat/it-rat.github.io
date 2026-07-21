@@ -116,8 +116,8 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the stack</div>
-      <h2>Ten doors, one corridor.</h2>
-      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Walk the corridor with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
+      <h2>One corridor, every door on it.</h2>
+      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Nine of these doors open on their own. TokenFuse Pocket is built the same way, but it needs a Genaryx relay to point at, and Genaryx is the enterprise room the corridor ends in. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
     <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
     <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
@@ -303,6 +303,7 @@
       </div>
       <div id="foot-stack"><!-- injected --></div>
       <div>
+        <a href="enterprise.html">Genaryx &#183; the control room</a>
         <a href="services/pocket.html">TokenFuse Pocket &#183; iOS</a>
         <a href="services/sphere.html">Sphere &#183; iOS</a>
         <a href="services/platform.html">Platform &#183; the contract</a>
@@ -327,13 +328,23 @@
 /* inject stack cards into the rail + footer links */
 (function(){
   const rail=document.getElementById("svc-rail");
-  rail.innerHTML = STACK.map(s=>
+  /* Two of these doors do not open on their own, and the card says which kind
+     of dependency it is: Pocket is Apache-2.0 like the rest but needs a relay
+     to point at, Genaryx is the enterprise room itself. */
+  const card = s =>
     `<a class="card hover svc" style="--c:${s.color}" href="${s.href}" data-dir="fwd">
-       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span><span class="plane">${s.plane}</span></span>
+       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span>${
+         s.tier ? `<span class="soon-pill">${s.tier}</span>` : ""
+       }<span class="plane">${s.plane}</span></span>
        <h3>${s.name}</h3>
        <p class="what">${s.what}.</p>
        <span class="go">open the room</span>
-     </a>`).join("");
+     </a>`;
+  rail.innerHTML = STACK.map(card).join("") + card({
+    id:"genaryx", name:"Genaryx", plane:"control room", color:"#B48CFF",
+    what:"The paid control room over all of it, and the pager that ships inside it",
+    href:"enterprise.html", tier:"enterprise"
+  });
   document.getElementById("foot-stack").innerHTML =
     STACK.slice(0,8).map(s=>`<a href="${s.href}">${s.name}</a>`).join("");
 })();

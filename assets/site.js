@@ -13,7 +13,7 @@ const STACK = [
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
   {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
-  {id:"pocket",    name:"TokenFuse Pocket", plane:"iOS · watchOS", color:"#22D3EE", what:"The kill switch on your wrist",          href:"services/pocket.html"},
+  {id:"pocket",    name:"TokenFuse Pocket", plane:"iOS · watchOS", color:"#22D3EE", what:"The kill switch on your wrist",          href:"services/pocket.html", tier:"needs genaryx"},
   {id:"sphere",    name:"Sphere",     plane:"iOS",       color:"#A3E635", what:"Personal life intelligence, twelve agents",       href:"services/sphere.html"},
 ];
 window.STACK = STACK;
@@ -235,10 +235,23 @@ document.addEventListener("pointermove",e=>{
   document.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
 })();
 
-/* ---- horizontal rail: wheel scrolls sideways ---- */
+/* ---- horizontal rail: wheel scrolls sideways ----
+   Every wheel tick here is a programmatic scroll, and a snapping container
+   re-snaps a programmatic scroll immediately, so the rail could only lurch one
+   card at a time instead of following the wheel. It read worse backwards,
+   where the nearest snap point sits behind you for longer. Snapping is
+   therefore suspended for the length of the gesture and restored once it
+   stops, which keeps the tidy alignment for drags and touch without fighting
+   the wheel. */
 document.querySelectorAll(".rail").forEach(r=>{
+  let idle;
   r.addEventListener("wheel",e=>{
-    if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ r.scrollLeft+=e.deltaY; e.preventDefault(); }
+    if(Math.abs(e.deltaY)<=Math.abs(e.deltaX)) return;   // a real sideways gesture: leave it to the browser
+    e.preventDefault();
+    r.style.scrollSnapType="none";
+    r.scrollLeft+=e.deltaY;
+    clearTimeout(idle);
+    idle=setTimeout(()=>{ r.style.scrollSnapType=""; },160);
   },{passive:false});
 });
 })();

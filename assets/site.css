@@ -216,7 +216,12 @@ p{margin:0}
 @media (prefers-reduced-motion: reduce){.flow{animation:none}}
 
 /* ---------- horizontal rail (home) ---------- */
-.rail{display:flex;gap:14px;overflow-x:auto;padding:6px 4px 18px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+/* proximity, not mandatory: with mandatory the browser yanks every wheel tick
+   back to the current card, so the rail could only jump a card at a time and
+   dragging backwards felt like it was fighting you. Proximity keeps the tidy
+   alignment when the scroll comes to rest near a card and leaves free
+   scrolling alone. */
+.rail{display:flex;gap:14px;overflow-x:auto;padding:6px 4px 18px;scroll-snap-type:x proximity;scrollbar-width:thin;overscroll-behavior-x:contain}
 .rail::-webkit-scrollbar{height:8px}
 .rail::-webkit-scrollbar-thumb{background:var(--panel-3);border-radius:4px}
 .rail > *{scroll-snap-align:start;flex:0 0 min(330px,82vw)}
