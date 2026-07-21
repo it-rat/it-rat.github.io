@@ -68,10 +68,10 @@
     <div class="hero-grid">
       <div>
         <div class="kicker rv">policy plane &#183; wave 2</div>
-        <h1 class="rv d1"><span class="nm">Wardryx</span>. Deterministic allow, deny or hold, with a human on the expensive stuff.</h1>
+        <h1 class="rv d1"><span class="nm">Wardryx</span>. Deterministic allow, deny or hold, with a human on the expensive actions.</h1>
         <p class="lede rv d2">Your gateway asks one question before an agent acts: POST /v1/decide. Wardryx answers allow, deny or hold in one deterministic pass. No LLM sits in the decision path, so the same policy and the same request always return the same verdict, and a big spend waits for a human who signs off with a short-lived token. The pattern is old and good: PDP/PEP, XACML's good ideas, pointed at what agents do.</p>
         <div class="cta-row rv d3">
-          <a class="btn primary" href="#sim">Watch 34 agents hit the gate <span class="mono">&#9654;</span></a>
+          <a class="btn primary" href="#sim">Watch 34 requests hit the gate <span class="mono">&#9654;</span></a>
           <a class="btn" href="https://github.com/TAIPANBOX/wardryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
         </div>
       </div>
@@ -90,7 +90,7 @@
 <section class="sec" id="sim" style="padding-top:26px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">sixty seconds, thirty-four agents</div>
+      <div class="kicker">sixty seconds, thirty-four requests</div>
       <h2>Watch the gate sort a stampede.</h2>
       <p class="lede">This is a simulation, and it says so. It replays the shape of the live validation record: a 34-request concurrent burst, different agents, budgets and policies, all hitting /v1/decide at once. In the real run the filtering came back exact: 6/6 permission oversteppers denied with 403, unattested calls denied until attested, 176 decisions across the full campaign.</p>
     </div>
@@ -249,7 +249,7 @@
    attested, one big spend held for a human and resubmitted with a
    signed, cost-bound token. 176 decisions in the full campaign. */
 Sim.mount(document.getElementById("wx-sim"),{
-  title:"simulated replay · 34 agents hit the gate at once",
+  title:"simulated replay &#183; 34 concurrent requests hit the gate",
   window:60, duration:16000,
   clock:t=>t.toFixed(1)+"s",
   badges:[{label:"deterministic PDP",color:"#2DD4BF"},{label:"PEP: TokenFuse",color:"#F4B23E"}],

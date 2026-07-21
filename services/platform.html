@@ -72,7 +72,7 @@
         <p class="lede rv d2">Under the seven services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch one envelope cross the stack <span class="mono">&#9654;</span></a>
-          <a class="btn" href="#run">Run the whole stack locally</a>
+          <a class="btn" href="#run">Run the live stack locally</a>
           <a class="btn" href="https://github.com/TAIPANBOX/agent-passport" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
         </div>
       </div>
@@ -223,8 +223,8 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">try the whole thing</div>
-      <h2>Run the whole stack locally.</h2>
-      <p class="lede">One command builds the open services from source, starts them on a fixed loopback port map, and opens the money-plane dashboard in your browser. No Docker, no account, nothing leaves your machine. Press Ctrl-C and it stops clean, with no orphaned processes.</p>
+      <h2>Run the live stack locally.</h2>
+      <p class="lede">One command builds the stack's long-running services from source, TokenFuse's gateway, cloud and dashboard plus Wardryx and Idryx, starts them on a fixed loopback port map, and prints a one-click link to the money-plane dashboard. Engram, Qryx, Verdryx and Mockryx are deliberately not servers: they are libraries and one-shot CLIs, each with its own one-line try-it on its page. No Docker, no account, nothing leaves your machine. Press Ctrl-C and it stops clean, with no orphaned processes.</p>
     </div>
     <div class="bento">
       <div class="card b-8 rv">
@@ -247,7 +247,7 @@
           <div class="row"><span class="k">idryx</span><span class="v">:8081 &#183; identity</span></div>
           <div class="row"><span class="k">every bind</span><span class="v">127.0.0.1 only</span></div>
         </div>
-        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">Needs git, Rust and Node; Go adds the policy and identity planes. macOS or Linux. A local sandbox to try the stack, not a production deployment.</p>
+        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">Needs git, Rust, Node and Python; Go adds the policy and identity planes. macOS or Linux. A local sandbox to try the stack, not a production deployment.</p>
       </div>
     </div>
   </div>
@@ -265,7 +265,7 @@
       <table class="tbl">
         <thead><tr><th></th><th>the contract</th><th>&#8220;every tool logs its own JSON&#8221;</th><th>a vendor's proprietary schema</th></tr></thead>
         <tbody>
-          <tr><td>Cross-tool correlation</td><td class="yes">One agent_id everywhere</td><td class="no">grep and prayer</td><td class="warn">Inside one vendor only</td></tr>
+          <tr><td>Cross-tool correlation</td><td class="yes">One agent_id everywhere</td><td class="no">grep and hope</td><td class="warn">Inside one vendor only</td></tr>
           <tr><td>Versioning</td><td class="yes">Explicit schema field; v0.1 and v0.2 coexist</td><td class="no">None</td><td class="warn">The vendor's roadmap</td></tr>
           <tr><td>Validation</td><td class="yes">JSON Schema + a conformance CLI</td><td class="no">None</td><td class="no">Closed</td></tr>
           <tr><td>Who can implement it</td><td class="yes">Anyone; Apache-2.0</td><td class="no">n/a</td><td class="warn">Licensees</td></tr>

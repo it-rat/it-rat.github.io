@@ -158,7 +158,7 @@
     <div class="sec-head rv">
       <div class="kicker">why a room over a stack</div>
       <h2>What the console adds that the stack alone does not.</h2>
-      <p class="lede">You can run the whole open stack yourself in one command, and plenty of teams should. Genaryx exists for the moment the fleet stops being a side project: when the person on call is not the person who built it, when an auditor asks for proof, when 2am happens.</p>
+      <p class="lede">You can stand up the open stack's live services yourself in one command, and plenty of teams should. Genaryx exists for the moment the fleet stops being a side project: when the person on call is not the person who built it, when an auditor asks for proof, when 2am happens.</p>
     </div>
     <div class="tbl-scroll rv">
       <table class="tbl">
@@ -183,16 +183,16 @@
     <div class="sec-head rv">
       <div class="kicker">the real app, captured live</div>
       <h2>Sixteen tabs, one Rust core. Here are ten.</h2>
-      <p class="lede">The actual macOS build against a live plane: $4,314 of governed spend, 9,288 runs, 178 incidents. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
+      <p class="lede">The actual macOS build against a live plane: $4,671 of governed spend across 9,501 runs and 37,596 model calls, 180 open incidents, 15 runs killed. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
     </div>
     <div class="gxc rv">
       <div class="gxc-rail" id="gxc-rail" role="tablist" aria-label="Genaryx tabs"></div>
       <div class="gxc-stage">
         <figure class="shot" id="gxc-shot">
-          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="927">
-          <figcaption id="gxc-cap">$4,314 fleet spend, $2,994.86 governed savings, 178 open incidents - the hero wall.</figcaption>
+          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="928">
+          <figcaption id="gxc-cap">$4,671 of fleet spend, $3,131.82 governed savings, 180 open incidents, and 15 runs killed of 9,501.</figcaption>
         </figure>
-        <div class="gxc-note">captured 2026-07-19 &#183; the live validation campaign &#183; the numbers are the campaign's, not a mockup's</div>
+        <div class="gxc-note">captured 2026-07-20 &#183; one frozen moment of the live validation campaign &#183; every screen below reads the same fleet, so the figures agree across them</div>
       </div>
     </div>
   </div>
@@ -211,8 +211,8 @@
         <p class="rv d2" style="margin-top:14px;color:var(--dim);font-size:14px;line-height:1.65;max-width:56ch">It reads the same <span class="mono" style="font-size:12.5px">genaryx-core</span> over UniFFI the console does, so the number in your menu bar, the number on the Overview wall and the number in the audit trail are the same number. Overspend shows up where your eyes already are: no browser, no tab, no dashboard fatigue.</p>
       </div>
       <figure class="shot rv d1">
-        <img src="assets/shots/enterprise/gx-bus.webp" alt="Genaryx Bus in the macOS menu bar: live spend, active runs, the last runaway and a kill control" width="726" height="404" loading="lazy">
-        <figcaption>the fleet's spend, ticking live in the menu bar &#183; 9,288 active &#183; the last runaway, and the kill that needs Touch ID</figcaption>
+        <img src="assets/shots/enterprise/gx-bus.webp" alt="Genaryx Bus in the macOS menu bar: live spend, active runs, the last runaway and a kill control" width="672" height="400" loading="lazy">
+        <figcaption>$4,671.02 ticking live in the menu bar &#183; 9,486 active runs &#183; the last runaway named and priced at $11.33, with the kill that still needs Touch ID</figcaption>
       </figure>
     </div>
   </div>
@@ -224,14 +224,34 @@
     <div class="sec-head rv">
       <div class="kicker">enterprise pager &#183; iphone + apple watch</div>
       <h2>The fleet in your pocket. The kill switch on your wrist.</h2>
-      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap. The screens below are real screenshots of the running app; the tour advances itself, or click a step.</p>
+      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap, so the wrist is the first thing that knows. The screens below are real screenshots of the running app, captured in the same frozen moment as the console above; the tour advances itself, or click a step.</p>
     </div>
     <div class="rv" id="ent-pager"></div>
     <div class="wa-legend rv d1">
-      <div class="lg"><b>Digital Crown</b><span>Scroll the fleet without a finger covering the screen. The list keeps the same fuse language as the phone: mint under budget, amber warming, ember over the cap.</span></div>
-      <div class="lg"><b>Side switch</b><span>Flip between the watch face, the fleet and a single run. The face complication shows burn rate and goes ember the moment anything is over cap - a glance, not an app launch.</span></div>
-      <div class="lg"><b>Hold &#8220;Kill run&#8221;</b><span>The kill is signed on the wrist with the watch's own key (ES256). Release early and nothing happens. Hold it, and the run dies through the same relay path and lands in the same audit chain as a kill from the console.</span></div>
-      <div class="lg"><b>After the kill</b><span>The run flips to KILLED on the watch, the phone, the console and the menu bar in the same tick: one event, one truth, no refresh button.</span></div>
+      <div class="lg"><b>What reaches the wrist</b><span>Only runs at or over their cap, and live detections. The watch had a full fleet browser once and it was removed on purpose: a 40mm screen listing 9,501 runs is the opposite of a pager. The order is decided once, on the relay, so the wrist and the phone never disagree about which run is worst.</span></div>
+      <div class="lg"><b>Digital Crown</b><span>Scroll the short list without a finger covering it, then turn the crown again on a run to arm its kill. Arming is a deliberate physical act, and letting go before the end simply does nothing.</span></div>
+      <div class="lg"><b>Signed on the wrist</b><span>The kill is signed with the watch's own ES256 key, gated by wrist detection, and travels the same relay path into the same audit chain as a kill from the console. The relay cannot forge one: it forwards, it does not mint.</span></div>
+      <div class="lg"><b>After the kill</b><span>The wrist confirms by name, not with a generic tick: the run it just stopped is spelled out. Then it leaves the pager, because a pager should hold only what still needs a decision, and stays in the console, in the Money tab's ledger and in the audit trail, where the record belongs.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PINNED TRUST ================= -->
+<section class="sec" id="pinned" style="padding-top:14px">
+  <div class="wrap">
+    <div class="bus-grid">
+      <div>
+        <div class="sec-head rv" style="margin-bottom:14px">
+          <div class="kicker">pinned trust &#183; no certificate authority</div>
+          <h2>The phone trusts exactly one certificate in the world.</h2>
+        </div>
+        <p class="lede rv d1" style="max-width:56ch">The relay lives on your infrastructure and serves its own certificate, so there is no public authority to ask about it and nothing to buy. The QR you scan carries that certificate's SPKI-SHA256 fingerprint alongside the pairing code, and the phone keeps it. From then on it accepts that key and refuses every other one, including a perfectly valid certificate from a perfectly reputable authority.</p>
+        <p class="rv d2" style="margin-top:14px;color:var(--dim);font-size:14px;line-height:1.65;max-width:56ch">That is stricter than ordinary TLS, not looser. A normal client trusts several hundred authorities and anything they sign; this trusts one key and aborts the pairing on a mismatch, before a token is ever handed over. The device shows you what it is pinned to, so the check is yours to make rather than ours to claim: org, plane, role, and the first characters of the pin itself.</p>
+      </div>
+      <figure class="shot rv d1">
+        <img src="assets/shots/enterprise/ph-pinned.webp" alt="TokenFuse Pocket settings: org, plane address, role and the pinned TLS fingerprint, with an unpair control" width="1320" height="1412" loading="lazy">
+        <figcaption>what this iPhone is bound to, in its own words &#183; and one control to let go of it</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -361,11 +381,11 @@
     <div class="bento">
       <div class="card b-6 rv">
         <div class="kicker" style="--accent:var(--mint)">already true</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">The console has driven a real fleet over its own WireGuard tunnel and put a hardware-signed kill through it, against a plane closed to the internet. The pager has killed a run from a wrist. Felyx has run against a live model and proposed the right kill with cited evidence, on a fleet of 9,288 runs. Every claim above has a captured run behind it.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">The console has driven a real fleet over its own WireGuard tunnel and put a hardware-signed kill through it, against a plane closed to the internet. The pager has killed a run from a wrist. Felyx has run against a live model and found the one run still over its cap that nothing had killed, on a fleet of 9,501. Every claim above has a captured run behind it.</p>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--amber)">not yet</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">Packaging, notarization, the licensing flow, pricing: none of it is public, and we are not promising dates. When Genaryx ships, it will show up here first. Until then the stack underneath is open today - <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run it locally in one command</a> and see the same numbers without us.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">Packaging, notarization, the licensing flow, pricing: none of it is public, and we are not promising dates. When Genaryx ships, it will show up here first. Until then the stack underneath is open today - <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run its live services locally in one command</a> and watch the same planes fill with your own numbers.</p>
       </div>
     </div>
   </div>
@@ -386,25 +406,25 @@
 (function(){
 const TABS=[
  {id:"overview",l:"Overview",m:"the hero wall",img:"gx-overview.webp",
-  cap:"$4,314 fleet spend, $2,994.86 governed savings, 178 open incidents - the hero wall."},
+  cap:"$4,671 of fleet spend, $3,131.82 governed savings, 180 open incidents, and 15 runs killed of 9,501."},
  {id:"money",l:"Money",m:"runs &#183; kill &#183; budgets",img:"gx-money.webp",
-  cap:"9,288 runs ranked by spend, with Replay, Budget and Kill on every row and an incidents rail with one-tap Ack."},
+  cap:"9,501 runs ranked by spend, with Replay, Budget and Kill on every row, and an incidents rail beside them: $2,404.60 of it runaway spend prevented, the largest share of the $3,131.82 that recovered 40% of the gross draw."},
  {id:"policy",l:"Policy",m:"wardryx &#183; approvals",img:"gx-policy.webp",
-  cap:"The approvals inbox: five holds pending a human, each with its cost bound and a Grant / Deny that needs Touch ID."},
+  cap:"The approvals inbox: five holds waiting on a human, one decided today. Each carries the policy it breached and its cost bound, and Grant or Deny is signed with Touch ID before it counts."},
  {id:"identity",l:"Identity",m:"idryx &#183; 29 identities",img:"gx-identity.webp",
-  cap:"29 identities, 43 detector alerts, 21 attestation gaps surfaced honestly instead of hidden."},
+  cap:"29 identities, none privileged, 43 detector alerts and 21 attestation gaps surfaced honestly. The panel says outright that Idryx has no attestation field and that this list is derived from its alerts instead."},
  {id:"quality",l:"Quality",m:"verdryx &#183; drift",img:"gx-quality.webp",
-  cap:"Eval runs with a drift rail: mean score 0.780, and the one regressed case is impossible to miss."},
+  cap:"Four eval runs over 32 cases in verdryx.db, latest mean 0.883 against two saved baselines. The drift rail stays quiet on purpose: it fires on a real regression, not on every run."},
  {id:"evidence",l:"Evidence",m:"signed packs",img:"gx-evidence.webp",
-  cap:"An evidence pack built in-app: Cloud audit chain VERIFIED, Qryx CNSA evidence, a CycloneDX CBOM - signed, four artifacts."},
+  cap:"An evidence pack built in-app and signed: four artifacts, 6 KB, journaled, each with its SHA-256. Two sources could not be included, and the panel names them and the exact error rather than quietly shipping three."},
  {id:"copilot",l:"Copilot &#183; Felyx",m:"read + propose",img:"gx-copilot.webp",
-  cap:"Felyx live: five tool calls, then a kill proposal at 80% confidence with cited evidence. Approve routes into the same Touch ID ceremony."},
+  cap:"Felyx answering from five tool calls: $4,671.02 across 9,501 runs, $3,131.82 saved, and the one run still over its cap that nothing has killed. It ends by offering to file a proposal, because it holds no signer and a human must approve."},
  {id:"memory",l:"Memory",m:"engram &#183; recall",img:"gx-memory.webp",
-  cap:"Semantic recall over the fleet's memory: the quarter-end false-alarm ruling surfaces first, with provenance."},
+  cap:"Semantic recall over 57 memories: the top hit is the ruling that a batch's five budget trips came from an undersized cap, not a genuine runaway, with its provenance attached."},
  {id:"graph",l:"Graph",m:"delegation",img:"gx-graph.webp",
-  cap:"The delegation graph off the event bus: 36 nodes, one orchestrator at the hub, the human in gold."},
+  cap:"The delegation graph off the event bus: 36 nodes and 17 edges, one orchestrator at the hub, the only human in gold."},
  {id:"posture",l:"Posture",m:"stack sanity",img:"gx-posture.webp",
-  cap:"The console audits its own stack: snapshot age, detector freshness, fail-open risks - each finding with a FIX line."}
+  cap:"The console audits its own stack and finds three things worth saying, including that this environment is still authenticating with a devkey. Each finding carries a FIX line."}
 ];
 const rail=document.getElementById("gxc-rail"),img=document.getElementById("gxc-img"),cap=document.getElementById("gxc-cap");
 rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}<span class="mono">${t.m}</span></button>`).join("");
@@ -428,23 +448,22 @@ AppShow.mount(document.getElementById("ent-pager"),{
   interval:5200,
   phone:[
     {img:"assets/shots/enterprise/ph-connect.webp",t:"Pair against your own plane",
-     d:"A QR from the desktop carries the relay's pinned TLS identity and a one-time code. A signing key is born on this iPhone; a certificate mismatch aborts the pairing."},
-    {img:"assets/shots/enterprise/ph-finops.webp",t:"FinOps that match the console",
-     d:"$2,994.86 saved this month - blocked runaways, cache hits, cheaper routes. The same numbers the desktop and the audit trail hold, sized for a pocket."},
-    {img:"assets/shots/enterprise/ph-incidents.webp",t:"Exceptions, not noise",
-     d:"Only what crossed a line: one reconciliation batch with 13 budget trips and a sustained loop, two fan-outs. Acknowledging needs Face ID."},
-    {img:"assets/shots/enterprise/ph-alert.webp",t:"The push that means act",
-     d:"Agent running hot: over budget, breaker tripped 13 times. Tap the banner and you land on the run itself, not on a dashboard's front door."},
-    {img:"assets/shots/enterprise/ph-kill-arm.webp",t:"Slide to arm the kill",
-     d:"The kill is deliberately physical: drag to arm. It is signed by this device and gated by Face ID - a stolen API token cannot do this."},
+     d:"One QR from the desktop carries the relay's pinned TLS identity and a one-time code for each device. The signing key is born on this iPhone and never leaves it, and a certificate that does not match the pin aborts the pairing."},
+    {img:"assets/shots/enterprise/ph-finops.webp",t:"The same money, sized for a pocket",
+     d:"$3,131.82 avoided this month: $2,404.60 of runaway spend blocked, $440.91 returned by the semantic cache, $286.31 by routing to a cheaper model, across 181 budget breaks. The console and the audit trail hold those same figures."},
+    {img:"assets/shots/enterprise/ph-incidents.webp",t:"Only what crossed a line",
+     d:"$6.42 a minute burning against $2.02 of headroom, and beneath it one run at 116% of its budget with a Kill on it. Everything comfortably inside its cap is deliberately absent: a pager that lists the healthy fleet is a dashboard, and nobody reads a dashboard at 2am."},
+    {img:"assets/shots/enterprise/ph-kill-arm.webp",t:"A kill you have to mean",
+     d:"Naming the run is the point: \u201cKill run reconciliation-batch-eod-002-s128? Signed on this iPhone and enforced across every gateway.\u201d Nothing is armed by a swipe and nothing fires by accident."},
     {img:"assets/shots/enterprise/ph-faceid.webp",t:"Face ID, then the signature",
-     d:"The order is ES256-signed on the phone. The relay forwards it byte-for-byte and cannot mint one itself; the Cloud verifies the device's key."},
-    {img:"assets/shots/enterprise/ph-killed.webp",t:"KILLED, everywhere at once",
-     d:"The run flips to KILLED on the phone, the console, the menu bar and the audit trail - one event, one truth, no refresh."}
+     d:"The order is ES256-signed on the phone itself. The relay forwards it byte for byte and structurally cannot mint one, and the Cloud verifies the device key. A stolen API token gets you nowhere near this."},
+    {img:"assets/shots/enterprise/ph-faceid-denied.webp",t:"The wrong face gets nothing",
+     d:"Face not recognized, and the run keeps running. The gate is not decorative: no signature is produced, nothing reaches the relay, and the fleet is exactly as it was a second earlier. This is the same screen with the wrong face in front of it."}
   ],
   watch:[
-    {img:"assets/shots/enterprise/watch-fleet.webp",t:"Fleet, hottest first"},
-    {img:"assets/shots/enterprise/watch-kill.webp",t:"Hold to kill &#183; signed on the wrist"}
+    {img:"assets/shots/enterprise/watch-exceptions.webp",t:"Over the line, and nothing else"},
+    {img:"assets/shots/enterprise/watch-kill.webp",t:"Armed by the crown &#183; signed on the wrist"},
+    {img:"assets/shots/enterprise/watch-killed.webp",t:"Killed &#183; and the wrist names which run"}
   ]
 });
 </script>

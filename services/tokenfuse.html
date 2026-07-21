@@ -69,7 +69,7 @@
       <div>
         <div class="kicker rv">money plane &#183; wave 1</div>
         <h1 class="rv d1"><span class="nm">TokenFuse</span>. The breaker between your agents and your invoice.</h1>
-        <p class="lede rv d2">Observability tells you about the fire in next month's bill. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the second the money stops making sense. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.</p>
+        <p class="lede rv d2">Observability tells you about the fire in next month's bill. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch a runaway die <span class="mono">&#9654;</span></a>
           <a class="btn" href="https://github.com/TAIPANBOX/tokenfuse" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
@@ -166,7 +166,7 @@
       <div class="card hover feature b-4 rv"><h3>Per-run budgets</h3><p>Company, team, agent, run: budgets nest, and the run is the unit that pays. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens, with the 2026 model price book built in. The estimate is fast and honest about being an estimate.</p></div>
-      <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones keep the big brain. In live runs the router and cache together stripped about 22% of routine spend.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Raft-replicated ledger</h3><p>Four physical machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>FOCUS export</h3><p>Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.</p></div>
     </div>
@@ -179,18 +179,18 @@
     <div class="sec-head rv">
       <div class="kicker">an honest comparison</div>
       <h2>Where the breaker lives matters.</h2>
-      <p class="lede">The closest comparable tool, Pipelock, does real work in the same category. The architectural difference is where the stop button sits: inside the request path it protects, or outside it.</p>
+      <p class="lede">We would rather argue with the strongest version of the alternative than with a straw man. The best in-line proxies in this space do real work: per-agent budgets, several independent kill triggers, even fleet control planes. Every one of those triggers is software, reachable from the same estate it guards. Ours adds one that is not: a kill signed inside a Secure Enclave, on a device that was never part of the request path.</p>
     </div>
     <div class="tbl-scroll rv">
       <table class="tbl">
-        <thead><tr><th></th><th>TokenFuse</th><th>Pipelock</th><th>Observability dashboards</th></tr></thead>
+        <thead><tr><th></th><th>TokenFuse</th><th>In-line budget proxies</th><th>Observability dashboards</th></tr></thead>
         <tbody>
-          <tr><td>Enforcement</td><td class="yes">In-line 402, seconds</td><td class="yes">In-line, in-process</td><td class="no">Alert after the fact</td></tr>
-          <tr><td>Kill switch location</td><td class="yes">Out of band, Secure&#160;Enclave-signed &#183; iPhone / Watch on Enterprise</td><td class="warn">Inside the same process it protects</td><td class="no">None</td></tr>
-          <tr><td>Shared budget across machines</td><td class="yes">Raft consensus, byte-identical state</td><td class="no">Single node</td><td class="no">n/a</td></tr>
-          <tr><td>Cost optimization</td><td class="yes">Router + semantic cache, measured 22%</td><td class="no">Not a goal</td><td class="warn">Recommendations only</td></tr>
-          <tr><td>FinOps handoff</td><td class="yes">FOCUS-format export</td><td class="no">Custom logs</td><td class="warn">Vendor lock</td></tr>
-          <tr><td>Fleet, incidents, evidence</td><td class="yes">Cloud plane + audit hash chain</td><td class="no">No fleet layer</td><td class="yes">Strong, read-only</td></tr>
+          <tr><td>Enforcement</td><td class="yes">In-line 402, seconds</td><td class="yes">In-line, in the request path</td><td class="no">Alert after the fact</td></tr>
+          <tr><td>Kill switch</td><td class="yes">Software triggers, plus one that is not software: Secure&#160;Enclave-signed, from a separate device</td><td class="warn">Remote APIs, signals, sentinel files: all software, all reachable from the estate they guard</td><td class="no">None</td></tr>
+          <tr><td>Shared budget across machines</td><td class="yes">Raft consensus, byte-identical state on every node</td><td class="warn">Per-agent budgets; fleet planes exist, typically behind commercial licences</td><td class="no">n/a</td></tr>
+          <tr><td>Cost optimization</td><td class="yes">Router + semantic cache, measured 22%</td><td class="warn">Rarely a goal</td><td class="warn">Recommendations only</td></tr>
+          <tr><td>FinOps handoff</td><td class="yes">FOCUS format, the one finance already reads</td><td class="warn">Security formats: SIEM, syslog, OTLP. Not the ones finance reads</td><td class="warn">Vendor lock</td></tr>
+          <tr><td>Fleet, incidents, evidence</td><td class="yes">Cloud plane + audit hash chain</td><td class="yes">Policy distribution and evidence logs in the strongest tools</td><td class="yes">Strong, read-only</td></tr>
         </tbody>
       </table>
     </div>
@@ -212,7 +212,7 @@
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">docker run -p 4100:4100 <b>ghcr.io/taipanbox/tokenfuse</b></span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">Then point <span class="mono" style="font-size:12px">ANTHROPIC_BASE_URL</span> at <span class="mono" style="font-size:12px">localhost:4100</span> and give your next run a budget header. That's the whole migration.</p>
-          <p class="dim" style="font-size:13px;line-height:1.6">Want the whole stack, not just the gateway? <a href="platform.html#run" data-dir="fwd" style="color:var(--mint)">Run it all locally</a> in one command.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">Want more than the gateway? <a href="platform.html#run" data-dir="fwd" style="color:var(--mint)">Run the live services locally</a> in one command.</p>
         </div>
       </div>
     </div>

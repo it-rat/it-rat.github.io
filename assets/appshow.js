@@ -5,29 +5,52 @@
    drives the tour manually. Reduced-motion users get instant swaps and no
    autoplay. No deps.
 
+   A step may carry ONE screenshot or SEVERAL. That is what `imgs` is for: a
+   screen is usually a short story rather than a single frame (open the tab,
+   drill into a row, watch the state change), and tying one card to one frame
+   forces a bad choice between burying the reader in twenty near-identical
+   cards and throwing away the frames that show what the app can actually do.
+   Autoplay walks every frame in order; the card that highlights is the one
+   that owns the frame currently showing; clicking a card jumps to that card's
+   FIRST frame. So the number of cards and the number of screenshots are free
+   to differ. A step given plain `img` still behaves exactly as before.
+
    AppShow.mount(el, {
-     phone:[{img,t,d}, ...],      // screenshot url + title + description
-     watch:[{img,t,d}, ...],      // optional
-     interval: 4600               // autoplay ms per screen
+     phone:[{img,t,d}, {imgs:[a,b,c],t,d}, ...],   // one frame or several
+     watch:[{img,t}, {imgs:[a,b],t}, ...],         // optional, same rule
+     interval: 4600                                // autoplay ms per FRAME
    })
 */
 (function(){
 "use strict";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* Flatten the steps into the frame list the <img> tags actually render,
+   remembering which step owns each frame and where each step begins. */
+function flatten(steps){
+  const frames=[], firstOf=[];
+  steps.forEach((s,si)=>{
+    const list=(s.imgs&&s.imgs.length)?s.imgs:(s.img?[s.img]:[]);
+    firstOf[si]=frames.length;
+    list.forEach(src=>frames.push({src,step:si}));
+  });
+  return {frames,firstOf};
+}
+
 function mount(root,cfg){
   const phone=cfg.phone||[], watch=cfg.watch||[];
+  const P=flatten(phone), W=flatten(watch);
   root.classList.add("appshow");
   root.innerHTML=
     `<div class="as-device">
        <figure class="as-phone" role="group" aria-label="App screens">
          <span class="as-island"></span>
-         ${phone.map((s,i)=>`<img src="${s.img}" alt="${s.t}" ${i?'loading="lazy"':""} class="${i===0?"on":""}">`).join("")}
+         ${P.frames.map((f,i)=>`<img src="${f.src}" alt="${phone[f.step].t}" ${i?'loading="lazy"':""} class="${i===0?"on":""}">`).join("")}
        </figure>
-       ${watch.length?`
+       ${W.frames.length?`
        <figure class="as-watch" role="group" aria-label="Watch screens">
          <span class="as-crown"></span>
-         ${watch.map((s,i)=>`<img src="${s.img}" alt="${s.t}" loading="lazy" class="${i===0?"on":""}">`).join("")}
+         ${W.frames.map((f,i)=>`<img src="${f.src}" alt="${watch[f.step].t}" loading="lazy" class="${i===0?"on":""}">`).join("")}
          <figcaption class="as-wcap mono">${watch[0].t}</figcaption>
        </figure>`:""}
      </div>
@@ -37,7 +60,7 @@ function mount(root,cfg){
            <span class="as-n mono">${String(i+1).padStart(2,"0")}</span>
            <span class="as-body"><b>${s.t}</b><span>${s.d}</span></span>
          </button>`).join("")}
-       ${watch.length?`<div class="as-note mono">and on the wrist: ${watch.map(w=>w.t.toLowerCase()).join(" · ")}</div>`:""}
+       ${watch.length?`<div class="as-note mono">and on the wrist: ${watch.map(w=>w.t.toLowerCase()).join(" &#183; ")}</div>`:""}
      </div>`;
 
   const imgs=[...root.querySelectorAll(".as-phone img")];
@@ -47,18 +70,23 @@ function mount(root,cfg){
   let cur=0, wcur=0, timer=null, holdUntil=0;
 
   function show(i){
-    cur=(i+phone.length)%phone.length;
+    if(!P.frames.length) return;
+    cur=(i+P.frames.length)%P.frames.length;
+    const owner=P.frames[cur].step;
     imgs.forEach((im,k)=>im.classList.toggle("on",k===cur));
-    steps.forEach((st,k)=>st.classList.toggle("on",k===cur));
+    steps.forEach((st,k)=>st.classList.toggle("on",k===owner));
   }
   function wshow(i){
-    if(!wimgs.length) return;
-    wcur=(i+wimgs.length)%wimgs.length;
+    if(!W.frames.length) return;
+    wcur=(i+W.frames.length)%W.frames.length;
     wimgs.forEach((im,k)=>im.classList.toggle("on",k===wcur));
-    if(wcap) wcap.textContent=watch[wcur].t;
+    if(wcap) wcap.textContent=watch[W.frames[wcur].step].t;
   }
+  /* A card click lands on that card's FIRST frame, never on whichever frame
+     happened to be showing: the words and the picture have to agree the
+     instant the reader asks for them. */
   steps.forEach(st=>st.addEventListener("click",()=>{
-    show(+st.dataset.i); holdUntil=Date.now()+12000;
+    show(P.firstOf[+st.dataset.i]); holdUntil=Date.now()+12000;
   }));
   root.querySelector(".as-phone").addEventListener("click",()=>{
     show(cur+1); holdUntil=Date.now()+12000;
@@ -76,7 +104,7 @@ function mount(root,cfg){
         if(seen) timer=setInterval(()=>{
           if(Date.now()<holdUntil) return;
           show(cur+1);
-          if(wimgs.length&&cur%2===0) wshow(wcur+1);
+          if(W.frames.length&&cur%2===0) wshow(wcur+1);
         },cfg.interval||4600);
       });
     },{threshold:.25}).observe(root);

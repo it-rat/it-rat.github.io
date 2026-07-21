@@ -79,7 +79,7 @@
         <div class="row"><span class="k">platform</span><span class="v">iOS &#183; watchOS &#183; SwiftUI</span></div>
         <div class="row"><span class="k">signing</span><span class="v">Secure Enclave, keys never leave the device</span></div>
         <div class="row"><span class="k">pairs with</span><span class="v">TokenFuse Cloud</span></div>
-        <div class="row"><span class="k">surfaces</span><span class="v">Dynamic Island &#183; widgets &#183; Watch faces</span></div>
+        <div class="row"><span class="k">surfaces</span><span class="v">Dynamic Island &#183; Live Activity &#183; Watch complication</span></div>
         <div class="row"><span class="k">ships with</span><span class="v">Genaryx Enterprise &#183; in the works</span></div>
       </div>
     </div>
@@ -91,7 +91,7 @@
   <div class="wrap">
     <div class="card rv" style="--accent:var(--violet);display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between">
       <p style="color:var(--dim);font-size:14px;line-height:1.6;margin:0;max-width:72ch">
-        <b style="color:var(--fg)">Part of Enterprise.</b> Pocket and the Watch pair to <em>your</em> TokenFuse data through <span style="color:var(--violet)">Genaryx</span>, the enterprise control room we are building: the hardened 24/7 relay beside a firewalled plane, push alerts the moment a cap breaks, the wrist kill. The plane it reads stays open; the pager around it is the Enterprise part.
+        <b style="color:var(--fg)">Part of Enterprise.</b> Pocket and the Watch pair to <em>your</em> TokenFuse data through <span style="color:var(--violet)">Genaryx</span>, the enterprise control room we are building: a 24/7 relay beside a firewalled plane that reads but cannot act, push alerts the moment a cap breaks, the wrist kill. The plane it reads stays open; the pager around it is the Enterprise part.
       </p>
       <a class="btn" href="../enterprise.html" style="flex:0 0 auto">Enterprise &#183; in the works <span class="soon-pill">soon</span></a>
     </div>
@@ -116,16 +116,16 @@
     <div class="sec-head rv">
       <div class="kicker">design mocks, live</div>
       <h2>Do not watch it. Drive it.</h2>
-      <p class="lede">An interactive design mock of the iPhone and Watch apps, running here as a web page. Five iPhone screens and five Watch screens, all live: the burn ticks, the segmented control filters, the kill is a breaker you drag to arm, and a kill from the wrist updates the phone. Drive it with the steps, the tab bar, or the Watch switch.</p>
+      <p class="lede">An interactive design mock of the iPhone and Watch apps, running here as a web page. Five iPhone screens and five Watch screens, all live: the burn ticks and every screen is driveable. The shipped ceremony is stricter than any mock: a kill is confirmed by name and signed on the device, and a killed run then leaves the pager, staying in the console and the audit trail. Drive it with the steps, the tab bar, or the Watch switch.</p>
     </div>
     <div class="appshow rv">
       <div id="pk-live"></div>
       <div class="as-steps" id="pk-steps">
-        <div class="as-step"><span class="as-n mono">01</span><span class="as-body"><b>Runs, the deck</b><span>Fleet burn up top with a live sparkline, then every run as a fuse. The over-cap one sorts itself to the top, ember and pulsing. The Active / All / Killed control filters the list.</span></span></div>
-        <div class="as-step"><span class="as-n mono">02</span><span class="as-body"><b>Run detail, pull the breaker</b><span>Tap a run for spend against cap, model and steps. The kill is a physical breaker: drag the knob all the way to arm and fire it. Signed on-device.</span></span></div>
-        <div class="as-step"><span class="as-n mono">03</span><span class="as-body"><b>Always in view</b><span>The burn rate rides the Dynamic Island, an expanded long-press card, and the Lock Screen Live Activity. Glance instead of opening the app. The Kill button works from here too.</span></span></div>
+        <div class="as-step"><span class="as-n mono">01</span><span class="as-body"><b>Runs, the deck</b><span>Fleet burn up top with a live sparkline, then the exception queue: runs at or over their cap, worst first, ember and pulsing. The pager holds what needs a decision; the healthy fleet stays in the console.</span></span></div>
+        <div class="as-step"><span class="as-n mono">02</span><span class="as-body"><b>Run detail, pull the breaker</b><span>Tap a run for spend against cap, model and steps. The kill asks you to mean it: a confirmation naming the exact run, then Face ID, then an on-device signature. Nothing is armed by a swipe.</span></span></div>
+        <div class="as-step"><span class="as-n mono">03</span><span class="as-body"><b>Always in view</b><span>The burn rate rides the Dynamic Island, an expanded long-press card, and the Lock Screen Live Activity. Glance instead of opening the app. One tap drops you on the run that needs a decision.</span></span></div>
         <div class="as-step"><span class="as-n mono">04</span><span class="as-body"><b>Pairing, trust on-device</b><span>A one-time QR links the phone to your org. The Secure Enclave keypair is what actually authorizes a kill, so a stolen token alone cannot stop your agents.</span></span></div>
-        <div class="as-step"><span class="as-n mono">05</span><span class="as-body"><b>Alerts that mean act</b><span>The server pushes the moment a run crosses its cap or gets killed. Tap a banner to jump straight to the run. And on the wrist: use the Face, Fleet, Runs and Kill switch under the Watch, then hold to kill.</span></span></div>
+        <div class="as-step"><span class="as-n mono">05</span><span class="as-body"><b>Alerts that mean act</b><span>The relay pushes the moment a run crosses its cap. Tap a banner to jump straight to the run. And on the wrist: only runs at or over cap plus live detections; turn the Digital Crown to arm a kill, then confirm it on the wrist.</span></span></div>
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>One phone. One key. A path the gateway never sees.</h2>
-      <p class="lede">The app pairs to TokenFuse Cloud, not to the gateway your agent talks to. A kill or a budget change is signed on-device by the Secure Enclave, sent to Cloud, and pushed out to every gateway in the fleet from there. The request path and the kill path never share a wire.</p>
+      <p class="lede">The app pairs to the relay beside TokenFuse Cloud, never to the gateway your agent talks to. A kill or a budget change is signed on-device by the Secure Enclave, forwarded byte for byte by the relay to Cloud, and pushed out to every gateway in the fleet from there. The request path and the kill path never share a wire.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 980 340" role="img" aria-label="Pocket architecture: the kill path stays out of band from the agent's request path">
@@ -215,7 +215,7 @@
         <tbody>
           <tr><td>Time to stop a runaway</td><td class="yes">Seconds, from a wrist</td><td class="warn">Minutes, if someone's awake</td><td class="warn">Minutes, if the laptop is near and the VPN cooperates</td></tr>
           <tr><td>Works when the server path is compromised</td><td class="yes">Yes, out of band</td><td class="warn">Alert maybe arrives</td><td class="no">No, you're in the same path</td></tr>
-          <tr><td>Can spend be cut by accident</td><td class="yes">Hold-to-confirm, cost-bound</td><td class="no">n/a</td><td class="warn">One wrong kill -9</td></tr>
+          <tr><td>Can spend be cut by accident</td><td class="yes">Named confirm + on-device signature</td><td class="no">n/a</td><td class="warn">One wrong kill -9</td></tr>
           <tr><td>Audit trail</td><td class="yes">Every kill logged as an incident</td><td class="warn">Alert history</td><td class="no">Shell history on a laptop</td></tr>
         </tbody>
       </table>
@@ -237,7 +237,7 @@
         <div class="kicker" style="--accent:var(--violet)">where it ships</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
           <p class="dim" style="font-size:13px;line-height:1.6">Pocket pairs through <a href="../enterprise.html" style="color:var(--violet)">Genaryx</a>, the enterprise control room, to a TokenFuse plane you host yourself - and ships with it. In the works, shown honestly: real screenshots, no pricing yet.</p>
-          <p class="dim" style="font-size:13px;line-height:1.6">The plane it reads is open today: <a href="platform.html#run" style="color:var(--cyan)">run the whole stack locally in one command</a> and see the same numbers on your own machine.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">The plane it reads is open today: <a href="platform.html#run" style="color:var(--cyan)">stand up the stack's live services locally in one command</a> and see the same money plane on your own machine.</p>
         </div>
       </div>
     </div>
@@ -287,7 +287,7 @@ Sim.mount(document.getElementById("pk-sim"),{
     {t:3,cls:"info",label:"fleet quiet &#183; burn $0.42/min across 4 runs"},
     {t:14,cls:"warn",label:"run 7f3a2b: burn 2.4x baseline &#183; Dynamic Island goes amber"},
     {t:22,cls:"bad",label:"push: OVER CAP &#183; $26.10 against a $25.00 budget"},
-    {t:30,cls:"info",label:"wrist: one turn of the crown, hold to confirm"},
+    {t:30,cls:"info",label:"wrist: crown turned to arm &#183; confirmed on the wrist"},
     {t:36,cls:"ok",label:"kill command signed by the Secure Enclave &#183; sent out of band"},
     {t:41,cls:"ok",label:"gateway confirms: run killed &#183; breaker open"},
     {t:50,cls:"ok",label:"burn back to baseline &#183; incident logged in Cloud"},
