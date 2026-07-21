@@ -47,6 +47,14 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+
+  /* ---- the "in the works" ribbon (mirrors enterprise.html) ---- */
+  .ent-ribbon{border-bottom:1px solid var(--line)}
+  .ent-ribbon .wrap{display:flex;align-items:center;gap:10px;padding:10px 24px;
+    font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+  .ent-ribbon .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:entPulse 2.4s infinite}
+  @keyframes entPulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .ent-ribbon b{color:var(--fg);font-weight:650}
 </style>
 </head>
 <body data-service="pocket" data-root="../">
@@ -61,6 +69,10 @@
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
 </header>
+
+<div class="ent-ribbon">
+  <div class="wrap"><span class="dot"></span><b>In the works.</b> TokenFuse Pocket is not released: no pricing, no downloads. This page shows what we are building.</div>
+</div>
 
 <!-- ================= HERO ================= -->
 <section class="svc-hero">
@@ -242,7 +254,7 @@
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--violet)">where it ships</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <p class="dim" style="font-size:13px;line-height:1.6">Pocket pairs through <a href="../enterprise.html" style="color:var(--violet)">Genaryx</a>, the enterprise control room, to a TokenFuse plane you host yourself - and ships with it. In the works, shown honestly: real screenshots, no pricing yet.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">Pocket pairs through <a href="../enterprise.html" style="color:var(--violet)">Genaryx</a>, the enterprise control room, to a TokenFuse plane you host yourself - and ships with it. In the works, shown honestly: a live design mock, no pricing yet.</p>
           <p class="dim" style="font-size:13px;line-height:1.6">The plane it reads is open today: <a href="platform.html#run" style="color:var(--cyan)">stand up the stack's live services locally in one command</a> and see the same money plane on your own machine.</p>
         </div>
       </div>
