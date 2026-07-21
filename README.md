@@ -1,61 +1,89 @@
-# it-rat2 - the new IT-RAT site (parallel build)
+<p align="center">
+  <img src="assets/img/readme/hero.png" alt="IT-RAT: the source of it-rat.com, an interactive control room for the open agent-governance stack" width="100%">
+</p>
 
-A ground-up rebuild of it-rat.com as an interactive product site for the
-agent-governance stack. Lives NEXT TO the current site (`../it-rat`) and does
-not touch it; swapping is a separate, explicit decision.
+<p align="center">
+  <a href="https://it-rat.com"><img alt="live" src="https://img.shields.io/badge/live-it--rat.com-F4B23E?style=flat-square"></a>
+  <a href="https://github.com/it-rat/it-rat.github.io/actions/workflows/pages.yml"><img alt="deploy" src="https://github.com/it-rat/it-rat.github.io/actions/workflows/pages.yml/badge.svg"></a>
+  <img alt="build step" src="https://img.shields.io/badge/build%20step-none-2DD4BF?style=flat-square">
+  <img alt="dependencies" src="https://img.shields.io/badge/CDNs%20%C2%B7%20trackers-none-8A97A6?style=flat-square">
+  <a href="https://github.com/TAIPANBOX"><img alt="stack" src="https://img.shields.io/badge/the%20stack-TAIPANBOX-B48CFF?style=flat-square"></a>
+</p>
 
-## What's inside
+# it-rat.com
 
-- `index.html` - the control-room home: fuse-wire canvas hero, the stack rail
-  (10 cards, scrolls sideways), wiring diagram, live-validation numbers,
-  consulting section.
-- `services/*.html` - one room per service (wave 1, wave 2, platform contract,
-  TokenFuse Pocket, Sphere). Each page: hero facts, a scrubbable "watch it over
-  time" simulation built on real validation numbers, an animated architecture
-  diagram, six feature cards, an honest comparison table, prev/next edge
-  navigation.
-- `assets/site.css` - the design system (dark control-room, per-service accent
-  colors, view-transition slide animations).
-- `assets/site.js` - stack registry, command palette (Cmd+K or /), directional
-  cross-document View Transitions (pages slide sideways), reveal-on-scroll,
-  count-up numbers, edge/dots navigation, arrow-key paging.
-- `assets/sim.js` - the timeline-simulation engine (shared chrome: counters,
-  event log, play/scrub/speed, reduced-motion aware) plus a stage registry:
-  every service renders its own kind of visualization on the shared timeline.
-- `assets/stages/*.js` - one bespoke sim stage per service (fuse wire and
-  budget bar for TokenFuse, decision gate lanes for Wardryx, estate sweep grid
-  for Qryx, and so on). Deterministic in t, so scrubbing works both ways.
-- `assets/diagram.js` - architecture-schematic helpers: staggered draw-in on
-  reveal and a full-screen lightbox (wheel/pinch zoom, drag pan, double-click
-  reset) so every label is readable at any size.
-- `assets/ambient.js` - quiet AI-flavored canvas backdrops for service heroes,
-  one motif per service drawn from its domain: gradient descent (TokenFuse),
-  a learned decision boundary (Wardryx), a memory graph with spreading
-  activation (Engram), an identity graph (Idryx), a rotating point lattice
-  (Qryx), training curves (Verdryx), adversarial bursts vs a guardrail
-  (Mockryx), tensor tiles (Platform), an out-of-band pulse graph (Pocket),
-  an attention ring over twelve agents (Sphere).
+The source of **[it-rat.com](https://it-rat.com)**: a product site for the TAIPANBOX agent-governance
+stack, built as an interactive control room rather than a brochure. Every service gets its own room
+with a scrubbable simulation of how it behaves over time, an animated architecture diagram, and an
+honest comparison against the alternatives we rejected.
 
-No build step, no CDNs, no external fonts. Everything works from GitHub Pages
-as-is and from any static file server.
+The stack itself is **defensive**: it exists so the owner of an AI-agent fleet can see, price, govern
+and stop their own agents. Nothing here is offensive tooling, and the site is written to say so.
 
-## Preview locally
+## The rooms
 
-    python3 -m http.server 8123 --directory .
+| Page | Plane | What it covers |
+|---|---|---|
+| `index.html` | the stack | The home control room: fuse-wire hero, the service rail, the wiring diagram, live-validation numbers |
+| `services/tokenfuse.html` | money | Runtime spend control, budgets, the kill switch |
+| `services/engram.html` | memory | The SQLite of agent memory, single file, embeddable |
+| `services/wardryx.html` | policy | Policy decisions with a human in the loop |
+| `services/idryx.html` | access | One identity graph for humans, keys and agents |
+| `services/qryx.html` | crypto | Cryptography inventory and post-quantum risk |
+| `services/verdryx.html` | quality | Cost per correctly resolved case, not per token |
+| `services/mockryx.html` | pre-prod | Fire drills that prove guardrails hold |
+| `services/platform.html` | contract | Agent Passport, the shared event envelope, Terraform |
+| `services/pocket.html` | iOS, watchOS | TokenFuse Pocket, the pager and the kill from the wrist |
+| `services/sphere.html` | iOS | Sphere, twelve life-sphere agents |
+| `enterprise.html` | control room | Genaryx, the paid desktop console. In the works, no pricing |
 
-then open http://localhost:8123. (View Transitions need http, not file://.)
+## How it deploys
 
-## Navigation model (why there is no 10-tab menu)
+Push to `master`. That is the whole procedure.
 
-Home is the hub: the rail and the wiring diagram are the map. Service pages
-are chained left/right (edge cards, arrow keys, the dots rail on the right),
-and the whole site pages SIDEWAYS via cross-document View Transitions in
-Chrome/Edge/Safari-18+; other browsers just navigate instantly. Cmd+K (or /)
-opens the command palette from anywhere.
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) checks out the tree, runs one cheap
+gate, and publishes. The gate walks every local `src`/`href` in the HTML pages and fails the run if a
+reference does not resolve, because this repo has shipped both a page pointing at a deleted
+screenshot and orphaned images left publicly reachable.
 
-## If/when it replaces the live site
+Pages is set to **GitHub Actions** as its source (since 2026-07-21), not the built-in branch builder,
+so a failed publish has a log and a re-run button instead of a silent "Page build failed". The custom
+domain lives in `CNAME`, HTTPS is enforced, and `.nojekyll` keeps Pages from reinterpreting the tree.
 
-1. Copy the contents of this folder over the `it-rat` repo work tree
-   (keep `CNAME`!), commit, push: GitHub Pages does the rest.
-2. Or point Pages at a new branch containing this tree.
-Keep `favicon.png` and `CNAME`; regenerate `og` images if desired.
+## Run it locally
+
+```sh
+python3 -m http.server 8123 --directory .
+```
+
+Then open <http://localhost:8123>. Use http rather than opening the files directly: cross-document
+View Transitions do not run on `file://`.
+
+## How it is built
+
+No build step, no CDNs, no external fonts, no trackers. Plain HTML, one stylesheet, a handful of ES
+modules, and everything works from any static file server.
+
+- `assets/site.css` is the design system: dark control room, a per-service accent color, view-transition slides.
+- `assets/site.js` holds the service registry (id, plane, accent, blurb), the command palette (`Cmd+K` or `/`), directional cross-document View Transitions, reveal-on-scroll, count-up numbers, and arrow-key paging.
+- `assets/sim.js` is the timeline engine shared by every service simulation: counters, event log, play, scrub, speed, reduced-motion aware.
+- `assets/stages/*.js` is one bespoke stage per service, drawn on that shared timeline: a fuse wire and budget bar for TokenFuse, decision-gate lanes for Wardryx, an estate sweep grid for Qryx, and so on. Each stage is deterministic in `t`, so scrubbing works in both directions.
+- `assets/ambient.js` gives each service hero a quiet canvas motif from its own domain: gradient descent, a learned decision boundary, a memory graph with spreading activation, an identity graph, a rotating point lattice, training curves, adversarial bursts against a guardrail.
+- `assets/diagram.js` handles the architecture schematics: staggered draw-in on reveal, plus a full-screen lightbox with wheel and pinch zoom, drag pan, and double-click reset, so every label stays readable.
+- `assets/shotbox.js` frames and enlarges the product screenshots on the Enterprise page.
+
+## House rules for edits
+
+- **Say only what is true.** Genaryx is not released: the Enterprise and Pocket pages carry an "in the works" ribbon, and neither shows pricing or a download. Numbers on the site come from the validation records in the stack repos, not from marketing.
+- **No long dashes in copy.** Reword, or use a comma, a colon, parentheses, or a short hyphen.
+- **Keep it self-contained.** A new dependency that needs a CDN does not belong here.
+- **SVG stays legible.** No raster artwork for diagrams, and no label smaller than 10px; anything dense gets the lightbox.
+- **Screenshots belong to the site**, not to the documents next to it.
+
+## Related
+
+The stack this site describes lives at **[github.com/TAIPANBOX](https://github.com/TAIPANBOX)**, and
+the open services are Apache-2.0: TokenFuse, Engram, Idryx, Qryx, Wardryx, Verdryx, Mockryx, the
+Platform contract, and the `stack-up` launcher that runs the whole thing locally with one command.
+
+<sub>&copy; 2026 IT-RAT</sub>
