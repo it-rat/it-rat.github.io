@@ -69,19 +69,35 @@ function mount(root,cfg){
   const wcap=root.querySelector(".as-wcap");
   let cur=0, wcur=0, timer=null, holdUntil=0;
 
+  /* A frame that is about to be shown must not depend on the lazy-loading
+     heuristic. Every frame after the first is stacked at opacity 0, and a
+     backgrounded or embedded view reports the document as hidden, so the
+     browser never decides those frames are worth fetching and the device
+     shows an empty screen when their turn comes. Flipping the attribute to
+     eager starts the fetch immediately, even while hidden, so warm the frame
+     being shown and the one after it and let the rest stay lazy. */
+  function warm(list,i){
+    if(!list.length) return;
+    const im=list[((i%list.length)+list.length)%list.length];
+    if(im&&im.loading==="lazy") im.loading="eager";
+  }
+
   function show(i){
     if(!P.frames.length) return;
     cur=(i+P.frames.length)%P.frames.length;
     const owner=P.frames[cur].step;
+    warm(imgs,cur); warm(imgs,cur+1);
     imgs.forEach((im,k)=>im.classList.toggle("on",k===cur));
     steps.forEach((st,k)=>st.classList.toggle("on",k===owner));
   }
   function wshow(i){
     if(!W.frames.length) return;
     wcur=(i+W.frames.length)%W.frames.length;
+    warm(wimgs,wcur); warm(wimgs,wcur+1);
     wimgs.forEach((im,k)=>im.classList.toggle("on",k===wcur));
     if(wcap) wcap.textContent=watch[W.frames[wcur].step].t;
   }
+  warm(imgs,1); warm(wimgs,0);
   /* A card click lands on that card's FIRST frame, never on whichever frame
      happened to be showing: the words and the picture have to agree the
      instant the reader asks for them. */
@@ -95,18 +111,23 @@ function mount(root,cfg){
   wfig&&wfig.addEventListener("click",()=>{wshow(wcur+1); holdUntil=Date.now()+12000;});
 
   if(!reduce){
-    /* autoplay only while on screen */
-    let seen=false;
+    /* Autoplay pauses off screen, but it must not WAIT for the observer to
+       grant permission: an embedded or backgrounded view never reports an
+       intersection, and the tour would sit on frame one forever. Start it, let
+       the observer stop and restart it once it has an opinion. */
+    const tick=()=>{
+      if(Date.now()<holdUntil) return;
+      show(cur+1);
+      if(W.frames.length&&cur%2===0) wshow(wcur+1);
+    };
+    const start=()=>{clearInterval(timer); timer=setInterval(tick,cfg.interval||4600)};
+    start();
     new IntersectionObserver(es=>{
-      es.forEach(en=>{
-        seen=en.isIntersecting;
-        clearInterval(timer);
-        if(seen) timer=setInterval(()=>{
-          if(Date.now()<holdUntil) return;
-          show(cur+1);
-          if(W.frames.length&&cur%2===0) wshow(wcur+1);
-        },cfg.interval||4600);
-      });
+      /* A view that is not being rendered answers "not intersecting" to its
+         very first callback, which would kill the tour it just started.
+         Only a document that can actually see itself gets a vote. */
+      if(document.visibilityState!=="visible") return;
+      es.forEach(en=>en.isIntersecting?start():clearInterval(timer));
     },{threshold:.25}).observe(root);
   }
 }

@@ -188,6 +188,9 @@ p{margin:0}
    on narrow screens, where the box scrolls sideways instead of shrinking */
 .diagram svg{display:block;width:100%;min-width:640px;margin-inline:auto}
 .flow{stroke-dasharray:7 7;animation:flowDash 1.1s linear infinite}
+/* an out-of-band path keeps its own finer dashes and still marches: 4+3 divides
+   into the 14-unit offset, so the loop stays seamless */
+.flow-dot{stroke-dasharray:4 3}
 @keyframes flowDash{to{stroke-dashoffset:-14}}
 @media (prefers-reduced-motion: reduce){.flow{animation:none}}
 
@@ -329,6 +332,13 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
 .diagram.in .dg-el{animation:dgIn .55s cubic-bezier(.2,.6,.2,1) both;animation-delay:calc(var(--i,0)*32ms)}
 @keyframes dgIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 .diagram.dg-done .dg-el{animation:none;opacity:1;transform:none}
+/* Arrows are the exception. The draw-in sets `animation` on every shape, which
+   silently replaced the marching dashes on flow lines and left every schematic
+   static once dg-done landed. Flow lines therefore run both animations, and
+   keep marching after the draw-in has finished. */
+.diagram.in .dg-el.flow{animation:dgIn .55s cubic-bezier(.2,.6,.2,1) both, flowDash 1.1s linear infinite;animation-delay:calc(var(--i,0)*32ms),0s}
+.diagram.dg-done .dg-el.flow{animation:flowDash 1.1s linear infinite;opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.diagram .dg-el.flow{animation:none;opacity:1}}
 
 /* ---------- diagram: enlarge button + lightbox ---------- */
 .diagram{position:relative}

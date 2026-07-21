@@ -224,11 +224,11 @@
     <div class="sec-head rv">
       <div class="kicker">enterprise pager &#183; iphone + apple watch</div>
       <h2>The fleet in your pocket. The kill switch on your wrist.</h2>
-      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap, so the wrist is the first thing that knows. The screens below are real screenshots of the running app, captured in the same frozen moment as the console above; the tour advances itself, or click a step.</p>
+      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap, so the wrist is the first thing that knows. The screens below are real screenshots of the running app, from the same live campaign as the console above; the tour advances itself, or click a step.</p>
     </div>
     <div class="rv" id="ent-pager"></div>
     <div class="wa-legend rv d1">
-      <div class="lg"><b>What reaches the wrist</b><span>Only runs at or over their cap, and live detections. The watch had a full fleet browser once and it was removed on purpose: a 40mm screen listing 9,501 runs is the opposite of a pager. The order is decided once, on the relay, so the wrist and the phone never disagree about which run is worst.</span></div>
+      <div class="lg"><b>What reaches the wrist</b><span>The fleet's burn rate up top, then the runs as fuses, hottest first and over-cap in ember, so the worst thing on the fleet is the first thing on the screen. The phone goes further: a relay-paired iPhone is served one bounded slice, the exception queue and nothing else, because the relay exposes no route for browsing a fleet at all.</span></div>
       <div class="lg"><b>Digital Crown</b><span>Scroll the short list without a finger covering it, then turn the crown again on a run to arm its kill. Arming is a deliberate physical act, and letting go before the end simply does nothing.</span></div>
       <div class="lg"><b>Signed on the wrist</b><span>The kill is signed with the watch's own ES256 key, gated by wrist detection, and travels the same relay path into the same audit chain as a kill from the console. The relay cannot forge one: it forwards, it does not mint.</span></div>
       <div class="lg"><b>After the kill</b><span>The wrist confirms by name, not with a generic tick: the run it just stopped is spelled out. Then it leaves the pager, because a pager should hold only what still needs a decision, and stays in the console, in the Money tab's ledger and in the audit trail, where the record belongs.</span></div>
@@ -347,7 +347,7 @@
         <line x1="224" y1="278" x2="404" y2="284" stroke="#5A6675" stroke-width="1.5" marker-end="url(#enarrGrey)" class="flow"/>
         <line x1="505" y1="252" x2="505" y2="218" stroke="#34D399" stroke-width="1.5" marker-end="url(#enarrMint)" class="flow"/>
         <line x1="620" y1="140" x2="770" y2="146" stroke="#34D399" stroke-width="1.6" marker-end="url(#enarrMint)" class="flow"/>
-        <line x1="849" y1="252" x2="849" y2="210" stroke="#B48CFF" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#enarrVio)" class="flow"/>
+        <line x1="849" y1="252" x2="849" y2="210" stroke="#B48CFF" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#enarrVio)" class="flow flow-dot"/>
       </svg>
     </div>
   </div>
@@ -449,10 +449,8 @@ AppShow.mount(document.getElementById("ent-pager"),{
   phone:[
     {img:"assets/shots/enterprise/ph-connect.webp",t:"Pair against your own plane",
      d:"One QR from the desktop carries the relay's pinned TLS identity and a one-time code for each device. The signing key is born on this iPhone and never leaves it, and a certificate that does not match the pin aborts the pairing."},
-    {img:"assets/shots/enterprise/ph-finops.webp",t:"The same money, sized for a pocket",
-     d:"$3,131.82 avoided this month: $2,404.60 of runaway spend blocked, $440.91 returned by the semantic cache, $286.31 by routing to a cheaper model, across 181 budget breaks. The console and the audit trail hold those same figures."},
     {img:"assets/shots/enterprise/ph-incidents.webp",t:"Only what crossed a line",
-     d:"$6.42 a minute burning against $2.02 of headroom, and beneath it one run at 116% of its budget with a Kill on it. Everything comfortably inside its cap is deliberately absent: a pager that lists the healthy fleet is a dashboard, and nobody reads a dashboard at 2am."},
+     d:"$6.42 a minute burning against $2.02 of headroom, and beneath it one run at 116% of its budget with a Kill on it. A relay-paired iPhone is served one bounded slice and nothing else: the fleet totals and the runs that crossed a line. Everything comfortably inside its cap is deliberately absent, because a pager that lists the healthy fleet is a dashboard, and nobody reads a dashboard at 2am."},
     {img:"assets/shots/enterprise/ph-kill-arm.webp",t:"A kill you have to mean",
      d:"Naming the run is the point: \u201cKill run reconciliation-batch-eod-002-s128? Signed on this iPhone and enforced across every gateway.\u201d Nothing is armed by a swipe and nothing fires by accident."},
     {img:"assets/shots/enterprise/ph-faceid.webp",t:"Face ID, then the signature",
