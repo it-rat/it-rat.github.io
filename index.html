@@ -46,6 +46,13 @@
   .svc{min-height:210px;display:flex;flex-direction:column;gap:10px;border-top:2px solid transparent}
   .svc:hover{border-top-color:var(--c)}
   .svc .head{display:flex;align-items:center;gap:10px}
+  /* The tag sits in the corner, not in the head row. Inline it competed for a
+     width the card does not have, so its own text and the plane label both
+     wrapped to two lines and pushed the service name down: the tagged cards had
+     their titles 14 and 20 pixels lower than the rest of the rail. Out of flow,
+     every head is one line again and every name starts on the same baseline. */
+  .svc .soon-pill{position:absolute;right:24px;bottom:24px;margin:0}
+  .svc .plane{white-space:nowrap}
   .svc .g{width:11px;height:11px;border-radius:4px;background:var(--c);box-shadow:0 0 14px var(--c)}
   .svc .plane{margin-left:auto;font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
   .svc h3{font-size:20px}
