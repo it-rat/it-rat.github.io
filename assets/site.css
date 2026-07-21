@@ -216,15 +216,16 @@ p{margin:0}
 @media (prefers-reduced-motion: reduce){.flow{animation:none}}
 
 /* ---------- horizontal rail (home) ---------- */
-/* proximity, not mandatory: with mandatory the browser yanks every wheel tick
-   back to the current card, so the rail could only jump a card at a time and
-   dragging backwards felt like it was fighting you. Proximity keeps the tidy
-   alignment when the scroll comes to rest near a card and leaves free
-   scrolling alone. */
-.rail{display:flex;gap:14px;overflow-x:auto;padding:6px 4px 18px;scroll-snap-type:x proximity;scrollbar-width:thin;overscroll-behavior-x:contain}
+/* No snapping at all. Mandatory yanked every wheel tick back to the current
+   card; proximity still waited for the gesture to end and then jumped, measured
+   at 163px with no animation, which read as the rail stumbling right as it came
+   to rest. A browsing strip does not need its cards aligned badly enough to
+   move the reader's scroll out from under them, so it now stops where it was
+   left. */
+.rail{display:flex;gap:14px;overflow-x:auto;padding:6px 4px 18px;scrollbar-width:thin;overscroll-behavior-x:contain}
 .rail::-webkit-scrollbar{height:8px}
 .rail::-webkit-scrollbar-thumb{background:var(--panel-3);border-radius:4px}
-.rail > *{scroll-snap-align:start;flex:0 0 min(330px,82vw)}
+.rail > *{flex:0 0 min(330px,82vw)}
 
 /* ---------- prev/next edge nav on service pages ---------- */
 .edge-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}

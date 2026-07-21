@@ -242,15 +242,12 @@ document.addEventListener("pointermove",e=>{
 })();
 
 /* ---- horizontal rail: wheel scrolls sideways ----
-   Every wheel tick here is a programmatic scroll, and a snapping container
-   re-snaps a programmatic scroll immediately, so the rail could only lurch one
-   card at a time instead of following the wheel. It read worse backwards,
-   where the nearest snap point sits behind you for longer. Snapping is
-   therefore suspended for the length of the gesture and restored once it
-   stops, which keeps the tidy alignment for drags and touch without fighting
-   the wheel. */
+   The rail no longer snaps at all (see site.css): a snapping container re-snaps
+   every programmatic scroll, so it lurched one card at a time, and suspending
+   snapping only for the gesture just moved the jolt to the end of it, measured
+   at a 163px jump the moment the tail of a swipe ran out. It now stops where it
+   was left. */
 document.querySelectorAll(".rail").forEach(r=>{
-  let idle;
   r.addEventListener("wheel",e=>{
     const dx=Math.abs(e.deltaX), dy=Math.abs(e.deltaY);
     if(!dx && !dy) return;
@@ -260,7 +257,6 @@ document.querySelectorAll(".rail").forEach(r=>{
        while up-and-down felt free because it came through this path. Same path,
        same feel, either way you push it. Preventing the default also keeps a
        sideways swipe from being taken as the back gesture. */
-    r.style.scrollSnapType="none";
     const before=r.scrollLeft;
     r.scrollLeft += dx>dy ? e.deltaX : e.deltaY;
     /* The gesture is only claimed if the rail actually moved. At either end it
@@ -271,8 +267,6 @@ document.querySelectorAll(".rail").forEach(r=>{
        resting start at 4px, not 0, so a threshold here would need a magic
        number and would drift the moment that padding changed. */
     if(r.scrollLeft!==before) e.preventDefault();
-    clearTimeout(idle);
-    idle=setTimeout(()=>{ r.style.scrollSnapType=""; },160);
   },{passive:false});
 });
 })();
