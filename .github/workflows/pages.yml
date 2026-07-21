@@ -35,7 +35,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Fail on a broken internal link or a missing asset
         ## Cheap gate, and it exists because this repo has shipped both mistakes
@@ -60,13 +60,16 @@ jobs:
           echo "Every local reference resolves."
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload the site
-        uses: actions/upload-pages-artifact@v3
+        ## v5 is what pulls a Node-24 upload-artifact in transitively; pinning
+        ## this one lower puts the deprecated runtime back regardless of the
+        ## versions above.
+        uses: actions/upload-pages-artifact@v5
         with:
           path: .
 
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
