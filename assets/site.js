@@ -200,6 +200,41 @@ document.addEventListener("pointermove",e=>{
   paint();
 })();
 
+/* ---- the Enterprise door opens onto two rooms ----
+   The pager only runs paired to a Genaryx relay, so it is not a service anyone
+   could adopt on its own: it belongs behind the same nav item, not beside the
+   open stack. Progressive enhancement, so with no JS the link still goes to
+   Genaryx exactly as before. */
+(function(){
+  const trigger = document.querySelector('.topbar a.tb-link[href$="enterprise.html"]');
+  if(!trigger) return;
+  const wrap = document.createElement("div");
+  wrap.className = "tb-menu";
+  trigger.parentNode.insertBefore(wrap, trigger);
+  wrap.appendChild(trigger);
+  trigger.insertAdjacentHTML("beforeend", '<span class="tb-caret" aria-hidden="true">&#9660;</span>');
+  trigger.setAttribute("aria-haspopup", "true");
+  trigger.setAttribute("aria-expanded", "false");
+
+  const pop = document.createElement("div");
+  pop.className = "tb-pop";
+  pop.setAttribute("role", "menu");
+  pop.innerHTML =
+    `<a role="menuitem" href="${root}enterprise.html">Genaryx<span>the control room over the stack</span></a>
+     <a role="menuitem" href="${root}services/pocket.html">TokenFuse Pocket<span>the same fleet on the phone and the wrist</span></a>`;
+  wrap.appendChild(pop);
+
+  const close = () => { wrap.classList.remove("open"); trigger.setAttribute("aria-expanded","false"); };
+  trigger.addEventListener("click", e => {
+    e.preventDefault();
+    const open = !wrap.classList.contains("open");
+    wrap.classList.toggle("open", open);
+    trigger.setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("click", e => { if(!wrap.contains(e.target)) close(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
+})();
+
 /* ---- horizontal rail: wheel scrolls sideways ---- */
 document.querySelectorAll(".rail").forEach(r=>{
   r.addEventListener("wheel",e=>{

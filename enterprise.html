@@ -104,6 +104,7 @@
     <span class="crumb">the stack<span class="sep">/</span><span class="here">enterprise</span></span>
     <span class="spacer"></span>
     <a class="tb-link" href="index.html#stack">The open stack</a>
+    <a class="tb-link" href="enterprise.html" title="Genaryx and the Pocket pager. In the works.">Enterprise<span class="soon-pill">soon</span></a>
     <a class="tb-link" href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
@@ -224,9 +225,9 @@
     <div class="sec-head rv">
       <div class="kicker">enterprise pager &#183; iphone + apple watch</div>
       <h2>The fleet in your pocket. The kill switch on your wrist.</h2>
-      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap, so the wrist is the first thing that knows. The screens below are real screenshots of the running app, from the same live campaign as the console above; the tour advances itself, or click a step. Pocket has a room of its own in the stack: the out-of-band argument, the comparison against a pager and an SSH session, and a driveable design mock of both apps live on the <a href="services/pocket.html" data-dir="fwd" style="color:var(--cyan)">TokenFuse Pocket</a> page.</p>
+      <p class="lede">Pairing the phone and the watch to your TokenFuse data is an Enterprise capability: a 24/7 relay runs beside your firewalled Cloud holding a read-only viewer key, forwards device-signed kills verbatim - it structurally cannot mint one - and pushes the moment a run crosses its cap, so the wrist is the first thing that knows. The app has exactly one mode, this one: it pairs to a relay you run, or it does nothing at all.</p>
+      <p class="lede" style="margin-top:14px">Its own room holds the whole story, and it is worth the click: both apps running as a driveable mock, the out-of-band argument, and the comparison against a pager and an SSH session. <a href="services/pocket.html" data-dir="fwd" style="color:var(--cyan);border-bottom:1px solid var(--line-2)">Open TokenFuse Pocket</a>.</p>
     </div>
-    <div class="rv" id="ent-pager"></div>
     <div class="wa-legend rv d1">
       <div class="lg"><b>What reaches the wrist</b><span>The fleet's burn rate up top, then the runs as fuses, hottest first and over-cap in ember, so the worst thing on the fleet is the first thing on the screen. The phone goes further: a relay-paired iPhone is served one bounded slice, the exception queue and nothing else, because the relay exposes no route for browsing a fleet at all.</span></div>
       <div class="lg"><b>Digital Crown</b><span>Scroll the short list without a finger covering it, then turn the crown again on a run to arm its kill. Arming is a deliberate physical act, and letting go before the end simply does nothing.</span></div>
@@ -400,7 +401,6 @@
 <script src="assets/site.js"></script>
 <script src="assets/diagram.js"></script>
 <script src="assets/shotbox.js"></script>
-<script src="assets/appshow.js"></script>
 <script>
 /* ---- console tab explorer: real screenshots, lightbox via shotbox ---- */
 (function(){
@@ -442,28 +442,6 @@ rail.addEventListener("click",e=>{
   },140);
 });
 })();
-
-/* ---- the pager tour: real phone + watch screenshots ---- */
-AppShow.mount(document.getElementById("ent-pager"),{
-  interval:5200,
-  phone:[
-    {img:"assets/shots/enterprise/ph-connect.webp",t:"Pair against your own plane",
-     d:"One QR from the desktop carries the relay's pinned TLS identity and a one-time code for each device. The signing key is born on this iPhone and never leaves it, and a certificate that does not match the pin aborts the pairing."},
-    {img:"assets/shots/enterprise/ph-incidents.webp",t:"Only what crossed a line",
-     d:"$6.42 a minute burning against $2.02 of headroom, and beneath it one run at 116% of its budget with a Kill on it. A relay-paired iPhone is served one bounded slice and nothing else: the fleet totals and the runs that crossed a line. Everything comfortably inside its cap is deliberately absent, because a pager that lists the healthy fleet is a dashboard, and nobody reads a dashboard at 2am."},
-    {img:"assets/shots/enterprise/ph-kill-arm.webp",t:"A kill you have to mean",
-     d:"Naming the run is the point: \u201cKill run reconciliation-batch-eod-002-s128? Signed on this iPhone and enforced across every gateway.\u201d Nothing is armed by a swipe and nothing fires by accident."},
-    {img:"assets/shots/enterprise/ph-faceid.webp",t:"Face ID, then the signature",
-     d:"The order is ES256-signed on the phone itself. The relay forwards it byte for byte and structurally cannot mint one, and the Cloud verifies the device key. A stolen API token gets you nowhere near this."},
-    {img:"assets/shots/enterprise/ph-faceid-denied.webp",t:"The wrong face gets nothing",
-     d:"Face not recognized, and the run keeps running. The gate is not decorative: no signature is produced, nothing reaches the relay, and the fleet is exactly as it was a second earlier. This is the same screen with the wrong face in front of it."}
-  ],
-  watch:[
-    {img:"assets/shots/enterprise/watch-exceptions.webp",t:"Over the line, and nothing else"},
-    {img:"assets/shots/enterprise/watch-kill.webp",t:"Armed by the crown &#183; signed on the wrist"},
-    {img:"assets/shots/enterprise/watch-killed.webp",t:"Killed &#183; and the wrist names which run"}
-  ]
-});
 </script>
 </body>
 </html>
