@@ -78,7 +78,7 @@
       <div class="hero-side rv d2">
         <div class="row"><span class="k">platform</span><span class="v">iOS &#183; watchOS &#183; SwiftUI</span></div>
         <div class="row"><span class="k">signing</span><span class="v">Secure Enclave, keys never leave the device</span></div>
-        <div class="row"><span class="k">pairs with</span><span class="v">TokenFuse Cloud</span></div>
+        <div class="row"><span class="k">pairs with</span><span class="v">genaryx-relay, beside TokenFuse Cloud</span></div>
         <div class="row"><span class="k">surfaces</span><span class="v">Dynamic Island &#183; Live Activity &#183; Watch complication</span></div>
         <div class="row"><span class="k">ships with</span><span class="v">Genaryx Enterprise &#183; in the works</span></div>
       </div>
@@ -140,7 +140,7 @@
       <p class="lede">The app pairs to the relay beside TokenFuse Cloud, never to the gateway your agent talks to. A kill or a budget change is signed on-device by the Secure Enclave, forwarded byte for byte by the relay to Cloud, and pushed out to every gateway in the fleet from there. The request path and the kill path never share a wire.</p>
     </div>
     <div class="diagram rv">
-      <svg viewBox="0 0 980 340" role="img" aria-label="Pocket architecture: the kill path stays out of band from the agent's request path">
+      <svg viewBox="0 0 980 340" role="img" aria-label="Pocket architecture: the phone signs a kill, the relay beside TokenFuse Cloud forwards it, and the whole path stays out of band from the agent's request path">
         <defs>
           <marker id="pkarrGrey" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
           <marker id="pkarrRed" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#FF574B"/></marker>
@@ -159,14 +159,19 @@
           <text x="885" y="148" fill="#E9EFF6" font-size="12.5" font-weight="700">provider</text>
           <text x="885" y="165" fill="#8A97A6" font-size="10.5">the model API</text>
 
-          <rect x="20" y="228" width="170" height="84" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
-          <text x="105" y="258" fill="#22D3EE" font-size="13" font-weight="700">iPhone + Watch</text>
-          <text x="105" y="276" fill="#8A97A6" font-size="10.5">SwiftUI</text>
-          <text x="105" y="292" fill="#8A97A6" font-size="10.5">Secure Enclave key</text>
+          <rect x="20" y="228" width="120" height="84" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="80" y="258" fill="#22D3EE" font-size="12.5" font-weight="700">iPhone + Watch</text>
+          <text x="80" y="276" fill="#8A97A6" font-size="10">SwiftUI</text>
+          <text x="80" y="292" fill="#8A97A6" font-size="10">Secure Enclave key</text>
 
-          <rect x="250" y="204" width="250" height="120" rx="16" fill="#10161F" stroke="#22D3EE" stroke-width="1.6"/>
-          <text x="375" y="236" fill="#22D3EE" font-size="14" font-weight="700">TokenFuse Cloud</text>
-          <text x="375" y="258" fill="#8A97A6" font-size="10">pairing &#183; fleet API &#183; incidents</text>
+          <rect x="170" y="232" width="130" height="76" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="235" y="260" fill="#22D3EE" font-size="12.5" font-weight="700">genaryx-relay</text>
+          <text x="235" y="278" fill="#8A97A6" font-size="10">pairing &#183; read proxy</text>
+          <text x="235" y="294" fill="#8A97A6" font-size="10">never mints a kill</text>
+
+          <rect x="328" y="204" width="172" height="120" rx="16" fill="#10161F" stroke="#22D3EE" stroke-width="1.6"/>
+          <text x="414" y="236" fill="#22D3EE" font-size="14" font-weight="700">TokenFuse Cloud</text>
+          <text x="414" y="258" fill="#8A97A6" font-size="10">fleet API &#183; incidents</text>
 
           <text x="365" y="146" fill="#FF574B" font-size="11" font-weight="700">compromised path?</text>
           <text x="365" y="162" fill="#5A6675" font-size="10.5">the kill path does not share it</text>
@@ -174,7 +179,8 @@
         </g>
         <line x1="150" y1="80" x2="580" y2="138" stroke="#FF574B" stroke-width="1.6" marker-end="url(#pkarrRed)" class="flow"/>
         <g stroke="#22D3EE" stroke-width="1.6" class="flow">
-          <line x1="190" y1="264" x2="250" y2="258" marker-end="url(#pkarrCyan)"/>
+          <line x1="140" y1="270" x2="170" y2="270" marker-end="url(#pkarrCyan)"/>
+          <line x1="300" y1="270" x2="328" y2="270" marker-end="url(#pkarrCyan)"/>
           <line x1="500" y1="224" x2="580" y2="176" marker-end="url(#pkarrCyan)"/>
         </g>
         <line x1="770" y1="148" x2="810" y2="148" stroke="#5A6675" stroke-width="1.5" marker-end="url(#pkarrGrey)" class="flow"/>
@@ -193,7 +199,7 @@
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>The fuse, everywhere</h3><p>Mint under budget, amber warming, ember at the cap. The run list, the Dynamic Island, and the watch face all read the fuse the same way, so nothing needs translating between screens.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Hardware-signed kill</h3><p>Every kill and every budget change is signed on-device by the Secure Enclave. A fully compromised server cannot forge that order, and it cannot block it from reaching your side either.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Out of band by design</h3><p>The phone talks to TokenFuse Cloud, not through the gateway or the agent's own network path. If the request path is exactly what's compromised, the kill still lands.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Out of band by design</h3><p>The phone talks to the relay beside TokenFuse Cloud, never through the gateway or the agent's own network path. If the request path is exactly what's compromised, the kill still lands.</p></div>
       <div class="card hover feature b-4 rv"><h3>The fleet at a glance</h3><p>Every run with its spend, its burn rate in dollars per minute, and how close it sits to a budget break, sorted hottest first, red once it's over.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Pairing in seconds</h3><p>Scan a QR code against your own Cloud plane. The app generates a key inside the Secure Enclave on the spot; the key never leaves it, not even to the app.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>An honest demo</h3><p>No mockups dressed up as a product. The interactive mock on this page is driveable end to end, and the <a href="../enterprise.html" style="color:var(--accent)">Enterprise page</a> shows the real app captured live against a live plane.</p></div>
