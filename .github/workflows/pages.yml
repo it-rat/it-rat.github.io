@@ -1,0 +1,72 @@
+## Publishes the site to GitHub Pages.
+##
+## The repo used the built-in "deploy from a branch" builder until 2026-07-21,
+## when four builds in a row hung and then reported "Page build failed" with no
+## log, no step, and no way to retry except pushing again. This workflow does
+## the same job with the failure visible: every run has a log, and a failed run
+## can be re-run from the Actions tab without inventing a commit.
+##
+## The site is plain static files at the repo root, so there is nothing to
+## build: the checkout is uploaded as-is.
+
+name: Deploy site to Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+## One deployment at a time, and never cancel one that is already publishing:
+## a half-applied deploy is worse than a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Fail on a broken internal link or a missing asset
+        ## Cheap gate, and it exists because this repo has shipped both mistakes
+        ## before: a page pointing at a deleted screenshot, and orphaned images
+        ## left publicly reachable. Only local references are checked; anything
+        ## external is none of this workflow's business.
+        run: |
+          missing=0
+          for page in index.html enterprise.html 404.html services/*.html; do
+            dir=$(dirname "$page")
+            grep -oE '(src|href)="[^"]+\.(webp|png|svg|css|js|jpg|ico|html)"' "$page" \
+              | sed 's/.*="//;s/"//' | while read -r ref; do
+                case "$ref" in http*|//*|\#*) continue;; esac
+                ref=${ref%%#*}
+                case "$ref" in /*) target=".$ref";; *) target="$dir/$ref";; esac
+                [ -f "$target" ] || echo "MISSING $page -> $ref"
+              done
+          done > /tmp/missing.txt
+          if [ -s /tmp/missing.txt ]; then
+            echo "Broken local references:"; cat /tmp/missing.txt; exit 1
+          fi
+          echo "Every local reference resolves."
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
