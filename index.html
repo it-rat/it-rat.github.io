@@ -94,6 +94,7 @@
     <a class="tb-link" href="#proof">Proof</a>
     <a class="tb-link" href="#consulting">Consulting</a>
     <a class="tb-link" href="enterprise.html" title="Genaryx, the enterprise control room. In the works.">Enterprise<span class="soon-pill">soon</span></a>
+    <a class="tb-link tb-cta" href="console.html">Open your console</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
 </header>
@@ -124,7 +125,7 @@
     <div class="sec-head rv">
       <div class="kicker">the stack</div>
       <h2>One corridor, every door on it.</h2>
-      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Nine of these doors open on their own. TokenFuse Pocket is built the same way, but it needs a Genaryx relay to point at, and Genaryx is the enterprise room the corridor ends in. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
+      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Nine of these doors open on their own. Genaryx is the paid room over all of them, and the corridor ends on the two iOS rooms, which are where we have explored rather than shipped. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
     <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
     <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
@@ -166,9 +167,9 @@
         <rect x="60" y="292" width="840" height="34" rx="10" fill="#0F151E" stroke="#2a3547"/>
         <text x="480" y="313" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="11" letter-spacing="2">agent-event bus &#183; NDJSON &#183; taipanbox.dev/agent-event</text>
         <!-- request path arrows -->
-        <line x1="150" y1="182" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)" class="flow"/>
-        <line x1="410" y1="182" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)" class="flow"/>
-        <line x1="325" y1="140" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" marker-end="url(#arr)" class="flow"/>
+        <line x1="150" y1="182" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="217.0" y1="182.0" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <line x1="410" y1="182" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="462.0" y1="182.0" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <line x1="325" y1="140" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" class="flow"/><line x1="325.0" y1="107.0" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" marker-end="url(#arr)"/>
         <text x="338" y="120" fill="#2DD4BF" font-family="ui-monospace,Menlo" font-size="9.5">/v1/decide</text>
         <!-- off-path consumers -->
         <g font-family="ui-monospace,Menlo" font-size="12" font-weight="700" text-anchor="middle">

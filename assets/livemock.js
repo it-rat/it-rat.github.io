@@ -1,8 +1,9 @@
 /* IT-RAT v2 - livemock.js: interactive design mocks of the two iOS apps,
    running as real DOM in the page.
-   - Pocket: a full iPhone (five screens: Runs, Run detail with a real
-     slide-to-arm breaker, Live Activity, Pairing, Alerts) plus an Apple
-     Watch (Face, Fleet, Runs, Kill, Killed). Numbers tick, the segmented
+   - Pocket: a full iPhone (Runs, Run detail with a real slide-to-arm breaker,
+     Budgets with an org/team/agent drill-in, Agents flagged by behaviour,
+     Pairing, Device, Alerts, plus an unlooped Live Activity surface) and an
+     Apple Watch (Face, Fleet, Runs, Kill, Killed). Numbers tick, the segmented
      control filters, the breaker drags, the tab bar and side steps switch
      screens, and a kill from the wrist updates the phone.
    - Sphere: real iOS screenshots in an iPhone and Watch frame, navigated
@@ -22,7 +23,7 @@ function clock(){const d=new Date();return d.getHours()+":"+String(d.getMinutes(
 const CSS=`
 .lm-wrap{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
 /* ---- iPhone frame ---- */
-.lm-phone{position:relative;width:min(288px,74vw);aspect-ratio:588/1240;border-radius:46px;
+.lm-phone{position:relative;width:min(320px,80vw);aspect-ratio:588/1240;border-radius:46px;
   background:linear-gradient(180deg,#20262f,#12161c);padding:5px;flex:0 0 auto;
   box-shadow:0 2px 0 rgba(255,255,255,.06) inset,0 34px 80px -30px rgba(0,0,0,.9),
     0 0 60px -18px color-mix(in srgb, var(--accent) 26%, transparent)}
@@ -36,7 +37,8 @@ const CSS=`
 .lm-view{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden}
 .lm-view.on{display:flex;animation:lmSlide .34s cubic-bezier(.2,.6,.2,1)}
 @keyframes lmSlide{from{opacity:0;transform:translateX(var(--lmdir,10px))}to{opacity:1;transform:none}}
-.lm-scroll{flex:1;overflow-y:auto;padding:2px 14px 6px;min-height:0}
+.lm-scroll{flex:1;overflow-y:auto;padding:2px 14px 16px;min-height:0;overscroll-behavior:contain;touch-action:pan-y;cursor:grab}
+.lm-scroll:active{cursor:grabbing}
 .lm-h1{font-family:var(--font-d);font-weight:800;font-size:23px;letter-spacing:-.02em;margin:10px 0 0}
 .lm-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:9.5px;
   color:var(--dim);background:var(--panel);border:1px solid var(--line);padding:4px 9px;border-radius:999px;margin-top:9px}
@@ -83,6 +85,32 @@ const CSS=`
 .lm-pill.near{color:var(--amber);border-color:rgba(244,178,62,.35);background:rgba(244,178,62,.08)}
 .lm-pill.crit{color:var(--ember);border-color:rgba(255,87,75,.4);background:rgba(255,87,75,.1)}
 .lm-pill.dead{color:var(--faint);border-color:var(--line-2)}
+/* flagged-agents banner (runs) */
+.lm-flag{display:flex;align-items:center;gap:9px;width:100%;text-align:left;margin-top:12px;padding:9px 11px;
+  border-radius:13px;background:linear-gradient(180deg,rgba(255,87,75,.09),transparent);border:1px solid rgba(255,87,75,.35);cursor:pointer}
+.lm-flag:active{transform:scale(.99)}
+.lm-flag .fi{width:26px;height:26px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;background:rgba(255,87,75,.15);color:var(--ember)}
+.lm-flag .fi svg{width:15px;height:15px}
+.lm-flag .ft{flex:1;display:flex;flex-direction:column}
+.lm-flag .ft b{font-family:var(--font-t);font-weight:700;font-size:12.5px;color:var(--fg)}
+.lm-flag .ft span{font-family:var(--font-m);font-size:8.5px;color:var(--dim);margin-top:2px}
+.lm-flag .fg{font-size:18px;color:var(--faint)}
+/* device screen */
+.lm-dvic{width:38px;height:38px;border-radius:11px;flex:0 0 auto;display:grid;place-items:center;background:#0c1117;border:1px solid var(--line-2);color:var(--dim)}
+.lm-drow{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-m);font-size:9.5px;color:var(--dim);border-top:1px solid var(--line);margin-top:11px;padding-top:9px}
+.lm-drow b{color:var(--fg)}
+.lm-mnote{font-family:var(--font-m);font-size:9.5px;color:var(--dim);line-height:1.5;margin-top:9px}
+.lm-disc{width:100%;margin-top:16px;border:1px solid rgba(255,87,75,.4);background:rgba(255,87,75,.08);color:#ffb0a9;
+  font-family:var(--font-t);font-weight:700;font-size:12px;border-radius:12px;padding:11px;cursor:pointer}
+.lm-pairbtn{width:100%;margin-top:16px;border:1px solid var(--line-2);background:var(--panel);color:var(--fg);
+  font-family:var(--font-t);font-weight:700;font-size:12px;border-radius:12px;padding:11px;cursor:pointer}
+.lm-pairbtn:active{transform:scale(.99)}
+/* agent detail */
+.lm-chainrow{font-family:var(--font-m);font-size:11px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.lm-act{flex:1;border:0;border-radius:12px;padding:11px;font-family:var(--font-t);font-weight:750;font-size:12.5px;cursor:pointer}
+.lm-act.throttle{background:rgba(244,178,62,.14);border:1px solid rgba(244,178,62,.45);color:var(--amber)}
+.lm-act.kill{background:linear-gradient(180deg,#ff6b60,#e23e33);color:#fff}
+.lm-chev{margin-left:2px;align-self:center;font-size:16px;color:var(--faint);flex:0 0 auto}
 /* tab bar */
 .lm-tabs{display:flex;justify-content:space-around;padding:8px 14px 15px;border-top:1px solid var(--line);flex:0 0 auto}
 .lm-tabs button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;
@@ -134,8 +162,13 @@ const CSS=`
 /* pairing */
 .lm-pair{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 20px}
 .lm-reticle{position:relative;width:150px;height:150px;margin:14px 0 6px;border-radius:20px;background:#0c1016;border:1px solid var(--line)}
-.lm-qr{position:absolute;inset:26px;border-radius:8px;background:
-  repeating-conic-gradient(var(--fg) 0 25%, #0c1016 0 50%) 0 0/18px 18px}
+.lm-qr{position:absolute;inset:26px;border-radius:6px;background:#E9EEF5;padding:5px;color:#0B0F15}
+.lm-qr svg{width:100%;height:100%;display:block}
+.lm-pairsteps{width:100%;margin-top:13px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.lm-pairsteps div{display:flex;gap:9px;align-items:flex-start}
+.lm-pairsteps b{font-family:var(--font-m);font-size:8.5px;font-weight:600;color:var(--iris);border:1px solid var(--line-2);
+  border-radius:6px;width:17px;height:17px;display:grid;place-items:center;flex:0 0 auto}
+.lm-pairsteps span{font-size:11px;color:var(--dim);line-height:1.45}
 .lm-scan{position:absolute;left:14px;right:14px;height:2px;top:20px;background:var(--iris);box-shadow:0 0 14px var(--iris);animation:lmScan 2.4s ease-in-out infinite}
 @keyframes lmScan{0%,100%{top:20px}50%{top:128px}}
 .lm-corner{position:absolute;width:18px;height:18px;border:2px solid var(--iris)}
@@ -225,6 +258,28 @@ function wireSteps(stepsEl,fn){
 /* status-bar signal + battery svg (shared) */
 const SB=`<span class="r"><svg width="16" height="10" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1.5" width="19" height="9" rx="2.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="3" width="14" height="6" rx="1.2" fill="currentColor"/></svg></span>`;
 
+/* A code that reads as a QR at a glance: three finder patterns, the timing
+   rows, and deterministic modules in between. Decoration for the mock, so it
+   carries no payload and is not scannable. */
+function qrPattern(n){
+  n=n||25;const cells=[];
+  const finder=(x,y)=>{
+    for(const[cx,cy]of [[3,3],[n-4,3],[3,n-4]]){
+      const d=Math.max(Math.abs(x-cx),Math.abs(y-cy));
+      if(d<=4) return d===4?false:d!==2;
+    }
+    return null;
+  };
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){
+    const f=finder(x,y);let on;
+    if(f!==null) on=f;
+    else if(x===6||y===6) on=(x+y)%2===0;
+    else on=((((x*73856093)^(y*19349663)^((x*y)*83492791))>>>7)&3)>1;
+    if(on)cells.push(`<rect x="${x}" y="${y}" width="1" height="1"/>`);
+  }
+  return `<svg viewBox="0 0 ${n} ${n}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">${cells.join("")}</svg>`;
+}
+
 /* draw a sparkline into a canvas, value 0..1 array, color */
 function spark(cv,vals,col,fillA){
   const ctx=cv.getContext("2d"), dpr=Math.min(2,devicePixelRatio||1);
@@ -279,11 +334,47 @@ function pocket(root,stepsEl){
       {id:"b12e90",badge:"S",model:"sonnet",step:18,burn:0.31,spent:8.40,cap:10,st:"near"},
       {id:"4c07af",badge:"H",model:"haiku",step:6,burn:0.06,spent:1.20,cap:8,st:"live"}
     ],
-    filter:"active", sel:0, sparkV:Array.from({length:32},(_,i)=>0.4+0.28*Math.sin(i*0.5)+0.2*Math.sin(i*0.17))
+    filter:"active", sel:0, sparkV:Array.from({length:32},(_,i)=>0.4+0.28*Math.sin(i*0.5)+0.2*Math.sin(i*0.17)),
+    /* Budgets ladder: org -> team -> agent. The tree is the source of truth;
+       team and org spend are summed from it, so any drill-in reconciles. */
+    bscope:"agent", bsel:null,
+    btree:{
+      org:{name:"acme", cap:43},
+      teams:[
+        {name:"support",  cap:20, agents:[
+          {name:"support/tier1",      cap:10, spent:8.40},
+          {name:"support/tier2",      cap:10, spent:4.20}
+        ]},
+        {name:"research", cap:15, agents:[
+          {name:"research/analyst",   cap:8,  spent:6.10, flagged:"excessive_agency"},
+          {name:"research/summariser",cap:5,  spent:2.30}
+        ]},
+        {name:"batch",    cap:5,  agents:[
+          {name:"batch/crawler",      cap:5,  spent:5.00, flagged:"runaway_agent"}
+        ]}
+      ]
+    },
+    /* Behaviour: agents flagged by detectors, worst first. sev maps to the
+       existing crit/near/live pill classes (critical / elevated / watch). */
+    asort:"risk", asel:0,
+    agents:[
+      {id:"batch/crawler",   det:"runaway_agent",   sev:"crit", why:"41 steps in 3 min, no human in the loop, 4.5x its usual rate", chain:"support → analyst → crawler", blast:12, seen:"now"},
+      {id:"research/analyst",det:"excessive_agency", sev:"near", why:"reached 3 tools it had never called before this run",         chain:"support → analyst",           blast:7,  seen:"2m"},
+      {id:"svc/legacy-key",  det:"orphaned_nhi",     sev:"near", why:"non-human identity, no owner, unused 41 days",                 chain:"—",                           blast:3,  seen:"9m"},
+      {id:"tool/unknown",    det:"shadow_ai",        sev:"live", why:"undeclared model endpoint first seen on the bus",              chain:"—",                           blast:1,  seen:"14m"}
+    ]
   };
   const T=(s)=>{ // tab icons
     return {runs:'<path d="M4 13h4l2 5 4-12 2 7h4"/>',bud:'<path d="M12 20v-6M12 10V4M5 20v-9M5 7V4M19 20v-3M19 13V4"/><circle cx="12" cy="12" r="2"/><circle cx="5" cy="9" r="2"/><circle cx="19" cy="15" r="2"/>',alr:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',dev:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>'}[s];
   };
+  /* One tab bar for every screen that carries one. `on` is the tab that owns
+     the screen, so a drill-in (a run, an agent, a budget scope) still shows
+     its parent tab lit rather than nothing. */
+  const TABBAR=on=>'<div class="lm-tabs" data-tabs>'+
+    [["runs","Runs","runs"],["budgets","Budgets","bud"],["alerts","Alerts","alr"],["device","Device","dev"]]
+      .map(([k,label,ico])=>`<button${on===k?' class="on"':""} data-tab="${k}">`+
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${T(ico)}</svg>${label}</button>`)
+      .join("")+"</div>";
   root.classList.add("lm-wrap");
   root.innerHTML=
    `<figure class="lm-phone" style="margin:0"><span class="lm-island"></span>
@@ -302,18 +393,18 @@ function pocket(root,stepsEl){
                <div class="lm-fuse amber" data-ffuse><i style="width:73%"></i></div>
                <div class="lm-agg"><span>spent today <b data-ftot>$18.30</b></span><span>caps <b>$43.00</b></span></div>
              </div>
+             <button class="lm-flag" data-goto-agents>
+               <span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 21V4h11l-1.5 3.5L15 11H4"/></svg></span>
+               <span class="ft"><b>3 agents flagged</b><span>behaviour · runaway, excessive agency</span></span>
+               <span class="fg">›</span>
+             </button>
              <div class="lm-seg" data-seg>
                <button class="on" data-f="active">Active</button><button data-f="all">All</button><button data-f="killed">Killed</button>
              </div>
              <div class="lm-listcap"><span class="l" data-lcount>3 active</span><span class="l" style="color:var(--iris)">sort · burn</span></div>
              <div data-runs></div>
            </div>
-           <div class="lm-tabs" data-tabs>
-             <button class="on" data-tab="runs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${T('runs')}</svg>Runs</button>
-             <button data-tab="budgets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${T('bud')}</svg>Budgets</button>
-             <button data-tab="alerts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${T('alr')}</svg>Alerts</button>
-             <button data-tab="device"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${T('dev')}</svg>Device</button>
-           </div>
+           ${TABBAR("runs")}
          </div>
          <!-- DETAIL -->
          <div class="lm-view" data-v="detail">
@@ -340,6 +431,7 @@ function pocket(root,stepsEl){
              </div>
              <div class="lm-khint">Kill is signed by the Secure Enclave · Face ID</div>
            </div>
+           ${TABBAR("runs")}
          </div>
          <!-- LIVE ACTIVITY -->
          <div class="lm-view" data-v="island">
@@ -369,23 +461,30 @@ function pocket(root,stepsEl){
                <div class="lm-fuse ember" style="height:9px;margin-top:9px"><i style="width:100%"></i></div>
              </div>
            </div>
+           ${TABBAR("alerts")}
          </div>
          <!-- PAIRING -->
          <div class="lm-view" data-v="pair">
            <div class="lm-pair">
+             <button class="lm-back" data-back-device>‹ Device</button>
              <div class="lm-cap" style="color:var(--iris)">Pair this iPhone</div>
              <div class="lm-reticle">
-               <div class="lm-qr"></div><div class="lm-scan"></div>
+               <div class="lm-qr">${qrPattern(25)}</div><div class="lm-scan"></div>
                <div class="lm-corner" style="top:8px;left:8px;border-right:0;border-bottom:0"></div>
                <div class="lm-corner" style="top:8px;right:8px;border-left:0;border-bottom:0"></div>
                <div class="lm-corner" style="bottom:8px;left:8px;border-right:0;border-top:0"></div>
                <div class="lm-corner" style="bottom:8px;right:8px;border-left:0;border-top:0"></div>
              </div>
-             <h2>Scan the code on your dashboard</h2>
-             <p>A one-time code links this device to your org. It expires in 10 minutes.</p>
+             <h2>Scan the code on your console</h2>
+             <p>A one-time code links this device to your org. It expires in <b data-pairttl style="font-family:var(--font-m);color:var(--fg)">9:58</b>.</p>
              <div class="lm-seal">
                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
                <div class="s"><b>Keys never leave this iPhone.</b> A signing key is generated in the Secure Enclave, so a stolen token alone cannot stop your agents.</div>
+             </div>
+             <div class="lm-pairsteps">
+               <div><b>1</b><span>Your console issues the code. It is single use and expires.</span></div>
+               <div><b>2</b><span>Scanning it enrols this phone and mints the on-device key.</span></div>
+               <div><b>3</b><span>From then on the phone reaches your box over the tunnel, never the open internet.</span></div>
              </div>
            </div>
          </div>
@@ -405,6 +504,103 @@ function pocket(root,stepsEl){
              </div>
              <div class="lm-note" style="margin-top:4px">Tap a budget alert → Face ID → killed, without opening the app.</div>
            </div>
+           ${TABBAR("alerts")}
+         </div>
+         <!-- BUDGET detail: drill into a scope -->
+         <div class="lm-view" data-v="budgetdet">
+           <div class="lm-scroll">
+             <button class="lm-back" data-back-budgets>‹ Budgets</button>
+             <div class="lm-dnav"><span class="rid" data-bdid>name</span><span class="lm-pill crit" data-bdpill>scope</span></div>
+             <div class="lm-gauge" style="margin-top:10px">
+               <div class="lm-cap" data-bdcap>spend</div>
+               <div class="amt" data-bdamt style="font-size:30px">$0</div>
+               <div class="of" data-bdof>of cap</div>
+               <div class="lm-fuse amber" data-bdfuse><i style="width:0%"></i></div>
+             </div>
+             <div class="lm-cap" style="margin:15px 0 7px" data-bdlabel>Breakdown</div>
+             <div data-bdkids></div>
+           </div>
+           ${TABBAR("budgets")}
+         </div>
+         <!-- BUDGETS -->
+         <div class="lm-view" data-v="budgets">
+           <div class="lm-scroll">
+             <div class="lm-h1">Budgets</div>
+             <span class="lm-chip"><span class="k"></span>caps above the run · org · team · agent</span>
+             <div class="lm-seg" data-bseg>
+               <button data-b="org">Org</button><button data-b="team">Teams</button><button class="on" data-b="agent">Agents</button>
+             </div>
+             <div class="lm-listcap"><span class="l" data-bcount>3 agents</span><span class="l" style="color:var(--iris)">80% warn · 95% alert</span></div>
+             <div data-budgets></div>
+           </div>
+           ${TABBAR("budgets")}
+         </div>
+         <!-- DEVICE -->
+         <div class="lm-view" data-v="device">
+           <div class="lm-scroll">
+             <div class="lm-h1">Device</div>
+             <span class="lm-chip"><span class="k"></span>this iPhone · paired · signing key on-device</span>
+             <div class="lm-gauge" style="margin-top:12px">
+               <div class="lm-cap">Paired device</div>
+               <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+                 <div class="lm-dvic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
+                 <div><div style="font-family:var(--font-t);font-weight:700;font-size:14px;color:var(--fg)">Yurii · iPhone</div><div style="font-family:var(--font-m);font-size:9.5px;color:var(--dim);margin-top:2px">paired 3 Jul · Secure Enclave key <b style="color:var(--fg)">a91c…4e2</b></div></div>
+               </div>
+               <div class="lm-drow"><span>Last signed action</span><b>killed 7f3a2b · 2m ago</b></div>
+             </div>
+             <div class="lm-cap" style="margin:16px 0 7px">Remote access over the tunnel</div>
+             <div class="lm-seg" data-mseg>
+               <button class="on" data-m="default">Default</button><button data-m="strict">Strict</button>
+             </div>
+             <div class="lm-mnote" data-mnote>Phone stays paired; you toggle the tunnel off when done, and idle peers are dropped. Reconnect needs no new code.</div>
+             <div class="lm-seal" style="margin-top:14px">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+               <div class="s"><b>Keys never leave this iPhone.</b> A stolen session cannot act: every destructive action is re-signed here with Face ID.</div>
+             </div>
+             <button class="lm-pairbtn" data-goto-pair>Pair another device</button>
+             <button class="lm-disc" data-disc style="margin-top:9px">Disconnect this device</button>
+           </div>
+           ${TABBAR("device")}
+         </div>
+         <!-- AGENTS (behaviour) -->
+         <div class="lm-view" data-v="agents">
+           <div class="lm-scroll">
+             <button class="lm-back" data-back-runs>‹ Runs</button>
+             <div class="lm-h1">Agents</div>
+             <span class="lm-chip"><span class="k" style="background:var(--ember);box-shadow:0 0 8px var(--ember)"></span>behaviour · idryx detections · shares the bus</span>
+             <div class="lm-seg" data-asort>
+               <button class="on" data-s="risk">By risk</button><button data-s="recent">Recent</button>
+             </div>
+             <div class="lm-listcap"><span class="l" data-acount>4 flagged</span><span class="l" style="color:var(--iris)">worst first</span></div>
+             <div data-agents></div>
+           </div>
+           ${TABBAR("runs")}
+         </div>
+         <!-- AGENT detail: why it was flagged -->
+         <div class="lm-view" data-v="agentdet">
+           <div class="lm-scroll">
+             <button class="lm-back" data-back-agents>‹ Agents</button>
+             <div class="lm-dnav"><span class="rid" data-adid>agent</span><span class="lm-pill crit" data-adpill>detector</span></div>
+             <div class="lm-gauge" style="margin-top:10px">
+               <div class="lm-cap" data-addet>runaway_agent</div>
+               <div style="font-family:var(--font-t);font-size:13px;color:var(--fg);line-height:1.5;margin-top:7px" data-adwhy>why</div>
+             </div>
+             <div class="lm-statgrid">
+               <div class="lm-stat"><div class="k">Chain</div><div class="v" data-adchain style="font-size:11px;font-family:var(--font-m)">3 deep</div></div>
+               <div class="lm-stat"><div class="k">Blast</div><div class="v" data-adblast>12</div></div>
+               <div class="lm-stat"><div class="k">Seen</div><div class="v" data-adseen style="font-size:13px">now</div></div>
+             </div>
+             <div class="lm-cap" style="margin:15px 0 7px">Delegation chain</div>
+             <div class="lm-chainrow" data-adchainrow>support → analyst → crawler</div>
+           </div>
+           <div class="lm-killzone">
+             <div style="display:flex;gap:8px">
+               <button class="lm-act throttle" data-throttle>Throttle</button>
+               <button class="lm-act kill" data-agkill>Kill agent</button>
+             </div>
+             <div class="lm-khint">A kill is signed by the Secure Enclave · Face ID. Nothing here is armed by a tap alone.</div>
+           </div>
+           ${TABBAR("runs")}
          </div>
          <div class="lm-toast" data-toast></div>
        </div>
@@ -464,7 +660,10 @@ function pocket(root,stepsEl){
 
   function show(v){ view=v;
     $$(root,".lm-view").forEach(x=>x.classList.toggle("on",x.dataset.v===v));
-    $$(root,"[data-tab]").forEach(b=>b.classList.toggle("on",(b.dataset.tab==="runs"&&v==="runs")||(b.dataset.tab==="alerts"&&v==="push")));
+    const tabFor={runs:"runs",detail:"runs",agents:"runs",agentdet:"runs",
+                  budgets:"budgets",budgetdet:"budgets",
+                  push:"alerts",island:"alerts",device:"device"}[v]||"";
+    $$(root,"[data-tab]").forEach(b=>b.classList.toggle("on",b.dataset.tab===tabFor));
   }
   function toast(m){el.toast.textContent=m;el.toast.classList.add("on");setTimeout(()=>el.toast.classList.remove("on"),2600);}
   function pill(r){return r.st==="dead"?["dead","killed"]:r.st==="crit"?["crit","over cap"]:r.st==="near"?["near","near cap"]:["live","live"];}
@@ -503,6 +702,93 @@ function pocket(root,stepsEl){
       const k=$(el.breaker,".knob");k.style.left="calc(100% - 48px)";
     }
   }
+  const teamSpent=t=>t.agents.reduce((a,x)=>a+x.spent,0);
+  const orgSpent=()=>S.btree.teams.reduce((a,t)=>a+teamSpent(t),0);
+  const allAgents=()=>S.btree.teams.flatMap(t=>t.agents.map(a=>({...a,team:t.name})));
+  function budgetRow(name,spent,cap,sub,tag,i,flagged){
+    const over=cap?spent/cap:0, cls=over>=.95?"ember":over>=.8?"amber":"mint";
+    const pill=over>=1?["crit","over cap"]:over>=.95?["crit","95%"]:over>=.8?["near","80%"]:["live","ok"];
+    return `<div class="lm-run ${over>=1?"crit":""}" data-bi="${i}">
+      <div class="bd">${tag}</div>
+      <div class="mid">
+        <div class="idrow"><span class="id">${name}</span><span class="lm-pill ${pill[0]}">${pill[1]}</span><span class="rt" style="color:var(--dim)">${Math.round(over*100)}%</span></div>
+        <div class="money"><span>${sub}${flagged?" · flagged":""}</span><span><b style="color:${over>=1?'var(--ember)':'var(--fg)'}">$${f2(spent)}</b> / $${cap.toFixed(2)}</span></div>
+        <div class="lm-fuse ${cls}"><i style="width:${Math.min(104,over*100)}%"></i></div>
+      </div>
+      <span class="lm-chev">›</span></div>`;
+  }
+  function renderBudgets(){
+    let rows;
+    if(S.bscope==="org"){
+      rows=budgetRow(S.btree.org.name,orgSpent(),S.btree.org.cap,S.btree.teams.length+" teams","O",0);
+      $(root,"[data-bcount]").textContent="1 org";
+    }else if(S.bscope==="team"){
+      rows=S.btree.teams.map((t,i)=>budgetRow(t.name,teamSpent(t),t.cap,t.agents.length+" agents","T",i)).join("");
+      $(root,"[data-bcount]").textContent=S.btree.teams.length+" teams";
+    }else{
+      const ags=allAgents();
+      rows=ags.map((a,i)=>budgetRow(a.name,a.spent,a.cap,a.team,"A",i,a.flagged)).join("");
+      $(root,"[data-bcount]").textContent=ags.length+" agents";
+    }
+    $(root,"[data-budgets]").innerHTML=rows;
+  }
+  function renderBudgetDet(){
+    const sel=S.bsel;if(!sel)return;
+    let name,spent,cap,scopeLabel,kids=null,leaf=null;
+    if(sel.scope==="org"){const o=S.btree.org;name=o.name;spent=orgSpent();cap=o.cap;scopeLabel="org";
+      kids=S.btree.teams.map(t=>({name:t.name,spent:teamSpent(t),cap:t.cap,tag:"T"}));}
+    else if(sel.scope==="team"){const t=S.btree.teams[sel.i];name=t.name;spent=teamSpent(t);cap=t.cap;scopeLabel="team";
+      kids=t.agents.map(a=>({name:a.name,spent:a.spent,cap:a.cap,tag:"A",flagged:a.flagged}));}
+    else{leaf=allAgents()[sel.i];name=leaf.name;spent=leaf.spent;cap=leaf.cap;scopeLabel="agent · "+leaf.team;}
+    const over=cap?spent/cap:0, cls=over>=.95?"ember":over>=.8?"amber":"mint";
+    $(root,"[data-bdid]").textContent=name;
+    const p=$(root,"[data-bdpill]"),pv=over>=1?["crit","over cap"]:over>=.95?["crit","95%"]:over>=.8?["near","80%"]:["live","within cap"];
+    p.className="lm-pill "+pv[0];p.textContent=pv[1];
+    $(root,"[data-bdcap]").textContent=scopeLabel+" spend";
+    const amt=$(root,"[data-bdamt]");amt.textContent="$"+f2(spent);amt.style.color=over>=1?"var(--ember)":"var(--fg)";
+    $(root,"[data-bdof]").innerHTML="of <b>$"+cap.toFixed(2)+"</b> cap · "+Math.round(over*100)+"% · 80% warn / 95% alert";
+    const bf=$(root,"[data-bdfuse]");bf.className="lm-fuse "+cls;$(bf,"i").style.width=Math.min(104,over*100)+"%";
+    const kidsEl=$(root,"[data-bdkids]");
+    if(leaf){
+      $(root,"[data-bdlabel]").textContent="This agent";
+      kidsEl.innerHTML=`<div class="lm-chainrow" style="line-height:1.5">This cap applies to every run the agent opens; the fuse trips and the gateway returns 402 at the cap.</div>`
+        +(leaf.flagged?`<button class="lm-flag" data-goto-behaviour="${leaf.name}" style="margin-top:10px"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 21V4h11l-1.5 3.5L15 11H4"/></svg></span><span class="ft"><b>Flagged: ${leaf.flagged}</b><span>open the behaviour detail</span></span><span class="fg">›</span></button>`:"");
+    }else{
+      $(root,"[data-bdlabel]").textContent="Breakdown";
+      kidsEl.innerHTML=kids.map(k=>{const ov=k.cap?k.spent/k.cap:0,kc=ov>=.95?"ember":ov>=.8?"amber":"mint";
+        return `<div class="lm-run" style="cursor:default">
+          <div class="bd">${k.tag}</div>
+          <div class="mid">
+            <div class="idrow"><span class="id">${k.name}</span>${k.flagged?`<span class="lm-pill near">${k.flagged}</span>`:`<span class="lm-pill ${ov>=1?"crit":ov>=.8?"near":"live"}">${ov>=1?"over":ov>=.8?"warn":"ok"}</span>`}<span class="rt" style="color:var(--dim)">${Math.round(ov*100)}%</span></div>
+            <div class="money"><span></span><span><b>$${f2(k.spent)}</b> / $${k.cap.toFixed(2)}</span></div>
+            <div class="lm-fuse ${kc}"><i style="width:${Math.min(104,ov*100)}%"></i></div>
+          </div></div>`;}).join("");
+    }
+  }
+  function renderAgents(){
+    const rank=s=>s==="crit"?3:s==="near"?2:1;
+    let list=S.agents.slice();
+    if(S.asort==="risk")list.sort((a,b)=>rank(b.sev)-rank(a.sev)||b.blast-a.blast);
+    $(root,"[data-acount]").textContent=S.agents.length+" flagged";
+    $(root,"[data-agents]").innerHTML=list.map(a=>{const i=S.agents.indexOf(a);
+      return `<div class="lm-run ${a.sev==="crit"?"crit":""}" data-ai="${i}">
+        <div class="bd" style="${a.sev==="crit"?"color:var(--ember);border-color:rgba(255,87,75,.4)":""}">${a.det[0].toUpperCase()}</div>
+        <div class="mid">
+          <div class="idrow"><span class="id">${a.id}</span><span class="lm-pill ${a.sev}">${a.det}</span><span class="rt" style="color:var(--dim)">${a.seen}</span></div>
+          <div class="money" style="white-space:normal"><span style="color:var(--dim);line-height:1.4">${a.why}</span></div>
+        </div></div>`;}).join("");
+  }
+  function renderAgentDet(){
+    const a=S.agents[S.asel];if(!a)return;
+    $(root,"[data-adid]").textContent=a.id;
+    const p=$(root,"[data-adpill]");p.className="lm-pill "+a.sev;p.textContent=a.det;
+    $(root,"[data-addet]").textContent=a.det.replace(/_/g," ");
+    $(root,"[data-adwhy]").textContent=a.why;
+    $(root,"[data-adchain]").textContent=a.chain==="—"?"none":a.chain.split("→").length+" deep";
+    $(root,"[data-adblast]").textContent=a.blast;
+    $(root,"[data-adseen]").textContent=a.seen;
+    $(root,"[data-adchainrow]").textContent=a.chain;
+  }
   function killRun(i,from){
     const r=S.runs[i];if(!r||r.st==="dead")return;
     r.st="dead";r.burn=0;
@@ -519,10 +805,72 @@ function pocket(root,stepsEl){
   /* segmented filter */
   $(root,"[data-seg]").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
     S.filter=b.dataset.f;$$(root,"[data-seg] button").forEach(x=>x.classList.toggle("on",x===b));renderRuns();});
-  /* tab bar */
-  $(root,"[data-tabs]").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-    if(b.dataset.tab==="runs")show("runs");else if(b.dataset.tab==="alerts")show("push");
-    else toast(b.dataset.tab+" · in the full app");});
+  /* tab bar (delegated: the bar lives in several views now) */
+  root.addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(!b)return;
+    const t=b.dataset.tab;
+    if(t==="runs")show("runs");
+    else if(t==="alerts")show("push");
+    else if(t==="budgets"){renderBudgets();show("budgets");}
+    else if(t==="device")show("device");});
+  /* runs -> flagged agents, agent row -> why, back buttons */
+  $(root,"[data-goto-agents]").addEventListener("click",()=>{renderAgents();show("agents");});
+  $(root,"[data-back-runs]").addEventListener("click",()=>show("runs"));
+  $(root,"[data-back-agents]").addEventListener("click",()=>show("agents"));
+  $(root,"[data-agents]").addEventListener("click",e=>{const it=e.target.closest("[data-ai]");if(!it)return;S.asel=+it.dataset.ai;renderAgentDet();show("agentdet");});
+  /* segmented controls: budget scope, agent sort, remote-access mode */
+  $(root,"[data-bseg]").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.bscope=b.dataset.b;$$(root,"[data-bseg] button").forEach(x=>x.classList.toggle("on",x===b));renderBudgets();});
+  $(root,"[data-asort]").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.asort=b.dataset.s;$$(root,"[data-asort] button").forEach(x=>x.classList.toggle("on",x===b));renderAgents();});
+  $(root,"[data-mseg]").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$$(root,"[data-mseg] button").forEach(x=>x.classList.toggle("on",x===b));
+    $(root,"[data-mnote]").textContent=b.dataset.m==="strict"
+      ?"Strict: the tunnel peer is revoked after a set window. Reconnecting needs a fresh code, obtainable on-network only."
+      :"Phone stays paired; you toggle the tunnel off when done, and idle peers are dropped. Reconnect needs no new code.";});
+  /* device disconnect + agent actions */
+  $(root,"[data-disc]").addEventListener("click",()=>toast("device disconnected · a fresh pairing code would be needed"));
+  /* device <-> pairing, with a code that visibly expires rather than sitting frozen */
+  $(root,"[data-goto-pair]").addEventListener("click",()=>{resetTtl();show("pair");});
+  $(root,"[data-back-device]").addEventListener("click",()=>show("device"));
+  const ttlEl=$(root,"[data-pairttl]");let ttl=598;
+  function paintTtl(){ttlEl.textContent=Math.floor(ttl/60)+":"+String(ttl%60).padStart(2,"0");}
+  function resetTtl(){ttl=598;paintTtl();}
+  setInterval(()=>{if(view!=="pair")return;ttl=ttl>0?ttl-1:598;paintTtl();},1000);
+  $(root,"[data-throttle]").addEventListener("click",()=>toast("throttled · agent capped to its baseline rate"));
+  $(root,"[data-agkill]").addEventListener("click",()=>toast("Enclave-signed kill · agent stopped across gateways"));
+  /* budgets drill-in: scope row -> its breakdown -> (if flagged) behaviour */
+  $(root,"[data-budgets]").addEventListener("click",e=>{const it=e.target.closest("[data-bi]");if(!it)return;
+    S.bsel={scope:S.bscope,i:+it.dataset.bi};renderBudgetDet();show("budgetdet");});
+  $(root,"[data-back-budgets]").addEventListener("click",()=>{renderBudgets();show("budgets");});
+  $(root,"[data-bdkids]").addEventListener("click",e=>{const b=e.target.closest("[data-goto-behaviour]");if(!b)return;
+    const idx=S.agents.findIndex(a=>a.id===b.dataset.gotoBehaviour);
+    if(idx>=0){S.asel=idx;renderAgentDet();show("agentdet");}else{renderAgents();show("agents");}});
+
+  /* Drag to scroll each screen. The page hijacks the mouse wheel, so a drag is
+     what actually moves content out from under the tab bar. Taps still work: a
+     click is only suppressed when the pointer actually moved.
+
+     Deliberately NO setPointerCapture on the scroll box. With capture set, the
+     browser dispatches pointerdown AND pointerup to the capturing element, so
+     the click lands on the scroll box instead of whatever was tapped inside
+     it: every control in a scrolling screen goes dead (the back arrows, the
+     run/agent/budget rows), while the tab bar keeps working because it sits
+     outside the scroll box. Tracking the drag on `window` instead keeps a drag
+     alive past the frame edge without stealing the click. */
+  let dragged=false;
+  $$(root,".lm-scroll").forEach(sc=>{
+    let down=false,sy=0,st=0,mv=0;
+    const move=e=>{if(!down)return;const dy=e.clientY-sy;if(Math.abs(dy)>2)mv=Math.abs(dy);sc.scrollTop=st-dy;};
+    const end=()=>{
+      if(!down)return;
+      if(mv>6){dragged=true;setTimeout(()=>{dragged=false;},140);}
+      down=false;
+      removeEventListener("pointermove",move);removeEventListener("pointerup",end);removeEventListener("pointercancel",end);
+    };
+    sc.addEventListener("pointerdown",e=>{
+      if(e.target.closest("button,.lm-breaker"))return;
+      down=true;sy=e.clientY;st=sc.scrollTop;mv=0;
+      addEventListener("pointermove",move);addEventListener("pointerup",end);addEventListener("pointercancel",end);
+    });
+  });
+  root.addEventListener("click",e=>{if(dragged){e.stopPropagation();e.preventDefault();}},true);
   /* expanded dynamic-island kill */
   $(root,"[data-dikill]").addEventListener("click",()=>{S.sel=0;killRun(0,"phone");toast("killed from the Dynamic Island");});
   /* push banners -> detail */
@@ -555,13 +903,38 @@ function pocket(root,stepsEl){
     if(view==="detail"&&S.runs[S.sel].st!=="dead")renderDetail();
   },400);
 
-  /* side steps -> the five phone screens */
-  function step(i){["runs","detail","island","pair","push"][i]&&(i===1?(S.sel=0,renderDetail(),show("detail")):show(["runs","detail","island","pair","push"][i]));}
-  wireSteps(stepsEl,step);
+  /* Auto-cycling loop through the main screens (по колу), with the side steps
+     as jump-in anchors. The loop pauses while you interact on-screen and then
+     resumes, so every tab, slider and banner stays live. */
+  const LOOP=["runs","detail","budgets","agents","pair","device","push"];
+  const steps=stepsEl?[...stepsEl.querySelectorAll(".as-step")]:[];
+  let loopI=0, pausedUntil=0;
+  function goTo(i){
+    loopI=((i%LOOP.length)+LOOP.length)%LOOP.length;
+    const v=LOOP[loopI];
+    if(v==="detail"){S.sel=0;renderDetail();}
+    else if(v==="budgets")renderBudgets();
+    else if(v==="agents")renderAgents();
+    else if(v==="pair")resetTtl();
+    show(v);
+    steps.forEach((s,j)=>s.classList.toggle("on",j===loopI));
+  }
+  steps.forEach((s,i)=>{
+    s.setAttribute("role","button");s.setAttribute("tabindex","0");
+    const jump=()=>{goTo(i);pausedUntil=Date.now()+9000;};
+    s.addEventListener("click",jump);
+    s.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();jump();}});
+  });
+  /* any on-screen touch pauses the loop so it never yanks a screen mid-tap */
+  const pause=e=>{if(!e.target.closest(".as-step"))pausedUntil=Date.now()+9000;};
+  root.addEventListener("pointerdown",pause,true);
+  root.addEventListener("click",pause,true);
 
-  renderRuns();renderWRuns();renderDetail();show("runs");
+  renderRuns();renderWRuns();renderDetail();renderBudgets();renderAgents();
+  goTo(0);
+  setInterval(()=>{if(Date.now()>=pausedUntil)goTo(loopI+1);},4200);
   requestAnimationFrame(()=>spark(el.spark,S.sparkV,"#F4B23E"));
-  return {step};
+  return {step:goTo};
 }
 
 /* =================================================================
