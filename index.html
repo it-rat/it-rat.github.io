@@ -340,13 +340,11 @@
        <p class="what">${s.what}.</p>
        <span class="go">open the room</span>
      </a>`;
-  rail.innerHTML = STACK.map(card).join("") + card({
-    id:"genaryx", name:"Genaryx", plane:"control room", color:"#B48CFF",
-    what:"The paid control room over all of it, and the pager that ships inside it",
-    href:"enterprise.html", tier:"enterprise"
-  });
+  rail.innerHTML = STACK.map(card).join("");
+  /* The footer column lists what anyone can clone and run; the column beside it
+     keeps the two rooms that need Genaryx, and Genaryx itself. */
   document.getElementById("foot-stack").innerHTML =
-    STACK.slice(0,8).map(s=>`<a href="${s.href}">${s.name}</a>`).join("");
+    STACK.filter(s=>!s.tier).map(s=>`<a href="${s.href}">${s.name}</a>`).join("");
 })();
 
 /* ---- hero canvas: the fuse wire ----
