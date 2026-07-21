@@ -309,19 +309,13 @@
         <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
         <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
       </div>
-      <div id="foot-stack"><!-- injected --></div>
-      <div>
-        <a href="enterprise.html">Genaryx &#183; the control room</a>
-        <a href="services/pocket.html">TokenFuse Pocket &#183; iOS</a>
-        <a href="services/sphere.html">Sphere &#183; iOS</a>
-        <a href="services/platform.html">Platform &#183; the contract</a>
-        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
-      </div>
+      <div class="foot-groups" id="foot-stack"><!-- injected --></div>
       <div>
         <a href="#people">The people</a>
         <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/" target="_blank" rel="noopener">Yurii on LinkedIn &#8599;</a>
         <a href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/" target="_blank" rel="noopener">Tania on LinkedIn &#8599;</a>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
       </div>
     </div>
     <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
@@ -351,8 +345,25 @@
   rail.innerHTML = STACK.map(card).join("");
   /* The footer column lists what anyone can clone and run; the column beside it
      keeps the two rooms that need Genaryx, and Genaryx itself. */
-  document.getElementById("foot-stack").innerHTML =
-    STACK.filter(s=>!s.tier).map(s=>`<a href="${s.href}">${s.name}</a>`).join("");
+  /* Grouped chips rather than one tall column: the grouping is the point, since
+     it says which of these you can run today, which is the paid room, and which
+     is not part of the stack at all. Everything comes from STACK, so a service
+     cannot end up with two identities on the same page. */
+  const GROUPS = [
+    ["the open stack, Apache-2.0", s => !s.tier],
+    ["enterprise",                 s => s.tier === "enterprise" || s.tier === "exploration"],
+    ["personal, not the stack",    s => s.tier === "personal"],
+  ];
+  const chip = s => `<a class="foot-chip" href="${s.href}">`
+    + `<i style="background:${s.color}"></i>${s.name}`
+    + (s.tier === "exploration" ? `<em>prototype</em>` : "") + `</a>`;
+  document.getElementById("foot-stack").innerHTML = GROUPS.map(([label, pick]) => {
+    const items = STACK.filter(pick);
+    return items.length
+      ? `<div class="foot-group"><div class="l">${label}</div>`
+        + `<div class="foot-chips">${items.map(chip).join("")}</div></div>`
+      : "";
+  }).join("");
 })();
 
 /* ---- hero canvas: the fuse wire ----

@@ -19,7 +19,7 @@ const STACK = [
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
   {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
   {id:"pocket",    name:"TokenFuse Pocket", plane:"iOS · watchOS", color:"#22D3EE", what:"The kill switch on your wrist",          href:"services/pocket.html", tier:"exploration"},
-  {id:"sphere",    name:"Sphere",     plane:"iOS",       color:"#A3E635", what:"Personal life intelligence, twelve agents",       href:"services/sphere.html"},
+  {id:"sphere",    name:"Sphere",     plane:"iOS",       color:"#A3E635", what:"Personal life intelligence, twelve agents",       href:"services/sphere.html", tier:"personal"},
 ];
 window.STACK = STACK;
 

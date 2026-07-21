@@ -355,6 +355,28 @@ p{margin:0}
 .footer .cols{display:flex;gap:34px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
 .footer .cols a{color:var(--dim);font-size:13.5px;display:block;padding:3px 0}
 .footer .cols a:hover{color:var(--fg)}
+/* ---------- footer: the stack as chips, not a column ---------- */
+/* Nine links stacked in one tall column read as a list to skim past. The same
+   nine as chips read as a set you can take in at a glance, and grouping them
+   says something the old column could not: which of these you can run today,
+   which is the paid room, and which is not part of the stack at all. Colours
+   come from the same STACK registry the rail uses, so a service cannot have
+   two identities on one page. */
+.foot-groups{display:flex;flex-direction:column;gap:16px;min-width:0;flex:1 1 460px}
+.foot-group .l{
+  font-family:var(--font-m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:9px;
+}
+.foot-chips{display:flex;flex-wrap:wrap;gap:7px}
+.footer .cols .foot-chip{
+  display:inline-flex;align-items:center;gap:7px;padding:6px 11px 6px 9px;
+  border:1px solid var(--line);border-radius:999px;background:var(--panel);
+  color:var(--dim);font-size:12.5px;line-height:1;
+  transition:border-color .16s,color .16s,transform .16s;
+}
+.footer .cols .foot-chip:hover{color:var(--fg);border-color:var(--line-2);transform:translateY(-1px)}
+.foot-chip i{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
+.foot-chip em{font-style:normal;color:var(--faint);font-size:10.5px;margin-left:1px}
 .foot-note{margin-top:26px;color:var(--faint);font-size:12.5px;line-height:1.6}
 
 /* ---------- ambient hero canvas (service pages) ---------- */
