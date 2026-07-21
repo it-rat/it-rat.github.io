@@ -59,6 +59,26 @@ jobs:
           fi
           echo "Every local reference resolves."
 
+      - name: Version the shared assets
+        ## site.css and site.js are referenced without a version and served with
+        ## max-age=600, so for ten minutes after a deploy a returning visitor
+        ## gets the new HTML with the old script. That is not theoretical: it
+        ## happened on 2026-07-21, and because site.js owns the service rail's
+        ## order, the page looked unchanged to someone who had just been on it.
+        ## Stamping the commit here keeps the repo clean of build artefacts and
+        ## makes every deploy a fresh URL, so the cache can stay long.
+        run: |
+          v="${GITHUB_SHA::8}"
+          ## perl rather than sed: the same expression then behaves identically
+          ## on a runner and on a mac, so this is testable before it ships.
+          ## `[^"?]` makes it idempotent: a reference that already carries a
+          ## version is left alone. Only .css and .js are stamped, so images
+          ## and the absolute og: URLs are untouched.
+          find . -name '*.html' -not -path './.git/*' -print0 \
+            | xargs -0 perl -pi -e 's{(assets/[^"?]+\.(?:css|js))"}{$1?v='"$v"'"}g'
+          echo "Stamped $(grep -rl "?v=$v" --include='*.html' . | wc -l) pages with $v"
+          grep -o 'assets/site\.js?v=[0-9a-f]*' index.html | head -1
+
       - name: Configure Pages
         uses: actions/configure-pages@v6
 
@@ -70,6 +90,67 @@ jobs:
         with:
           path: .
 
+      ## A Pages deployment can stay registered as "in progress" after its own
+      ## workflow reported success, and the next deploy is then refused with
+      ## "due to in progress deployment. Please cancel <sha> first". Observed
+      ## twice on 2026-07-21; the first time it cleared itself after hours,
+      ## during which the site silently served an older commit while the repo
+      ## looked deployed.
+      ##
+      ## Asking GitHub to cancel it is tried first because its own error message
+      ## says to, but do not trust it: in the second occurrence the cancel API
+      ## answered "Unable to cancel ... as it's finished" for the very
+      ## deployment the deploy API was refusing us over. So the cancel is
+      ## best-effort and the retry is what actually gets us through.
+      - name: Clear a stuck deployment, if any
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Pages reports: $(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .status || echo unknown)"
+          ## The blocker, when there is one, is the previously deployed commit.
+          ## We cannot know it for certain before the deploy step names it, so
+          ## this is a guess at the common case and is allowed to fail.
+          prev=$(git rev-parse HEAD~1 2>/dev/null || true)
+          if [ -n "$prev" ]; then
+            gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments/$prev/cancel" 2>&1 | head -2 || true
+          fi
+
       - name: Deploy
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v5
+
+      - name: Wait, then try again
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 60
+      - name: Deploy, second attempt
+        id: deployment2b
+        if: steps.deployment.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Wait longer, then try once more
+        if: steps.deployment.outcome == 'failure' && steps.deployment2b.outcome == 'failure'
+        run: sleep 180
+      - name: Deploy, third attempt
+        id: deployment3
+        if: steps.deployment.outcome == 'failure' && steps.deployment2b.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+
+      - name: Say plainly whether the site moved
+        ## Without this the job can end green on a first-attempt failure that a
+        ## later attempt fixed, or worse, look ambiguous. The point of this
+        ## workflow is that a failed publish is visible.
+        if: always()
+        run: |
+          if [ "${{ steps.deployment.outcome }}" = "success" ] \
+             || [ "${{ steps.deployment2b.outcome }}" = "success" ] \
+             || [ "${{ steps.deployment3.outcome }}" = "success" ]; then
+            echo "Published ${GITHUB_SHA::8}."
+          else
+            echo "NOT PUBLISHED. The site is still serving an older commit."
+            echo "A deployment is stuck in progress on GitHub's side; re-run this"
+            echo "workflow later, it clears on its own."
+            exit 1
+          fi
