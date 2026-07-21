@@ -252,10 +252,25 @@ document.addEventListener("pointermove",e=>{
 document.querySelectorAll(".rail").forEach(r=>{
   let idle;
   r.addEventListener("wheel",e=>{
-    if(Math.abs(e.deltaY)<=Math.abs(e.deltaX)) return;   // a real sideways gesture: leave it to the browser
-    e.preventDefault();
+    const dx=Math.abs(e.deltaX), dy=Math.abs(e.deltaY);
+    if(!dx && !dy) return;
+    /* Both axes are driven here, on purpose. Handing sideways gestures back to
+       the browser left them scrolling a snapping container, which resists a
+       live trackpad swipe and reads as the rail braking under your fingers,
+       while up-and-down felt free because it came through this path. Same path,
+       same feel, either way you push it. Preventing the default also keeps a
+       sideways swipe from being taken as the back gesture. */
     r.style.scrollSnapType="none";
-    r.scrollLeft+=e.deltaY;
+    const before=r.scrollLeft;
+    r.scrollLeft += dx>dy ? e.deltaX : e.deltaY;
+    /* The gesture is only claimed if the rail actually moved. At either end it
+       has nothing left to give, so the page gets the scroll instead of it being
+       swallowed, and resting the cursor on a rail that has run out of travel no
+       longer makes the page feel stuck. Comparing before and after beats
+       comparing against 0 and the max: the container's own padding puts its
+       resting start at 4px, not 0, so a threshold here would need a magic
+       number and would drift the moment that padding changed. */
+    if(r.scrollLeft!==before) e.preventDefault();
     clearTimeout(idle);
     idle=setTimeout(()=>{ r.style.scrollSnapType=""; },160);
   },{passive:false});
