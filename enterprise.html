@@ -55,18 +55,17 @@
     font-family:var(--font-m);font-size:11.5px;line-height:1.55}
 
   /* ---- console tab explorer ---- */
-  .gxc{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:start}
+  .gxc{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start}
   @media(max-width:860px){.gxc{grid-template-columns:1fr}
-    .gxc-rail{display:flex;flex-wrap:wrap;gap:7px}}
-  .gxc-rail{display:flex;flex-direction:column;gap:7px}
-  .gxc-tab{text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:11px;
-    background:var(--panel);color:var(--dim);padding:9px 13px;
-    font-family:var(--font-t);font-weight:600;font-size:13px;
+    .gxc-rail{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px}}
+  .gxc-rail{display:flex;flex-direction:column;gap:6px}
+  .gxc-tab{text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:9px;
+    background:var(--panel);color:var(--dim);padding:6px 11px;
+    font-family:var(--font-t);font-weight:600;font-size:12.5px;
     transition:color .15s,border-color .15s,background .15s}
   .gxc-tab:hover{color:var(--fg);border-color:var(--line-2)}
   .gxc-tab.on{color:var(--fg);border-color:color-mix(in srgb,var(--accent) 60%,var(--line-2));
     background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
-  .gxc-tab .mono{display:block;font-size:9.5px;letter-spacing:.09em;color:var(--faint);margin-top:2px;text-transform:uppercase}
   .gxc-stage img{transition:opacity .28s ease}
   .gxc-stage img.fade{opacity:0}
   .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
@@ -183,7 +182,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the console, captured live</div>
-      <h2>Sixteen tabs, one Rust core. Here are eleven.</h2>
+      <h2>Sixteen tabs, one Rust core. Sixteen frames from one run.</h2>
       <p class="lede">The actual console against a live plane: $495 of governed spend across 42 agents and 54,713 model calls, 7 open incidents, and the one runaway already caught and killed. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
     </div>
     <div class="gxc rv">
@@ -404,31 +403,41 @@
 /* ---- console tab explorer: real screenshots, lightbox via shotbox ---- */
 (function(){
 const TABS=[
- {id:"overview",l:"Overview",m:"the hero wall",img:"gx-overview.webp",
+ {id:"overview",l:"Overview",img:"gx-overview.webp",
   cap:"$495 of fleet spend across 54,713 model calls, $38.90 of runaway spend blocked by governance, 7 open incidents, and the one runaway of 42 agents already killed."},
- {id:"money",l:"Money",m:"runs &#183; kill &#183; budgets",img:"gx-money.webp",
+ {id:"runaway",l:"Runaway",img:"gx-runaway.webp",
+  cap:"The runaway as a card: sre/rca-copilot at 118% of a $1.25 per-run cap after 26 retries past budget, closed break-glass by sre-oncall, its whole lifecycle journaled down to the kill at 12:15:55."},
+ {id:"money",l:"Money",img:"gx-money.webp",
   cap:"42 live runs ranked by utilisation, with Replay, Budget and Kill on every row and the incidents rail beside them: all $38.90 of governed savings is blocked runaway spend, 61 budget breaks, 7% of the gross draw recovered."},
- {id:"policy",l:"Policy",m:"wardryx &#183; approvals",img:"gx-policy.webp",
+ {id:"policy",l:"Policy",img:"gx-policy.webp",
   cap:"Six holds waiting on a human and a live decision stream beneath them: every policy_hold names its agent and the reason it stopped, an estimated cost past the human-approval threshold, before anything runs."},
- {id:"identity",l:"Identity",m:"idryx &#183; 42 identities",img:"gx-identity.webp",
+ {id:"identity",l:"Identity",img:"gx-identity.webp",
   cap:"42 identities in the idryx snapshot, 14 privileged, 4 detector alerts and 1 attestation gap surfaced honestly. The header says outright that Refresh re-reads the same snapshot and only Rescan runs a fresh detect pass."},
- {id:"quality",l:"Quality",m:"verdryx &#183; drift",img:"gx-quality.webp",
+ {id:"agent360",l:"Agent 360",img:"gx-agent360.webp",
+  cap:"One agent, every plane in a single drawer: who delegated it, its last 640 bus events, tokenfuse allows and cache hits next to a wardryx hold, its identity record, and the $5.91 it has spent, with Replay one click away."},
+ {id:"quality",l:"Quality",img:"gx-quality.webp",
   cap:"Six eval runs in verdryx.db, the latest 30 cases at a 0.950 mean: Opus, Sonnet, Haiku and GPT-4o side by side, per-case cost down to the cent."},
- {id:"drills",l:"Drills",m:"mockryx &#183; guardrails",img:"gx-drills.webp",
+ {id:"drills",l:"Drills",img:"gx-drills.webp",
   cap:"Five hostile scenarios against the live gateway, runaway budget, secret leak, forged delegation chain, denied tool, approval bypass: 5 of 5 held, with $0.0252 of real budget burned proving it."},
- {id:"evidence",l:"Evidence",m:"packs &#183; sha-256",img:"gx-evidence.webp",
+ {id:"evidence",l:"Evidence",img:"gx-evidence.webp",
   cap:"An evidence pack built in-app: four artifacts with their SHA-256, 168.6 KB, journaled, and stamped UNSIGNED out loud because no signing device was paired, the one unavailable source named instead of quietly dropped."},
- {id:"remote",l:"Remote",m:"wireguard &#183; any cloud",img:"gx-remote.webp",
+ {id:"remote",l:"Remote",img:"gx-remote.webp",
   cap:"One WireGuard tunnel plus SSH reaches a stack on any box: eighteen providers in the inventory picker, Hetzner to bare metal, and the connection itself needs none of them."},
- {id:"graph",l:"Graph",m:"delegation",img:"gx-graph.webp",
+ {id:"graph",l:"Graph",img:"gx-graph.webp",
   cap:"The delegation graph off the event bus, 62 agents and 42 links: pick one human and the two platform agents they delegate to light up, with the full URI and event count in the corner."},
- {id:"posture",l:"Posture",m:"stack sanity",img:"gx-posture.webp",
+ {id:"posture",l:"Posture",img:"gx-posture.webp",
   cap:"The console audits its own stack and says it out loud: a devkey fallback in use, one of 14 privileged identities flagged for missing attestation, a detector feed 19 minutes quiet. Every finding carries a FIX line."},
- {id:"copilot",l:"Copilot &#183; Felyx",m:"read + propose",img:"gx-copilot.webp",
-  cap:"Felyx on a local qwen2.5 via Ollama, no key leaving the box: it names the caught runaway and its $41.60 of burn, then files a $60 daily-cap proposal for the top spender at 72% confidence. Approve stays with a human, because Felyx holds no signer."}
+ {id:"bus",l:"Bus",img:"gx-bus-explorer.webp",
+  cap:"The raw event bus in the explorer, here browsing its bundled demo stream, the same viewer the live bus feeds: a CRITICAL breaker_tripped pinned open to its exact payload, budget $1.25, spent $1.2125, per-run budget exceeded, schema and offset included."},
+ {id:"copilot",l:"Copilot",img:"gx-copilot.webp",
+  cap:"Felyx on a local qwen2.5 via Ollama, no key leaving the box: it names the caught runaway and its $41.60 of burn, then files a $60 daily-cap proposal for the top spender at 72% confidence. Approve stays with a human, because Felyx holds no signer."},
+ {id:"breakglass",l:"Break-glass",img:"gx-breakglass.webp",
+  cap:"The override ceremony: an ungoverned operator action says so in red, demands a written justification, journals itself to the audit trail with your reason, and lands on the Bus as a break_glass command."},
+ {id:"felyx",l:"Felyx setup",img:"gx-felyx-setup.webp",
+  cap:"Connecting the copilot: five providers with the local ones labelled in green, every prompt stays on this machine, no key needed, a $5 daily cap, and the reminder that Felyx holds no signing key at all."}
 ];
 const rail=document.getElementById("gxc-rail"),img=document.getElementById("gxc-img"),cap=document.getElementById("gxc-cap");
-rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}<span class="mono">${t.m}</span></button>`).join("");
+rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}</button>`).join("");
 const btns=[...rail.querySelectorAll(".gxc-tab")];
 rail.addEventListener("click",e=>{
   const b=e.target.closest(".gxc-tab"); if(!b) return;
