@@ -131,7 +131,7 @@
         <div class="row"><span class="k">status</span><span class="v">in the works</span></div>
         <div class="row"><span class="k">shells</span><span class="v">browser &#183; desktop build kept, not shipped</span></div>
         <div class="row"><span class="k">core</span><span class="v">one shared Rust core, UniFFI</span></div>
-        <div class="row"><span class="k">signing</span><span class="v">passkey on your device &#183; ES256</span></div>
+        <div class="row"><span class="k">signing</span><span class="v">software today &#183; passkey ES256 the direction</span></div>
         <div class="row"><span class="k">remote</span><span class="v">WireGuard, plane off the internet</span></div>
         <div class="row"><span class="k">copilot</span><span class="v">Felyx &#183; local-first</span></div>
         <div class="row"><span class="k">hosting</span><span class="v">self-hosted &#183; any cloud or on-prem</span></div>
@@ -193,7 +193,7 @@
           <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="928">
           <figcaption id="gxc-cap">$4,671 of fleet spend, $3,131.82 governed savings, 180 open incidents, and 15 runs killed of 9,501.</figcaption>
         </figure>
-        <div class="gxc-note">captured 2026-07-20 &#183; one frozen moment of the live validation campaign &#183; every screen below reads the same fleet, so the figures agree across them</div>
+        <div class="gxc-note">captured 2026-07-20 &#183; one frozen moment of the live validation campaign &#183; every screen below reads the same fleet, so the figures agree across them &#183; frames shot in the desktop build, one Rust core with the browser console</div>
       </div>
     </div>
   </div>
@@ -223,7 +223,7 @@
 <section class="sec" id="alerts" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">on call</div>
+      <div class="kicker">on call &#183; the design, not built yet</div>
       <h2>The alert finds you anywhere. Acting on it only works from inside.</h2>
       <p class="lede">Two different things get bundled together and should not be: being told something happened, and being able to do something about it. They need opposite things from the network, and pretending otherwise is how a pager ends up needing the very connection that is down.</p>
     </div>
@@ -361,7 +361,7 @@
     </div>
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>One core, one shell that ships</h3><p>The browser console is the product. A Tauri desktop build is kept green beside it, unshipped: two shells over one shared Rust core is what forces the logic - stores, connectors, ceremonies, the graph - to live in the core rather than drifting into a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures</h3><p>Kills and budget changes are ES256-signed by a passkey on your own device (Touch ID, Windows Hello or a security key), with a typed break-glass reason journaled next to the signature. A stolen laptop session or a compromised server cannot forge an order.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures</h3><p>The direction: kills and budget changes ES256-signed by a passkey on your own device (Touch ID, Windows Hello or a security key), with a typed break-glass reason journaled next to the signature, so a stolen laptop session or a compromised server cannot forge an order. Not shipped yet: today every kill is software-signed, and the hardware ceremony is proven in the unshipped desktop build.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues the peer config as a QR; the tunnel is raised by your own client, not by anything of ours: scan, connect, done. Your control plane answers on a private address and nowhere else. SSH stays for ops; the console does not need it.</p></div>
       <div class="card hover feature b-4 rv"><h3>A relay that cannot act</h3><p>The pager's relay, in the design we explored, holds a read-only viewer key, binds to exactly one device, pins its TLS identity into the pairing QR, and forwards device-signed mutations byte-for-byte. Compromise the relay and you can watch: you still cannot kill, budget or grant.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Post-quantum licensing</h3><p>Licenses are offline entitlement files signed with ML-DSA, the NIST post-quantum standard. No license server, no phone-home: it works in an air-gapped room, which is exactly where some of this software will live.</p></div>

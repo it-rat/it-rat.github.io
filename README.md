@@ -35,7 +35,7 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 | `services/platform.html` | contract | Agent Passport, the shared event envelope, Terraform |
 | `services/pocket.html` | iOS, watchOS | TokenFuse Pocket, the pager and the kill from the wrist |
 | `services/sphere.html` | iOS | Sphere, twelve life-sphere agents |
-| `enterprise.html` | control room | Genaryx, the paid desktop console. In the works, no pricing |
+| `enterprise.html` | control room | Genaryx, the paid browser console on your own box. In the works, no pricing |
 
 ## How it deploys
 
@@ -74,7 +74,7 @@ modules, and everything works from any static file server.
 
 ## House rules for edits
 
-- **Say only what is true.** Genaryx is not released: the Enterprise and Pocket pages carry an "in the works" ribbon, and neither shows pricing or a download. Numbers on the site come from the validation records in the stack repos, not from marketing.
+- **Say only what is true.** Genaryx is not released: the Enterprise page carries an "In the works." ribbon, Pocket an "An exploration." one, and neither shows pricing or a download. Numbers on the site come from the validation records in the stack repos, not from marketing.
 - **No long dashes in copy.** Reword, or use a comma, a colon, parentheses, or a short hyphen.
 - **Keep it self-contained.** A new dependency that needs a CDN does not belong here.
 - **SVG stays legible.** No raster artwork for diagrams, and no label smaller than 10px; anything dense gets the lightbox.
