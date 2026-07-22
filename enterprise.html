@@ -183,17 +183,17 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the console, captured live</div>
-      <h2>Sixteen tabs, one Rust core. Here are ten.</h2>
-      <p class="lede">The actual macOS build against a live plane: $4,671 of governed spend across 9,501 runs and 37,596 model calls, 180 open incidents, 15 runs killed. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
+      <h2>Sixteen tabs, one Rust core. Here are eleven.</h2>
+      <p class="lede">The actual console against a live plane: $495 of governed spend across 42 agents and 54,713 model calls, 7 open incidents, and the one runaway already caught and killed. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
     </div>
     <div class="gxc rv">
       <div class="gxc-rail" id="gxc-rail" role="tablist" aria-label="Genaryx tabs"></div>
       <div class="gxc-stage">
         <figure class="shot" id="gxc-shot">
-          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="928">
-          <figcaption id="gxc-cap">$4,671 of fleet spend, $3,131.82 governed savings, 180 open incidents, and 15 runs killed of 9,501.</figcaption>
+          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="1004">
+          <figcaption id="gxc-cap">$495 of fleet spend across 54,713 model calls, $38.90 of runaway spend blocked by governance, 7 open incidents, and the one runaway of 42 agents already killed.</figcaption>
         </figure>
-        <div class="gxc-note">captured 2026-07-20 &#183; one frozen moment of the live validation campaign &#183; every screen below reads the same fleet, so the figures agree across them &#183; frames shot in the desktop build, one Rust core with the browser console</div>
+        <div class="gxc-note">captured 2026-07-22 &#183; one frozen moment of a live campaign run &#183; every screen below reads the same fleet, so the figures agree across them &#183; one Rust core behind both shells, desktop and browser</div>
       </div>
     </div>
   </div>
@@ -213,7 +213,7 @@
       </div>
       <figure class="shot rv d1">
         <img src="assets/shots/enterprise/gx-bus.webp" alt="Genaryx Bus in the macOS menu bar: live spend, active runs, the last runaway and a kill control" width="672" height="400" loading="lazy">
-        <figcaption>$4,671.02 ticking live in the menu bar &#183; 9,486 active runs &#183; the last runaway named and priced at $11.33, with the kill that still needs Touch ID</figcaption>
+        <figcaption>$4,671.02 ticking live in the menu bar during the 2026-07-20 campaign &#183; 9,486 active runs &#183; the last runaway named and priced at $11.33, with the kill that still needs Touch ID</figcaption>
       </figure>
     </div>
   </div>
@@ -380,7 +380,7 @@
     <div class="bento">
       <div class="card b-6 rv">
         <div class="kicker" style="--accent:var(--mint)">already true</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">The console has driven a real fleet over its own WireGuard tunnel and put a hardware-signed kill through it, against a plane closed to the internet. The pager prototype has killed a run from a wrist. Felyx has run against a live model and found the one run still over its cap that nothing had killed, on a fleet of 9,501. Every claim above has a captured run behind it.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">The console has driven a real fleet over its own WireGuard tunnel and put a hardware-signed kill through it, against a plane closed to the internet. The pager prototype has killed a run from a wrist. Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a live fleet of 42 agents. Every claim above has a captured run behind it.</p>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--amber)">not yet</div>
@@ -405,25 +405,27 @@
 (function(){
 const TABS=[
  {id:"overview",l:"Overview",m:"the hero wall",img:"gx-overview.webp",
-  cap:"$4,671 of fleet spend, $3,131.82 governed savings, 180 open incidents, and 15 runs killed of 9,501."},
+  cap:"$495 of fleet spend across 54,713 model calls, $38.90 of runaway spend blocked by governance, 7 open incidents, and the one runaway of 42 agents already killed."},
  {id:"money",l:"Money",m:"runs &#183; kill &#183; budgets",img:"gx-money.webp",
-  cap:"9,501 runs ranked by spend, with Replay, Budget and Kill on every row, and an incidents rail beside them: $2,404.60 of it runaway spend prevented, the largest share of the $3,131.82 that recovered 40% of the gross draw."},
+  cap:"42 live runs ranked by utilisation, with Replay, Budget and Kill on every row and the incidents rail beside them: all $38.90 of governed savings is blocked runaway spend, 61 budget breaks, 7% of the gross draw recovered."},
  {id:"policy",l:"Policy",m:"wardryx &#183; approvals",img:"gx-policy.webp",
-  cap:"The approvals inbox: five holds waiting on a human, one decided today. Each carries the policy it breached and its cost bound, and Grant or Deny is signed with your passkey before it counts."},
- {id:"identity",l:"Identity",m:"idryx &#183; 29 identities",img:"gx-identity.webp",
-  cap:"29 identities, none privileged, 43 detector alerts and 21 attestation gaps surfaced honestly. The panel says outright that Idryx has no attestation field and that this list is derived from its alerts instead."},
+  cap:"Six holds waiting on a human and a live decision stream beneath them: every policy_hold names its agent and the reason it stopped, an estimated cost past the human-approval threshold, before anything runs."},
+ {id:"identity",l:"Identity",m:"idryx &#183; 42 identities",img:"gx-identity.webp",
+  cap:"42 identities in the idryx snapshot, 14 privileged, 4 detector alerts and 1 attestation gap surfaced honestly. The header says outright that Refresh re-reads the same snapshot and only Rescan runs a fresh detect pass."},
  {id:"quality",l:"Quality",m:"verdryx &#183; drift",img:"gx-quality.webp",
-  cap:"Four eval runs over 32 cases in verdryx.db, latest mean 0.883 against two saved baselines. The drift rail stays quiet on purpose: it fires on a real regression, not on every run."},
- {id:"evidence",l:"Evidence",m:"signed packs",img:"gx-evidence.webp",
-  cap:"An evidence pack built in-app and signed: four artifacts, 6 KB, journaled, each with its SHA-256. Two sources could not be included, and the panel names them and the exact error rather than quietly shipping three."},
- {id:"copilot",l:"Copilot &#183; Felyx",m:"read + propose",img:"gx-copilot.webp",
-  cap:"Felyx answering from five tool calls: $4,671.02 across 9,501 runs, $3,131.82 saved, and the one run still over its cap that nothing has killed. It ends by offering to file a proposal, because it holds no signer and a human must approve."},
- {id:"memory",l:"Memory",m:"engram &#183; recall",img:"gx-memory.webp",
-  cap:"Semantic recall over 57 memories: the top hit is the ruling that a batch's five budget trips came from an undersized cap, not a genuine runaway, with its provenance attached."},
+  cap:"Six eval runs in verdryx.db, the latest 30 cases at a 0.950 mean: Opus, Sonnet, Haiku and GPT-4o side by side, per-case cost down to the cent."},
+ {id:"drills",l:"Drills",m:"mockryx &#183; guardrails",img:"gx-drills.webp",
+  cap:"Five hostile scenarios against the live gateway, runaway budget, secret leak, forged delegation chain, denied tool, approval bypass: 5 of 5 held, with $0.0252 of real budget burned proving it."},
+ {id:"evidence",l:"Evidence",m:"packs &#183; sha-256",img:"gx-evidence.webp",
+  cap:"An evidence pack built in-app: four artifacts with their SHA-256, 168.6 KB, journaled, and stamped UNSIGNED out loud because no signing device was paired, the one unavailable source named instead of quietly dropped."},
+ {id:"remote",l:"Remote",m:"wireguard &#183; any cloud",img:"gx-remote.webp",
+  cap:"One WireGuard tunnel plus SSH reaches a stack on any box: eighteen providers in the inventory picker, Hetzner to bare metal, and the connection itself needs none of them."},
  {id:"graph",l:"Graph",m:"delegation",img:"gx-graph.webp",
-  cap:"The delegation graph off the event bus: 36 nodes and 17 edges, one orchestrator at the hub, the only human in gold."},
+  cap:"The delegation graph off the event bus, 62 agents and 42 links: pick one human and the two platform agents they delegate to light up, with the full URI and event count in the corner."},
  {id:"posture",l:"Posture",m:"stack sanity",img:"gx-posture.webp",
-  cap:"The console audits its own stack and finds three things worth saying, including that this environment is still authenticating with a devkey. Each finding carries a FIX line."}
+  cap:"The console audits its own stack and says it out loud: a devkey fallback in use, one of 14 privileged identities flagged for missing attestation, a detector feed 19 minutes quiet. Every finding carries a FIX line."},
+ {id:"copilot",l:"Copilot &#183; Felyx",m:"read + propose",img:"gx-copilot.webp",
+  cap:"Felyx on a local qwen2.5 via Ollama, no key leaving the box: it names the caught runaway and its $41.60 of burn, then files a $60 daily-cap proposal for the top spender at 72% confidence. Approve stays with a human, because Felyx holds no signer."}
 ];
 const rail=document.getElementById("gxc-rail"),img=document.getElementById("gxc-img"),cap=document.getElementById("gxc-cap");
 rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}<span class="mono">${t.m}</span></button>`).join("");
