@@ -70,6 +70,18 @@
   .gxc-stage img{transition:opacity .28s ease}
   .gxc-stage img.fade{opacity:0}
   .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
+  .gxc-cta{display:flex;align-items:center;gap:16px;padding:16px 20px;border:1px solid color-mix(in srgb,var(--accent) 55%,var(--line-2));border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 12%,transparent),transparent);text-decoration:none;color:var(--fg);transition:border-color .2s ease,transform .2s ease}
+  .gxc-cta:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .gxc-cta .play{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#0d0f14;font-size:15px}
+  .gxc-cta b{font-size:17px;display:block}
+  .gxc-cta small{color:var(--dim);font-size:13px}
+  .gxc-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+  @media(max-width:760px){.gxc-teasers{grid-template-columns:1fr}}
+  .gxc-teaser{text-decoration:none;transition:transform .2s ease}
+  .gxc-teaser:hover{transform:translateY(-2px)}
+  .gxc-teaser img{display:block;width:100%;height:auto;border:1px solid var(--line-2);border-radius:12px;transition:border-color .2s ease}
+  .gxc-teaser:hover img{border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2))}
+  .gxc-teaser span{display:block;margin-top:8px;color:var(--dim);font-size:13px;line-height:1.5}
 
   /* ---- Genaryx Bus ---- */
 
@@ -182,18 +194,29 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the console, captured live</div>
-      <h2>One Rust core. Twenty frames from one live run.</h2>
-      <p class="lede">The actual console against a live plane on a Hetzner box: $35,100 of governed spend this month across 55 agents and 84,497 model calls, 204 open incidents, and the runaway reconciliation batch caught and killed by a passkey ceremony. Pick a tab on the left; click any screenshot to enlarge it, the same way the architecture schematics work everywhere else on this site.</p>
+      <h2>One Rust core. The whole console, one live run.</h2>
+      <p class="lede">The actual console against a live plane on a Hetzner box: $42,895 of governed spend this month across 86 agents and 125,897 model calls, 203 open incidents, and the runaway reconciliation batch caught and killed. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. Try it yourself below: the live demo is the whole console on simulated data, nothing leaving your browser, and the stills are frozen frames from a real run.</p>
     </div>
-    <div class="gxc rv">
-      <div class="gxc-rail" id="gxc-rail" role="tablist" aria-label="Genaryx tabs"></div>
-      <div class="gxc-stage">
-        <figure class="shot" id="gxc-shot">
-          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp?v=e02" alt="Genaryx Overview tab" width="1760" height="990">
-          <figcaption id="gxc-cap">$35,100 of governed spend this month across 55 agents and 84,497 model calls, $7,408 of governed savings, 204 open incidents, and the runaway already caught and killed.</figcaption>
-        </figure>
-        <div class="gxc-note">captured 2026-07-24 &#183; one frozen moment of a live campaign run on a Hetzner box &#183; every screen below reads the same fleet, so the figures agree across them &#183; one Rust core behind every screen</div>
+    <div class="gxc-demo rv">
+      <a class="gxc-cta" href="demo/" target="_blank" rel="noopener">
+        <span class="play">&#9654;</span>
+        <span><b>Open the live demo</b><small>Click through the real console yourself. Simulated data, nothing leaves your browser.</small></span>
+      </a>
+      <div class="gxc-teasers">
+        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
+          <img src="assets/shots/enterprise/gx-overview.webp?v=e03" alt="Genaryx Overview" width="1760" height="1138" loading="lazy">
+          <span>$42,895 governed this month across 86 agents, the runaway already caught and killed.</span>
+        </a>
+        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
+          <img src="assets/shots/enterprise/gx-money.webp?v=e03" alt="Genaryx Money kill-board" width="1760" height="1138" loading="lazy">
+          <span>Every run with Replay, Budget and Kill, and $8,941 of governed savings beside the incidents.</span>
+        </a>
+        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
+          <img src="assets/shots/enterprise/gx-graph.webp?v=e03" alt="Genaryx delegation graph" width="1760" height="1138" loading="lazy">
+          <span>The delegation graph: 62 agents and 13 users, who acts for whom, off the live bus.</span>
+        </a>
       </div>
+      <div class="gxc-note">frozen frames from a live run &#183; the demo is the whole console, every tab, live &#183; one Rust core behind every screen</div>
     </div>
   </div>
 </section>
@@ -337,67 +360,6 @@
 <script src="assets/site.js"></script>
 <script src="assets/diagram.js"></script>
 <script src="assets/shotbox.js"></script>
-<script>
-/* ---- console tab explorer: real screenshots, lightbox via shotbox ---- */
-(function(){
-const TABS=[
- {id:"overview",l:"Overview",img:"gx-overview.webp",
-  cap:"The month at a glance: $35,100 of governed AI spend across 55 agents and 84,497 model calls, $7,408 of governed savings, 204 open incidents, and the one runaway already caught and killed. Spend-by-agent ranks the fleet, aml-case-copilot heaviest at $7,126."},
- {id:"money",l:"Money",img:"gx-money.webp",
-  cap:"20,360 runs ranked, Replay, Budget and Kill on every row, the incidents rail beside them: $7,408 of governed savings splits into $2,459 runaway blocked, $2,914 semantic cache, $2,035 model router, 213 budget breaks, 17% of the gross draw recovered."},
- {id:"runaway",l:"Runaway",img:"gx-runaway.webp",
-  cap:"Sorted by utilisation, the reconciliation retry storm floats to the top: the end-of-day batch and its shards over a per-run cap after 26+ retries past budget, each incident on the right naming the same run the money plane shows."},
- {id:"replay",l:"Replay",img:"gx-replay.webp",
-  cap:"Any run played back step by step from the trace: the exact call sequence, where the budget ceiling tripped, and what the guardrail did, reconstructed from the same records the audit chain covers."},
- {id:"agent360",l:"Agent 360",img:"gx-agent360.webp",
-  cap:"One agent, every plane in a single drawer: kyc-aml/aml-case-copilot, its owner and business unit, its recent runs, the $7,126 it has spent across 6,045 calls, and Replay one click away, opened straight off the Overview bars."},
- {id:"policy",l:"Policy",img:"gx-policy.webp",
-  cap:"Seven approvals waiting on a human and a live decision stream beneath them: every policy_deny and approval_requested names its agent and the reason it stopped, an estimated cost past the treasury or lending threshold, before anything runs."},
- {id:"identity",l:"Identity",img:"gx-identity.webp",
-  cap:"71 identities in the idryx snapshot, 0 privileged, 76 detector alerts and 55 attestation gaps surfaced honestly. The header says outright that Refresh re-reads the same snapshot and only Rescan runs a fresh detect pass."},
- {id:"onboard",l:"Onboard",img:"gx-onboard.webp",
-  cap:"Registering an agent: an identity-map preview and the provisioned passports it would emit, the rare setup step the left rail deliberately keeps at the bottom, out of the daily path."},
- {id:"quality",l:"Quality",img:"gx-quality.webp",
-  cap:"Two eval runs in verdryx.db at a 0.893 mean over 40 cases: real llm-judge, exact and regex grading against Haiku, with per-case cost down to the cent and a cost-per-correct read the money plane cannot give on its own."},
- {id:"crypto",l:"Crypto",img:"gx-crypto.webp",
-  cap:"Qryx scans a target for its crypto: a CBOM inventory with SHA-256 detected, zero quantum-vulnerable findings, and a PQC readiness timeline reading on-track against the 2028 / 2031 / 2035 migration milestones."},
- {id:"memory",l:"Memory",img:"gx-memory.webp",
-  cap:"Engram over MCP: 42 episodes and 35 facts for these agents, a 1.65 MB store, with Recall and a why() provenance answer that walks back the reconciliation incident from what happened to when the guardrail fired."},
- {id:"drills",l:"Drills",img:"gx-drills.webp",
-  cap:"Five hostile scenarios fired at the live gateway, runaway budget, secret leak, forged delegation chain, denied tool, approval bypass: 5 of 5 guardrails held, with $0.0028 of real budget burned proving the breaker actually tripped."},
- {id:"evidence",l:"Evidence",img:"gx-evidence.webp",
-  cap:"A signed evidence pack built in-app: four artifacts with their SHA-256, 4.86 KB, journaled as console_evidence_built, the cloud audit chain verified end-to-end, and the two unavailable sources named instead of quietly dropped."},
- {id:"graph",l:"Graph",img:"gx-graph.webp",
-  cap:"The delegation graph off the event bus: agents and the humans they act for, node radius following event volume, one click on a node lighting its full agent:// URI and the chain it delegates through."},
- {id:"posture",l:"Posture",img:"gx-posture.webp",
-  cap:"The console audits its own stack and says it out loud: a devkey fallback in use, privileged identities flagged for missing attestation, a quiet detector feed. Every finding carries a FIX line, no self-congratulation."},
- {id:"bus",l:"Bus Explorer",img:"gx-bus.webp",
-  cap:"The raw event bus, live: policy denies and approvals streaming from the meridian fleet, each row its agent and type, any event pinned open to its exact payload with schema and offset, the same viewer a break_glass command lands in."},
- {id:"routines",l:"Routines",img:"gx-routines.webp",
-  cap:"Scheduled governance the stack runs on itself: the FinOps export, crypto trend, quality drift and identity sweep as OS-native timers, each with its last run and status, so the evidence keeps producing whether or not anyone is watching."},
- {id:"copilot",l:"Copilot",img:"gx-copilot.webp",
-  cap:"Felyx on a local qwen2.5 via Ollama, no key leaving the box: asked about the reconciliation incident it calls a read tool, names the exact over-cap run and proposes a kill. Approve stays with a human, because Felyx holds no signing key."},
- {id:"units",l:"Units",img:"gx-units.webp",
-  cap:"Spend rolled up by business unit and by agent: financial-crime, treasury, compliance, retail-lending and customer-support against their monthly caps, treasury at 93% of its ceiling, month-to-date and all-time agreeing to the dollar."},
- {id:"passkeys",l:"Passkeys",img:"gx-passkeys.webp",
-  cap:"The passkey enrolment surface, pinned to the foot of the left rail with the rare setup: an enrolled credential that hardware-confirms every kill, budget change and approval, the ceremony behind the break-glass that killed the runaway."}
-];
-const rail=document.getElementById("gxc-rail"),img=document.getElementById("gxc-img"),cap=document.getElementById("gxc-cap");
-rail.innerHTML=TABS.map((t,i)=>`<button type="button" role="tab" class="gxc-tab${i?"":" on"}" data-i="${i}">${t.l}</button>`).join("");
-const btns=[...rail.querySelectorAll(".gxc-tab")];
-rail.addEventListener("click",e=>{
-  const b=e.target.closest(".gxc-tab"); if(!b) return;
-  const t=TABS[+b.dataset.i];
-  btns.forEach(x=>x.classList.toggle("on",x===b));
-  img.classList.add("fade");
-  setTimeout(()=>{
-    img.src="assets/shots/enterprise/"+t.img+"?v=e02";
-    img.alt="Genaryx "+t.l+" tab";
-    cap.innerHTML=t.cap;
-    img.onload=()=>img.classList.remove("fade");
-  },140);
-});
-})();
-</script>
+
 </body>
 </html>
