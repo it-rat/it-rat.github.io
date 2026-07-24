@@ -56,7 +56,7 @@
     <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
     <span class="crumb">the stack<span class="sep">/</span><span class="here">platform</span></span>
     <span class="spacer"></span>
-    <a class="tb-link" href="../enterprise.html" title="Genaryx, the enterprise control room. In the works.">Enterprise<span class="soon-pill">soon</span></a>
+    <a class="tb-link" href="../enterprise.html" title="Genaryx, the control room over the stack.">Enterprise</a>
     <a class="tb-link tb-cta" href="../console.html">Open your console</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
@@ -82,6 +82,8 @@
         <div class="row"><span class="k">Go binding</span><span class="v">agent-stack-go v0.2.0</span></div>
         <div class="row"><span class="k">conformance</span><span class="v">agent-conform CLI &#183; exit 0/1</span></div>
         <div class="row"><span class="k">as code</span><span class="v" style="font-size:11px;text-align:right">taipan_budget &#183; taipan_agent_passport &#183; taipan_wardryx_policy</span></div>
+        <div class="row"><span class="k">source</span><span class="v"><a href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none">
+    <svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></span></div>
       </div>
     </div>
   </div>
@@ -213,7 +215,7 @@
       <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go v0.2.0 ships passport.Parse, an append-only event.Writer and chain.Validate, stdlib only at runtime. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
       <div class="card hover feature b-4 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped. Exit 0 or exit 1; it has already caught a real 63-versus-64 hex character prev_hash defect.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Governance as code</h3><p>Three Terraform resources: taipan_budget, taipan_agent_passport, taipan_wardryx_policy. Budgets and policies get PRs, plans and diffs like everything else, and edits made out of band surface on the next plan. Where the API has no delete, the provider says so instead of pretending.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is not on the Terraform Registry yet: you build from source and wire it in with dev_overrides, exactly as the README says. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is published on the Terraform Registry as <span class="mono">TAIPANBOX/taipan</span>: a normal <span class="mono">required_providers</span> block and <span class="mono">terraform init</span> pull it, GPG-verified, no build-from-source needed. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
     </div>
   </div>
 </section>

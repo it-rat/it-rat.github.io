@@ -93,7 +93,7 @@
     <a class="tb-link" href="#stack">Stack</a>
     <a class="tb-link" href="#proof">Proof</a>
     <a class="tb-link" href="#consulting">Consulting</a>
-    <a class="tb-link" href="enterprise.html" title="Genaryx, the enterprise control room. In the works.">Enterprise<span class="soon-pill">soon</span></a>
+    <a class="tb-link" href="enterprise.html" title="Genaryx, the enterprise control room.">Enterprise</a>
     <a class="tb-link tb-cta" href="console.html">Open your console</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
@@ -125,7 +125,7 @@
     <div class="sec-head rv">
       <div class="kicker">the stack</div>
       <h2>One corridor, every door on it.</h2>
-      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx is the paid room over all of them, and the corridor ends on the two iOS rooms, which are where we have explored rather than shipped. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
+      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx is the control room over all of them, deployed with us on your own infrastructure, and the corridor ends on the two iOS rooms, which are where we have explored rather than shipped. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
     <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
     <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
@@ -232,11 +232,11 @@
       <div class="rv">
         <div class="kicker">the consultancy behind it</div>
         <h2 style="margin-top:14px">Boutique by choice. Senior by default.</h2>
-        <p class="lede" style="margin-top:16px">IT-RAT is a small cloud practice: Zero Trust and IAM architecture, FinOps that survives an auditor, and AI adoption that doesn't end up on the front page for the wrong reason. The stack on this site is how we work in the open; if we ever take an engagement together, this is roughly what it looks like.</p>
+        <p class="lede" style="margin-top:16px">IT-RAT is a small cloud practice: Zero Trust and IAM architecture, FinOps that survives an auditor, and AI adoption that doesn't end up on the front page for the wrong reason. We deploy AI solutions with a clear-eyed view of where the field is going (agentic fleets, post-quantum crypto, FinOps for AI), because we already build there: everything on this site runs, and you can watch it run. The stack is how we work in the open; an engagement is how it lands inside your perimeter, with the people who wrote it.</p>
         <ul>
           <li><b>Cloud security &amp; IAM.</b> Identity-first architecture on AWS and GCP: least privilege that people can actually live with.</li>
           <li><b>FinOps for AI.</b> Budgets, showback and unit economics for LLM workloads, wired into the tooling your finance team already reads.</li>
-          <li><b>Agent governance.</b> Deploying this stack, or the ideas behind it, inside your perimeter: runtime enforcement, not another dashboard.</li>
+          <li><b>Agent governance.</b> Deploying this stack, Genaryx included, inside your perimeter: runtime enforcement, not another dashboard.</li>
         </ul>
       </div>
       <div class="card rv d1">
@@ -331,8 +331,8 @@
 (function(){
   const rail=document.getElementById("svc-rail");
   /* Two of these doors do not open on their own, and the card says which kind
-     of dependency it is: Pocket is Apache-2.0 like the rest but needs a relay
-     to point at, Genaryx is the enterprise room itself. */
+     of dependency it is: Pocket is a private prototype, Genaryx is the
+     enterprise control room, deployed as an engagement. */
   const card = s =>
     `<a class="card hover svc" style="--c:${s.color}" href="${s.href}" data-dir="fwd">
        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span>${
@@ -346,9 +346,9 @@
   /* The footer column lists what anyone can clone and run; the column beside it
      keeps the two rooms that need Genaryx, and Genaryx itself. */
   /* Grouped chips rather than one tall column: the grouping is the point, since
-     it says which of these you can run today, which is the paid room, and which
-     is not part of the stack at all. Everything comes from STACK, so a service
-     cannot end up with two identities on the same page. */
+     it says which of these you can run today, which is the enterprise room, and
+     which is not part of the stack at all. Everything comes from STACK, so a
+     service cannot end up with two identities on the same page. */
   const GROUPS = [
     ["the open stack, Apache-2.0", s => !s.tier],
     ["enterprise",                 s => s.tier === "enterprise" || s.tier === "exploration"],

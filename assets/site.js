@@ -10,7 +10,7 @@
    two iOS rooms come last together: neither is something you can run today. */
 const STACK = [
   {id:"tokenfuse", name:"TokenFuse",  plane:"money",     color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
-  {id:"enterprise",name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The paid control room over all of it, in your browser on your own box", href:"enterprise.html", tier:"enterprise"},
+  {id:"enterprise",name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"enterprise.html", tier:"enterprise"},
   {id:"engram",    name:"Engram",     plane:"memory",    color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
   {id:"wardryx",   name:"Wardryx",    plane:"policy",    color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},
   {id:"idryx",     name:"Idryx",      plane:"access",    color:"#34D399", what:"One identity graph for humans, keys and agents",  href:"services/idryx.html"},
@@ -208,10 +208,10 @@ document.addEventListener("pointermove",e=>{
 })();
 
 /* ---- the Enterprise door opens onto two rooms ----
-   The pager only runs paired to a Genaryx relay, so it is not a service anyone
-   could adopt on its own: it belongs behind the same nav item, not beside the
-   open stack. Progressive enhancement, so with no JS the link still goes to
-   Genaryx exactly as before. */
+   Pocket is a private prototype, not a service anyone could adopt on its
+   own: it belongs behind the same nav item, not beside the open stack.
+   Progressive enhancement, so with no JS the link still goes to Genaryx
+   exactly as before. */
 (function(){
   const trigger = document.querySelector('.topbar a.tb-link[href$="enterprise.html"]');
   if(!trigger) return;
@@ -228,7 +228,7 @@ document.addEventListener("pointermove",e=>{
   pop.setAttribute("role", "menu");
   pop.innerHTML =
     `<a role="menuitem" href="${root}enterprise.html">Genaryx<span>the control room over the stack</span></a>
-     <a role="menuitem" href="${root}services/pocket.html">TokenFuse Pocket<span>the same fleet on the phone and the wrist</span></a>`;
+     <a role="menuitem" href="${root}services/pocket.html">TokenFuse Pocket<span>the phone-and-watch prototype, a driveable mock</span></a>`;
   wrap.appendChild(pop);
 
   const close = () => { wrap.classList.remove("open"); trigger.setAttribute("aria-expanded","false"); };
