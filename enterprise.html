@@ -189,7 +189,7 @@
       <div class="gxc-rail" id="gxc-rail" role="tablist" aria-label="Genaryx tabs"></div>
       <div class="gxc-stage">
         <figure class="shot" id="gxc-shot">
-          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1760" height="990">
+          <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp?v=e02" alt="Genaryx Overview tab" width="1760" height="990">
           <figcaption id="gxc-cap">$35,100 of governed spend this month across 55 agents and 84,497 model calls, $7,408 of governed savings, 204 open incidents, and the runaway already caught and killed.</figcaption>
         </figure>
         <div class="gxc-note">captured 2026-07-24 &#183; one frozen moment of a live campaign run on a Hetzner box &#183; every screen below reads the same fleet, so the figures agree across them &#183; one Rust core behind every screen</div>
@@ -391,7 +391,7 @@ rail.addEventListener("click",e=>{
   btns.forEach(x=>x.classList.toggle("on",x===b));
   img.classList.add("fade");
   setTimeout(()=>{
-    img.src="assets/shots/enterprise/"+t.img;
+    img.src="assets/shots/enterprise/"+t.img+"?v=e02";
     img.alt="Genaryx "+t.l+" tab";
     cap.innerHTML=t.cap;
     img.onload=()=>img.classList.remove("fade");
