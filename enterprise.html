@@ -72,8 +72,6 @@
   .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
 
   /* ---- Genaryx Bus ---- */
-  .bus-grid{display:grid;grid-template-columns:1fr 420px;gap:clamp(20px,4vw,44px);align-items:center}
-  @media(max-width:900px){.bus-grid{grid-template-columns:1fr}}
 
   /* ---- watch legend ---- */
   .wa-legend{margin-top:18px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:6px 16px}
@@ -129,9 +127,9 @@
       </div>
       <div class="hero-side rv d2">
         <div class="row"><span class="k">status</span><span class="v">in the works</span></div>
-        <div class="row"><span class="k">shells</span><span class="v">browser &#183; desktop build kept, not shipped</span></div>
-        <div class="row"><span class="k">core</span><span class="v">one shared Rust core, UniFFI</span></div>
-        <div class="row"><span class="k">signing</span><span class="v">software today &#183; passkey ES256 the direction</span></div>
+        <div class="row"><span class="k">shells</span><span class="v">browser &#183; served from your own box</span></div>
+        <div class="row"><span class="k">core</span><span class="v">one shared Rust core, thin web shell</span></div>
+        <div class="row"><span class="k">signing</span><span class="v">passkey ES256 per action &#183; honest software fallback</span></div>
         <div class="row"><span class="k">remote</span><span class="v">WireGuard, plane off the internet</span></div>
         <div class="row"><span class="k">copilot</span><span class="v">Felyx &#183; local-first</span></div>
         <div class="row"><span class="k">hosting</span><span class="v">self-hosted &#183; any cloud or on-prem</span></div>
@@ -193,28 +191,8 @@
           <img id="gxc-img" src="assets/shots/enterprise/gx-overview.webp" alt="Genaryx Overview tab" width="1600" height="1004">
           <figcaption id="gxc-cap">$495 of fleet spend across 54,713 model calls, $38.90 of runaway spend blocked by governance, 7 open incidents, and the one runaway of 42 agents already killed.</figcaption>
         </figure>
-        <div class="gxc-note">captured 2026-07-22 &#183; one frozen moment of a live campaign run &#183; every screen below reads the same fleet, so the figures agree across them &#183; one Rust core behind both shells, desktop and browser</div>
+        <div class="gxc-note">captured 2026-07-22 &#183; one frozen moment of a live campaign run &#183; every screen below reads the same fleet, so the figures agree across them &#183; one Rust core behind every screen</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= GENARYX BUS ================= -->
-<section class="sec" style="padding-top:14px">
-  <div class="wrap">
-    <div class="bus-grid">
-      <div>
-        <div class="sec-head rv" style="margin-bottom:14px">
-          <div class="kicker" style="--accent:var(--amber);color:var(--amber)">direction &#183; the desktop build</div>
-          <h2>The whole fleet, one glance up and to the right.</h2>
-        </div>
-        <p class="lede rv d1" style="max-width:56ch">Genaryx Bus is what the desktop build adds that a browser tab cannot: an always-on readout in the menu bar. The fleet's governed spend ticks live next to your clock; open it and you get active runs, the last runaway by name, and what it just cost. The red line is a real control: <b style="color:var(--ember)">Kill last runaway</b> carries the same hardware-signed ceremony as the big app - it just spares you opening it.</p>
-        <p class="rv d2" style="margin-top:14px;color:var(--dim);font-size:14px;line-height:1.65;max-width:56ch">It reads the same <span class="mono" style="font-size:12.5px">genaryx-core</span> over UniFFI the console does, so the number in your menu bar, the number on the Overview wall and the number in the audit trail are the same number. Overspend shows up where your eyes already are: no browser, no tab, no dashboard fatigue.</p>
-      </div>
-      <figure class="shot rv d1">
-        <img src="assets/shots/enterprise/gx-bus.webp" alt="Genaryx Bus in the macOS menu bar: live spend, active runs, the last runaway and a kill control" width="672" height="400" loading="lazy">
-        <figcaption>$4,671.02 ticking live in the menu bar during the 2026-07-20 campaign &#183; 9,486 active runs &#183; the last runaway named and priced at $11.33, with the kill that still needs Touch ID</figcaption>
-      </figure>
     </div>
   </div>
 </section>
@@ -304,7 +282,7 @@
           <rect x="24" y="40" width="200" height="96" rx="14" fill="#10161F" stroke="#B48CFF" stroke-width="1.5"/>
           <text x="124" y="70" fill="#B48CFF" font-size="13" font-weight="700">Genaryx console</text>
           <text x="124" y="90" fill="#8A97A6" font-size="10.5">browser console</text>
-          <text x="124" y="106" fill="#8A97A6" font-size="10.5">one Rust core &#183; UniFFI</text>
+          <text x="124" y="106" fill="#8A97A6" font-size="10.5">one Rust core &#183; thin shell</text>
           <text x="124" y="122" fill="#8A97A6" font-size="10.5">passkey ES256 &#183; on your device</text>
 
           <rect x="24" y="240" width="200" height="80" rx="14" fill="#10161F" stroke="#F4B23E" stroke-width="1.4" stroke-dasharray="5 4"/>
@@ -357,11 +335,11 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the technology</div>
-      <h2>Two shells. One Rust brain. Hardware where it counts.</h2>
+      <h2>One shell. One Rust brain. Hardware where it counts.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>One core, one shell that ships</h3><p>The browser console is the product. A Tauri desktop build is kept green beside it, unshipped: two shells over one shared Rust core is what forces the logic - stores, connectors, ceremonies, the graph - to live in the core rather than drifting into a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures</h3><p>The direction: kills and budget changes ES256-signed by a passkey on your own device (Touch ID, Windows Hello or a security key), with a typed break-glass reason journaled next to the signature, so a stolen laptop session or a compromised server cannot forge an order. Not shipped yet: today every kill is software-signed, and the hardware ceremony is proven in the unshipped desktop build.</p></div>
+      <div class="card hover feature b-4 rv"><h3>One core, one shell</h3><p>The browser console is the product, and it is deliberately thin: every screen is a call into one shared Rust command layer - stores, connectors, ceremonies, the graph all live in the core, never in a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures, shipped</h3><p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device (Touch ID, Windows Hello or a security key): the console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. No passkey enrolled yet? The action still works and is journaled software-signed - labeled honestly, never dressed up.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues the peer config as a QR; the tunnel is raised by your own client, not by anything of ours: scan, connect, done. Your control plane answers on a private address and nowhere else. SSH stays for ops; the console does not need it.</p></div>
       <div class="card hover feature b-4 rv"><h3>A relay that cannot act</h3><p>The pager's relay, in the design we explored, holds a read-only viewer key, binds to exactly one device, pins its TLS identity into the pairing QR, and forwards device-signed mutations byte-for-byte. Compromise the relay and you can watch: you still cannot kill, budget or grant.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Post-quantum licensing</h3><p>Licenses are offline entitlement files signed with ML-DSA, the NIST post-quantum standard. No license server, no phone-home: it works in an air-gapped room, which is exactly where some of this software will live.</p></div>
