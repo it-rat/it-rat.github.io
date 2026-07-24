@@ -46,12 +46,6 @@
   .svc{min-height:210px;display:flex;flex-direction:column;gap:10px;border-top:2px solid transparent}
   .svc:hover{border-top-color:var(--c)}
   .svc .head{display:flex;align-items:center;gap:10px}
-  /* The tag sits in the corner, not in the head row. Inline it competed for a
-     width the card does not have, so its own text and the plane label both
-     wrapped to two lines and pushed the service name down: the tagged cards had
-     their titles 14 and 20 pixels lower than the rest of the rail. Out of flow,
-     every head is one line again and every name starts on the same baseline. */
-  .svc .soon-pill{position:absolute;right:24px;bottom:24px;margin:0}
   .svc .plane{white-space:nowrap}
   .svc .g{width:11px;height:11px;border-radius:4px;background:var(--c);box-shadow:0 0 14px var(--c)}
   .svc .plane{margin-left:auto;font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
@@ -93,7 +87,6 @@
     <a class="tb-link" href="#stack">Stack</a>
     <a class="tb-link" href="#proof">Proof</a>
     <a class="tb-link" href="#consulting">Consulting</a>
-    <a class="tb-link" href="enterprise.html" title="Genaryx, the enterprise control room.">Enterprise</a>
     <a class="tb-link tb-cta" href="console.html">Open your console</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
@@ -107,7 +100,7 @@
     <h1 class="rv d1" style="margin-top:18px">Run AI agents like a <span class="grad">workforce</span>, not a wildfire.</h1>
     <p class="lede rv d2">A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source stack that closes that gap: seven services that meter, police, remember, identify, audit and rehearse your agents at runtime, proven on real infrastructure before anyone saw a slide about it.</p>
     <div class="cta rv d3">
-      <a class="btn primary" href="services/tokenfuse.html" data-dir="fwd">Enter the stack <span class="mono">&#8594;</span></a>
+      <a class="btn primary" href="enterprise.html" data-dir="fwd">Enter the stack <span class="mono">&#8594;</span></a>
       <button class="btn" data-cmdk type="button">Jump anywhere <span class="mono">&#8984;K</span></button>
     </div>
     <div class="ticker rv d3">
@@ -125,7 +118,7 @@
     <div class="sec-head rv">
       <div class="kicker">the stack</div>
       <h2>One corridor, every door on it.</h2>
-      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx is the control room over all of them, deployed with us on your own infrastructure, and the corridor ends on the two iOS rooms, which are where we have explored rather than shipped. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
+      <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx, first on the rail, is the control room over all of them, deployed with us on your own infrastructure. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
     <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
     <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
@@ -330,40 +323,23 @@
 /* inject stack cards into the rail + footer links */
 (function(){
   const rail=document.getElementById("svc-rail");
-  /* Two of these doors do not open on their own, and the card says which kind
-     of dependency it is: Pocket is a private prototype, Genaryx is the
-     enterprise control room, deployed as an engagement. */
+  /* Every room is a plain card on the rail; Genaryx leads the corridor
+     and is deployed as an engagement, but it is not badged apart. */
   const card = s =>
     `<a class="card hover svc" style="--c:${s.color}" href="${s.href}" data-dir="fwd">
-       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span>${
-         s.tier ? `<span class="soon-pill">${s.tier}</span>` : ""
-       }<span class="plane">${s.plane}</span></span>
+       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span><span class="plane">${s.plane}</span></span>
        <h3>${s.name}</h3>
        <p class="what">${s.what}.</p>
        <span class="go">open the room</span>
      </a>`;
   rail.innerHTML = STACK.map(card).join("");
-  /* The footer column lists what anyone can clone and run; the column beside it
-     keeps the two rooms that need Genaryx, and Genaryx itself. */
-  /* Grouped chips rather than one tall column: the grouping is the point, since
-     it says which of these you can run today, which is the enterprise room, and
-     which is not part of the stack at all. Everything comes from STACK, so a
-     service cannot end up with two identities on the same page. */
-  const GROUPS = [
-    ["the open stack, Apache-2.0", s => !s.tier],
-    ["enterprise",                 s => s.tier === "enterprise" || s.tier === "exploration"],
-    ["personal, not the stack",    s => s.tier === "personal"],
-  ];
+  /* One flat group: every room in corridor order. Everything comes from
+     STACK, so a service cannot end up with two identities on the same page. */
   const chip = s => `<a class="foot-chip" href="${s.href}">`
-    + `<i style="background:${s.color}"></i>${s.name}`
-    + (s.tier === "exploration" ? `<em>prototype</em>` : "") + `</a>`;
-  document.getElementById("foot-stack").innerHTML = GROUPS.map(([label, pick]) => {
-    const items = STACK.filter(pick);
-    return items.length
-      ? `<div class="foot-group"><div class="l">${label}</div>`
-        + `<div class="foot-chips">${items.map(chip).join("")}</div></div>`
-      : "";
-  }).join("");
+    + `<i style="background:${s.color}"></i>${s.name}</a>`;
+  document.getElementById("foot-stack").innerHTML =
+    `<div class="foot-group"><div class="l">the stack</div>`
+    + `<div class="foot-chips">${STACK.map(chip).join("")}</div></div>`;
 })();
 
 /* ---- hero canvas: the fuse wire ----
