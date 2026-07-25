@@ -67,6 +67,7 @@ if(idx>=0){
   /* keyboard: page left / page right through the stack */
   addEventListener("keydown",e=>{
     if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(e.defaultPrevented) return;              /* an in-page widget took the key */
     const tag=(document.activeElement&&document.activeElement.tagName)||"";
     if(/INPUT|TEXTAREA|SELECT/.test(tag)) return;
     if(e.key==="ArrowRight"){markDir("fwd");location.href=root+next.href;}

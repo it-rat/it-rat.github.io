@@ -3,11 +3,13 @@
    and the same full-screen overlay the architecture schematics use in
    diagram.js: wheel / pinch zoom, drag pan, double-click toggle, +/- keys,
    Esc to close. One shared overlay, same classes, same feel.
+   .gxc-teaser (the Genaryx console stills on enterprise.html) is the same
+   thing under another name, so it enlarges too instead of being a link out.
    Vanilla, no deps. */
 (function(){
 "use strict";
 
-document.querySelectorAll(".shot").forEach(box=>{
+document.querySelectorAll(".shot,.gxc-teaser").forEach(box=>{
   const img=box.querySelector("img");
   if(!img) return;
   const btn=document.createElement("button");

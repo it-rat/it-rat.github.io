@@ -75,13 +75,33 @@
   .gxc-cta .play{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#0d0f14;font-size:15px}
   .gxc-cta b{font-size:17px;display:block}
   .gxc-cta small{color:var(--dim);font-size:13px}
-  .gxc-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
-  @media(max-width:760px){.gxc-teasers{grid-template-columns:1fr}}
-  .gxc-teaser{text-decoration:none;transition:transform .2s ease}
+  /* ---- the gallery: one slider of live frames, each one enlargeable ---- */
+  .gxc-gal{margin-top:18px}
+  .gxc-galhead{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .gxc-count{font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--faint)}
+  .gxc-arrows{margin-left:auto;display:flex;gap:8px}
+  .gxc-arr{width:34px;height:34px;border-radius:9px;cursor:pointer;display:grid;place-items:center;
+    border:1px solid var(--line-2);background:var(--panel-2);color:var(--dim);font-size:14px;
+    transition:color .15s,border-color .15s,opacity .15s}
+  .gxc-arr:hover:not(:disabled){color:var(--fg);border-color:var(--accent)}
+  .gxc-arr:disabled{opacity:.3;cursor:default}
+  .gxc-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;scrollbar-width:none;padding:2px 0}
+  .gxc-track::-webkit-scrollbar{display:none}
+  .gxc-track:focus-visible{outline:1px solid var(--accent);outline-offset:6px;border-radius:14px}
+  /* each frame is its own enlargeable still (shotbox.js): relative, so the
+     "enlarge" control lands on the frame, not on the section */
+  .gxc-teaser{position:relative;margin:0;flex:0 0 calc((100% - 28px)/3);scroll-snap-align:start;
+    transition:transform .2s ease}
+  @media(max-width:1000px){.gxc-teaser{flex-basis:calc((100% - 14px)/2)}}
+  @media(max-width:700px){.gxc-teaser{flex-basis:100%}}
   .gxc-teaser:hover{transform:translateY(-2px)}
   .gxc-teaser img{display:block;width:100%;height:auto;border:1px solid var(--line-2);border-radius:12px;transition:border-color .2s ease}
   .gxc-teaser:hover img{border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2))}
-  .gxc-teaser span{display:block;margin-top:8px;color:var(--dim);font-size:13px;line-height:1.5}
+  .gxc-teaser figcaption{display:block;margin-top:9px;color:var(--dim);font-size:13px;line-height:1.5}
+  .gxc-teaser figcaption b{display:block;margin-bottom:3px;color:var(--fg);font-family:var(--font-m);
+    font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  .gxc-teaser .dg-btn{top:8px;right:8px}
 
   /* ---- Genaryx Bus ---- */
 
@@ -195,28 +215,85 @@
     <div class="sec-head rv">
       <div class="kicker">the console, captured live</div>
       <h2>One Rust core. The whole console, one live run.</h2>
-      <p class="lede">The actual console against a live plane on a Hetzner box: $42,895 of governed spend this month across 86 agents and 125,897 model calls, 203 open incidents, and the runaway reconciliation batch caught and killed. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. Try it yourself below: the live demo is the whole console on simulated data, nothing leaving your browser, and the stills are frozen frames from a real run.</p>
+      <p class="lede">The actual console against a live plane on a Hetzner box: $42,895 of governed spend this month across 86 agents and 125,897 model calls, 203 open incidents, and the runaway reconciliation batch caught and killed. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. Try it yourself below: the live demo is the whole console on simulated data, nothing leaving your browser, and the gallery under it slides through fifteen frozen frames of that same real run, any of them opening full screen.</p>
     </div>
     <div class="gxc-demo rv">
       <a class="gxc-cta" href="demo/" target="_blank" rel="noopener">
         <span class="play">&#9654;</span>
         <span><b>Open the live demo</b><small>Click through the real console yourself. Simulated data, nothing leaves your browser.</small></span>
       </a>
-      <div class="gxc-teasers">
-        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
-          <img src="assets/shots/enterprise/gx-overview.webp?v=e03" alt="Genaryx Overview" width="1760" height="1138" loading="lazy">
-          <span>$42,895 governed this month across 86 agents, the runaway already caught and killed.</span>
-        </a>
-        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
-          <img src="assets/shots/enterprise/gx-money.webp?v=e03" alt="Genaryx Money kill-board" width="1760" height="1138" loading="lazy">
-          <span>Every run with Replay, Budget and Kill, and $8,941 of governed savings beside the incidents.</span>
-        </a>
-        <a class="gxc-teaser" href="demo/" target="_blank" rel="noopener">
-          <img src="assets/shots/enterprise/gx-graph.webp?v=e03" alt="Genaryx delegation graph" width="1760" height="1138" loading="lazy">
-          <span>The delegation graph: 62 agents and 13 users, who acts for whom, off the live bus.</span>
-        </a>
+      <div class="gxc-gal" id="gxc-gal">
+        <div class="gxc-galhead">
+          <span class="gxc-count" id="gxc-count">01-03 of 15</span>
+          <span class="gxc-arrows">
+            <button class="gxc-arr" type="button" data-arr="prev" aria-label="Previous frames" aria-controls="gxc-track">&#8592;</button>
+            <button class="gxc-arr" type="button" data-arr="next" aria-label="Next frames" aria-controls="gxc-track">&#8594;</button>
+          </span>
+        </div>
+        <div class="gxc-track" id="gxc-track" tabindex="0" role="region" aria-label="Frames from the live console run, use the arrow keys to move">
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-overview.webp?v=e03" alt="Genaryx Overview" width="1760" height="1138">
+            <figcaption><b>Overview</b>$42,895 of governed spend across 86 agents and 125,897 model calls, 203 open incidents, 12 of 33,723 runs already killed.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-money.webp?v=e03" alt="Genaryx Money kill-board" width="1760" height="1138">
+            <figcaption><b>Money</b>Every run ranked by utilisation with Replay, Budget and Kill on its row, and $8,941 saved across blocked runaways, cache and router.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-agent360.webp?v=e03" alt="Genaryx Agent 360 drawer" width="1760" height="1138">
+            <figcaption><b>Agent 360</b>One agent in one drawer: who delegates to it, what it spent, its policy denies, its missing attestation, the tools it may never call.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-units.webp?v=e03" alt="Genaryx agent, unit and user cards" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Cards</b>Agent, unit and user cards open side by side, each carrying the same spend, calls and a Disable all agents button. Light theme, same console.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-policy.webp?v=e03" alt="Genaryx Policy decision stream" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Policy</b>Seven approvals waiting on a human, and a live decision stream naming every deny with the rule and the estimated cost behind it.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-identity.webp?v=e03" alt="Genaryx Identity snapshot" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Identity</b>110 identities off the idryx snapshot: 0 privileged, 107 alerts, 86 attestation gaps, and a header that says which button only re-reads.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-graph.webp?v=e03" alt="Genaryx delegation graph" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Graph</b>The delegation graph off the live bus: 62 agents, 13 users, 82 links, node size following event volume.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-bus.webp?v=e03" alt="Genaryx Bus Explorer" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Bus Explorer</b>The raw event bus, 117 events live: a tokenfuse breaker_tripped beside the policy denies, any row opened to its exact payload.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-quality.webp?v=e03" alt="Genaryx Quality evals" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Quality</b>Four eval runs in verdryx.db, latest mean 0.858 over 36 cases, 11,387 tokens, cost per case down to a tenth of a cent.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-crypto.webp?v=e03" alt="Genaryx Crypto and PQC readiness" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Crypto</b>A qryx scan of the console's own tree: CBOM inventory, one RSA finding with its file and line, the 2028 / 2031 / 2035 milestones scored.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-evidence.webp?v=e03" alt="Genaryx Evidence pack" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Evidence</b>A signed pack built in-app: two artifacts with their SHA-256, the cloud audit chain verified end to end, nothing quietly dropped.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-copilot.webp?v=e03" alt="Genaryx Copilot root-cause chain" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Copilot</b>Felyx chains one incident across money, policy, identity and memory into a root cause, naming the runs and the ceiling it read.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-felyx.webp?v=e03" alt="Genaryx Connect Felyx dialog" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Connect Felyx</b>Pick the model: local Ollama or LM Studio by default, cloud only if you choose it, with a daily cap and no signing key either way.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-remote.webp?v=e03" alt="Genaryx Remote, any infrastructure" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Remote</b>It connects to a stack you already run: Hetzner, AWS, Azure, Google Cloud, Oracle, bare metal or on-prem, over WireGuard plus SSH.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="assets/shots/enterprise/gx-connect.webp?v=e03" alt="Genaryx Connect this machine, WireGuard" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Connect this machine</b>The box issues this laptop its own WireGuard peer, by QR or file, and the console answers only inside that tunnel.</figcaption>
+          </figure>
+        </div>
       </div>
-      <div class="gxc-note">frozen frames from a live run &#183; the demo is the whole console, every tab, live &#183; one Rust core behind every screen</div>
+      <div class="gxc-note">fifteen frames, one live run, click any still to open it full screen &#183; the demo is the whole console, every tab, live &#183; one Rust core behind every screen</div>
     </div>
   </div>
 </section>
@@ -359,7 +436,41 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/diagram.js"></script>
-<script src="assets/shotbox.js"></script>
+<script src="assets/shotbox.js?v=e04"></script>
+
+<script>
+/* ---- console gallery: arrows, counter, arrow keys. The frames themselves
+   enlarge through shotbox.js, exactly like the schematics elsewhere. ---- */
+(function(){
+const gal=document.getElementById("gxc-gal"); if(!gal) return;
+const track=document.getElementById("gxc-track"), count=document.getElementById("gxc-count");
+const prev=gal.querySelector('[data-arr="prev"]'), next=gal.querySelector('[data-arr="next"]');
+const slides=[...track.querySelectorAll(".gxc-teaser")];
+const pad=n=>String(n).padStart(2,"0");
+const step=()=>slides[0].getBoundingClientRect().width+14;
+const perView=()=>Math.max(1,Math.round(track.clientWidth/step()));
+function sync(){
+  const first=Math.min(Math.round(track.scrollLeft/step())+1,slides.length);
+  const last=Math.min(first+perView()-1,slides.length);
+  count.textContent=`${pad(first)}-${pad(last)} of ${slides.length}`;
+  prev.disabled=track.scrollLeft<4;
+  next.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-4;
+}
+const page=d=>track.scrollBy({left:d*step()*perView(),behavior:"smooth"});
+prev.addEventListener("click",()=>page(-1));
+next.addEventListener("click",()=>page(1));
+let t; track.addEventListener("scroll",()=>{clearTimeout(t);t=setTimeout(sync,60);},{passive:true});
+/* arrows move the gallery while it holds focus; site.js pages the whole stack
+   on the same keys, so the event must stop here */
+track.addEventListener("keydown",e=>{
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft") return;
+  e.preventDefault(); e.stopPropagation();
+  page(e.key==="ArrowRight"?1:-1);
+});
+addEventListener("resize",sync);
+sync();
+})();
+</script>
 
 </body>
 </html>
