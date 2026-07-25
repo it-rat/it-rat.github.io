@@ -270,13 +270,14 @@
       <div class="card b-6 rv">
         <div class="kicker">one instance</div>
         <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">Architecturally the simplest, and the one the stack is actually built for: the planes share a filesystem, which is how they talk. <a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">One script puts the whole stack on a box you own, with the gateway published and everything else unreachable from outside it. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">One script puts the whole stack on a box you own. It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
           <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-single</b></span></div>
           <div class="install"><span class="cmd">cd stack-single &amp;&amp; <b>./install.sh</b></span></div>
+          <div class="install"><span class="cmd">GATEWAY_BIND=<b>0.0.0.0</b> ./install.sh</span></div>
           <div class="install"><span class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:<b>4100</b></span></div>
         </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:14px">It ends by verifying itself, and three of its eleven checks have to FAIL to pass: the money plane, the policy plane and the store must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:14px">It ends by verifying itself, and two of its twelve checks have to FAIL to pass: the money plane and the policy plane must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
         <div style="margin-top:18px">
           <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
         </div>
