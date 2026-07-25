@@ -43,6 +43,10 @@
     display:flex;align-items:center;gap:14px;flex-wrap:wrap;
     border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
     font-family:var(--font-m);font-size:13px;
+    /* A command is one unbreakable line: a URL has no space to wrap at, so on a
+       narrow screen it escapes the chip instead. Scroll it inside its own box
+       rather than breaking a line someone is meant to copy verbatim. */
+    overflow-x:auto;
   }
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
@@ -78,7 +82,7 @@
       <div class="hero-side rv d2">
         <div class="row"><span class="k">passport schema</span><span class="v">v0.1 &#183; stable</span></div>
         <div class="row"><span class="k">event envelope</span><span class="v">v0.1 + v0.2 &#183; NDJSON</span></div>
-        <div class="row"><span class="k">Go binding</span><span class="v">agent-stack-go v0.2.0</span></div>
+        <div class="row"><span class="k">Go binding</span><span class="v">agent-stack-go v0.4.0</span></div>
         <div class="row"><span class="k">conformance</span><span class="v">agent-conform CLI &#183; exit 0/1</span></div>
         <div class="row"><span class="k">as code</span><span class="v" style="font-size:11px;text-align:right">taipan_budget &#183; taipan_agent_passport &#183; taipan_wardryx_policy</span></div>
         <div class="row"><span class="k">source</span><span class="v"><a href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none">
@@ -211,7 +215,7 @@
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>The passport</h3><p>One agent, one URI: agent://trust-domain/path, at most 255 bytes, aligned with SPIFFE without requiring it. The document behind the ID names an owner, a runtime and one of five attestation methods. The delegation chain is ordered root first, acyclic, and capped at 32 entries.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>The envelope</h3><p>Five required fields: schema, ts, source, type, agent_id. Two versions coexist by design: v0.1 with a closed source enum, v0.2 with an open string. Event types live in a per-source registry, so tokenfuse can add a type without asking engram.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go v0.2.0 ships passport.Parse, an append-only event.Writer and chain.Validate, stdlib only at runtime. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go v0.4.0 ships passport.Parse, an append-only event.Writer and chain.Validate, stdlib only at runtime. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
       <div class="card hover feature b-4 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped. Exit 0 or exit 1; it has already caught a real 63-versus-64 hex character prev_hash defect.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Governance as code</h3><p>Three Terraform resources: taipan_budget, taipan_agent_passport, taipan_wardryx_policy. Budgets and policies get PRs, plans and diffs like everything else, and edits made out of band surface on the next plan. Where the API has no delete, the provider says so instead of pretending.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is published on the Terraform Registry as <span class="mono">TAIPANBOX/taipan</span>: a normal <span class="mono">required_providers</span> block and <span class="mono">terraform init</span> pull it, GPG-verified, no build-from-source needed. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
@@ -266,7 +270,15 @@
       <div class="card b-6 rv">
         <div class="kicker">one instance</div>
         <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">Architecturally the simplest, and the one the stack is actually built for: the planes share a filesystem, which is how they talk. <a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">To serve agents elsewhere from one box, the services take their own bind address (<span class="mono" style="font-size:12.5px">TOKENFUSE_ADDR</span>, wardryx's <span class="mono" style="font-size:12.5px">-addr</span>, idryx's <span class="mono" style="font-size:12.5px">--addr</span>), the same knobs the Kubernetes manifests set. There is no one-command production installer for this shape yet; the cluster path has one, and it is the honest place to point you today.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">One command puts the whole stack on a box you own, with the gateway published and everything else unreachable from outside it. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <div class="install"><span class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/stack-single/main/install.sh | <b>bash</b></span></div>
+          <div class="install"><span class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:<b>4100</b></span></div>
+        </div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:14px">It ends by verifying itself, and three of its eleven checks have to FAIL to pass: the money plane, the policy plane and the store must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody.</p>
+        <div style="margin-top:18px">
+          <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
+        </div>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--violet)">or a Kubernetes cluster</div>
@@ -281,7 +293,7 @@
         </div>
       </div>
     </div>
-    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Kubernetes buys high availability and an installer, and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and sixteen other things that bite, are documented in the repository rather than discovered by you.</p>
+    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Both paths have a one-command installer, so the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and twenty-nine other things that bite, are documented in the repositories rather than discovered by you.</p>
   </div>
 </section>
 
