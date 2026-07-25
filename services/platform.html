@@ -265,11 +265,8 @@
     <div class="bento">
       <div class="card b-6 rv">
         <div class="kicker">one instance</div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">The default, and the simplest thing that is correct: one machine you already have, the same two commands as the local sandbox above. The planes share a filesystem, which is exactly how they are built to talk.</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
-          <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
-        </div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">Architecturally the simplest, and the one the stack is actually built for: the planes share a filesystem, which is how they talk. <a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">To serve agents elsewhere from one box, the services take their own bind address (<span class="mono" style="font-size:12.5px">TOKENFUSE_ADDR</span>, wardryx's <span class="mono" style="font-size:12.5px">-addr</span>, idryx's <span class="mono" style="font-size:12.5px">--addr</span>), the same knobs the Kubernetes manifests set. There is no one-command production installer for this shape yet; the cluster path has one, and it is the honest place to point you today.</p>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--violet)">or a Kubernetes cluster</div>
@@ -284,7 +281,7 @@
         </div>
       </div>
     </div>
-    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Kubernetes buys high availability and costs you the one thing the single instance gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and sixteen other things that bite, are documented in the repository rather than discovered by you.</p>
+    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Kubernetes buys high availability and an installer, and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and sixteen other things that bite, are documented in the repository rather than discovered by you.</p>
   </div>
 </section>
 
