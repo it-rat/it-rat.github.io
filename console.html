@@ -75,8 +75,8 @@
         <form class="con-field" id="con-form" novalidate>
           <label for="con-addr">Your console address</label>
           <input id="con-addr" name="addr" inputmode="url" autocomplete="url" spellcheck="false"
-                 placeholder="http://10.9.0.1:7420">
-          <div class="con-hint">Usually the tunnel address your box listens on, reachable once your VPN is up. A single-box install answers at <span class="mono">http://10.9.0.1:7420</span> once the WireGuard config it issued you is connected. Include http:// or https:// to be certain; without one, a private address is assumed to be plain HTTP inside the tunnel.</div>
+                 placeholder="https://console.your-box.example">
+          <div class="con-hint">Usually the tunnel address your box listens on, reachable once your VPN is up. A single-box install answers over HTTPS on the name it was configured with, once the WireGuard config it issued you is connected; that name is also what your passkey is bound to. Include http:// or https:// to be certain; without one, a private address is assumed to be plain HTTP inside the tunnel.</div>
           <div class="con-err" id="con-err"></div>
           <div class="con-actions">
             <button class="btn primary" type="submit">Go to my console &#8594;</button>
@@ -164,7 +164,7 @@
     e.preventDefault();
     err.classList.remove("on");
     var u=normalise(input.value);
-    if(!u){ fail("That does not look like an address. Try something like https://10.9.0.1:7420"); return; }
+    if(!u){ fail("That does not look like an address. Try something like https://console.your-box.example"); return; }
     if(/(^|\.)it-rat\.com$/i.test(u.hostname)){
       fail("Your console is not hosted here. Use the address of your own box.");
       return;
