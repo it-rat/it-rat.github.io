@@ -254,6 +254,40 @@
   </div>
 </section>
 
+<!-- ================= ON YOUR INFRASTRUCTURE ================= -->
+<section class="sec" id="deploy" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">on your own infrastructure</div>
+      <h2>The stack is a control plane. Your agents can be anywhere.</h2>
+      <p class="lede">Nothing here has to sit next to the agents it governs. An agent points its model endpoint at the gateway and asks the policy plane before it acts, so it can run in EKS, in GKE, in a CI job or on a laptop while the stack runs once, on infrastructure you own. That is the whole deployment question: where the control plane lives, not where the work does.</p>
+    </div>
+    <div class="bento">
+      <div class="card b-6 rv">
+        <div class="kicker">one instance</div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">The default, and the simplest thing that is correct: one machine you already have, the same two commands as the local sandbox above. The planes share a filesystem, which is exactly how they are built to talk.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
+          <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
+        </div>
+      </div>
+      <div class="card b-6 rv d1">
+        <div class="kicker" style="--accent:var(--violet)">or a Kubernetes cluster</div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">For teams whose answer to everything is a cluster. One script brings up k3s across your nodes with the CNI, storage and hardening the stack actually needs, then the workload applies from plain manifests. Proven on a five-node HA cluster, with every trap we hit written down and already fixed in the files.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-k8s</b></span></div>
+          <div class="install"><span class="cmd">cd stack-k8s &amp;&amp; <b>./install.sh</b> --servers ... --agents ...</span></div>
+          <div class="install"><span class="cmd">./build.sh &amp;&amp; kubectl <b>apply -k manifests/</b></span></div>
+        </div>
+        <div style="margin-top:18px">
+          <a class="btn" href="https://github.com/TAIPANBOX/stack-k8s" target="_blank" rel="noopener">stack-k8s on GitHub &#183; Apache-2.0</a>
+        </div>
+      </div>
+    </div>
+    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Kubernetes buys high availability and costs you the one thing the single instance gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and sixteen other things that bite, are documented in the repository rather than discovered by you.</p>
+  </div>
+</section>
+
 <!-- ================= COMPARISON ================= -->
 <section class="sec" style="padding-top:14px">
   <div class="wrap">
