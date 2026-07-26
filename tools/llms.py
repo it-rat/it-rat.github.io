@@ -111,7 +111,9 @@ def to_markdown(path, title):
             r"|<div class=\"a\">(?P<a>.*?)</div>"
             r"|<div class=\"n\">(?P<n>.*?)</div>"
             r"|<div class=\"fix\">(?P<fix>.*?)</div>"
-            r"|<div class=\"k\">(?P<k>.*?)</div>", body, re.S):
+            r"|<div class=\"k\">(?P<k>.*?)</div>"
+            r"|<dt\b[^>]*>(?P<dt>.*?)</dt>"
+            r"|<dd\b[^>]*>(?P<dd>.*?)</dd>", body, re.S):
         kind = m.lastgroup
         val = m.group(kind)
         if kind == "table":
@@ -130,6 +132,10 @@ def to_markdown(path, title):
             out.append(f"### {t}")
         elif kind == "q":
             out.append(f"**Q: {t}**")
+        elif kind == "dt":
+            out.append(f"**{t}**")
+        elif kind == "dd" and out and out[-1].startswith("**"):
+            out[-1] = f"{out[-1]}\n{t}"
         elif kind == "n":
             out.append(f"*{t}*")
         elif kind == "li":
