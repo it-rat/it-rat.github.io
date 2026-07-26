@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://it-rat.com/services/tokenfuse.html">
 <meta property="og:title" content="TokenFuse - the runtime kill switch for AI agents · IT-RAT">
 <meta property="og:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
-<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image" content="https://it-rat.com/assets/og/tokenfuse.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TokenFuse - the runtime kill switch for AI agents · IT-RAT">
 <meta name="twitter:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
-<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/tokenfuse.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -49,7 +49,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse","url":"https://it-rat.com/services/tokenfuse.html","description":"Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse","item":"https://it-rat.com/services/tokenfuse.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse","url":"https://it-rat.com/services/tokenfuse.html","description":"A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse","item":"https://it-rat.com/services/tokenfuse.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I cap what an AI agent can spend?","acceptedAnswer":{"@type":"Answer","text":"Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps."}},{"@type":"Question","name":"What happens to my agent when it hits the budget?","acceptedAnswer":{"@type":"Answer","text":"It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens."}},{"@type":"Question","name":"Do I have to rewrite my agent to use it?","acceptedAnswer":{"@type":"Answer","text":"No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure."}},{"@type":"Question","name":"Can it catch a retry loop before the bill does?","acceptedAnswer":{"@type":"Answer","text":"That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice."}},{"@type":"Question","name":"Does it still work with several gateways behind a load balancer?","acceptedAnswer":{"@type":"Answer","text":"Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="tokenfuse" data-root="../">
@@ -241,6 +241,39 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>How teams put a ceiling on agent spend</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How do I cap what an AI agent can spend?</summary>
+        <div class="a"><p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.</p></div>
+      </details>
+      <details>
+        <summary>What happens to my agent when it hits the budget?</summary>
+        <div class="a"><p>It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.</p></div>
+      </details>
+      <details>
+        <summary>Do I have to rewrite my agent to use it?</summary>
+        <div class="a"><p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p></div>
+      </details>
+      <details>
+        <summary>Can it catch a retry loop before the bill does?</summary>
+        <div class="a"><p>That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.</p></div>
+      </details>
+      <details>
+        <summary>Does it still work with several gateways behind a load balancer?</summary>
+        <div class="a"><p>Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

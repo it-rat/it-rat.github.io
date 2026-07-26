@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://it-rat.com/services/wardryx.html">
 <meta property="og:title" content="Wardryx - the policy brain your agents ask before acting · IT-RAT">
 <meta property="og:description" content="Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.">
-<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image" content="https://it-rat.com/assets/og/wardryx.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Wardryx - the policy brain your agents ask before acting · IT-RAT">
 <meta name="twitter:description" content="Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.">
-<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/wardryx.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -49,7 +49,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Wardryx","url":"https://it-rat.com/services/wardryx.html","description":"Deterministic allow, deny or hold for every agent action over POST /v1/decide. Holds resolve through signed, cost-bound approval tokens; no LLM in the decision path. Validated live: 176 decisions, a 34-request concurrent burst, 6/6 oversteppers denied.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/wardryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Wardryx","item":"https://it-rat.com/services/wardryx.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Wardryx","url":"https://it-rat.com/services/wardryx.html","description":"The policy plane your agents ask before acting: allow, deny or hold for a human, with signed approval tokens and a hard ceiling that outranks approvals.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/wardryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Wardryx","item":"https://it-rat.com/services/wardryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I require human approval before an agent does something expensive?","acceptedAnswer":{"@type":"Answer","text":"Set a threshold in policy. Above it the answer to the agent is hold rather than allow, a human grants or refuses out of band, and the agent resubmits with a signed approval token bound to that agent, run and tool set. No connection is parked waiting for a signature."}},{"@type":"Question","name":"What answers can the policy plane give?","acceptedAnswer":{"@type":"Answer","text":"Three, and only three: allow, deny, or hold for a human. There is no improvisation and no fourth case, which is what makes the decisions reproducible and arguable after the fact."}},{"@type":"Question","name":"What happens if the policy service is unreachable?","acceptedAnswer":{"@type":"Answer","text":"You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce."}},{"@type":"Question","name":"Can policies be reviewed like code?","acceptedAnswer":{"@type":"Answer","text":"Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="wardryx" data-root="../">
@@ -253,6 +253,35 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Putting a human in front of the expensive actions</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How do I require human approval before an agent does something expensive?</summary>
+        <div class="a"><p>Set a threshold in policy. Above it the answer to the agent is <span class="mono">hold</span> rather than allow, a human grants or refuses out of band, and the agent resubmits with a signed approval token bound to that agent, run and tool set. No connection is parked waiting for a signature.</p></div>
+      </details>
+      <details>
+        <summary>What answers can the policy plane give?</summary>
+        <div class="a"><p>Three, and only three: allow, deny, or hold for a human. There is no improvisation and no fourth case, which is what makes the decisions reproducible and arguable after the fact.</p></div>
+      </details>
+      <details>
+        <summary>What happens if the policy service is unreachable?</summary>
+        <div class="a"><p>You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.</p></div>
+      </details>
+      <details>
+        <summary>Can policies be reviewed like code?</summary>
+        <div class="a"><p>Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://it-rat.com/services/mockryx.html">
 <meta property="og:title" content="Mockryx - fire drills for your guardrails, before production &#183; IT-RAT">
 <meta property="og:description" content="Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.">
-<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image" content="https://it-rat.com/assets/og/mockryx.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mockryx - fire drills for your guardrails, before production &#183; IT-RAT">
 <meta name="twitter:description" content="Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.">
-<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/mockryx.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -49,7 +49,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mockryx","url":"https://it-rat.com/services/mockryx.html","description":"Five hostile scenarios in YAML, replayed against your own pre-production gateway with a fake provider behind it: DLP, budget breaker, Wardryx denials, async off-path reactions. Exit codes CI can gate on. Zero real spend.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/mockryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Mockryx","item":"https://it-rat.com/services/mockryx.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mockryx","url":"https://it-rat.com/services/mockryx.html","description":"Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/mockryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Mockryx","item":"https://it-rat.com/services/mockryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I test that my guardrails actually work?","acceptedAnswer":{"@type":"Answer","text":"Fire drills. Each scenario is a YAML file describing the request to send and the answer the guardrail must give, aimed at a real gateway with the guardrails live: the breaker's 402, DLP's 403, the deny or hold from the policy plane. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets."}},{"@type":"Question","name":"Does running the drills spend real money?","acceptedAnswer":{"@type":"Answer","text":"No. The provider behind the gateway is fake, so a runaway scenario can burn as much as it likes: the meter it trips is real, the invoice is not. Every hostile input also stays inside your perimeter, because the harness only ever talks to the one gateway URL you hand it."}},{"@type":"Question","name":"What if a guardrail simply is not configured?","acceptedAnswer":{"@type":"Answer","text":"Then a miss is reported as not configured rather than as a gap, and only when there is no evidence anywhere in the run that the feature is live. A core guardrail with no optional declaration is always a finding, and so is a gateway that could not be reached at all. One flag turns even a skip into a failure when you know the guardrail must be there."}},{"@type":"Question","name":"Can it gate CI?","acceptedAnswer":{"@type":"Answer","text":"That is the intended home. Exit 0 means every drill held, exit 1 is a real defensive gap and should fail the build, exit 2 means the harness itself is broken so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="mockryx" data-root="../">
@@ -252,6 +252,35 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Rehearsing a defence before it is needed</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How do I test that my guardrails actually work?</summary>
+        <div class="a"><p>Fire drills. Each scenario is a YAML file describing the request to send and the answer the guardrail must give, aimed at a real gateway with the guardrails live: the breaker's 402, DLP's 403, the deny or hold from the policy plane. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets.</p></div>
+      </details>
+      <details>
+        <summary>Does running the drills spend real money?</summary>
+        <div class="a"><p>No. The provider behind the gateway is fake, so a runaway scenario can burn as much as it likes: the meter it trips is real, the invoice is not. Every hostile input also stays inside your perimeter, because the harness only ever talks to the one gateway URL you hand it.</p></div>
+      </details>
+      <details>
+        <summary>What if a guardrail simply is not configured?</summary>
+        <div class="a"><p>Then a miss is reported as not configured rather than as a gap, and only when there is no evidence anywhere in the run that the feature is live. A core guardrail with no optional declaration is always a finding, and so is a gateway that could not be reached at all. One flag turns even a skip into a failure when you know the guardrail must be there.</p></div>
+      </details>
+      <details>
+        <summary>Can it gate CI?</summary>
+        <div class="a"><p>That is the intended home. Exit 0 means every drill held, exit 1 is a real defensive gap and should fail the build, exit 2 means the harness itself is broken so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

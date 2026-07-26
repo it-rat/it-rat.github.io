@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://it-rat.com/services/qryx.html">
 <meta property="og:title" content="Qryx: your cryptography, inventoried before the quantum bill arrives · IT-RAT">
 <meta property="og:description" content="Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.">
-<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image" content="https://it-rat.com/assets/og/qryx.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Qryx: your cryptography, inventoried before the quantum bill arrives · IT-RAT">
 <meta name="twitter:description" content="Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.">
-<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/qryx.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -49,7 +49,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qryx","url":"https://it-rat.com/services/qryx.html","description":"Scans binaries, containers, live TLS and cloud KMS for cryptography, grades post-quantum risk against NCSC 2028/2031/2035, and signs the evidence with ML-DSA. Validated against 25,586 real ELF binaries with zero crashes.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/qryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Qryx","item":"https://it-rat.com/services/qryx.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qryx","url":"https://it-rat.com/services/qryx.html","description":"Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/qryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Qryx","item":"https://it-rat.com/services/qryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I start a post-quantum migration?","acceptedAnswer":{"@type":"Answer","text":"With an inventory, because you cannot migrate what you have not found. Qryx scans binaries, containers, live TLS endpoints, certificates, dependencies and cloud KMS, and returns a cryptographic asset graph graded against the NCSC milestones: discovery by 2028, the highest-priority systems by 2031, everything by 2035."}},{"@type":"Question","name":"What is a CBOM?","acceptedAnswer":{"@type":"Answer","text":"A cryptographic bill of materials in CycloneDX 1.6: one component per unique asset and risk class, with every occurrence attached. It lives in the same supply-chain tooling as your SBOMs, so cryptography stops having its own isolated report nobody reads."}},{"@type":"Question","name":"Can it fail a build when someone ships a weak key?","acceptedAnswer":{"@type":"Answer","text":"Yes. Snapshot the graph as a baseline, and a new weak or quantum-vulnerable asset fails the build with a distinct exit code, with separate codes for a standards violation and a regressed compliance trend. That is the day it matters, not the next audit cycle."}},{"@type":"Question","name":"Does it find hardcoded keys?","acceptedAnswer":{"@type":"Answer","text":"It does, and it counts them honestly: cryptography that exists only in test fixtures is scanned, reported and kept out of the production inventory, with one line saying how much was set aside. Counting fixtures inflates the number you are trying to drive to zero."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="qryx" data-root="../">
@@ -272,6 +272,35 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Where a post-quantum migration actually starts</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How do I start a post-quantum migration?</summary>
+        <div class="a"><p>With an inventory, because you cannot migrate what you have not found. Qryx scans binaries, containers, live TLS endpoints, certificates, dependencies and cloud KMS, and returns a cryptographic asset graph graded against the NCSC milestones: discovery by 2028, the highest-priority systems by 2031, everything by 2035.</p></div>
+      </details>
+      <details>
+        <summary>What is a CBOM?</summary>
+        <div class="a"><p>A cryptographic bill of materials in CycloneDX 1.6: one component per unique asset and risk class, with every occurrence attached. It lives in the same supply-chain tooling as your SBOMs, so cryptography stops having its own isolated report nobody reads.</p></div>
+      </details>
+      <details>
+        <summary>Can it fail a build when someone ships a weak key?</summary>
+        <div class="a"><p>Yes. Snapshot the graph as a baseline, and a new weak or quantum-vulnerable asset fails the build with a distinct exit code, with separate codes for a standards violation and a regressed compliance trend. That is the day it matters, not the next audit cycle.</p></div>
+      </details>
+      <details>
+        <summary>Does it find hardcoded keys?</summary>
+        <div class="a"><p>It does, and it counts them honestly: cryptography that exists only in test fixtures is scanned, reported and kept out of the production inventory, with one line saying how much was set aside. Counting fixtures inflates the number you are trying to drive to zero.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

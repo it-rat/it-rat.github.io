@@ -11,13 +11,13 @@
 <meta property="og:url" content="https://it-rat.com/services/verdryx.html">
 <meta property="og:title" content="Verdryx - cost per correct answer, not cost per token · IT-RAT">
 <meta property="og:description" content="Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.">
-<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image" content="https://it-rat.com/assets/og/verdryx.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Verdryx - cost per correct answer, not cost per token · IT-RAT">
 <meta name="twitter:description" content="Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.">
-<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/verdryx.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -49,7 +49,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Verdryx","url":"https://it-rat.com/services/verdryx.html","description":"Grades agent outputs against an eval set or a production outcome tag, then catches quality drift with a statistical significance check. The LLM judge gets priced too. Validated on a live Claude run: $0.00042 per resolved case, $0.00025 burned on every abandoned attempt.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/verdryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Verdryx","item":"https://it-rat.com/services/verdryx.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Verdryx","url":"https://it-rat.com/services/verdryx.html","description":"Cost per correctly resolved case, not cost per token: five graders, statistical drift detection and a metered LLM judge, scored on your own outcome tags.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/verdryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Verdryx","item":"https://it-rat.com/services/verdryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I measure cost per correct answer?","acceptedAnswer":{"@type":"Answer","text":"Tag outcomes in production, then read them back off the gateway's own trace: resolved, escalated, abandoned. Verdryx turns that into a dollar figure per case, including the untagged intermediate calls a run made and the calls the breaker blocked, because both are part of what the outcome cost."}},{"@type":"Question","name":"How do I know when quality has actually dropped?","acceptedAnswer":{"@type":"Answer","text":"A flat threshold catches the obvious fall. Beside it, a two-sample significance check, Welch's t with a bootstrap interval, catches the small consistent regression a threshold tuned for noise would miss. Point it at a baseline whose source run is gone and it fails loudly rather than silently."}},{"@type":"Question","name":"Do I need an LLM judge to use it?","acceptedAnswer":{"@type":"Answer","text":"No. Four of the five graders are deterministic and free: exact, regex, outcome tag and tool trace. The judge is there for the cases a rubric can score and a pattern cannot, and when you use it, its own cost is priced against the same book the money plane uses rather than reported as zero."}},{"@type":"Question","name":"Does it need network access or a key?","acceptedAnswer":{"@type":"Answer","text":"Not for the common path. The eval runner, graders and drift maths import nothing but the standard library, and the whole suite runs against a deterministic stub adapter with no network and no key, which is exactly what its own CI runs."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="verdryx" data-root="../">
@@ -256,6 +256,35 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Measuring quality in money, not vibes</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How do I measure cost per correct answer?</summary>
+        <div class="a"><p>Tag outcomes in production, then read them back off the gateway's own trace: resolved, escalated, abandoned. Verdryx turns that into a dollar figure per case, including the untagged intermediate calls a run made and the calls the breaker blocked, because both are part of what the outcome cost.</p></div>
+      </details>
+      <details>
+        <summary>How do I know when quality has actually dropped?</summary>
+        <div class="a"><p>A flat threshold catches the obvious fall. Beside it, a two-sample significance check, Welch's t with a bootstrap interval, catches the small consistent regression a threshold tuned for noise would miss. Point it at a baseline whose source run is gone and it fails loudly rather than silently.</p></div>
+      </details>
+      <details>
+        <summary>Do I need an LLM judge to use it?</summary>
+        <div class="a"><p>No. Four of the five graders are deterministic and free: exact, regex, outcome tag and tool trace. The judge is there for the cases a rubric can score and a pattern cannot, and when you use it, its own cost is priced against the same book the money plane uses rather than reported as zero.</p></div>
+      </details>
+      <details>
+        <summary>Does it need network access or a key?</summary>
+        <div class="a"><p>Not for the common path. The eval runner, graders and drift maths import nothing but the standard library, and the whole suite runs against a deterministic stub adapter with no network and no key, which is exactly what its own CI runs.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

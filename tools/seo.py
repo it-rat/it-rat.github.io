@@ -123,6 +123,28 @@ def software(bits, free=True):
     return app
 
 
+def faq(html):
+    """Read the visible FAQ back out of the page.
+
+    Google's rule is that the marked-up answer must be the answer on the
+    page, so the only safe source for this is the page itself.
+    """
+    block = re.search(r"<!-- faq:auto -->(.*?)<!-- /faq:auto -->", html, re.S)
+    if not block:
+        return None
+    items = []
+    for m in re.finditer(r"<summary>(.*?)</summary>\s*<div class=\"a\">(.*?)</div>\s*</details>",
+                         block.group(1), re.S):
+        q = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", m.group(1))).strip()
+        a = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2))).strip()
+        if q and a:
+            items.append({"@type": "Question", "name": q,
+                          "acceptedAnswer": {"@type": "Answer", "text": a}})
+    if not items:
+        return None
+    return {"@type": "FAQPage", "mainEntity": items}
+
+
 def write(path, graph):
     p = ROOT / path
     h = p.read_text(encoding="utf-8")
@@ -141,10 +163,15 @@ def write(path, graph):
 
 def main():
     n = 0
-    idx = head_bits((ROOT / "index.html").read_text(encoding="utf-8"), "index.html")
-    n += write("index.html", [organization(), website(),
-                              {"@type": "WebPage", "url": f"{SITE}/", "name": idx["title"],
-                               "description": idx["desc"], "isPartOf": {"@id": f"{SITE}/#website"}}])
+    idx_html = (ROOT / "index.html").read_text(encoding="utf-8")
+    idx = head_bits(idx_html, "index.html")
+    graph = [organization(), website(),
+             {"@type": "WebPage", "url": f"{SITE}/", "name": idx["title"],
+              "description": idx["desc"], "isPartOf": {"@id": f"{SITE}/#website"}}]
+    q = faq(idx_html)
+    if q:
+        graph.append(q)
+    n += write("index.html", graph)
 
     ent = head_bits((ROOT / "enterprise.html").read_text(encoding="utf-8"), "enterprise.html")
     ent_app = software(ent, free=False)
@@ -152,10 +179,15 @@ def main():
     n += write("enterprise.html", [ent_app, breadcrumbs(ent)])
 
     for path in SERVICE_PAGES:
-        bits = head_bits((ROOT / path).read_text(encoding="utf-8"), path)
+        html = (ROOT / path).read_text(encoding="utf-8")
+        bits = head_bits(html, path)
         if not bits["name"] or not bits["url"]:
             sys.exit(f"{path}: could not read a name or canonical, refusing to guess")
-        n += write(path, [software(bits), breadcrumbs(bits)])
+        graph = [software(bits), breadcrumbs(bits)]
+        q = faq(html)
+        if q:
+            graph.append(q)
+        n += write(path, graph)
     print(f"\n{n} file(s) updated")
 
 

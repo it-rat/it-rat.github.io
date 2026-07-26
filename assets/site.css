@@ -486,6 +486,28 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
 .sh-body>*:first-child{margin-top:0}
 @media(max-width:640px){.sh-ov{padding:3vh 10px}.sh-body{padding:16px 14px 18px}.sh-head{padding:15px 14px 12px}}
 
+/* ---------- FAQ: a native accordion, no JavaScript involved ----------
+   The answers live in the HTML whether or not anyone opens them, which is
+   what both a crawler and a reader in a hurry need. The page stays short
+   because the answers are closed, not because they are missing. */
+.faq{border-top:1px solid var(--line);margin-top:22px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  display:flex;align-items:flex-start;gap:14px;cursor:pointer;list-style:none;
+  padding:16px 2px;font-size:15.5px;font-weight:600;color:var(--fg);line-height:1.45;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{
+  content:"+";margin-left:auto;flex:0 0 auto;font-family:var(--font-m);font-size:17px;
+  color:var(--faint);line-height:1;transition:transform .18s,color .18s;
+}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--accent)}
+.faq summary:hover{color:var(--accent)}
+.faq .a{padding:0 2px 18px;color:var(--dim);font-size:14px;line-height:1.7;max-width:78ch}
+.faq .a p+p{margin-top:10px}
+.faq .a a{color:var(--accent)}
+
 /* ---------- card spotlight: cursor-tracked accent glow ---------- */
 .card.hover::after{
   content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;pointer-events:none;
