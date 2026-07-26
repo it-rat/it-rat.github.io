@@ -146,6 +146,19 @@ FAQ = {
  ("What is cost per resolved case?",
   "<p>The unit economic that changes decisions: the money spent to actually resolve one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. An agent at forty cents a resolved case and one at four dollars are different businesses, and a monthly total cannot tell them apart.</p>"),
 ]),
+
+"ai-agent-security.html": ("common questions", "What people ask about securing agents", [
+ ("What is different about securing an AI agent?",
+  "<p>The actor reasons and can be talked into changing its mind, but the damage still arrives as a tool call: a write, a transfer, a shell command, a request carrying a credential. That makes the tool boundary the place to defend, with the same discipline as any service account: identity, least privilege, blast radius, evidence.</p>"),
+ ("How do I stop prompt injection from reaching a tool?",
+  "<p>Not with a better prompt. Taint-track what came from outside the trust boundary and refuse the actions it reaches, at the policy point, per call. A system prompt asking the model not to do something is a request; a decision point that denies the call is a control.</p>"),
+ ("What is excessive agency?",
+  "<p>OWASP's LLM06: an agent that reaches admin-equivalent power through its delegation chain rather than through its own grants. Its own permissions look modest, and two hops away it can do anything. Finding it needs the chain drawn as a graph, because no permission list on a single identity will show it.</p>"),
+ ("How do I know an agent is not exfiltrating data slowly?",
+  "<p>Correlate rather than count. A single blocked action is noise; a stream of blocked actions from one identity inside a day is a pattern, and severity should rise with repetition and with the privilege of the identity doing it.</p>"),
+ ("How do we prove our guardrails still work?",
+  "<p>Rehearse them in CI against a real gateway with a fake provider behind it, so the meter that trips is real and the invoice is not. And refuse to count an unconfigured feature as a pass: a guardrail that is switched off looks exactly like one that is broken.</p>"),
+]),
 }
 
 

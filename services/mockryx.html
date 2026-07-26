@@ -239,6 +239,7 @@
         <h3 style="margin-top:12px">It picks fights with the rest of the stack. On purpose, in pre-prod.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
           In the request path, Mockryx rehearses <a href="tokenfuse.html" data-dir="back" style="color:var(--amber)">TokenFuse</a>: the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a>, asserting that deny and hold verdicts land in the x-fuse-wardryx header. Off path, expect.event demands that <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>, <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> and <a href="qryx.html" data-dir="fwd" style="color:var(--violet)">Qryx</a> visibly react to what just happened. And every finding it makes travels as sim_run and sim_finding events on the same bus as everything else: <a href="platform.html" data-dir="fwd" style="color:var(--steel)">the shared contract</a>.</p>
+          <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Why rehearsal belongs in CI, and what else it sits beside: <a href="../ai-agent-security.html" style="color:var(--accent)">AI agent security</a> and <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a>.</p>
       </div>
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
@@ -298,6 +299,7 @@
       <div>
         <a href="../ai-agent-governance.html">Agent governance guide</a>
         <a href="../finops-for-ai.html">FinOps for AI guide</a>
+        <a href="../ai-agent-security.html">Agent security guide</a>
         <a href="../index.html#consulting">Consulting</a>
         <a href="../index.html#people">The people</a>
         <a href="../index.html#contact">Leave a note</a>

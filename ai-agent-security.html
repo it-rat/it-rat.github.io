@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agent security: guardrails, blast radius and what to rehearse · IT-RAT</title>
+<meta name="description" content="The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it.">
+<link rel="canonical" href="https://it-rat.com/ai-agent-security.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/ai-agent-security.html">
+<meta property="og:title" content="AI agent security: guardrails, blast radius and what to rehearse · IT-RAT">
+<meta property="og:description" content="An agent holds credentials, calls tools and acts on text it was handed. The failure modes that creates, the guardrails that answer them, and how to prove they hold.">
+<meta property="og:image" content="https://it-rat.com/assets/og/wardryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI agent security: guardrails, blast radius and what to rehearse · IT-RAT">
+<meta name="twitter:description" content="An agent holds credentials, calls tools and acts on text it was handed. The failure modes that creates, the guardrails that answer them, and how to prove they hold.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/wardryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#2DD4BF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:21ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:20px}
+  .q{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:18px}
+  .q .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .q h3{margin-top:9px;font-size:16.5px}
+  .q p{margin-top:8px;color:var(--dim);font-size:13.5px;line-height:1.6}
+  .q .fix{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;line-height:1.55}
+  .q .fix b{color:var(--fg)}
+  .q a{color:var(--c,var(--accent))}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:22px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"AI agent security: guardrails, blast radius and what to rehearse","name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html","description":"The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/ai-agent-security.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"AI agent security","item":"https://it-rat.com/ai-agent-security.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is different about securing an AI agent?","acceptedAnswer":{"@type":"Answer","text":"The actor reasons and can be talked into changing its mind, but the damage still arrives as a tool call: a write, a transfer, a shell command, a request carrying a credential. That makes the tool boundary the place to defend, with the same discipline as any service account: identity, least privilege, blast radius, evidence."}},{"@type":"Question","name":"How do I stop prompt injection from reaching a tool?","acceptedAnswer":{"@type":"Answer","text":"Not with a better prompt. Taint-track what came from outside the trust boundary and refuse the actions it reaches, at the policy point, per call. A system prompt asking the model not to do something is a request; a decision point that denies the call is a control."}},{"@type":"Question","name":"What is excessive agency?","acceptedAnswer":{"@type":"Answer","text":"OWASP's LLM06: an agent that reaches admin-equivalent power through its delegation chain rather than through its own grants. Its own permissions look modest, and two hops away it can do anything. Finding it needs the chain drawn as a graph, because no permission list on a single identity will show it."}},{"@type":"Question","name":"How do I know an agent is not exfiltrating data slowly?","acceptedAnswer":{"@type":"Answer","text":"Correlate rather than count. A single blocked action is noise; a stream of blocked actions from one identity inside a day is a pattern, and severity should rise with repetition and with the privilege of the identity doing it."}},{"@type":"Question","name":"How do we prove our guardrails still work?","acceptedAnswer":{"@type":"Answer","text":"Rehearse them in CI against a real gateway with a fake provider behind it, so the meter that trips is real and the invoice is not. And refuse to count an unconfigured feature as a pass: a guardrail that is switched off looks exactly like one that is broken."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">agent security</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="ai-agent-governance.html">Agent governance</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; agent security</div>
+    <h1 class="rv d1">AI agent security: an old discipline with a new blast radius.</h1>
+    <p class="lede rv d2">A chatbot that says something wrong is a content problem. An agent that acts on something wrong is a security problem, because it holds credentials, calls tools, and decides on its own what to do with text a stranger wrote. Nothing about that is unfamiliar to anyone who has secured a service account. What is new is that the thing holding the credential now reasons, and can be talked into changing its mind.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where the perimeter moved</div>
+      <h2>The boundary is the tool call, not the prompt.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Most published advice about securing AI systems is really about the model's output: filters, refusals, red-team prompts. Useful for a chat product, and mostly beside the point for a fleet of agents doing work. An agent's damage does not arrive as a sentence. It arrives as a tool call: a write to a system of record, a transfer, a shell command, a request to an internal service with a credential attached.</p>
+      <p>That is good news, because a tool call is a boundary an engineer can defend the ordinary way. It can be identified, authorised, budgeted, rate-limited, journalled and rehearsed. <b>The security question for an agent fleet is not what the model might say. It is which calls the agent can make, on whose authority, and what stops the one it should not have made.</b></p>
+      <p>Which puts most of this guide on familiar ground: identity, least privilege, blast radius, separation of duties, evidence. The controls are old. Only the actor is new.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the failure modes</div>
+      <h2>Eight ways an agent fleet actually gets hurt.</h2>
+      <p class="lede">Each of these is defensive: it describes what to detect and refuse on your own estate. Under each, the control that answers it.</p>
+    </div>
+    <div class="qs rv">
+      <div class="q" style="--c:#2DD4BF">
+        <div class="n">injected instruction reaching a tool</div>
+        <h3>Text becomes an action</h3>
+        <p>An agent reads a page, a ticket or a document that contains instructions aimed at it, and the model treats them as a task. The prompt filter is the weak place to catch this; the tool boundary is the strong one.</p>
+        <div class="fix"><b>Answer:</b> taint-track what came from outside and refuse the actions it reaches, at the policy point, per call. <a href="services/wardryx.html">Wardryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">excessive agency</div>
+        <h3>Admin two hops away</h3>
+        <p>An agent's own grants look modest, and its delegation chain reaches an identity that can do anything. Nobody drew that chain, so nobody saw it. This is OWASP's LLM06 in one sentence.</p>
+        <div class="fix"><b>Answer:</b> compute blast radius as the union of everything reachable through the chain, and alert when it touches admin. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">shadow tooling</div>
+        <h3>An MCP server nobody sanctioned</h3>
+        <p>Tools arrive faster than registries. An agent ends up calling a server that no inventory lists, and a tool whose description silently changed after you approved it, which is the supply-chain gap a re-fetch-on-connect model opens.</p>
+        <div class="fix"><b>Answer:</b> detect servers in use but absent from the sanctioned registry, pin a fingerprint of every approved tool, and fail the build when one changes. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#F4B23E">
+        <div class="n">credentials in the context</div>
+        <h3>The secret is in the prompt</h3>
+        <p>A token handed to the model is a token in the trace, in the logs, in the memory store, and in whatever the model repeats next. Rotation does not help if the leak is structural.</p>
+        <div class="fix"><b>Answer:</b> the agent holds a handle, never a value, and the real secret is injected at the last hop. <a href="services/tokenfuse.html">TokenFuse &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">slow exfiltration</div>
+        <h3>Nothing alarming, repeatedly</h3>
+        <p>No single blocked action is interesting. Twenty of them from one agent inside a day is a pattern, and it is invisible if each is only ever handled where it happened.</p>
+        <div class="fix"><b>Answer:</b> correlate blocked actions per identity over a window and raise severity on repetition. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#F4B23E">
+        <div class="n">compromise looks like a loop</div>
+        <h3>The bill notices first</h3>
+        <p>From the outside, an agent being driven by someone else and an agent stuck retrying are the same shape: sustained, fast, expensive. Waiting to tell them apart before reacting is how both get expensive.</p>
+        <div class="fix"><b>Answer:</b> treat sustained burn as an incident in its own right and cut the circuit, then investigate. <a href="services/tokenfuse.html">TokenFuse &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#B48CFF">
+        <div class="n">unattested and unowned</div>
+        <h3>Nobody to call, nothing to revoke</h3>
+        <p>A privileged agent with no attestation and no named owner is not a governance gap, it is an unrotatable credential with a personality. It is also the most common finding on a first scan.</p>
+        <div class="fix"><b>Answer:</b> require attestation for privileged agents, flag missing owners, and keep the inventory as a bill of materials. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#FF8A5B">
+        <div class="n">the guardrail that quietly stopped working</div>
+        <h3>Off looks exactly like broken</h3>
+        <p>A defence that was disabled in a config change six weeks ago behaves identically to one that is holding, right up until the day it matters.</p>
+        <div class="fix"><b>Answer:</b> rehearse each guardrail against a real gateway in CI, and refuse to count an unconfigured feature as a pass. <a href="services/mockryx.html">Mockryx &#8594;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the practice</div>
+      <h2>What holds up, once the novelty wears off.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Give every agent an identity, before you give it a tool</h3>
+      <p>One identifier, one owner, one runtime, one attestation method, and a delegation chain that is recorded rather than implied. Everything else in this guide depends on being able to name the actor. An agent that acts under a shared key is an incident you cannot investigate.</p>
+
+      <h3>Deny at the boundary, not in the prompt</h3>
+      <p>A system prompt asking the model not to do something is a request. A policy point that refuses the call is a control. Keep the list of forbidden actions short, explicit and enforced per call: shell execution, writes to systems of record, anything moving money. The model never gets a vote.</p>
+
+      <h3>Put a human on the actions that deserve one</h3>
+      <p>Not on everything, or people will click through it in a week. On the small set where a mistake is expensive and slow to reverse. The workable shape is a hold the agent can be told to wait for, with the grant proven by a signed token bound to that exact agent, run and tool set, so approving one action never quietly approves the next.</p>
+
+      <h3>Assume the tool inventory is wrong</h3>
+      <p>It is. Tools are added by the person who needed one, on the afternoon they needed it. The realistic control is not a stricter process, it is detection: notice the server nobody registered, notice the tool description that changed, notice the agent that can now reach both.</p>
+
+      <h3>Rehearse, and let the rehearsal fail a build</h3>
+      <p>Every guardrail here is a claim, and a claim nobody tests decays. Fire the drills at a real gateway with a fake provider behind it: the meter that trips is real, the invoice is not. A defence that stopped working should fail a pull request, not an incident review.</p>
+
+      <h3>Keep evidence as you go</h3>
+      <p>Every decision, refusal, kill and approval journalled when it happens, each record carrying the hash of the one before it, so the chain is verifiable by somebody who does not trust you. Security work that cannot be shown is security work that will be repeated under worse conditions.</p>
+    </div>
+
+    <div class="note rv">
+      <div class="t">what this stack does not do</div>
+      <p>Everything here is defensive: it inspects, detects and refuses on your own estate. Nothing in the stack crafts adversarial prompts, manipulates another system's outputs, or attacks anything, and the drills are rehearsals fired at your own gateway with a fake provider behind it. Where we describe an attack, it is to say what to detect and what to stop, which is the only reason to name it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>The other two halves of the same job.</h2>
+      <p class="lede">Security, cost and control are one conversation held in three rooms. If you came here first, the other two are worth twenty minutes: <a href="ai-agent-governance.html" style="color:var(--accent)">AI agent governance and the runtime controls</a>, and <a href="finops-for-ai.html" style="color:var(--accent)">FinOps for AI, on spend that creates itself</a>. All of the tools are Apache-2.0 and run on infrastructure you own, and <a href="services/platform.html#run" style="color:var(--accent)">one command starts the live services locally</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask about securing agents</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What is different about securing an AI agent?</summary>
+        <div class="a"><p>The actor reasons and can be talked into changing its mind, but the damage still arrives as a tool call: a write, a transfer, a shell command, a request carrying a credential. That makes the tool boundary the place to defend, with the same discipline as any service account: identity, least privilege, blast radius, evidence.</p></div>
+      </details>
+      <details>
+        <summary>How do I stop prompt injection from reaching a tool?</summary>
+        <div class="a"><p>Not with a better prompt. Taint-track what came from outside the trust boundary and refuse the actions it reaches, at the policy point, per call. A system prompt asking the model not to do something is a request; a decision point that denies the call is a control.</p></div>
+      </details>
+      <details>
+        <summary>What is excessive agency?</summary>
+        <div class="a"><p>OWASP's LLM06: an agent that reaches admin-equivalent power through its delegation chain rather than through its own grants. Its own permissions look modest, and two hops away it can do anything. Finding it needs the chain drawn as a graph, because no permission list on a single identity will show it.</p></div>
+      </details>
+      <details>
+        <summary>How do I know an agent is not exfiltrating data slowly?</summary>
+        <div class="a"><p>Correlate rather than count. A single blocked action is noise; a stream of blocked actions from one identity inside a day is a pattern, and severity should rise with repetition and with the privilege of the identity doing it.</p></div>
+      </details>
+      <details>
+        <summary>How do we prove our guardrails still work?</summary>
+        <div class="a"><p>Rehearse them in CI against a real gateway with a fake provider behind it, so the meter that trips is real and the invoice is not. And refuse to count an unconfigured feature as a pass: a guardrail that is switched off looks exactly like one that is broken.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="ai-agent-governance.html">Agent governance guide</a>
+        <a href="finops-for-ai.html">FinOps for AI guide</a>
+        <a href="ai-agent-security.html">Agent security guide</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

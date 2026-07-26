@@ -20,6 +20,7 @@ MARK_CLOSE = "<!-- /seo:auto -->"
 GUIDES = {
     "ai-agent-governance.html": "AI agent governance",
     "finops-for-ai.html": "FinOps for AI",
+    "ai-agent-security.html": "AI agent security",
 }
 
 SERVICE_PAGES = [
