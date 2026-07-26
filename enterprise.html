@@ -103,6 +103,12 @@
     font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
   .gxc-teaser .dg-btn{top:8px;right:8px}
 
+  /* ---- proven claims: one line each, the run behind them in a sheet ---- */
+  .proof{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px}
+  .proof li{position:relative;padding-left:22px;color:var(--dim);font-size:13.5px;line-height:1.55}
+  .proof li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;border-radius:3px;
+    background:var(--mint);box-shadow:0 0 10px var(--mint)}
+
   /* ---- Genaryx Bus ---- */
 
   /* ---- watch legend ---- */
@@ -398,8 +404,25 @@
     </div>
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>One core, one shell</h3><p>The browser console is the product, and it is deliberately thin: every screen is a call into one shared Rust command layer - stores, connectors, ceremonies, the graph all live in the core, never in a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures, shipped</h3><p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device (Touch ID, Windows Hello or a security key): the console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. No passkey enrolled yet? The action still works and is journaled software-signed - labeled honestly, never dressed up.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues each device its own peer config as a QR; the tunnel is raised by your own client, not by anything of ours: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name, and nowhere else: on the box itself it is bound to loopback, and it never faces the internet. The certificate is not decoration - a passkey ceremony cannot run without one, because WebAuthn refuses both an insecure context and a bare IP as the party it binds credentials to. Every device that holds a way in is listed, and revoking one cuts it off at the next handshake. Issuing and revoking both take a passkey, because a road into the control plane is not something a stolen session should mint quietly. SSH stays for ops; the console does not need it.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures, shipped</h3><p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action still works and is journaled software-signed, labeled honestly.</p>
+        <details class="sheet" data-sheet-kicker="hardware signatures" data-sheet-title="What the console signs, and what it writes down">
+          <summary>How the ceremony works</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">The console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. A signature over a different command, or over the same command with different arguments, does not verify.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">No passkey enrolled yet? The action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.</p>
+          </div>
+        </details>
+      </div>
+      <div class="card hover feature b-4 rv d2"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name and nowhere else, and it never faces the internet.</p>
+        <details class="sheet" data-sheet-kicker="wireguard, but yours" data-sheet-title="Why the tunnel, and what the certificate is actually for">
+          <summary>The tunnel in detail</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">The tunnel is raised by your own client, not by anything of ours. On the box itself the console is bound to loopback, so the only way in is the tunnel.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The certificate is not decoration: a passkey ceremony cannot run without one, because WebAuthn refuses both an insecure context and a bare IP as the party it binds credentials to.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Every device that holds a way in is listed, and revoking one cuts it off at the next handshake. Issuing and revoking both take a passkey, because a road into the control plane is not something a stolen session should mint quietly. SSH stays for ops; the console does not need it.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv"><h3>An audit trail that proves itself</h3><p>Every governance event the stack emits carries the SHA-256 of the event before it, computed over RFC 8785 canonical JSON: one file, one chain, restarts included. Tampering does not hide, it breaks the chain exactly where it happened, and <span class="mono">agent-conform -chain</span> verifies a journal in one command.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Post-quantum, already</h3><p>Evidence packs self-verify: an embedded digest plus an ML-DSA (FIPS 204) signature, the NIST post-quantum standard, so the proof you hand an auditor stays trustworthy past the next cryptographic era. And Qryx audits your fleet's own crypto against the NCSC and CNSA 2.0 migration timelines, so you know what will break before an adversary does.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Self-hosted, your cloud or on-prem</h3><p>We never run your Cloud plane or hold your data. The plane lives on infrastructure you own - AWS, GCP, Hetzner, any cloud or on-prem - reached only over WireGuard. Nothing to subpoena or breach on our side.</p></div>
@@ -417,11 +440,29 @@
     <div class="bento">
       <div class="card b-6 rv">
         <div class="kicker" style="--accent:var(--mint)">already true</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">A laptop on the public internet imported the peer config this box issued itself, completed a handshake against the box's published UDP port, and opened the console over TLS inside that tunnel, from a machine that had no other route to it. It then enrolled a passkey and issued a second device, and that action was refused until the operator confirmed it on their own authenticator: the journal records it signed <span class="mono" style="font-size:13px">webauthn-es256</span>, naming the credential they touched. Revoking a device cut it off the same way. Every one of those records carries the hash of the event before it, and the stack's own conformance checker verifies the chain they sit in. The console has separately driven a real fleet and put a device-signed kill through it, against a plane closed to the internet. Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a live fleet of 42 agents. Every claim above has a captured run behind it.</p>
+        <ul class="proof">
+          <li>A laptop on the public internet opened the console over a tunnel this box issued itself, with no other route in.</li>
+          <li>Issuing a device and revoking one each needed a touch on the operator's own authenticator, journaled <span class="mono" style="font-size:12.5px">webauthn-es256</span>.</li>
+          <li>Every one of those records carries the hash of the event before it, and the stack's own checker verifies the chain.</li>
+          <li>A device-signed kill went through a real fleet, against a plane closed to the internet.</li>
+          <li>Felyx, on a live local model, named the caught runaway and filed a capped proposal only a human could approve, on 42 agents.</li>
+        </ul>
+        <details class="sheet" data-sheet-kicker="already true" data-sheet-title="The captured runs behind each of those lines">
+          <summary>What was actually run</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">A laptop on the public internet imported the peer config this box issued itself, completed a handshake against the box's published UDP port, and opened the console over TLS inside that tunnel, from a machine that had no other route to it. It then enrolled a passkey and issued a second device, and that action was refused until the operator confirmed it on their own authenticator: the journal records it signed <span class="mono" style="font-size:13px">webauthn-es256</span>, naming the credential they touched. Revoking a device cut it off the same way.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Every one of those records carries the hash of the event before it, and the stack's own conformance checker verifies the chain they sit in. The console has separately driven a real fleet and put a device-signed kill through it, against a plane closed to the internet.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a live fleet of 42 agents. Every claim here has a captured run behind it.</p>
+          </div>
+        </details>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--cyan)">run it with us</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">We deploy AI with conviction and receipts. We build for where the field is actually going: fleets of agents doing real work, governed from day one by budgets, identity, policy, quality and evidence, with post-quantum crypto where it will matter first. Genaryx arrives with the team that built it: we stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. The software is the start; the judgment comes with it. <a href="index.html#consulting" data-dir="back" style="color:var(--accent)">Talk to us about an engagement</a>, or <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run the open stack yourself in one command</a> today.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">We deploy AI with conviction and receipts, and we build for where the field is going: fleets of agents doing real work, governed from day one by budgets, identity, policy, quality and evidence. Genaryx arrives with the team that built it: we stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. The software is the start; the judgment comes with it.</p>
+        <div style="margin-top:18px">
+          <a class="btn" href="index.html#consulting" data-dir="back">Talk to us about an engagement</a>
+        </div>
+        <p style="margin-top:12px;color:var(--faint);font-size:13px;line-height:1.6">Or <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run the open stack yourself in one command</a> today.</p>
       </div>
     </div>
     <div data-edge-nav></div>
@@ -437,6 +478,7 @@
 <script src="assets/site.js"></script>
 <script src="assets/diagram.js"></script>
 <script src="assets/shotbox.js?v=e05"></script>
+<script src="assets/sheet.js?v=e05"></script>
 
 <script>
 /* ---- console gallery: arrows, counter, arrow keys. The frames themselves
