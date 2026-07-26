@@ -102,17 +102,13 @@ This installs nothing of the stack: it is the contract itself, for an agent of y
 ## The contract seven services agree on
 
 **Q: What is an Agent Passport?**
-
 One identifier and one document per agent: an `agent://` URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries.
 
 **Q: Do I have to adopt the whole stack to use the contract?**
-
 No. There is no shared runtime and no shared database. Adopting it is a naming agreement plus a few optional fields on events you already emit, which is why a service can add an event type without asking any other service for permission.
 
 **Q: Can budgets and policies live in version control?**
-
 Yes. Three Terraform resources cover budgets, agent passports and policies, published on the public Terraform Registry, so governance gets pull requests, plans and diffs like the rest of your infrastructure. Where the API has no delete, the provider says so instead of pretending.
 
 **Q: How do I check that my events actually conform?**
-
 Run `agent-conform`. It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect.

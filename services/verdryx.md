@@ -82,17 +82,13 @@ No network, no key: `--model stub` is deterministic. Then price the traces it le
 ## Measuring quality in money, not vibes
 
 **Q: How do I measure cost per correct answer?**
-
 Tag outcomes in production, then read them back off the gateway's own trace: resolved, escalated, abandoned. Verdryx turns that into a dollar figure per case, including the untagged intermediate calls a run made and the calls the breaker blocked, because both are part of what the outcome cost.
 
 **Q: How do I know when quality has actually dropped?**
-
 A flat threshold catches the obvious fall. Beside it, a two-sample significance check, Welch's t with a bootstrap interval, catches the small consistent regression a threshold tuned for noise would miss. Point it at a baseline whose source run is gone and it fails loudly rather than silently.
 
 **Q: Do I need an LLM judge to use it?**
-
 No. Four of the five graders are deterministic and free: exact, regex, outcome tag and tool trace. The judge is there for the cases a rubric can score and a pattern cannot, and when you use it, its own cost is priced against the same book the money plane uses rather than reported as zero.
 
 **Q: Does it need network access or a key?**
-
 Not for the common path. The eval runner, graders and drift maths import nothing but the standard library, and the whole suite runs against a deterministic stub adapter with no network and no key, which is exactly what its own CI runs.

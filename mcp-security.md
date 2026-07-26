@@ -107,21 +107,16 @@ MCP is one surface of a wider job: [AI agent security](https://it-rat.com/ai-age
 ## What people ask about MCP
 
 **Q: What are the main security risks of the Model Context Protocol?**
-
 Two structural ones and the rest follow. A tool definition is a description the model reads as instructions, so it is content, not just a signature. And clients re-fetch definitions on connect, so the tool you approved is not necessarily the tool in use later. From those come poisoned descriptions, rug pulls, unsanctioned servers, credentials passing through the model, and drift nobody tracks.
 
 **Q: What is an MCP rug pull, and how do I catch one?**
-
 A tool whose description or schema changes after you approved it, with no deployment on your side and no trace in your repository. Catch it the way you catch a changed dependency: pin a fingerprint of every approved tool and fail the build when the fingerprint moves. It ships as a CI action for that reason.
 
 **Q: How do I find MCP servers nobody registered?**
-
 From the agent side, not the server side. Compare what your agents actually reach against the list of sanctioned servers and flag the difference; then join agents to servers on the tools they share, so an agent whose declared tools come from an unsanctioned server is a query rather than an incident.
 
 **Q: Should an MCP server use stdio or HTTP?**
-
 Prefer stdio where the integration is genuinely local: no listener, no port, no network trust boundary to get wrong. Plenty of servers are remote by habit rather than need. Where a network server is required, treat it as any other internal service: authentication, network placement, and a name in the inventory.
 
 **Q: How do I keep API keys out of the model when a tool needs one?**
-
 Do not hand the value to the agent. The agent holds a named handle, and the real credential is injected at the last hop, so it never enters the prompt, the trace or the model's memory. That also makes revocation meaningful, because the value lives in exactly one place.

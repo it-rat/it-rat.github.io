@@ -82,21 +82,16 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 ## How teams put a ceiling on agent spend
 
 **Q: How do I cap what an AI agent can spend?**
-
 Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.
 
 **Q: What happens to my agent when it hits the budget?**
-
 It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.
 
 **Q: Do I have to rewrite my agent to use it?**
-
 No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.
 
 **Q: Can it catch a retry loop before the bill does?**
-
 That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.
 
 **Q: Does it still work with several gateways behind a load balancer?**
-
 Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition.

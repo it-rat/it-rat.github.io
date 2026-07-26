@@ -84,17 +84,13 @@ Download a [v0.2.0 release binary](https://github.com/TAIPANBOX/idryx/releases) 
 ## Counting the identities nobody is counting
 
 **Q: How do I find every AI agent and service account we actually have?**
-
 Idryx reads what Okta, Entra, AWS, GCP and Azure already log, adds the agent-event bus the rest of the stack writes, and stitches all of it into one graph of humans, service accounts, keys, agents and MCP servers. The answer comes from the graph, not from a spreadsheet someone maintained until they left.
 
 **Q: Will it change anything in my cloud?**
-
 No. It is read-only by design: connectors read, and the output is an alert, a bill of materials, or a Terraform diff a human applies. It never writes back.
 
 **Q: What is an Agent-BOM?**
-
 A CycloneDX 1.6 bill of materials for your agents: who owns each one, what runtime it runs on, what it is attested by, and what it can reach. It plugs into the same supply-chain tooling that already ingests your SBOMs.
 
 **Q: What does it actually detect?**
-
 Twenty-two deterministic detectors in four families: identity threats, non-human identity hygiene, agents and AI, and least privilege. Detection is statistics and rules over the graph; the model is never in the detection path, so every finding is reproducible and defensible in an audit.

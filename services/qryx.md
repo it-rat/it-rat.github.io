@@ -88,17 +88,13 @@ Grab a v0.2.0 binary from the [releases page](https://github.com/TAIPANBOX/qryx/
 ## Where a post-quantum migration actually starts
 
 **Q: How do I start a post-quantum migration?**
-
 With an inventory, because you cannot migrate what you have not found. Qryx scans binaries, containers, live TLS endpoints, certificates, dependencies and cloud KMS, and returns a cryptographic asset graph graded against the NCSC milestones: discovery by 2028, the highest-priority systems by 2031, everything by 2035.
 
 **Q: What is a CBOM?**
-
 A cryptographic bill of materials in CycloneDX 1.6: one component per unique asset and risk class, with every occurrence attached. It lives in the same supply-chain tooling as your SBOMs, so cryptography stops having its own isolated report nobody reads.
 
 **Q: Can it fail a build when someone ships a weak key?**
-
 Yes. Snapshot the graph as a baseline, and a new weak or quantum-vulnerable asset fails the build with a distinct exit code, with separate codes for a standards violation and a regressed compliance trend. That is the day it matters, not the next audit cycle.
 
 **Q: Does it find hardcoded keys?**
-
 It does, and it counts them honestly: cryptography that exists only in test fixtures is scanned, reported and kept out of the production inventory, with one line saying how much was set aside. Counting fixtures inflates the number you are trying to drive to zero.

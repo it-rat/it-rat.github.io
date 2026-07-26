@@ -97,21 +97,16 @@ All of it is Apache-2.0 and runs on infrastructure you own. [One command starts 
 ## What people ask about agent governance
 
 **Q: What is AI agent governance?**
-
 The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold.
 
 **Q: How is agent governance different from LLM observability?**
-
 Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters.
 
 **Q: Do I have to adopt all of it at once?**
-
 No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.
 
 **Q: Does putting controls in the request path slow agents down?**
-
 The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.
 
 **Q: Can this run on our own infrastructure?**
-
 It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data.

@@ -104,17 +104,13 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 ## What a memory has to do that similarity search cannot
 
 **Q: How is this different from a vector database?**
-
 A vector store finds text that looks similar. It cannot tell you when a fact was true, where a belief came from, or that two beliefs disagree. Engram ships a vector index too, in-process, and adds the three answers similarity has no concept for: bitemporal validity, a `why()` chain back to source episodes, and contradiction detection.
 
 **Q: Does it need a server, a container or an API key?**
-
 None of the three to write a memory. It is one `.engram` file on SQLite plus sqlite-vec, in-process, installed with pip. A model only enters the picture when you ask for `reflect()`, and even that call can be pointed at a local model or routed through [TokenFuse](https://it-rat.com/tokenfuse.html) so thinking has a budget too.
 
 **Q: Can I delete everything about one person?**
-
 Yes, and the cascade is the point. Erasing an entity removes the episodes about them, the facts derived from those episodes, and the graph edges that made them findable, and reports how many of each it deleted. Erasure is agent-scoped, so in a shared store one agent cannot delete another's memories.
 
 **Q: Does it work with Claude Desktop, Claude Code or Cursor?**
-
 Yes, over MCP on stdio, so there is no network listener and no port to guard. Those clients get remember, recall, why and forget against the same store with no integration code.

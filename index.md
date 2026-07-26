@@ -111,21 +111,16 @@ FinOps expert in cloud financial governance, cost optimization and multi-cloud s
 ## The questions that come before the demo
 
 **Q: What is AI agent governance?**
-
 Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards. Observability tells you what an agent did. Governance decides what it can do next. The two are not substitutes, and only one of them stops a runaway at 3am.
 
 **Q: Is the stack open source?**
-
 Seven services are Apache-2.0 and stay that way, source on [GitHub](https://github.com/TAIPANBOX): TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, plus the shared [contract](https://it-rat.com/services/platform.html) under them. [Genaryx](https://it-rat.com/enterprise.html), the console over all of them, is the one paid room, and it is deployed with us on your own infrastructure.
 
 **Q: Do you host any of this, or see our data?**
-
 No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.
 
 **Q: What does it cost to try?**
-
 The open services cost nothing and need no account. One command builds and starts the long-running ones locally: see [run the live stack locally](https://it-rat.com/services/platform.html#run). The four that are libraries and CLIs each carry a one-line try-it on their own page.
 
 **Q: How does an engagement work?**
-
 A short, honest call first; if we are not the right fit we say so. Then an assessment on your real estate, identities, spend paths and agent surfaces, and then hands-on build with your team until they run it without us. We leave runbooks rather than a dependency.

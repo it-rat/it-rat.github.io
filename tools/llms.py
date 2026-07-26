@@ -135,7 +135,7 @@ def to_markdown(path, title):
         elif kind == "a" and out and out[-1].startswith("**Q:"):
             # keep a question and its answer in one block: a search that finds
             # the question should hand back the answer with it
-            out[-1] = f"{out[-1]}\n\n{t}"
+            out[-1] = f"{out[-1]}\n{t}"
         else:
             out.append(t)
 

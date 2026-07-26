@@ -81,17 +81,13 @@ Boots on `:8090` with an in-memory store: allow-all until you load a policy, and
 ## Putting a human in front of the expensive actions
 
 **Q: How do I require human approval before an agent does something expensive?**
-
 Set a threshold in policy. Above it the answer to the agent is `hold` rather than allow, a human grants or refuses out of band, and the agent resubmits with a signed approval token bound to that agent, run and tool set. No connection is parked waiting for a signature.
 
 **Q: What answers can the policy plane give?**
-
 Three, and only three: allow, deny, or hold for a human. There is no improvisation and no fourth case, which is what makes the decisions reproducible and arguable after the fact.
 
 **Q: What happens if the policy service is unreachable?**
-
 You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.
 
 **Q: Can policies be reviewed like code?**
-
 Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting.

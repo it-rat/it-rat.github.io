@@ -69,21 +69,16 @@ The governance side is laid out in [the agent governance guide](https://it-rat.c
 ## Where one ends and the other begins
 
 **Q: What is the difference between LLM observability and AI governance?**
-
 Observability reconstructs what an agent did: traces, token counts, latencies, evaluations. Governance decides what it may do next, in the request path, with a binding answer. One is a record you can question, the other is an action that did or did not happen.
 
 **Q: Do I need both, or will tracing be enough?**
-
 Tracing alone leaves every insight arriving after the action and often after the invoice. Governance alone leaves you safe and opaque: you know an action was refused and cannot say what made the agent try. Most teams already have the first half, and the shortest path to the second is a gateway in shadow mode.
 
 **Q: How do the two connect technically?**
-
 On one run identifier. If the trace, the spend line, the policy verdict and the outcome tag all carry the same id, a refusal links to the exact chain of calls that led to it. If they do not, you own two dashboards and an argument.
 
 **Q: Does adding governance mean replacing our tracing stack?**
-
 No. The governance planes here export over OTLP into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself.
 
 **Q: How can I tell whether a tool actually enforces anything?**
-
 Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?

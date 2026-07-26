@@ -117,21 +117,16 @@ Security, cost and control are one conversation held in three rooms. If you came
 ## What people ask about securing agents
 
 **Q: What is different about securing an AI agent?**
-
 The actor reasons and can be talked into changing its mind, but the damage still arrives as a tool call: a write, a transfer, a shell command, a request carrying a credential. That makes the tool boundary the place to defend, with the same discipline as any service account: identity, least privilege, blast radius, evidence.
 
 **Q: How do I stop prompt injection from reaching a tool?**
-
 Not with a better prompt. Taint-track what came from outside the trust boundary and refuse the actions it reaches, at the policy point, per call. A system prompt asking the model not to do something is a request; a decision point that denies the call is a control.
 
 **Q: What is excessive agency?**
-
 OWASP's LLM06: an agent that reaches admin-equivalent power through its delegation chain rather than through its own grants. Its own permissions look modest, and two hops away it can do anything. Finding it needs the chain drawn as a graph, because no permission list on a single identity will show it.
 
 **Q: How do I know an agent is not exfiltrating data slowly?**
-
 Correlate rather than count. A single blocked action is noise; a stream of blocked actions from one identity inside a day is a pattern, and severity should rise with repetition and with the privilege of the identity doing it.
 
 **Q: How do we prove our guardrails still work?**
-
 Rehearse them in CI against a real gateway with a fake provider behind it, so the meter that trips is real and the invoice is not. And refuse to count an unconfigured feature as a pass: a guardrail that is switched off looks exactly like one that is broken.
