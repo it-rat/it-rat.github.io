@@ -108,13 +108,22 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "Pages reports: $(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .status || echo unknown)"
-          ## The blocker, when there is one, is the previously deployed commit.
-          ## We cannot know it for certain before the deploy step names it, so
-          ## this is a guess at the common case and is allowed to fail.
-          prev=$(git rev-parse HEAD~1 2>/dev/null || true)
-          if [ -n "$prev" ]; then
-            gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments/$prev/cancel" 2>&1 | head -2 || true
-          fi
+          ## Ask which deployments are actually unfinished rather than guessing
+          ## at HEAD~1: on 26 July the blocker was two commits back, so the
+          ## guess missed it three runs in a row. Anything still waiting,
+          ## queued or in progress for a commit that is not this one is a
+          ## deployment this push supersedes, so cancelling it is correct.
+          gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&per_page=10" \
+            --jq '.[] | "\(.id) \(.sha)"' | while read -r id sha; do
+              [ "$sha" = "$GITHUB_SHA" ] && continue
+              state=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses?per_page=1" --jq '.[0].state' 2>/dev/null || echo unknown)
+              case "$state" in
+                waiting|queued|in_progress|pending)
+                  echo "cancelling $state deployment ${sha:0:8}"
+                  gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments/$sha/cancel" 2>&1 | head -1 || true
+                  ;;
+              esac
+            done
 
       - name: Deploy
         id: deployment
@@ -135,7 +144,20 @@ jobs:
         run: sleep 180
       - name: Deploy, third attempt
         id: deployment3
+        continue-on-error: true
         if: steps.deployment.outcome == 'failure' && steps.deployment2b.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+
+      ## A fourth attempt after a long wait, because the stale flag on GitHub's
+      ## side has outlived four minutes more than once. Minutes are free on a
+      ## public repository, so patience costs nothing and a failed publish
+      ## costs a manual re-run.
+      - name: Wait out a stubborn one
+        if: steps.deployment.outcome == 'failure' && steps.deployment2b.outcome == 'failure' && steps.deployment3.outcome == 'failure'
+        run: sleep 420
+      - name: Deploy, fourth attempt
+        id: deployment4
+        if: steps.deployment.outcome == 'failure' && steps.deployment2b.outcome == 'failure' && steps.deployment3.outcome == 'failure'
         uses: actions/deploy-pages@v5
 
       - name: Say plainly whether the site moved
@@ -146,7 +168,8 @@ jobs:
         run: |
           if [ "${{ steps.deployment.outcome }}" = "success" ] \
              || [ "${{ steps.deployment2b.outcome }}" = "success" ] \
-             || [ "${{ steps.deployment3.outcome }}" = "success" ]; then
+             || [ "${{ steps.deployment3.outcome }}" = "success" ] \
+             || [ "${{ steps.deployment4.outcome }}" = "success" ]; then
             echo "Published ${GITHUB_SHA::8}."
           else
             echo "NOT PUBLISHED. The site is still serving an older commit."
