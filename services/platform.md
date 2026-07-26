@@ -76,9 +76,9 @@ For teams whose answer to everything is a cluster. One script brings up k3s acro
 
 **Q: Commands and the trade**
 
-Both paths have a one-command installer, so the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.
+Both paths are one command, and both ask what they need before the long part rather than failing on it afterwards. So the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.
 
-That trade, and twenty-nine other things that bite, are documented in the repositories rather than discovered by you. Proven on a five-node HA cluster, with every trap we hit written down and already fixed in the files.
+That trade, and sixty-two other things that bite, are documented in the repositories rather than discovered by you. Proven on a five-node HA cluster, with every trap we hit written down and already fixed in the files.
 
 ## Two default futures, one contract.
 

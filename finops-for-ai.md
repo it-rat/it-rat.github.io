@@ -2,7 +2,7 @@
 
 # FinOps for AI
 
-> FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.
+> FinOps applied to LLM and agent spend: the unit of work, per-run budgets, reserve-then-settle, FOCUS showback and cost per resolved case.
 
 Cloud FinOps grew up around resources somebody provisioned: an instance, a bucket, a cluster. LLM and agent spend does not work like that. Nobody provisions it. An agent creates it, in seconds, by deciding to try again, and the same task can cost thirty times more on Tuesday than it did on Monday depending on how the loop unfolds. The practice still applies; the unit of work, the controls and the reporting all have to move.
 

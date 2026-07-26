@@ -2,7 +2,7 @@
 
 # AI observability vs governance
 
-> LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both.
+> LLM observability explains what an agent did; governance decides what it may do next. Where each fails, and how they meet on one run id.
 
 Teams comparing agent tooling usually end up comparing a tracing product with an enforcement product and asking which to buy. It is the wrong question, in the same way that comparing your logging stack with your firewall is the wrong question. One explains what happened. The other decides what may happen. You will eventually want both, and the order you adopt them in matters less than knowing which problem each one leaves untouched.
 

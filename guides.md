@@ -2,7 +2,7 @@
 
 # Guides index
 
-> Six guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.
+> Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.
 
 Six guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.
 

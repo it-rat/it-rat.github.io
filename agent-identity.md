@@ -2,7 +2,7 @@
 
 # Agent identity and authentication
 
-> Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, how delegation chains work, and when to demand a signature per action.
+> Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, and when to demand a signature.
 
 Most agent fleets authenticate the way the first prototype did: an API key in an environment variable, shared by whatever runs in that container. It works, and it quietly removes the one thing every later control depends on. An agent acting under a shared key cannot be told apart from the next agent, cannot be revoked without breaking both, and cannot be investigated afterwards. Identity is not paperwork here; it is the join key everything else uses.
 

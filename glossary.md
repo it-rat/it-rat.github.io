@@ -2,7 +2,7 @@
 
 # Glossary of agent-governance terms
 
-> Plain definitions for the terms this field uses: agent passport, attestation, delegation chain, blast radius, per-run budget, shadow mode, rug pull, CBOM, FOCUS, cost per resolved case.
+> Plain definitions for this field: agent passport, attestation, delegation chain, blast radius, per-run budget, rug pull, CBOM, FOCUS, drift.
 
 Terms that come up when a team starts governing agents, defined plainly and in the sense this field actually uses them. Where a term is contested or means different things to different vendors, the definition says so.
 

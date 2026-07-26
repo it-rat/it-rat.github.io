@@ -2,7 +2,7 @@
 
 # AI agent security
 
-> The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it.
+> The failure modes an autonomous agent introduces, the runtime guardrail that answers each one, and how to rehearse them in CI. Defensive practice.
 
 A chatbot that says something wrong is a content problem. An agent that acts on something wrong is a security problem, because it holds credentials, calls tools, and decides on its own what to do with text a stranger wrote. Nothing about that is unfamiliar to anyone who has secured a service account. What is new is that the thing holding the credential now reasons, and can be talked into changing its mind.
 

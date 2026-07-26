@@ -2,7 +2,7 @@
 
 # AI agent governance
 
-> What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.
+> What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after.
 
 An AI agent does not answer a question and stop. It calls tools, spends money, touches data and hands work to other agents, on its own schedule and at machine speed. Governance is the set of controls that decide what it is allowed to do while it is doing it: a budget it cannot exceed, a policy it must ask, an identity that records who it acts for, a memory that can say where a belief came from, and evidence somebody else can check afterwards.
 

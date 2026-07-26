@@ -4,7 +4,7 @@
 
 # Guides index
 
-> Six guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.
+> Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.
 
 Six guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.
 
@@ -55,7 +55,7 @@ Seven Apache-2.0 services cover the planes the guides describe, and they run on 
 
 # AI agent governance
 
-> What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.
+> What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after.
 
 An AI agent does not answer a question and stop. It calls tools, spends money, touches data and hands work to other agents, on its own schedule and at machine speed. Governance is the set of controls that decide what it is allowed to do while it is doing it: a budget it cannot exceed, a policy it must ask, an identity that records who it acts for, a memory that can say where a belief came from, and evidence somebody else can check afterwards.
 
@@ -183,7 +183,7 @@ It is the only way it runs. Every plane is self-hosted on infrastructure you own
 
 # FinOps for AI
 
-> FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.
+> FinOps applied to LLM and agent spend: the unit of work, per-run budgets, reserve-then-settle, FOCUS showback and cost per resolved case.
 
 Cloud FinOps grew up around resources somebody provisioned: an instance, a bucket, a cluster. LLM and agent spend does not work like that. Nobody provisions it. An agent creates it, in seconds, by deciding to try again, and the same task can cost thirty times more on Tuesday than it did on Monday depending on how the loop unfolds. The practice still applies; the unit of work, the controls and the reporting all have to move.
 
@@ -269,7 +269,7 @@ The unit economic that changes decisions: the money spent to actually resolve on
 
 # AI agent security
 
-> The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it.
+> The failure modes an autonomous agent introduces, the runtime guardrail that answers each one, and how to rehearse them in CI. Defensive practice.
 
 A chatbot that says something wrong is a content problem. An agent that acts on something wrong is a security problem, because it holds credentials, calls tools, and decides on its own what to do with text a stranger wrote. Nothing about that is unfamiliar to anyone who has secured a service account. What is new is that the thing holding the credential now reasons, and can be talked into changing its mind.
 
@@ -417,7 +417,7 @@ Rehearse them in CI against a real gateway with a fake provider behind it, so th
 
 # MCP security
 
-> What changes when an agent's tools arrive over the Model Context Protocol: descriptions the model reads as instructions, servers nobody sanctioned, tools that change after approval, and the controls for each.
+> What changes when tools arrive over the Model Context Protocol: descriptions the model reads, servers nobody sanctioned, tools that change later.
 
 The Model Context Protocol did for agent tooling what package managers did for libraries: it made capability something you connect to rather than something you write. That is genuinely good, and it moves two things that used to be stable. A tool is now a **description the model reads as instructions**, and it comes from a server that can change that description after you approved it. Everything below follows from those two sentences.
 
@@ -555,7 +555,7 @@ Do not hand the value to the agent. The agent holds a named handle, and the real
 
 # Agent identity and authentication
 
-> Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, how delegation chains work, and when to demand a signature per action.
+> Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, and when to demand a signature.
 
 Most agent fleets authenticate the way the first prototype did: an API key in an environment variable, shared by whatever runs in that container. It works, and it quietly removes the one thing every later control depends on. An agent acting under a shared key cannot be told apart from the next agent, cannot be revoked without breaking both, and cannot be investigated afterwards. Identity is not paperwork here; it is the join key everything else uses.
 
@@ -687,7 +687,7 @@ Hand the agent a handle rather than a value, and attach the real credential at t
 
 # Glossary of agent-governance terms
 
-> Plain definitions for the terms this field uses: agent passport, attestation, delegation chain, blast radius, per-run budget, shadow mode, rug pull, CBOM, FOCUS, cost per resolved case.
+> Plain definitions for this field: agent passport, attestation, delegation chain, blast radius, per-run budget, rug pull, CBOM, FOCUS, drift.
 
 Terms that come up when a team starts governing agents, defined plainly and in the sense this field actually uses them. Where a term is contested or means different things to different vendors, the definition says so.
 
@@ -806,7 +806,7 @@ The [six guides](https://it-rat.com/guides.html) cover governance, cost, securit
 
 # AI observability vs governance
 
-> LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both.
+> LLM observability explains what an agent did; governance decides what it may do next. Where each fails, and how they meet on one run id.
 
 Teams comparing agent tooling usually end up comparing a tracing product with an enforcement product and asking which to buy. It is the wrong question, in the same way that comparing your logging stack with your firewall is the wrong question. One explains what happened. The other decides what may happen. You will eventually want both, and the order you adopt them in matters less than knowing which problem each one leaves untouched.
 

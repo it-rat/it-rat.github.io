@@ -2,7 +2,7 @@
 
 # MCP security
 
-> What changes when an agent's tools arrive over the Model Context Protocol: descriptions the model reads as instructions, servers nobody sanctioned, tools that change after approval, and the controls for each.
+> What changes when tools arrive over the Model Context Protocol: descriptions the model reads, servers nobody sanctioned, tools that change later.
 
 The Model Context Protocol did for agent tooling what package managers did for libraries: it made capability something you connect to rather than something you write. That is genuinely good, and it moves two things that used to be stable. A tool is now a **description the model reads as instructions**, and it comes from a server that can change that description after you approved it. Everything below follows from those two sentences.
 
