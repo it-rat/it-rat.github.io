@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#FF7AA2}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -179,9 +179,29 @@
       <h2>Not a bigger number. A truer one.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Cost per outcome</h3><p>Resolved, abandoned, escalated: real outcome tags straight off the TokenFuse gateway turn into a dollar figure per case, not a total nobody can act on.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Cost per outcome</h3><p>Resolved, abandoned, escalated: real outcome tags straight off the TokenFuse gateway turn into a dollar figure per case, not a total nobody can act on.</p>
+        <details class="sheet" data-sheet-kicker="cost per outcome" data-sheet-title="How a case gets a price, including the calls nobody tagged">
+          <summary>How the figure is built</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">The input is the gateway's own trace, not a second pipeline built to agree with it: run id, step, outcome tag, decision, and cost in microdollars, read straight from TokenFuse's Parquet segments, NDJSON or CSV. Verdryx reduces it the same way TokenFuse itself does, so the two never quietly disagree about what a run cost.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Rows are ordered by run and step, and the last non-empty tag a run carries is the one that counts: a case that escalated after two failed attempts is an escalation, not three separate stories.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Then the parts most reports lose. Every call in a run folds into that run's bucket, not only the tagged one, so an untagged intermediate call's cost is not dropped on the floor. A run nobody ever tagged still appears, under an explicit untagged label, rather than vanishing from the report and making the average look better than it is. And a call the breaker blocked is still counted, because a refused call is part of what the outcome cost you.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The result is one row per outcome tag, with count, total and mean, plus an overall row pooling everything. A dollar figure per resolved case is a number an operator can act on; a monthly total is not.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d1"><h3>Drift with statistics</h3><p>A flat threshold catches the obvious drop. A two-sample significance check beside it, Welch's t plus a bootstrap interval, catches the small, consistent regression a threshold tuned for noise would miss. Point it at a baseline whose source run is gone and it fails loudly, not silently.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>The LLM judge is metered</h3><p>An llm_judge case's Score.cost_usd is a real dollar figure, priced against the same book TokenFuse uses, not the zero placeholder the other three graders leave behind. Quality measurement gets an honest price too.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>The LLM judge is metered</h3><p>An llm_judge case's cost is a real dollar figure, priced against the same book TokenFuse uses, not the zero placeholder the deterministic graders leave behind.</p>
+        <details class="sheet" data-sheet-kicker="graders" data-sheet-title="Five graders, and which one of them costs money">
+          <summary>What grades a case</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">Every case resolves to a score between zero and one, and five graders share one shape, so a case simply asks for the one it needs.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px"><b style="color:var(--fg)">Exact</b> and <b style="color:var(--fg)">regex</b> score a literal or a pattern: deterministic, free, and the right tool far more often than people expect. <b style="color:var(--fg)">Outcome tag</b> reads a production tag instead of an expected answer, scoring a resolved case at one, an escalation at a half and an abandonment at zero, with the whole table overridable; an unrecognised tag scores zero rather than raising, so one odd tag cannot take a report down. <b style="color:var(--fg)">Tool trace</b> scores the model's ordered tool calls against the calls it was supposed to make, which is the difference between a right answer and a right answer reached by touching things it should not have. <b style="color:var(--fg)">LLM judge</b> grades against a written rubric where the other four cannot.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Only the last one spends money, and it says so. Its cost is priced against the same book the money plane uses, rather than the zero a deterministic grader honestly leaves behind. An eval suite is itself an agent workload; a quality tool that hides its own bill has no business auditing anyone else's.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The judge takes an injected adapter, so the same suite runs against a deterministic stub with no network and no key, which is what Verdryx's own tests use, or against a real model when you want the real verdict.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv"><h3>Zero-dependency core</h3><p>The eval runner, graders and drift math import nothing but the standard library. Anthropic and Parquet support are opt-in extras, not a tax on the common path.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Offline test suite</h3><p>217 tests run against a deterministic StubLLMAdapter, no network, no API key. It's what Verdryx's own CI runs, and what --model stub gives you too.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Defensive by design</h3><p>Grades an operator's own agents against an eval set or a production outcome tag. The README puts it plainly: it &#8220;never manipulates outputs, never crafts adversarial prompts, and never attacks anything.&#8221;</p></div>
@@ -241,6 +261,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/verdryx.js"></script>
 <script src="../assets/diagram.js"></script>

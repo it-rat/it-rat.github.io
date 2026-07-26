@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#B48CFF}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -184,9 +184,40 @@
     </div>
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>CBOM</h3><p>CycloneDX 1.6, one component per unique asset and risk class, every occurrence attached. It plugs into the same supply-chain tooling that already tracks your SBOMs, so cryptography stops living in its own isolated report.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Harvest now, decrypt later</h3><p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. NIST standardized the replacements in 2024; NCSC's clock runs discovery by 2028, the highest-priority systems by 2031, everything by 2035.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Harvest now, decrypt later</h3><p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. The migration clock is already running.</p>
+        <details class="sheet" data-sheet-kicker="the risk model" data-sheet-title="Six risk classes, and a clock that started without you">
+          <summary>How an asset is scored</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">Every asset Qryx finds is scored against a post-quantum and hygiene model, not a single pass-or-fail line.</p>
+            <div class="tbl-scroll" style="margin-top:14px">
+              <table class="tbl">
+                <thead><tr><th>Class</th><th>Examples</th><th>Why it is called that</th></tr></thead>
+                <tbody>
+                  <tr><td class="mono">quantum-vulnerable</td><td>RSA, ECC, DSA, DH</td><td>breakable by Shor's algorithm on a capable quantum computer</td></tr>
+                  <tr><td class="mono">weak</td><td>MD5, SHA-1, DES, RC4, RSA under 2048</td><td>broken or deprecated already, no quantum computer required</td></tr>
+                  <tr><td class="mono">misconfig</td><td>TLS 1.0 and 1.1, unsafe cipher suites</td><td>a sound primitive used unsoundly</td></tr>
+                  <tr><td class="mono">expired</td><td>past-due certificates</td><td>the validity window has elapsed</td></tr>
+                  <tr><td class="mono">hardcoded</td><td>private keys in source or config</td><td>a secret committed into the tree</td></tr>
+                  <tr><td class="yes mono">safe</td><td>ML-KEM, ML-DSA, SLH-DSA</td><td>the post-quantum standards, FIPS 203, 204 and 205</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:16px">The timeline is not ours to argue with. NIST standardised the replacements in 2024, and the NCSC clock runs discovery by 2028, the highest-priority systems by 2031, and everything by 2035. The first of those dates is about knowing what you have, which is the part that takes longest and cannot be bought late.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d2"><h3>Post-quantum signing</h3><p>Evidence attestations sign with ML-DSA (FIPS 204) straight from Go's stdlib, crypto/mldsa, no cosign dependency. All three security levels, ML-DSA-44/65/87, live-verified end to end against real openssl-generated keys.</p></div>
-      <div class="card hover feature b-4 rv"><h3>Context beats compliance</h3><p>The asset graph keys on risk class as well as algorithm and key size, so a certificate that is both expired and quantum-vulnerable gets two findings instead of one silently overwriting the other. That exact bug turned up scanning a real endpoint, and it is fixed.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Context beats compliance</h3><p>The asset graph keys on risk class as well as algorithm and key size, so a certificate that is both expired and quantum-vulnerable gets two findings instead of one silently overwriting the other.</p>
+        <details class="sheet" data-sheet-kicker="counting honestly" data-sheet-title="Two findings, not one, and why test crypto is not debt">
+          <summary>What the count leaves out</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">Keying the graph on risk class as well as algorithm and key size sounds like a detail until a certificate is both expired and quantum-vulnerable and you only hear about one of them. That exact bug turned up scanning a real endpoint, and it is fixed: an asset in two risk classes produces two findings, because they need two different fixes on two different clocks.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The opposite failure is inflation. Cryptography in test code is scanned and counted, then kept out of the production inventory: out of the asset graph, the compliance verdict, the policy gate, the saved baseline and every export. One line on stderr says how much was set aside and how much of it exists nowhere else, and a flag counts it as production if that is what you want.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">This is not cosmetic. Scanning Qryx's own repository, 8 of 13 assets existed only in test fixtures, and 21 of 40 occurrences were test code. In a sibling repository a hardcoded-key finding reported three occurrences, two of them fixtures. Counting those inflates the number an operator is trying to drive to zero, and buries the findings they actually have to migrate.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The classification is not merely path-based either: Rust's in-file test modules are recognised, so an inline test block inside a production file is set aside while the production code around it still counts.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d1"><h3>CI drift gate</h3><p>Snapshot the graph, then fail the build the moment a new weak or quantum-vulnerable asset appears: a baseline diff exits 2 on new high-risk findings. The policy engine exits 3 on a standards violation; a regressed compliance trend exits 3 too.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Agent-aware</h3><p>The agents connector inventories the governance stack's own trust surface: Agent Passport attestation crypto and the agent-event hash chain's prev_hash integrity. Identity stays Idryx's job; this connector stays strictly on the crypto axis.</p></div>
     </div>
@@ -246,6 +277,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/qryx.js"></script>
 <script src="../assets/diagram.js"></script>

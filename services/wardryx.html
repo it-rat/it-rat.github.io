@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#2DD4BF}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -177,10 +177,29 @@
     </div>
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>Three verdicts, zero improvisation</h3><p>Every answer is allow, deny or hold. No LLM sits in the decision path, so the same policy set and the same request return the same verdict, every time. A decision you can replay in a test is a decision you can defend in an audit.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hold means a human</h3><p>require_human_above_usd turns a big spend into a hold, not a guess. A human grants it out of band, and Wardryx mints a signed approval token bound to the cost the human actually saw. The agent resubmits with the token; nothing parks a connection waiting for a signature.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hold means a human</h3><p>A big spend becomes a hold, not a guess. A human grants it out of band and the agent resubmits with a signed token; nothing parks a connection waiting for a signature.</p>
+        <details class="sheet" data-sheet-kicker="human in the loop" data-sheet-title="A hold that holds nothing open">
+          <summary>How a hold is resolved</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">The agent asks, Wardryx answers <span class="mono" style="font-size:12.5px">hold</span> with an approval id, and the call ends there. A human decides out of band, Wardryx mints an approval token, and the agent asks again with the token in hand; that second answer is <span class="mono" style="font-size:12.5px">allow</span>. No connection is parked waiting for a signature, and Wardryx does not have to remember an open request: the grant is proven by the token, not by anyone's memory of it.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification recomputes the HMAC over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The signing secret is fail-closed. With it unset, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Tokens are reusable within their window by default; switch single-use on and the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d2"><h3>A hard ceiling that outranks approvals</h3><p>deny_above_usd is the rule no token can talk past. It is checked before the hold logic ever runs, so even a granted approval cannot authorize a spend over the ceiling. Some numbers should end the conversation, and this one does.</p></div>
       <div class="card hover feature b-4 rv"><h3>Attestation as a first-class gate</h3><p>deny_if_unattested demands a live attestation before an agent touches the sensitive rules. Methods are trimmed and lowercased on the way in, so a literal &#8220;None&#8221; string reads as no attestation instead of sneaking past as a value.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Fail-open or fail-closed, your call</h3><p>When the PDP is unreachable, the enforcement point picks the failure mode per deployment. Fail-open keeps traffic moving and silently drops policy for the outage; fail-closed blocks every governed action until Wardryx is back. The default is documented, and so is the tradeoff.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Fail-open or fail-closed, your call</h3><p>When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The default is documented, and so is the tradeoff.</p>
+        <details class="sheet" data-sheet-kicker="modes and failure" data-sheet-title="Three modes at the call site, and one honest choice about outages">
+          <summary>The modes, and what an outage costs</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px"><b style="color:var(--fg)">off</b> never calls the decision point at all: local development, or an environment with no policy loaded. <b style="color:var(--fg)">shadow</b> asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. <b style="color:var(--fg)">enforce</b> makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Then the question everyone postpones: what happens when the decision point cannot be reached. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action until it recovers. There is no clever third answer; there is only choosing on purpose and writing the choice down.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Wardryx applies the same rule to itself. Started with no policy configured, it starts anyway and allows, and it says so in the log rather than pretending to enforce something it was never given.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d2"><h3>Policy admin API + Terraform</h3><p>PUT, GET and DELETE /v1/policies/{id} manage a runtime policy layer with validate-then-apply semantics; the file-loaded set stays a permanent floor no API write can erase. The taipan_wardryx_policy resource drives the same API from Terraform.</p></div>
     </div>
   </div>
@@ -239,6 +258,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/wardryx.js"></script>
 <script src="../assets/diagram.js"></script>

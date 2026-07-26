@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#FF8A5B}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -177,8 +177,27 @@
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>Scenarios are YAML, not code</h3><p>One drill is one file: the request to send, the status the guardrail must answer, the headers it must stamp. It reads like the real call it imitates. A malformed file fails the whole load, because a safety check that vanishes silently is worse than one that fails loudly.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>In-path checks, on the real path</h3><p>Assertions read the gateway's own answers: the breaker's 402, DLP's 403, the deny or hold riding the x-fuse-wardryx header. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Async reaction checks</h3><p>expect.event demands the off-path services actually react: name a source and a type, and the watcher polls the agent-event NDJSON logs Verdryx, Idryx and Qryx already write, correlated by run_id. A gateway that blocks while nobody downstream notices is half a defense.</p></div>
-      <div class="card hover feature b-4 rv"><h3>A skip cannot hide a gap</h3><p>A guardrail that is off looks exactly like one that is broken. The runner takes the x-fuse header family as evidence a feature is wired in, reports skipped_not_configured when it is not, and --fail-on-skip turns even a skip into a failure when you know the guardrail must be there.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Async reaction checks</h3><p>A drill can demand that the off-path services actually react, not only that the gateway answered. A gateway that blocks while nobody downstream notices is half a defence.</p>
+        <details class="sheet" data-sheet-kicker="off the request path" data-sheet-title="Proving the services that answer later answered at all">
+          <summary>How a reaction is proven</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">The gateway's own status and headers can only speak for the guardrails standing in the request path. Verdryx, Idryx and Qryx never touch that response: they react off path, on their own schedule, and record what they did as an agent-event envelope in the same NDJSON format everything else in the stack writes.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">So a scenario can assert on that too. Name the source and the event type it expects, optionally how long to wait, and after the synchronous check passes the runner polls those event logs for a matching event correlated by the exact run id it put on the wire. Not "an event appeared", but "the event this request should have caused appeared".</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Order matters here. A synchronous mismatch is never followed by an event check: chasing a downstream reaction to a request that did not even trigger the guardrail would turn one clear failure into two confusing ones. The drill reports the thing that actually broke.</p>
+          </div>
+        </details>
+      </div>
+      <div class="card hover feature b-4 rv"><h3>A skip cannot hide a gap</h3><p>A guardrail that is off looks exactly like one that is broken. The runner insists on evidence before it calls a miss either one.</p>
+        <details class="sheet" data-sheet-kicker="findings vs not configured" data-sheet-title="The difference between a gap and a feature you never turned on">
+          <summary>How the two are told apart</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">A finding means the guardrail was supposed to hold and did not: something to fix today. A scenario that declares an optional guardrail is telling the runner something narrower, that a miss counts as a real gap only if there is other evidence the feature is actually wired in.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The evidence is the gateway's own response headers. If the header for that feature appears even once anywhere in the run, whatever its value, the feature is clearly live and a mismatch is a genuine finding. If it never appears across every attempt, the gateway plainly does not have it configured, and the scenario reports itself as not configured, with its raw mismatches dropped: they describe an absent feature, not a broken defence.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Two things can never be excused this way. A scenario with no optional guardrail declared, the budget breaker, is core and always on, so a miss there is always a finding. And a transport error, where the gateway could not be reached at all, is always a finding too: being unreachable is never evidence that a feature is merely switched off.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">When you know a guardrail must be there, one flag turns even a skip into a failure. That is the honest way round: the tool refuses to claim a pass it cannot prove, and it refuses to cry gap it cannot prove either.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d1"><h3>CI-native exit codes</h3><p>Exit 0: every drill held. Exit 1: a real defensive gap, fail the build. Exit 2: the harness itself is broken (bad flag, unreadable scenarios), so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Zero real spend by design</h3><p>The provider behind the gateway is fake, so the runaway scenario can burn all it wants: the meter it trips is real, the invoice is not. And every hostile input stays inside your perimeter; Mockryx only ever talks to the one gateway URL you hand it.</p></div>
     </div>
@@ -238,6 +257,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/mockryx.js"></script>
 <script src="../assets/diagram.js"></script>

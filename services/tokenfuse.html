@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#F4B23E}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -164,11 +164,29 @@
       <h2>Not a dashboard. A set of hands on the wheel.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Per-run budgets</h3><p>Company, team, agent, run: budgets nest, and the run is the unit that pays. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am.</p></div>
+      <div class="card hover feature b-4 rv"><h3>Per-run budgets</h3><p>Company, team, agent, run: budgets nest, and the run is the unit that pays. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am.</p>
+        <details class="sheet" data-sheet-kicker="per-run budgets" data-sheet-title="How a cap is actually enforced, and what it costs you">
+          <summary>How enforcement works</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls up and is tested against every ancestor it belongs to, so a run cannot slip under its own cap while quietly breaking the team's. The run is the unit that pays, because a per-key limit cannot tell one agent's afternoon of honest work from the same key looping on itself.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Accounting is reserve then settle. Each call is priced before it happens, the reserve is taken, and the real cost settles afterwards; a call that would cross the cap is refused before the provider ever sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is exactly the failure mode this exists to remove.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Adoption is a one-line base-URL swap, and the gateway runs in shadow mode first: it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open by design, so it never becomes the single point of failure between your agents and their provider, and the enforcement decision itself is in-process Rust, about 0.4 microseconds at p99. The thing standing between an agent and a four-digit night should not be the slow part.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens, with the 2026 model price book built in. The estimate is fast and honest about being an estimate.</p></div>
       <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Raft-replicated ledger</h3><p>Three machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Raft-replicated ledger</h3><p>Three machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p>
+        <details class="sheet" data-sheet-kicker="the shared ledger" data-sheet-title="What a budget survives: a crash, a restart, a partition">
+          <summary>What it survives</summary>
+          <div class="sheet-in">
+            <p class="dim" style="font-size:14px;line-height:1.7">A budget only means something if two gateways racing each other cannot both spend it. In cluster mode the ledger is a raft state machine, and the affordability check is linearized across the whole fleet: five gateways on five machines admit exactly what one budget allows, not five copies of it.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">With durable storage on redb, a budget outlives more than a node crash: it survives a full process restart, because a cap that resets when a process dies is a cap an unlucky deploy can hand back to a runaway.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">That was tested rather than assumed. A four-node cluster across two datacenters took a leader kill and a real network partition: the majority side kept serving, the isolated node could not overspend, and nothing split-brained. Enforcement then held under a burst of 34 concurrent agents, and the cost accounting was run on the same protocol against Hetzner, AWS and GCP so the numbers could be compared honestly.</p>
+          </div>
+        </details>
+      </div>
       <div class="card hover feature b-4 rv d2"><h3>FOCUS export</h3><p>Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.</p></div>
     </div>
   </div>
@@ -228,6 +246,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/tokenfuse.js"></script>
 <script src="../assets/diagram.js"></script>
