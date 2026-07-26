@@ -44,7 +44,7 @@ jobs:
         ## external is none of this workflow's business.
         run: |
           missing=0
-          for page in index.html enterprise.html 404.html services/*.html; do
+          for page in *.html services/*.html; do
             dir=$(dirname "$page")
             grep -oE '(src|href)="[^"]+\.(webp|png|svg|css|js|jpg|ico|html)"' "$page" \
               | sed 's/.*="//;s/"//' | while read -r ref; do
