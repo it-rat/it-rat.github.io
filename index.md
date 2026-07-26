@@ -6,8 +6,6 @@
 
 A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source stack that closes that gap: seven services that meter, police, remember, identify, audit and rehearse your agents at runtime, proven on real infrastructure before anyone saw a slide about it.
 
-New to this? [Five guides](https://it-rat.com/guides.html) explain the field rather than the products: [agent governance](https://it-rat.com/ai-agent-governance.html), [FinOps for AI](https://it-rat.com/finops-for-ai.html), [agent security](https://it-rat.com/ai-agent-security.html), [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html), and [MCP security](https://it-rat.com/mcp-security.html).
-
 ## One corridor, every door on it.
 
 Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx, first on the rail, is the control room over all of them, deployed with us on your own infrastructure. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
@@ -47,6 +45,8 @@ Fire drills that prove guardrails hold.
 ### Platform
 
 Agent Passport, shared contract, Terraform.
+
+New to this? [Five guides](https://it-rat.com/guides.html) explain the field rather than the products: [agent governance](https://it-rat.com/ai-agent-governance.html), [FinOps for AI](https://it-rat.com/finops-for-ai.html), [agent security](https://it-rat.com/ai-agent-security.html), [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html), and [MCP security](https://it-rat.com/mcp-security.html).
 
 ## One passport, one event bus, four planes of control.
 
