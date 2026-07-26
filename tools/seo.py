@@ -21,6 +21,7 @@ GUIDES = {
     "ai-agent-governance.html": "AI agent governance",
     "finops-for-ai.html": "FinOps for AI",
     "ai-agent-security.html": "AI agent security",
+    "mcp-security.html": "MCP security",
     "ai-observability-vs-governance.html": "AI observability vs governance",
 }
 

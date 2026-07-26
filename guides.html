@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides: AI agent governance, FinOps, security and observability · IT-RAT</title>
-<meta name="description" content="Four guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.">
+<meta name="description" content="Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.">
 <link rel="canonical" href="https://it-rat.com/guides.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/guides.html">
 <meta property="og:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
-<meta property="og:description" content="Four guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta property="og:description" content="Five guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
 <meta property="og:image" content="https://it-rat.com/assets/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
-<meta name="twitter:description" content="Four guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta name="twitter:description" content="Five guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -44,7 +44,7 @@
   .gcard:hover .go::after{transform:translateX(4px)}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps, security and observability","description":"Four guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps, security and observability","description":"Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -63,7 +63,7 @@
   <div class="wrap">
     <div class="kicker rv">guides</div>
     <h1 class="rv d1">Running AI agents in production, written down.</h1>
-    <p class="lede rv d2">Four guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, and where observability stops being enough. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
+    <p class="lede rv d2">Five guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
   </div>
 </section>
 
@@ -96,6 +96,13 @@
         <h2>AI observability and governance are not rivals</h2>
         <p>One explains what happened, the other decides what may happen. The same incident seen by each, why governance without observability is opaque, and the single integration decision that makes them compose: one run id.</p>
         <div class="in"><span>tracing vs enforcement</span><span>what to ask a vendor</span><span>OTLP</span><span>joining on the run id</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#34D399" href="mcp-security.html">
+        <div class="n">the newest surface</div>
+        <h2>MCP security: your tools are now a fetch, not a build</h2>
+        <p>A tool used to be code you shipped. Over the Model Context Protocol it is a description you fetched, from a server that can change it after you approved it. Six failure modes, and the control that answers each.</p>
+        <div class="in"><span>poisoned tool descriptions</span><span>rug pulls</span><span>shadow MCP servers</span><span>credential brokering</span><span>stdio vs HTTP</span></div>
         <span class="go">Read the guide</span>
       </a>
     </div>

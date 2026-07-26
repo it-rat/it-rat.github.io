@@ -29,6 +29,7 @@ PAGES = {
     "ai-agent-governance.html": ("", "Apache-2.0"),
     "finops-for-ai.html": ("", "Apache-2.0"),
     "ai-agent-security.html": ("", "Apache-2.0"),
+    "mcp-security.html": ("", "Apache-2.0"),
     "guides.html": ("", "Apache-2.0"),
     "ai-observability-vs-governance.html": ("", "Apache-2.0"),
     "console.html": ("", "Genaryx"),
