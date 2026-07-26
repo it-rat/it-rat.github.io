@@ -1,0 +1,9 @@
+# Only used if the remote endpoint is ever wanted; the stdio server needs none
+# of this. Deploy with:  npx wrangler deploy   (from this directory)
+name = "it-rat-docs-mcp"
+main = "worker.mjs"
+compatibility_date = "2026-07-01"
+
+# Free plan is enough for this: the worker only proxies static markdown from
+# it-rat.com and caches it at the edge for ten minutes.
+workers_dev = true

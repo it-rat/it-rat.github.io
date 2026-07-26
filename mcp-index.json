@@ -1,0 +1,120 @@
+{
+  "site": "https://it-rat.com",
+  "name": "IT-RAT",
+  "description": "The open-source agent-governance stack, and the guides that explain it.",
+  "license": "Apache-2.0 for the seven services",
+  "pages": [
+    {
+      "url": "https://it-rat.com/index.html",
+      "markdown": "https://it-rat.com/index.md",
+      "title": "IT-RAT, the agent-governance stack",
+      "kind": "page",
+      "description": "Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP."
+    },
+    {
+      "url": "https://it-rat.com/enterprise.html",
+      "markdown": "https://it-rat.com/enterprise.md",
+      "title": "Genaryx, the console over the stack",
+      "kind": "page",
+      "description": "Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs."
+    },
+    {
+      "url": "https://it-rat.com/guides.html",
+      "markdown": "https://it-rat.com/guides.md",
+      "title": "Guides index",
+      "kind": "guide",
+      "description": "Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends."
+    },
+    {
+      "url": "https://it-rat.com/ai-agent-governance.html",
+      "markdown": "https://it-rat.com/ai-agent-governance.md",
+      "title": "AI agent governance",
+      "kind": "guide",
+      "description": "What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each."
+    },
+    {
+      "url": "https://it-rat.com/finops-for-ai.html",
+      "markdown": "https://it-rat.com/finops-for-ai.md",
+      "title": "FinOps for AI",
+      "kind": "guide",
+      "description": "FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case."
+    },
+    {
+      "url": "https://it-rat.com/ai-agent-security.html",
+      "markdown": "https://it-rat.com/ai-agent-security.md",
+      "title": "AI agent security",
+      "kind": "guide",
+      "description": "The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it."
+    },
+    {
+      "url": "https://it-rat.com/mcp-security.html",
+      "markdown": "https://it-rat.com/mcp-security.md",
+      "title": "MCP security",
+      "kind": "guide",
+      "description": "What changes when an agent's tools arrive over the Model Context Protocol: descriptions the model reads as instructions, servers nobody sanctioned, tools that change after approval, and the controls for each."
+    },
+    {
+      "url": "https://it-rat.com/ai-observability-vs-governance.html",
+      "markdown": "https://it-rat.com/ai-observability-vs-governance.md",
+      "title": "AI observability vs governance",
+      "kind": "guide",
+      "description": "LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both."
+    },
+    {
+      "url": "https://it-rat.com/services/tokenfuse.html",
+      "markdown": "https://it-rat.com/services/tokenfuse.md",
+      "title": "TokenFuse, the money plane",
+      "kind": "service",
+      "description": "A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP."
+    },
+    {
+      "url": "https://it-rat.com/services/wardryx.html",
+      "markdown": "https://it-rat.com/services/wardryx.md",
+      "title": "Wardryx, the policy plane",
+      "kind": "service",
+      "description": "The policy plane your agents ask before acting: allow, deny or hold for a human, with signed approval tokens and a hard ceiling that outranks approvals."
+    },
+    {
+      "url": "https://it-rat.com/services/idryx.html",
+      "markdown": "https://it-rat.com/services/idryx.md",
+      "title": "Idryx, the access plane",
+      "kind": "service",
+      "description": "One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 22 deterministic detectors and a CycloneDX Agent-BOM."
+    },
+    {
+      "url": "https://it-rat.com/services/engram.html",
+      "markdown": "https://it-rat.com/services/engram.md",
+      "title": "Engram, the knowledge plane",
+      "kind": "service",
+      "description": "Embeddable agent memory in one SQLite file: bitemporal facts, hybrid BM25 and vector recall, why() provenance and GDPR forget. No server, no API key to start."
+    },
+    {
+      "url": "https://it-rat.com/services/qryx.html",
+      "markdown": "https://it-rat.com/services/qryx.md",
+      "title": "Qryx, the crypto plane",
+      "kind": "service",
+      "description": "Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence."
+    },
+    {
+      "url": "https://it-rat.com/services/verdryx.html",
+      "markdown": "https://it-rat.com/services/verdryx.md",
+      "title": "Verdryx, the quality plane",
+      "kind": "service",
+      "description": "Cost per correctly resolved case, not cost per token: five graders, statistical drift detection and a metered LLM judge, scored on your own outcome tags."
+    },
+    {
+      "url": "https://it-rat.com/services/mockryx.html",
+      "markdown": "https://it-rat.com/services/mockryx.md",
+      "title": "Mockryx, the pre-production plane",
+      "kind": "service",
+      "description": "Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native."
+    },
+    {
+      "url": "https://it-rat.com/services/platform.html",
+      "markdown": "https://it-rat.com/services/platform.md",
+      "title": "Platform, the shared contract",
+      "kind": "service",
+      "description": "One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0."
+    }
+  ]
+}

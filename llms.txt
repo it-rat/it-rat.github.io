@@ -1,0 +1,41 @@
+# IT-RAT
+
+> The open-source agent-governance stack: runtime spend control, policy decisions,
+> identity, memory with provenance, cryptography posture, quality scoring and
+> pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted
+> on infrastructure the operator owns, plus Genaryx, a paid console over them.
+> IT-RAT is also a cloud security, IAM and FinOps practice.
+
+Every page below is available as markdown at the same path with a .md extension.
+
+## Guides
+
+- [Guides index](https://it-rat.com/guides.md): Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.
+- [AI agent governance](https://it-rat.com/ai-agent-governance.md): What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.
+- [FinOps for AI](https://it-rat.com/finops-for-ai.md): FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.
+- [AI agent security](https://it-rat.com/ai-agent-security.md): The failure modes an autonomous agent introduces, the runtime guardrails that answer each one, and how to rehearse them in CI. Defensive practice, with the open-source tools for it.
+- [MCP security](https://it-rat.com/mcp-security.md): What changes when an agent's tools arrive over the Model Context Protocol: descriptions the model reads as instructions, servers nobody sanctioned, tools that change after approval, and the controls for each.
+- [AI observability vs governance](https://it-rat.com/ai-observability-vs-governance.md): LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both.
+
+## Services
+
+- [TokenFuse, the money plane](https://it-rat.com/services/tokenfuse.md): A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP.
+- [Wardryx, the policy plane](https://it-rat.com/services/wardryx.md): The policy plane your agents ask before acting: allow, deny or hold for a human, with signed approval tokens and a hard ceiling that outranks approvals.
+- [Idryx, the access plane](https://it-rat.com/services/idryx.md): One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 22 deterministic detectors and a CycloneDX Agent-BOM.
+- [Engram, the knowledge plane](https://it-rat.com/services/engram.md): Embeddable agent memory in one SQLite file: bitemporal facts, hybrid BM25 and vector recall, why() provenance and GDPR forget. No server, no API key to start.
+- [Qryx, the crypto plane](https://it-rat.com/services/qryx.md): Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence.
+- [Verdryx, the quality plane](https://it-rat.com/services/verdryx.md): Cost per correctly resolved case, not cost per token: five graders, statistical drift detection and a metered LLM judge, scored on your own outcome tags.
+- [Mockryx, the pre-production plane](https://it-rat.com/services/mockryx.md): Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native.
+- [Platform, the shared contract](https://it-rat.com/services/platform.md): One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0.
+
+## Other
+
+- [IT-RAT, the agent-governance stack](https://it-rat.com/index.md): Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP.
+- [Genaryx, the console over the stack](https://it-rat.com/enterprise.md): Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.
+
+## Optional
+
+- [Everything, concatenated](https://it-rat.com/llms-full.txt): all guides in one file.
+- [Machine index](https://it-rat.com/mcp-index.json): the same map as JSON, used by the docs MCP server.
+- [Docs MCP server](https://it-rat.com/mcp-security.html): these docs are also served over MCP; the server is in the site repo under mcp/, stdio, no dependencies.
+- [Source](https://github.com/TAIPANBOX): the services themselves.
