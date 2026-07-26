@@ -29,6 +29,8 @@ PAGES = {
     "ai-agent-governance.html": ("", "Apache-2.0"),
     "finops-for-ai.html": ("", "Apache-2.0"),
     "ai-agent-security.html": ("", "Apache-2.0"),
+    "guides.html": ("", "Apache-2.0"),
+    "ai-observability-vs-governance.html": ("", "Apache-2.0"),
     "console.html": ("", "Genaryx"),
     "404.html": ("/", "Apache-2.0"),
     "services/engram.html": ("../", "Apache-2.0"),
@@ -81,9 +83,7 @@ def cols(root, here):
         </div>
       </div>
       <div>
-        <a href="{root}ai-agent-governance.html">Agent governance guide</a>
-        <a href="{root}finops-for-ai.html">FinOps for AI guide</a>
-        <a href="{root}ai-agent-security.html">Agent security guide</a>
+        <a href="{root}guides.html">Guides</a>
         <a href="{root}index.html#consulting">Consulting</a>
         <a href="{root}index.html#people">The people</a>
         <a href="{root}index.html#contact">Leave a note</a>

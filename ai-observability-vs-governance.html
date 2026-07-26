@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI observability vs governance: what each one is for · IT-RAT</title>
+<meta name="description" content="LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both.">
+<link rel="canonical" href="https://it-rat.com/ai-observability-vs-governance.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/ai-observability-vs-governance.html">
+<meta property="og:title" content="AI observability vs governance: what each one is for · IT-RAT">
+<meta property="og:description" content="Tracing an agent and governing it are different jobs with different failure modes. What each answers, where each is useless, and how they meet on one run id.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI observability vs governance: what each one is for · IT-RAT">
+<meta name="twitter:description" content="Tracing an agent and governing it are different jobs with different failure modes. What each answers, where each is useless, and how they meet on one run id.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#6C7BFF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:21ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+  @media(max-width:820px){.two{grid-template-columns:1fr}}
+  .side{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:20px}
+  .side .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .side h3{margin-top:9px;font-size:18px}
+  .side p{margin-top:10px;color:var(--dim);font-size:14px;line-height:1.65}
+  .side .k{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim);line-height:1.6}
+  .side .k b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"AI observability vs governance: what each one is for","name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html","description":"LLM observability explains what an agent did; governance decides what it may do next. The difference, where each fails, how they connect through one run id, and why you need both.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/ai-observability-vs-governance.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"AI observability vs governance","item":"https://it-rat.com/ai-observability-vs-governance.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between LLM observability and AI governance?","acceptedAnswer":{"@type":"Answer","text":"Observability reconstructs what an agent did: traces, token counts, latencies, evaluations. Governance decides what it may do next, in the request path, with a binding answer. One is a record you can question, the other is an action that did or did not happen."}},{"@type":"Question","name":"Do I need both, or will tracing be enough?","acceptedAnswer":{"@type":"Answer","text":"Tracing alone leaves every insight arriving after the action and often after the invoice. Governance alone leaves you safe and opaque: you know an action was refused and cannot say what made the agent try. Most teams already have the first half, and the shortest path to the second is a gateway in shadow mode."}},{"@type":"Question","name":"How do the two connect technically?","acceptedAnswer":{"@type":"Answer","text":"On one run identifier. If the trace, the spend line, the policy verdict and the outcome tag all carry the same id, a refusal links to the exact chain of calls that led to it. If they do not, you own two dashboards and an argument."}},{"@type":"Question","name":"Does adding governance mean replacing our tracing stack?","acceptedAnswer":{"@type":"Answer","text":"No. The governance planes here export over OTLP into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself."}},{"@type":"Question","name":"How can I tell whether a tool actually enforces anything?","acceptedAnswer":{"@type":"Answer","text":"Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?"}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">observability vs governance</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; observability and governance</div>
+    <h1 class="rv d1">AI observability and governance are not rivals. They are different jobs.</h1>
+    <p class="lede rv d2">Teams comparing agent tooling usually end up comparing a tracing product with an enforcement product and asking which to buy. It is the wrong question, in the same way that comparing your logging stack with your firewall is the wrong question. One explains what happened. The other decides what may happen. You will eventually want both, and the order you adopt them in matters less than knowing which problem each one leaves untouched.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">side by side</div>
+      <h2>What each one is actually for.</h2>
+    </div>
+    <div class="two rv">
+      <div class="side">
+        <div class="n">observability</div>
+        <h3>A record you can question</h3>
+        <p>Traces, spans, token counts, latencies, prompt and response capture, evaluation reports. It reconstructs what an agent did, in what order, with what inputs, and how much of the context window it burned doing it. When an agent behaves strangely, this is the only thing that will tell you why.</p>
+        <div class="k"><b>Strongest at:</b> debugging a bad answer, understanding a slow chain, finding the tool call that returned nonsense, showing a change in behaviour after a model upgrade.</div>
+        <div class="k"><b>Useless for:</b> stopping any of it. Every insight arrives after the action, and often after the invoice.</div>
+      </div>
+      <div class="side" style="border-color:color-mix(in srgb,#F4B23E 35%,var(--line))">
+        <div class="n">governance</div>
+        <h3>A decision that binds</h3>
+        <p>Budgets, policy verdicts, identity, approval ceremonies, hard ceilings. It sits in the request path and answers before the call happens: allowed, refused, or held for a human. Its output is not a chart, it is an action that did or did not occur, and a record that it was decided on purpose.</p>
+        <div class="k"><b>Strongest at:</b> refusing the loop on call five, denying a tool the agent should never have, requiring a person for the expensive action, producing evidence somebody else can verify.</div>
+        <div class="k"><b>Useless for:</b> explaining why the model wanted to do it. A refusal is not an analysis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the comparison people are looking for</div>
+      <h2>Same incident, two tools.</h2>
+      <p class="lede">Take one concrete case: an agent enters a retry loop against a production API at two in the morning and spends four figures before anyone wakes up.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th>Observability alone</th><th>Governance alone</th><th>Both</th></tr></thead>
+        <tbody>
+          <tr><td>At 02:00</td><td class="warn">Records every call faithfully</td><td class="yes">Refuses the call that crosses the cap</td><td class="yes">Refuses it, and records why</td></tr>
+          <tr><td>At 09:00</td><td class="yes">You can reconstruct exactly what happened</td><td class="warn">You know it was stopped, not why it started</td><td class="yes">Root cause and a bounded loss</td></tr>
+          <tr><td>The bill</td><td class="no">Already spent</td><td class="yes">Capped at the budget</td><td class="yes">Capped, and attributable per run</td></tr>
+          <tr><td>The fix</td><td class="warn">A ticket for next sprint</td><td class="warn">A cap, without knowing the trigger</td><td class="yes">A cap now, the trigger fixed properly</td></tr>
+          <tr><td>The auditor</td><td class="warn">Logs, if retention was right</td><td class="yes">A signed decision record</td><td class="yes">Both, joined on one id</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv" style="margin-top:20px">
+      <p>The middle column is deliberately uncomfortable. Governance without observability is a fleet that is safe and opaque: you know an action was refused, and you cannot say what made the agent try. That is a worse place to debug from than most teams expect, which is why the answer is not to replace one with the other.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where they meet</div>
+      <h2>One run id, or two systems arguing.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The join is the only integration decision that really matters. If the trace, the spend line, the policy verdict and the outcome tag all carry the same run identifier, then the two halves compose: a refusal in the governance record links to the exact chain of calls that led to it, and a spike in the trace links to the budget that stopped it. If they do not, you have two dashboards and an argument.</p>
+      <p>In this stack the run id is the unit everything keys on, and the governance planes deliberately emit rather than hoard: policy decisions and quality runs export over OTLP into whatever tracing backend you already run, the gateway writes its own traces as Parquet, and every plane emits the same agent-event envelope. <b>Governance data belongs in your observability stack; the enforcement decision does not belong in a dashboard.</b></p>
+      <h3>What to ask when you evaluate either one</h3>
+      <ul>
+        <li><b>Does it act in the path, or after it?</b> If the answer arrives after the call, it is observability, whatever the marketing says.</li>
+        <li><b>Is the answer binding?</b> A warning an agent can proceed past is telemetry with a stern voice.</li>
+        <li><b>What happens when it is unreachable?</b> Fail-open or fail-closed, chosen and documented, is the honest answer; silence is not.</li>
+        <li><b>Can somebody else verify the record?</b> A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. An export from a dashboard cannot.</li>
+        <li><b>Does it join on the same id as everything else?</b> If it invents its own identifier, you are buying the integration project as well.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the order that works</div>
+      <h2>Most teams already have half of this.</h2>
+      <p class="lede">If you have tracing and no enforcement, which is the common case, the shortest path to the other half is not a migration. Route model calls through one gateway, watch in shadow mode for a week, then turn on caps where the outliers are. Your traces keep working; they gain a spend line and a verdict per run.</p>
+    </div>
+    <div class="prose rv">
+      <p>The governance side is laid out in <a href="ai-agent-governance.html" style="color:var(--accent)">the agent governance guide</a>, the money in <a href="finops-for-ai.html" style="color:var(--accent)">FinOps for AI</a>, and the defensive half in <a href="ai-agent-security.html" style="color:var(--accent)">AI agent security</a>. All of the tools are Apache-2.0, run on infrastructure you own, and export into the observability stack you already have.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Where one ends and the other begins</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What is the difference between LLM observability and AI governance?</summary>
+        <div class="a"><p>Observability reconstructs what an agent did: traces, token counts, latencies, evaluations. Governance decides what it may do next, in the request path, with a binding answer. One is a record you can question, the other is an action that did or did not happen.</p></div>
+      </details>
+      <details>
+        <summary>Do I need both, or will tracing be enough?</summary>
+        <div class="a"><p>Tracing alone leaves every insight arriving after the action and often after the invoice. Governance alone leaves you safe and opaque: you know an action was refused and cannot say what made the agent try. Most teams already have the first half, and the shortest path to the second is a gateway in shadow mode.</p></div>
+      </details>
+      <details>
+        <summary>How do the two connect technically?</summary>
+        <div class="a"><p>On one run identifier. If the trace, the spend line, the policy verdict and the outcome tag all carry the same id, a refusal links to the exact chain of calls that led to it. If they do not, you own two dashboards and an argument.</p></div>
+      </details>
+      <details>
+        <summary>Does adding governance mean replacing our tracing stack?</summary>
+        <div class="a"><p>No. The governance planes here export over OTLP into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself.</p></div>
+      </details>
+      <details>
+        <summary>How can I tell whether a tool actually enforces anything?</summary>
+        <div class="a"><p>Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

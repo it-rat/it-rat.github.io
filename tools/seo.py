@@ -21,6 +21,7 @@ GUIDES = {
     "ai-agent-governance.html": "AI agent governance",
     "finops-for-ai.html": "FinOps for AI",
     "ai-agent-security.html": "AI agent security",
+    "ai-observability-vs-governance.html": "AI observability vs governance",
 }
 
 SERVICE_PAGES = [
@@ -174,6 +175,30 @@ def guide_crumbs(bits, name):
     ]}
 
 
+def collection(bits, items):
+    """The guides hub: a page whose point is the list on it."""
+    return [{
+        "@type": "CollectionPage",
+        "url": bits["url"],
+        "name": bits["title"].split("\u00b7")[0].strip(),
+        "description": bits["desc"],
+        "inLanguage": "en",
+        "isPartOf": {"@id": f"{SITE}/#website"},
+        "publisher": {"@id": f"{SITE}/#org"},
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": name,
+                 "url": f"{SITE}/{href}"}
+                for i, (href, name) in enumerate(items)
+            ],
+        },
+    }, {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "IT-RAT", "item": f"{SITE}/"},
+        {"@type": "ListItem", "position": 2, "name": "Guides", "item": bits["url"]},
+    ]}]
+
+
 def write(path, graph):
     p = ROOT / path
     h = p.read_text(encoding="utf-8")
@@ -206,6 +231,10 @@ def main():
     ent_app = software(ent, free=False)
     ent_app.pop("codeRepository", None)   # Genaryx is the one closed room
     n += write("enterprise.html", [ent_app, breadcrumbs(ent)])
+
+    hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
+    hub = head_bits(hub_html, "guides.html")
+    n += write("guides.html", collection(hub, list(GUIDES.items())))
 
     for path, name in GUIDES.items():
         html = (ROOT / path).read_text(encoding="utf-8")

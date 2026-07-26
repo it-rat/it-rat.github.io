@@ -159,6 +159,19 @@ FAQ = {
  ("How do we prove our guardrails still work?",
   "<p>Rehearse them in CI against a real gateway with a fake provider behind it, so the meter that trips is real and the invoice is not. And refuse to count an unconfigured feature as a pass: a guardrail that is switched off looks exactly like one that is broken.</p>"),
 ]),
+
+"ai-observability-vs-governance.html": ("common questions", "Where one ends and the other begins", [
+ ("What is the difference between LLM observability and AI governance?",
+  "<p>Observability reconstructs what an agent did: traces, token counts, latencies, evaluations. Governance decides what it may do next, in the request path, with a binding answer. One is a record you can question, the other is an action that did or did not happen.</p>"),
+ ("Do I need both, or will tracing be enough?",
+  "<p>Tracing alone leaves every insight arriving after the action and often after the invoice. Governance alone leaves you safe and opaque: you know an action was refused and cannot say what made the agent try. Most teams already have the first half, and the shortest path to the second is a gateway in shadow mode.</p>"),
+ ("How do the two connect technically?",
+  "<p>On one run identifier. If the trace, the spend line, the policy verdict and the outcome tag all carry the same id, a refusal links to the exact chain of calls that led to it. If they do not, you own two dashboards and an argument.</p>"),
+ ("Does adding governance mean replacing our tracing stack?",
+  "<p>No. The governance planes here export over OTLP into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself.</p>"),
+ ("How can I tell whether a tool actually enforces anything?",
+  "<p>Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?</p>"),
+]),
 }
 
 

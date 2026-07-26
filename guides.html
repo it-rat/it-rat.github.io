@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides: AI agent governance, FinOps, security and observability · IT-RAT</title>
+<meta name="description" content="Four guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.">
+<link rel="canonical" href="https://it-rat.com/guides.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/guides.html">
+<meta property="og:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
+<meta property="og:description" content="Four guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
+<meta name="twitter:description" content="Four guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 26px}
+  .guide-hero h1{margin-top:14px;max-width:20ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .glist{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  .gcard{display:block;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);
+    padding:22px 24px;text-decoration:none;border-left:3px solid var(--c,var(--accent));
+    transition:transform .18s cubic-bezier(.2,.7,.2,1.2),border-color .18s,box-shadow .18s}
+  .gcard:hover{transform:translateY(-2px);border-color:var(--line-2);border-left-color:var(--c,var(--accent));
+    box-shadow:0 18px 44px -26px rgba(0,0,0,.8)}
+  .gcard .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--accent))}
+  .gcard h2{margin-top:10px;font-size:23px;letter-spacing:-.02em}
+  .gcard p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:82ch}
+  .gcard .in{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .gcard .in span{font-family:var(--font-m);font-size:11.5px;color:var(--faint);
+    border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+  .gcard .go{margin-top:16px;font-family:var(--font-m);font-size:12.5px;color:var(--c,var(--accent));display:inline-flex;gap:7px}
+  .gcard .go::after{content:"\2192";transition:transform .18s}
+  .gcard:hover .go::after{transform:translateX(4px)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps, security and observability","description":"Four guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">it-rat<span class="sep">/</span><span class="here">guides</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">guides</div>
+    <h1 class="rv d1">Running AI agents in production, written down.</h1>
+    <p class="lede rv d2">Four guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, and where observability stops being enough. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:6px">
+  <div class="wrap">
+    <div class="glist rv">
+      <a class="gcard" style="--c:#F4B23E" href="ai-agent-governance.html">
+        <div class="n">the umbrella</div>
+        <h2>AI agent governance, and what it means at runtime</h2>
+        <p>Governance is the set of controls that decide what an agent may do while it is doing it. The seven questions a fleet has to answer, the five decisions every governed team ends up making, and the order to adopt them in.</p>
+        <div class="in"><span>observability vs control</span><span>shadow mode</span><span>fail-open or fail-closed</span><span>the run as the unit</span><span>human in the loop</span><span>evidence</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#F4B23E" href="finops-for-ai.html">
+        <div class="n">the money</div>
+        <h2>FinOps for AI: managing spend that creates itself</h2>
+        <p>Cloud FinOps assumes somebody provisioned the thing. Agent spend appears when an agent decides to try again. What breaks, what to instrument first, and how to report it in a format finance already reads.</p>
+        <div class="in"><span>LLM cost control</span><span>per-run budgets</span><span>reserve then settle</span><span>cache and router</span><span>FOCUS export</span><span>cost per resolved case</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#2DD4BF" href="ai-agent-security.html">
+        <div class="n">the defensive half</div>
+        <h2>AI agent security: an old discipline with a new blast radius</h2>
+        <p>The damage does not arrive as a sentence, it arrives as a tool call. Eight failure modes a fleet actually hits, the control that answers each, and what to rehearse in CI so a broken guardrail fails a build rather than an incident review.</p>
+        <div class="in"><span>prompt injection at the tool boundary</span><span>excessive agency</span><span>shadow MCP</span><span>blast radius</span><span>guardrail drills</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#6C7BFF" href="ai-observability-vs-governance.html">
+        <div class="n">the comparison</div>
+        <h2>AI observability and governance are not rivals</h2>
+        <p>One explains what happened, the other decides what may happen. The same incident seen by each, why governance without observability is opaque, and the single integration decision that makes them compose: one run id.</p>
+        <div class="in"><span>tracing vs enforcement</span><span>what to ask a vendor</span><span>OTLP</span><span>joining on the run id</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">and then the tools</div>
+      <h2>Every control in the guides has an open implementation.</h2>
+      <p class="lede">Seven Apache-2.0 services cover the planes the guides describe, and they run on infrastructure you own. <a href="index.html#stack" style="color:var(--accent)">Walk the stack</a>, or <a href="services/platform.html#run" style="color:var(--accent)">start the live services locally in one command</a> and watch the money plane light up.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>
