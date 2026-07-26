@@ -50,7 +50,7 @@ Agent Passport, shared contract, Terraform.
 
 Every request carries an Agent Passport. Money and policy sit in the request path; memory, identity, crypto, quality and rehearsal watch the same NDJSON event stream off-path. Nothing here is a dashboard after the fact: the gateway enforces in-line, in seconds.
 
-New to this? [Five guides](https://it-rat.com/guides.html) explain the field rather than the products: [agent governance](https://it-rat.com/ai-agent-governance.html), [FinOps for AI](https://it-rat.com/finops-for-ai.html), [agent security](https://it-rat.com/ai-agent-security.html), [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html), and [MCP security](https://it-rat.com/mcp-security.html).
+New to this? [Six guides](https://it-rat.com/guides.html) explain the field rather than the products: [agent governance](https://it-rat.com/ai-agent-governance.html), [FinOps for AI](https://it-rat.com/finops-for-ai.html), [agent security](https://it-rat.com/ai-agent-security.html), [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html), [MCP security](https://it-rat.com/mcp-security.html), and [agent identity](https://it-rat.com/agent-identity.html).
 
 ## Validated on real infrastructure. Then torn down.
 

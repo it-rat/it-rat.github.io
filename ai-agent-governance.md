@@ -94,6 +94,18 @@ Nobody governs seven planes on the first day. This is the order we deploy in, an
 
 All of it is Apache-2.0 and runs on infrastructure you own. [One command starts the live services locally](https://it-rat.com/services/platform.html#run) if you want to see the shape before you commit to any of it, and the whole corridor is [on the stack page](https://it-rat.com/index.html#stack). The defensive half of the same job is in [AI agent security](https://it-rat.com/ai-agent-security.html).
 
+- **Does it act in the request path, or after it?** Everything else is a detail if the answer arrives once the call has already been made.
+
+- **Is the answer binding?** A warning an agent can proceed past is telemetry with a stern voice. Ask what physically stops the action.
+
+- **What happens when it is unreachable?** Fail-open and fail-closed are both defensible; not having decided is not. The answer should be documented, not discovered during an outage.
+
+- **Can it be run in shadow first?** If you cannot see what it would have blocked before it blocks anything, the first day of enforcement is also the first day of surprises.
+
+- **Does it join on the same identifier as your traces and your bill?** If it invents its own id, the correlation project comes free with the purchase, and it is not free.
+
+- **Can somebody who does not trust you verify the record?** An export from a dashboard is a claim. A journal whose entries each carry the hash of the one before it is evidence.
+
 ## What people ask about agent governance
 
 **Q: What is AI agent governance?**

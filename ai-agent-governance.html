@@ -46,6 +46,11 @@
     border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line-2));background:var(--panel)}
   .step div{color:var(--dim);font-size:14.5px;line-height:1.65}
   .step b{color:var(--fg)}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:24px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"AI agent governance: the runtime controls, explained","name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html","description":"What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/ai-agent-governance.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"AI agent governance","item":"https://it-rat.com/ai-agent-governance.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AI agent governance?","acceptedAnswer":{"@type":"Answer","text":"The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold."}},{"@type":"Question","name":"How is agent governance different from LLM observability?","acceptedAnswer":{"@type":"Answer","text":"Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters."}},{"@type":"Question","name":"Do I have to adopt all of it at once?","acceptedAnswer":{"@type":"Answer","text":"No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone."}},{"@type":"Question","name":"Does putting controls in the request path slow agents down?","acceptedAnswer":{"@type":"Answer","text":"The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check."}},{"@type":"Question","name":"Can this run on our own infrastructure?","acceptedAnswer":{"@type":"Answer","text":"It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data."}}]}]}</script>
@@ -189,6 +194,18 @@
     <div class="prose rv" style="margin-top:22px">
       <p>All of it is Apache-2.0 and runs on infrastructure you own. <a href="services/platform.html#run" style="color:var(--accent)">One command starts the live services locally</a> if you want to see the shape before you commit to any of it, and the whole corridor is <a href="index.html#stack" style="color:var(--accent)">on the stack page</a>. The defensive half of the same job is in <a href="ai-agent-security.html" style="color:var(--accent)">AI agent security</a>.</p>
     </div>
+    <div class="evals rv">
+      <div class="t">how to judge a governance tool</div>
+      <ol>
+        <li><b>Does it act in the request path, or after it?</b> Everything else is a detail if the answer arrives once the call has already been made.</li>
+        <li><b>Is the answer binding?</b> A warning an agent can proceed past is telemetry with a stern voice. Ask what physically stops the action.</li>
+        <li><b>What happens when it is unreachable?</b> Fail-open and fail-closed are both defensible; not having decided is not. The answer should be documented, not discovered during an outage.</li>
+        <li><b>Can it be run in shadow first?</b> If you cannot see what it would have blocked before it blocks anything, the first day of enforcement is also the first day of surprises.</li>
+        <li><b>Does it join on the same identifier as your traces and your bill?</b> If it invents its own id, the correlation project comes free with the purchase, and it is not free.</li>
+        <li><b>Can somebody who does not trust you verify the record?</b> An export from a dashboard is a claim. A journal whose entries each carry the hash of the one before it is evidence.</li>
+      </ol>
+    </div>
+
   </div>
 </section>
 

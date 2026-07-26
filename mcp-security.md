@@ -104,6 +104,18 @@ Everything here inspects, detects and refuses on your own estate. Nothing in thi
 
 MCP is one surface of a wider job: [AI agent security](https://it-rat.com/ai-agent-security.html) covers the rest of the failure modes, [AI agent governance](https://it-rat.com/ai-agent-governance.html) the controls around them, and [the guides index](https://it-rat.com/guides.html) the whole set. The scanner, the credential broker and the detectors are Apache-2.0 and run on infrastructure you own.
 
+- **Does it pin what you approved?** A fingerprint of the description and schema is what turns a silent change into a failed build.
+
+- **Does it look from the agent side?** A registry lists what you know about. Only the agent-side view finds the server nobody registered.
+
+- **Can it join agents to the tools they can call?** An unsanctioned server is a note. An unsanctioned server exposing a tool a live agent can call is an incident waiting.
+
+- **Does the credential ever enter the model's context?** If the answer is yes, rotation is the only mitigation available, and it is not one.
+
+- **Is the transport chosen or inherited?** Plenty of servers are remote by habit. Ask why this one is not local, and what protects it if it must be remote.
+
+- **Does a change fail a build, or file a ticket?** A supply-chain signal that arrives as a notification is a signal that arrives after the deploy.
+
 ## What people ask about MCP
 
 **Q: What are the main security risks of the Model Context Protocol?**

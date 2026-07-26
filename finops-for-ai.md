@@ -52,6 +52,18 @@ The number that changes a decision is not monthly spend. It is **cost per resolv
 
 The tools behind each step are open source and run on your own infrastructure: [TokenFuse](https://it-rat.com/services/tokenfuse.html) for the gateway, the budgets, the cache, the router and the FOCUS export, and [Verdryx](https://it-rat.com/services/verdryx.html) for cost per outcome. The wider set of runtime controls, of which cost is one, is laid out in [the agent governance guide](https://it-rat.com/ai-agent-governance.html), and the defensive side in [AI agent security](https://it-rat.com/ai-agent-security.html).
 
+- **What is its unit of work?** If the finest grain is a key or a model, it cannot attribute spend to the team that caused it, and chargeback stays a spreadsheet.
+
+- **Does it refuse, or only report?** A dashboard that shows a runaway at 09:00 and a control that refuses it at 02:00 are different products at similar prices.
+
+- **How does it price a call it does not recognise?** A fallback price keeps spend tracked. Passing unknown models through untracked is the exact hole this category exists to close.
+
+- **Are savings reported per mechanism?** Blocked, cached and routed are three different levers. One combined percentage cannot be audited or acted on.
+
+- **Does it export in a format finance already reads?** Agent spend that lives only in an engineering dashboard is invisible where budgets are actually allocated.
+
+- **What does it cost you when it fails?** A cost control that can take the fleet down has traded one incident for a worse one. Ask whether it fails open.
+
 ## What people ask about AI cost control
 
 **Q: What is FinOps for AI?**

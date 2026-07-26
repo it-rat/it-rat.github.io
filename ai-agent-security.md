@@ -72,7 +72,7 @@ From the outside, an agent being driven by someone else and an agent stuck retry
 
 A privileged agent with no attestation and no named owner is not a governance gap, it is an unrotatable credential with a personality. It is also the most common finding on a first scan.
 
-**Answer:** require attestation for privileged agents, flag missing owners, and keep the inventory as a bill of materials. [Idryx →](https://it-rat.com/services/idryx.html)
+**Answer:** require attestation for privileged agents, flag missing owners, and keep the inventory as a bill of materials. [Idryx →](https://it-rat.com/services/idryx.html) · [the identity guide →](https://it-rat.com/agent-identity.html)
 
 *the guardrail that quietly stopped working*
 
@@ -113,6 +113,18 @@ Everything here is defensive: it inspects, detects and refuses on your own estat
 ## The other two halves of the same job.
 
 Security, cost and control are one conversation held in three rooms. If you came here first, the other two are worth twenty minutes: [AI agent governance and the runtime controls](https://it-rat.com/ai-agent-governance.html), and [FinOps for AI, on spend that creates itself](https://it-rat.com/finops-for-ai.html). The newest surface has its own guide: [MCP security](https://it-rat.com/mcp-security.html). All of the tools are Apache-2.0 and run on infrastructure you own, and [one command starts the live services locally](https://it-rat.com/services/platform.html#run).
+
+- **Where does it enforce: the prompt or the tool call?** Filtering model output is useful and is not a boundary. The call is the boundary, because that is where the damage happens.
+
+- **Does it model delegation as a chain?** One-hop \u201cacts on behalf of\u201d cannot show an agent reaching admin two hops away, which is the finding that matters most.
+
+- **Is detection deterministic?** If a model sits in the detection path, a finding cannot be reproduced, and an auditor is entitled to ask you to reproduce it.
+
+- **Does it distinguish a gap from an unconfigured feature?** A tool that reports a missing guardrail as a pass, or an absent feature as a breach, is teaching you to ignore it.
+
+- **Can the guardrails be exercised on demand?** A defence nobody tests decays quietly. Ask how you would prove, today, that it still holds.
+
+- **What does it do with the credential?** If the agent has to hold the real secret to use the tool, the secret is in the context window, the trace and the logs.
 
 ## What people ask about securing agents
 

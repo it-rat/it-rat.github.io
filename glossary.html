@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary: the vocabulary of AI agent governance · IT-RAT</title>
+<meta name="description" content="Plain definitions for the terms this field uses: agent passport, attestation, delegation chain, blast radius, per-run budget, shadow mode, rug pull, CBOM, FOCUS, cost per resolved case.">
+<link rel="canonical" href="https://it-rat.com/glossary.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/glossary.html">
+<meta property="og:title" content="Glossary: the vocabulary of AI agent governance · IT-RAT">
+<meta property="og:description" content="Plain definitions for the terms this field uses, from agent passport and attestation to rug pull, CBOM and cost per resolved case.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Glossary: the vocabulary of AI agent governance · IT-RAT">
+<meta name="twitter:description" content="Plain definitions for the terms this field uses, from agent passport and attestation to rug pull, CBOM and cost per resolved case.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/glossary.md">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#93A8C4}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 26px}
+  .guide-hero h1{margin-top:14px;max-width:20ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .gl{margin-top:10px}
+  .gl h2{font-size:15px;font-family:var(--font-m);letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);font-weight:600;margin:34px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .gl dl{margin:0}
+  .gl dt{margin-top:20px;font-size:16.5px;font-weight:650;color:var(--fg);scroll-margin-top:80px}
+  .gl dt .alt{font-family:var(--font-m);font-size:12px;color:var(--faint);font-weight:400;margin-left:9px}
+  .gl dd{margin:8px 0 0;color:var(--dim);font-size:14.5px;line-height:1.7;max-width:78ch}
+  .gl dd a{color:var(--accent)}
+  .gl dd .mono{font-size:13px}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"DefinedTermSet","name":"Glossary of agent-governance terms","url":"https://it-rat.com/glossary.html","description":"Plain definitions for the terms this field uses: agent passport, attestation, delegation chain, blast radius, per-run budget, shadow mode, rug pull, CBOM, FOCUS, cost per resolved case.","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Agent passport","description":"A small document describing one agent: its identifier, the human or team that owns it, the runtime it runs on, and how its name is attested. It is metadata, not a credential: holding a passport authorises nothing, and that is deliberate. See agent identity .","url":"https://it-rat.com/glossary.html#agent-passport"},{"@type":"DefinedTerm","name":"agent:// URI","description":"The identifier form used for agents in this stack: a trust domain and a path, capped at 255 bytes, aligned with SPIFFE naming without requiring SPIFFE. The point of a fixed shape is that a spend record, a policy verdict and an audit entry can be joined on the same string.","url":"https://it-rat.com/glossary.html#agent-uri"},{"@type":"DefinedTerm","name":"Attestation","description":"The evidence binding a name to the workload using it: an OIDC token, a SPIFFE SVID, an mTLS certificate, an enclave key, or explicitly nothing. Recording none honestly is more useful than leaving the field blank, because it turns posture into a list you can work through.","url":"https://it-rat.com/glossary.html#attestation"},{"@type":"DefinedTerm","name":"Delegation chain on_behalf_of","description":"The ordered record of who an agent is acting for on this request: agent, then whatever spawned it, up to the human at the root. Kept acyclic and capped in length. Distinct from the static parent that provisioned the agent, which is an org chart rather than authority.","url":"https://it-rat.com/glossary.html#delegation-chain"},{"@type":"DefinedTerm","name":"Non-human identity NHI","description":"Any identity that is not a person: a service account, an access key, a workload, an agent. The category matters because most organisations count their humans carefully and their non-humans not at all, and the second group is usually larger.","url":"https://it-rat.com/glossary.html#nhi"},{"@type":"DefinedTerm","name":"Blast radius","description":"Everything an identity can reach transitively, computed as the union of the permissions along its delegation chain rather than the grants attached to its own name. This is what makes a modest-looking agent turn out to be two hops from admin.","url":"https://it-rat.com/glossary.html#blast-radius"},{"@type":"DefinedTerm","name":"Excessive agency","description":"An agent that arrives at admin-equivalent power through its delegation chain rather than through its own permissions. Catalogued as LLM06 in the OWASP list for large language model applications.","url":"https://it-rat.com/glossary.html#excessive-agency"},{"@type":"DefinedTerm","name":"Run","description":"One unit of agent work: a task, with a budget, an identity and a trace. The useful unit for governance, because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a model total cannot be charged back to anyone.","url":"https://it-rat.com/glossary.html#run"},{"@type":"DefinedTerm","name":"Per-run budget","description":"A spending cap attached to a run and checked against every ancestor it belongs to: agent, team, company. All-or-nothing, so a run cannot fit under its own cap while breaking its team's.","url":"https://it-rat.com/glossary.html#per-run-budget"},{"@type":"DefinedTerm","name":"Reserve then settle","description":"Pricing a call before it happens, taking the reserve against the budget, and reconciling the real cost afterwards. It is what allows a call to be refused before the provider sees it, rather than discovered after the invoice.","url":"https://it-rat.com/glossary.html#reserve-settle"},{"@type":"DefinedTerm","name":"Breaker HTTP 402","description":"The control that refuses a call once its budget is crossed, answering with a status the calling framework already understands. Sometimes described as a kill switch, though the breaker refuses one call rather than stopping a fleet.","url":"https://it-rat.com/glossary.html#breaker"},{"@type":"DefinedTerm","name":"Semantic cache","description":"Serving a repeated question from a previous answer instead of paying for it again. A cost lever that refuses no work, which makes it the easiest saving to defend and the first one worth reporting separately.","url":"https://it-rat.com/glossary.html#semantic-cache"},{"@type":"DefinedTerm","name":"Model router","description":"Sending routine calls to a cheaper model while hard ones stay on the frontier model. Like the cache, it should report its savings on its own line: a combined percentage cannot be audited.","url":"https://it-rat.com/glossary.html#model-router"},{"@type":"DefinedTerm","name":"FOCUS","description":"The FinOps Foundation's open specification for cost and usage data. Exporting agent spend in it means the numbers land in the same pipelines and dashboards as the rest of the cloud bill instead of in a bespoke report.","url":"https://it-rat.com/glossary.html#focus"},{"@type":"DefinedTerm","name":"Cost per resolved case","description":"The money spent to actually finish one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. The unit economic that changes decisions, where a monthly total does not.","url":"https://it-rat.com/glossary.html#cost-per-outcome"},{"@type":"DefinedTerm","name":"Runtime governance","description":"Controls that decide what an agent may do while it is running, with a binding answer, as opposed to reports describing what it did. See the governance guide and the comparison with observability .","url":"https://it-rat.com/glossary.html#governance"},{"@type":"DefinedTerm","name":"Shadow mode","description":"Running a control in the path with its answer recorded and never binding, so you can see what would have been blocked before anything is. The standard way to introduce enforcement without making its first day also its first outage.","url":"https://it-rat.com/glossary.html#shadow-mode"},{"@type":"DefinedTerm","name":"Fail-open and fail-closed","description":"What the enforcement point does when the decision point is unreachable. Fail-open treats it as allow: availability wins, and an outage silently disables policy. Fail-closed treats it as deny: policy wins, and an outage blocks governed work. Both are defensible; not deciding is not.","url":"https://it-rat.com/glossary.html#fail-open"},{"@type":"DefinedTerm","name":"Hold human in the loop","description":"A third answer beside allow and deny: the action waits for a person. The workable shape is stateless, so no connection is parked while somebody sleeps, and the eventual grant is proven by a signed token rather than by anyone remembering the request.","url":"https://it-rat.com/glossary.html#hold"},{"@type":"DefinedTerm","name":"Approval token","description":"A short-lived signed claim that a specific agent, run and set of tools was approved. Bound to those exact parameters so that approving one action never quietly approves the next, and verified before anything in it is trusted.","url":"https://it-rat.com/glossary.html#approval-token"},{"@type":"DefinedTerm","name":"Taint tracking","description":"Marking data that came from outside the trust boundary and refusing the actions it reaches. The practical answer to instructions arriving inside a web page, a ticket or a tool description, since the model cannot be relied on to ignore them.","url":"https://it-rat.com/glossary.html#taint"},{"@type":"DefinedTerm","name":"Break-glass","description":"A deliberately awkward path for an emergency action, recorded as such: a hardware-backed confirmation, a typed reason, and a journal entry naming who did it. Awkward on purpose, because the alternative is an emergency path that becomes the normal one.","url":"https://it-rat.com/glossary.html#break-glass"},{"@type":"DefinedTerm","name":"MCP Model Context Protocol","description":"A protocol for exposing tools and resources to a model. It made capability something you connect to rather than something you write, which is useful, and moved tool definitions into content the model reads. See MCP security .","url":"https://it-rat.com/glossary.html#mcp"},{"@type":"DefinedTerm","name":"Rug pull","description":"A tool whose description or schema changes after you approved it. Because clients re-fetch definitions on connect, the change needs no deployment on your side and leaves no trace in your repository. Caught by pinning a fingerprint of what was approved.","url":"https://it-rat.com/glossary.html#rug-pull"},{"@type":"DefinedTerm","name":"Shadow MCP server","description":"An MCP server agents are using that no inventory lists. Detected from the agent side rather than the server side, because a registry can only list what somebody already knew about.","url":"https://it-rat.com/glossary.html#shadow-mcp"},{"@type":"DefinedTerm","name":"Agent-BOM","description":"A bill of materials for agents, in CycloneDX: what exists, who owns each one, what runtime it runs on, what attests it. The same idea as an SBOM, applied to the actors rather than the libraries.","url":"https://it-rat.com/glossary.html#agent-bom"},{"@type":"DefinedTerm","name":"CBOM","description":"A cryptographic bill of materials: every key, certificate and algorithm actually in use, with its risk class. The inventory a post-quantum migration cannot start without.","url":"https://it-rat.com/glossary.html#cbom"},{"@type":"DefinedTerm","name":"Post-quantum cryptography PQC","description":"The standardised replacements for algorithms a sufficiently capable quantum computer would break, published by NIST in 2024: ML-KEM, ML-DSA and SLH-DSA. Relevant now because data captured today can be decrypted later, and because migration timelines have dates on them.","url":"https://it-rat.com/glossary.html#pqc"},{"@type":"DefinedTerm","name":"Hash-chained journal","description":"An append-only record in which each entry carries the hash of the entry before it, over a canonical serialisation. Tampering does not hide; it breaks the chain at the point it happened, and a third party can check that without trusting the author.","url":"https://it-rat.com/glossary.html#hash-chain"},{"@type":"DefinedTerm","name":"Provenance why()","description":"The trail from a belief back to the observations it came from: which episodes produced a fact, which run extracted it, at what confidence. What separates a memory you can audit from a store of similar-looking text.","url":"https://it-rat.com/glossary.html#provenance"},{"@type":"DefinedTerm","name":"Bitemporal","description":"Keeping two independent timelines on a fact: when it was true in reality, and when the system learned it. With both, you can ask what an agent believed in March and get March's answer rather than today's.","url":"https://it-rat.com/glossary.html#bitemporal"},{"@type":"DefinedTerm","name":"Quality drift","description":"A gradual fall in output quality that a flat threshold misses. Detected properly with a two-sample significance test beside the threshold, because the regression that matters is usually small, consistent and inside the noise band somebody tuned last quarter.","url":"https://it-rat.com/glossary.html#drift"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://it-rat.com/glossary.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">glossary</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">glossary</div>
+    <h1 class="rv d1">The vocabulary, without the marketing.</h1>
+    <p class="lede rv d2">Terms that come up when a team starts governing agents, defined plainly and in the sense this field actually uses them. Where a term is contested or means different things to different vendors, the definition says so.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:6px">
+  <div class="wrap">
+    <div class="gl rv">
+
+      <h2>Identity</h2>
+      <dl>
+        <dt id="agent-passport">Agent passport</dt>
+        <dd>A small document describing one agent: its identifier, the human or team that owns it, the runtime it runs on, and how its name is attested. It is metadata, not a credential: holding a passport authorises nothing, and that is deliberate. See <a href="agent-identity.html">agent identity</a>.</dd>
+
+        <dt id="agent-uri">agent:// URI</dt>
+        <dd>The identifier form used for agents in this stack: a trust domain and a path, capped at 255 bytes, aligned with SPIFFE naming without requiring SPIFFE. The point of a fixed shape is that a spend record, a policy verdict and an audit entry can be joined on the same string.</dd>
+
+        <dt id="attestation">Attestation</dt>
+        <dd>The evidence binding a name to the workload using it: an OIDC token, a SPIFFE SVID, an mTLS certificate, an enclave key, or explicitly nothing. Recording <span class="mono">none</span> honestly is more useful than leaving the field blank, because it turns posture into a list you can work through.</dd>
+
+        <dt id="delegation-chain">Delegation chain <span class="alt">on_behalf_of</span></dt>
+        <dd>The ordered record of who an agent is acting for on this request: agent, then whatever spawned it, up to the human at the root. Kept acyclic and capped in length. Distinct from the static parent that provisioned the agent, which is an org chart rather than authority.</dd>
+
+        <dt id="nhi">Non-human identity <span class="alt">NHI</span></dt>
+        <dd>Any identity that is not a person: a service account, an access key, a workload, an agent. The category matters because most organisations count their humans carefully and their non-humans not at all, and the second group is usually larger.</dd>
+
+        <dt id="blast-radius">Blast radius</dt>
+        <dd>Everything an identity can reach transitively, computed as the union of the permissions along its delegation chain rather than the grants attached to its own name. This is what makes a modest-looking agent turn out to be two hops from admin.</dd>
+
+        <dt id="excessive-agency">Excessive agency</dt>
+        <dd>An agent that arrives at admin-equivalent power through its delegation chain rather than through its own permissions. Catalogued as LLM06 in the OWASP list for large language model applications.</dd>
+      </dl>
+
+      <h2>Money</h2>
+      <dl>
+        <dt id="run">Run</dt>
+        <dd>One unit of agent work: a task, with a budget, an identity and a trace. The useful unit for governance, because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a model total cannot be charged back to anyone.</dd>
+
+        <dt id="per-run-budget">Per-run budget</dt>
+        <dd>A spending cap attached to a run and checked against every ancestor it belongs to: agent, team, company. All-or-nothing, so a run cannot fit under its own cap while breaking its team's.</dd>
+
+        <dt id="reserve-settle">Reserve then settle</dt>
+        <dd>Pricing a call before it happens, taking the reserve against the budget, and reconciling the real cost afterwards. It is what allows a call to be refused before the provider sees it, rather than discovered after the invoice.</dd>
+
+        <dt id="breaker">Breaker <span class="alt">HTTP 402</span></dt>
+        <dd>The control that refuses a call once its budget is crossed, answering with a status the calling framework already understands. Sometimes described as a kill switch, though the breaker refuses one call rather than stopping a fleet.</dd>
+
+        <dt id="semantic-cache">Semantic cache</dt>
+        <dd>Serving a repeated question from a previous answer instead of paying for it again. A cost lever that refuses no work, which makes it the easiest saving to defend and the first one worth reporting separately.</dd>
+
+        <dt id="model-router">Model router</dt>
+        <dd>Sending routine calls to a cheaper model while hard ones stay on the frontier model. Like the cache, it should report its savings on its own line: a combined percentage cannot be audited.</dd>
+
+        <dt id="focus">FOCUS</dt>
+        <dd>The FinOps Foundation's open specification for cost and usage data. Exporting agent spend in it means the numbers land in the same pipelines and dashboards as the rest of the cloud bill instead of in a bespoke report.</dd>
+
+        <dt id="cost-per-outcome">Cost per resolved case</dt>
+        <dd>The money spent to actually finish one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. The unit economic that changes decisions, where a monthly total does not.</dd>
+      </dl>
+
+      <h2>Control</h2>
+      <dl>
+        <dt id="governance">Runtime governance</dt>
+        <dd>Controls that decide what an agent may do while it is running, with a binding answer, as opposed to reports describing what it did. See <a href="ai-agent-governance.html">the governance guide</a> and <a href="ai-observability-vs-governance.html">the comparison with observability</a>.</dd>
+
+        <dt id="shadow-mode">Shadow mode</dt>
+        <dd>Running a control in the path with its answer recorded and never binding, so you can see what would have been blocked before anything is. The standard way to introduce enforcement without making its first day also its first outage.</dd>
+
+        <dt id="fail-open">Fail-open and fail-closed</dt>
+        <dd>What the enforcement point does when the decision point is unreachable. Fail-open treats it as allow: availability wins, and an outage silently disables policy. Fail-closed treats it as deny: policy wins, and an outage blocks governed work. Both are defensible; not deciding is not.</dd>
+
+        <dt id="hold">Hold <span class="alt">human in the loop</span></dt>
+        <dd>A third answer beside allow and deny: the action waits for a person. The workable shape is stateless, so no connection is parked while somebody sleeps, and the eventual grant is proven by a signed token rather than by anyone remembering the request.</dd>
+
+        <dt id="approval-token">Approval token</dt>
+        <dd>A short-lived signed claim that a specific agent, run and set of tools was approved. Bound to those exact parameters so that approving one action never quietly approves the next, and verified before anything in it is trusted.</dd>
+
+        <dt id="taint">Taint tracking</dt>
+        <dd>Marking data that came from outside the trust boundary and refusing the actions it reaches. The practical answer to instructions arriving inside a web page, a ticket or a tool description, since the model cannot be relied on to ignore them.</dd>
+
+        <dt id="break-glass">Break-glass</dt>
+        <dd>A deliberately awkward path for an emergency action, recorded as such: a hardware-backed confirmation, a typed reason, and a journal entry naming who did it. Awkward on purpose, because the alternative is an emergency path that becomes the normal one.</dd>
+      </dl>
+
+      <h2>Tools, evidence and crypto</h2>
+      <dl>
+        <dt id="mcp">MCP <span class="alt">Model Context Protocol</span></dt>
+        <dd>A protocol for exposing tools and resources to a model. It made capability something you connect to rather than something you write, which is useful, and moved tool definitions into content the model reads. See <a href="mcp-security.html">MCP security</a>.</dd>
+
+        <dt id="rug-pull">Rug pull</dt>
+        <dd>A tool whose description or schema changes after you approved it. Because clients re-fetch definitions on connect, the change needs no deployment on your side and leaves no trace in your repository. Caught by pinning a fingerprint of what was approved.</dd>
+
+        <dt id="shadow-mcp">Shadow MCP server</dt>
+        <dd>An MCP server agents are using that no inventory lists. Detected from the agent side rather than the server side, because a registry can only list what somebody already knew about.</dd>
+
+        <dt id="agent-bom">Agent-BOM</dt>
+        <dd>A bill of materials for agents, in CycloneDX: what exists, who owns each one, what runtime it runs on, what attests it. The same idea as an SBOM, applied to the actors rather than the libraries.</dd>
+
+        <dt id="cbom">CBOM</dt>
+        <dd>A cryptographic bill of materials: every key, certificate and algorithm actually in use, with its risk class. The inventory a post-quantum migration cannot start without.</dd>
+
+        <dt id="pqc">Post-quantum cryptography <span class="alt">PQC</span></dt>
+        <dd>The standardised replacements for algorithms a sufficiently capable quantum computer would break, published by NIST in 2024: ML-KEM, ML-DSA and SLH-DSA. Relevant now because data captured today can be decrypted later, and because migration timelines have dates on them.</dd>
+
+        <dt id="hash-chain">Hash-chained journal</dt>
+        <dd>An append-only record in which each entry carries the hash of the entry before it, over a canonical serialisation. Tampering does not hide; it breaks the chain at the point it happened, and a third party can check that without trusting the author.</dd>
+
+        <dt id="provenance">Provenance <span class="alt">why()</span></dt>
+        <dd>The trail from a belief back to the observations it came from: which episodes produced a fact, which run extracted it, at what confidence. What separates a memory you can audit from a store of similar-looking text.</dd>
+
+        <dt id="bitemporal">Bitemporal</dt>
+        <dd>Keeping two independent timelines on a fact: when it was true in reality, and when the system learned it. With both, you can ask what an agent believed in March and get March's answer rather than today's.</dd>
+
+        <dt id="drift">Quality drift</dt>
+        <dd>A gradual fall in output quality that a flat threshold misses. Detected properly with a two-sample significance test beside the threshold, because the regression that matters is usually small, consistent and inside the noise band somebody tuned last quarter.</dd>
+      </dl>
+
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where the terms are used</div>
+      <h2>Each of these has a guide behind it.</h2>
+      <p class="lede">The <a href="guides.html" style="color:var(--accent)">six guides</a> cover governance, cost, security, MCP, identity and the line between observability and control, and the <a href="index.html#stack" style="color:var(--accent)">stack</a> is the open implementation of everything named here.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

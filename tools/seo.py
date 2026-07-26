@@ -22,6 +22,7 @@ GUIDES = {
     "finops-for-ai.html": "FinOps for AI",
     "ai-agent-security.html": "AI agent security",
     "mcp-security.html": "MCP security",
+    "agent-identity.html": "Agent identity and authentication",
     "ai-observability-vs-governance.html": "AI observability vs governance",
 }
 
@@ -200,6 +201,21 @@ def collection(bits, items):
     ]}]
 
 
+def defined_terms(html, bits):
+    """A glossary is a set of terms; say so, from the visible definitions."""
+    terms = []
+    for m in re.finditer(r'<dt id="([^"]+)">(.*?)</dt>\s*<dd>(.*?)</dd>', html, re.S):
+        name = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2))).strip()
+        desc = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3))).strip()
+        if name and desc:
+            terms.append({"@type": "DefinedTerm", "name": name, "description": desc,
+                          "url": f"{bits['url']}#{m.group(1)}"})
+    if not terms:
+        return None
+    return {"@type": "DefinedTermSet", "name": "Glossary of agent-governance terms",
+            "url": bits["url"], "description": bits["desc"], "hasDefinedTerm": terms}
+
+
 def write(path, graph):
     p = ROOT / path
     h = p.read_text(encoding="utf-8")
@@ -236,6 +252,11 @@ def main():
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
     hub = head_bits(hub_html, "guides.html")
     n += write("guides.html", collection(hub, list(GUIDES.items())))
+
+    gl_html = (ROOT / "glossary.html").read_text(encoding="utf-8")
+    gl = head_bits(gl_html, "glossary.html")
+    gl_graph = [defined_terms(gl_html, gl), guide_crumbs(gl, "Glossary")]
+    n += write("glossary.html", [g for g in gl_graph if g])
 
     for path, name in GUIDES.items():
         html = (ROOT / path).read_text(encoding="utf-8")

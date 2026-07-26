@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent identity and authentication: how an AI agent proves who it is · IT-RAT</title>
+<meta name="description" content="Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, how delegation chains work, and when to demand a signature per action.">
+<link rel="canonical" href="https://it-rat.com/agent-identity.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/agent-identity.html">
+<meta property="og:title" content="Agent identity and authentication: how an AI agent proves who it is · IT-RAT">
+<meta property="og:description" content="An agent acting under a shared key is an incident you cannot investigate. Naming, attestation, delegation chains, per-action signatures and revocation, at field level.">
+<meta property="og:image" content="https://it-rat.com/assets/og/idryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent identity and authentication: how an AI agent proves who it is · IT-RAT">
+<meta name="twitter:description" content="An agent acting under a shared key is an incident you cannot investigate. Naming, attestation, delegation chains, per-action signatures and revocation, at field level.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/idryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/agent-identity.md">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#34D399}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px}
+  .q{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:18px}
+  .q .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .q h3{margin-top:9px;font-size:16.5px}
+  .q p{margin-top:8px;color:var(--dim);font-size:13.5px;line-height:1.6}
+  .q .fix{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;line-height:1.55}
+  .q .fix b{color:var(--fg)}
+  .q a{color:var(--c,var(--accent))}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:22px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Agent identity and authentication: how an AI agent proves who it is","name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html","description":"Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, how delegation chains work, and when to demand a signature per action.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-identity.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Agent identity and authentication","item":"https://it-rat.com/agent-identity.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How should an AI agent authenticate to the tools it calls?","acceptedAnswer":{"@type":"Answer","text":"With an identity, not a shared secret. The agent needs a stable name, a recorded owner, and evidence binding that name to the workload: an OIDC token, a SPIFFE SVID, an mTLS certificate or an enclave key. A key in an environment variable proves only that the caller knows the key, which is the one thing an incident review never needs to establish."}},{"@type":"Question","name":"What is agent attestation, and do we need it on day one?","acceptedAnswer":{"@type":"Answer","text":"Attestation is the evidence that a name belongs to the workload using it. You do not need it everywhere on day one, and most organisations honestly start with none nearly everywhere. What matters is that the absence is recorded rather than implied, so privileged agents with nothing behind their name show up as a list instead of a feeling."}},{"@type":"Question","name":"Why keep a delegation chain instead of just an owner field?","acceptedAnswer":{"@type":"Answer","text":"Because an agent's real reach is the union of everything along the chain it acts through, not the grants attached to its own name. A one-hop field cannot show that an agent with modest permissions arrives at admin two hops away. Keep the chain ordered root first, acyclic and capped, and keep it separate from the static parent that provisioned the agent."}},{"@type":"Question","name":"Should every agent action require human approval?","acceptedAnswer":{"@type":"Answer","text":"No, and demanding it is how a control gets clicked through within a week. Reserve per-action confirmation for the destructive and expensive few: a kill, a budget change, an approval grant, issuing or revoking access. Bind the signature to that exact command and its arguments so approving one action never quietly approves the next."}},{"@type":"Question","name":"How do we keep API keys out of the model's context?","acceptedAnswer":{"@type":"Answer","text":"Hand the agent a handle rather than a value, and attach the real credential at the last hop before the call leaves. Anything in the context window is quotable, loggable and memorable, so a token given to the model is a token in the trace and in whatever it repeats next. Brokering also gives revocation exactly one place to act."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">agent identity</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; identity and authentication</div>
+    <h1 class="rv d1">How an AI agent proves who it is.</h1>
+    <p class="lede rv d2">Most agent fleets authenticate the way the first prototype did: an API key in an environment variable, shared by whatever runs in that container. It works, and it quietly removes the one thing every later control depends on. An agent acting under a shared key cannot be told apart from the next agent, cannot be revoked without breaking both, and cannot be investigated afterwards. Identity is not paperwork here; it is the join key everything else uses.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the distinction</div>
+      <h2>A key is a secret. An identity is a claim someone can check.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A static key answers one question, badly: does the caller know the secret. It says nothing about who the caller is, on whose behalf they are acting, what runtime they are running in, or whether anybody still expects them to exist. Those are the questions an incident review asks, and none of them are answerable from a key.</p>
+      <p>An identity for a workload, agent or otherwise, has to be four things at once. <b>Nameable</b>, so logs and decisions can refer to the same subject. <b>Attributable</b>, so there is a human or a team who owns it. <b>Attestable</b>, so the name is bound to a workload by something stronger than a config file. <b>Revocable</b>, so removing it is an action rather than a migration.</p>
+      <p>The uncomfortable part is that most fleets today have the first two at best, and often not even those. That is not a moral failing; it is what happens when a prototype becomes production without anyone deciding it had. The useful move is to notice which of the four you actually have, per agent, before the next control is layered on top.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the questions</div>
+      <h2>Six questions an identity has to answer.</h2>
+      <p class="lede">Each one is separately answerable, and each is separately missing in most fleets.</p>
+    </div>
+    <div class="qs rv">
+      <div class="q" style="--c:#34D399">
+        <div class="n">naming</div>
+        <h3>What is it called?</h3>
+        <p>One identifier per agent, stable across restarts and deployments, short enough to sit in every event and every log line. If a spend record, a policy verdict and an audit entry cannot be joined on it, they are three stories about three different agents.</p>
+        <div class="fix"><b>In practice:</b> an <span class="mono" style="font-size:12.5px">agent://</span> URI, aligned with SPIFFE naming without requiring SPIFFE, capped at 255 bytes so it fits everywhere. <a href="services/platform.html">The contract &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">ownership</div>
+        <h3>Whose is it?</h3>
+        <p>A human or a team accountable for rotating it, answering for it and eventually deleting it. This is the auditor's first question and the one most inventories cannot answer, because the person who created the agent has since changed teams.</p>
+        <div class="fix"><b>In practice:</b> an owner field on the agent's own document, and a detector for the ones that have none. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">attestation</div>
+        <h3>What binds the name to the workload?</h3>
+        <p>Anyone can claim a name. Attestation is the evidence behind it: an OIDC token, a SPIFFE SVID, an mTLS certificate, an enclave key, or honestly nothing at all. The last option is legitimate and common; what matters is that it is recorded rather than assumed.</p>
+        <div class="fix"><b>In practice:</b> the method is a field with five values including <span class="mono" style="font-size:12.5px">none</span>, and a privileged agent carrying <span class="mono" style="font-size:12.5px">none</span> is a finding. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#2DD4BF">
+        <div class="n">delegation</div>
+        <h3>Who is it acting for, right now?</h3>
+        <p>An agent rarely acts for itself. It acts for a user, or for another agent that acts for a user. That chain is what makes an action attributable to a person, and it has to be ordered, acyclic and bounded, or it becomes a way to launder authority through three hops.</p>
+        <div class="fix"><b>In practice:</b> a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#F4B23E">
+        <div class="n">authorisation per action</div>
+        <h3>Is this particular action allowed?</h3>
+        <p>Identity says who is asking. It does not say yes. For the small set of actions that are expensive or hard to reverse, the useful pattern is a signature bound to that exact command and its arguments, not a session that authorised a class of things an hour ago.</p>
+        <div class="fix"><b>In practice:</b> a policy point that answers allow, deny or hold, and a human ceremony for the few. <a href="services/wardryx.html">Wardryx &#8594;</a></div>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">revocation</div>
+        <h3>How does it stop existing?</h3>
+        <p>An identity you cannot switch off is a credential with a personality. Revocation has to be a single action with a visible effect, and it has to cover the paths the identity opened: its tokens, its device access, and the delegation others hold to it.</p>
+        <div class="fix"><b>In practice:</b> revocation as a first-class operation, and an inventory that shows what each identity still reaches. <a href="services/idryx.html">Idryx &#8594;</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the practice</div>
+      <h2>What tends to work.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Name every agent before you give it a tool</h3>
+      <p>The order matters more than the format. A fleet that names agents after they are already calling production systems spends the next quarter reconciling logs. Any stable identifier will do; what breaks is having none, or having three that nobody joins.</p>
+
+      <h3>Record attestation honestly, including when it is nothing</h3>
+      <p>The temptation is to leave the field blank and imply something stronger than the truth. A field with an explicit <span class="mono" style="font-size:12.5px">none</span> is far more useful: it lets you sort the fleet by how well each name is actually bound, and it turns a vague worry into a list you can work through. Most organisations start with <span class="mono" style="font-size:12.5px">none</span> nearly everywhere, and that is fine as a starting point and dangerous as a permanent state on privileged agents.</p>
+
+      <h3>Treat the delegation chain as data, not as narrative</h3>
+      <p>"The agent is acting for the user" is a sentence. An ordered chain from the agent, through whatever spawned it, to the human at the root is a structure you can query, cap in length and check for cycles. It is also the only way to compute what an identity can really reach, because the answer is the union of everything along the chain rather than the grants on its own name.</p>
+
+      <h3>Keep the static parent apart from the dynamic chain</h3>
+      <p>Which agent provisioned this one is an org chart. Who it is acting for on this request is authority. Collapsing them into one field feels tidy and produces an inventory that cannot answer either question later.</p>
+
+      <h3>Sign the few actions that deserve it, not everything</h3>
+      <p>Per-action confirmation on every call trains people to click through it within a week, which is worse than not having it. Reserve it for the destructive and expensive: a kill, a budget change, an approval grant, issuing or revoking access. Bind the signature to that exact command and its arguments, record which credential was touched, and let the ordinary path stay ordinary.</p>
+
+      <h3>Never put the credential in the model's context</h3>
+      <p>An agent that holds a token holds it in the prompt, the trace, the logs and whatever it repeats next. A handle the agent can pass around, with the real value attached at the last hop, keeps the secret out of the context window and gives revocation exactly one place to act on.</p>
+
+      <h3>Count the non-human identities you already have</h3>
+      <p>Almost every first inventory finds the same three things: service accounts unused for months, agents with no owner, and one credential appearing from many places at once. None of that is exotic and all of it is cheap to fix; the reason it persists is that nobody was counting.</p>
+    </div>
+
+    <div class="evals rv">
+      <div class="t">how to evaluate anything in this space</div>
+      <ol>
+        <li><b>Can it name the actor?</b> If the finest grain it offers is an API key or a service, it cannot attribute an action to an agent, and neither will you.</li>
+        <li><b>Does it record how the name is bound?</b> A tool that cannot express "this name is attested by nothing" will quietly imply that it is.</li>
+        <li><b>Does it model delegation as a chain?</b> One-hop "acts on behalf of" is a field. A chain is what catches authority reached two hops away.</li>
+        <li><b>Is revocation one action with a visible effect?</b> Ask what happens to tokens already issued and to devices already enrolled.</li>
+        <li><b>Does it join on the same identifier as your money, policy and trace data?</b> If it invents its own, you are buying the correlation project as well.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Where identity sits.</h2>
+      <p class="lede">Identity is the join key the other guides assume: <a href="ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a> for the full set of runtime controls, <a href="ai-agent-security.html" style="color:var(--accent)">AI agent security</a> for the failure modes an identity gap opens, and <a href="mcp-security.html" style="color:var(--accent)">MCP security</a> for the tools an agent reaches once it has one. The whole set is in <a href="guides.html" style="color:var(--accent)">the guides index</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask about agent identity</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How should an AI agent authenticate to the tools it calls?</summary>
+        <div class="a"><p>With an identity, not a shared secret. The agent needs a stable name, a recorded owner, and evidence binding that name to the workload: an OIDC token, a SPIFFE SVID, an mTLS certificate or an enclave key. A key in an environment variable proves only that the caller knows the key, which is the one thing an incident review never needs to establish.</p></div>
+      </details>
+      <details>
+        <summary>What is agent attestation, and do we need it on day one?</summary>
+        <div class="a"><p>Attestation is the evidence that a name belongs to the workload using it. You do not need it everywhere on day one, and most organisations honestly start with none nearly everywhere. What matters is that the absence is recorded rather than implied, so privileged agents with nothing behind their name show up as a list instead of a feeling.</p></div>
+      </details>
+      <details>
+        <summary>Why keep a delegation chain instead of just an owner field?</summary>
+        <div class="a"><p>Because an agent's real reach is the union of everything along the chain it acts through, not the grants attached to its own name. A one-hop field cannot show that an agent with modest permissions arrives at admin two hops away. Keep the chain ordered root first, acyclic and capped, and keep it separate from the static parent that provisioned the agent.</p></div>
+      </details>
+      <details>
+        <summary>Should every agent action require human approval?</summary>
+        <div class="a"><p>No, and demanding it is how a control gets clicked through within a week. Reserve per-action confirmation for the destructive and expensive few: a kill, a budget change, an approval grant, issuing or revoking access. Bind the signature to that exact command and its arguments so approving one action never quietly approves the next.</p></div>
+      </details>
+      <details>
+        <summary>How do we keep API keys out of the model's context?</summary>
+        <div class="a"><p>Hand the agent a handle rather than a value, and attach the real credential at the last hop before the call leaves. Anything in the context window is quotable, loggable and memorable, so a token given to the model is a token in the trace and in whatever it repeats next. Brokering also gives revocation exactly one place to act.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

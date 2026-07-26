@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides: AI agent governance, FinOps, security and observability · IT-RAT</title>
-<meta name="description" content="Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.">
+<meta name="description" content="Six guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.">
 <link rel="canonical" href="https://it-rat.com/guides.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/guides.html">
 <meta property="og:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
-<meta property="og:description" content="Five guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta property="og:description" content="Six guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
 <meta property="og:image" content="https://it-rat.com/assets/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Guides: AI agent governance, FinOps, security and observability · IT-RAT">
-<meta name="twitter:description" content="Five guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta name="twitter:description" content="Six guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -45,7 +45,7 @@
   .gcard:hover .go::after{transform:translateX(4px)}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps, security and observability","description":"Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps, security and observability","description":"Six guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html"},{"@type":"ListItem","position":6,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -64,7 +64,7 @@
   <div class="wrap">
     <div class="kicker rv">guides</div>
     <h1 class="rv d1">Running AI agents in production, written down.</h1>
-    <p class="lede rv d2">Five guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
+    <p class="lede rv d2">Six guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
   </div>
 </section>
 
@@ -106,6 +106,13 @@
         <div class="in"><span>poisoned tool descriptions</span><span>rug pulls</span><span>shadow MCP servers</span><span>credential brokering</span><span>stdio vs HTTP</span></div>
         <span class="go">Read the guide</span>
       </a>
+      <a class="gcard" style="--c:#34D399" href="agent-identity.html">
+        <div class="n">the join key</div>
+        <h2>Agent identity and authentication: how an agent proves who it is</h2>
+        <p>A static key answers one question, badly. What an identity has to be instead, nameable, attributable, attestable and revocable, plus delegation chains, when to demand a signature per action, and how to evaluate anything in this space.</p>
+        <div class="in"><span>agent authentication</span><span>attestation</span><span>delegation chains</span><span>non-human identity</span><span>credential brokering</span></div>
+        <span class="go">Read the guide</span>
+      </a>
     </div>
   </div>
 </section>
@@ -115,7 +122,7 @@
     <div class="sec-head rv">
       <div class="kicker">and then the tools</div>
       <h2>Every control in the guides has an open implementation.</h2>
-      <p class="lede">Seven Apache-2.0 services cover the planes the guides describe, and they run on infrastructure you own. <a href="index.html#stack" style="color:var(--accent)">Walk the stack</a>, or <a href="services/platform.html#run" style="color:var(--accent)">start the live services locally in one command</a> and watch the money plane light up.</p>
+      <p class="lede">Seven Apache-2.0 services cover the planes the guides describe, and they run on infrastructure you own. <a href="index.html#stack" style="color:var(--accent)">Walk the stack</a>, or <a href="services/platform.html#run" style="color:var(--accent)">start the live services locally in one command</a> and watch the money plane light up. Unfamiliar term? The <a href="glossary.html" style="color:var(--accent)">glossary</a> defines the vocabulary these guides use.</p>
     </div>
   </div>
 </section>

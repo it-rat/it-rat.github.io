@@ -185,6 +185,19 @@ FAQ = {
  ("How do I keep API keys out of the model when a tool needs one?",
   "<p>Do not hand the value to the agent. The agent holds a named handle, and the real credential is injected at the last hop, so it never enters the prompt, the trace or the model's memory. That also makes revocation meaningful, because the value lives in exactly one place.</p>"),
 ]),
+
+"agent-identity.html": ("common questions", "What people ask about agent identity", [
+ ("How should an AI agent authenticate to the tools it calls?",
+  "<p>With an identity, not a shared secret. The agent needs a stable name, a recorded owner, and evidence binding that name to the workload: an OIDC token, a SPIFFE SVID, an mTLS certificate or an enclave key. A key in an environment variable proves only that the caller knows the key, which is the one thing an incident review never needs to establish.</p>"),
+ ("What is agent attestation, and do we need it on day one?",
+  "<p>Attestation is the evidence that a name belongs to the workload using it. You do not need it everywhere on day one, and most organisations honestly start with none nearly everywhere. What matters is that the absence is recorded rather than implied, so privileged agents with nothing behind their name show up as a list instead of a feeling.</p>"),
+ ("Why keep a delegation chain instead of just an owner field?",
+  "<p>Because an agent's real reach is the union of everything along the chain it acts through, not the grants attached to its own name. A one-hop field cannot show that an agent with modest permissions arrives at admin two hops away. Keep the chain ordered root first, acyclic and capped, and keep it separate from the static parent that provisioned the agent.</p>"),
+ ("Should every agent action require human approval?",
+  "<p>No, and demanding it is how a control gets clicked through within a week. Reserve per-action confirmation for the destructive and expensive few: a kill, a budget change, an approval grant, issuing or revoking access. Bind the signature to that exact command and its arguments so approving one action never quietly approves the next.</p>"),
+ ("How do we keep API keys out of the model's context?",
+  "<p>Hand the agent a handle rather than a value, and attach the real credential at the last hop before the call leaves. Anything in the context window is quotable, loggable and memorable, so a token given to the model is a token in the trace and in whatever it repeats next. Brokering also gives revocation exactly one place to act.</p>"),
+]),
 }
 
 

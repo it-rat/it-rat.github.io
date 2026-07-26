@@ -23,7 +23,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Five guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends."
+      "description": "Six guides on running AI agents in production: what runtime governance means, how to manage LLM spend, how to secure an agent fleet, and where observability ends."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -52,6 +52,20 @@
       "title": "MCP security",
       "kind": "guide",
       "description": "What changes when an agent's tools arrive over the Model Context Protocol: descriptions the model reads as instructions, servers nobody sanctioned, tools that change after approval, and the controls for each."
+    },
+    {
+      "url": "https://it-rat.com/agent-identity.html",
+      "markdown": "https://it-rat.com/agent-identity.md",
+      "title": "Agent identity and authentication",
+      "kind": "guide",
+      "description": "Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, how delegation chains work, and when to demand a signature per action."
+    },
+    {
+      "url": "https://it-rat.com/glossary.html",
+      "markdown": "https://it-rat.com/glossary.md",
+      "title": "Glossary of agent-governance terms",
+      "kind": "guide",
+      "description": "Plain definitions for the terms this field uses: agent passport, attestation, delegation chain, blast radius, per-run budget, shadow mode, rug pull, CBOM, FOCUS, cost per resolved case."
     },
     {
       "url": "https://it-rat.com/ai-observability-vs-governance.html",

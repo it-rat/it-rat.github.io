@@ -43,6 +43,11 @@
     border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line-2));background:var(--panel)}
   .step div{color:var(--dim);font-size:14.5px;line-height:1.65}
   .step b{color:var(--fg)}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:24px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"FinOps for AI: LLM cost management and runtime cost control","name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html","description":"FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/finops-for-ai.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"FinOps for AI","item":"https://it-rat.com/finops-for-ai.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is FinOps for AI?","acceptedAnswer":{"@type":"Answer","text":"FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate."}},{"@type":"Question","name":"How do I control LLM costs in production?","acceptedAnswer":{"@type":"Answer","text":"Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately."}},{"@type":"Question","name":"Why is a per-key rate limit not enough?","acceptedAnswer":{"@type":"Answer","text":"Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures."}},{"@type":"Question","name":"How do I report AI spend to finance?","acceptedAnswer":{"@type":"Answer","text":"Export it in the FinOps Foundation's FOCUS format, one row per model call, so agent spend lands in the same pipelines and dashboards as the rest of the cloud bill. Showback and chargeback by team then reuse the tooling finance already trusts instead of becoming a bespoke project."}},{"@type":"Question","name":"What is cost per resolved case?","acceptedAnswer":{"@type":"Answer","text":"The unit economic that changes decisions: the money spent to actually resolve one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. An agent at forty cents a resolved case and one at four dollars are different businesses, and a monthly total cannot tell them apart."}}]}]}</script>
@@ -135,6 +140,18 @@
     <div class="prose rv" style="margin-top:22px">
       <p>The tools behind each step are open source and run on your own infrastructure: <a href="services/tokenfuse.html" style="color:var(--accent)">TokenFuse</a> for the gateway, the budgets, the cache, the router and the FOCUS export, and <a href="services/verdryx.html" style="color:var(--accent)">Verdryx</a> for cost per outcome. The wider set of runtime controls, of which cost is one, is laid out in <a href="ai-agent-governance.html" style="color:var(--accent)">the agent governance guide</a>, and the defensive side in <a href="ai-agent-security.html" style="color:var(--accent)">AI agent security</a>.</p>
     </div>
+    <div class="evals rv">
+      <div class="t">how to judge a cost-control tool</div>
+      <ol>
+        <li><b>What is its unit of work?</b> If the finest grain is a key or a model, it cannot attribute spend to the team that caused it, and chargeback stays a spreadsheet.</li>
+        <li><b>Does it refuse, or only report?</b> A dashboard that shows a runaway at 09:00 and a control that refuses it at 02:00 are different products at similar prices.</li>
+        <li><b>How does it price a call it does not recognise?</b> A fallback price keeps spend tracked. Passing unknown models through untracked is the exact hole this category exists to close.</li>
+        <li><b>Are savings reported per mechanism?</b> Blocked, cached and routed are three different levers. One combined percentage cannot be audited or acted on.</li>
+        <li><b>Does it export in a format finance already reads?</b> Agent spend that lives only in an engineering dashboard is invisible where budgets are actually allocated.</li>
+        <li><b>What does it cost you when it fails?</b> A cost control that can take the fleet down has traded one incident for a worse one. Ask whether it fails open.</li>
+      </ol>
+    </div>
+
   </div>
 </section>
 

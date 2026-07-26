@@ -77,7 +77,7 @@ SailPoint and CyberArk are serious IGA products for the identities they were bui
 
 Idryx consumes the same envelope [TokenFuse](https://it-rat.com/tokenfuse.html), [Wardryx](https://it-rat.com/wardryx.html), [Mockryx](https://it-rat.com/mockryx.html) and [Verdryx](https://it-rat.com/verdryx.html) write: the agent-event. It validates Agent Passports against the [platform contract](https://it-rat.com/platform.html), and the loop closes at the policy plane: its attestation_missing detector is the reason an unattested agent meets a 403 from Wardryx policies instead of your production data.
 
-Blast radius, shadow tooling and unattested agents are covered as failure modes in [AI agent security](https://it-rat.com/ai-agent-security.html), and the graph's place among the planes in [AI agent governance](https://it-rat.com/ai-agent-governance.html).
+Blast radius, shadow tooling and unattested agents are covered as failure modes in [AI agent security](https://it-rat.com/ai-agent-security.html), the graph's place among the planes in [AI agent governance](https://it-rat.com/ai-agent-governance.html), and what an agent identity has to be in [agent identity and authentication](https://it-rat.com/agent-identity.html).
 
 Download a [v0.2.0 release binary](https://github.com/TAIPANBOX/idryx/releases) (SHA256SUMS ships next to it), run detect against a log, then serve for the read-only dashboard on `:8080`.
 

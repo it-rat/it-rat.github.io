@@ -30,6 +30,8 @@ GUIDES = [
     ("finops-for-ai.html", "FinOps for AI"),
     ("ai-agent-security.html", "AI agent security"),
     ("mcp-security.html", "MCP security"),
+    ("agent-identity.html", "Agent identity and authentication"),
+    ("glossary.html", "Glossary of agent-governance terms"),
     ("ai-observability-vs-governance.html", "AI observability vs governance"),
 ]
 SERVICES = [
