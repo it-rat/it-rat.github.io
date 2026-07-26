@@ -443,6 +443,44 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
 .dg-inner svg{display:block;width:100%;height:100%;min-width:0;max-width:none;background:var(--panel);border:1px solid var(--line);border-radius:14px}
 @media(max-width:680px){.dg-hint{display:none}}
 
+/* ---------- sheet: a disclosure that opens as a panel (sheet.js) ---------- */
+.sheet{margin-top:16px}
+.sheet>summary{
+  display:inline-flex;align-items:center;gap:9px;cursor:pointer;list-style:none;
+  font-family:var(--font-m);font-size:11.5px;letter-spacing:.05em;color:var(--dim);
+  border:1px solid var(--line-2);border-radius:10px;padding:9px 13px;background:var(--panel-2);
+  transition:color .15s,border-color .15s;
+}
+.sheet>summary::-webkit-details-marker{display:none}
+.sheet>summary::marker{content:""}
+.sheet>summary::after{content:"\2197";font-size:12.5px;color:var(--faint)}
+.sheet>summary:hover{color:var(--fg);border-color:color-mix(in srgb, var(--accent) 55%, var(--line-2))}
+.sheet>summary:hover::after{color:var(--accent)}
+.sheet[open]>summary{margin-bottom:14px}   /* no JS: it opens where it stands */
+/* the trigger sits beside the repo link, and takes the whole row if it ever
+   opens inline (no JS), so the two never fight for the same line */
+.sheet-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.sheet-row .sheet{margin-top:0}
+.sheet-row .sheet>summary{padding:12px 15px;font-size:12px}
+.sheet-row .sheet[open]{flex:1 1 100%}
+
+.sh-ov{position:fixed;inset:0;z-index:140;display:flex;align-items:center;justify-content:center;
+  padding:5vh 16px;animation:dgOvIn .18s ease}
+.sh-veil{position:absolute;inset:0;background:rgba(4,6,10,.72);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sh-box{position:relative;width:min(780px,100%);max-height:90vh;display:flex;flex-direction:column;
+  border:1px solid var(--line-2);border-radius:var(--rad);background:var(--panel);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9);outline:none}
+.sh-head{display:flex;align-items:flex-start;gap:16px;padding:18px 20px 15px;border-bottom:1px solid var(--line)}
+.sh-head h3{font-size:18px;line-height:1.3;margin-top:5px}
+.sh-x{flex:0 0 auto;margin-left:auto;font-family:var(--font-m);font-size:11.5px;color:var(--dim);cursor:pointer;
+  border:1px solid var(--line-2);border-radius:8px;padding:5px 11px;background:var(--panel-2);
+  transition:color .15s,border-color .15s}
+.sh-x:hover{color:var(--fg);border-color:var(--accent)}
+.sh-body{padding:18px 20px 22px;overflow-y:auto;overscroll-behavior:contain}
+.sh-body>*:first-child{margin-top:0}
+@media(max-width:640px){.sh-ov{padding:3vh 10px}.sh-body{padding:16px 14px 18px}.sh-head{padding:15px 14px 12px}}
+
 /* ---------- card spotlight: cursor-tracked accent glow ---------- */
 .card.hover::after{
   content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;pointer-events:none;

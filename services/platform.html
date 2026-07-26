@@ -21,7 +21,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
 <style>
   :root{--accent:#93A8C4}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -229,7 +229,7 @@
     <div class="sec-head rv">
       <div class="kicker">try the whole thing</div>
       <h2>Run the live stack locally.</h2>
-      <p class="lede">One command builds the stack's long-running services from source, TokenFuse's gateway, cloud and dashboard plus Wardryx and Idryx, starts them on a fixed loopback port map, and prints a one-click link to the money-plane dashboard. Engram, Qryx, Verdryx and Mockryx are deliberately not servers: they are libraries and one-shot CLIs, each with its own one-line try-it on its page. No Docker, no account, nothing leaves your machine. Press Ctrl-C and it stops clean, with no orphaned processes.</p>
+      <p class="lede">One command builds the stack's long-running services from source, starts them on a fixed loopback port map, and prints a one-click link to your own money plane. No Docker, no account, nothing leaves your machine.</p>
     </div>
     <div class="bento">
       <div class="card b-8 rv">
@@ -238,8 +238,16 @@
           <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
           <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
         </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The first run builds tokenfuse in release mode and can take a few minutes; after that startup is seconds. Then open the link it prints, and you are looking at your own local money plane, live, with a short demo dataset already in it. Point an agent's OpenAI base URL at the gateway to feed it your own.</p>
-        <div style="margin-top:18px">
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The first run builds tokenfuse in release mode and takes a few minutes; after that startup is seconds.</p>
+        <div class="sheet-row">
+          <details class="sheet" data-sheet-kicker="run the live stack locally" data-sheet-title="What the first run actually does">
+            <summary>What the first run does</summary>
+            <div class="sheet-in">
+              <p class="dim" style="font-size:13.5px;line-height:1.65">Open the link it prints and you are looking at your own local money plane, live, with a short demo dataset already in it. Point an agent's OpenAI base URL at the gateway to feed it your own.</p>
+              <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It builds and starts the stack's long-running services from source: TokenFuse's gateway, cloud and dashboard, plus Wardryx and Idryx. Engram, Qryx, Verdryx and Mockryx are deliberately not servers, they are libraries and one-shot CLIs, each with its own one-line try-it on its page.</p>
+              <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">Press Ctrl-C and it stops clean, with no orphaned processes.</p>
+            </div>
+          </details>
           <a class="btn" href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener">stack-up on GitHub &#183; Apache-2.0</a>
         </div>
       </div>
@@ -252,7 +260,7 @@
           <div class="row"><span class="k">idryx</span><span class="v">:8081 &#183; identity</span></div>
           <div class="row"><span class="k">every bind</span><span class="v">127.0.0.1 only</span></div>
         </div>
-        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">Needs git, Rust, Node and Python; Go adds the policy and identity planes. macOS or Linux. A local sandbox to try the stack, not a production deployment.</p>
+        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">git, Rust, Node and Python; Go adds the policy and identity planes. macOS or Linux. A sandbox to try the stack, not a production deployment.</p>
       </div>
     </div>
   </div>
@@ -268,34 +276,61 @@
     </div>
     <div class="bento">
       <div class="card b-6 rv">
-        <div class="kicker">one instance</div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">Architecturally the simplest, and the one the stack is actually built for: the planes share a filesystem, which is how they talk. <a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">One script puts the whole stack on a box you own. It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-single</b></span></div>
-          <div class="install"><span class="cmd">cd stack-single &amp;&amp; <b>./install.sh</b></span></div>
-          <div class="install"><span class="cmd">GATEWAY_BIND=<b>0.0.0.0</b> ./install.sh</span></div>
-          <div class="install"><span class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:<b>4100</b></span></div>
+        <div class="kicker">one box</div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">The shape the stack is actually built for: the planes share a filesystem, which is how they talk. One script puts all of it on a box you own, and it comes up closed.</p>
+        <div class="hero-side" style="margin-top:14px">
+          <div class="row"><span class="k">install</span><span class="v">one script</span></div>
+          <div class="row"><span class="k">gateway</span><span class="v">host loopback, published only on purpose</span></div>
+          <div class="row"><span class="k">every other plane</span><span class="v">no host port at all</span></div>
+          <div class="row"><span class="k">the console</span><span class="v">over WireGuard the box issues</span></div>
+          <div class="row"><span class="k">images</span><span class="v">the same as the cluster path</span></div>
         </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:14px">It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane. It ends by verifying itself, and two of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
-        <div style="margin-top:18px">
-          <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
+        <div class="sheet-row">
+        <details class="sheet" data-sheet-kicker="one box &#183; stack-single" data-sheet-title="The commands, and the checks that have to fail to pass">
+          <summary>Commands and what it verifies</summary>
+          <div class="sheet-in">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-single</b></span></div>
+              <div class="install"><span class="cmd">cd stack-single &amp;&amp; <b>./install.sh</b></span></div>
+              <div class="install"><span class="cmd">GATEWAY_BIND=<b>0.0.0.0</b> ./install.sh</span></div>
+              <div class="install"><span class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:<b>4100</b></span></div>
+            </div>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px"><a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.</p>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It ends by verifying itself, and two of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
+          </div>
+        </details>
+        <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
         </div>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--violet)">or a Kubernetes cluster</div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">For teams whose answer to everything is a cluster. One script brings up k3s across your nodes with the CNI, storage and hardening the stack actually needs, then the workload applies from plain manifests. Proven on a five-node HA cluster, with every trap we hit written down and already fixed in the files.</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-k8s</b></span></div>
-          <div class="install"><span class="cmd">cd stack-k8s &amp;&amp; <b>./install.sh</b> --servers ... --agents ...</span></div>
-          <div class="install"><span class="cmd">./build.sh &amp;&amp; kubectl <b>apply -k manifests/</b></span></div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">For teams whose answer to everything is a cluster. One script brings up k3s across your nodes with the CNI, storage and hardening the stack actually needs, then the workload applies from plain manifests.</p>
+        <div class="hero-side" style="margin-top:14px">
+          <div class="row"><span class="k">install</span><span class="v">one script, then <span class="mono" style="font-size:12px">kubectl apply -k</span></span></div>
+          <div class="row"><span class="k">proven on</span><span class="v">a five-node HA cluster</span></div>
+          <div class="row"><span class="k">what it buys</span><span class="v">high availability</span></div>
+          <div class="row"><span class="k">what it costs</span><span class="v">a ReadWriteMany volume</span></div>
+          <div class="row"><span class="k">traps</span><span class="v">29 documented and already fixed</span></div>
         </div>
-        <div style="margin-top:18px">
-          <a class="btn" href="https://github.com/TAIPANBOX/stack-k8s" target="_blank" rel="noopener">stack-k8s on GitHub &#183; Apache-2.0</a>
+        <div class="sheet-row">
+        <details class="sheet" data-sheet-kicker="a cluster &#183; stack-k8s" data-sheet-title="The commands, and the one thing a cluster costs you">
+          <summary>Commands and the trade</summary>
+          <div class="sheet-in">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-k8s</b></span></div>
+              <div class="install"><span class="cmd">cd stack-k8s &amp;&amp; <b>./install.sh</b> --servers ... --agents ...</span></div>
+              <div class="install"><span class="cmd">./build.sh &amp;&amp; kubectl <b>apply -k manifests/</b></span></div>
+            </div>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Both paths have a one-command installer, so the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.</p>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">That trade, and twenty-nine other things that bite, are documented in the repositories rather than discovered by you. Proven on a five-node HA cluster, with every trap we hit written down and already fixed in the files.</p>
+          </div>
+        </details>
+        <a class="btn" href="https://github.com/TAIPANBOX/stack-k8s" target="_blank" rel="noopener">stack-k8s on GitHub &#183; Apache-2.0</a>
         </div>
       </div>
     </div>
-    <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:16px">Both paths have a one-command installer, so the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it. That trade, and twenty-nine other things that bite, are documented in the repositories rather than discovered by you.</p>
   </div>
 </section>
 
@@ -352,6 +387,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/platform.js"></script>
 <script src="../assets/diagram.js"></script>
