@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agent governance: the runtime controls, explained · IT-RAT</title>
+<meta name="description" content="What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.">
+<link rel="canonical" href="https://it-rat.com/ai-agent-governance.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/ai-agent-governance.html">
+<meta property="og:title" content="AI agent governance: the runtime controls, explained · IT-RAT">
+<meta property="og:description" content="Observability tells you what an AI agent did. Governance decides what it may do next: budgets, policy, identity, provenance, quality and rehearsal, applied at runtime.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI agent governance: the runtime controls, explained · IT-RAT">
+<meta name="twitter:description" content="Observability tells you what an AI agent did. Governance decides what it may do next: budgets, policy, identity, provenance, quality and rehearsal, applied at runtime.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:20ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose .mono{font-size:13.5px}
+  .qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:20px}
+  .q{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:18px}
+  .q .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .q h3{margin-top:9px;font-size:16.5px}
+  .q p{margin-top:8px;color:var(--dim);font-size:13.5px;line-height:1.6}
+  .q a{color:var(--c,var(--accent));font-family:var(--font-m);font-size:12px;display:inline-block;margin-top:10px}
+  .steps{counter-reset:s;margin-top:20px;display:flex;flex-direction:column;gap:14px}
+  .step{display:flex;gap:16px;align-items:flex-start}
+  .step::before{counter-increment:s;content:counter(s);flex:0 0 30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;font-family:var(--font-m);font-size:13px;color:var(--accent);
+    border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line-2));background:var(--panel)}
+  .step div{color:var(--dim);font-size:14.5px;line-height:1.65}
+  .step b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"AI agent governance: the runtime controls, explained","name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html","description":"What AI agent governance means in practice: budgets, policy decisions, identity, provenance, quality and drills applied while an agent runs, not after. With the open-source tools for each.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/ai-agent-governance.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"AI agent governance","item":"https://it-rat.com/ai-agent-governance.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AI agent governance?","acceptedAnswer":{"@type":"Answer","text":"The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold."}},{"@type":"Question","name":"How is agent governance different from LLM observability?","acceptedAnswer":{"@type":"Answer","text":"Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters."}},{"@type":"Question","name":"Do I have to adopt all of it at once?","acceptedAnswer":{"@type":"Answer","text":"No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone."}},{"@type":"Question","name":"Does putting controls in the request path slow agents down?","acceptedAnswer":{"@type":"Answer","text":"The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check."}},{"@type":"Question","name":"Can this run on our own infrastructure?","acceptedAnswer":{"@type":"Answer","text":"It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">agent governance</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="finops-for-ai.html">FinOps for AI</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; agent governance</div>
+    <h1 class="rv d1">AI agent governance, and what it means at runtime.</h1>
+    <p class="lede rv d2">An AI agent does not answer a question and stop. It calls tools, spends money, touches data and hands work to other agents, on its own schedule and at machine speed. Governance is the set of controls that decide what it is allowed to do while it is doing it: a budget it cannot exceed, a policy it must ask, an identity that records who it acts for, a memory that can say where a belief came from, and evidence somebody else can check afterwards.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the distinction that matters</div>
+      <h2>Observability is a witness. Governance is a brake.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Most AI tooling sold today is observability: traces, dashboards, token counters, evaluation reports. It is genuinely useful and it is not governance. A trace tells you, after the fact, that an agent looped four hundred times against a production API. A budget tells the agent, on call five, that it may not.</p>
+      <p>The distinction is not academic. Every failure mode teams actually hit with agent fleets is a failure of control, not of visibility: a retry loop that ran overnight, an agent that called a tool nobody meant to expose, a sub-agent inheriting permissions through a delegation chain nobody had drawn, a model quietly getting worse while the dashboard stayed green. In each case the data was there. Nothing was standing in the path.</p>
+      <p><b>Runtime governance means the control sits in the request path, and its answer is binding.</b> Anything else is reporting.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the questions to answer</div>
+      <h2>Seven questions, each with an owner.</h2>
+      <p class="lede">Governance sounds abstract until it is broken into the questions a fleet has to answer at runtime. Each one is a separate control, and each has an open-source tool in this stack.</p>
+    </div>
+    <div class="qs rv">
+      <div class="q" style="--c:#F4B23E">
+        <div class="n">money</div>
+        <h3>What may this run spend?</h3>
+        <p>Budgets that nest from company down to the single run, priced before each call and enforced in the path, so a loop is refused rather than reported.</p>
+        <a href="services/tokenfuse.html">TokenFuse, the money plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#2DD4BF">
+        <div class="n">policy</div>
+        <h3>May it do this at all?</h3>
+        <p>Allow, deny, or hold for a human, decided per action against policy as code, with signed approval tokens for the actions that need a person.</p>
+        <a href="services/wardryx.html">Wardryx, the policy plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#34D399">
+        <div class="n">identity</div>
+        <h3>Who is it acting for?</h3>
+        <p>One graph of humans, service accounts, keys and agents, with delegation chains and the true blast radius of each identity, not the list of grants on its own name.</p>
+        <a href="services/idryx.html">Idryx, the access plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#6C7BFF">
+        <div class="n">memory</div>
+        <h3>Why does it believe that?</h3>
+        <p>Memory with provenance and two timelines, so you can ask what the agent knew in March and get March's answer, and correct a fact without erasing the reason it once held.</p>
+        <a href="services/engram.html">Engram, the knowledge plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#FF7AA2">
+        <div class="n">quality</div>
+        <h3>Is it still any good?</h3>
+        <p>Cost per correctly resolved case rather than cost per token, with statistical drift detection that catches the small consistent regression a threshold misses.</p>
+        <a href="services/verdryx.html">Verdryx, the quality plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#B48CFF">
+        <div class="n">crypto</div>
+        <h3>What is it holding, and for how long?</h3>
+        <p>An inventory of the keys, certificates and algorithms actually running, graded against the post-quantum migration dates rather than against an architecture document.</p>
+        <a href="services/qryx.html">Qryx, the crypto plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#FF8A5B">
+        <div class="n">rehearsal</div>
+        <h3>Do the guardrails hold?</h3>
+        <p>Fire drills against a real gateway, so a broken defence fails a build rather than an incident review. A guardrail nobody tests is a guardrail nobody has.</p>
+        <a href="services/mockryx.html">Mockryx, the pre-prod plane &#8594;</a>
+      </div>
+      <div class="q" style="--c:#93A8C4">
+        <div class="n">the contract</div>
+        <h3>How do they agree?</h3>
+        <p>One agent identifier, one event envelope and one Go binding under all of it, so seven independent tools can describe the same agent without a shared runtime or database.</p>
+        <a href="services/platform.html">The shared contract &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">approaches that survive contact</div>
+      <h2>Five decisions every governed fleet ends up making.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>1. Shadow mode before enforcement</h3>
+      <p>Put the control in the path first with its answer recorded and never binding. You learn what would have been blocked, on real traffic, before anything is. A policy set that has never seen production traffic is a hypothesis, and the first day it enforces is the wrong day to discover that.</p>
+
+      <h3>2. Fail-open or fail-closed, chosen on purpose</h3>
+      <p>Decide now what happens when the control plane is unreachable. <b>Fail-open</b> treats it as allow: availability wins, and an outage silently disables governance. <b>Fail-closed</b> treats it as deny: governance wins, and an outage stops every governed action. There is no clever third answer. The failure is only embarrassing when nobody chose and everybody assumed.</p>
+
+      <h3>3. The run is the unit, not the key</h3>
+      <p>Per-key rate limits cannot tell one agent's honest afternoon from the same key looping on itself. The unit that means something for an agent fleet is the run: one task, one budget, one identity, one trace, rolled up to the agent, the team and the company. Every control in this stack keys on it, which is what makes an incident, a spend and a policy decision line up on the same id.</p>
+
+      <h3>4. A human in the loop, without a parked connection</h3>
+      <p>Approval that holds an open connection while somebody sleeps is not a control, it is an outage waiting for a timeout. The workable shape is stateless: the agent is told to hold, a person decides out of band, and the eventual grant is proven by a signed token bound to that exact agent, run and tool set, not by anyone remembering an open request.</p>
+
+      <h3>5. Evidence produced as a by-product</h3>
+      <p>Governance that has to be reconstructed for an audit will be reconstructed badly. If every decision, kill and approval is journaled as it happens, each record carrying the hash of the one before it, then the audit is an export rather than an archaeology project, and it stays verifiable by someone who does not trust you.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where to start</div>
+      <h2>The order that works.</h2>
+      <p class="lede">Nobody governs seven planes on the first day. This is the order we deploy in, and the reasoning behind it.</p>
+    </div>
+    <div class="steps rv">
+      <div class="step"><div><b>Meter before you enforce.</b> Put the money plane in the path in shadow mode. Within a week you know what your fleet actually costs per run, which agent is the outlier, and what a cap would have blocked. This is also the step that pays for the rest.</div></div>
+      <div class="step"><div><b>Turn on the ceiling.</b> Budgets per run, nested up to the team. The first runaway it refuses tends to settle the argument about whether runtime control was worth the effort.</div></div>
+      <div class="step"><div><b>Name the actions that need a human.</b> Usually a small list: money above a threshold, anything that writes to a system of record, anything that touches customer data. A hold with a signed approval is enough; a committee is not.</div></div>
+      <div class="step"><div><b>Draw the identities.</b> Most fleets discover here that half their agents have no owner and a third run on a key nobody rotates. The graph is uncomfortable reading and it is the cheapest security work available.</div></div>
+      <div class="step"><div><b>Rehearse the guardrails in CI.</b> Fire drills that assert the breaker returns its refusal and the policy plane denies the forbidden tool. A guardrail regression should fail a pull request, not an incident review.</div></div>
+      <div class="step"><div><b>Then measure quality in money.</b> Cost per resolved case, drift with statistics behind it. By this point you have the outcome tags to do it honestly, which you did not on day one.</div></div>
+    </div>
+    <div class="prose rv" style="margin-top:22px">
+      <p>All of it is Apache-2.0 and runs on infrastructure you own. <a href="services/platform.html#run" style="color:var(--accent)">One command starts the live services locally</a> if you want to see the shape before you commit to any of it, and the whole corridor is <a href="index.html#stack" style="color:var(--accent)">on the stack page</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask about agent governance</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What is AI agent governance?</summary>
+        <div class="a"><p>The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold.</p></div>
+      </details>
+      <details>
+        <summary>How is agent governance different from LLM observability?</summary>
+        <div class="a"><p>Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters.</p></div>
+      </details>
+      <details>
+        <summary>Do I have to adopt all of it at once?</summary>
+        <div class="a"><p>No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.</p></div>
+      </details>
+      <details>
+        <summary>Does putting controls in the request path slow agents down?</summary>
+        <div class="a"><p>The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.</p></div>
+      </details>
+      <details>
+        <summary>Can this run on our own infrastructure?</summary>
+        <div class="a"><p>It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="ai-agent-governance.html">Agent governance guide</a>
+        <a href="finops-for-ai.html">FinOps for AI guide</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

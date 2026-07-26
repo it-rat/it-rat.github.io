@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinOps for AI: LLM cost management and runtime cost control · IT-RAT</title>
+<meta name="description" content="FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.">
+<link rel="canonical" href="https://it-rat.com/finops-for-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/finops-for-ai.html">
+<meta property="og:title" content="FinOps for AI: LLM cost management and runtime cost control · IT-RAT">
+<meta property="og:description" content="Cloud FinOps assumes spend is provisioned. Agent spend is created by a loop in seconds. The unit of work, the controls that hold it, and how to report it to finance.">
+<meta property="og:image" content="https://it-rat.com/assets/og/tokenfuse.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FinOps for AI: LLM cost management and runtime cost control · IT-RAT">
+<meta name="twitter:description" content="Cloud FinOps assumes spend is provisioned. Agent spend is created by a loop in seconds. The unit of work, the controls that hold it, and how to report it to finance.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/tokenfuse.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e05">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:20ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .steps{counter-reset:s;margin-top:20px;display:flex;flex-direction:column;gap:14px}
+  .step{display:flex;gap:16px;align-items:flex-start}
+  .step::before{counter-increment:s;content:counter(s);flex:0 0 30px;height:30px;border-radius:9px;
+    display:grid;place-items:center;font-family:var(--font-m);font-size:13px;color:var(--accent);
+    border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line-2));background:var(--panel)}
+  .step div{color:var(--dim);font-size:14.5px;line-height:1.65}
+  .step b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"FinOps for AI: LLM cost management and runtime cost control","name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html","description":"FinOps practice applied to LLM and AI agent spend: the unit of work, per-run budgets, reserve-then-settle accounting, showback in FOCUS format, and cost per resolved case.","inLanguage":"en","datePublished":"2026-07-26","dateModified":"2026-07-26","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/finops-for-ai.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"FinOps for AI","item":"https://it-rat.com/finops-for-ai.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is FinOps for AI?","acceptedAnswer":{"@type":"Answer","text":"FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate."}},{"@type":"Question","name":"How do I control LLM costs in production?","acceptedAnswer":{"@type":"Answer","text":"Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately."}},{"@type":"Question","name":"Why is a per-key rate limit not enough?","acceptedAnswer":{"@type":"Answer","text":"Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures."}},{"@type":"Question","name":"How do I report AI spend to finance?","acceptedAnswer":{"@type":"Answer","text":"Export it in the FinOps Foundation's FOCUS format, one row per model call, so agent spend lands in the same pipelines and dashboards as the rest of the cloud bill. Showback and chargeback by team then reuse the tooling finance already trusts instead of becoming a bespoke project."}},{"@type":"Question","name":"What is cost per resolved case?","acceptedAnswer":{"@type":"Answer","text":"The unit economic that changes decisions: the money spent to actually resolve one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. An agent at forty cents a resolved case and one at four dollars are different businesses, and a monthly total cannot tell them apart."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">finops for ai</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="ai-agent-governance.html">Agent governance</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; finops for ai</div>
+    <h1 class="rv d1">FinOps for AI: managing spend that creates itself.</h1>
+    <p class="lede rv d2">Cloud FinOps grew up around resources somebody provisioned: an instance, a bucket, a cluster. LLM and agent spend does not work like that. Nobody provisions it. An agent creates it, in seconds, by deciding to try again, and the same task can cost thirty times more on Tuesday than it did on Monday depending on how the loop unfolds. The practice still applies; the unit of work, the controls and the reporting all have to move.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">why the old shape does not fit</div>
+      <h2>Three assumptions that quietly break.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Spend is no longer provisioned, it is emitted</h3>
+      <p>A rightsizing recommendation assumes something is sitting there costing money. An agent's cost appears when it acts, disappears when it stops, and spikes when it retries. There is nothing to rightsize; there is only a decision to allow or refuse the next call. That moves cost management out of the monthly review and into the request path.</p>
+
+      <h3>The billing dimension is the wrong dimension</h3>
+      <p>Providers bill per key and per model. Neither is a unit of business work. A key does not tell you whether a thousand calls were one hard task or two hundred wasted retries, and a model total cannot be charged back to the team that caused it. <b>The unit that means something is the run:</b> one task, one budget, one identity, one trace. Every number worth showing finance is an aggregation of runs.</p>
+
+      <h3>The feedback loop is too slow to matter</h3>
+      <p>Classic FinOps runs on a monthly cadence because infrastructure spend changes at a monthly pace. A runaway agent settles the question in an afternoon. By the time an anomaly detector on the invoice notices, the money is spent and the only remaining decision is who explains it. The correct alert for agent spend fires before the call, not after the bill.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the practice</div>
+      <h2>What an AI cost-control programme actually contains.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>1. A unit of work, defined once</h3>
+      <p>Pick the run as the unit and make every plane key on it. That single decision is what later lets a spend line, an incident, a policy decision and a quality score refer to the same identifier instead of four systems arguing about which trace was which.</p>
+
+      <h3>2. Budgets that nest, enforced in the path</h3>
+      <p>A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove.</p>
+      <ul>
+        <li><b>Start in shadow mode.</b> Price and record everything, refuse nothing, and look at what would have been blocked before anything is.</li>
+        <li><b>Fail open.</b> A cost control that can take your fleet down has traded one incident for a worse one.</li>
+        <li><b>Enforce where the money is spent,</b> in the request path, not in a nightly job that reads yesterday's logs.</li>
+      </ul>
+
+      <h3>3. Savings you can name, not a vague percentage</h3>
+      <p>Three mechanisms do most of the work, and each should report separately: a <b>breaker</b> that blocks runaway spend outright, a <b>semantic cache</b> that serves a repeated question for nothing, and a <b>model router</b> that sends routine calls to a cheaper model while hard ones stay on the frontier one. Reporting them as one number invites the question nobody can answer: saved compared to what? Reporting them separately makes each one auditable, and makes it obvious which lever to pull next.</p>
+
+      <h3>4. Showback in a format finance already reads</h3>
+      <p>Agent spend that lives only in an engineering dashboard is invisible to the people who allocate budget. Exported in the FinOps Foundation's FOCUS format, one row per model call, it lands in the same pipelines and dashboards as the rest of the cloud bill, and showback or chargeback by team and business unit stops being a bespoke project.</p>
+
+      <h3>5. Unit economics, not just totals</h3>
+      <p>The number that changes a decision is not monthly spend. It is <b>cost per resolved case</b>: tag outcomes in production, then read the cost of every call in the run behind each one, including the intermediate calls nobody tagged and the calls the breaker refused. A support agent at forty cents a resolved case and one at four dollars are different businesses, and the total spend line cannot tell them apart.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">first ninety days</div>
+      <h2>What to instrument, in what order.</h2>
+    </div>
+    <div class="steps rv">
+      <div class="step"><div><b>Route every model call through one gateway.</b> One base-URL change per service. Nothing is enforced yet; you are buying a single place where cost is visible per run rather than per key.</div></div>
+      <div class="step"><div><b>Watch for a week in shadow mode.</b> Cost per run, per agent, per team. Most teams find one agent responsible for a surprising share, and at least one loop nobody knew about.</div></div>
+      <div class="step"><div><b>Set caps where the outliers are.</b> Start with the agents that scared you in week one. A cap that would have blocked nothing is a cap nobody argues with.</div></div>
+      <div class="step"><div><b>Turn on the cache and the router.</b> These reduce spend without refusing work, which makes them the easiest wins to defend, and they report their savings separately.</div></div>
+      <div class="step"><div><b>Export to finance in FOCUS.</b> Once agent spend appears next to cloud spend in the tooling finance already trusts, the conversation stops being about tokens.</div></div>
+      <div class="step"><div><b>Then tag outcomes and price them.</b> Cost per resolved case is the number that ends up in the quarterly review, and it needs the outcome tags you did not have on day one.</div></div>
+    </div>
+    <div class="prose rv" style="margin-top:22px">
+      <p>The tools behind each step are open source and run on your own infrastructure: <a href="services/tokenfuse.html" style="color:var(--accent)">TokenFuse</a> for the gateway, the budgets, the cache, the router and the FOCUS export, and <a href="services/verdryx.html" style="color:var(--accent)">Verdryx</a> for cost per outcome. The wider set of runtime controls, of which cost is one, is laid out in <a href="ai-agent-governance.html" style="color:var(--accent)">the agent governance guide</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask about AI cost control</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What is FinOps for AI?</summary>
+        <div class="a"><p>FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate.</p></div>
+      </details>
+      <details>
+        <summary>How do I control LLM costs in production?</summary>
+        <div class="a"><p>Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p></div>
+      </details>
+      <details>
+        <summary>Why is a per-key rate limit not enough?</summary>
+        <div class="a"><p>Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures.</p></div>
+      </details>
+      <details>
+        <summary>How do I report AI spend to finance?</summary>
+        <div class="a"><p>Export it in the FinOps Foundation's FOCUS format, one row per model call, so agent spend lands in the same pipelines and dashboards as the rest of the cloud bill. Showback and chargeback by team then reuse the tooling finance already trusts instead of becoming a bespoke project.</p></div>
+      </details>
+      <details>
+        <summary>What is cost per resolved case?</summary>
+        <div class="a"><p>The unit economic that changes decisions: the money spent to actually resolve one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. An agent at forty cents a resolved case and one at four dollars are different businesses, and a monthly total cannot tell them apart.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="ai-agent-governance.html">Agent governance guide</a>
+        <a href="finops-for-ai.html">FinOps for AI guide</a>
+        <a href="index.html#consulting">Consulting</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e05"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

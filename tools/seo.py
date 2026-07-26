@@ -17,6 +17,11 @@ SITE = "https://it-rat.com"
 MARK_OPEN = "<!-- seo:auto -->"
 MARK_CLOSE = "<!-- /seo:auto -->"
 
+GUIDES = {
+    "ai-agent-governance.html": "AI agent governance",
+    "finops-for-ai.html": "FinOps for AI",
+}
+
 SERVICE_PAGES = [
     "services/engram.html", "services/tokenfuse.html", "services/wardryx.html",
     "services/idryx.html", "services/qryx.html", "services/verdryx.html",
@@ -145,6 +150,29 @@ def faq(html):
     return {"@type": "FAQPage", "mainEntity": items}
 
 
+def article(bits, name, published="2026-07-26"):
+    return {
+        "@type": "TechArticle",
+        "headline": bits["title"].split("\u00b7")[0].strip(),
+        "name": name,
+        "url": bits["url"],
+        "description": bits["desc"],
+        "inLanguage": "en",
+        "datePublished": published,
+        "dateModified": published,
+        "author": {"@id": f"{SITE}/#org"},
+        "publisher": {"@id": f"{SITE}/#org"},
+        "mainEntityOfPage": bits["url"],
+    }
+
+
+def guide_crumbs(bits, name):
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "IT-RAT", "item": f"{SITE}/"},
+        {"@type": "ListItem", "position": 2, "name": name, "item": bits["url"]},
+    ]}
+
+
 def write(path, graph):
     p = ROOT / path
     h = p.read_text(encoding="utf-8")
@@ -177,6 +205,15 @@ def main():
     ent_app = software(ent, free=False)
     ent_app.pop("codeRepository", None)   # Genaryx is the one closed room
     n += write("enterprise.html", [ent_app, breadcrumbs(ent)])
+
+    for path, name in GUIDES.items():
+        html = (ROOT / path).read_text(encoding="utf-8")
+        bits = head_bits(html, path)
+        graph = [article(bits, name), guide_crumbs(bits, name)]
+        q = faq(html)
+        if q:
+            graph.append(q)
+        n += write(path, graph)
 
     for path in SERVICE_PAGES:
         html = (ROOT / path).read_text(encoding="utf-8")

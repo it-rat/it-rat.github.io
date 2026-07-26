@@ -120,6 +120,32 @@ FAQ = {
  ("How do I check that my events actually conform?",
   "<p>Run <span class=\"mono\">agent-conform</span>. It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect.</p>"),
 ]),
+
+"ai-agent-governance.html": ("common questions", "What people ask about agent governance", [
+ ("What is AI agent governance?",
+  "<p>The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold.</p>"),
+ ("How is agent governance different from LLM observability?",
+  "<p>Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters.</p>"),
+ ("Do I have to adopt all of it at once?",
+  "<p>No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.</p>"),
+ ("Does putting controls in the request path slow agents down?",
+  "<p>The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.</p>"),
+ ("Can this run on our own infrastructure?",
+  "<p>It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data.</p>"),
+]),
+
+"finops-for-ai.html": ("common questions", "What people ask about AI cost control", [
+ ("What is FinOps for AI?",
+  "<p>FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate.</p>"),
+ ("How do I control LLM costs in production?",
+  "<p>Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p>"),
+ ("Why is a per-key rate limit not enough?",
+  "<p>Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures.</p>"),
+ ("How do I report AI spend to finance?",
+  "<p>Export it in the FinOps Foundation's FOCUS format, one row per model call, so agent spend lands in the same pipelines and dashboards as the rest of the cloud bill. Showback and chargeback by team then reuse the tooling finance already trusts instead of becoming a bespoke project.</p>"),
+ ("What is cost per resolved case?",
+  "<p>The unit economic that changes decisions: the money spent to actually resolve one piece of work, including the intermediate calls nobody tagged and the calls a breaker refused. An agent at forty cents a resolved case and one at four dollars are different businesses, and a monthly total cannot tell them apart.</p>"),
+]),
 }
 
 
