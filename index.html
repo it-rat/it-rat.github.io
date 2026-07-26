@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IT-RAT - Run AI agents like a workforce, not a wildfire</title>
-<meta name="description" content="IT-RAT builds and runs the open-source agent-governance stack: runtime spend control, policy decisions, memory, identity, cryptography, quality and pre-production drills for AI agents. Cloud security, IAM and FinOps consulting for AWS and GCP.">
+<meta name="description" content="Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP.">
 <link rel="canonical" href="https://it-rat.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
@@ -76,6 +76,9 @@
   .consult li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
   .consult li b{color:var(--fg)}
 </style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://it-rat.com/#org","name":"IT-RAT","url":"https://it-rat.com/","logo":"https://it-rat.com/apple-touch-icon.png","image":"https://it-rat.com/assets/og.png","email":"itratmail@gmail.com","description":"Cloud security, IAM and FinOps practice, and the authors of the open-source agent-governance stack: runtime spend control, policy, memory, identity, cryptography, quality and pre-production drills for AI agents.","sameAs":["https://github.com/TAIPANBOX","https://www.linkedin.com/in/yurii-kostiuk-778900ab/","https://www.linkedin.com/in/tania-fedirko-9bb1a5136/"],"founder":[{"@type":"Person","name":"Yurii Kostiuk","jobTitle":"Lead Security Architect","sameAs":"https://www.linkedin.com/in/yurii-kostiuk-778900ab/"},{"@type":"Person","name":"Tania Fedirko","jobTitle":"Principal FinOps Architect","sameAs":"https://www.linkedin.com/in/tania-fedirko-9bb1a5136/"}],"knowsAbout":["AI agent governance","FinOps for AI","Zero Trust","Identity and access management","Post-quantum cryptography","Cloud security"]},{"@type":"WebSite","@id":"https://it-rat.com/#website","url":"https://it-rat.com/","name":"IT-RAT","publisher":{"@id":"https://it-rat.com/#org"},"inLanguage":"en"},{"@type":"WebPage","url":"https://it-rat.com/","name":"IT-RAT - Run AI agents like a workforce, not a wildfire","description":"IT-RAT builds and runs the open-source agent-governance stack: runtime spend control, policy decisions, memory, identity, cryptography, quality and pre-production drills for AI agents. Cloud security, IAM and FinOps consulting for AWS and GCP.","isPartOf":{"@id":"https://it-rat.com/#website"}}]}</script>
+<!-- /seo:auto -->
 </head>
 <body data-root="">
 
@@ -104,9 +107,9 @@
       <button class="btn" data-cmdk type="button">Jump anywhere <span class="mono">&#8984;K</span></button>
     </div>
     <div class="ticker rv d3">
-      <div class="tick"><div class="n" style="color:var(--amber)"><span data-count="176">0</span></div><div class="l">real Claude calls in one governed validation campaign</div></div>
-      <div class="tick"><div class="n" style="color:var(--mint)"><span data-count="64" data-suffix="%">0</span></div><div class="l">of would-be gross spend avoided in the live campaign: blocked, cached or routed cheaper</div></div>
-      <div class="tick"><div class="n" style="color:var(--teal)"><span data-count="583" data-suffix=" ms">0</span></div><div class="l">leader re-election across four machines after a leader kill</div></div>
+      <div class="tick"><div class="n" style="color:var(--amber)"><span data-count="176">176</span></div><div class="l">real Claude calls in one governed validation campaign</div></div>
+      <div class="tick"><div class="n" style="color:var(--mint)"><span data-count="64" data-suffix="%">64%</span></div><div class="l">of would-be gross spend avoided in the live campaign: blocked, cached or routed cheaper</div></div>
+      <div class="tick"><div class="n" style="color:var(--teal)"><span data-count="583" data-suffix=" ms">583 ms</span></div><div class="l">leader re-election across four machines after a leader kill</div></div>
       <div class="tick"><div class="n" style="color:var(--iris)"><span data-count="0">0</span></div><div class="l">double-spends under 500 concurrent agents</div></div>
     </div>
   </div>
@@ -120,7 +123,62 @@
       <h2>One corridor, every door on it.</h2>
       <p class="lede">Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx, first on the rail, is the control room over all of them, deployed with us on your own infrastructure. Walk it with the arrows on each page, scroll this rail sideways, or hit <span class="mono" style="color:var(--fg)">&#8984;K</span> and type two letters.</p>
     </div>
-    <div class="rail rv" id="svc-rail"><!-- cards injected --></div>
+    <div class="rail rv" id="svc-rail">
+      <a class="card hover svc" style="--c:#B48CFF" href="enterprise.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">enterprise</span><span class="plane">control room</span></span>
+        <h3>Genaryx</h3>
+        <p class="what">The control room over all of it, in your browser on your own box.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#6C7BFF" href="services/engram.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">engram</span><span class="plane">memory</span></span>
+        <h3>Engram</h3>
+        <p class="what">The SQLite of agent memory.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#F4B23E" href="services/tokenfuse.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">tokenfuse</span><span class="plane">money</span></span>
+        <h3>TokenFuse</h3>
+        <p class="what">Runtime spend control and the in-line kill switch.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#2DD4BF" href="services/wardryx.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">wardryx</span><span class="plane">policy</span></span>
+        <h3>Wardryx</h3>
+        <p class="what">Policy decisions with a human in the loop.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#34D399" href="services/idryx.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">idryx</span><span class="plane">access</span></span>
+        <h3>Idryx</h3>
+        <p class="what">One identity graph for humans, keys and agents.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#B48CFF" href="services/qryx.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">qryx</span><span class="plane">crypto</span></span>
+        <h3>Qryx</h3>
+        <p class="what">Cryptography inventory and post-quantum risk.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#FF7AA2" href="services/verdryx.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">verdryx</span><span class="plane">quality</span></span>
+        <h3>Verdryx</h3>
+        <p class="what">Cost per correctly resolved case, not per token.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#FF8A5B" href="services/mockryx.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">mockryx</span><span class="plane">pre-prod</span></span>
+        <h3>Mockryx</h3>
+        <p class="what">Fire drills that prove guardrails hold.</p>
+        <span class="go">open the room</span>
+      </a>
+      <a class="card hover svc" style="--c:#93A8C4" href="services/platform.html" data-dir="fwd">
+        <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">platform</span><span class="plane">contract</span></span>
+        <h3>Platform</h3>
+        <p class="what">Agent Passport, shared contract, Terraform.</p>
+        <span class="go">open the room</span>
+      </a>
+    </div>
     <div class="rail-hint"><span class="bar"></span>scroll sideways, or drag</div>
   </div>
 </section>
@@ -197,11 +255,11 @@
       <p class="lede">Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend.</p>
     </div>
     <div class="stats rv">
-      <div class="stat"><div class="n" style="color:var(--amber)"><span data-count="8000">0</span><span class="unit">/8000</span></div><div class="l">requests served under 100-500 concurrent agents, none dropped</div></div>
-      <div class="stat"><div class="n" style="color:var(--mint)"><span data-count="25586">0</span></div><div class="l">real Linux binaries scanned by Qryx, zero crashes</div></div>
-      <div class="stat"><div class="n" style="color:var(--teal)"><span data-count="34">0</span></div><div class="l">concurrent requests sorted exactly right: 6/6 served, 6/6 oversteppers denied</div></div>
-      <div class="stat"><div class="n" style="color:var(--iris)"><span data-count="10">0</span></div><div class="l">semantic facts from five live episodes, zero contradictions</div></div>
-      <div class="stat"><div class="n" style="color:var(--rose)"><span data-count="0.00042" data-decimals="5" data-prefix="$">0</span></div><div class="l">measured cost of one correctly resolved case</div></div>
+      <div class="stat"><div class="n" style="color:var(--amber)"><span data-count="8000">8000</span><span class="unit">/8000</span></div><div class="l">requests served under 100-500 concurrent agents, none dropped</div></div>
+      <div class="stat"><div class="n" style="color:var(--mint)"><span data-count="25586">25,586</span></div><div class="l">real Linux binaries scanned by Qryx, zero crashes</div></div>
+      <div class="stat"><div class="n" style="color:var(--teal)"><span data-count="34">34</span></div><div class="l">concurrent requests sorted exactly right: 6/6 served, 6/6 oversteppers denied</div></div>
+      <div class="stat"><div class="n" style="color:var(--iris)"><span data-count="10">10</span></div><div class="l">semantic facts from five live episodes, zero contradictions</div></div>
+      <div class="stat"><div class="n" style="color:var(--rose)"><span data-count="0.00042" data-decimals="5" data-prefix="$">$0.00042</span></div><div class="l">measured cost of one correctly resolved case</div></div>
       <div class="stat"><div class="n" style="color:var(--coral)"><span data-count="0">0</span></div><div class="l">guardrail gaps in Mockryx fire drills, three hostile scenarios</div></div>
     </div>
     <details class="sheet" data-sheet-kicker="proof, not promises" data-sheet-title="What the campaign ran, and what it caught">
@@ -322,7 +380,11 @@
         <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
         <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
       </div>
-      <div class="foot-groups" id="foot-stack"><!-- injected --></div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="enterprise.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
       <div>
         <a href="#people">The people</a>
         <a href="https://www.linkedin.com/in/yurii-kostiuk-778900ab/" target="_blank" rel="noopener">Yurii on LinkedIn &#8599;</a>
@@ -342,26 +404,6 @@
 <script src="assets/concierge.js"></script>
 <script>
 /* inject stack cards into the rail + footer links */
-(function(){
-  const rail=document.getElementById("svc-rail");
-  /* Every room is a plain card on the rail; Genaryx leads the corridor
-     and is deployed as an engagement, but it is not badged apart. */
-  const card = s =>
-    `<a class="card hover svc" style="--c:${s.color}" href="${s.href}" data-dir="fwd">
-       <span class="head"><span class="g"></span><span class="mono" style="font-size:11px;color:var(--faint)">${s.id}</span><span class="plane">${s.plane}</span></span>
-       <h3>${s.name}</h3>
-       <p class="what">${s.what}.</p>
-       <span class="go">open the room</span>
-     </a>`;
-  rail.innerHTML = STACK.map(card).join("");
-  /* One flat group: every room in corridor order. Everything comes from
-     STACK, so a service cannot end up with two identities on the same page. */
-  const chip = s => `<a class="foot-chip" href="${s.href}">`
-    + `<i style="background:${s.color}"></i>${s.name}</a>`;
-  document.getElementById("foot-stack").innerHTML =
-    `<div class="foot-group"><div class="l">the stack</div>`
-    + `<div class="foot-chips">${STACK.map(chip).join("")}</div></div>`;
-})();
 
 /* ---- hero canvas: the fuse wire ----
    Amber sparks flow along faint conduits; every few seconds one line

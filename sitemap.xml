@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://it-rat.com/</loc></url>
-  <url><loc>https://it-rat.com/services/tokenfuse.html</loc></url>
-  <url><loc>https://it-rat.com/services/wardryx.html</loc></url>
-  <url><loc>https://it-rat.com/services/engram.html</loc></url>
-  <url><loc>https://it-rat.com/services/idryx.html</loc></url>
-  <url><loc>https://it-rat.com/services/qryx.html</loc></url>
-  <url><loc>https://it-rat.com/services/verdryx.html</loc></url>
-  <url><loc>https://it-rat.com/services/mockryx.html</loc></url>
-  <url><loc>https://it-rat.com/services/platform.html</loc></url>
-  <url><loc>https://it-rat.com/enterprise.html</loc></url>
+  <url><loc>https://it-rat.com/</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/enterprise.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/tokenfuse.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/wardryx.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/engram.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/idryx.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/qryx.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/verdryx.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/mockryx.html</loc><lastmod>2026-07-26</lastmod></url>
+  <url><loc>https://it-rat.com/services/platform.html</loc><lastmod>2026-07-26</lastmod></url>
 </urlset>

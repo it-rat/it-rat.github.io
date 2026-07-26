@@ -375,6 +375,11 @@ p{margin:0}
   transition:border-color .16s,color .16s,transform .16s;
 }
 .footer .cols .foot-chip:hover{color:var(--fg);border-color:var(--line-2);transform:translateY(-1px)}
+/* the room you are standing in is a state, not a link back to itself */
+.footer .cols .foot-chip.here{
+  color:var(--fg);border-color:color-mix(in srgb, var(--accent) 45%, var(--line-2));
+  background:color-mix(in srgb, var(--accent) 8%, var(--panel));cursor:default;
+}
 .foot-chip i{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
 .foot-chip em{font-style:normal;color:var(--faint);font-size:10.5px;margin-left:1px}
 .foot-note{margin-top:26px;color:var(--faint);font-size:12.5px;line-height:1.6}
