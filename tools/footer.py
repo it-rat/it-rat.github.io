@@ -25,7 +25,7 @@ FLAG_SVG = ('<svg style="display:inline-block;width:15px;height:11px;vertical-al
 
 # page path -> (root prefix, the tail of the copyright line)
 PAGES = {
-    "genaryx.html": ("", "Genaryx"),
+    "genaryx.html": ("", "Apache-2.0"),
     "ai-agent-governance.html": ("", "Apache-2.0"),
     "finops-for-ai.html": ("", "Apache-2.0"),
     "ai-agent-security.html": ("", "Apache-2.0"),
