@@ -120,7 +120,7 @@ Every one of those records carries the hash of the event before it, and the stac
 
 Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a live fleet of 42 agents. Every claim here has a captured run behind it.
 
-The software is free to take: clone it, run it, fork it, and never speak to us. That is the point of publishing it. What we sell is time and judgment, never access. If you would rather not learn an agent control plane by reading its source at 2am, we will stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. Both paths end with your team running it; one of them just gets there sooner.
+Clone it, run it, fork it, and never speak to us. That is the point of publishing it. If you would rather not learn an agent control plane by reading its source at 2am, we will stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. Both paths end with your team running it; one of them just gets there sooner.
 
 Or [run the open stack yourself in one command](https://it-rat.com/services/platform.html#run) today.
 
