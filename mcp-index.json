@@ -9,7 +9,7 @@
       "markdown": "https://it-rat.com/index.md",
       "title": "IT-RAT, the agent-governance stack",
       "kind": "page",
-      "description": "Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP."
+      "description": "Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted."
     },
     {
       "url": "https://it-rat.com/genaryx.html",

@@ -79,9 +79,9 @@ def organization():
         "logo": f"{SITE}/apple-touch-icon.png",
         "image": f"{SITE}/assets/og.png",
         "email": "itratmail@gmail.com",
-        "description": ("Cloud security, IAM and FinOps practice, and the authors of the "
-                        "open-source agent-governance stack: runtime spend control, policy, "
-                        "memory, identity, cryptography, quality and pre-production drills for AI agents."),
+        "description": ("The authors of the open-source agent-governance stack: runtime spend "
+                        "control, policy, memory, identity, cryptography, quality and "
+                        "pre-production drills for AI agents. Apache-2.0."),
         "sameAs": [
             "https://github.com/TAIPANBOX",
             "https://www.linkedin.com/in/yurii-kostiuk-778900ab/",

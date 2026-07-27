@@ -87,7 +87,6 @@ def cols(root, here):
       </div>
       <div>
         <a href="{root}guides.html">Guides</a>
-        <a href="{root}index.html#consulting">Consulting</a>
         <a href="{root}index.html#people">The people</a>
         <a href="{root}index.html#contact">Leave a note</a>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>

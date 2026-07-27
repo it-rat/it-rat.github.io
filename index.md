@@ -2,7 +2,7 @@
 
 # IT-RAT, the agent-governance stack
 
-> Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP.
+> Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted.
 
 A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source stack that closes that gap: seven services that meter, police, remember, identify, audit and rehearse your agents at runtime, proven on real infrastructure before anyone saw a slide about it.
 
@@ -76,37 +76,21 @@ The full ledger, every number and every bug, is public in each repository's `VAL
 
 You do not have to take our word for it: [run the stack's live services locally](https://it-rat.com/services/platform.html#run) in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
 
-## Boutique by choice. Senior by default.
+## Governance you cannot read is governance you have to trust.
 
-IT-RAT is a small cloud practice: Zero Trust and IAM architecture, FinOps that survives an auditor, and AI adoption that doesn't end up on the front page for the wrong reason. The stack is how we work in the open; an engagement is how it lands inside your perimeter, with the people who wrote it.
+Every part of this stack is Apache-2.0, the console included, and that is not a marketing posture. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust.
 
-**Q: Why we build in the open**
+**Q: The longer answer**
 
-We deploy AI solutions with a clear-eyed view of where the field is going: agentic fleets, post-quantum crypto, FinOps for AI. We build there already, and everything on this site runs, which is a different claim from everything on this site is described.
-
-That is also why the stack is open and the validation records name their own bugs. A consultancy that only shows you slides is asking you to take the judgment on trust. We would rather hand you the code, the numbers and the list of things that broke, and be judged on those.
-
-There is a narrower reason too, and it is specific to what this stack is. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust. Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces.
+Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces. Everything on this site runs, which is a different claim from everything on this site is described.
 
 And we are downstream of a great deal of work nobody billed us for. This stack stands on k3s, Calico, Longhorn, Postgres, SQLite and three language ecosystems, none of which sent an invoice. Publishing ours under Apache-2.0 is not charity and not a growth tactic; it is the ordinary way to be a participant in that rather than only a consumer of it.
 
-An engagement is the same work, inside your perimeter, with your people, until they run it without us. We leave runbooks rather than a dependency, and everything we build is reproducible and explainable to an auditor, because eventually one will ask.
-
-- **Cloud security & IAM.** Identity-first architecture on AWS and GCP: least privilege that people can actually live with.
-
-- **FinOps for AI.** Budgets, showback and unit economics for LLM workloads, wired into the tooling your finance team already reads.
-
-- **Agent governance.** Deploying this stack, Genaryx included, inside your perimeter: runtime enforcement, not another dashboard.
-
-| Week 0 | A short, honest call. If we're not the right fit, we say so and point you somewhere better. |
-|---|---|
-| Weeks 1-2 | Assessment on your real estate: identities, spend paths, agent surfaces. No slideware. |
-| Weeks 3+ | Architecture and hands-on build with your team. We leave runbooks, not lock-in. |
-| Always | Everything reproducible, everything explainable to an auditor. |
+There is no tier, no licence key, and no build we keep and you do not get. Take it, run it, fork it, and never speak to us. That is the point of publishing it.
 
 ## Two of us, plus the agents.
 
-IT-RAT is built and run by two people who spend their working lives in exactly the two rooms this stack lives in: cloud security and cloud money.
+This stack is written by two people who spend their working lives in exactly the two rooms it lives in: cloud security and cloud money.
 
 ### Yurii Kostiuk
 
@@ -129,6 +113,3 @@ No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or 
 
 **Q: What does it cost to try?**
 Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see [run the live stack locally](https://it-rat.com/services/platform.html#run). The four that are libraries and CLIs each carry a one-line try-it on their own page. Nothing here is a trial that expires or a tier that unlocks.
-
-**Q: How does an engagement work?**
-A short, honest call first; if we are not the right fit we say so. Then an assessment on your real estate, identities, spend paths and agent surfaces, and then hands-on build with your team until they run it without us. We leave runbooks rather than a dependency.

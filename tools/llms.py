@@ -196,7 +196,6 @@ def main():
         "> pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted",
         "> on infrastructure the operator owns, plus Genaryx, the console over them.",
         "> Every part of it is Apache-2.0.",
-        "> IT-RAT is also a cloud security, IAM and FinOps practice.",
         "",
         "Every page below is available as markdown at the same path with a .md extension.",
         "",

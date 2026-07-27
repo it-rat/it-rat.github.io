@@ -28,8 +28,6 @@ FAQ = {
  ("What does it cost to try?",
   "<p>Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see <a href=\"services/platform.html#run\">run the live stack locally</a>. The four that are libraries and CLIs each carry a one-line try-it on their own page.</p>"
   "<p>Nothing here is a trial that expires or a tier that unlocks.</p>"),
- ("How does an engagement work?",
-  "<p>A short, honest call first; if we are not the right fit we say so. Then an assessment on your real estate, identities, spend paths and agent surfaces, and then hands-on build with your team until they run it without us. We leave runbooks rather than a dependency.</p>"),
 ]),
 
 "services/tokenfuse.html": ("common questions", "How teams put a ceiling on agent spend", [
