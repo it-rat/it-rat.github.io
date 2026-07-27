@@ -273,77 +273,12 @@ tensor(ctx,w,h,t){
     ctx.fillStyle=`rgba(${C.steel},.14)`;
     ctx.fillText(["{","}",'":"',"[","]","0.92","v0.2","::"][i%8],x,y);
   }
-},
-
-/* pocket - the out-of-band path: a pulse rides fleet→gateway→cloud→
-   phone→watch over an ECG baseline; the network path stays separate. */
-pulsegraph(ctx,w,h,t){
-  const N=[[w*0.10,h*0.30],[w*0.34,h*0.44],[w*0.58,h*0.26],[w*0.80,h*0.48],[w*0.90,h*0.34]];
-  const names=["fleet","gateway","cloud","phone","watch"];
-  ctx.strokeStyle=`rgba(${C.cyan},.16)`;ctx.lineWidth=1;
-  for(let i=0;i<N.length-1;i++){
-    ctx.beginPath();ctx.moveTo(N[i][0],N[i][1]);
-    const mx=(N[i][0]+N[i+1][0])/2, my=Math.min(N[i][1],N[i+1][1])-24;
-    ctx.quadraticCurveTo(mx,my,N[i+1][0],N[i+1][1]);ctx.stroke();
-  }
-  N.forEach((n,i)=>{
-    dot(ctx,n[0],n[1],2,C.cyan,.30);
-    ctx.fillStyle=`rgba(${C.cyan},.30)`;ctx.font="8.5px ui-monospace,Menlo,monospace";
-    ctx.textAlign="center";ctx.fillText(names[i],n[0],n[1]+16);
-  });
-  /* the traveling pulse */
-  const seg=(t*0.5)%(N.length-1), i=Math.floor(seg), p=seg-i;
-  const a=N[i],b=N[i+1],mx=(a[0]+b[0])/2,my=Math.min(a[1],b[1])-24;
-  const q=1-p;
-  const px=q*q*a[0]+2*q*p*mx+p*p*b[0], py=q*q*a[1]+2*q*p*my+p*p*b[1];
-  dot(ctx,px,py,2.4,C.cyan,.7);
-  /* ECG baseline along the bottom */
-  ctx.strokeStyle=`rgba(${C.cyan},.22)`;ctx.lineWidth=1.2;ctx.beginPath();
-  const ey=h*0.82;
-  for(let x=0;x<=w;x+=4){
-    const ph=((x+t*70)%170)/170;
-    let y=ey;
-    if(ph>0.42&&ph<0.5) y=ey-(ph-0.42)/0.08*22;
-    else if(ph>=0.5&&ph<0.58) y=ey-22+(ph-0.5)/0.08*30;
-    else if(ph>=0.58&&ph<0.64) y=ey+8-(ph-0.58)/0.06*8;
-    x?ctx.lineTo(x,y):ctx.moveTo(x,y);
-  }
-  ctx.stroke();
-},
-
-/* sphere - an attention head over twelve life agents: chords light up
-   pairwise with learned weights, the ring slowly precessing. */
-attention(ctx,w,h,t){
-  const cx=w*0.68, cy=h*0.52, R=Math.min(w,h)*0.34;
-  const rot=t*0.06, N=12, pos=[];
-  for(let i=0;i<N;i++){
-    const a=i/N*TAU+rot;
-    pos.push([cx+Math.cos(a)*R,cy+Math.sin(a)*R]);
-  }
-  ctx.strokeStyle=`rgba(${C.lime},.12)`;ctx.lineWidth=1;
-  ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.stroke();
-  /* the active head rotates every 2.4 s; weights are a fixed learned matrix */
-  const head=Math.floor(t/2.4)%N, ph=(t%2.4)/2.4;
-  const rr=rng(head*19+5);
-  for(let j=0;j<N;j++){
-    if(j===head) continue;
-    const wgt=rr();
-    if(wgt<0.35) continue;
-    const a=Math.min(1,ph*3)*(1-Math.max(0,ph-0.7)/0.3);
-    ctx.strokeStyle=`rgba(${C.lime},${wgt*0.28*a})`;
-    ctx.lineWidth=0.8+wgt*1.6;
-    ctx.beginPath();ctx.moveTo(pos[head][0],pos[head][1]);
-    ctx.quadraticCurveTo(cx,cy,pos[j][0],pos[j][1]);
-    ctx.stroke();
-  }
-  pos.forEach((p,i)=>dot(ctx,p[0],p[1],i===head?2.6:1.7,C.lime,i===head?.6:.25));
 }
 };
 
 /* motif per service */
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
-  qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor",
-  pocket:"pulsegraph",sphere:"attention"};
+  qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
    alive below the hero. One fixed layer behind all content, evolving with
