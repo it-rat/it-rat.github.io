@@ -26,6 +26,17 @@
 <link rel="stylesheet" href="assets/site.css?v=e05">
 <style>
   :root{--accent:#F4B23E}
+  /* ---- the proof grid ----
+     Eight tiles, one per plane, so the count and the column count have to be
+     decided together. site.css's shared `.stats` uses auto-fit, which picks a
+     column count from the available width and knows nothing about how many
+     tiles there are: at 1440px that gave six across and one orphan below.
+     Fixed here rather than in site.css because this is the only page that
+     uses `.stats`, and the rule is about these eight tiles specifically. */
+  .stats{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:430px){.stats{grid-template-columns:1fr}}
+  .stat .l b{color:var(--fg);font-weight:650;display:block;margin-bottom:2px}
   /* ---- hero ---- */
   .hero{position:relative;min-height:min(86vh,920px);display:flex;align-items:center;overflow:hidden}
   .hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
@@ -92,7 +103,7 @@
     <a class="tb-link" href="#stack">Stack</a>
     <a class="tb-link" href="#proof">Proof</a>
     <a class="tb-link" href="#consulting">Consulting</a>
-    <a class="tb-link tb-cta" href="console.html">Open your console</a>
+    <a class="tb-link tb-cta" href="demo/">Live demo</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
   </div>
 </header>
@@ -258,13 +269,14 @@
       <p class="lede">Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend. Then the same stack came up again as a five-node Kubernetes cluster on each of those three clouds, which is where the cost of the governance itself finally got measured.</p>
     </div>
     <div class="stats rv">
-      <div class="stat"><div class="n" style="color:var(--amber)"><span data-count="8000">8000</span><span class="unit">/8000</span></div><div class="l">requests served under 100-500 concurrent agents, none dropped</div></div>
-      <div class="stat"><div class="n" style="color:var(--mint)"><span data-count="25586">25,586</span></div><div class="l">real Linux binaries scanned by Qryx, zero crashes</div></div>
-      <div class="stat"><div class="n" style="color:var(--teal)"><span data-count="34">34</span></div><div class="l">concurrent requests sorted exactly right: 6/6 served, 6/6 oversteppers denied</div></div>
-      <div class="stat"><div class="n" style="color:var(--iris)"><span data-count="10">10</span></div><div class="l">semantic facts from five live episodes, zero contradictions</div></div>
-      <div class="stat"><div class="n" style="color:var(--rose)"><span data-count="0.00042" data-decimals="5" data-prefix="$">$0.00042</span></div><div class="l">measured cost of one correctly resolved case</div></div>
-      <div class="stat"><div class="n" style="color:var(--coral)"><span data-count="0">0</span></div><div class="l">guardrail gaps in Mockryx fire drills, three hostile scenarios</div></div>
-      <div class="stat"><div class="n" style="color:var(--violet)"><span data-count="2449">2,449</span><span class="unit">/s</span></div><div class="l">policy decisions per pod, with no cliff out to 256 concurrent callers</div></div>
+      <div class="stat"><div class="n" style="color:var(--amber)"><span data-count="8000">8000</span><span class="unit">/8000</span></div><div class="l"><b>Money, under load.</b> Requests admitted against one budget by 100 to 500 concurrent agents. None dropped, and none over the budget.</div></div>
+      <div class="stat"><div class="n" style="color:var(--rose)"><span data-count="0.00042" data-decimals="5" data-prefix="$">$0.00042</span></div><div class="l"><b>Money, per unit of work.</b> The measured cost of one correctly resolved case, which is the number that changes a decision. Monthly spend is not.</div></div>
+      <div class="stat"><div class="n" style="color:var(--violet)"><span data-count="2449">2,449</span><span class="unit">/s</span></div><div class="l"><b>Policy, throughput.</b> Decisions a single pod makes each second, with no cliff out to 256 concurrent callers on dedicated cores.</div></div>
+      <div class="stat"><div class="n" style="color:var(--teal)"><span data-count="34">34</span></div><div class="l"><b>Policy, under concurrency.</b> Requests fired at once and sorted exactly right: 6/6 served, 6/6 oversteppers denied, differentiated rights holding.</div></div>
+      <div class="stat"><div class="n" style="color:var(--mint)"><span data-count="426">426</span><span class="unit" style="margin-left:4px">B</span></div><div class="l"><b>Evidence, per decision.</b> Hash-linked audit written for every decision rather than a sample. This is the line item that grows on its own.</div></div>
+      <div class="stat"><div class="n" style="color:var(--lime)"><span data-count="12">12</span><span class="unit">/12</span></div><div class="l"><b>Portability.</b> Deliberate budget overruns blocked, identically on Hetzner, AWS and GCP. What differs between clouds is the price, not the behaviour.</div></div>
+      <div class="stat"><div class="n" style="color:var(--iris)"><span data-count="25586">25,586</span></div><div class="l"><b>Crypto inventory.</b> Real Linux binaries scanned by Qryx, stripped, static and truncated among them, with zero crashes.</div></div>
+      <div class="stat"><div class="n" style="color:var(--coral)"><span data-count="0">0</span></div><div class="l"><b>Rehearsal.</b> Guardrail gaps across three hostile drills fired twice at a real gateway, with zero real spend behind it.</div></div>
     </div>
     <details class="sheet" data-sheet-kicker="proof, not promises" data-sheet-title="What the campaign ran, and what it caught">
       <summary>How these numbers were produced</summary>
@@ -430,6 +442,9 @@
         <a href="https://www.linkedin.com/in/tania-fedirko-9bb1a5136/" target="_blank" rel="noopener">Tania on LinkedIn &#8599;</a>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
         <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Deliberately not in the top bar: it is addressed to someone who
+             already runs a console of their own, over their own tunnel. -->
+        <a href="console.html">Go to your console</a>
       </div>
     </div>
     <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>

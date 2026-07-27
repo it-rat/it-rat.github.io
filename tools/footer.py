@@ -92,6 +92,11 @@ def cols(root, here):
         <a href="{root}index.html#contact">Leave a note</a>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
         <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Not in the top bar: it is addressed to someone who already runs a
+             console of their own, over their own tunnel, which is a returning
+             operator rather than a visitor. The primary slot belongs to the
+             action a stranger should take. -->
+        <a href="{root}console.html">Go to your console</a>
       </div>
     </div>"""
 
