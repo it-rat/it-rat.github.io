@@ -8,7 +8,7 @@ The seven open services each govern one plane of an agent fleet. Genaryx is the 
 
 ### The open stack stays open.
 
-Genaryx is Apache-2.0, like everything under it. There is no paid tier, no licence key, no feature held back for one, and no build of this console that we keep and you do not get. It is the room built on top of the seven services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of seven dashboards and a terminal, and you can read every line of it before you run it. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
+Genaryx is Apache-2.0, like everything under it. It is the room built on top of the seven services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of seven dashboards and a terminal, and you can read every line of it before you run it. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
 
 ## What the console adds that the stack alone does not.
 
