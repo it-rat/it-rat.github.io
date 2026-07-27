@@ -26,16 +26,16 @@ FLAG_SVG = ('<svg style="display:inline-block;width:15px;height:11px;vertical-al
 # page path -> (root prefix, the tail of the copyright line)
 PAGES = {
     "genaryx.html": ("", "Apache-2.0"),
-    "ai-agent-governance.html": ("", "Apache-2.0"),
-    "finops-for-ai.html": ("", "Apache-2.0"),
-    "ai-agent-security.html": ("", "Apache-2.0"),
-    "mcp-security.html": ("", "Apache-2.0"),
-    "agent-identity.html": ("", "Apache-2.0"),
-    "glossary.html": ("", "Apache-2.0"),
-    "guides.html": ("", "Apache-2.0"),
-    "ai-observability-vs-governance.html": ("", "Apache-2.0"),
-    "console.html": ("", "Genaryx"),
-    "404.html": ("/", "Apache-2.0"),
+    "ai-agent-governance.html": ("", ""),
+    "finops-for-ai.html": ("", ""),
+    "ai-agent-security.html": ("", ""),
+    "mcp-security.html": ("", ""),
+    "agent-identity.html": ("", ""),
+    "glossary.html": ("", ""),
+    "guides.html": ("", ""),
+    "ai-observability-vs-governance.html": ("", ""),
+    "console.html": ("", ""),
+    "404.html": ("/", ""),
     "services/engram.html": ("../", "Apache-2.0"),
     "services/idryx.html": ("../", "Apache-2.0"),
     "services/mockryx.html": ("../", "Apache-2.0"),
@@ -101,9 +101,12 @@ def cols(root, here):
 
 
 def footer(path, root, tail, here):
+    # Only the service pages carry a licence tag; everywhere else the line
+    # ends at the flag. An empty tail means exactly that, separator included.
+    suffix = f' &#183; {tail}' if tail else ''
     return (f'<footer class="footer">\n  <div class="wrap">\n<!-- footer:auto -->\n'
             f'{cols(root, here)}\n<!-- /footer:auto -->\n'
-            f'    <div class="foot-note">&#169; 2026 IT-RAT {FLAG_SVG} &#183; {tail}</div>\n'
+            f'    <div class="foot-note">&#169; 2026 IT-RAT {FLAG_SVG}{suffix}</div>\n'
             f'  </div>\n</footer>')
 
 
