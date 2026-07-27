@@ -9,7 +9,7 @@
    underneath it and the money plane it governs, then the rest of the
    planes, ending on the shared contract. */
 const STACK = [
-  {id:"enterprise",name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"enterprise.html"},
+  {id:"genaryx",   name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"genaryx.html"},
   {id:"engram",    name:"Engram",     plane:"memory",    color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
   {id:"tokenfuse", name:"TokenFuse",  plane:"money",     color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
   {id:"wardryx",   name:"Wardryx",    plane:"policy",    color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},

@@ -35,7 +35,7 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 | `services/platform.html` | contract | Agent Passport, the shared event envelope, Terraform |
 | `services/pocket.html` | iOS, watchOS | TokenFuse Pocket, the pager and the kill from the wrist |
 | `services/sphere.html` | iOS | Sphere, twelve life-sphere agents |
-| `enterprise.html` | control room | Genaryx, the paid browser console on your own box. In the works, no pricing |
+| `genaryx.html` | control room | Genaryx, the paid browser console on your own box. In the works, no pricing |
 
 ## How it deploys
 

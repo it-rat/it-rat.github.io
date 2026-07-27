@@ -8,7 +8,7 @@ A new hire gets a contract, a budget, a badge and a manager. An AI agent usually
 
 ## One corridor, every door on it.
 
-Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Eight of these doors open on their own. Genaryx, first on the rail, is the control room over all of them, deployed with us on your own infrastructure. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
+Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. All nine open on their own, Apache-2.0, with nothing behind a licence. Genaryx, first on the rail, is the control room over the other eight, and it runs on your own infrastructure like the rest. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
 
 ### Genaryx
 
@@ -80,11 +80,17 @@ You do not have to take our word for it: [run the stack's live services locally]
 
 IT-RAT is a small cloud practice: Zero Trust and IAM architecture, FinOps that survives an auditor, and AI adoption that doesn't end up on the front page for the wrong reason. The stack is how we work in the open; an engagement is how it lands inside your perimeter, with the people who wrote it.
 
+To be plain about it, because this is the sort of thing sites are usually vague about: **the software is free and our time is not**. Every service here, the console included, is Apache-2.0 with nothing held back. There is no tier, no key, no trial that expires. What you can pay us for is the work: the assessment, the build, and staying until your people run it without us.
+
 **Q: Why we build in the open**
 
 We deploy AI solutions with a clear-eyed view of where the field is going: agentic fleets, post-quantum crypto, FinOps for AI. We build there already, and everything on this site runs, which is a different claim from everything on this site is described.
 
 That is also why the stack is open and the validation records name their own bugs. A consultancy that only shows you slides is asking you to take the judgment on trust. We would rather hand you the code, the numbers and the list of things that broke, and be judged on those.
+
+There is a narrower reason too, and it is specific to what this stack is. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust. Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces.
+
+And we are downstream of a great deal of work nobody billed us for. This stack stands on k3s, Calico, Longhorn, Postgres, SQLite and three language ecosystems, none of which sent an invoice. Publishing ours under Apache-2.0 is not charity and not a growth tactic; it is the ordinary way to be a participant in that rather than only a consumer of it.
 
 An engagement is the same work, inside your perimeter, with your people, until they run it without us. We leave runbooks rather than a dependency, and everything we build is reproducible and explainable to an auditor, because eventually one will ask.
 
@@ -93,6 +99,8 @@ An engagement is the same work, inside your perimeter, with your people, until t
 - **FinOps for AI.** Budgets, showback and unit economics for LLM workloads, wired into the tooling your finance team already reads.
 
 - **Agent governance.** Deploying this stack, Genaryx included, inside your perimeter: runtime enforcement, not another dashboard.
+
+- **Or none of the above.** Take the code and run it yourself. It is Apache-2.0 and it owes us nothing, which is the arrangement we intended.
 
 | Week 0 | A short, honest call. If we're not the right fit, we say so and point you somewhere better. |
 |---|---|
@@ -118,13 +126,13 @@ FinOps expert in cloud financial governance, cost optimization and multi-cloud s
 Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards. Observability tells you what an agent did. Governance decides what it can do next. The two are not substitutes, and only one of them stops a runaway at 3am.
 
 **Q: Is the stack open source?**
-Seven services are Apache-2.0 and stay that way, source on [GitHub](https://github.com/TAIPANBOX): TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, plus the shared [contract](https://it-rat.com/services/platform.html) under them. [Genaryx](https://it-rat.com/enterprise.html), the console over all of them, is the one paid room, and it is deployed with us on your own infrastructure.
+Yes, all of it. Apache-2.0, source on [GitHub](https://github.com/TAIPANBOX): TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, the shared [contract](https://it-rat.com/services/platform.html) under them, and [Genaryx](https://it-rat.com/genaryx.html), the console over all of them. There is no paid tier, no licence key and no feature held back for one. What we sell is our time: see [the consulting practice](https://it-rat.com/index.html#consulting).
 
 **Q: Do you host any of this, or see our data?**
 No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.
 
 **Q: What does it cost to try?**
-The open services cost nothing and need no account. One command builds and starts the long-running ones locally: see [run the live stack locally](https://it-rat.com/services/platform.html#run). The four that are libraries and CLIs each carry a one-line try-it on their own page.
+Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see [run the live stack locally](https://it-rat.com/services/platform.html#run). The four that are libraries and CLIs each carry a one-line try-it on their own page. We are paid for consulting, not for software. Nothing here is a trial that expires or a tier that unlocks.
 
 **Q: How does an engagement work?**
 A short, honest call first; if we are not the right fit we say so. Then an assessment on your real estate, identities, spend paths and agent surfaces, and then hands-on build with your team until they run it without us. We leave runbooks rather than a dependency.

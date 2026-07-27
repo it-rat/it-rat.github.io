@@ -46,7 +46,7 @@ SERVICES = [
 ]
 OTHER = [
     ("index.html", "IT-RAT, the agent-governance stack"),
-    ("enterprise.html", "Genaryx, the console over the stack"),
+    ("genaryx.html", "Genaryx, the console over the stack"),
 ]
 ALL = OTHER + GUIDES + SERVICES
 
@@ -194,7 +194,8 @@ def main():
         "> The open-source agent-governance stack: runtime spend control, policy decisions,",
         "> identity, memory with provenance, cryptography posture, quality scoring and",
         "> pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted",
-        "> on infrastructure the operator owns, plus Genaryx, a paid console over them.",
+        "> on infrastructure the operator owns, plus Genaryx, the console over them.",
+        "> Every part of it is Apache-2.0; the practice behind it sells consulting, not software.",
         "> IT-RAT is also a cloud security, IAM and FinOps practice.",
         "",
         "Every page below is available as markdown at the same path with a .md extension.",

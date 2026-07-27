@@ -3,7 +3,7 @@
    and the same full-screen overlay the architecture schematics use in
    diagram.js: wheel / pinch zoom, drag pan, double-click toggle, +/- keys,
    Esc to close. One shared overlay, same classes, same feel.
-   .gxc-teaser (the Genaryx console stills on enterprise.html) is the same
+   .gxc-teaser (the Genaryx console stills on genaryx.html) is the same
    thing under another name, so it enlarges too instead of being a link out.
    Frames that sit together stay together: enlarge one and the arrows walk
    the whole set without closing.

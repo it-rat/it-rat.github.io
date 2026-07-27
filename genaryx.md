@@ -1,4 +1,4 @@
-<!-- https://it-rat.com/enterprise.html -->
+<!-- https://it-rat.com/genaryx.html -->
 
 # Genaryx, the console over the stack
 
@@ -8,7 +8,7 @@ The seven open services each govern one plane of an agent fleet. Genaryx is the 
 
 ### The open stack stays open.
 
-Everything the stack does today - metering, policy, identity, quality, memory, drills, evidence - is Apache-2.0 and stays that way, bug fixes and security fixes included. Genaryx does not take any of it away; it is the room built on top, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of seven dashboards and a terminal. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
+Genaryx is Apache-2.0, like everything under it. There is no paid tier, no licence key, no feature held back for one, and no build of this console that we keep and you do not get. It is the room built on top of the seven services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of seven dashboards and a terminal, and you can read every line of it before you run it. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
 
 ## What the console adds that the stack alone does not.
 
@@ -120,7 +120,7 @@ Every one of those records carries the hash of the event before it, and the stac
 
 Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a live fleet of 42 agents. Every claim here has a captured run behind it.
 
-We deploy AI with conviction and receipts, and we build for where the field is going: fleets of agents doing real work, governed from day one by budgets, identity, policy, quality and evidence. Genaryx arrives with the team that built it: we stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. The software is the start; the judgment comes with it.
+The software is free to take: clone it, run it, fork it, and never speak to us. That is the point of publishing it. What we sell is time and judgment, never access. If you would rather not learn an agent control plane by reading its source at 2am, we will stand it up on your infrastructure, wire it to your fleet and stay until your people run it cold. Both paths end with your team running it; one of them just gets there sooner.
 
 Or [run the open stack yourself in one command](https://it-rat.com/services/platform.html#run) today.
 

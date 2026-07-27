@@ -71,7 +71,7 @@ We would rather argue with the strongest version of the alternative than with a 
 
 ### The loud neighbor everyone listens to.
 
-TokenFuse asks [Wardryx](https://it-rat.com/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material [Verdryx](https://it-rat.com/verdryx.html) prices outcomes from. [Mockryx](https://it-rat.com/mockryx.html) attacks it on purpose in pre-prod. [Idryx](https://it-rat.com/idryx.html) correlates its events into the identity graph. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/enterprise.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
+TokenFuse asks [Wardryx](https://it-rat.com/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material [Verdryx](https://it-rat.com/verdryx.html) prices outcomes from. [Mockryx](https://it-rat.com/mockryx.html) attacks it on purpose in pre-prod. [Idryx](https://it-rat.com/idryx.html) correlates its events into the identity graph. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
 
 Where this fits in the wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html) on managing spend that creates itself, and [AI agent governance](https://it-rat.com/ai-agent-governance.html) on the rest of the runtime controls.
 

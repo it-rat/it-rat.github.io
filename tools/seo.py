@@ -244,10 +244,10 @@ def main():
         graph.append(q)
     n += write("index.html", graph)
 
-    ent = head_bits((ROOT / "enterprise.html").read_text(encoding="utf-8"), "enterprise.html")
+    ent = head_bits((ROOT / "genaryx.html").read_text(encoding="utf-8"), "genaryx.html")
     ent_app = software(ent, free=False)
     ent_app.pop("codeRepository", None)   # Genaryx is the one closed room
-    n += write("enterprise.html", [ent_app, breadcrumbs(ent)])
+    n += write("genaryx.html", [ent_app, breadcrumbs(ent)])
 
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
     hub = head_bits(hub_html, "guides.html")

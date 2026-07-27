@@ -3,7 +3,8 @@
 > The open-source agent-governance stack: runtime spend control, policy decisions,
 > identity, memory with provenance, cryptography posture, quality scoring and
 > pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted
-> on infrastructure the operator owns, plus Genaryx, a paid console over them.
+> on infrastructure the operator owns, plus Genaryx, the console over them.
+> Every part of it is Apache-2.0; the practice behind it sells consulting, not software.
 > IT-RAT is also a cloud security, IAM and FinOps practice.
 
 Every page below is available as markdown at the same path with a .md extension.
@@ -33,7 +34,7 @@ Every page below is available as markdown at the same path with a .md extension.
 ## Other
 
 - [IT-RAT, the agent-governance stack](https://it-rat.com/index.md): Open-source runtime governance for AI agents: budgets, policy, memory, identity, crypto and drills. Cloud security, IAM and FinOps consulting for AWS and GCP.
-- [Genaryx, the console over the stack](https://it-rat.com/enterprise.md): Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.
+- [Genaryx, the console over the stack](https://it-rat.com/genaryx.md): Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.
 
 ## Optional
 
