@@ -16,7 +16,7 @@ You can stand up the open stack's live services yourself in one command, and ple
 
 |  | The open stack, by hand | Genaryx |
 |---|---|---|
-| One place to look | Per-service dashboards, curl, logs | One console, 18 live tabs over one Rust core |
+| One place to look | Per-service dashboards, curl, logs | One console, 17 live tabs over one Rust core |
 | Killing a runaway | A curl with an admin key | A break-glass ceremony over a device signature the plane already verifies: a passkey, a typed reason journaled beside it |
 | Reaching a private plane | SSH tunnels you babysit | Your box issues each device its own peer config, lists what holds access, and revokes one in a click; the console answers only inside that tunnel |
 | On call at 2am | Laptop, VPN, luck | Your console from any browser over your own tunnel, incidents sorted worst-first, and the destructive step re-signed by the passkey in your hand |
