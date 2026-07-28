@@ -4,7 +4,7 @@
 
 > Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.
 
-The seven open services each govern one plane of an agent fleet. Genaryx is the console built on top of them for companies that run real fleets. It runs on your own infrastructure and you open it in a browser: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch confirmed per action by a passkey in your hand, remote reach over its own WireGuard tunnel, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted on infrastructure you own, any cloud or on-prem: your plane, your data. It is Apache-2.0 like the eight services under it, and the people who wrote it are available if you want them.
+The seven open services each govern one plane of an agent fleet. Genaryx is the console built on top of them for companies that run real fleets. It runs on your own infrastructure and you open it in a browser: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch confirmed per action by a passkey in your hand, remote reach over its own WireGuard tunnel, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted on infrastructure you own, any cloud or on-prem: your plane, your data. It is Apache-2.0 like the seven services under it, and the people who wrote it are available if you want them.
 
 ### The open stack stays open.
 
@@ -58,7 +58,7 @@ Felyx's own LLM calls route through TokenFuse under their own run id, so the ass
 
 ## Your plane stays yours. Every path in is signed.
 
-The console reaches a client-hosted Cloud from inside your own WireGuard tunnel, so the control plane never faces the internet. Any browser on that tunnel is the whole client story: laptop at a desk, phone at 2am, same console, same ceremonies. And Felyx sits beside it with no signing key at all.
+The console reaches a client-hosted Cloud from inside your own WireGuard tunnel, so the control plane never faces the internet. Any browser on that tunnel is the whole client story: a desk at noon, a sofa at 2am, same console, same ceremonies. And Felyx sits beside it with no signing key at all.
 
 ## One shell. One Rust brain. Hardware where it counts.
 

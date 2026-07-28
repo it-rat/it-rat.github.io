@@ -33,9 +33,7 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 | `services/verdryx.html` | quality | Cost per correctly resolved case, not per token |
 | `services/mockryx.html` | pre-prod | Fire drills that prove guardrails hold |
 | `services/platform.html` | contract | Agent Passport, the shared event envelope, Terraform |
-| `services/pocket.html` | iOS, watchOS | TokenFuse Pocket, the pager and the kill from the wrist |
-| `services/sphere.html` | iOS | Sphere, twelve life-sphere agents |
-| `genaryx.html` | control room | Genaryx, the paid browser console on your own box. In the works, no pricing |
+| `genaryx.html` | control room | Genaryx, one browser control room over the whole stack, on your own box |
 
 ## How it deploys
 
@@ -70,11 +68,12 @@ modules, and everything works from any static file server.
 - `assets/stages/*.js` is one bespoke stage per service, drawn on that shared timeline: a fuse wire and budget bar for TokenFuse, decision-gate lanes for Wardryx, an estate sweep grid for Qryx, and so on. Each stage is deterministic in `t`, so scrubbing works in both directions.
 - `assets/ambient.js` gives each service hero a quiet canvas motif from its own domain: gradient descent, a learned decision boundary, a memory graph with spreading activation, an identity graph, a rotating point lattice, training curves, adversarial bursts against a guardrail.
 - `assets/diagram.js` handles the architecture schematics: staggered draw-in on reveal, plus a full-screen lightbox with wheel and pinch zoom, drag pan, and double-click reset, so every label stays readable.
-- `assets/shotbox.js` frames and enlarges the product screenshots on the Enterprise page.
+- `assets/shotbox.js` frames and enlarges the product screenshots on the Genaryx page.
+- `tools/` renders what is generated rather than hand-kept: `ogimages.py` (one Open Graph card per room) and `readmehero.py` (the banner at the top of this file). Both read the service registry out of `assets/site.js`, so a room that leaves the registry leaves the images too.
 
 ## House rules for edits
 
-- **Say only what is true.** Genaryx is not released: the Enterprise page carries an "In the works." ribbon, Pocket an "An exploration." one, and neither shows pricing or a download. Numbers on the site come from the validation records in the stack repos, not from marketing.
+- **Say only what is true.** Nothing on the site is sold, so no page carries pricing; `enterprise.html` is now only a redirect to `genaryx.html`, kept because an indexed URL is somebody else's property. Numbers on the site come from the validation records in the stack repos, not from marketing.
 - **No long dashes in copy.** Reword, or use a comma, a colon, parentheses, or a short hyphen.
 - **Keep it self-contained.** A new dependency that needs a CDN does not belong here.
 - **SVG stays legible.** No raster artwork for diagrams, and no label smaller than 10px; anything dense gets the lightbox.
@@ -82,8 +81,9 @@ modules, and everything works from any static file server.
 
 ## Related
 
-The stack this site describes lives at **[github.com/TAIPANBOX](https://github.com/TAIPANBOX)**, and
-the open services are Apache-2.0: TokenFuse, Engram, Idryx, Qryx, Wardryx, Verdryx, Mockryx, the
-Platform contract, and the `stack-up` launcher that runs the whole thing locally with one command.
+The stack this site describes lives at **[github.com/TAIPANBOX](https://github.com/TAIPANBOX)** and is
+Apache-2.0 end to end: TokenFuse, Engram, Idryx, Qryx, Wardryx, Verdryx, Mockryx, the Platform
+contract, the Genaryx console, and the `stack-up` launcher that runs the whole thing locally with one
+command.
 
 <sub>&copy; 2026 IT-RAT</sub>
