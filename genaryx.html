@@ -133,7 +133,7 @@
   .prov.byo{border-color:color-mix(in srgb,var(--amber) 40%,var(--line-2))}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["SoftwareApplication","WebApplication"],"name":"Genaryx","url":"https://it-rat.com/genaryx.html","description":"Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/genaryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires a modern browser with WebAuthn support"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Genaryx","item":"https://it-rat.com/genaryx.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["SoftwareApplication","WebApplication"],"name":"Genaryx","url":"https://it-rat.com/genaryx.html","description":"Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/genaryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires a modern browser with WebAuthn support"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Genaryx","item":"https://it-rat.com/genaryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Genaryx free, or is there a paid tier above it?","acceptedAnswer":{"@type":"Answer","text":"It is Apache-2.0, the same licence as the seven services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create. For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open."}},{"@type":"Question","name":"Is it open source, or open core with the useful parts held back?","acceptedAnswer":{"@type":"Answer","text":"Open source, and nothing is held back. The console is one repository, TAIPANBOX/genaryx , and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled."}},{"@type":"Question","name":"Is Genaryx a desktop application?","acceptedAnswer":{"@type":"Answer","text":"No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain."}},{"@type":"Question","name":"What does the console add that the seven services do not already do?","acceptedAnswer":{"@type":"Answer","text":"One window over seven planes, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings. You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it."}},{"@type":"Question","name":"If none of it is sold, where does the money come from?","acceptedAnswer":{"@type":"Answer","text":"Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="genaryx" data-root="./">
@@ -473,6 +473,39 @@
     <div data-edge-nav></div>
   </div>
 </section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What the console is, and what it costs</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Is Genaryx free, or is there a paid tier above it?</summary>
+        <div class="a"><p>It is Apache-2.0, the same licence as the seven services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create.</p><p>For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.</p></div>
+      </details>
+      <details>
+        <summary>Is it open source, or open core with the useful parts held back?</summary>
+        <div class="a"><p>Open source, and nothing is held back. The console is one repository, <a href="https://github.com/TAIPANBOX/genaryx" target="_blank" rel="noopener">TAIPANBOX/genaryx</a>, and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled.</p></div>
+      </details>
+      <details>
+        <summary>Is Genaryx a desktop application?</summary>
+        <div class="a"><p>No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain.</p></div>
+      </details>
+      <details>
+        <summary>What does the console add that the seven services do not already do?</summary>
+        <div class="a"><p>One window over seven planes, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings.</p><p>You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it.</p></div>
+      </details>
+      <details>
+        <summary>If none of it is sold, where does the money come from?</summary>
+        <div class="a"><p>Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
 
 <footer class="footer">
   <div class="wrap">

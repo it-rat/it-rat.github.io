@@ -250,13 +250,18 @@ def main():
     # stopped being true; the markup was not, so search engines kept reading
     # "isAccessibleForFree": false and describing a paid product back to people.
     # Machine-readable claims outlive the copy that contradicts them.
-    ent = head_bits((ROOT / "genaryx.html").read_text(encoding="utf-8"), "genaryx.html")
+    ent_html = (ROOT / "genaryx.html").read_text(encoding="utf-8")
+    ent = head_bits(ent_html, "genaryx.html")
     ent_app = software(ent)
     # You reach it in a browser. Saying so here is what keeps the description
     # from drifting back into "desktop console".
     ent_app["@type"] = ["SoftwareApplication", "WebApplication"]
     ent_app["browserRequirements"] = "Requires a modern browser with WebAuthn support"
-    n += write("genaryx.html", [ent_app, breadcrumbs(ent)])
+    ent_graph = [ent_app, breadcrumbs(ent)]
+    q = faq(ent_html)
+    if q:
+        ent_graph.append(q)
+    n += write("genaryx.html", ent_graph)
 
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
     hub = head_bits(hub_html, "guides.html")

@@ -16,6 +16,21 @@ MARK_OPEN = "<!-- faq:auto -->"
 MARK_CLOSE = "<!-- /faq:auto -->"
 
 FAQ = {
+"genaryx.html": ("common questions", "What the console is, and what it costs", [
+ ("Is Genaryx free, or is there a paid tier above it?",
+  "<p>It is Apache-2.0, the same licence as the seven services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create.</p>"
+  "<p>For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.</p>"),
+ ("Is it open source, or open core with the useful parts held back?",
+  "<p>Open source, and nothing is held back. The console is one repository, <a href=\"https://github.com/TAIPANBOX/genaryx\" target=\"_blank\" rel=\"noopener\">TAIPANBOX/genaryx</a>, and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled.</p>"),
+ ("Is Genaryx a desktop application?",
+  "<p>No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain.</p>"),
+ ("What does the console add that the seven services do not already do?",
+  "<p>One window over seven planes, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings.</p>"
+  "<p>You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it.</p>"),
+ ("If none of it is sold, where does the money come from?",
+  "<p>Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it.</p>"),
+]),
+
 "index.html": ("common questions", "The questions that come before the demo", [
  ("What is AI agent governance?",
   "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"

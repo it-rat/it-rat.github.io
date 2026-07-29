@@ -125,3 +125,20 @@ Clone it, run it, fork it. Apache-2.0, the whole console, with no tier and no ke
 Or [run the open stack yourself in one command](https://it-rat.com/services/platform.html#run) today.
 
 The practice this console is built for is written up separately: [AI agent governance and the runtime controls](https://it-rat.com/ai-agent-governance.html), [AI agent security](https://it-rat.com/ai-agent-security.html), and [FinOps for AI](https://it-rat.com/finops-for-ai.html).
+
+## What the console is, and what it costs
+
+**Q: Is Genaryx free, or is there a paid tier above it?**
+It is Apache-2.0, the same licence as the seven services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create. For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.
+
+**Q: Is it open source, or open core with the useful parts held back?**
+Open source, and nothing is held back. The console is one repository, [TAIPANBOX/genaryx](https://github.com/TAIPANBOX/genaryx), and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled.
+
+**Q: Is Genaryx a desktop application?**
+No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain.
+
+**Q: What does the console add that the seven services do not already do?**
+One window over seven planes, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings. You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it.
+
+**Q: If none of it is sold, where does the money come from?**
+Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it.
