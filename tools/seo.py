@@ -244,9 +244,18 @@ def main():
         graph.append(q)
     n += write("index.html", graph)
 
+    # Genaryx is Apache-2.0 and public like the seven services under it. This
+    # block used to say free=False and strip the repository, from the months it
+    # was going to be the one thing we sold. The prose was rewritten when that
+    # stopped being true; the markup was not, so search engines kept reading
+    # "isAccessibleForFree": false and describing a paid product back to people.
+    # Machine-readable claims outlive the copy that contradicts them.
     ent = head_bits((ROOT / "genaryx.html").read_text(encoding="utf-8"), "genaryx.html")
-    ent_app = software(ent, free=False)
-    ent_app.pop("codeRepository", None)   # Genaryx is the one closed room
+    ent_app = software(ent)
+    # You reach it in a browser. Saying so here is what keeps the description
+    # from drifting back into "desktop console".
+    ent_app["@type"] = ["SoftwareApplication", "WebApplication"]
+    ent_app["browserRequirements"] = "Requires a modern browser with WebAuthn support"
     n += write("genaryx.html", [ent_app, breadcrumbs(ent)])
 
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
