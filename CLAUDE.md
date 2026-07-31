@@ -25,14 +25,18 @@ Each one carries how it is held today. Use `(gate: ...)`, `(test: ...)`,
 true.
 
 1. **Every page's metadata is measured at publish, not assumed.** Title at most
-   70 characters, description between 25 and 160, re-measured for every page
-   that changed. A truncated title in a search result is the first thing a
-   stranger sees. *(not enforced)*
+   70 characters, description between 25 and 160. A truncated title in a search
+   result is the first thing a stranger sees.
+   *(gate: `scripts/page-metadata.sh`, run in the Pages workflow BEFORE the
+   upload, so a bad page does not reach production and get fixed afterwards)*
 2. **The machine-readable claims move with the copy.** JSON-LD, Open Graph,
    canonical and sitemap describe the same thing the visible text does. A pivot
    that rewrites the prose and leaves the structured data behind ships two
-   different stories, and search engines read the one nobody proofread. Never
-   put `noindex` beside a canonical. *(not enforced)*
+   different stories, and search engines read the one nobody proofread.
+   **Never put `noindex` beside a canonical.**
+   *(partly gated: `scripts/page-metadata.sh` holds the noindex-beside-canonical
+   pair and og:title agreeing with `<title>`. JSON-LD and sitemap agreeing with
+   the prose still needs a reader.)*
 3. **A number on this site is a claim with an owner.** Anything measured says
    what measured it and when. If a figure came from a run, it can be pointed at;
    if it cannot, it does not belong here. *(not enforced)*
@@ -48,13 +52,31 @@ true.
 
 ## Decisions that have no gate yet
 
-Every invariant above is held by this file alone.
+**Held by this file alone: invariants 3, 4 and 6.** Invariant 2 is half held.
 
-**Invariants 1 and 2 are both straightforward scripts and both have already been
-violated in practice**, which makes them the obvious first two: parse each HTML
-page, measure title and description length, and assert the JSON-LD and canonical
-agree with the visible headline. That is an afternoon, and it converts the two
-most repeated manual checks into a red build.
+Invariants 1 and 2 are now `scripts/page-metadata.sh`, and it found invariant 2
+being violated rather than merely unenforced: `console.html` carried a canonical
+AND a noindex. The pair says opposite things, one asking for the URL to be the
+authoritative version and the other asking for it to be dropped, and which wins
+is somebody else's algorithm. Resolved by dropping the canonical, since that
+page is deliberately not indexed and is not in the sitemap. `/enterprise` and
+`/products` resolved the same contradiction the other way round, because those
+want to be folded rather than dropped, and they already carry comments saying so.
+
+**The check knows this site rather than counting blindly**, which matters:
+its first version reported three failures, and all three were the two redirect
+pages and the built `/demo` app, none of which authors its own head. Redirects
+are checked for a canonical instead; generated output is skipped, because
+measuring it measures the bundler.
+
+It also does NOT require `og:description` to match the meta description. They
+differ deliberately on all nineteen pages that have both: the search snippet is
+held under 160 and the social card is allowed to run longer. Requiring a match
+would be requiring a mistake.
+
+What still needs a reader: JSON-LD and the sitemap agreeing with the prose,
+invariant 3's numbers having owners, invariant 4's status sentences, and
+invariant 6.
 
 Invariant 5 is a wordlist grep across HTML, alt text and filenames.
 

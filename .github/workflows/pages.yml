@@ -59,6 +59,14 @@ jobs:
           fi
           echo "Every local reference resolves."
 
+      - name: Fail on page metadata that would ship wrong
+        ## Beside the link check for the same reason: both catch a mistake this
+        ## repo has actually shipped. A truncated title in a search result, or a
+        ## canonical and a noindex on one page saying opposite things, are found
+        ## by a stranger rather than by us. Runs before the upload, so a bad
+        ## page does not reach Pages and then get fixed afterwards.
+        run: ./scripts/page-metadata.sh
+
       - name: Version the shared assets
         ## site.css and site.js are referenced without a version and served with
         ## max-age=600, so for ten minutes after a deploy a returning visitor
