@@ -127,11 +127,16 @@ def groups(root, here):
         '        <div class="foot-group"><div class="l">the stack</div>\n'
         f'          <div class="foot-chips">{chips(root, here)}</div>\n'
         '        </div>\n'
-        '        <div class="foot-group"><div class="l">standalone</div>\n'
-        f'          <div class="foot-chips">{chips(root, here, "standalone")}</div>\n'
-        '        </div>\n'
-        '        <div class="foot-group"><div class="l">side project</div>\n'
-        f'          <div class="foot-chips">{side_chips(root, here)}</div>\n'
+        # The two small shelves sit BESIDE each other rather than stacked: they
+        # hold one item each, and a column of two one-item groups reads like a
+        # list that ran out rather than like two categories (Yurii, 2026-08-03).
+        '        <div class="foot-row">\n'
+        '          <div class="foot-group"><div class="l">standalone</div>\n'
+        f'            <div class="foot-chips">{chips(root, here, "standalone")}</div>\n'
+        '          </div>\n'
+        '          <div class="foot-group"><div class="l">side project</div>\n'
+        f'            <div class="foot-chips">{side_chips(root, here)}</div>\n'
+        '          </div>\n'
         '        </div>\n      </div>')
 
 

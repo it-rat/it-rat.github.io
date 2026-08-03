@@ -416,6 +416,12 @@ p{margin:0}
    which is the paid room, and which is not part of the stack at all. Colours
    come from the same STACK registry the rail uses, so a service cannot have
    two identities on one page. */
+/* The two one-item shelves stand side by side under the stack. Stacked, they
+   read as a list that ran out; side by side they read as two categories, which
+   is what they are. They fall back to a column on a phone, where there is no
+   width to share. */
+.foot-row{display:flex;flex-wrap:wrap;gap:16px 44px}
+.foot-row .foot-group{min-width:0}
 .foot-groups{display:flex;flex-direction:column;gap:16px;min-width:0;flex:1 1 460px}
 .foot-group .l{
   font-family:var(--font-m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
@@ -695,5 +701,28 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
   font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--dim);line-height:1.7}
 .side-ribbon .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
   box-shadow:0 0 10px var(--accent);animation:sidePulse 2.4s infinite;flex:0 0 auto}
+/* The sentence and its trigger are ONE text flow, not two flex children:
+   as siblings of the dot they were laid out as boxes and the trigger sat a
+   few pixels below the baseline of the sentence beside it. */
+.side-ribbon .txt{min-width:0}
 @keyframes sidePulse{0%,100%{opacity:1}50%{opacity:.35}}
 .side-ribbon b{color:var(--fg);font-weight:650}
+/* The band's own disclosure. The claim stays on the page because it is what
+   somebody has to know before reading anything else here; the three paragraphs
+   explaining it are a click away, because a wall of text under the top bar is
+   text most people scroll past rather than read (Yurii, 2026-08-03). */
+.ribbon-more{display:inline}
+/* The generic `.sheet>summary` is a padded, bordered button, which is right in
+   the middle of a page and wrong inside a one-line band: it doubled the band's
+   height to 77px, which is the thing this whole change was undoing. Reset to a
+   plain inline link on the same baseline as the sentence beside it. */
+.side-ribbon .ribbon-more>summary{
+  display:inline;padding:0;border:none;background:none;border-radius:0;
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;
+  color:var(--accent);
+  border-bottom:1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.side-ribbon .ribbon-more>summary::after{content:"\2197";font-size:.85em;color:var(--accent);opacity:.8;margin-left:4px}
+.side-ribbon .ribbon-more>summary:hover{color:var(--fg);border-bottom-color:var(--accent)}
+.side-ribbon .ribbon-more>summary:hover::after{color:var(--fg)}
+.sh-body .standalone{border:none;background:transparent;padding:0}

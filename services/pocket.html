@@ -76,7 +76,36 @@
 </header>
 
 <div class="side-ribbon">
-  <div class="wrap"><span class="dot"></span><b>In the stack, and not wired into one yet.</b> Both apps are built and every screen was driven live against a real control plane on a simulator. What does not exist is a way to put it on a phone: no App Store release, no real push delivery, and no production hardening pass or security review. Nothing in a running stack talks to it today.</div>
+  <div class="wrap"><span class="dot"></span><span class="txt"><b>In the stack, and not wired into one yet.</b>
+    <details class="sheet ribbon-more" data-sheet-kicker="where this sits"
+             data-sheet-title="In the stack, and not wired into one yet">
+      <summary>what that means</summary>
+      <div class="sheet-in">
+        <p><b>Where this sits today, stated rather than implied.</b> Pocket is
+        part of the stack and it is the only part of it you do not run on your own
+        box: it is the out-of-band control for TokenFuse, the way to pull the
+        Breaker when the machine running the gateway, or the machine running your
+        console, is itself the thing that has gone wrong. That is why the
+        signature comes from the Secure Enclave on a device the agent's host never
+        touches.</p>
+        <p style="margin-top:12px"><b>How it is meant to work.</b> The phone pairs
+        once, by QR, to the relay that runs beside the stack. The relay pushes only
+        what needs a human, an over-cap run, straight into the signed-kill flow;
+        the kill is signed on the device and the gateway has only to check the
+        signature. The watch pairs on its own and carries the same flow, so a
+        deauthorized device says it was deauthorized rather than pretending.</p>
+        <p style="margin-top:12px"><b>What is actually true today.</b> The
+        interface is finished and every screen has been driven against a real
+        control plane on a simulator. It is not connected to anything you are
+        running: there is no App Store build, no real push delivery, and no
+        hardening pass or security review. Treat it as the shape of the control
+        rather than a control you have. The console you run today is the
+        <a href="../genaryx.html" data-dir="fwd" style="color:var(--violet)">Genaryx</a>
+        web app.</p>
+      </div>
+    </details>
+    </span>
+  </div>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -104,34 +133,7 @@
   </div>
 </section>
 
-<!-- ================= WHERE THIS SITS ================= -->
-<section class="sec" style="padding-top:8px;padding-bottom:0">
-  <div class="wrap">
-    <div class="standalone rv">
-      <p><b>Where this sits today, stated rather than implied.</b> Pocket is
-      part of the stack and it is the only part of it you do not run on your own
-      box: it is the out-of-band control for TokenFuse, the way to pull the
-      Breaker when the machine running the gateway, or the machine running your
-      console, is itself the thing that has gone wrong. That is why the
-      signature comes from the Secure Enclave on a device the agent's host never
-      touches.</p>
-      <p style="margin-top:12px"><b>How it is meant to work.</b> The phone pairs
-      once, by QR, to the relay that runs beside the stack. The relay pushes only
-      what needs a human, an over-cap run, straight into the signed-kill flow;
-      the kill is signed on the device and the gateway has only to check the
-      signature. The watch pairs on its own and carries the same flow, so a
-      deauthorized device says it was deauthorized rather than pretending.</p>
-      <p style="margin-top:12px"><b>What is actually true today.</b> The
-      interface is finished and every screen has been driven against a real
-      control plane on a simulator. It is not connected to anything you are
-      running: there is no App Store build, no real push delivery, and no
-      hardening pass or security review. Treat it as the shape of the control
-      rather than a control you have. The console you run today is the
-      <a href="../genaryx.html" data-dir="fwd" style="color:var(--violet)">Genaryx</a>
-      web app.</p>
-    </div>
-  </div>
-</section>
+
 
 <!-- ================= SIM ================= -->
 <section class="sec" id="sim" style="padding-top:26px">
@@ -277,11 +279,13 @@
         <div class="foot-group"><div class="l">the stack</div>
           <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><span class="foot-chip here" aria-current="page"><i style="background:#22D3EE"></i>TokenFuse Pocket</span><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
         </div>
-        <div class="foot-group"><div class="l">standalone</div>
-          <div class="foot-chips"><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
-        </div>
-        <div class="foot-group"><div class="l">side project</div>
-          <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+        <div class="foot-row">
+          <div class="foot-group"><div class="l">standalone</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
         </div>
       </div>
       <div>
@@ -303,6 +307,7 @@
 </footer>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e06"></script>
 <script src="../assets/sim.js"></script>
 <script src="../assets/stages/pocket.js"></script>
 <script src="../assets/diagram.js"></script>
