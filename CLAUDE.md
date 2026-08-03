@@ -49,6 +49,21 @@ true.
 6. **Nothing on this site is sold.** The stack is open; consulting is the
    commercial motion. No pricing, no plans, no upgrade language.
    *(not enforced)*
+7. **The published demo is a build of the current genaryx.** `/demo` is not
+   built here: it is a hand-pasted copy of `genaryx/apps/web/dist`, and a copy
+   carries no date. Every page renders and every link works while the console
+   on the site sits months behind the console in the repository, so this decays
+   in the one direction nobody looks. It is refreshed with
+   `scripts/refresh-demo.sh`, never by hand, because two flags in genaryx's
+   build command are load-bearing and neither is guessable.
+   *(gate: `scripts/demo-bundle-current.sh`, in the Pages workflow before the
+   upload. It compares the last commit that touched `apps/web`, NOT genaryx's
+   main tip: most commits there cannot change the bundle, and a check that
+   fails on every unrelated merge is one somebody switches off. It also holds
+   the local half with no network, that `demo/index.html` loads exactly the two
+   files `demo/BUILD.json` records and that no previous build's hashed assets
+   linger beside them, since a content-hashed name is served for as long as the
+   file exists.)*
 
 ## Decisions that have no gate yet
 
@@ -73,6 +88,18 @@ It also does NOT require `og:description` to match the meta description. They
 differ deliberately on all nineteen pages that have both: the search snippet is
 held under 160 and the social card is allowed to run longer. Requiring a match
 would be requiring a mistake.
+
+Invariant 7 is `scripts/demo-bundle-current.sh`, added after the site was found
+serving a demo built from an unmerged branch, with nothing anywhere able to say
+so. Writing it turned up a defect in the check itself, which is worth recording
+because it is the shape these fail in: the manifest was parsed through a command
+substitution piped into `read`, which discards the exit status, so a manifest
+missing a key produced empty values and then complained about a file named
+`demo/`. It reported a real failure for the wrong reason, which is the same
+thing as reporting a wrong one. Each of its six refusals was then triggered
+deliberately and checked to fail for its OWN reason, after a first attempt at
+that whose fixture stayed broken between cases and "proved" three of them on the
+previous case's damage.
 
 What still needs a reader: JSON-LD and the sitemap agreeing with the prose,
 invariant 3's numbers having owners, invariant 4's status sentences, and

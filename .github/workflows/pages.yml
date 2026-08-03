@@ -67,6 +67,20 @@ jobs:
         ## page does not reach Pages and then get fixed afterwards.
         run: ./scripts/page-metadata.sh
 
+      - name: Fail on a published demo that genaryx has moved past
+        ## /demo is not built here: it is a hand-pasted copy of genaryx's
+        ## `apps/web/dist`, and nothing about a copy says how old it is. Every
+        ## page renders and every link works while the console on the site sits
+        ## behind the console in the repository, so this is the one thing here
+        ## that no visitor and no other check would ever notice.
+        ##
+        ## Compares the last commit that touched `apps/web`, not genaryx's main
+        ## tip: most commits there cannot change the bundle, and a check that
+        ## fails on every unrelated merge is one somebody switches off.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/demo-bundle-current.sh
+
       - name: Version the shared assets
         ## site.css and site.js are referenced without a version and served with
         ## max-age=600, so for ten minutes after a deploy a returning visitor
