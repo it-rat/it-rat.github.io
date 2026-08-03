@@ -451,12 +451,16 @@
    offers no Freeze or Kill, correctly), `sre/runbook-executor` is the agent the demo's own approval policy
    targets, and `data/data-quality-checker` is its quality-drift subject. */
 (function(){
-  var A_UEA  = "agent:%2F%2Fmeridian.io%2Ffinops%2Funit-economics-analyst";
-  var A_RUN  = "agent:%2F%2Fmeridian.io%2Fsre%2Frunbook-executor";
-  var A_DQC  = "agent:%2F%2Fmeridian.io%2Fdata%2Fdata-quality-checker";
-  /* The escaping is `url.PathEscape`'s, from heraldyx's own AgentLink, shown as
-     it arrives rather than prettified: this is the string in the operator's
-     mail, and the console decodes it on the other side. */
+  var A_UEA  = "agent://meridian.io/finops/unit-economics-analyst";
+  var A_RUN  = "agent://meridian.io/sre/runbook-executor";
+  var A_DQC  = "agent://meridian.io/data/data-quality-checker";
+  /* Exactly the string heraldyx puts in the mail, not a prettified one. Since
+     v0.2.3 it escapes each path SEGMENT and leaves the separators alone, so an
+     agent id reaches a mailbox looking like itself. It used to escape the whole
+     id, which turned every slash into %2F and made the one line an operator
+     reads at three in the morning longer than the id it names. A mail is
+     text/plain: the address is its own link text, and there is no shorter
+     label to show instead. */
   function ml(kind, id, shown){
     return "<a class=\"ml\" href=\"../demo/#/" + kind + "/" + id + "\">https://box/"
       + kind + "/" + (shown || id) + "</a>";
