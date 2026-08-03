@@ -124,6 +124,20 @@
       "description": "Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native."
     },
     {
+      "url": "https://it-rat.com/services/heraldyx.html",
+      "markdown": "https://it-rat.com/services/heraldyx.md",
+      "title": "Heraldyx, the alerts plane",
+      "kind": "service",
+      "description": "The part of the agent stack that writes to you: it reads the shared event log, decides what is worth a human tonight, and mails it with one link."
+    },
+    {
+      "url": "https://it-rat.com/services/trailryx.html",
+      "markdown": "https://it-rat.com/services/trailryx.md",
+      "title": "Trailryx, the record",
+      "kind": "service",
+      "description": "A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete."
+    },
+    {
       "url": "https://it-rat.com/services/platform.html",
       "markdown": "https://it-rat.com/services/platform.md",
       "title": "Platform, the shared contract",

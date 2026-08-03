@@ -17,6 +17,8 @@ const STACK = [
   {id:"qryx",      name:"Qryx",       plane:"crypto",    color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
+  {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},
+  {id:"trailryx",  name:"Trailryx",   plane:"the record",color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html"},
   {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
 ];
 window.STACK = STACK;

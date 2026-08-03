@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heraldyx - alerts from your own box · IT-RAT</title>
+<meta name="description" content="The part of the agent stack that writes to you: it reads the shared event log, decides what is worth a human tonight, and mails it with one link.">
+<link rel="canonical" href="https://it-rat.com/services/heraldyx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/heraldyx.html">
+<meta property="og:title" content="Heraldyx - alerts from your own box · IT-RAT">
+<meta property="og:description" content="Reads the agent stack's shared event log, applies a severity floor, a dedup window and an hourly ceiling, and mails what is left from your own box. One measured burst: 120 events in, 21 messages out: 20 alerts and one notice saying six more were held. The mail carries a link, never a button that acts.">
+<meta property="og:image" content="https://it-rat.com/assets/og/heraldyx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Heraldyx - alerts from your own box · IT-RAT">
+<meta name="twitter:description" content="Reads the agent stack's shared event log, applies a severity floor, a dedup window and an hourly ceiling, and mails what is left from your own box. One measured burst: 120 events in, 21 messages out: 20 alerts and one notice saying six more were held. The mail carries a link, never a button that acts.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/heraldyx.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/heraldyx.md">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
+<style>
+  :root{--accent:#5BC8F5}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* A mail client, not a code block. The point of this section is what an
+     operator actually receives, and a wall of monospace does not read like a
+     thing that lands in an inbox. */
+  .mailbox{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);overflow:hidden}
+  .mb-head{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--font-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .mb-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);flex:0 0 auto}
+  .mb-head .to{color:var(--dim);text-transform:none;letter-spacing:0;font-size:12px}
+  .mb-head .n{margin-left:auto;text-transform:none;letter-spacing:0;font-size:11.5px}
+  .mb-body{display:grid;grid-template-columns:216px 1fr;min-height:330px}
+  @media(max-width:760px){.mb-body{grid-template-columns:1fr}}
+  .mb-list{border-right:1px solid var(--line);display:flex;flex-direction:column}
+  @media(max-width:760px){.mb-list{border-right:none;border-bottom:1px solid var(--line)}}
+  .mb-item{all:unset;cursor:pointer;padding:11px 14px;border-bottom:1px solid var(--line);display:block}
+  .mb-item:last-child{border-bottom:none}
+  .mb-item .s{display:block;font-size:12.5px;color:var(--dim);line-height:1.4}
+  .mb-item .m{display:block;font-family:var(--font-m);font-size:10px;color:var(--faint);margin-top:4px}
+  .mb-item:hover .s{color:var(--fg)}
+  .mb-item[aria-selected="true"]{background:color-mix(in srgb, var(--accent) 9%, transparent);
+    box-shadow:inset 2px 0 0 var(--accent)}
+  .mb-item[aria-selected="true"] .s{color:var(--fg)}
+  .mb-view{padding:16px 20px;min-width:0}
+  .mb-hdr{font-family:var(--font-m);font-size:11.5px;line-height:1.9;color:var(--faint);
+    border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:13px}
+  .mb-hdr b{display:inline-block;width:104px;color:var(--faint);font-weight:400}
+  .mb-hdr span{color:var(--dim)}
+  .mb-text{font-family:var(--font-m);font-size:12.5px;line-height:1.75;color:var(--dim);
+    white-space:pre-wrap;margin:0;overflow-x:auto}
+  .mb-text b{color:var(--fg);font-weight:600}
+  .mb-text .sky{color:var(--accent)}
+  .mb-text .warn{color:var(--amber)}
+  .mb-text a.ml{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb, var(--accent) 45%, transparent)}
+  .mb-text a.ml:hover{border-bottom-color:var(--accent)}
+  .mb-foot{border-top:1px solid var(--line);padding:10px 15px;font-size:11.5px;color:var(--faint)}
+
+  /* The trigger is an envelope, not a pill. The section is about a thing that
+     lands in an inbox, so the page shows one arriving and the message itself
+     opens in a panel: on the page it stays small, and nobody reads a wall of
+     monospace they did not ask for. */
+  .mailsheet{margin-top:0}
+  .mailsheet>summary{
+    display:flex;align-items:center;gap:20px;width:100%;
+    padding:18px 22px;border-radius:14px;font-family:inherit;font-size:inherit;
+    letter-spacing:0;background:var(--panel);border:1px solid var(--line-2);
+  }
+  .mailsheet>summary::after{content:"";}
+  .mailsheet>summary:hover{border-color:color-mix(in srgb, var(--accent) 60%, var(--line-2));
+    box-shadow:0 18px 44px -28px rgba(0,0,0,.9)}
+  .env{flex:0 0 auto;width:54px;height:40px;position:relative;animation:envFloat 3.4s ease-in-out infinite}
+  .env svg{display:block;width:54px;height:40px;overflow:visible}
+  .env .flap{transform-origin:27px 6px;animation:envFlap 3.4s ease-in-out infinite}
+  .env .badge{position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;border-radius:9px;
+    background:var(--accent);color:#06121a;font-family:var(--font-m);font-size:10.5px;font-weight:700;
+    display:grid;place-items:center;box-shadow:0 0 0 3px var(--panel), 0 0 14px var(--accent)}
+  .env .ping{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:9px;
+    border:1px solid var(--accent);animation:envPing 2.6s ease-out infinite}
+  @keyframes envFloat{50%{transform:translateY(-4px)}}
+  @keyframes envFlap{0%,72%,100%{transform:rotateX(0)}82%{transform:rotateX(-32deg)}}
+  @keyframes envPing{0%{transform:scale(1);opacity:.8}70%,100%{transform:scale(2.1);opacity:0}}
+  @media (prefers-reduced-motion: reduce){
+    .env,.env .flap,.env .ping{animation:none}
+  }
+  .mailsheet .ms-txt{min-width:0;flex:0 0 auto}
+  .mailsheet .ms-mid{flex:1 1 auto;min-width:0;color:var(--faint);font-size:13.5px;line-height:1.55;
+    padding-left:20px;border-left:1px solid var(--line)}
+  @media(max-width:900px){.mailsheet>summary{flex-wrap:wrap}
+    .mailsheet .ms-mid{flex-basis:100%;padding-left:0;border-left:none;padding-top:12px}}
+  .mailsheet .ms-txt .a{display:block;color:var(--fg);font-size:14.5px;font-weight:600}
+  .mailsheet .ms-txt .b{display:block;color:var(--faint);font-family:var(--font-m);font-size:11.5px;margin-top:4px}
+  .mailsheet .ms-go{margin-left:auto;flex:0 0 auto;color:var(--accent);font-family:var(--font-m);font-size:11.5px}
+  .sh-body .mailbox{border:none;background:transparent}
+  .sh-body .mb-head{display:none}
+  /* The shared sheet is 780px, which is right for prose and too narrow for
+     this: a real mail's console block runs past 80 monospace columns, and at
+     780px the owner line wrapped so "(everything they run)" started at column
+     zero and read as a stray line. Widened only for the panel that holds a
+     mailbox, so every other sheet on the site keeps its own width. */
+  .sh-ov:has(.mailbox) .sh-box{width:min(1140px,100%)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Heraldyx","url":"https://it-rat.com/services/heraldyx.html","description":"The part of the agent stack that writes to you: it reads the shared event log, decides what is worth a human tonight, and mails it with one link.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/heraldyx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Heraldyx","item":"https://it-rat.com/services/heraldyx.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="heraldyx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">heraldyx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero" data-motif="boundary">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">alerts plane &#183; v0.2.2</div>
+        <h1 class="rv d1"><span class="nm">Heraldyx</span>. Your agents run on your infrastructure. This is the part that writes to you.</h1>
+        <p class="lede rv d2">Every other plane in the stack records what happened. None of them wakes anybody. Heraldyx reads the shared event log the others already write, decides which of those events a human should hear about tonight rather than tomorrow, and sends one mail. It comes from your own box, and it carries a link into your own console. It reads a file and sends mail: that narrowness is the design, because this is the one component of the box allowed to open a connection to anything outside it.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch a burst arrive <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/heraldyx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">shipped</span><span class="v">v0.2.2, pinned in the deploy</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go 1.26 &#183; one direct dependency</span></div>
+        <div class="row"><span class="k">reads</span><span class="v">the shared event log, read-only</span></div>
+        <div class="row"><span class="k">speaks</span><span class="v">SMTP, and nothing else</span></div>
+        <div class="row"><span class="k">limits</span><span class="v">floor &#183; dedup 10 min &#183; 20 an hour</span></div>
+        <div class="row"><span class="k">leaves behind</span><span class="v">a hash-chained dispatch record</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">one burst, measured</div>
+      <h2>A hundred and twenty events arrive. Twenty-one messages leave.</h2>
+      <p class="lede">This is a simulation of a real run: <span class="mono">scripts/burst-demo.sh</span> in the repository feeds 120 events to the actual binary with the default limits and counts what comes out. Watch where the other hundred stop. An alerting system that forwards everything teaches its operator to filter the sender to trash, and then the one that mattered is in trash too.</p>
+    </div>
+    <div class="rv" id="hx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= THE DECISION ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>Four checks, in this order, and the order is the point.</h2>
+      <p class="lede">The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server.</p>
+    </div>
+
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 300" role="img" aria-label="One event passes four checks in order: a severity this build knows, at or above the floor, not already said within ten minutes, and under the hourly ceiling. Anything that fails goes to the digest, is dropped as a repeat, or is suppressed with one notice.">
+        <defs><marker id="hxa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="8" y="30" width="168" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="92" y="52" fill="#E9EFF6" font-size="11" font-weight="700">a severity this</text>
+          <text x="92" y="66" fill="#E9EFF6" font-size="11" font-weight="700">build knows?</text>
+          <text x="92" y="80" fill="#8A97A6" font-size="10">five levels, nothing else</text>
+
+          <rect x="206" y="30" width="168" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="290" y="52" fill="#E9EFF6" font-size="11" font-weight="700">at or above</text>
+          <text x="290" y="66" fill="#E9EFF6" font-size="11" font-weight="700">the floor?</text>
+          <text x="290" y="80" fill="#8A97A6" font-size="10">high, by default</text>
+
+          <rect x="404" y="30" width="168" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="488" y="52" fill="#E9EFF6" font-size="11" font-weight="700">said already,</text>
+          <text x="488" y="66" fill="#E9EFF6" font-size="11" font-weight="700">within 10 min?</text>
+          <text x="488" y="80" fill="#8A97A6" font-size="10">one condition, one mail</text>
+
+          <rect x="602" y="30" width="168" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="686" y="52" fill="#E9EFF6" font-size="11" font-weight="700">20 already sent</text>
+          <text x="686" y="66" fill="#E9EFF6" font-size="11" font-weight="700">this hour?</text>
+          <text x="686" y="80" fill="#8A97A6" font-size="10">0 turns the ceiling off</text>
+
+          <rect x="800" y="30" width="152" height="56" rx="10" fill="#141C27" stroke="#34D399" stroke-width="1.3"/>
+          <text x="876" y="54" fill="#34D399" font-size="12" font-weight="700">NOTIFY</text>
+          <text x="876" y="72" fill="#8A97A6" font-size="10">one mail, one record</text>
+
+          <path d="M180 58 L200 58" stroke="#5BC8F5" stroke-width="1.3" marker-end="url(#hxa)" fill="none"/>
+          <path d="M378 58 L398 58" stroke="#5BC8F5" stroke-width="1.3" marker-end="url(#hxa)" fill="none"/>
+          <path d="M576 58 L596 58" stroke="#5BC8F5" stroke-width="1.3" marker-end="url(#hxa)" fill="none"/>
+          <path d="M774 58 L794 58" stroke="#5BC8F5" stroke-width="1.3" marker-end="url(#hxa)" fill="none"/>
+
+          <path d="M92 92 L92 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#hxa)" fill="none"/>
+          <path d="M290 92 L290 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#hxa)" fill="none"/>
+          <path d="M488 92 L488 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#hxa)" fill="none"/>
+          <path d="M686 92 L686 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#hxa)" fill="none"/>
+
+          <rect x="8" y="136" width="168" height="58" rx="10" fill="#141C27" stroke="#F4B23E"/>
+          <text x="92" y="158" fill="#F4B23E" font-size="11" font-weight="700">DIGEST</text>
+          <text x="92" y="175" fill="#8A97A6" font-size="10">not escalated and not</text>
+          <text x="92" y="187" fill="#8A97A6" font-size="10">silently dropped either</text>
+
+          <rect x="206" y="136" width="168" height="58" rx="10" fill="#141C27" stroke="#F4B23E"/>
+          <text x="290" y="158" fill="#F4B23E" font-size="11" font-weight="700">DIGEST</text>
+          <text x="290" y="175" fill="#8A97A6" font-size="10">real signal, but not</text>
+          <text x="290" y="187" fill="#8A97A6" font-size="10">worth waking anyone</text>
+
+          <rect x="404" y="136" width="168" height="58" rx="10" fill="#141C27" stroke="#5A6675"/>
+          <text x="488" y="158" fill="#9AA7B8" font-size="11" font-weight="700">DROP</text>
+          <text x="488" y="175" fill="#8A97A6" font-size="10">the event stays in the</text>
+          <text x="488" y="187" fill="#8A97A6" font-size="10">log. Only mail is spared</text>
+
+          <rect x="602" y="136" width="168" height="58" rx="10" fill="#141C27" stroke="#FF574B"/>
+          <text x="686" y="158" fill="#FF574B" font-size="11" font-weight="700">SUPPRESSED</text>
+          <text x="686" y="175" fill="#8A97A6" font-size="10">one notice per window,</text>
+          <text x="686" y="187" fill="#8A97A6" font-size="10">never the events inside</text>
+
+          <rect x="8" y="216" width="762" height="46" rx="9" fill="#10161F" stroke="#2a3547"/>
+          <text x="389" y="236" fill="#E9EFF6" font-size="11" font-weight="700">dedup runs BEFORE the ceiling, on purpose</text>
+          <text x="389" y="252" fill="#8A97A6" font-size="10">a condition that trips two hundred times must not eat an operator's whole hourly budget</text>
+
+          <rect x="800" y="216" width="152" height="46" rx="9" fill="#10161F" stroke="#2a3547"/>
+          <text x="876" y="234" fill="#8A97A6" font-size="10">every limit is a limit</text>
+          <text x="876" y="247" fill="#8A97A6" font-size="10">on messages, never</text>
+          <text x="876" y="259" fill="#5BC8F5" font-size="10" font-weight="700">on evidence</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE MAIL ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what actually arrives</div>
+      <h2>Four short paragraphs, and one link that is a view.</h2>
+      <p class="lede">What happened with its numbers, what the box already did about it, what happens if nobody acts, and where to look. Nothing in it is text a model wrote.</p>
+    </div>
+
+    <div class="bento" style="gap:22px">
+      <div class="b-12">
+        <details class="sheet mailsheet rv" data-sheet-kicker="what actually arrives"
+                 data-sheet-title="One alert, as it lands in your inbox">
+          <summary>
+            <span class="env" aria-hidden="true">
+              <svg viewBox="0 0 54 40" fill="none">
+                <rect x="1" y="6" width="52" height="33" rx="5" fill="#141C27" stroke="#5BC8F5" stroke-opacity=".55"/>
+                <path class="flap" d="M1 8 L27 26 L53 8" stroke="#5BC8F5" stroke-width="1.6" fill="none"/>
+                <path d="M1 38 L20 23 M53 38 L34 23" stroke="#5BC8F5" stroke-opacity=".35" stroke-width="1.2"/>
+              </svg>
+              <span class="ping"></span><span class="badge">1</span>
+            </span>
+            <span class="ms-txt">
+              <span class="a">A new message from your box</span>
+              <span class="b">prod-box &#183; 02:14 &#183; budget_exhausted</span>
+            </span>
+            <span class="ms-mid">Plain text, no images, no tracking pixel, and no button that acts. Open it to read the whole thing, headers included.</span>
+            <span class="ms-go">open &#8599;</span>
+          </summary>
+          <div class="sheet-in">
+            <div class="mailbox">
+              <div class="mb-head">
+                <span class="mb-dot"></span>
+                <span class="to">ops@meridian.io</span>
+                <span class="n">three messages from your own box</span>
+              </div>
+              <div class="mb-body">
+                <div class="mb-list" role="tablist" aria-label="messages">
+                  <button class="mb-item" type="button" role="tab" aria-selected="true" data-mail="0">
+                    <span class="s">run-4471 has exhausted its budget</span>
+                    <span class="m">tokenfuse &#183; 02:14</span>
+                  </button>
+                  <button class="mb-item" type="button" role="tab" aria-selected="false" data-mail="1">
+                    <span class="s">run-4482 was denied by policy</span>
+                    <span class="m">wardryx &#183; 02:31</span>
+                  </button>
+                  <button class="mb-item" type="button" role="tab" aria-selected="false" data-mail="2">
+                    <span class="s">data-quality-checker is producing worse output</span>
+                    <span class="m">verdryx &#183; 06:27</span>
+                  </button>
+                </div>
+                <div class="mb-view">
+                  <div class="mb-hdr"></div>
+                  <pre class="mb-text"></pre>
+                </div>
+              </div>
+              <div class="mb-foot">Every line above is built from an event's type and its numeric fields. Nothing in it is text a model wrote. In a real mail the three links point at your own console; here they open the <a href="../demo/" style="color:var(--accent)">live demo</a> at the panel each one names, sign-in and all.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="bento" style="gap:22px;margin-top:30px">
+      <div class="b-4">
+        <div class="feature rv"><h3>The link is a view, never an action</h3>
+        <p>A link that acts is an unauthenticated capability held by anyone who sees or forwards the message. Mail gateways also prefetch links, which would fire the action before a human read the sentence next to it. You sign in at the console, and a destructive action asks for your passkey there.</p></div>
+      </div>
+      <div class="b-4">
+        <div class="feature rv"><h3>Identifiers and numbers, never content</h3>
+        <p>An event's data can hold anything a producer put there, and some producers sit next to prompts, model output and matched secrets. Mail leaves your perimeter through a server nobody here controls, so the renderer allows eleven named keys and then checks the shape of every value on top. A live secret is perfectly identifier-shaped, so the key list is what stands between it and your inbox.</p></div>
+      </div>
+      <div class="b-4">
+        <div class="feature rv"><h3>Who is answerable comes from a passport</h3>
+        <p>Not from the event, which carries the agent and who it acted for, and neither of those is the owner. No passport means no owner line rather than a guess: naming the wrong team at three in the morning is worse than naming nobody at all.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE RECORD ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">afterwards</div>
+      <h2>Every message it sent, sealed, on a volume the planes cannot reach.</h2>
+      <p class="lede">"We wrote to you at 03:14, and your mail server took it at 03:14:02" is a claim somebody eventually has to prove, in an argument they did not choose. So every message leaves one hash-chained record behind it, in the same envelope the rest of the stack speaks.</p>
+    </div>
+    <div class="bento" style="gap:22px">
+      <div class="b-4"><div class="feature rv"><h3>"Accepted", never "delivered"</h3>
+        <p>What the process observes is a mail server taking the message. Whether it reached a mailbox, a spam folder, or a filter that drops it silently is not knowable from here, so the record does not say it.</p></div></div>
+      <div class="b-4"><div class="feature rv"><h3>A chain of one is not "verified"</h3>
+        <p>The first record has no predecessor to hash, so editing it is undetectable. The tool says so instead of reporting a good chain. A check that cannot fail is worse than no check, because it is louder.</p></div></div>
+      <div class="b-4"><div class="feature rv"><h3>It reports, and never repairs</h3>
+        <p>A tool that could mend the chain would be a tool that could forge it. It exits non-zero on a break, so a deployment check can use it directly.</p></div></div>
+    </div>
+    <div class="rv" style="margin-top:22px">
+      <div class="install"><span class="cmd">heraldyx <b>--journal</b></span><span class="note">the image is distroless: there is no shell in it to read the file with</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOUNDARIES ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it does not do</div>
+      <h2>The boundaries, stated rather than discovered at three in the morning.</h2>
+    </div>
+    <div class="bento" style="gap:22px">
+      <div class="b-6"><div class="feature rv"><h3>It does not queue</h3>
+        <p>A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process.</p></div>
+        <div class="feature rv" style="margin-top:18px"><h3>It does not talk to any plane</h3>
+        <p>No API, no credential, no client. It holds nothing that could act on an agent. If a fact is not in the event log, heraldyx does not know it.</p></div></div>
+      <div class="b-6"><div class="feature rv"><h3>It does not report anything about a whole organisation</h3>
+        <p>The shared envelope requires an agent id, so a fact about an org has no subject to travel under, and no producer is allowed to invent one to make it fit. Those facts live in the console and in each plane's own API. A mail whose subject line named an agent that had not done the thing would be worse than silence.</p></div>
+        <div class="feature rv" style="margin-top:18px"><h3>It does not carry history</h3>
+        <p>A first run starts at the end of the log. A month of old incidents arriving at once is how an operator learns to filter this sender to trash.</p></div></div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><span class="foot-chip here" aria-current="page"><i style="background:#5BC8F5"></i>Heraldyx</span><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="../guides.html">Guides</a>
+        <a href="../index.html#people">The people</a>
+        <a href="../index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Not in the top bar: it is addressed to someone who already runs a
+             console of their own, over their own tunnel, which is a returning
+             operator rather than a visitor. The primary slot belongs to the
+             action a stranger should take. -->
+        <a href="../console.html">Go to your console</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/heraldyx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* The mailbox. Three real event types, each with the catalog's own sentences
+   for what happened, what the box already did, and what happens if nobody
+   acts. The headers are the ones heraldyx actually sets, including
+   Auto-Submitted, which is what stops a mail loop when somebody has a vacation
+   responder on.
+
+   The agents, owners and ids are the LIVE DEMO's own fleet, not invented ones.
+   They were `billing-agent`, `runbook-executor` and `team-finance@acme.example`
+   until 2026-08-03, and the demo's fleet is `agent://meridian.io/...`, so every
+   link in here opened a card about something that did not exist: no owner, no
+   spend, no runs, and no Freeze or Kill, because that card only offers them for
+   an agent it has a record of. A sample whose links land on emptiness is worse
+   than no sample. Each of the three is now something the console can show:
+   `finops/unit-economics-analyst` is live and near its cap (a killed agent
+   offers no Freeze or Kill, correctly), `sre/runbook-executor` is the agent the demo's own approval policy
+   targets, and `data/data-quality-checker` is its quality-drift subject. */
+(function(){
+  var A_UEA  = "agent:%2F%2Fmeridian.io%2Ffinops%2Funit-economics-analyst";
+  var A_RUN  = "agent:%2F%2Fmeridian.io%2Fsre%2Frunbook-executor";
+  var A_DQC  = "agent:%2F%2Fmeridian.io%2Fdata%2Fdata-quality-checker";
+  /* The escaping is `url.PathEscape`'s, from heraldyx's own AgentLink, shown as
+     it arrives rather than prettified: this is the string in the operator's
+     mail, and the console decodes it on the other side. */
+  function ml(kind, id, shown){
+    return "<a class=\"ml\" href=\"../demo/#/" + kind + "/" + id + "\">https://box/"
+      + kind + "/" + (shown || id) + "</a>";
+  }
+
+  var M = [
+    {from:"box@meridian.io", to:"ops@meridian.io",
+     subj:"[prod-box] run-4471 has exhausted its budget",
+     date:"Mon, 03 Aug 2026 02:14:07 +0100",
+     body:"Run run-4471 (agent agent://meridian.io/finops/unit-economics-analyst) has exhausted its budget.\n"+
+       "Spent $1.25 of $1.25 (100%).\n\n"+
+       "<b>What this box already did:</b> Calls from this run are being refused with a hard 402.\n\n"+
+       "<b>If nobody acts:</b> The run cannot spend again until someone raises its budget.\n\n"+
+       "<b>Answerable for it:</b> w.zhang\n\n"+
+       "<span class=\"warn\">Around it right now:</span>\n"+
+       "  near the line   agent://meridian.io/sre/runbook-executor  82% of budget\n"+
+       "  behaving oddly  agent://meridian.io/data/query-cost-optimizer  repeating the same step (4 times)\n\n"+
+       "<span class=\"sky\">Open in your console:</span>\n"+
+       "  what happened   " + ml("i", "budget_exhausted:run-4471") + "\n"+
+       "  this agent      " + ml("a", A_UEA) + "   (freeze, kill)\n"+
+       "  its owner       " + ml("o", "w.zhang") + "   (everything they run)\n\n"+
+       "Raised by tokenfuse at 2026-08-03 01:14:07 UTC. This mail carries identifiers and numbers only, never the content of a call."},
+    {from:"box@meridian.io", to:"ops@meridian.io",
+     subj:"[prod-box] run-4482 was denied by policy",
+     date:"Mon, 03 Aug 2026 02:31:44 +0100",
+     body:"Run run-4482 (agent agent://meridian.io/sre/runbook-executor) was denied by policy.\n"+
+       "Decision deny, org meridian.io.\n\n"+
+       "<b>What this box already did:</b> The action was refused at the decision point.\n\n"+
+       "<b>If nobody acts:</b> The agent cannot take this action until the policy changes.\n\n"+
+       "<b>Answerable for it:</b> s.dawson\n\n"+
+       "<span class=\"sky\">Open in your console:</span>\n"+
+       "  what happened   " + ml("i", "policy_deny:run-4482") + "\n"+
+       "  this agent      " + ml("a", A_RUN) + "   (freeze, kill)\n"+
+       "  its owner       " + ml("o", "s.dawson") + "   (everything they run)\n\n"+
+       "Raised by wardryx at 2026-08-03 01:31:44 UTC. This mail carries identifiers and numbers only, never the content of a call."},
+    {from:"box@meridian.io", to:"ops@meridian.io",
+     subj:"[prod-box] agent://meridian.io/data/data-quality-checker is producing worse output than its baseline",
+     date:"Mon, 03 Aug 2026 06:27:02 +0100",
+     body:"Agent agent://meridian.io/data/data-quality-checker is producing worse output than its baseline.\n"+
+       "Window 5.\n\n"+
+       "<b>What this box already did:</b> The drift was measured and recorded. No traffic was stopped.\n\n"+
+       "<b>If nobody acts:</b> Quality drift does not stop anything by itself. It is a signal to look.\n\n"+
+       "<b>Answerable for it:</b> f.romano\n\n"+
+       "<span class=\"sky\">Open in your console:</span>\n"+
+       "  what happened   " + ml("i", "quality_drift:" + A_DQC) + "\n"+
+       "  this agent      " + ml("a", A_DQC) + "   (freeze, kill)\n"+
+       "  its owner       " + ml("o", "f.romano") + "   (everything they run)\n\n"+
+       "Raised by verdryx at 2026-08-03 05:27:02 UTC. This mail carries identifiers and numbers only, never the content of a call."}
+  ];
+  function esc(v){ return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+  /* sheet.js CLONES .sheet-in into its panel, so anything bound to these
+     nodes on load does not exist in the copy, and an id would resolve to the
+     original still sitting inside the closed <details>. So: one delegated
+     listener, and every lookup scoped to the .mailbox the click happened in.
+     That makes the widget work identically on the page and in the panel. */
+  function render(box, i){
+    var m = M[i]; if(!m) return;
+    var hdr = box.querySelector(".mb-hdr"), txt = box.querySelector(".mb-text");
+    if(!hdr || !txt) return;
+    hdr.innerHTML =
+      "<b>From</b><span>"+esc(m.from)+"</span><br>"+
+      "<b>To</b><span>"+esc(m.to)+"</span><br>"+
+      "<b>Subject</b><span>"+esc(m.subj)+"</span><br>"+
+      "<b>Date</b><span>"+esc(m.date)+"</span><br>"+
+      "<b>Auto-Submitted</b><span>auto-generated</span>";
+    txt.innerHTML = m.body;
+    box.querySelectorAll(".mb-item").forEach(function(b){
+      b.setAttribute("aria-selected", (+b.dataset.mail === i) ? "true" : "false");
+    });
+  }
+  document.addEventListener("click", function(e){
+    var it = e.target.closest && e.target.closest(".mb-item");
+    if(!it) return;
+    var box = it.closest(".mailbox");
+    if(box) render(box, +it.dataset.mail);
+  });
+  /* Seed the original so the clone opens on a filled message, not an empty one. */
+  document.querySelectorAll(".mailbox").forEach(function(b){ render(b, 0); });
+  /* And seed whatever the panel just cloned in. */
+  new MutationObserver(function(muts){
+    muts.forEach(function(mu){
+      [].forEach.call(mu.addedNodes, function(n){
+        if(n.nodeType !== 1) return;
+        var b = n.querySelector && n.querySelector(".mailbox");
+        if(b) render(b, 0);
+      });
+    });
+  }).observe(document.body, {childList:true});
+})();
+</script>
+
+<script>
+/* The burst scenario. Every count is from a real run of scripts/burst-demo.sh
+   against the actual binary with default limits: 120 events in, 21 messages
+   out. Twenty are alerts; the twenty-first is the ceiling's own notice, saying
+   six were held. The other 94 are 29 dropped as repeats and 65 kept for the
+   digest. The notice was not counted here until 2026-08-03, which made the
+   headline number one short of what the run actually writes: `messages
+   written: 21`.
+   The severities in that script are its own choice, so this is a scenario for
+   the RULES, not a measurement of a real fleet. */
+Sim.mount(document.getElementById("hx-sim"),{
+  title:"simulated replay · one burst against the default limits",
+  window:60, duration:17000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"120 events in · 21 messages out",color:"#5BC8F5"},{label:"floor high · dedup 10 min · 20/hour",color:"#F4B23E"}],
+  stage:{mode:"night", t0:3, t1:54},
+  series:[
+    {id:"seen",label:"events seen",color:"#8A97A6",max:120,points:[[0,0],[3,0],[54,120],[60,120]]},
+    {id:"mail",label:"messages sent",color:"#34D399",max:24,fill:false,points:[[0,0],[3,0],[54,21],[60,21]]}
+  ],
+  counters:[
+    {id:"c1",label:"events seen",color:"#8A97A6",from:"seen"},
+    {id:"c2",label:"messages sent",color:"#34D399",from:"mail"},
+    {id:"c3",label:"held for the digest",color:"#F4B23E",from:t=>Math.round(65*Math.min(1,Math.max(0,(t-3)/51)))},
+    {id:"c4",label:"suppressed",color:"#FF574B",from:t=>Math.round(6*Math.min(1,Math.max(0,(t-3)/51)))}
+  ],
+  events:[
+    {t:3,cls:"info",label:"a burst hits the shared event log · 120 events in one poll"},
+    {t:9,cls:"ok",label:"most of it is below the floor: real signal, nothing wrong yet"},
+    {t:18,cls:"warn",label:"one run trips the same condition over and over · dedup collapses it to one message"},
+    {t:30,cls:"bad",label:"policy denials on distinct runs · each one is its own condition, each one is mailed"},
+    {t:44,cls:"bad",label:"the hourly ceiling is reached · the rest are held and one notice says how many"},
+    {t:54,cls:"ok",label:"20 alerts and one notice, each with a link into your own console and no button that acts"},
+    {t:57,cls:"info",label:"65 conditions wait for the daily summary, and every event is still in the log"}
+  ]
+});
+</script>
+</body>
+</html>

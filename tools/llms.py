@@ -42,6 +42,8 @@ SERVICES = [
     ("services/qryx.html", "Qryx, the crypto plane"),
     ("services/verdryx.html", "Verdryx, the quality plane"),
     ("services/mockryx.html", "Mockryx, the pre-production plane"),
+    ("services/heraldyx.html", "Heraldyx, the alerts plane"),
+    ("services/trailryx.html", "Trailryx, the record"),
     ("services/platform.html", "Platform, the shared contract"),
 ]
 OTHER = [

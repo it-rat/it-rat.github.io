@@ -42,6 +42,14 @@ Cost per correctly resolved case, not per token.
 
 Fire drills that prove guardrails hold.
 
+### Heraldyx
+
+The box writes to you, with a link and never a button.
+
+### Trailryx
+
+A record nobody can quietly change or shorten.
+
 ### Platform
 
 Agent Passport, shared contract, Terraform.

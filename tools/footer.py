@@ -39,6 +39,8 @@ PAGES = {
     "services/engram.html": ("../", "Apache-2.0"),
     "services/idryx.html": ("../", "Apache-2.0"),
     "services/mockryx.html": ("../", "Apache-2.0"),
+    "services/heraldyx.html": ("../", "Apache-2.0"),
+    "services/trailryx.html": ("../", "Apache-2.0"),
     "services/platform.html": ("../", "Apache-2.0"),
     "services/qryx.html": ("../", "Apache-2.0"),
     "services/tokenfuse.html": ("../", "Apache-2.0"),
@@ -150,21 +152,29 @@ def main():
     # the home page keeps its desk-agent block; only the injected slot changes
     p = ROOT / "index.html"
     h = p.read_text(encoding="utf-8")
-    slot = re.search(r'<div class="foot-groups"[^>]*>.*?</div>\s*(?=\n)', h, re.S)
+    # Match the whole foot-groups block, ending at its own closing tag rather
+    # than the first </div> inside it.
+    #
+    # This used to be guarded by `id="foot-stack"` being present, which was
+    # true only during the one-off migration away from the JS-rendered footer.
+    # The id went with that migration, so the guard has been false ever since
+    # and the home page silently stopped tracking the registry: adding a
+    # service updated nineteen footers and not the one a stranger sees first.
+    slot = re.search(r'<div class="foot-groups">.*?\n      </div>', h, re.S)
     static = ('<div class="foot-groups">\n'
               '        <div class="foot-group"><div class="l">the stack</div>\n'
               f'          <div class="foot-chips">{chips("", "")}</div>\n'
               '        </div>\n      </div>')
-    if slot and 'id="foot-stack"' in slot.group(0):
-        h = h[:slot.start()] + static + h[slot.end():]
-        # the inline renderer is now dead weight
-        h = re.sub(r'\n  /\* One flat group.*?\n  document\.getElementById\("foot-stack"\)\.innerHTML =\n.*?\n.*?\n', "\n", h, flags=re.S)
-        h = re.sub(r'\n  const chip = s => .*?\n', "\n", h, flags=re.S)
-        p.write_text(h, encoding="utf-8")
-        print(f"{'index.html':28} written")
-        written += 1
+    if slot:
+        if slot.group(0) == static:
+            print(f"{'index.html':28} unchanged")
+        else:
+            h = h[:slot.start()] + static + h[slot.end():]
+            p.write_text(h, encoding="utf-8")
+            print(f"{'index.html':28} written")
+            written += 1
     else:
-        print(f"{'index.html':28} unchanged (slot already static)")
+        sys.exit("index.html: could not find the foot-groups block to update")
     print(f"\n{written} file(s) updated")
 
 

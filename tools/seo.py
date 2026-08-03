@@ -29,7 +29,8 @@ GUIDES = {
 SERVICE_PAGES = [
     "services/engram.html", "services/tokenfuse.html", "services/wardryx.html",
     "services/idryx.html", "services/qryx.html", "services/verdryx.html",
-    "services/mockryx.html", "services/platform.html",
+    "services/mockryx.html", "services/heraldyx.html",
+    "services/trailryx.html", "services/platform.html",
 ]
 
 

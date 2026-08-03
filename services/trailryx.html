@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trailryx - a record that proves it is complete · IT-RAT</title>
+<meta name="description" content="A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete.">
+<link rel="canonical" href="https://it-rat.com/services/trailryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/trailryx.html">
+<meta property="og:title" content="Trailryx - a record that proves it is complete · IT-RAT">
+<meta property="og:description" content="Tamper-evident agent records in Rust, with a zero-dependency core and verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
+<meta property="og:image" content="https://it-rat.com/assets/og/trailryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trailryx - a record that proves it is complete · IT-RAT">
+<meta name="twitter:description" content="Tamper-evident agent records in Rust, with a zero-dependency core and verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/trailryx.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/trailryx.md">
+<link rel="stylesheet" href="../assets/site.css?v=e05">
+<style>
+  :root{--accent:#E4626F}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg)}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px;
+  }
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  .standalone{
+    border:1px solid var(--line-2);border-left:3px solid var(--accent);
+    border-radius:var(--rad-s);background:var(--panel);padding:18px 22px;
+  }
+  .standalone p{color:var(--dim);font-size:14px;line-height:1.65;margin:0}
+  .standalone b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Trailryx","url":"https://it-rat.com/services/trailryx.html","description":"A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/trailryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Trailryx","item":"https://it-rat.com/services/trailryx.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="trailryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">trailryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero" data-motif="web">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">the record &#183; Rust</div>
+        <h1 class="rv d1"><span class="nm">Trailryx</span>. A record of what your agents did that nobody can quietly change, or quietly shorten.</h1>
+        <p class="lede rv d2">Tamper-evident is the easy half, and most audit stores stop there: you can tell if a record was edited. The hard half is the answer. Ask "everything agent X did in March" and an ordinary store hands you rows with no way to know whether it handed you all of them. Trailryx answers with a completeness proof when it can, and says partial with the reason named when it cannot. And it can still erase one person on request without breaking the trail, which is the pair almost nothing manages at once.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch an answer get proved <span class="mono">&#9654;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/trailryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">core</span><span class="v">Rust &#183; no unsafe</span></div>
+        <div class="row"><span class="k">dependencies</span><span class="v">0 in the core, 0 in the verifier</span></div>
+        <div class="row"><span class="k">tests</span><span class="v">1,031 across 28 crates</span></div>
+        <div class="row"><span class="k">ingest</span><span class="v">OTLP protobuf &#183; JSON &#183; a collector's file</span></div>
+        <div class="row"><span class="k">proves</span><span class="v">record &#183; time &#183; agent &#183; run &#183; type</span></div>
+        <div class="row"><span class="k">erasure</span><span class="v">crypto-erasure, per subject</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STANDALONE, SAID PLAINLY ================= -->
+<section class="sec" style="padding-top:8px">
+  <div class="wrap">
+    <div class="standalone rv">
+      <p><b>Where this sits today, stated rather than implied.</b> Trailryx is not wired into the rest of the stack yet. It takes the OTLP traces you already have, from a collector or straight over the wire, and it holds no knowledge of the agent-event envelope the other planes share. That is a real gap and it has a design: a small shipper reads the shared log and maps it, so this store stays useful to somebody who has OTLP and no TAIPANBOX. Until that ships, treat this as a record store that happens to live in the same estate, not as a plane of it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">two questions, two kinds of answer</div>
+      <h2>The auditor asks. One answer carries a proof, the other admits it cannot.</h2>
+      <p class="lede">Records arrive and chain. Then a question lands on one of the five dimensions the index can prove, and the matching records are a contiguous range: that contiguity is the mechanism, not a picture of it. The second question is about something nothing sorts by, so the rows are still right and the answer says so. At the end, one subject is erased and the chain still verifies.</p>
+    </div>
+    <div class="rv" id="tx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= SQL ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>SQL does not become a hole in the proof model.</h2>
+      <p class="lede">You get ordinary SQL over the records. What you also get, on every answer, is how much of it is actually proved, because an answer of unknown completeness must not read like a proved one.</p>
+    </div>
+
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 250" role="img" aria-label="A predicate on one of the five provable dimensions becomes an authenticated index range and the answer is Full; a predicate off them is still applied so the rows are right, and the answer is Partial with the reason named; an INSERT is planned but refused at execution.">
+        <defs><marker id="txa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo">
+          <rect x="8" y="18" width="290" height="42" rx="9" fill="#141C27" stroke="#2a3547"/>
+          <text x="22" y="35" fill="#C8D3E0" font-size="10">SELECT * FROM records</text>
+          <text x="22" y="50" fill="#C8D3E0" font-size="10">WHERE run_id = 'run-b'</text>
+
+          <rect x="8" y="72" width="290" height="42" rx="9" fill="#141C27" stroke="#2a3547"/>
+          <text x="22" y="89" fill="#C8D3E0" font-size="10">SELECT * FROM records</text>
+          <text x="22" y="104" fill="#C8D3E0" font-size="10">WHERE severity = 'error'</text>
+
+          <rect x="8" y="126" width="290" height="42" rx="9" fill="#141C27" stroke="#2a3547"/>
+          <text x="22" y="143" fill="#C8D3E0" font-size="10">INSERT INTO records</text>
+          <text x="22" y="158" fill="#C8D3E0" font-size="10">VALUES (...)</text>
+
+          <path d="M302 39 L320 39" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+          <path d="M302 93 L320 93" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+          <path d="M302 147 L320 147" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+
+          <rect x="328" y="18" width="264" height="150" rx="10" fill="#10161F" stroke="#E4626F" stroke-width="1.3"/>
+          <text x="460" y="40" fill="#E4626F" font-size="11" font-weight="700" text-anchor="middle">the classifier</text>
+          <text x="460" y="58" fill="#8A97A6" font-size="10" text-anchor="middle">does every predicate land on a</text>
+          <text x="460" y="71" fill="#8A97A6" font-size="10" text-anchor="middle">dimension the index can prove?</text>
+          <rect x="340" y="84" width="240" height="36" rx="8" fill="#141C27" stroke="#2a3547"/>
+          <text x="460" y="99" fill="#E9EFF6" font-size="10" font-weight="700" text-anchor="middle">it knows nothing about the engine</text>
+          <text x="460" y="113" fill="#8A97A6" font-size="9.5" text-anchor="middle">no async runtime, session or planner</text>
+          <text x="460" y="136" fill="#8A97A6" font-size="9.5" text-anchor="middle">the part that decides whether an answer</text>
+          <text x="460" y="150" fill="#8A97A6" font-size="9.5" text-anchor="middle">is provable must be testable without it</text>
+
+          <path d="M596 39 L614 39" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+          <path d="M596 93 L614 93" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+          <path d="M596 147 L614 147" stroke="#5A6675" stroke-width="1.2" marker-end="url(#txa)" fill="none"/>
+
+          <rect x="622" y="18" width="330" height="42" rx="9" fill="#141C27" stroke="#34D399"/>
+          <text x="636" y="36" fill="#34D399" font-size="10.5" font-weight="700">Provability::Full</text>
+          <text x="636" y="51" fill="#8A97A6" font-size="9.5">an authenticated index range: these are all of them</text>
+
+          <rect x="622" y="72" width="330" height="42" rx="9" fill="#141C27" stroke="#F4B23E"/>
+          <text x="636" y="90" fill="#F4B23E" font-size="10.5" font-weight="700">Provability::Partial(reasons)</text>
+          <text x="636" y="105" fill="#8A97A6" font-size="9.5">the rows are right, just not proved complete</text>
+
+          <rect x="622" y="126" width="330" height="42" rx="9" fill="#141C27" stroke="#FF574B"/>
+          <text x="636" y="144" fill="#FF574B" font-size="10.5" font-weight="700">refused, and nothing is planned</text>
+          <text x="636" y="159" fill="#8A97A6" font-size="9.5">the gate reads it first; the engine never sees it</text>
+
+          <rect x="8" y="182" width="944" height="52" rx="10" fill="#10161F" stroke="#2a3547"/>
+          <text x="124" y="202" fill="#E9EFF6" font-size="10.5" font-weight="700" text-anchor="middle">the five it can prove</text>
+          <text x="124" y="220" fill="#5A6675" font-size="9.5" text-anchor="middle">anything else is honest, not proved</text>
+          <rect x="236" y="192" width="132" height="32" rx="7" fill="#141C27" stroke="#2a3547"/>
+          <text x="302" y="212" fill="#C8D3E0" font-size="10" text-anchor="middle">record_id</text>
+          <rect x="380" y="192" width="132" height="32" rx="7" fill="#141C27" stroke="#2a3547"/>
+          <text x="446" y="212" fill="#C8D3E0" font-size="10" text-anchor="middle">recorded_at_nanos</text>
+          <rect x="524" y="192" width="132" height="32" rx="7" fill="#141C27" stroke="#2a3547"/>
+          <text x="590" y="212" fill="#C8D3E0" font-size="10" text-anchor="middle">agent_id</text>
+          <rect x="668" y="192" width="132" height="32" rx="7" fill="#141C27" stroke="#2a3547"/>
+          <text x="734" y="212" fill="#C8D3E0" font-size="10" text-anchor="middle">run_id</text>
+          <rect x="812" y="192" width="132" height="32" rx="7" fill="#141C27" stroke="#2a3547"/>
+          <text x="878" y="212" fill="#C8D3E0" font-size="10" text-anchor="middle">event_type</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ERASURE ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the pair that is hard to have at once</div>
+      <h2>Erase one person, and the trail still verifies.</h2>
+      <p class="lede">An audit store that cannot forget anybody fails the first request it gets in Europe. One that forgets by deleting rows breaks every proof it ever issued. Trailryx separates the two planes so neither has to give way.</p>
+    </div>
+    <div class="bento" style="gap:22px">
+      <div class="b-6"><div class="feature rv"><h3>Typed metadata, encrypted payload</h3>
+        <p>The plane the proofs are built on holds identifiers, enums, hashes, numbers and timestamps, and nothing else. Any prose lives in the encrypted payload under the subject's own key. A mapper that does not know where an attribute belongs puts it in the encrypted plane rather than guessing, because guessing the other way is how personal data ends up outside the erasure boundary.</p></div></div>
+      <div class="b-6"><div class="feature rv"><h3>The record commits to the payload it no longer has</h3>
+        <p>Forgetting drops the key. The record keeps its hash, size, class and key id, so what it committed to is still checkable and the chain around it is untouched. The answer to "was anything removed here" stays yes-and-here-is-where, rather than becoming unanswerable.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROVEN ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">measured, not asserted</div>
+      <h2>The number that makes the other number mean something.</h2>
+      <p class="lede">A durability sweep reporting zero violations proves nothing on its own: a check that cannot fail reports zero forever. So the same harness is run against a disk that lies about its writes, and it is required to fail.</p>
+    </div>
+    <div class="bento" style="gap:22px">
+      <div class="b-6"><div class="feature rv"><h3>With a disk that keeps its word</h3>
+        <p>400,000 seeds, roughly 800 million shard ticks, about 12 million crashes injected, nine days and six hours of simulated time in ten minutes and forty seconds of real time. Zero durability violations.</p></div></div>
+      <div class="b-6"><div class="feature rv"><h3>With a disk that lies</h3>
+        <p>The same harness, the honest-disk assumption removed: 17,869 of 20,000 seeds fail, each naming its own seed and digest. That is what makes the zero above worth reading.</p></div></div>
+    </div>
+    <div class="rv" style="margin-top:22px">
+      <div class="install"><span class="cmd">trailryx-verify <b>incident-4471.trxevid</b></span><span class="note">the verifier has zero third-party dependencies, because an auditor reads it rather than trusting it</span></div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><span class="foot-chip here" aria-current="page"><i style="background:#E4626F"></i>Trailryx</span><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+      </div>
+      <div>
+        <a href="../guides.html">Guides</a>
+        <a href="../index.html#people">The people</a>
+        <a href="../index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Not in the top bar: it is addressed to someone who already runs a
+             console of their own, over their own tunnel, which is a returning
+             operator rather than a visitor. The primary slot belongs to the
+             action a stranger should take. -->
+        <a href="../console.html">Go to your console</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/sheet.js?v=e05"></script>
+<script src="../assets/sim.js"></script>
+<script src="../assets/stages/trailryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+<script>
+/* Two questions against one journal. The mechanism is real: a predicate on one
+   of the five provable dimensions is a contiguous range of the sorted
+   authenticated index, so the answer carries a completeness proof; a predicate
+   off them is applied anyway and the answer is marked partial with its reason.
+   The record counts here are illustrative, the behaviour is not. */
+Sim.mount(document.getElementById("tx-sim"),{
+  title:"simulated replay · two questions, and one erasure",
+  window:60, duration:17000,
+  clock:t=>t.toFixed(1)+"s",
+  badges:[{label:"0 dependencies in core and verifier",color:"#34D399"},{label:"1,031 tests · 28 crates",color:"#E4626F"}],
+  stage:{mode:"proof", fillTo:30, q1:36, q2:46, forget:54},
+  series:[
+    {id:"rec",label:"records sealed",color:"#8A97A6",max:120,points:[[0,0],[2,0],[30,120],[60,120]]}
+  ],
+  counters:[
+    {id:"c1",label:"records sealed",color:"#8A97A6",from:"rec"},
+    {id:"c2",label:"proved complete",color:"#34D399",from:t=>t<36?0:37},
+    {id:"c3",label:"answered, not proved",color:"#F4B23E",from:t=>t<46?0:16},
+    {id:"c4",label:"chain breaks",color:"#34D399",from:()=>0}
+  ],
+  events:[
+    {t:2,cls:"info",label:"records arrive over OTLP and chain, each hashed onto the one before it"},
+    {t:30,cls:"ok",label:"the segment is sealed and committed: a Merkle history plus five sorted indexes"},
+    {t:36,cls:"ok",label:"auditor asks for everything about one run · a contiguous range, so the answer is Full"},
+    {t:46,cls:"warn",label:"auditor asks by severity · nothing sorts by it, so the rows come back marked Partial"},
+    {t:54,cls:"bad",label:"erasure request for one subject · the payload key is destroyed"},
+    {t:57,cls:"ok",label:"the chain still verifies: the record keeps the hash, size, class and key id it committed to"}
+  ]
+});
+</script>
+</body>
+</html>
