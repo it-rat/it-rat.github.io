@@ -198,13 +198,13 @@ def rail_cards():
             f'      <a class="card hover svc" style="--c:{s["color"]}" href="{s["href"]}" data-dir="fwd">\n'
             f'        <span class="head"><span class="g"></span>'
             f'<span class="mono" style="font-size:11px;color:var(--faint)">{s["id"]}</span>'
-            f'<span class="plane">{s["plane"]}</span>'
-            + (f'<span class="note">{s["note"]}</span>' if s["note"] else "")
-            + '</span>\n'
+            f'<span class="plane">{s["plane"]}</span></span>\n'
 
             f'        <h3>{s["name"]}</h3>\n'
             f'        <p class="what">{s["what"]}.</p>\n'
-            f'        <span class="go">open the room</span>\n'
+            f'        <span class="go">open the room'
+            + (f'<span class="note">{s["note"]}</span>' if s["note"] else "")
+            + '</span>\n'
             f'      </a>')
     return "\n".join(out)
 

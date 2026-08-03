@@ -731,14 +731,29 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
    caveat rather than as a second category. Carried by the registry, not by a
    hand edit, because the hand edits were overwritten the moment the rail
    started being generated. */
-/* The glyph must not be what gives way when the row runs out of space. Adding
-   the status marker overflowed the head and squashed the dot from 11px to 1px
-   on exactly the card that had the marker, which is the card somebody looks at.
-   Measured, not noticed: it reads as a thin line at a glance. */
+/* The glyph must not be what gives way when the row runs out of space; the
+   status marker overflowed the head once and squashed the dot from 11px to
+   1px, on exactly the card that had the marker. */
 .svc .head .g{flex:0 0 auto}
 .svc .head{flex-wrap:wrap;row-gap:6px}
-.svc .head .note{
+/* The status sits at the far end of the LAST row, opposite "open the room",
+   rather than beside the plane in the head. Two reasons and the second is the
+   real one: it stops crowding a row that is already three items long, and next
+   to a category it read as a second category. Down here it is a footnote to
+   the invitation, which is the moment somebody decides whether to click.
+
+   It stays, and "out of band" does not replace it: that is the ARCHITECTURE,
+   the control travelling on a different channel from the thing it controls,
+   and it will still be true when this ships and works. It says nothing about
+   whether it is connected (Yurii asked exactly this, 2026-08-03). */
+/* `.go` already carries an arrow as a pseudo-element, so `space-between` had
+   three items to spread and parked the marker in the MIDDLE, between the words
+   and the arrow. `order` puts it after the arrow and `margin-left:auto` does
+   the pushing, which is what "opposite the invitation" actually needs. */
+.svc .go{align-items:center;gap:8px}
+.svc .go .note{order:2;margin-left:auto}
+.svc .go .note{
   font-family:var(--font-m);font-size:10px;letter-spacing:.06em;
   color:var(--amber);border:1px solid color-mix(in srgb, var(--amber) 34%, transparent);
-  border-radius:999px;padding:2px 7px;margin-left:8px;white-space:nowrap;
+  border-radius:999px;padding:2px 8px;white-space:nowrap;flex:0 0 auto;
 }

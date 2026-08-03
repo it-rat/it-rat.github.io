@@ -7,18 +7,24 @@
 /* Order is the corridor: the rail, the left/right arrows, the dots and the
    palette all walk it. It opens on the control room, then the memory
    underneath it and the money plane it governs, then the rest of the
-   planes, ending on the shared contract. */
+   planes that are running, then the two that are not yet in play, ending
+   on the shared contract.
+
+   Pocket and Trailryx sit together at the end on purpose (Yurii,
+   2026-08-03): one is built and not connected, the other is built and
+   wired to nothing, and a reader walking the corridor meets everything
+   that works before meeting either. */
 const STACK = [
   {id:"genaryx",   name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"genaryx.html"},
   {id:"engram",    name:"Engram",     plane:"memory",    color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
   {id:"tokenfuse", name:"TokenFuse",  plane:"money",     color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
-  {id:"pocket",    name:"TokenFuse Pocket", plane:"out of band", color:"#22D3EE", what:"The kill switch on a device the agent's host never touches", href:"services/pocket.html", note:"not wired in yet"},
   {id:"wardryx",   name:"Wardryx",    plane:"policy",    color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},
   {id:"idryx",     name:"Idryx",      plane:"access",    color:"#34D399", what:"One identity graph for humans, keys and agents",  href:"services/idryx.html"},
   {id:"qryx",      name:"Qryx",       plane:"crypto",    color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
   {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},
+  {id:"pocket",    name:"TokenFuse Pocket", plane:"out of band", color:"#22D3EE", what:"The kill switch on a device the agent's host never touches", href:"services/pocket.html", note:"not wired in yet"},
   {id:"trailryx",  name:"Trailryx",   plane:"the record",color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html", group:"standalone", note:"standalone"},
   {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
 ];
