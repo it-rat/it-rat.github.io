@@ -86,6 +86,60 @@ p{margin:0}
 .kbd-hint:hover{border-color:var(--line-2);color:var(--dim)}
 .kbd-hint kbd{font-family:inherit;background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
 @media(max-width:680px){.crumb{display:none}.tb-link{padding:7px 7px}}
+/* The bar is one row and has to stay one row. Measured on the live site
+   2026-08-03: "Live demo" broke across two lines at 430px and below, and at
+   360px and below the row overflowed its own container, by 48px at 320px, so
+   the jump button was cut off rather than merely cramped. The page did not
+   scroll sideways, which is why neither showed up in a desktop pass or in an
+   overflow check on the document. */
+.topbar .wrap > *{white-space:nowrap}
+/* Section shortcuts, dropped until there is room for them. The home page and
+   the genaryx page carry links a service page does not ("Stack", "Proof", "The
+   open stack"), and with those in the row the bar needs about 820px.
+   Below that it did not merely crowd: at 700px it pushed the WHOLE PAGE 86px
+   sideways, so the home page scrolled horizontally on a tablet, and at 320px
+   the row ran 111px past its own container and the jump button was cut off.
+   The first version of this rule used the 560px phone breakpoint and fixed
+   only the second half, which the five-page sweep then caught.
+   What these point at is on the page being scrolled and in the footer; what
+   cannot be reached any other way, Guides and the demo, stays. */
+@media(max-width:820px){.tb-opt{display:none}}
+@media(max-width:560px){
+  .topbar .wrap{gap:10px}
+  /* The keyboard badge, not the button. A phone has no Cmd key, so the chip is
+     the only part of this control that cannot be acted on; "jump" stays and
+     stays tappable. Hiding the whole button would have been the easy 85px and
+     would have taken the palette away from exactly the screen with the least
+     room for navigation. */
+  .kbd-hint kbd{display:none}
+  .kbd-hint{padding:6px 9px}
+}
+/* 320px, the narrowest phone still in the wild, needed eight more pixels than
+   the rule above frees. Taken from the bar's own side padding rather than from
+   the gaps, because the gaps are what stop the three controls reading as one
+   blob, and this row is the only place on the site where 18px of margin is
+   worth more as space between items than as breathing room at the edge. */
+/* The crumb shrinks rather than being kept whole or dropped. It hides at 680px
+   already, and between 680 and 820 a long one is the thing that overflows:
+   "guides / observability vs governance" measures 262px, which took
+   ai-observability-vs-governance.html 13px past the viewport at 700px and made
+   the page scroll sideways. Truncated it still answers "where am I", which is
+   the whole of its job. */
+.crumb{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+
+@media(max-width:380px){
+  .topbar .wrap{padding:0 12px;gap:9px}
+  .tb-link{padding:7px 6px}
+  /* The jump palette goes at 380px, and this is the one thing on the bar that
+     is dropped rather than shrunk. The guide pages spell their links out ("All
+     guides", "The stack" rather than "Guides"), so at 320px the row was 11px
+     over even after the padding and gaps came in. Those 11px could have been
+     shaved from three places at once and would have landed within a few pixels
+     of the limit, where the next label change breaks it again. This frees 57px
+     and stops the row being an arithmetic problem. What it costs is a
+     shortcut; every destination in it is still in the footer. */
+  .kbd-hint{display:none}
+}
 
 /* ---------- topbar: an item that is present but not going anywhere ---------- */
 /* Shares .tb-link for font, size, spacing and the 680px padding rule; these
