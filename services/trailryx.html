@@ -10,13 +10,13 @@
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/trailryx.html">
 <meta property="og:title" content="Trailryx - a record that proves it is complete · IT-RAT">
-<meta property="og:description" content="Tamper-evident agent records in Rust, with a zero-dependency core and verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
+<meta property="og:description" content="Tamper-evident agent records in Rust, with no third-party code in the core or the verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
 <meta property="og:image" content="https://it-rat.com/assets/og/trailryx.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Trailryx - a record that proves it is complete · IT-RAT">
-<meta name="twitter:description" content="Tamper-evident agent records in Rust, with a zero-dependency core and verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
+<meta name="twitter:description" content="Tamper-evident agent records in Rust, with no third-party code in the core or the verifier. A query on a provable dimension comes back with a completeness proof; anything else is answered honestly and marked partial. One subject can be erased while the chain still verifies.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/trailryx.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -87,7 +87,7 @@
       </div>
       <div class="hero-side rv d2">
         <div class="row"><span class="k">core</span><span class="v">Rust &#183; no unsafe</span></div>
-        <div class="row"><span class="k">dependencies</span><span class="v">0 in the core, 0 in the verifier</span></div>
+        <div class="row"><span class="k">dependencies</span><span class="v">0 third-party: core and verifier</span></div>
         <div class="row"><span class="k">tests</span><span class="v">1,031 across 28 crates</span></div>
         <div class="row"><span class="k">ingest</span><span class="v">OTLP protobuf &#183; JSON &#183; a collector's file</span></div>
         <div class="row"><span class="k">proves</span><span class="v">record &#183; time &#183; agent &#183; run &#183; type</span></div>
@@ -277,7 +277,7 @@ Sim.mount(document.getElementById("tx-sim"),{
   title:"simulated replay · two questions, and one erasure",
   window:60, duration:17000,
   clock:t=>t.toFixed(1)+"s",
-  badges:[{label:"0 dependencies in core and verifier",color:"#34D399"},{label:"1,031 tests · 28 crates",color:"#E4626F"}],
+  badges:[{label:"0 third-party deps: core, verifier",color:"#34D399"},{label:"1,031 tests · 28 crates",color:"#E4626F"}],
   stage:{mode:"proof", fillTo:30, q1:36, q2:46, forget:54},
   series:[
     {id:"rec",label:"records sealed",color:"#8A97A6",max:120,points:[[0,0],[2,0],[30,120],[60,120]]}
