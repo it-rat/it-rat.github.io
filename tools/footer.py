@@ -41,6 +41,11 @@ PAGES = {
     "services/mockryx.html": ("../", "Apache-2.0"),
     "services/heraldyx.html": ("../", "Apache-2.0"),
     "services/trailryx.html": ("../", "Apache-2.0"),
+    # Side projects. They get the same footer as everything else because the
+    # footer is where a reader checks what else exists; what keeps them out of
+    # the stack is the registry, not this list.
+    "services/pocket.html": ("../", "Apache-2.0"),
+    "services/sphere.html": ("../", "MIT"),
     "services/platform.html": ("../", "Apache-2.0"),
     "services/qryx.html": ("../", "Apache-2.0"),
     "services/tokenfuse.html": ("../", "Apache-2.0"),
@@ -59,15 +64,36 @@ def stack():
     for line in block.group(1).splitlines():
         m = re.search(r'id:"([^"]+)".*?name:"([^"]+)".*?color:"([^"]+)".*?href:"([^"]+)"', line)
         if m:
-            out.append(dict(zip(("id", "name", "color", "href"), m.groups())))
+            s = dict(zip(("id", "name", "color", "href"), m.groups()))
+            g = re.search(r'group:"([^"]+)"', line)
+            s["group"] = g.group(1) if g else "stack"
+            out.append(s)
     if len(out) < 5:
         sys.exit("site.js: parsed too few services, refusing to write a broken footer")
     return out
 
 
-def chips(root, here):
+def side():
+    """The two mobile apps, from their own list. See site.js for why they are
+    not in STACK: that registry drives a walk between pages on this site, and
+    these have no page here."""
+    js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
+    block = re.search(r"const SIDE = \[(.*?)\n\];", js, re.S)
+    if not block:
+        sys.exit("site.js: could not find the SIDE registry")
+    out = [dict(zip(("id", "name", "href"), m.groups()))
+           for m in re.finditer(r'id:"([^"]+)".*?name:"([^"]+)".*?href:"([^"]+)"',
+                                block.group(1))]
+    if not out:
+        sys.exit("site.js: SIDE parsed empty, refusing to write a footer with a silent gap")
+    return out
+
+
+def chips(root, here, group="stack"):
     out = []
     for s in stack():
+        if s["group"] != group:
+            continue
         dot = f'<i style="background:{s["color"]}"></i>{s["name"]}'
         if s["id"] == here:
             out.append(f'<span class="foot-chip here" aria-current="page">{dot}</span>')
@@ -76,17 +102,40 @@ def chips(root, here):
     return "".join(out)
 
 
+def side_links(root):
+    """Plain links, no dot, and no external arrow: these point at rooms on this
+    site now. See site.js for why they are not chips."""
+    return "".join(
+        f'<a class="foot-side" href="{root}{s["href"]}">{s["name"]}</a>'
+        for s in side())
+
+
+def groups(root, here):
+    """The three states these things are actually in, which is not the same
+    question as what they do: running and wired together; running and wired to
+    nothing; not finished and not checkable."""
+    return (
+        '<div class="foot-groups">\n'
+        '        <div class="foot-group"><div class="l">the stack</div>\n'
+        f'          <div class="foot-chips">{chips(root, here)}</div>\n'
+        '        </div>\n'
+        '        <div class="foot-group"><div class="l">standalone</div>\n'
+        f'          <div class="foot-chips">{chips(root, here, "standalone")}</div>\n'
+        '          <div class="foot-hint">Real and tested, and not wired into the stack yet.</div>\n'
+        '        </div>\n'
+        '        <div class="foot-group"><div class="l">mobile, side projects</div>\n'
+        f'          <div class="foot-sides">{side_links(root)}</div>\n'
+        '          <div class="foot-hint">Ours, in progress, and not part of the stack. Nothing here is verified the way the stack is.</div>\n'
+        '        </div>\n      </div>')
+
+
 def cols(root, here):
     return f"""    <div class="cols">
       <div>
         <a class="brand" href="{root}index.html" style="margin-bottom:10px">{BRAND_SVG}IT<b>-</b>RAT</a>
         <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
       </div>
-      <div class="foot-groups">
-        <div class="foot-group"><div class="l">the stack</div>
-          <div class="foot-chips">{chips(root, here)}</div>
-        </div>
-      </div>
+      {groups(root, here)}
       <div>
         <a href="{root}guides.html">Guides</a>
         <a href="{root}index.html#people">The people</a>
@@ -161,10 +210,7 @@ def main():
     # and the home page silently stopped tracking the registry: adding a
     # service updated nineteen footers and not the one a stranger sees first.
     slot = re.search(r'<div class="foot-groups">.*?\n      </div>', h, re.S)
-    static = ('<div class="foot-groups">\n'
-              '        <div class="foot-group"><div class="l">the stack</div>\n'
-              f'          <div class="foot-chips">{chips("", "")}</div>\n'
-              '        </div>\n      </div>')
+    static = groups("", "")
     if slot:
         if slot.group(0) == static:
             print(f"{'index.html':28} unchanged")

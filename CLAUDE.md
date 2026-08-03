@@ -43,8 +43,24 @@ true.
 4. **A refresh updates numbers. Only a sweep updates status sentences.** The
    sentence "we are building X" outlives the number beside it by months. When
    the numbers change, read the sentences too. *(not enforced)*
-5. **The cancelled phone and watch surface is never mentioned**, including in
-   glossary cards, alt text, structured data, and asset filenames.
+5. **The mobile apps are side projects, and the site never lets them read as
+   part of the stack.** Two of them exist, they are ours, and since
+   2026-08-03 they are linked from the footer and nowhere else. What that
+   means concretely: not in the `STACK` registry, so they cannot reach the
+   corridor rail, the prev/next walk, the dot strip or the jump palette; no
+   page on this site; no coloured chip, because a chip is the stack's own
+   grammar and a reader takes grammar faster than a heading; and the group
+   carries a line saying they are in progress and not verified the way the
+   stack is.
+
+   This replaces "the cancelled phone and watch surface is never mentioned",
+   which was the rule from 2026-07-24 until Yurii reversed it on 2026-08-03.
+   The reversal is narrow: the apps may be NAMED and LINKED, and they may not
+   be presented as product. The reason the old rule existed has not changed,
+   only its scope. Every other page here points at something running and
+   measured, and that is the one thing this site has that cannot be copied;
+   a promise standing next to those makes a reader ask which of the rest are
+   also promises.
    *(not enforced)*
 6. **Nothing on this site is sold.** The stack is open; consulting is the
    commercial motion. No pricing, no plans, no upgrade language.
@@ -105,7 +121,14 @@ What still needs a reader: JSON-LD and the sitemap agreeing with the prose,
 invariant 3's numbers having owners, invariant 4's status sentences, and
 invariant 6.
 
-Invariant 5 is a wordlist grep across HTML, alt text and filenames.
+**Invariant 5 has never had the check this file claimed for it.** The line here
+said "a wordlist grep across HTML, alt text and filenames" and no such script
+exists; it was looked for on 2026-08-03 and is not in `scripts/`. That was
+worth more than the missing grep: a sentence describing a check nobody wrote
+reads as a check somebody is running, which is exactly how the rule then went
+unnoticed for a fortnight. The invariant is now held by this file and by
+`STACK` being the only thing the rail, the walk and the palette read from, so
+a side project cannot get into them by being added to a list.
 
 ## Standing rule
 

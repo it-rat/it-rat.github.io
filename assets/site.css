@@ -436,6 +436,23 @@ p{margin:0}
 }
 .foot-chip i{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
 .foot-chip em{font-style:normal;color:var(--faint);font-size:10.5px;margin-left:1px}
+/* One line under a group, saying what that group's state IS. The labels alone
+   carry the difference between "the stack" and "standalone" only for somebody
+   who already knows the difference, and the reader this footer is for does
+   not. */
+.foot-hint{margin-top:8px;color:var(--faint);font-size:11.5px;line-height:1.55;max-width:52ch}
+/* The mobile projects, and the reason they are not chips.
+   A chip with a coloured dot is the stack's own grammar, and a reader takes
+   grammar faster than a label: two unfinished apps wearing a chip that looks
+   like Wardryx read as members of the stack no matter what the heading above
+   them says. Plain text, no dot, and the arrow that means "this leaves the
+   site". */
+.foot-sides{display:flex;flex-wrap:wrap;gap:7px 20px}
+.footer .cols .foot-side{
+  color:var(--faint);font-size:12.5px;line-height:1;padding:6px 0;
+  border-bottom:1px solid transparent;transition:color .16s,border-color .16s;
+}
+.footer .cols .foot-side:hover{color:var(--dim);border-bottom-color:var(--line-2)}
 .foot-note{margin-top:26px;color:var(--faint);font-size:12.5px;line-height:1.6}
 
 /* ---------- ambient hero canvas (service pages) ---------- */
@@ -666,3 +683,17 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
   .svc-hero h1 .w{opacity:1;transform:none;filter:none;animation:none}
   canvas.ambient{opacity:.35}
 }
+
+/* The band both side-project rooms carry, directly under the top bar.
+   Above the fold on purpose: these two pages look exactly like a service room
+   because they ARE one in shape, and the one thing a reader must not have to
+   scroll for is that they are not part of the stack and carry none of its
+   measurements. It was `.ent-ribbon` on the Pocket page alone and named after
+   an enterprise page that no longer exists. */
+.side-ribbon{border-bottom:1px solid var(--line)}
+.side-ribbon .wrap{display:flex;align-items:center;gap:10px;padding:10px 24px;
+  font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--dim);line-height:1.7}
+.side-ribbon .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 10px var(--accent);animation:sidePulse 2.4s infinite;flex:0 0 auto}
+@keyframes sidePulse{0%,100%{opacity:1}50%{opacity:.35}}
+.side-ribbon b{color:var(--fg);font-weight:650}

@@ -18,10 +18,29 @@ const STACK = [
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
   {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},
-  {id:"trailryx",  name:"Trailryx",   plane:"the record",color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html"},
+  {id:"trailryx",  name:"Trailryx",   plane:"the record",color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html", group:"standalone"},
   {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
 ];
 window.STACK = STACK;
+
+/* Two mobile apps that are ours, have rooms of their own, and are not part of
+ * this. They are NOT in STACK, and that is the whole mechanism.
+ *
+ * STACK drives the corridor rail, the prev/next walk, the dot strip and the
+ * jump palette. A side project in there would be walked to from Wardryx and
+ * walked out of into Idryx, which is a stronger statement of membership than
+ * any heading can undo. Keeping them out of it costs them the walk and buys
+ * the distinction; their pages carry a band at the top saying the same thing
+ * in words.
+ *
+ * Deliberately without a colour, for the same reason: a coloured chip is the
+ * stack's own grammar, and a reader takes grammar faster than a label.
+ */
+const SIDE = [
+  {id:"pocket", name:"TokenFuse Pocket", href:"services/pocket.html"},
+  {id:"sphere", name:"Sphere for iOS",   href:"services/sphere.html"},
+];
+window.SIDE = SIDE;
 
 const here = (document.body.dataset.service||"").trim();
 const idx = STACK.findIndex(s=>s.id===here);
