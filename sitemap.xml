@@ -12,6 +12,11 @@
   <url><loc>https://it-rat.com/services/heraldyx.html</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://it-rat.com/services/trailryx.html</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://it-rat.com/services/platform.html</loc><lastmod>2026-07-26</lastmod></url>
+  <!-- Side projects, listed because they exist and every footer links to
+       them. Leaving them out would not stop a crawler that follows those
+       links; it would only make this file wrong about the site. -->
+  <url><loc>https://it-rat.com/services/pocket.html</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://it-rat.com/services/sphere.html</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://it-rat.com/ai-agent-governance.html</loc><lastmod>2026-07-26</lastmod></url>
   <url><loc>https://it-rat.com/finops-for-ai.html</loc><lastmod>2026-07-26</lastmod></url>
   <url><loc>https://it-rat.com/ai-agent-security.html</loc><lastmod>2026-07-26</lastmod></url>
