@@ -82,6 +82,17 @@
   .mb-text a.ml{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb, var(--accent) 45%, transparent)}
   .mb-text a.ml:hover{border-bottom-color:var(--accent)}
   .mb-foot{border-top:1px solid var(--line);padding:10px 15px;font-size:11.5px;color:var(--faint)}
+  /* On a phone the message body is about 315px wide and a console URL is a
+     single unbreakable token longer than that. With `pre-wrap` alone it did not
+     wrap: it overflowed its box and was CLIPPED, so
+     `https://box/a/agent:%2F%2Fmeridian.io%2Ffinops%2Funit-economics-analyst`
+     rendered with its middle missing and still looked like a whole address.
+     A sample mail showing a mangled URL is worse than one that is hard to read.
+     `anywhere` only takes effect on a token that cannot fit, so the prose still
+     breaks at its spaces, and this is what a mail client on a phone does too. */
+  @media(max-width:760px){
+    .mb-text{font-size:11.5px;overflow-wrap:anywhere}
+  }
 
   /* The trigger is an envelope, not a pill. The section is about a thing that
      lands in an inbox, so the page shows one arriving and the message itself

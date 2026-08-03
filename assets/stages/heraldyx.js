@@ -66,8 +66,15 @@ Sim.registerStage("night",function(o){
         ctx.font="9.5px ui-monospace,Menlo,monospace";
         ctx.fillStyle="rgba("+P.amber+",.85)";
         ctx.fillText(b.label,gx+10,y-6);
-        ctx.fillStyle="rgba("+P.faint+",.9)";
-        ctx.fillText(b.sub,gx+10+ctx.measureText(b.label).width+10,y-6);
+        /* The qualifier goes when there is no room for it. On a phone it ran
+           under the mailbox card, so "10 min per condition" and "your mailbox"
+           printed on top of each other. The label alone still names the band,
+           and the numbers it repeats are in the badges above the stage. */
+        const subX=gx+10+ctx.measureText(b.label).width+10;
+        if(subX+ctx.measureText(b.sub).width < mailX-26){
+          ctx.fillStyle="rgba("+P.faint+",.9)";
+          ctx.fillText(b.sub,subX,y-6);
+        }
       });
 
       /* the log the events come from */
@@ -130,19 +137,47 @@ Sim.registerStage("night",function(o){
         ["dropped, already said",VERDICT[1].col,out[1]],
         ["over the ceiling",VERDICT[3].col,out[3]]
       ];
-      let ly=h-30;
+      /* One row while it fits, two columns when it does not. On a 393px phone
+         the single row ran off the right edge and the last entry was cut at
+         "dropped," with its count gone, which reads as a broken number rather
+         than a clipped one. Measured rather than assumed: the four entries are
+         laid out once, and the row is kept only if the last one ends inside the
+         box. */
+      /* As many columns as measurably fit, from four down to one. This started
+         as one row, which ran off a 393px phone and cut the third entry at
+         "dropped," with its count gone. Two columns fixed that width and still
+         overflowed at 320 and 393, so the rule is not a breakpoint: it is the
+         widest entry against the space there actually is. Nothing here may be
+         clipped, because every entry ends in a number and a clipped number is
+         not a cramped label, it is a wrong one. */
       ctx.font="9.5px ui-monospace,Menlo,monospace";
-      let lx=gx+8;
-      legend.forEach(([name,col,n])=>{
-        ctx.fillStyle="rgba("+col+",.9)";
-        ctx.beginPath();ctx.arc(lx+4,ly-3,3.4,0,7);ctx.fill();
+      const items=legend.map(([name,col,n])=>({col,s:name+" "+n}));
+      /* One row first, packed to each entry's own width, because that is what
+         this looked like on a desktop and a uniform grid gave it three columns
+         and two rows where four had fitted comfortably. The grid is the
+         fallback, not the rule. */
+      const natural=items.reduce((x,it)=>x+13+ctx.measureText(it.s).width+22,gx+8);
+      const cellW=natural<=gx+gw
+        ? 0
+        : Math.max(...items.map(it=>ctx.measureText(it.s).width))+13+22;
+      const cols=cellW===0
+        ? items.length
+        : Math.max(1,Math.min(items.length,Math.floor((gw-8)/cellW)));
+      const rows=Math.ceil(items.length/cols);
+      const dot=(x,y,col)=>{ ctx.fillStyle="rgba("+col+",.9)";
+                             ctx.beginPath();ctx.arc(x+4,y-3,3.4,0,7);ctx.fill(); };
+      const ly=h-30;
+      let flow=gx+8;
+      items.forEach((it,i)=>{
+        const cx=cellW===0?flow:gx+8+(i%cols)*cellW;
+        const cy=ly-(rows-1-Math.floor(i/cols))*13;
+        dot(cx,cy,it.col);
         ctx.fillStyle="rgba("+P.dim+",.95)";
-        const s=name+" "+n;
-        ctx.fillText(s,lx+13,ly);
-        lx+=ctx.measureText(s).width+34;
+        ctx.fillText(it.s,cx+13,cy);
+        flow=cx+13+ctx.measureText(it.s).width+22;
       });
       ctx.fillStyle="rgba("+P.faint+",.9)";
-      ctx.fillText("events seen "+arrived+" / "+N,gx+8,ly-17);
+      ctx.fillText("events seen "+arrived+" / "+N,gx+8,ly-rows*13-4);
       ctx.textAlign="center";
     }
   };
