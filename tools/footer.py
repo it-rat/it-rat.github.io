@@ -62,9 +62,10 @@ def stack():
         sys.exit("site.js: could not find the STACK registry")
     out = []
     for line in block.group(1).splitlines():
-        m = re.search(r'id:"([^"]+)".*?name:"([^"]+)".*?color:"([^"]+)".*?href:"([^"]+)"', line)
+        m = re.search(r'id:"([^"]+)".*?name:"([^"]+)".*?plane:"([^"]+)".*?color:"([^"]+)"'
+                      r'.*?what:"([^"]+)".*?href:"([^"]+)"', line)
         if m:
-            s = dict(zip(("id", "name", "color", "href"), m.groups()))
+            s = dict(zip(("id", "name", "plane", "color", "what", "href"), m.groups()))
             g = re.search(r'group:"([^"]+)"', line)
             s["group"] = g.group(1) if g else "stack"
             out.append(s)
@@ -81,8 +82,8 @@ def side():
     block = re.search(r"const SIDE = \[(.*?)\n\];", js, re.S)
     if not block:
         sys.exit("site.js: could not find the SIDE registry")
-    out = [dict(zip(("id", "name", "href"), m.groups()))
-           for m in re.finditer(r'id:"([^"]+)".*?name:"([^"]+)".*?href:"([^"]+)"',
+    out = [dict(zip(("id", "name", "color", "href"), m.groups()))
+           for m in re.finditer(r'id:"([^"]+)".*?name:"([^"]+)".*?color:"([^"]+)".*?href:"([^"]+)"',
                                 block.group(1))]
     if not out:
         sys.exit("site.js: SIDE parsed empty, refusing to write a footer with a silent gap")
@@ -102,18 +103,25 @@ def chips(root, here, group="stack"):
     return "".join(out)
 
 
-def side_links(root):
-    """Plain links, no dot, and no external arrow: these point at rooms on this
-    site now. See site.js for why they are not chips."""
-    return "".join(
-        f'<a class="foot-side" href="{root}{s["href"]}">{s["name"]}</a>'
-        for s in side())
+def side_chips(root, here):
+    """The same chip as everything else in this footer. See site.js: the
+    distinction these carry is the group heading and the band at the top of
+    each room, not a second visual language down here."""
+    out = []
+    for s in side():
+        dot = f'<i style="background:{s["color"]}"></i>{s["name"]}'
+        if s["id"] == here:
+            out.append(f'<span class="foot-chip here" aria-current="page">{dot}</span>')
+        else:
+            out.append(f'<a class="foot-chip" href="{root}{s["href"]}">{dot}</a>')
+    return "".join(out)
 
 
 def groups(root, here):
     """The three states these things are actually in, which is not the same
     question as what they do: running and wired together; running and wired to
-    nothing; not finished and not checkable."""
+    nothing; not finished and not checkable. The headings carry that; what each
+    one MEANS is on the rooms themselves, where somebody is reading."""
     return (
         '<div class="foot-groups">\n'
         '        <div class="foot-group"><div class="l">the stack</div>\n'
@@ -121,11 +129,9 @@ def groups(root, here):
         '        </div>\n'
         '        <div class="foot-group"><div class="l">standalone</div>\n'
         f'          <div class="foot-chips">{chips(root, here, "standalone")}</div>\n'
-        '          <div class="foot-hint">Real and tested, and not wired into the stack yet.</div>\n'
         '        </div>\n'
-        '        <div class="foot-group"><div class="l">mobile, side projects</div>\n'
-        f'          <div class="foot-sides">{side_links(root)}</div>\n'
-        '          <div class="foot-hint">Ours, in progress, and not part of the stack. Nothing here is verified the way the stack is.</div>\n'
+        '        <div class="foot-group"><div class="l">side project</div>\n'
+        f'          <div class="foot-chips">{side_chips(root, here)}</div>\n'
         '        </div>\n      </div>')
 
 
@@ -168,7 +174,12 @@ def service_id(path):
 
 
 def rail_cards():
-    """The corridor rail on the home page, as real links rather than JS output."""
+    """The corridor rail on the home page, as real links rather than JS output.
+
+    Written when the rail was hand-maintained and then never called, which is
+    the same defect the footer had: on 2026-08-03 the registry carried twelve
+    services and this grid carried eleven, because adding one meant editing
+    two places and somebody only edited one. Now main() writes it."""
     out = []
     for s in stack():
         out.append(
@@ -209,6 +220,21 @@ def main():
     # The id went with that migration, so the guard has been false ever since
     # and the home page silently stopped tracking the registry: adding a
     # service updated nineteen footers and not the one a stranger sees first.
+    # The corridor rail, from the same registry. Anchored on the container's own
+    # id rather than on the first and last card, so an empty rail can still be
+    # filled and a hand-edited one is replaced whole.
+    rail = re.search(r'(<div class="rail rv" id="svc-rail">\n)(.*?)(\n    </div>)', h, re.S)
+    if not rail:
+        sys.exit("index.html: could not find the corridor rail to update")
+    want = rail_cards()
+    if rail.group(2).strip() != want.strip():
+        h = h[:rail.start(2)] + want + h[rail.end(2):]
+        p.write_text(h, encoding="utf-8")
+        print(f"{'index.html rail':28} written")
+        written += 1
+    else:
+        print(f"{'index.html rail':28} unchanged")
+
     slot = re.search(r'<div class="foot-groups">.*?\n      </div>', h, re.S)
     static = groups("", "")
     if slot:

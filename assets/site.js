@@ -12,6 +12,7 @@ const STACK = [
   {id:"genaryx",   name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"genaryx.html"},
   {id:"engram",    name:"Engram",     plane:"memory",    color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
   {id:"tokenfuse", name:"TokenFuse",  plane:"money",     color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
+  {id:"pocket",    name:"TokenFuse Pocket", plane:"out of band", color:"#22D3EE", what:"The kill switch on a device the agent's host never touches", href:"services/pocket.html"},
   {id:"wardryx",   name:"Wardryx",    plane:"policy",    color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},
   {id:"idryx",     name:"Idryx",      plane:"access",    color:"#34D399", what:"One identity graph for humans, keys and agents",  href:"services/idryx.html"},
   {id:"qryx",      name:"Qryx",       plane:"crypto",    color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
@@ -23,8 +24,14 @@ const STACK = [
 ];
 window.STACK = STACK;
 
-/* Two mobile apps that are ours, have rooms of their own, and are not part of
- * this. They are NOT in STACK, and that is the whole mechanism.
+/* One app that is ours, has a room of its own, and has nothing to do with any
+ * of this. It is NOT in STACK, and that is the whole mechanism.
+ *
+ * TokenFuse Pocket used to be here and moved into STACK on 2026-08-03: it is
+ * the out-of-band control for the money plane, so it belongs to the stack even
+ * though nothing in a running one talks to it yet. Sphere does not, and no
+ * amount of shared code makes it: it borrows Engram and speaks to nothing else
+ * here.
  *
  * STACK drives the corridor rail, the prev/next walk, the dot strip and the
  * jump palette. A side project in there would be walked to from Wardryx and
@@ -33,12 +40,15 @@ window.STACK = STACK;
  * the distinction; their pages carry a band at the top saying the same thing
  * in words.
  *
- * Deliberately without a colour, for the same reason: a coloured chip is the
- * stack's own grammar, and a reader takes grammar faster than a label.
+ * They DO get a chip and a colour, like everything else in the footer. That was
+ * argued the other way first, that a coloured chip is the stack's own grammar
+ * and would undo the heading above it. The heading says "side projects" in
+ * words, the explanation now lives at the top of each room where it is actually
+ * read, and a footer with two kinds of link in it is noisier than it is careful
+ * (Yurii, 2026-08-03).
  */
 const SIDE = [
-  {id:"pocket", name:"TokenFuse Pocket", href:"services/pocket.html"},
-  {id:"sphere", name:"Sphere for iOS",   href:"services/sphere.html"},
+  {id:"sphere", name:"Sphere", color:"#A3E635", href:"services/sphere.html"},
 ];
 window.SIDE = SIDE;
 

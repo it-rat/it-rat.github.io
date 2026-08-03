@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sphere for iOS - agents that remember your life · IT-RAT</title>
+<title>Sphere - agents that remember your life · IT-RAT</title>
 <meta name="description" content="Twelve life-sphere agents around one on-device Engram memory: sleep explains spending, habits explain goals. Private by default. A side project, not the stack.">
 <link rel="canonical" href="https://it-rat.com/services/sphere.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/sphere.html">
-<meta property="og:title" content="Sphere for iOS - agents that remember your life · IT-RAT">
+<meta property="og:title" content="Sphere - agents that remember your life · IT-RAT">
 <meta property="og:description" content="Twelve life-sphere agents with one on-device Engram memory and cross-sphere intelligence: sleep explains spending, habits explain goals. Private by default, free without a key, 583 tests, MIT, iOS only. A side project, not part of the governance stack.">
 <meta property="og:image" content="https://it-rat.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sphere for iOS - agents that remember your life · IT-RAT">
+<meta name="twitter:title" content="Sphere - agents that remember your life · IT-RAT">
 <meta name="twitter:description" content="Twelve life-sphere agents with one on-device Engram memory and cross-sphere intelligence: sleep explains spending, habits explain goals. Private by default, free without a key, 583 tests, MIT, iOS only. A side project, not part of the governance stack.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
@@ -47,6 +47,12 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  .standalone{
+    border:1px solid var(--line-2);border-left:3px solid var(--accent);
+    border-radius:var(--rad-s);background:var(--panel);padding:18px 22px;
+  }
+  .standalone p{color:var(--dim);font-size:14px;line-height:1.65;margin:0}
+  .standalone b{color:var(--fg)}
 </style>
 </head>
 <body data-service="sphere" data-root="../">
@@ -88,6 +94,22 @@
         <div class="row"><span class="k">source</span><span class="v"><a href="https://github.com/TAIPANBOX/sphere-ios" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none">
     <svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHERE THIS SITS ================= -->
+<section class="sec" style="padding-top:8px;padding-bottom:0">
+  <div class="wrap">
+    <div class="standalone rv">
+      <p><b>Where this sits today, stated rather than implied.</b> Sphere is not
+      part of the governance stack and it is not a client for it. Nothing here
+      talks to TokenFuse, to Wardryx or to the console, and nothing in the stack
+      knows this app exists. The one thing they share is
+      <a href="engram.html" data-dir="fwd" style="color:var(--iris)">Engram</a>,
+      the memory engine, running on a phone instead of a fleet. It is a personal
+      side project by the same people, open and tested on its own terms, and it
+      carries none of the measurements the stack does.</p>
     </div>
   </div>
 </section>
@@ -235,10 +257,10 @@
   <div class="wrap">
     <div class="bento">
       <div class="card b-8 rv">
-        <div class="kicker">in the stack</div>
+        <div class="kicker">same hands, different room</div>
         <h3 style="margin-top:12px">Different room, same DNA.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          Sphere is the personal wing of this site: a passion project by the same builders, with the same habits. It runs the identical <a href="engram.html" data-dir="fwd" style="color:var(--iris)">Engram</a> memory engine the governance stack uses, scaled from a fleet down to a pocket, and it is held to the same standard as <a href="../index.html" data-dir="back" style="color:var(--amber)">the rest of the stack</a>: tested, and in the open. No enterprise anything. Just the app we wanted to carry around.</p>
+          Sphere is the personal wing of this site: a passion project by the same builders, with the same habits. It runs the identical <a href="engram.html" data-dir="fwd" style="color:var(--iris)">Engram</a> memory engine the governance stack uses, scaled from a fleet down to a pocket, and it is built with the same habits as <a href="../index.html" data-dir="back" style="color:var(--amber)">the rest of what we make</a>: tested, and in the open. No enterprise anything. Just the app we wanted to carry around.</p>
       </div>
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it &#183; iOS only</div>
@@ -262,15 +284,13 @@
       </div>
       <div class="foot-groups">
         <div class="foot-group"><div class="l">the stack</div>
-          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
         </div>
         <div class="foot-group"><div class="l">standalone</div>
           <div class="foot-chips"><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
-          <div class="foot-hint">Real and tested, and not wired into the stack yet.</div>
         </div>
-        <div class="foot-group"><div class="l">mobile, side projects</div>
-          <div class="foot-sides"><a class="foot-side" href="../services/pocket.html">TokenFuse Pocket</a><a class="foot-side" href="../services/sphere.html">Sphere for iOS</a></div>
-          <div class="foot-hint">Ours, in progress, and not part of the stack. Nothing here is verified the way the stack is.</div>
+        <div class="foot-group"><div class="l">side project</div>
+          <div class="foot-chips"><span class="foot-chip here" aria-current="page"><i style="background:#A3E635"></i>Sphere</span></div>
         </div>
       </div>
       <div>

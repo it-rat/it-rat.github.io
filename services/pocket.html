@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TokenFuse Pocket - a kill switch on your wrist · IT-RAT</title>
-<meta name="description" content="Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. A side project, not part of the stack.">
+<meta name="description" content="Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet.">
 <link rel="canonical" href="https://it-rat.com/services/pocket.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/pocket.html">
 <meta property="og:title" content="TokenFuse Pocket - a kill switch on your wrist · IT-RAT">
-<meta property="og:description" content="The iPhone and Apple Watch app we built for TokenFuse: watch the fleet burn live and pull the Breaker from a device the agent's host never touches, signed on-device by the Secure Enclave. A side project: open source, and not verified the way the stack is.">
+<meta property="og:description" content="The out-of-band control for TokenFuse: watch the fleet burn live and pull the Breaker from a device the agent's host never touches, signed on-device by the Secure Enclave. The interface is finished; there is no App Store build and nothing in a running stack talks to it yet.">
 <meta property="og:image" content="https://it-rat.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TokenFuse Pocket - a kill switch on your wrist · IT-RAT">
-<meta name="twitter:description" content="The iPhone and Apple Watch app we built for TokenFuse: watch the fleet burn live and pull the Breaker from a device the agent's host never touches, signed on-device by the Secure Enclave. A side project: open source, and not verified the way the stack is.">
+<meta name="twitter:description" content="The out-of-band control for TokenFuse: watch the fleet burn live and pull the Breaker from a device the agent's host never touches, signed on-device by the Secure Enclave. The interface is finished; there is no App Store build and nothing in a running stack talks to it yet.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -51,14 +51,23 @@
 
   /* Nudge the mock off the page's hard left edge, toward the middle. */
   #pk-live{margin-left:30px}
+  .standalone{
+    border:1px solid var(--line-2);border-left:3px solid var(--accent);
+    border-radius:var(--rad-s);background:var(--panel);padding:18px 22px;
+  }
+  .standalone p{color:var(--dim);font-size:14px;line-height:1.65;margin:0}
+  .standalone b{color:var(--fg)}
 </style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse Pocket","url":"https://it-rat.com/services/pocket.html","description":"Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse-mobile","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse Pocket","item":"https://it-rat.com/services/pocket.html"}]}]}</script>
+<!-- /seo:auto -->
 </head>
 <body data-service="pocket" data-root="../">
 
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
-    <span class="crumb">side project<span class="sep">/</span><span class="here">pocket</span></span>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">pocket</span></span>
     <span class="spacer"></span>
     <a class="tb-link" href="../guides.html">Guides</a>
     <a class="tb-link tb-cta" href="../demo/">Live demo</a>
@@ -67,7 +76,7 @@
 </header>
 
 <div class="side-ribbon">
-  <div class="wrap"><span class="dot"></span><b>A side project.</b> Not part of the stack, and not verified the way the stack is: no production hardening pass and no security review. The console you actually run is the Genaryx web app. The source is open; the simulation below is a simulation.</div>
+  <div class="wrap"><span class="dot"></span><b>In the stack, and not wired into one yet.</b> Both apps are built and every screen was driven live against a real control plane on a simulator. What does not exist is a way to put it on a phone: no App Store release, no real push delivery, and no production hardening pass or security review. Nothing in a running stack talks to it today.</div>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -75,7 +84,7 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="kicker rv">side project &#183; iOS and watchOS &#183; not part of the stack</div>
+        <div class="kicker rv">out of band &#183; iOS and watchOS &#183; not wired in yet</div>
         <h1 class="rv d1"><span class="nm">Pocket</span>. Watch the fleet burn live, and cut it from a device no attacker touched.</h1>
         <p class="lede rv d2">TokenFuse's gateway enforces the budget in the request path your agent runs on. Pocket asks what a control OUTSIDE that path should look like on a device you already carry: the fleet's burn rate live, and a kill signed by hardware the agent's host never touches. Both apps are built and every screen was driven live against a real control plane on the simulator, which is a long way from shipped: no production hardening pass, no security review, no App Store. The effort goes to the web console, and this moves when there is time for it.</p>
         <div class="cta-row rv d3">
@@ -95,13 +104,31 @@
   </div>
 </section>
 
-<!-- ================= ENTERPRISE CALLOUT ================= -->
+<!-- ================= WHERE THIS SITS ================= -->
 <section class="sec" style="padding-top:8px;padding-bottom:0">
   <div class="wrap">
-    <div class="card rv" style="--accent:var(--violet);display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between">
-      <p style="color:var(--dim);font-size:14px;line-height:1.6;margin:0;max-width:72ch">
-        <b style="color:var(--fg)">Where this sits.</b> The console you actually run is the web app in <span style="color:var(--violet)">Genaryx</span>, reached over your own tunnel. Pocket is the same 2am problem answered on a device you already carry. It is open and it works on a simulator; it is not what anybody should be running a fleet from today.</p>
-      <a class="btn" href="../genaryx.html" style="flex:0 0 auto">Genaryx &#183; the control room</a>
+    <div class="standalone rv">
+      <p><b>Where this sits today, stated rather than implied.</b> Pocket is
+      part of the stack and it is the only part of it you do not run on your own
+      box: it is the out-of-band control for TokenFuse, the way to pull the
+      Breaker when the machine running the gateway, or the machine running your
+      console, is itself the thing that has gone wrong. That is why the
+      signature comes from the Secure Enclave on a device the agent's host never
+      touches.</p>
+      <p style="margin-top:12px"><b>How it is meant to work.</b> The phone pairs
+      once, by QR, to the relay that runs beside the stack. The relay pushes only
+      what needs a human, an over-cap run, straight into the signed-kill flow;
+      the kill is signed on the device and the gateway has only to check the
+      signature. The watch pairs on its own and carries the same flow, so a
+      deauthorized device says it was deauthorized rather than pretending.</p>
+      <p style="margin-top:12px"><b>What is actually true today.</b> The
+      interface is finished and every screen has been driven against a real
+      control plane on a simulator. It is not connected to anything you are
+      running: there is no App Store build, no real push delivery, and no
+      hardening pass or security review. Treat it as the shape of the control
+      rather than a control you have. The console you run today is the
+      <a href="../genaryx.html" data-dir="fwd" style="color:var(--violet)">Genaryx</a>
+      web app.</p>
     </div>
   </div>
 </section>
@@ -221,15 +248,15 @@
   <div class="wrap">
     <div class="bento">
       <div class="card b-8 rv">
-        <div class="kicker">where it would have sat</div>
+        <div class="kicker">where it sits</div>
         <h3 style="margin-top:12px">The human end of a machine decision.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          Pocket was drawn as the human end of <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>: the gateway enforces the budget in the request path, Pocket would let you watch it happen and pull the kill switch from somewhere else entirely. A kill would land as an incident on the same event bus the rest of the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> reads. What actually gets enforced was decided upstream, by <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> and the budgets you set. Pocket doesn't make that call; it gives you a fast, honest way to see it and override it.</p>
+          Pocket is the human end of <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>: the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. A kill lands as an incident on the same event bus the rest of the <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> reads. What actually gets enforced was decided upstream, by <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> and the budgets you set. Pocket doesn't make that call; it gives you a fast, honest way to see it and override it.</p>
       </div>
       <div class="card b-4 rv d1">
-        <div class="kicker" style="--accent:var(--violet)">where it would sit</div>
+        <div class="kicker" style="--accent:var(--violet)">what it pairs with</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <p class="dim" style="font-size:13px;line-height:1.6">Pocket would pair through <a href="../genaryx.html" style="color:var(--violet)">Genaryx</a> to a TokenFuse plane you host yourself. A prototype and a live design mock, kept because the shape was right; the console is what we are building.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">Pocket pairs through <a href="../genaryx.html" style="color:var(--violet)">Genaryx</a> to a TokenFuse plane you host yourself. A prototype and a live design mock, kept because the shape was right; the console is what we are building.</p>
           <p class="dim" style="font-size:13px;line-height:1.6">The plane it reads is open today: <a href="platform.html#run" style="color:var(--cyan)">stand up the stack's live services locally in one command</a> and see the same money plane on your own machine.</p>
         </div>
       </div>
@@ -248,15 +275,13 @@
       </div>
       <div class="foot-groups">
         <div class="foot-group"><div class="l">the stack</div>
-          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><span class="foot-chip here" aria-current="page"><i style="background:#22D3EE"></i>TokenFuse Pocket</span><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
         </div>
         <div class="foot-group"><div class="l">standalone</div>
           <div class="foot-chips"><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
-          <div class="foot-hint">Real and tested, and not wired into the stack yet.</div>
         </div>
-        <div class="foot-group"><div class="l">mobile, side projects</div>
-          <div class="foot-sides"><a class="foot-side" href="../services/pocket.html">TokenFuse Pocket</a><a class="foot-side" href="../services/sphere.html">Sphere for iOS</a></div>
-          <div class="foot-hint">Ours, in progress, and not part of the stack. Nothing here is verified the way the stack is.</div>
+        <div class="foot-group"><div class="l">side project</div>
+          <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
         </div>
       </div>
       <div>

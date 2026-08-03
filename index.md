@@ -22,6 +22,10 @@ The SQLite of agent memory.
 
 Runtime spend control and the in-line kill switch.
 
+### TokenFuse Pocket
+
+The kill switch on a device the agent's host never touches.
+
 ### Wardryx
 
 Policy decisions with a human in the loop.
