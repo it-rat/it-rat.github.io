@@ -726,3 +726,19 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
 .side-ribbon .ribbon-more>summary:hover{color:var(--fg);border-bottom-color:var(--accent)}
 .side-ribbon .ribbon-more>summary:hover::after{color:var(--fg)}
 .sh-body .standalone{border:none;background:transparent;padding:0}
+/* The status marker on a corridor card. Distinct from `.plane`, which says
+   what a thing IS: this says how far along it is, and it has to read as a
+   caveat rather than as a second category. Carried by the registry, not by a
+   hand edit, because the hand edits were overwritten the moment the rail
+   started being generated. */
+/* The glyph must not be what gives way when the row runs out of space. Adding
+   the status marker overflowed the head and squashed the dot from 11px to 1px
+   on exactly the card that had the marker, which is the card somebody looks at.
+   Measured, not noticed: it reads as a thin line at a glance. */
+.svc .head .g{flex:0 0 auto}
+.svc .head{flex-wrap:wrap;row-gap:6px}
+.svc .head .note{
+  font-family:var(--font-m);font-size:10px;letter-spacing:.06em;
+  color:var(--amber);border:1px solid color-mix(in srgb, var(--amber) 34%, transparent);
+  border-radius:999px;padding:2px 7px;margin-left:8px;white-space:nowrap;
+}

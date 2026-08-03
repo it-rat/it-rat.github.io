@@ -68,6 +68,13 @@ def stack():
             s = dict(zip(("id", "name", "plane", "color", "what", "href"), m.groups()))
             g = re.search(r'group:"([^"]+)"', line)
             s["group"] = g.group(1) if g else "stack"
+            # An optional status, shown on the corridor card. It is a field
+            # rather than something appended to `plane` because plane is what a
+            # thing IS and this is how far along it is, and because the hand
+            # edits that carried it before were silently overwritten the moment
+            # this generator started writing the rail.
+            n = re.search(r'note:"([^"]+)"', line)
+            s["note"] = n.group(1) if n else ""
             out.append(s)
     if len(out) < 5:
         sys.exit("site.js: parsed too few services, refusing to write a broken footer")
@@ -191,7 +198,10 @@ def rail_cards():
             f'      <a class="card hover svc" style="--c:{s["color"]}" href="{s["href"]}" data-dir="fwd">\n'
             f'        <span class="head"><span class="g"></span>'
             f'<span class="mono" style="font-size:11px;color:var(--faint)">{s["id"]}</span>'
-            f'<span class="plane">{s["plane"]}</span></span>\n'
+            f'<span class="plane">{s["plane"]}</span>'
+            + (f'<span class="note">{s["note"]}</span>' if s["note"] else "")
+            + '</span>\n'
+
             f'        <h3>{s["name"]}</h3>\n'
             f'        <p class="what">{s["what"]}.</p>\n'
             f'        <span class="go">open the room</span>\n'
