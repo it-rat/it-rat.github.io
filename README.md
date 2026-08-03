@@ -32,6 +32,10 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 | `services/qryx.html` | crypto | Cryptography inventory and post-quantum risk |
 | `services/verdryx.html` | quality | Cost per correctly resolved case, not per token |
 | `services/mockryx.html` | pre-prod | Fire drills that prove guardrails hold |
+| `services/heraldyx.html` | alerts | The box writes to you, with a link and never a button |
+| `services/pocket.html` | out of band | The kill switch on a device the agent's host never touches |
+| `services/trailryx.html` | the record | A record nobody can quietly change or shorten, standalone |
+| `services/sphere.html` | side project | Twelve life-sphere agents on one on-device memory, not part of the stack |
 | `services/platform.html` | contract | Agent Passport, the shared event envelope, Terraform |
 | `genaryx.html` | control room | Genaryx, one browser control room over the whole stack, on your own box |
 
@@ -39,10 +43,11 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 
 Push to `master`. That is the whole procedure.
 
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) checks out the tree, runs one cheap
-gate, and publishes. The gate walks every local `src`/`href` in the HTML pages and fails the run if a
-reference does not resolve, because this repo has shipped both a page pointing at a deleted
-screenshot and orphaned images left publicly reachable.
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) checks out the tree, runs three cheap
+gates, and publishes. Each one exists because this repo has actually shipped the mistake it catches:
+a page pointing at a deleted screenshot (every local `src`/`href` must resolve), a page carrying both
+a canonical and a noindex (`scripts/page-metadata.sh`), and a `/demo` built from a Genaryx that has
+since moved on (`scripts/demo-bundle-current.sh`).
 
 Pages is set to **GitHub Actions** as its source (since 2026-07-21), not the built-in branch builder,
 so a failed publish has a log and a re-run button instead of a silent "Page build failed". The custom
@@ -69,7 +74,7 @@ modules, and everything works from any static file server.
 - `assets/ambient.js` gives each service hero a quiet canvas motif from its own domain: gradient descent, a learned decision boundary, a memory graph with spreading activation, an identity graph, a rotating point lattice, training curves, adversarial bursts against a guardrail.
 - `assets/diagram.js` handles the architecture schematics: staggered draw-in on reveal, plus a full-screen lightbox with wheel and pinch zoom, drag pan, and double-click reset, so every label stays readable.
 - `assets/shotbox.js` frames and enlarges the product screenshots on the Genaryx page.
-- `tools/` renders what is generated rather than hand-kept: `ogimages.py` (one Open Graph card per room) and `readmehero.py` (the banner at the top of this file). Both read the service registry out of `assets/site.js`, so a room that leaves the registry leaves the images too.
+- `tools/` renders what is generated rather than hand-kept: `footer.py` (the footer and the corridor rail on every page), `ogimages.py` (one Open Graph card per room), `seo.py` (JSON-LD), `llms.py` (the markdown mirrors and `llms.txt`), `faq.py`, `readmehero.py` and `readmediagrams.py`. They read the service registry out of `assets/site.js`, so a room that leaves the registry leaves the footer, the rail and the images with it.
 
 ## House rules for edits
 
@@ -82,8 +87,8 @@ modules, and everything works from any static file server.
 ## Related
 
 The stack this site describes lives at **[github.com/TAIPANBOX](https://github.com/TAIPANBOX)** and is
-Apache-2.0 end to end: TokenFuse, Engram, Idryx, Qryx, Wardryx, Verdryx, Mockryx, the Platform
-contract, the Genaryx console, and the `stack-up` launcher that runs the whole thing locally with one
-command.
+Apache-2.0: TokenFuse, Engram, Idryx, Qryx, Wardryx, Verdryx, Mockryx, Heraldyx, Trailryx, the
+Platform contract, the Genaryx console, and the `stack-up` launcher that runs the whole thing locally
+with one command. The one exception is Sphere, a side project outside the stack, which is MIT.
 
 <sub>&copy; 2026 IT-RAT</sub>
