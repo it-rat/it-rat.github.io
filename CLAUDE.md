@@ -39,7 +39,16 @@ true.
    the prose still needs a reader.)*
 3. **A number on this site is a claim with an owner.** Anything measured says
    what measured it and when. If a figure came from a run, it can be pointed at;
-   if it cannot, it does not belong here. *(not enforced)*
+   if it cannot, it does not belong here.
+   *(gate: `scripts/service-numbers.sh` against `numbers.json`, in the Pages
+   workflow before the upload. It cannot tell you a recorded figure is still
+   true, because nothing here can reach another repository's suite. It makes the
+   silent case impossible: every figure on a service page is in the manifest
+   with its repository, the command that produces it and the date somebody last
+   ran that command, and a page edited without the manifest fails. Figures
+   nobody has reproduced are ALLOWED and reported every run, because refusing
+   them would only teach people to leave numbers off the page. Two of seven are
+   reproduced today; the other five are printed by name on every publish.)*
 4. **A refresh updates numbers. Only a sweep updates status sentences.** The
    sentence "we are building X" outlives the number beside it by months. When
    the numbers change, read the sentences too. *(not enforced)*
@@ -95,7 +104,7 @@ true.
 
 ## Decisions that have no gate yet
 
-**Held by this file alone: invariants 3, 4 and 6.** Invariant 2 is half held.
+**Held by this file alone: invariants 4 and 6.** Invariant 2 is half held, and invariant 3 is now half held too: the manifest is enforced, the truth of what it records is not.
 
 Invariants 1 and 2 are now `scripts/page-metadata.sh`, and it found invariant 2
 being violated rather than merely unenforced: `console.html` carried a canonical
@@ -130,8 +139,9 @@ that whose fixture stayed broken between cases and "proved" three of them on the
 previous case's damage.
 
 What still needs a reader: JSON-LD and the sitemap agreeing with the prose,
-invariant 3's numbers having owners, invariant 4's status sentences, and
-invariant 6.
+invariant 4's status sentences, and invariant 6. Invariant 3's numbers now have
+owners; what still needs a person is running the five commands `numbers.json`
+names and writing the dates back.
 
 **Invariant 5 has never had the check this file claimed for it.** The line here
 said "a wordlist grep across HTML, alt text and filenames" and no such script

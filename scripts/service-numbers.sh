@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# Enforces invariant 3 of CLAUDE.md: a number on this site is a claim with an
+# owner.
+#
+# WHAT MADE THIS NECESSARY, on 2026-08-04.
+#
+# The trailryx page said 1,031 tests across 28 crates while the repository ran
+# 1,064 across 29, in two places, for about a week. The tokenfuse page said 513
+# where its workspace runs 709, and nobody knows for how long. Neither figure was
+# wrong when it was written, which is exactly why a person cannot be the check:
+# the number does not change on the page when it changes in the repository, and
+# there is nothing on the page that says when anybody last looked.
+#
+# WHAT THIS CAN AND CANNOT DO, stated because the difference is the whole value.
+#
+# It CANNOT tell you a figure is still true. This repository has no access to the
+# other repositories' test suites, and adding a network call to a publish gate
+# would trade a silent staleness for a flaky deploy.
+#
+# It CAN make the silent case impossible. Every number on a service page must
+# appear in `numbers.json` with the same value, and every entry there must say
+# which repository it came from, which command produces it, and when somebody
+# last ran that command. Editing a page without touching the manifest fails.
+# Adding a number nobody has ever reproduced is allowed and is REPORTED, because
+# refusing it outright would only teach people to leave numbers off the page.
+#
+# So: a hard failure for disagreement, a loud line for anything unverified. The
+# second is not decoration. It is the list somebody works through when they next
+# have the repositories checked out.
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.."
+
+python3 - <<'PY'
+import json
+import pathlib
+import re
+import sys
+
+manifest = pathlib.Path("numbers.json")
+if not manifest.exists():
+    print("FAIL: numbers.json is missing, so the pages' figures have no owner at all")
+    sys.exit(1)
+
+data = json.loads(manifest.read_text())
+entries = data.get("entries", [])
+if not entries:
+    print("FAIL: numbers.json records no entries")
+    sys.exit(1)
+
+problems = 0
+unverified = []
+
+# Every figure a reader would take at face value. Deliberately narrow: this
+# matches the shapes the service pages actually use, so a new shape shows up as
+# an unmanaged number below rather than being silently skipped.
+FIGURE = re.compile(r"[0-9][0-9,]*\s*(?:tests|crates|detectors|entries)")
+
+for e in entries:
+    page = pathlib.Path(e["page"])
+    claim = e["claim"]
+    if not page.exists():
+        print(f"FAIL: {e['page']} is in numbers.json and not in this repository")
+        problems += 1
+        continue
+
+    text = page.read_text()
+    # The page renders `·` as an entity, so compare against both forms rather
+    # than against whichever one today's editor happened to leave behind. Only
+    # when the claim HAS one: adding the two counts unconditionally doubles
+    # every figure without a separator, because both forms are then the same
+    # string. This check did exactly that on its first run and reported seven
+    # pages as disagreeing with a manifest that was right about four of them.
+    entity = claim.replace("·", "&#183;")
+    found = text.count(claim) + (text.count(entity) if entity != claim else 0)
+    expected = e.get("occurrences", 1)
+    if found != expected:
+        print(f"FAIL: {e['page']} should say {claim!r} {expected} time(s) and says it {found}")
+        print("      Either the page changed and numbers.json did not, or the other way round.")
+        problems += 1
+
+    if e.get("status") == "wrong":
+        print(f"FAIL: numbers.json records {e['page']} as WRONG: the page says {claim!r} "
+              f"and the last run measured {e.get('measured_value')}")
+        print("      Fix the page and the entry together, or say why it stands.")
+        problems += 1
+
+    if e.get("status") in (None, ""):
+        print(f"FAIL: {e['page']} entry {claim!r} has no status")
+        problems += 1
+
+    if e.get("status") != "measured":
+        unverified.append((e["page"], claim, e.get("status"), e.get("command")))
+
+# A number on a page that nobody put in the manifest is the case this whole file
+# exists for, so it is found rather than assumed away.
+managed = {(e["page"], e["claim"]) for e in entries}
+for page in sorted(pathlib.Path("services").glob("*.html")):
+    text = page.read_text()
+    for m in set(FIGURE.findall(text.replace("&#183;", "·"))):
+        if any(m in c for p, c in managed if p == str(page)):
+            continue
+        print(f"FAIL: {page} states {m!r} and nothing in numbers.json owns it")
+        problems += 1
+
+if unverified:
+    print()
+    print(f"{len(unverified)} figure(s) on this site have never been reproduced here:")
+    for page, claim, status, command in unverified:
+        where = command or "no command recorded"
+        print(f"  {claim:<26} {page:<28} [{status}]  {where}")
+    print("This is not a failure. It is the list to work through with those")
+    print("repositories checked out, and it is printed every run so it cannot")
+    print("quietly become the permanent state.")
+
+if problems:
+    print()
+    print(f"{problems} problem(s). See CLAUDE.md invariant 3.")
+    sys.exit(1)
+
+measured = sum(1 for e in entries if e.get("status") == "measured")
+print()
+print(f"OK: {len(entries)} figures owned, {measured} reproduced here, "
+      f"{len(unverified)} awaiting a run. No page states a number nobody owns.")
+PY

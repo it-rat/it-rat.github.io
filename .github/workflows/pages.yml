@@ -67,6 +67,19 @@ jobs:
         ## page does not reach Pages and then get fixed afterwards.
         run: ./scripts/page-metadata.sh
 
+      - name: Fail on a figure this site states and nobody owns
+        ## Invariant 3, which carried `(not enforced)` until 2026-08-04, the day
+        ## the trailryx page was found a week behind its repository (1,031 tests
+        ## where it runs 1,064) and the tokenfuse page 196 behind its own
+        ## (513 where it runs 709). Neither was wrong when written.
+        ##
+        ## This cannot tell you a recorded figure is still true: nothing here can
+        ## reach another repository's test suite. It makes the SILENT case
+        ## impossible, which is the one that actually happened: a number edited
+        ## on a page, or left alone while the repository moved, with nothing
+        ## anywhere recording where it came from or when anybody last looked.
+        run: ./scripts/service-numbers.sh
+
       - name: Fail on a published demo that genaryx has moved past
         ## /demo is not built here: it is a hand-pasted copy of genaryx's
         ## `apps/web/dist`, and nothing about a copy says how old it is. Every
