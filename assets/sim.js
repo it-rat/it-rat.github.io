@@ -172,14 +172,42 @@ function Sim(root,cfg){
   if(stage.minHeight) cv.style.minHeight=stage.minHeight+"px";
 
   let t=0, playing=false, speed=1, fired=new Set(), cw=0, chh=0;
+  /* the size the stage lays itself out for, captured from the page. Full
+     screen we do NOT hand the stage more room: a stage caps its cell and
+     label sizes, so more room only spreads the same small drawing over more
+     of the screen. We keep its layout exactly and multiply every unit. */
+  let natW=0, natH=0, zoom=1;
 
   function resize(){
-    const r=cv.parentElement.getBoundingClientRect();
+    /* collapse the canvas BEFORE measuring. .sim-chart takes its height from
+       its only child, so measuring the parent while the canvas still fills
+       it reads back the old size, and the sim would come out of full screen
+       and stay full-screen tall for ever. Zeroed, the parent falls to its
+       own layout and the measurement means something.
+       Measure the CONTENT box too: the old fixed -8 assumed a padding this
+       element has never had, so the canvas always ran ~20px past .sim-chart
+       and was clipped by .sim's overflow. */
+    cv.style.width="0px"; cv.style.height="0px";
+    const box=cv.parentElement, r=box.getBoundingClientRect(), cs=getComputedStyle(box);
+    const padX=parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+    const padY=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
     const dpr=Math.min(2,devicePixelRatio||1);
-    cw=Math.max(300,r.width-8); chh=Math.max(stage.minHeight||220,r.height-8);
-    cv.width=cw*dpr; cv.height=chh*dpr;
-    cv.style.width=cw+"px"; cv.style.height=chh+"px";
-    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const availW=Math.max(300,r.width-padX);
+    const availH=Math.max(stage.minHeight||220,r.height-padY);
+    if(ov&&natW&&natH){
+      /* magnify, the way the diagram lightbox does: same composition, bigger.
+         The stage still draws at its page size, the context carries the
+         factor, and because canvas rasterises after the transform the text
+         and hairlines come out sharp instead of blown up. */
+      zoom=Math.max(1,Math.min(availW/natW,availH/natH));
+      cw=natW; chh=natH;
+    }else{
+      zoom=1; cw=availW; chh=availH; natW=availW; natH=availH;
+    }
+    cv.width=Math.round(cw*zoom*dpr); cv.height=Math.round(chh*zoom*dpr);
+    cv.style.width=(cw*zoom)+"px"; cv.style.height=(chh*zoom)+"px";
+    ctx.setTransform(dpr*zoom,0,0,dpr*zoom,0,0);
+    if(pct) pct.textContent=Math.round(zoom*100)+"%";
     if(stage.init) stage.init(cw,chh);
     ctx.clearRect(0,0,cw,chh);
     stage.draw(ctx,cw,chh,t,0);
@@ -238,6 +266,65 @@ function Sim(root,cfg){
   speedBtn.addEventListener("click",()=>{
     speed={1:2,2:4,4:1}[speed]; speedBtn.dataset.s=speed; speedBtn.innerHTML=speed+"&#215;";
   });
+
+  /* ---- enlarge: the affordance the .diagram schematics already have ----
+     Note what "enlarge" means for a stage. A diagram is an svg, so its
+     lightbox scales a drawing that is already complete. A stage is a pure
+     function of (w,h,t), so there is nothing to scale: we move the live sim
+     into a full-screen overlay and call resize(), and it lays itself out
+     again for the bigger box. Labels stay at their intended size instead of
+     growing, the grid gets more room rather than more pixels per cell, and
+     play / scrub / speed keep working because it is the same element, not a
+     copy of it. A comment node holds its place in the page so it goes back
+     exactly where it was. */
+  const big=document.createElement("button");
+  big.type="button"; big.className="dg-btn";
+  big.innerHTML="&#8689; enlarge";
+  big.setAttribute("aria-label","Enlarge simulation");
+  root.querySelector(".sim-head").appendChild(big);
+  big.addEventListener("click",()=>ov?closeBig():openBig());
+
+  let ov=null, slot=null, prevFocus=null, pct=null;
+  function openBig(){
+    if(ov) return;
+    prevFocus=document.activeElement;
+    ov=document.createElement("div");
+    ov.className="dg-ov"; ov.setAttribute("role","dialog");
+    ov.setAttribute("aria-label","Simulation, enlarged");
+    ov.innerHTML=
+      `<div class="dg-bar">
+         <span class="dg-hint">play, scrub and change speed as usual &#183; drawn again at this size, so the labels stay sharp</span>
+         <span class="dg-sp"></span>
+         <span class="dg-pct mono">100%</span>
+         <button class="dg-x" aria-label="Close">esc &#215;</button>
+       </div>
+       <div class="dg-stage sim-lb"></div>`;
+    document.body.appendChild(ov);
+    document.documentElement.classList.add("dg-lock");
+    pct=ov.querySelector(".dg-pct");
+    slot=document.createComment("sim");
+    root.parentNode.insertBefore(slot,root);
+    const st=ov.querySelector(".sim-lb");
+    st.appendChild(root);
+    big.innerHTML="&#8690; exit";
+    ov.querySelector(".dg-x").addEventListener("click",closeBig);
+    st.addEventListener("click",e=>{ if(e.target===st) closeBig(); });
+    addEventListener("keydown",onKey);
+    requestAnimationFrame(resize);
+    ov.querySelector(".dg-x").focus();
+  }
+  function closeBig(){
+    if(!ov) return;
+    slot.parentNode.insertBefore(root,slot);
+    slot.remove(); slot=null;
+    ov.remove(); ov=null; pct=null;
+    document.documentElement.classList.remove("dg-lock");
+    removeEventListener("keydown",onKey);
+    big.innerHTML="&#8689; enlarge";
+    requestAnimationFrame(resize);
+    if(prevFocus&&prevFocus.focus) prevFocus.focus();
+  }
+  function onKey(e){ if(e.key==="Escape"){e.preventDefault();closeBig();} }
 
   resize(); update(0);
   if(reduce){ t=W; rebuildLog(); update(0); }

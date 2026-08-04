@@ -531,6 +531,29 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
 .dg-inner svg{display:block;width:100%;height:100%;min-width:0;max-width:none;background:var(--panel);border:1px solid var(--line);border-radius:14px}
 @media(max-width:680px){.dg-hint{display:none}}
 
+/* ---------- sim: the same enlarge, redrawn rather than magnified (sim.js) --
+   The overlay chrome is shared with the diagrams on purpose, so one control
+   means one thing across the site. What differs is the stage: a diagram is
+   pan-and-zoomed, a sim is handed the space and lays itself out again, which
+   is why this stage stretches its child instead of centring it and why the
+   grab cursor and touch-action lock are dropped (the scrub is a range input
+   and needs its own touch handling). */
+.sim-head .dg-btn{position:static;margin-left:2px;flex:0 0 auto}
+.dg-stage.sim-lb{cursor:default;touch-action:auto;align-items:stretch;padding:14px 3vw 18px}
+.sim-lb .sim{flex:1 1 auto;min-width:0;width:100%;display:flex;flex-direction:column}
+.sim-lb .rv{opacity:1;transform:none}
+/* inline the side column is a proportion, which is right when the sim is one
+   band in a page. Full screen that proportion hands a third of a wide monitor
+   to four counters and a log, so here it is a fixed column and the drawing
+   takes the rest. */
+.sim-lb .sim-body{flex:1 1 auto;min-height:0;grid-template-columns:minmax(0,1fr) 330px}
+@media(max-width:860px){.sim-lb .sim-body{grid-template-columns:minmax(0,1fr)}}
+/* the canvas is a fixed magnified size now, so the cell centres it rather
+   than being filled by it */
+.sim-lb .sim-chart{min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sim-lb .sim-chart canvas{min-height:0}
+.sim-lb .sim-log{max-height:none}
+
 /* ---------- sheet: a disclosure that opens as a panel (sheet.js) ---------- */
 .sheet{margin-top:16px}
 .sheet>summary{
