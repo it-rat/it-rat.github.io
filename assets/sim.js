@@ -175,8 +175,11 @@ function Sim(root,cfg){
   /* the size the stage lays itself out for, captured from the page. Full
      screen we do NOT hand the stage more room: a stage caps its cell and
      label sizes, so more room only spreads the same small drawing over more
-     of the screen. We keep its layout exactly and multiply every unit. */
-  let natW=0, natH=0, zoom=1;
+     of the screen. We keep its layout exactly and multiply every unit.
+     Opening fits the drawing to the screen; the +/- buttons then step it
+     from there, exactly as the diagram lightbox does, so zoom is a thing you
+     keep adjusting rather than a size you are given once. */
+  let natW=0, natH=0, zoom=1, fitZoom=1, userZ=1;
 
   function resize(){
     /* collapse the canvas BEFORE measuring. .sim-chart takes its height from
@@ -199,10 +202,11 @@ function Sim(root,cfg){
          The stage still draws at its page size, the context carries the
          factor, and because canvas rasterises after the transform the text
          and hairlines come out sharp instead of blown up. */
-      zoom=Math.max(1,Math.min(availW/natW,availH/natH));
+      fitZoom=Math.max(1,Math.min(availW/natW,availH/natH));
+      zoom=Math.min(6,Math.max(1,fitZoom*userZ));
       cw=natW; chh=natH;
     }else{
-      zoom=1; cw=availW; chh=availH; natW=availW; natH=availH;
+      fitZoom=1; userZ=1; zoom=1; cw=availW; chh=availH; natW=availW; natH=availH;
     }
     cv.width=Math.round(cw*zoom*dpr); cv.height=Math.round(chh*zoom*dpr);
     cv.style.width=(cw*zoom)+"px"; cv.style.height=(chh*zoom)+"px";
@@ -293,9 +297,11 @@ function Sim(root,cfg){
     ov.setAttribute("aria-label","Simulation, enlarged");
     ov.innerHTML=
       `<div class="dg-bar">
-         <span class="dg-hint">play, scrub and change speed as usual &#183; drawn again at this size, so the labels stay sharp</span>
+         <span class="dg-hint">play, scrub and change speed as usual &#183; + and &#8722; redraw it larger or smaller</span>
          <span class="dg-sp"></span>
+         <button class="dg-z" data-z="out" aria-label="Zoom out">&#8722;</button>
          <span class="dg-pct mono">100%</span>
+         <button class="dg-z" data-z="in" aria-label="Zoom in">+</button>
          <button class="dg-x" aria-label="Close">esc &#215;</button>
        </div>
        <div class="dg-stage sim-lb"></div>`;
@@ -308,8 +314,12 @@ function Sim(root,cfg){
     st.appendChild(root);
     big.innerHTML="&#8690; exit";
     ov.querySelector(".dg-x").addEventListener("click",closeBig);
+    ov.querySelectorAll(".dg-z").forEach(function(b){
+      b.addEventListener("click",function(){ stepZoom(b.dataset.z==="in"?1.35:1/1.35); });
+    });
     st.addEventListener("click",e=>{ if(e.target===st) closeBig(); });
     addEventListener("keydown",onKey);
+    userZ=1;
     requestAnimationFrame(resize);
     ov.querySelector(".dg-x").focus();
   }
@@ -324,7 +334,21 @@ function Sim(root,cfg){
     requestAnimationFrame(resize);
     if(prevFocus&&prevFocus.focus) prevFocus.focus();
   }
-  function onKey(e){ if(e.key==="Escape"){e.preventDefault();closeBig();} }
+  /* one step of the +/- control. The absolute factor is what gets clamped,
+     not the user's share of it, so the readout and the floor mean the same
+     thing on a laptop and on a large monitor: 100% is the size it is on the
+     page, and the bottom of the range is never smaller than that. */
+  function stepZoom(f){
+    if(!ov) return;
+    const next=Math.min(6,Math.max(1,zoom*f));
+    userZ=next/fitZoom;
+    resize(); update(0);
+  }
+  function onKey(e){
+    if(e.key==="Escape"){e.preventDefault();closeBig();return;}
+    if(e.key==="+"||e.key==="="){e.preventDefault();stepZoom(1.35);return;}
+    if(e.key==="-"){e.preventDefault();stepZoom(1/1.35);}
+  }
 
   resize(); update(0);
   if(reduce){ t=W; rebuildLog(); update(0); }

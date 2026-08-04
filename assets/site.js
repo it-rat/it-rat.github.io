@@ -112,9 +112,26 @@ if(idx>=0){
   });
 }
 
-/* ---- reveal on scroll ---- */
+/* ---- reveal on scroll ----
+   The first screen is a special case and used to be treated as an ordinary
+   one. Everything already visible intersects on the observer's very first
+   callback, so eight or ten elements ran the same .7s rise in lockstep and
+   the page arrived as a single lurch instead of settling. Only that first
+   batch is staggered, by adding the class late rather than by setting a
+   transition-delay: an inline delay stays on the element and would slow
+   every later transition it has, hover included. Anything reached by
+   scrolling afterwards still arrives the moment it is reached. */
+let firstBatch = true;
 const io = new IntersectionObserver(es=>{
-  es.forEach(en=>{ if(en.isIntersecting){en.target.classList.add("in"); io.unobserve(en.target);} });
+  const shown = es.filter(en=>en.isIntersecting).map(en=>en.target);
+  if(!shown.length) return;
+  const stagger = firstBatch && shown.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  firstBatch = false;
+  shown.forEach((el,i)=>{
+    io.unobserve(el);
+    if(stagger) setTimeout(()=>el.classList.add("in"), Math.min(i*55, 420));
+    else el.classList.add("in");
+  });
 },{threshold:.12, rootMargin:"0px 0px -6% 0px"});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 

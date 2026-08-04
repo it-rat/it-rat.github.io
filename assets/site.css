@@ -237,6 +237,8 @@ p{margin:0}
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1)}
 .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+/* the rest of this file honours the setting; the reveal never did. */
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}}
 
 /* ---------- sim panel ---------- */
 .sim{border:1px solid var(--line-2);border-radius:var(--rad);overflow:hidden;background:var(--panel)}
@@ -548,9 +550,19 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
    takes the rest. */
 .sim-lb .sim-body{flex:1 1 auto;min-height:0;grid-template-columns:minmax(0,1fr) 330px}
 @media(max-width:860px){.sim-lb .sim-body{grid-template-columns:minmax(0,1fr)}}
-/* the canvas is a fixed magnified size now, so the cell centres it rather
-   than being filled by it */
-.sim-lb .sim-chart{min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+/* the canvas is a fixed magnified size now, so the cell centres it rather than
+   being filled by it, and scrolls once + has taken it past the cell. The
+   centring is margin:auto rather than justify-content, because a centred flex
+   item that overflows its container cannot be scrolled back to: the overflow
+   goes off the start edge and no scrollbar reaches it. */
+.sim-lb .sim-chart{min-height:0;overflow:auto;display:flex}
+/* max-width:none is the load-bearing one. The global reset sets
+   img,svg,canvas{max-width:100%}, which is right everywhere else and wrong
+   here: once + took the canvas past the cell, its css width was clamped back
+   to the container while the backing store kept the wide bitmap, so the
+   drawing was drawn squashed sideways rather than overflowing and scrolling.
+   flex:0 0 auto stops the same thing happening through flex shrinking. */
+.sim-lb .sim-chart canvas{margin:auto;flex:0 0 auto;max-width:none}
 .sim-lb .sim-chart canvas{min-height:0}
 .sim-lb .sim-log{max-height:none}
 
