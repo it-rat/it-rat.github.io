@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="alternate" type="text/markdown" href="https://it-rat.com/services/heraldyx.md">
-<link rel="stylesheet" href="../assets/site.css?v=e11">
+<link rel="stylesheet" href="../assets/site.css?v=e12">
 <style>
   :root{--accent:#5BC8F5}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -435,9 +435,9 @@
   </div>
 </footer>
 
-<script src="../assets/site.js?v=e11"></script>
+<script src="../assets/site.js?v=e12"></script>
 <script src="../assets/sheet.js?v=e06"></script>
-<script src="../assets/sim.js?v=e11"></script>
+<script src="../assets/sim.js?v=e12"></script>
 <script src="../assets/stages/heraldyx.js"></script>
 <script src="../assets/diagram.js"></script>
 <script src="../assets/ambient.js"></script>
@@ -572,10 +572,10 @@
    The severities in that script are its own choice, so this is a scenario for
    the RULES, not a measurement of a real fleet. */
 Sim.mount(document.getElementById("hx-sim"),{
-  title:"simulated replay · one burst against the default limits",
+  title:"simulated replay · one burst, default limits",
   window:60, duration:17000,
   clock:t=>t.toFixed(1)+"s",
-  badges:[{label:"120 events in · 21 messages out",color:"#5BC8F5"},{label:"floor high · dedup 10 min · 20/hour",color:"#F4B23E"}],
+  badges:[{label:"120 events in · 21 messages out",color:"#5BC8F5"},{label:"floor high · dedup 10 min · 20/h",color:"#F4B23E"}],
   stage:{mode:"night", t0:3, t1:54},
   series:[
     {id:"seen",label:"events seen",color:"#8A97A6",max:120,points:[[0,0],[3,0],[54,120],[60,120]]},
