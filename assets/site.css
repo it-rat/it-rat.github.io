@@ -18,7 +18,13 @@
   --wrap:1180px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* `.topbar` is sticky at top:0 and 59px tall (58px of .wrap plus its border),
+   the same at every breakpoint, so a jump to #stack, #proof or #people, and
+   every jump the palette makes, lands with the target's first 59px underneath
+   it. scroll-padding-top is what the browser subtracts from an anchor scroll,
+   and it was `auto`, which means zero. 74px leaves 15px of air so a kicker
+   does not sit flush against the bar's edge. */
+html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{
   margin:0;color:var(--fg);background:var(--bg);
   font-family:var(--font-t);font-size:16px;line-height:1.55;
