@@ -43,24 +43,36 @@ true.
 4. **A refresh updates numbers. Only a sweep updates status sentences.** The
    sentence "we are building X" outlives the number beside it by months. When
    the numbers change, read the sentences too. *(not enforced)*
-5. **The mobile apps are side projects, and the site never lets them read as
-   part of the stack.** Two of them exist, they are ours, and since
-   2026-08-03 they are linked from the footer and nowhere else. What that
-   means concretely: not in the `STACK` registry, so they cannot reach the
-   corridor rail, the prev/next walk, the dot strip or the jump palette; no
-   page on this site; no coloured chip, because a chip is the stack's own
-   grammar and a reader takes grammar faster than a heading; and the group
-   carries a line saying they are in progress and not verified the way the
-   stack is.
+5. **Nothing unverified reads as verified, and the two mobile apps are where
+   that is hardest.** They are not one case, and this invariant said they were
+   until 2026-08-04. Sphere is a side project; **TokenFuse Pocket is in the
+   stack**, by Yurii's decision on 2026-08-03, and the site says so.
 
-   This replaces "the cancelled phone and watch surface is never mentioned",
-   which was the rule from 2026-07-24 until Yurii reversed it on 2026-08-03.
-   The reversal is narrow: the apps may be NAMED and LINKED, and they may not
-   be presented as product. The reason the old rule existed has not changed,
-   only its scope. Every other page here points at something running and
-   measured, and that is the one thing this site has that cannot be copied;
-   a promise standing next to those makes a reader ask which of the rest are
-   also promises.
+   - **Sphere** is linked from the footer and nowhere else: not in the `STACK`
+     registry, so it cannot reach the corridor rail, the prev/next walk, the
+     dot strip or the jump palette. It sits under its own `side project`
+     heading beside `standalone`.
+   - **Pocket** is in `STACK`, on the rail, in the walk, in the palette, has
+     `services/pocket.html`, and carries a coloured chip like any other room.
+     What holds the invariant for it is not exclusion but a marker it cannot
+     lose: `note: "not wired in yet"` in the registry, rendered on its rail
+     card, in its top band, and in its own eyebrow. Its page states the limit
+     in its own fact table: no hardening pass, no security review, no App
+     Store.
+
+   The reason the old rule existed has not changed, only who it applies to.
+   Every other page here points at something running and measured, and that is
+   the one thing this site has that cannot be copied; a promise standing next
+   to those makes a reader ask which of the rest are also promises. So a room
+   for something unshipped is allowed to exist and is never allowed to look
+   finished.
+
+   **Read this before "fixing" the site to match an older version of this
+   file.** Between 2026-08-03 and 2026-08-04 this invariant forbade four
+   things the site was already doing on purpose: Pocket in the registry, on
+   the rail, with a page, with a chip. An instruction file younger than the
+   decision it describes is the one way a rule like this destroys work rather
+   than protecting it.
    *(not enforced)*
 6. **Nothing on this site is sold.** The stack is open; consulting is the
    commercial motion. No pricing, no plans, no upgrade language.
