@@ -138,9 +138,12 @@ function Sim(root,cfg){
   root.classList.add("sim");
   root.innerHTML =
     `<div class="sim-head">
-       <span class="sim-title">${cfg.title||"simulated run"}</span>
-       ${(cfg.badges||[]).map(b=>`<span class="pill"><span class="dot" style="background:${b.color||"var(--accent)"};box-shadow:0 0 10px ${b.color||"var(--accent)"}"></span>${b.label}</span>`).join("")}
-       <span class="sim-clock mono">t = 0.0s</span>
+       <div class="sim-main">
+         <span class="sim-title">${cfg.title||"simulated run"}</span>
+         ${(cfg.badges||[]).map(b=>`<span class="pill"><span class="dot" style="background:${b.color||"var(--accent)"};box-shadow:0 0 10px ${b.color||"var(--accent)"}"></span>${b.label}</span>`).join("")}
+         <span class="sim-clock mono">t = 0.0s</span>
+       </div>
+       <div class="sim-corner"></div>
      </div>
      <div class="sim-body">
        <div class="sim-chart"><canvas></canvas></div>
@@ -285,7 +288,11 @@ function Sim(root,cfg){
   big.type="button"; big.className="dg-btn";
   big.innerHTML="&#8689; enlarge";
   big.setAttribute("aria-label","Enlarge simulation");
-  root.querySelector(".sim-head").appendChild(big);
+  /* the corner column holds the control and nothing else, so it cannot be
+     pushed anywhere by a longer title. The clock stays in the left column,
+     pinned to ITS right edge, which puts it beside the button while the head
+     is one line and under the button the moment the head becomes two. */
+  root.querySelector(".sim-corner").appendChild(big);
   big.addEventListener("click",()=>ov?closeBig():openBig());
 
   let ov=null, slot=null, prevFocus=null, pct=null;

@@ -242,7 +242,17 @@ p{margin:0}
 
 /* ---------- sim panel ---------- */
 .sim{border:1px solid var(--line-2);border-radius:var(--rad);overflow:hidden;background:var(--panel)}
-.sim-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+/* Two columns, not one wrapping row. The right column is fixed: the enlarge
+   control with the clock directly under it, in the same corner as .diagram
+   puts its own control, so a reader finds one thing in one place on every
+   schematic on the site. The left column takes whatever is left and is
+   where the variable-length labels live, the title and the status pills,
+   so it is those that wrap onto a second line rather than the control. */
+.sim-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;
+  gap:10px 14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.sim-main{display:flex;align-items:center;flex-wrap:wrap;gap:12px 14px;min-width:0}
+.sim-corner{display:flex;align-items:flex-start}
+.sim-corner .dg-btn{position:static}
 .sim-title{font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 .sim-clock{font-family:var(--font-m);font-size:12.5px;color:var(--accent);font-variant-numeric:tabular-nums;margin-left:auto}
 .sim-body{display:grid;grid-template-columns:1.6fr 1fr;min-height:280px}
@@ -540,8 +550,20 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
    is why this stage stretches its child instead of centring it and why the
    grab cursor and touch-action lock are dropped (the scrub is a range input
    and needs its own touch handling). */
-.sim-head .dg-btn{position:static;margin-left:2px;flex:0 0 auto}
+/* The control sits over the top right of the DRAWING on both kinds of
+   schematic, which is where .diagram has always put it: .diagram has no
+   header, so its corner is the drawing's corner, and .sim-chart is the same
+   corner on a sim. It used to be an ordinary item in the head row and so it
+   moved with the row, wrapping onto a second line at 1440 and sitting at the
+   right of the first from 1100 down. Reserving room in the head instead was
+   the wrong fix and pushed the clock onto its own line. .sim-chart is
+   already position:relative, so .dg-btn's own top/right do the rest. */
 .dg-stage.sim-lb{cursor:default;touch-action:auto;align-items:stretch;padding:14px 3vw 18px}
+/* Inside the overlay the sim's own control would be a second way to close,
+   sitting a few centimetres from the bar's esc. One exit, in the bar, next to
+   the zoom it belongs with. The button keeps its handler as a fallback for a
+   stylesheet that failed to load. */
+.sim-lb .dg-btn{display:none}
 .sim-lb .sim{flex:1 1 auto;min-width:0;width:100%;display:flex;flex-direction:column}
 .sim-lb .rv{opacity:1;transform:none}
 /* inline the side column is a proportion, which is right when the sim is one
