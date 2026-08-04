@@ -97,7 +97,7 @@ def organization():
              "jobTitle": "Lead Security Architect",
              "sameAs": "https://www.linkedin.com/in/yurii-kostiuk-778900ab/"},
             {"@type": "Person", "name": "Tania Fedirko",
-             "jobTitle": "Principal FinOps Architect",
+             "jobTitle": "FinOps Expert",
              "sameAs": "https://www.linkedin.com/in/tania-fedirko-9bb1a5136/"},
         ],
         "knowsAbout": ["AI agent governance", "FinOps for AI", "Zero Trust", "Identity and access management",
