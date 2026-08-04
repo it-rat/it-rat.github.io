@@ -110,7 +110,7 @@ IAM solutions architect and cloud security consultant: Zero Trust, identity, Dev
 
 ### Tania Fedirko
 
-FinOps expert in cloud financial governance, cost optimization and multi-cloud strategy. Tania aligns engineering, finance and business, and applies FinOps practice to LLM APIs and token-based usage: the reason this stack meters money before it meters anything else.
+Cloud financial governance, cost optimization and multi-cloud strategy. Tania aligns engineering, finance and business, and applies FinOps practice to LLM APIs and token-based usage: the reason this stack meters money before it meters anything else.
 
 ## The questions that come before the demo
 
