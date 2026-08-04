@@ -141,7 +141,6 @@ function Sim(root,cfg){
        <div class="sim-main">
          <span class="sim-title">${cfg.title||"simulated run"}</span>
          ${(cfg.badges||[]).map(b=>`<span class="pill"><span class="dot" style="background:${b.color||"var(--accent)"};box-shadow:0 0 10px ${b.color||"var(--accent)"}"></span>${b.label}</span>`).join("")}
-         <span class="sim-clock mono">t = 0.0s</span>
        </div>
        <div class="sim-corner"></div>
      </div>
@@ -157,6 +156,7 @@ function Sim(root,cfg){
      <div class="sim-foot">
        <button class="sim-play" aria-label="Play">&#9654;</button>
        <input class="sim-scrub" type="range" min="0" max="1000" value="0" aria-label="Timeline">
+       <span class="sim-clock mono">t = 0.0s</span>
        <button class="sim-speed" data-s="1">1&#215;</button>
      </div>`;
 
@@ -288,10 +288,11 @@ function Sim(root,cfg){
   big.type="button"; big.className="dg-btn";
   big.innerHTML="&#8689; enlarge";
   big.setAttribute("aria-label","Enlarge simulation");
-  /* the corner column holds the control and nothing else, so it cannot be
-     pushed anywhere by a longer title. The clock stays in the left column,
-     pinned to ITS right edge, which puts it beside the button while the head
-     is one line and under the button the moment the head becomes two. */
+  /* the corner column holds the control and nothing else. The clock is with
+     the playback controls at the foot, beside the speed, which is where it
+     belongs and, more usefully, the one row on a sim that cannot wrap: the
+     head's height is a property of each page's own title and badges, so
+     anything parked there moves from page to page. It did. */
   root.querySelector(".sim-corner").appendChild(big);
   big.addEventListener("click",()=>ov?closeBig():openBig());
 

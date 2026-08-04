@@ -251,10 +251,10 @@ p{margin:0}
 .sim-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;
   gap:10px 14px;padding:14px 18px;border-bottom:1px solid var(--line)}
 .sim-main{display:flex;align-items:center;flex-wrap:wrap;gap:12px 14px;min-width:0}
-.sim-corner{display:flex;align-items:flex-start}
+.sim-corner{display:flex;align-items:center}
 .sim-corner .dg-btn{position:static}
 .sim-title{font-family:var(--font-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.sim-clock{font-family:var(--font-m);font-size:12.5px;color:var(--accent);font-variant-numeric:tabular-nums;margin-left:auto}
+.sim-clock{font-family:var(--font-m);font-size:12.5px;color:var(--accent);font-variant-numeric:tabular-nums}
 .sim-body{display:grid;grid-template-columns:1.6fr 1fr;min-height:280px}
 @media(max-width:860px){.sim-body{grid-template-columns:1fr}}
 .sim-chart{position:relative;padding:14px}
@@ -281,6 +281,9 @@ p{margin:0}
 .sim-play:hover{transform:scale(1.06);border-color:var(--accent)}
 .sim-scrub{flex:1;appearance:none;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--panel-3);outline:none;cursor:pointer}
 .sim-scrub::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--accent);border:2.5px solid var(--ink);box-shadow:0 0 12px color-mix(in srgb, var(--accent) 70%, transparent)}
+/* fixed width and lining figures, so ticking from 0.0 to 60.0 never nudges
+   the scrub or the speed button sideways */
+.sim-foot .sim-clock{flex:0 0 auto;min-width:74px;text-align:right}
 .sim-speed{font-family:var(--font-m);font-size:11.5px;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:8px;padding:5px 8px;cursor:pointer}
 
 /* ---------- architecture diagram ---------- */
