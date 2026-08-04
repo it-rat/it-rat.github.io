@@ -244,7 +244,12 @@
         <text x="570" y="178" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="12.5" font-weight="700">model provider</text>
         <text x="570" y="196" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">Anthropic &#183; OpenAI &#183; local</text>
         <!-- bus -->
-        <line x1="325" y1="252" x2="325" y2="292" stroke="#5A6675" stroke-width="1.4" class="flow"/>
+        <!-- TokenFuse emits onto the bus. This started at y=252, 28px below the
+             box it comes out of, and carried no arrowhead, so with the dashed
+             flow stroke it read as two dashes floating in the gap rather than
+             as a connector. It now leaves the box edge and arrives with a head,
+             like the other three flows in this diagram. -->
+        <line x1="325" y1="224" x2="325" y2="292" stroke="#5A6675" stroke-width="1.4" class="flow"/><line x1="325" y1="277" x2="325" y2="292" stroke="#5A6675" stroke-width="1.4" marker-end="url(#arr)"/>
         <rect x="60" y="292" width="840" height="34" rx="10" fill="#0F151E" stroke="#2a3547"/>
         <text x="480" y="313" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="11" letter-spacing="2">agent-event bus &#183; NDJSON &#183; taipanbox.dev/agent-event</text>
         <!-- request path arrows -->
