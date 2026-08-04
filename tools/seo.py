@@ -24,6 +24,10 @@ GUIDES = {
     "mcp-security.html": "MCP security",
     "agent-identity.html": "Agent identity and authentication",
     "ai-observability-vs-governance.html": "AI observability vs governance",
+    "one-incident-end-to-end.html": "One incident, end to end",
+    "what-runs-where.html": "What runs where and what it costs",
+    "first-alert.html": "From zero to your first alert",
+    "what-is-proven.html": "What is proven and what is not",
 }
 
 SERVICE_PAGES = [
@@ -155,6 +159,19 @@ def faq(html):
     return {"@type": "FAQPage", "mainEntity": items}
 
 
+# The six original guides went up on 2026-07-26 and keep that date. A page
+# added later needs its own, because datePublished is a machine-readable claim
+# and a wrong one is worse than an absent one: it tells a crawler this page is
+# older than it is, on a site whose whole argument is that its claims are
+# checkable. Add the date here when a guide is added.
+PUBLISHED = {
+    "first-alert.html": "2026-08-04",
+    "one-incident-end-to-end.html": "2026-08-04",
+    "what-runs-where.html": "2026-08-04",
+    "what-is-proven.html": "2026-08-04",
+}
+
+
 def article(bits, name, published="2026-07-26"):
     return {
         "@type": "TechArticle",
@@ -276,7 +293,7 @@ def main():
     for path, name in GUIDES.items():
         html = (ROOT / path).read_text(encoding="utf-8")
         bits = head_bits(html, path)
-        graph = [article(bits, name), guide_crumbs(bits, name)]
+        graph = [article(bits, name, PUBLISHED.get(path, "2026-07-26")), guide_crumbs(bits, name)]
         q = faq(html)
         if q:
             graph.append(q)

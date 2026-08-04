@@ -10,7 +10,7 @@ Every page below is available as markdown at the same path with a .md extension.
 
 ## Guides
 
-- [Guides index](https://it-rat.com/guides.md): Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.
+- [Guides index](https://it-rat.com/guides.md): Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove.
 - [AI agent governance](https://it-rat.com/ai-agent-governance.md): What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after.
 - [FinOps for AI](https://it-rat.com/finops-for-ai.md): FinOps applied to LLM and agent spend: the unit of work, per-run budgets, reserve-then-settle, FOCUS showback and cost per resolved case.
 - [AI agent security](https://it-rat.com/ai-agent-security.md): The failure modes an autonomous agent introduces, the runtime guardrail that answers each one, and how to rehearse them in CI. Defensive practice.
@@ -18,6 +18,10 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Agent identity and authentication](https://it-rat.com/agent-identity.md): Static keys are not identity. What an AI agent needs to be nameable, attributable, attestable and revocable, and when to demand a signature.
 - [Glossary of agent-governance terms](https://it-rat.com/glossary.md): Plain definitions for this field: agent passport, attestation, delegation chain, blast radius, per-run budget, rug pull, CBOM, FOCUS, drift.
 - [AI observability vs governance](https://it-rat.com/ai-observability-vs-governance.md): LLM observability explains what an agent did; governance decides what it may do next. Where each fails, and how they meet on one run id.
+- [One incident, end to end](https://it-rat.com/one-incident-end-to-end.md): A single runaway agent followed through spend, policy, identity, memory, mail and evidence: what each plane sees, what it emits, and who is told.
+- [What runs where and what it costs](https://it-rat.com/what-runs-where.md): One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.
+- [From zero to your first alert](https://it-rat.com/first-alert.md): One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line.
+- [What is proven and what is not](https://it-rat.com/what-is-proven.md): How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.
 
 ## Services
 

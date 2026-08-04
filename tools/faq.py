@@ -31,6 +31,75 @@ FAQ = {
   "<p>Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it.</p>"),
 ]),
 
+"what-is-proven.html": ("common questions", "What people ask about the evidence", [
+ ("What makes a validation number worth anything?",
+  "<p>A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected.</p>"
+  "<p>The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail.</p>"),
+ ("What has been measured on real infrastructure rather than in a simulator?",
+  "<p>Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes.</p>"
+  "<p>Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.</p>"),
+ ("What has this project got wrong and had to withdraw?",
+  "<p>Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108.</p>"
+  "<p>All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.</p>"),
+ ("What has not been established yet?",
+  "<p>No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p>"),
+ ("Why publish the things that went wrong?",
+  "<p>Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.</p>"),
+]),
+
+"first-alert.html": ("common questions", "What people ask before starting", [
+ ("What do I actually need before I start?",
+  "<p>A Debian or Ubuntu box you control, Docker on it, and somewhere to send mail: your own SMTP server or a corporate relay you already have. That is the whole list.</p>"
+  "<p>There is no account to create, no licence key, no trial and no card. Nothing calls home, and there is no hosted plane, so there is nothing to sign up for.</p>"),
+ ("Do I need an LLM provider key to try it?",
+  "<p>Only if you want real calls. The gateway sits in front of whichever provider you already use, so you need the key you were already using. If you just want to watch the machinery work, it can answer from a stub instead and no provider is called at all.</p>"),
+ ("How does an agent get pointed at the gateway?",
+  "<p>By changing the base URL it already uses to reach its provider. That is the entire integration: one environment variable, no SDK to adopt and no framework to migrate to. From that moment every call it makes is priced, budgeted and policy-checked in the request path.</p>"),
+ ("Is anything exposed to the internet after the install?",
+  "<p>No. The gateway publishes to the host's loopback by default, so a machine that just ran an install script has not acquired an internet-facing enforcement plane because nobody typed anything. Opening it is one variable and a decision you make. Re-running the installer will not widen it for you either, because the environment file is left alone once it exists.</p>"),
+ ("Why does this guide not list the exact commands?",
+  "<p>Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.</p>"),
+ ("How do I check it works without waiting for a real incident?",
+  "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
+]),
+
+"what-runs-where.html": ("common questions", "What people ask about running it", [
+ ("Do I need Kubernetes to run this?",
+  "<p>No, and most teams should not start there. The same binaries, ports and wiring run as containers on one machine you own, with the gateway published to loopback by default so an install does not quietly create an internet-facing enforcement plane.</p>"
+  "<p>A cluster buys node failure tolerance and matches an estate that already runs Kubernetes. It also costs you a shared-storage decision the single machine hides completely.</p>"),
+ ("Why does the shared storage line differ so much between clouds?",
+  "<p>Because the planes couple through a shared NDJSON event log rather than through APIs, so on Kubernetes that directory needs a ReadWriteMany volume. For the same 5 GiB the published rates are EUR 0 in-cluster on Hetzner, USD 1.80 a month on EFS, and USD 194.56 a month on Filestore, which bills a whole TiB.</p>"
+  "<p>Nothing about the software changes. One provider sells the capacity you use and the other sells a minimum you must buy, and a 5 GiB requirement lands inside a 1 TiB block.</p>"),
+ ("Is one cloud faster than the other for this?",
+  "<p>Not measurably. On matched silicon the policy plane reached 2,449 decisions per second on AWS and 2,479 on GCP, which is 1.2% apart, with p50 latencies of 3.21 ms and 3.22 ms.</p>"
+  "<p>An earlier comparison of ours put AWS 62% ahead, and that was a chip generation rather than a cloud: the AWS run used a newer instance family because the equivalent GCP part was quota-blocked. If a benchmark makes two clouds look different, check the instance families first.</p>"),
+ ("Does throughput really collapse past 64 concurrent callers?",
+  "<p>No, and we published that it did before measuring it properly. Neither dedicated-core cloud loses throughput out to 256 concurrent on either chip generation; only latency grows. The collapse was a property of a shared-vCPU instance, which is to say a noisy neighbour rather than the software. The correction is published alongside the original claim.</p>"),
+ ("How much storage does the audit trail actually need?",
+  "<p>About 426 bytes per governed decision, measured at 427.6 and 426.4 on two different clouds from the same binary, because every decision is audited rather than sampled. At a thousand governed calls a minute that is roughly 614 MB a day.</p>"
+  "<p>It is the line worth planning against, because it is the only one that grows without anybody deciding to grow it.</p>"),
+ ("What does a cluster cost per hour rather than per month?",
+  "<p>About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575.</p>"),
+]),
+
+"one-incident-end-to-end.html": ("common questions", "What people ask about the incident path", [
+ ("Which parts of the stack can actually stop a call?",
+  "<p>Two: the money plane and the policy plane, because both sit in the request path. The gateway answers 402 before the provider is asked, and the policy decision point answers allow, deny or hold on every call.</p>"
+  "<p>The other five read the shared event stream afterwards. That is a deliberate split, and it has a cost worth knowing: by the time the identity plane has an opinion about a run, the call it is reasoning about has already finished.</p>"),
+ ("Why does a spend incident alone not raise a high-severity finding?",
+  "<p>Because on its own it is an agent having a bad afternoon. The detector wants at least two corroborating facts before it will call something high, and in this walk it gets three: the spend incident, an agent with no attestation on record, and a delegation chain two hops deep.</p>"
+  "<p>None of the three services holds all three facts. The severity comes from the join, which is the argument for a separate identity plane rather than a rule inside the gateway.</p>"),
+ ("Why does the alert email contain a link instead of a kill button?",
+  "<p>Because a link that acts is an unauthenticated capability held by whoever can see or forward the message, and mail security gateways prefetch links, so the action would fire before a human read the sentence beside it.</p>"
+  "<p>The link is a coordinate: it opens the panel showing that incident in your own console. The action happens there, behind a sign-in, and anything destructive additionally needs a fresh passkey confirmation bound to that exact command.</p>"),
+ ("What does the notifier hold, and what can it reach?",
+  "<p>It reads a file and sends mail. It holds no credential for any plane, opens no connection to one, has no API of its own, and can take no action on any agent. That narrowness is the design rather than an implementation detail: it is the one component allowed out of the box, so its blast radius has to stay small enough to state in a sentence.</p>"),
+ ("Why does the mail carry identifiers and numbers but no content?",
+  "<p>Because event payloads are written by components that sit next to prompts, model output and matched secrets, and mail leaves through a server nobody in your perimeter controls. Values are rendered through an allowlist of keys whose contents must also pass a shape check. A denylist would be one new producer away from leaking.</p>"),
+ ("Can I see this fire without waiting for a real incident?",
+  "<p>Yes, and you should not trust the path until you have. The pre-production harness replays the same shape at a gateway standing in front of a fake provider: burn the budget and require the 402, request a denied tool and require the refusal, present a forged delegation chain and require rejection. It exits with differentiated codes so CI can tell a real guardrail gap from a broken harness.</p>"),
+]),
+
 "index.html": ("common questions", "The questions that come before the demo", [
  ("What is AI agent governance?",
   "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"

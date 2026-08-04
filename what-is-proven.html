@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is proven here, and what is not · IT-RAT</title>
+<meta name="description" content="How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.">
+<link rel="canonical" href="https://it-rat.com/what-is-proven.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/what-is-proven.html">
+<meta property="og:title" content="What is proven here, and what is not · IT-RAT">
+<meta property="og:description" content="Every measured claim on this stack has a command and a date behind it, and a limit beside it. Here is what was actually established, what it does not cover, and what we got wrong first.">
+<meta property="og:image" content="https://it-rat.com/assets/og/trailryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What is proven here, and what is not · IT-RAT">
+<meta name="twitter:description" content="Every measured claim on this stack has a command and a date behind it, and a limit beside it. Here is what was actually established, what it does not cover, and what we got wrong first.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/trailryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/what-is-proven.md">
+<link rel="stylesheet" href="assets/site.css?v=e07">
+<style>
+  :root{--accent:#E4626F}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  /* claim / limit pairs: the limit is never optional */
+  .claims{display:flex;flex-direction:column;gap:0;margin-top:20px;max-width:80ch}
+  .claim{padding:20px 0;border-top:1px solid var(--line)}
+  .claim:first-child{border-top:0}
+  .claim .who{font-family:var(--font-m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+  .claim h3{margin-top:7px;font-size:17.5px}
+  .claim p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .claim .lim{margin-top:12px;padding-left:13px;border-left:2px solid var(--accent);
+    color:var(--dim);font-size:13.5px;line-height:1.65}
+  .claim .lim b{color:var(--fg)}
+  .wrong{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);
+    padding:18px 20px;margin-top:14px;max-width:76ch}
+  .wrong .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .wrong p{margin-top:9px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .wrong b{color:var(--fg)}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:22px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:24px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What is proven here, and what is not","name":"What is proven and what is not","url":"https://it-rat.com/what-is-proven.html","description":"How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.","inLanguage":"en","datePublished":"2026-08-04","dateModified":"2026-08-04","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/what-is-proven.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"What is proven and what is not","item":"https://it-rat.com/what-is-proven.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes a validation number worth anything?","acceptedAnswer":{"@type":"Answer","text":"A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected. The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail."}},{"@type":"Question","name":"What has been measured on real infrastructure rather than in a simulator?","acceptedAnswer":{"@type":"Answer","text":"Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes. Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it."}},{"@type":"Question","name":"What has this project got wrong and had to withdraw?","acceptedAnswer":{"@type":"Answer","text":"Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108. All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked."}},{"@type":"Question","name":"What has not been established yet?","acceptedAnswer":{"@type":"Answer","text":"No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt."}},{"@type":"Question","name":"Why publish the things that went wrong?","acceptedAnswer":{"@type":"Answer","text":"Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">what is proven</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; what is proven</div>
+    <h1 class="rv d1">What is proven here, and what is not.</h1>
+    <p class="lede rv d2">Governance software is in the awkward position of asking to be trusted about trust. So this page is not a scoreboard. It is the method: what a measurement on this stack actually established, what it deliberately does not cover, and the conclusions we published and then had to take back. <b>The withdrawn ones are the useful part</b>, because a project that only records its successes is a project whose claims cannot be checked.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the rule</div>
+      <h2>A number that cannot fail is not evidence.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The single most useful habit in this project came out of a boring observation: a check that cannot produce a red result will report green forever, and nobody will notice, because green is what everyone expected.</p>
+      <p>So the rule is that a passing measurement is only worth reading next to a run where the same measurement fails. The record plane's durability sweep is the cleanest example. Eight hundred million shard ticks across four hundred thousand seeded runs, roughly twelve million injected crashes, zero durability violations. On its own that number is worth very little. The same sweep is then run again with the simulated disk allowed to lie about flushing, and <b>17,869 of 20,000 seeds fail</b>. The first number is only evidence because the second one exists.</p>
+      <p>The same shape applies to everything below. Where a claim has no companion failure, it says so.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">measured, with the limit attached</div>
+      <h2>Five claims and what each one stops short of.</h2>
+      <p class="lede">Every figure here was produced by a run with a command and a date behind it, recorded in that repository's own validation file. The line under each is not a disclaimer, it is part of the claim.</p>
+    </div>
+    <div class="claims rv">
+
+      <div class="claim">
+        <div class="who">the record plane &#183; durability</div>
+        <h3>120 processes killed mid-write, not one acknowledged record lost</h3>
+        <p>Forty each on apfs, ext4 and xfs, killed with SIGKILL while writing, and every sequence number that had been reported as acknowledged survived. That is the sentence the whole design rests on, and it was tested by something other than the simulator that was written to believe it.</p>
+        <div class="lim"><b>What it does not cover:</b> a SIGKILL is a process dying, not a machine. The page cache survives it. Power loss is the harsher test and it has not been run, so the honest claim is about process death, not about hardware.</div>
+      </div>
+
+      <div class="claim">
+        <div class="who">the policy plane &#183; throughput</div>
+        <h3>About 2,450 decisions per second per pod, at a p50 of 3.2 ms</h3>
+        <p>Measured on live five-node clusters on three clouds between 25 and 27 July 2026, with no throughput cliff out to 256 concurrent callers on dedicated cores, and a freeze reaching live traffic in one round trip. Every decision is audited rather than sampled, at about 426 bytes each.</p>
+        <div class="lim"><b>What it does not cover:</b> those runs verified the deployment shape and benchmarked the policy plane. They did not drive the detectors at scale, produce quality numbers, or fire pre-production drills. Those planes were left deliberately unseeded, so nothing is claimed about them from these runs.</div>
+      </div>
+
+      <div class="claim">
+        <div class="who">the memory plane &#183; recall</div>
+        <h3>All 500 questions of a public benchmark, not a fixture we wrote</h3>
+        <p>Recall was measured on LongMemEval-S in full, with every turn of every question's history ingested as its own episode, 246,738 in total, and no LLM anywhere in the loop. The per-question records are published alongside the numbers so the table can be recomputed rather than believed.</p>
+        <div class="lim"><b>What it does not cover:</b> the headline turn-recall figure is an upper bound and says so. 59% of questions flag more than one evidence turn, so counting a hit when any of them is retrieved is generous, and 21 of the 500 flag no turn at all and therefore cannot be hit. Over the 479 answerable questions the same figure is higher than the published one. A memory system quoting a single unqualified recall number is quoting the flattering reading; ask which.</div>
+      </div>
+
+      <div class="claim">
+        <div class="who">the crypto plane &#183; scale</div>
+        <h3>25,586 real Linux binaries scanned, plus a live TLS endpoint</h3>
+        <p>Not a fixture directory: an actual filesystem's worth of ELF binaries, a real container image, and a live handshake against a public endpoint whose certificate was correctly flagged as quantum-vulnerable under the NCSC migration timeline.</p>
+        <div class="lim"><b>What it does not cover:</b> a clean scan is not proof of absence, and the tool says so where it matters. Detection reads symbols, so a stripped, statically linked binary has nothing to read and is invisible to it. Treat a clear result on one of those as limited assurance rather than a finding.</div>
+      </div>
+
+      <div class="claim">
+        <div class="who">the cluster &#183; adversarial</div>
+        <h3>Proven on a five-node cluster, then attacked the same night</h3>
+        <p>Every plane answered, the shared event log bound across nodes, and an agent frozen from the browser stayed frozen after the policy plane's pod was restarted. Then the same cluster was attacked, and four real holes came out: a pod that labelled itself as the console deleted a freeze using a literal development bearer while the console still displayed the agent as frozen, secrets were readable in plaintext straight out of the datastore, the kubelet API was open to the internet on every node, and the gateway never asked the policy plane anything.</p>
+        <div class="lim"><b>What it does not cover:</b> all four are closed and re-run as standing checks, but the ledger of traps this deployment has actually hit now stands at 78 entries, and 28 of them are our own mistakes rather than platform behaviour. That ratio is published on purpose. A ledger where everything is somebody else's fault is marketing.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the corrections</div>
+      <h2>Three things we published and had to withdraw.</h2>
+      <p class="lede">Each of these was wrong in a way that a reader could have acted on, which is the only kind worth listing.</p>
+    </div>
+
+    <div class="wrong rv">
+      <div class="t">withdrawn &#183; the concurrency cliff</div>
+      <p>We published that throughput collapses past 64 concurrent callers and that a fleet should be designed against that limit. <b>It does not.</b> Neither dedicated-core cloud loses any throughput out to 256 concurrent on either chip generation; only latency grows. The collapse was a property of a shared-vCPU instance, which is to say it was a noisy neighbour rather than the software. The retraction is published next to the claim it replaces rather than quietly replacing it.</p>
+    </div>
+
+    <div class="wrong rv">
+      <div class="t">withdrawn &#183; the cloud comparison</div>
+      <p>Our first comparison put one hyperscaler 62% ahead of the other. That gap was a chip generation wearing a cloud costume: the faster run used a newer instance family because the equivalent part on the other cloud was quota-blocked on a new account. <b>On matched silicon the two are 1.2% apart</b> and their p50 latencies differ by a hundredth of a millisecond.</p>
+    </div>
+
+    <div class="wrong rv">
+      <div class="t">withdrawn &#183; the storage prediction</div>
+      <p>We predicted that shared storage would be expensive on both hyperscalers. It is expensive on one and negligible on the other: the same 5 GiB event log is USD 1.80 a month on one and USD 194.56 on the other, because the second sells the capacity by the terabyte. The prediction was wrong in one direction and right in the other, <b>by a factor of 108</b>, and the correction is the more useful number.</p>
+    </div>
+
+    <div class="prose rv">
+      <p>There is a fourth worth naming that is not a number at all. Pointed at real object stores, one storage adapter failed three separate ways while its entire test suite was green: it sent two <span class="mono">Host</span> headers, it could not read a response from a peer that closes TLS abruptly, and it sent one cloud's headers to another cloud that refuses them. All three had the same cause. <b>The fakes in the tests were written from the same reading of the same documentation as the client</b>, so they agreed with the client's mistakes. The fix was not three fixes; it was teaching the fake to refuse what a compliant server refuses.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">not measured</div>
+      <h2>What nobody has established yet.</h2>
+    </div>
+    <div class="prose rv">
+      <p>This list is deliberately visible rather than tidy, and it is the section worth reading first if you are evaluating rather than browsing.</p>
+      <ul>
+        <li><b>No machine has ever died, only processes.</b> Everything about durability is established against process death, and power loss is a harsher test that has not been run.</li>
+        <li><b>No external audit of the cryptographic layer.</b> The primitives match their published vectors and two independent implementations of the verifier agree, which is a different and weaker claim than somebody outside this project having reviewed it.</li>
+        <li><b>Two of the five shipped pre-production drills have never been fired at a real gateway.</b> They were written after the campaigns that produced the published "no gaps" result, and that result covers the three that were.</li>
+        <li><b>No years of simulated time, and no second I/O backend</b> to compare the first against.</li>
+        <li><b>The detectors have not been driven at production scale.</b> They fire correctly on seeded fleets and against real event data, which is not the same as an estate's worth of identities.</li>
+        <li><b>The federation completeness rule is specified and its transport is unbuilt.</b> The rule exists; the wires do not.</li>
+      </ul>
+    </div>
+
+    <div class="note rv">
+      <div class="t">how to read any of our numbers</div>
+      <p>Every figure quoted anywhere on this site or in these repositories is meant to carry three things: what produced it, when, and what it is a claim about. A measurement stays true about its moment and is not automatically true about the present, which is why a date is part of a number rather than decoration on it. If you find one here without those, that is a defect and worth telling us about.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">applying this elsewhere</div>
+      <h2>The same questions work on anybody's claims.</h2>
+    </div>
+    <div class="evals rv">
+      <div class="t">how to read a validation claim, ours included</div>
+      <ol>
+        <li><b>Has the check ever produced a red result?</b> A suite with no demonstrated failure reports the same thing whether or not it is working.</li>
+        <li><b>What is the limit stated next to the number?</b> If a claim arrives without one, the limit exists and somebody chose not to write it down.</li>
+        <li><b>Was the benchmark theirs or the field's?</b> A benchmark written by the vendor measures agreement with the vendor's assumptions.</li>
+        <li><b>Which reading of the metric is being quoted?</b> Most retrieval and accuracy numbers have a generous reading and a strict one, and only one of them gets printed.</li>
+        <li><b>What did the run not cover?</b> A cluster run that proves deployment shape is often quoted as though it proved throughput.</li>
+        <li><b>Has anything been withdrawn?</b> A project with no retractions has either published nothing checkable or has not checked.</li>
+        <li><b>Can somebody outside the project verify it?</b> Evidence you have to be trusted about is a statement, not evidence.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Where this sits.</h2>
+      <p class="lede">The numbers behind every claim here live in each repository's own validation file, next to the command that produced it. <a href="what-runs-where.html" style="color:var(--accent)">What runs where and what it costs</a> is where most of the cluster figures come from, <a href="one-incident-end-to-end.html" style="color:var(--accent)">one incident, end to end</a> is the behaviour they describe, and <a href="guides.html" style="color:var(--accent)">the guides index</a> has the rest. All of it is Apache-2.0, including the write-ups that record what went wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask about the evidence</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What makes a validation number worth anything?</summary>
+        <div class="a"><p>A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected.</p><p>The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail.</p></div>
+      </details>
+      <details>
+        <summary>What has been measured on real infrastructure rather than in a simulator?</summary>
+        <div class="a"><p>Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes.</p><p>Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.</p></div>
+      </details>
+      <details>
+        <summary>What has this project got wrong and had to withdraw?</summary>
+        <div class="a"><p>Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108.</p><p>All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.</p></div>
+      </details>
+      <details>
+        <summary>What has not been established yet?</summary>
+        <div class="a"><p>No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p></div>
+      </details>
+      <details>
+        <summary>Why publish the things that went wrong?</summary>
+        <div class="a"><p>Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+        <div class="foot-row">
+          <div class="foot-group"><div class="l">standalone</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Not in the top bar: it is addressed to someone who already runs a
+             console of their own, over their own tunnel, which is a returning
+             operator rather than a visitor. The primary slot belongs to the
+             action a stranger should take. -->
+        <a href="console.html">Go to your console</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

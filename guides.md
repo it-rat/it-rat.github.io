@@ -2,9 +2,15 @@
 
 # Guides index
 
-> Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.
+> Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove.
 
-Six guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.
+Ten guides. Six are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other four are about this stack specifically: getting a first alert, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.
+
+*start here*
+
+## From zero to your first alert
+
+One command on a box you own, one agent pointed at it, one address to write to, and then make it fire on purpose. Four steps, what each is for, and where each one goes wrong.
 
 *the umbrella*
 
@@ -29,6 +35,24 @@ The damage does not arrive as a sentence, it arrives as a tool call. Eight failu
 ## AI observability and governance are not rivals
 
 One explains what happened, the other decides what may happen. The same incident seen by each, why governance without observability is opaque, and the single integration decision that makes them compose: one run id.
+
+*the operational half*
+
+## What runs where, and what it costs
+
+One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: what each burns per hour, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.
+
+*the honest half*
+
+## What is proven here, and what is not
+
+What a measurement on this stack actually established, the limit published beside each one, three conclusions we withdrew, and the list of what nobody has established yet.
+
+*the walk-through*
+
+## One incident, end to end: a runaway agent through every plane
+
+One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.
 
 *the newest surface*
 

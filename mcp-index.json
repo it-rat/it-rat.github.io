@@ -23,7 +23,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability."
+      "description": "Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -73,6 +73,34 @@
       "title": "AI observability vs governance",
       "kind": "guide",
       "description": "LLM observability explains what an agent did; governance decides what it may do next. Where each fails, and how they meet on one run id."
+    },
+    {
+      "url": "https://it-rat.com/one-incident-end-to-end.html",
+      "markdown": "https://it-rat.com/one-incident-end-to-end.md",
+      "title": "One incident, end to end",
+      "kind": "guide",
+      "description": "A single runaway agent followed through spend, policy, identity, memory, mail and evidence: what each plane sees, what it emits, and who is told."
+    },
+    {
+      "url": "https://it-rat.com/what-runs-where.html",
+      "markdown": "https://it-rat.com/what-runs-where.md",
+      "title": "What runs where and what it costs",
+      "kind": "guide",
+      "description": "One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x."
+    },
+    {
+      "url": "https://it-rat.com/first-alert.html",
+      "markdown": "https://it-rat.com/first-alert.md",
+      "title": "From zero to your first alert",
+      "kind": "guide",
+      "description": "One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line."
+    },
+    {
+      "url": "https://it-rat.com/what-is-proven.html",
+      "markdown": "https://it-rat.com/what-is-proven.md",
+      "title": "What is proven and what is not",
+      "kind": "guide",
+      "description": "How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw."
     },
     {
       "url": "https://it-rat.com/services/tokenfuse.html",

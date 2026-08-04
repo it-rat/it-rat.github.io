@@ -33,6 +33,10 @@ GUIDES = [
     ("agent-identity.html", "Agent identity and authentication"),
     ("glossary.html", "Glossary of agent-governance terms"),
     ("ai-observability-vs-governance.html", "AI observability vs governance"),
+    ("one-incident-end-to-end.html", "One incident, end to end"),
+    ("what-runs-where.html", "What runs where and what it costs"),
+    ("first-alert.html", "From zero to your first alert"),
+    ("what-is-proven.html", "What is proven and what is not"),
 ]
 SERVICES = [
     ("services/tokenfuse.html", "TokenFuse, the money plane"),

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From zero to your first alert · IT-RAT</title>
+<meta name="description" content="One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line.">
+<link rel="canonical" href="https://it-rat.com/first-alert.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/first-alert.html">
+<meta property="og:title" content="From zero to your first alert · IT-RAT">
+<meta property="og:description" content="Stand the stack up on a box you own, point one agent at it, and get the mail. What each step actually does, what it deliberately refuses to do, and where it can go wrong.">
+<meta property="og:image" content="https://it-rat.com/assets/og/heraldyx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="From zero to your first alert · IT-RAT">
+<meta name="twitter:description" content="Stand the stack up on a box you own, point one agent at it, and get the mail. What each step actually does, what it deliberately refuses to do, and where it can go wrong.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/heraldyx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/first-alert.md">
+<link rel="stylesheet" href="assets/site.css?v=e07">
+<style>
+  :root{--accent:#5BC8F5}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line);max-width:80ch}
+  .step:first-child{border-top:0}
+  .step .no{font-family:var(--font-m);font-size:12px;color:var(--accent);padding-top:3px;letter-spacing:.08em}
+  .step h3{font-size:17.5px}
+  .step p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .step a{color:var(--accent)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .gotcha{margin-top:12px;font-size:13.5px;color:var(--dim);line-height:1.65;
+    border-left:2px solid var(--line-2);padding-left:13px}
+  .gotcha b{color:var(--fg)}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:22px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:24px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"From zero to your first alert","name":"From zero to your first alert","url":"https://it-rat.com/first-alert.html","description":"One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line.","inLanguage":"en","datePublished":"2026-08-04","dateModified":"2026-08-04","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/first-alert.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"From zero to your first alert","item":"https://it-rat.com/first-alert.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What do I actually need before I start?","acceptedAnswer":{"@type":"Answer","text":"A Debian or Ubuntu box you control, Docker on it, and somewhere to send mail: your own SMTP server or a corporate relay you already have. That is the whole list. There is no account to create, no licence key, no trial and no card. Nothing calls home, and there is no hosted plane, so there is nothing to sign up for."}},{"@type":"Question","name":"Do I need an LLM provider key to try it?","acceptedAnswer":{"@type":"Answer","text":"Only if you want real calls. The gateway sits in front of whichever provider you already use, so you need the key you were already using. If you just want to watch the machinery work, it can answer from a stub instead and no provider is called at all."}},{"@type":"Question","name":"How does an agent get pointed at the gateway?","acceptedAnswer":{"@type":"Answer","text":"By changing the base URL it already uses to reach its provider. That is the entire integration: one environment variable, no SDK to adopt and no framework to migrate to. From that moment every call it makes is priced, budgeted and policy-checked in the request path."}},{"@type":"Question","name":"Is anything exposed to the internet after the install?","acceptedAnswer":{"@type":"Answer","text":"No. The gateway publishes to the host's loopback by default, so a machine that just ran an install script has not acquired an internet-facing enforcement plane because nobody typed anything. Opening it is one variable and a decision you make. Re-running the installer will not widen it for you either, because the environment file is left alone once it exists."}},{"@type":"Question","name":"Why does this guide not list the exact commands?","acceptedAnswer":{"@type":"Answer","text":"Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails."}},{"@type":"Question","name":"How do I check it works without waiting for a real incident?","acceptedAnswer":{"@type":"Answer","text":"Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">first alert</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; first alert</div>
+    <h1 class="rv d1">From zero to your first alert.</h1>
+    <p class="lede rv d2">The shortest honest path from nothing to a governed agent that writes to you when it crosses a line. Four steps, on a machine you own, with no account to create and nothing to buy. <b>This page explains what each step does and where it goes wrong.</b> The exact commands live in the repositories, deliberately, because a second copy of an install procedure is a second thing to keep true.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">before you start</div>
+      <h2>What you need, and what you do not.</h2>
+    </div>
+    <div class="prose rv">
+      <p><b>You need</b> a Debian or Ubuntu box you control, Docker on it, and somewhere to send mail: your own SMTP server, or a corporate relay you already have. That is the list.</p>
+      <p><b>You do not need</b> an account with us, a licence key, a trial, a credit card, an API key for the store, or a cloud. Nothing in the stack calls home, and nothing about your runs, your spend or your identities travels anywhere to be displayed. There is no hosted plane, so there is nothing to sign up for.</p>
+      <p>An LLM provider key is a separate question. The gateway sits in front of whichever provider you already use, so you need whatever key you were already using. If you just want to watch the machinery work, the gateway can answer from a stub instead, and no provider is called at all.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the path</div>
+      <h2>Four steps.</h2>
+    </div>
+    <div class="rv">
+
+      <div class="step">
+        <div class="no">01</div>
+        <div>
+          <h3>Stand the stack up</h3>
+          <p>One installer brings up the whole governed set as containers on one Docker network: the gateway, the control plane, the policy plane, the identity plane, its database, the console behind its own tunnel, and the notifier. It generates its own credentials into the box's own environment file, so no secret in it was ever ours to see.</p>
+          <p>It comes up <b>closed</b>. The gateway publishes to the host's loopback, so a machine that just ran an install script has not acquired an internet-facing enforcement plane because nobody typed anything. Opening it to the agents you actually have is one variable, and it is a decision you make rather than a default you inherit.</p>
+          <div class="cmd"><span class="c"># the launcher, its flags and its second-run behaviour:</span><br>github.com/TAIPANBOX/stack-single</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> re-running the installer will not widen the binding for you. The environment file is left alone once it exists, which is the same property that stops a re-run rotating your credentials. If you want the gateway reachable, edit that file and bring the services back up.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="no">02</div>
+        <div>
+          <h3>Point one agent at it</h3>
+          <p>The integration is a base URL. Whatever your agent already uses to reach its provider now points at the gateway instead, and from that moment every call it makes is priced, budgeted and policy-checked in the request path. No SDK to adopt, no framework to migrate to, no code change beyond an environment variable.</p>
+          <p>Send the agent's run a budget along with the request, and you have the thing worth having: a ceiling that is enforced before the provider is called rather than noticed afterwards on a bill.</p>
+          <div class="cmd"><span class="c"># one variable, wherever your agent reads its provider URL</span><br>ANTHROPIC_BASE_URL=http://&lt;your box&gt;:4100</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> a plane whose bearer-key spec is malformed starts cleanly, stays reachable, and authenticates nobody, so every health check passes while the money plane is deaf. The installer checks the credential rather than the port for exactly that reason, and three of its checks have to fail to pass.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="no">03</div>
+        <div>
+          <h3>Give it an address to write to</h3>
+          <p>The notifier reads the shared event log and mails you when one of your own agents crosses a line: a budget gone, a policy denial, a run killed, an agent behaving unlike itself. Set a recipient and an SMTP host, and it starts. Leave them blank and it stays healthy and silent, because not having mail is a choice an operator makes rather than a broken deployment.</p>
+          <p>What it will not do is more interesting than what it will. It holds no credential for any plane, opens no connection to one, has no API of its own, and can take no action on any agent. It reads a file and sends mail. That narrowness is the point: it is the one component allowed to reach the outside world, so its blast radius stays small enough to say in a sentence.</p>
+          <div class="cmd"><span class="c"># recipient, SMTP host, and the severity floor:</span><br>github.com/TAIPANBOX/heraldyx</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> the default severity floor is deliberately not zero. Below it an event becomes a digest line rather than a message, because an operator who gets mailed about everything learns to filter the sender to trash, and then the one message that mattered goes with it.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="no">04</div>
+        <div>
+          <h3>Make it fire on purpose</h3>
+          <p>Do not wait for a real incident to find out whether any of this works. Give a run a budget of a fraction of a cent and let an agent loop against it: the gateway answers 402 in the request path, the event lands in the log, and the mail arrives. That is the whole chain, exercised in a minute, at no cost.</p>
+          <p>Then read the mail carefully, because it is deliberately almost nothing: identifiers and numbers, never content, and one link into your own console rather than a button. Following it opens the panel showing that event. The action happens there, behind your sign-in.</p>
+          <div class="cmd"><span class="c"># or fire the rehearsal harness at a pre-prod gateway:</span><br>github.com/TAIPANBOX/mockryx</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> if you never do this step you have a guardrail nobody has exercised, which is a claim rather than a control. The whole point of an inexpensive drill is that it can be run before you need it.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note rv">
+      <div class="t">why the commands are not on this page</div>
+      <p>Every exact flag lives in the repository that owns it, and this guide points at those rather than repeating them. A copy here would be a second place to keep true, and it would drift the first time an installer grew a flag: you would follow the pretty page and hit the error the README already documents. What a guide can add is the part a README cannot, which is what the step is for and how it fails.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">after the first mail</div>
+      <h2>Three things worth doing next, in order.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Write one policy, not ten</h3>
+      <p>The first policy that earns its keep is usually a single denied tool or a spend level above which a human has to agree. The policy plane answers allow, deny or hold on every governed call, and <b>hold</b> is the one people underuse: it does not park a connection or block a thread, it refuses with an approval id that somebody grants out of band, and the proof of that grant is a signed token the agent presents on the retry.</p>
+
+      <h3>Give your agents passports before you have many</h3>
+      <p>A passport is a small static JSON document: an identifier, an owner, a runtime, and an attestation method. It is not a token and nothing at runtime depends on fetching it. It exists so that when something goes wrong at 3am the first question, whose agent is this, has an answer that is not a guess. Writing them for four agents is an afternoon; writing them for forty is a project.</p>
+
+      <h3>Decide what you are keeping, before the volume decides for you</h3>
+      <p>Every governed decision is audited rather than sampled, at roughly 426 bytes each. At a thousand calls a minute that is about 614 MB a day. It is the only part of running this that grows without anyone choosing to grow it, so it is worth a retention decision early rather than a surprise later.</p>
+    </div>
+
+    <div class="evals rv">
+      <div class="t">what to check before you call it done</div>
+      <ol>
+        <li><b>Is the gateway reachable from where you think, and only there?</b> Read back the rule that was actually written, not the variable that was supposed to produce it.</li>
+        <li><b>Does an unknown key get refused?</b> A plane that authenticates nobody looks identical to a healthy one from outside.</li>
+        <li><b>Did the mail actually arrive, on a phone?</b> A plain-text alert that is unreadable on the device you will read it on at 3am is not an alert.</li>
+        <li><b>Does the link in it open a view rather than perform an action?</b> If it acts, anyone who can forward the message holds the capability.</li>
+        <li><b>Have you fired the guardrail on purpose at least once?</b> Before you rely on it, not after.</li>
+        <li><b>Does it survive a reboot?</b> Restart the box and check that everything comes back, including the notifier's own read position.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Where this sits.</h2>
+      <p class="lede">This is the shortest path. <a href="one-incident-end-to-end.html" style="color:var(--accent)">One incident, end to end</a> follows what happens after that first mail through every plane, <a href="what-runs-where.html" style="color:var(--accent)">what runs where and what it costs</a> covers the shapes past one machine, and <a href="guides.html" style="color:var(--accent)">the guides index</a> has the field itself. Everything named here is Apache-2.0 and runs on hardware you own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask before starting</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What do I actually need before I start?</summary>
+        <div class="a"><p>A Debian or Ubuntu box you control, Docker on it, and somewhere to send mail: your own SMTP server or a corporate relay you already have. That is the whole list.</p><p>There is no account to create, no licence key, no trial and no card. Nothing calls home, and there is no hosted plane, so there is nothing to sign up for.</p></div>
+      </details>
+      <details>
+        <summary>Do I need an LLM provider key to try it?</summary>
+        <div class="a"><p>Only if you want real calls. The gateway sits in front of whichever provider you already use, so you need the key you were already using. If you just want to watch the machinery work, it can answer from a stub instead and no provider is called at all.</p></div>
+      </details>
+      <details>
+        <summary>How does an agent get pointed at the gateway?</summary>
+        <div class="a"><p>By changing the base URL it already uses to reach its provider. That is the entire integration: one environment variable, no SDK to adopt and no framework to migrate to. From that moment every call it makes is priced, budgeted and policy-checked in the request path.</p></div>
+      </details>
+      <details>
+        <summary>Is anything exposed to the internet after the install?</summary>
+        <div class="a"><p>No. The gateway publishes to the host's loopback by default, so a machine that just ran an install script has not acquired an internet-facing enforcement plane because nobody typed anything. Opening it is one variable and a decision you make. Re-running the installer will not widen it for you either, because the environment file is left alone once it exists.</p></div>
+      </details>
+      <details>
+        <summary>Why does this guide not list the exact commands?</summary>
+        <div class="a"><p>Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.</p></div>
+      </details>
+      <details>
+        <summary>How do I check it works without waiting for a real incident?</summary>
+        <div class="a"><p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+        <div class="foot-row">
+          <div class="foot-group"><div class="l">standalone</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a href="guides.html">Guides</a>
+        <a href="index.html#people">The people</a>
+        <a href="index.html#contact">Leave a note</a>
+        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
+        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
+        <!-- Not in the top bar: it is addressed to someone who already runs a
+             console of their own, over their own tunnel, which is a returning
+             operator rather than a visitor. The primary slot belongs to the
+             action a stranger should take. -->
+        <a href="console.html">Go to your console</a>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

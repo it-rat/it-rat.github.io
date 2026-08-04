@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides: AI agent governance, FinOps and security · IT-RAT</title>
-<meta name="description" content="Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.">
+<meta name="description" content="Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove.">
 <link rel="canonical" href="https://it-rat.com/guides.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/guides.html">
 <meta property="og:title" content="Guides: AI agent governance, FinOps and security · IT-RAT">
-<meta property="og:description" content="Six guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta property="og:description" content="Ten guides on running AI agents in production. Six explain the field: governance, cost, security, MCP, identity, observability. Four cover this stack in practice.">
 <meta property="og:image" content="https://it-rat.com/assets/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Guides: AI agent governance, FinOps and security · IT-RAT">
-<meta name="twitter:description" content="Six guides on running AI agents in production: runtime governance, LLM cost management, securing an agent fleet, and where observability ends.">
+<meta name="twitter:description" content="Ten guides on running AI agents in production. Six explain the field: governance, cost, security, MCP, identity, observability. Four cover this stack in practice.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -45,7 +45,7 @@
   .gcard:hover .go::after{transform:translateX(4px)}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps and security","description":"Six guides on running AI agents in production: runtime governance, LLM cost control, agent security, MCP, identity, and observability.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html"},{"@type":"ListItem","position":6,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps and security","description":"Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html"},{"@type":"ListItem","position":6,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"},{"@type":"ListItem","position":7,"name":"One incident, end to end","url":"https://it-rat.com/one-incident-end-to-end.html"},{"@type":"ListItem","position":8,"name":"What runs where and what it costs","url":"https://it-rat.com/what-runs-where.html"},{"@type":"ListItem","position":9,"name":"From zero to your first alert","url":"https://it-rat.com/first-alert.html"},{"@type":"ListItem","position":10,"name":"What is proven and what is not","url":"https://it-rat.com/what-is-proven.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -64,13 +64,20 @@
   <div class="wrap">
     <div class="kicker rv">guides</div>
     <h1 class="rv d1">Running AI agents in production, written down.</h1>
-    <p class="lede rv d2">Six guides about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful.</p>
+    <p class="lede rv d2">Ten guides. Six are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other four are about this stack specifically: getting a first alert, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.</p>
   </div>
 </section>
 
 <section class="sec" style="padding-top:6px">
   <div class="wrap">
     <div class="glist rv">
+      <a class="gcard" style="--c:#5BC8F5" href="first-alert.html">
+        <div class="n">start here</div>
+        <h2>From zero to your first alert</h2>
+        <p>One command on a box you own, one agent pointed at it, one address to write to, and then make it fire on purpose. Four steps, what each is for, and where each one goes wrong.</p>
+        <div class="in"><span>no account, no key, no cloud</span><span>it comes up closed</span><span>the severity floor</span><span>firing it deliberately</span></div>
+        <span class="go">Read the guide</span>
+      </a>
       <a class="gcard" style="--c:#F4B23E" href="ai-agent-governance.html">
         <div class="n">the umbrella</div>
         <h2>AI agent governance, and what it means at runtime</h2>
@@ -97,6 +104,27 @@
         <h2>AI observability and governance are not rivals</h2>
         <p>One explains what happened, the other decides what may happen. The same incident seen by each, why governance without observability is opaque, and the single integration decision that makes them compose: one run id.</p>
         <div class="in"><span>tracing vs enforcement</span><span>what to ask a vendor</span><span>OTLP</span><span>joining on the run id</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#F4B23E" href="what-runs-where.html">
+        <div class="n">the operational half</div>
+        <h2>What runs where, and what it costs</h2>
+        <p>One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: what each burns per hour, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.</p>
+        <div class="in"><span>EUR 137 vs USD 1,487</span><span>the RWX trap</span><span>1.2% apart on matched silicon</span><span>426 bytes per decision</span><span>a retraction</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#E4626F" href="what-is-proven.html">
+        <div class="n">the honest half</div>
+        <h2>What is proven here, and what is not</h2>
+        <p>What a measurement on this stack actually established, the limit published beside each one, three conclusions we withdrew, and the list of what nobody has established yet.</p>
+        <div class="in"><span>a number that cannot fail</span><span>three retractions</span><span>what is not measured</span><span>how to read anyone's claims</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#FF574B" href="one-incident-end-to-end.html">
+        <div class="n">the walk-through</div>
+        <h2>One incident, end to end: a runaway agent through every plane</h2>
+        <p>One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.</p>
+        <div class="in"><span>402 in the request path</span><span>allow, deny, hold</span><span>why three weak signals join</span><span>one link, never a button</span><span>completeness proofs</span></div>
         <span class="go">Read the guide</span>
       </a>
       <a class="gcard" style="--c:#34D399" href="mcp-security.html">
