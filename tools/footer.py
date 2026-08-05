@@ -152,28 +152,28 @@ def groups(root, here):
 
 
 def cols(root, here):
-    # The last column is one link: the address. Everything else that stood here
-    # left on 2026-08-05 (@yurii), and none of it was deleted, it moved to
-    # where somebody would actually look for it:
+    # Two columns: the mark, and the stack as chips. There is no third column
+    # of links any more, on any page. Everything that stood in one over
+    # 2026-08-05 (@yurii) left for somewhere a reader would look first:
     #
     #   Guides              already a button in the top bar, on every page
     #   The people          a section of the front page, one scroll down
-    #   Leave a note        the same action as the address beside it
+    #   Leave a note        the same action as the address that stood beside it
     #   Yurii / Tania on LinkedIn   the people section, next to the person
-    #   GitHub              the third button in the hero of index.html
-    #   Console             the top bar, after the jump button, tools/topbar.py
+    #   GitHub              the second button in the hero of index.html
+    #   Console             the top bar, tools/topbar.py owns it
+    #   the address         the "before you go" block, front page only
     #
-    # The last two are the reason for the rest. Left alone at the bottom of a
-    # page they read as leftovers rather than as choices, which is what @yurii
-    # saw. A footer is where a reader checks what else exists, not where the
-    # two things you most want them to do should be hiding.
+    # The address is the one to be deliberate about, because it did not move,
+    # it narrowed. It is now on the front page and nowhere else: a service page
+    # carries no way to write to us at all, and somebody who wants to has to
+    # get back to the front page first. That was measured and said out loud
+    # before it was done, and it is @yurii's call, made twice.
     #
-    # index.html has NO column here at all, on purpose, and its own footer says
-    # so. There the footer IS the contact section, footer#contact, so the
-    # address already appears in the "before you go" block inside the same
-    # footer. Nowhere else has that block, which makes this column the only way
-    # to write to us from a service page. If it ever goes too, check what those
-    # 27 pages would have left first.
+    # So if a later sweep finds a service page with nothing to contact us by,
+    # that is the decision rather than an oversight. Changing it means putting
+    # the column back here, and index.html would then need its own hand-kept
+    # copy left out, since the footer there IS the contact section already.
     #
     # This rationale lives here rather than in an HTML comment on purpose: the
     # first version of it shipped into all 28 pages, which put an explanation
@@ -184,9 +184,6 @@ def cols(root, here):
         <a class="brand" href="{root}index.html" style="margin-bottom:10px">{BRAND_SVG}IT<b>-</b>RAT</a>
       </div>
       {groups(root, here)}
-      <div>
-        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
-      </div>
     </div>"""
 
 
