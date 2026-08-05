@@ -1,41 +1,47 @@
 #!/usr/bin/env python3
-"""Put the console link in the top bar of every page, from one source of truth.
+"""Own the order of the top bar's controls, and the console link inside it.
 
-Why a script for one link. The top bar is hand-written in each of the 28 pages
-and always has been: unlike the footer it differs per page, because the index
-carries `Stack` and `Proof`, which are its own anchors, and the service pages
-carry a crumb instead. So there is nothing to generate wholesale. But a link
-that has to appear on all 28 and read the same on all 28 is exactly the thing
-that drifts when it is pasted 28 times, which is the lesson tools/footer.py
-already exists to hold. This owns one link and nothing else.
+Why a script for a hand-written bar. The bar genuinely differs per page: the
+index carries its own anchors, a guide page spells its links out ("All guides",
+"The stack"), a service page carries a crumb instead. There is nothing to
+generate wholesale. What there IS is a shape every page has to share, and a
+shape pasted into 28 files is a shape that drifts. This owns exactly two things
+and touches nothing else in the bar:
 
-It went into the top bar on 2026-08-05 (@yurii), moving out of the footer where
-it had ended up looking orphaned next to a lone GitHub link. It sits after the
-jump button on purpose: `jump` is for anybody, the console is for the reader
-who already has one.
+  1. the jump button is present, and last
+  2. the order: the tb-cta, then the content links, then Console, then jump
 
-console.html does not get a link to itself. Its crumb already reads
-`the stack / your console`, which is where you are rather than where to go.
+`Console` went in on 2026-08-05 (@yurii), moving out of the footer where it had
+started to read as a leftover. console.html gets no link to itself; its crumb
+already says where you are.
+
+**The jump button came out on 2026-08-05 and went back in the same day**, and
+the measurement is why: on 26 of the 28 pages it was the ONLY visible trigger
+for the palette. index.html carries a second one, "Jump anywhere", but that is
+one page. The keyboard opens the palette anywhere, with Cmd/Ctrl+K or `/`, so
+what removal cost was the tap target, and a phone has no keyboard. It stays,
+and the duplicate in the hero went instead (@yurii).
+
+**The tb-cta goes FIRST, and that reverses what site.css used to say about it**
+(@yurii, 2026-08-05). That rule read "it sits at the right edge, after the
+content links, because that is where every user has been taught to look", which
+is the pattern for an account entry. This one is "Live demo", which is not an
+account entry: it is the first thing worth doing on the site. The comment in
+site.css was rewritten rather than left to contradict the markup.
 
 Run from the repo root:  python3 tools/topbar.py
-Idempotent: it replaces the link if it is there and inserts it if it is not.
+Idempotent: it rewrites the block between the spacer and the end of the bar.
 """
 import pathlib
 import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+SPACER = '<span class="spacer"></span>'
+CONSOLE = '<a class="tb-link" href="{root}console.html">Console</a>'
 
-# The jump button, byte for byte, in every page. It is the anchor rather than a
-# marker comment because it is already there and already identical everywhere;
-# a marker would be one more thing to keep in step.
-JUMP = ('<button class="kbd-hint" data-cmdk type="button">'
-        '<span>jump</span><kbd>&#8984;K</kbd></button>')
-
-LINK = '<a class="tb-link" href="{root}console.html">Console</a>'
-
-# Same map footer.py uses: path -> root prefix. Kept here rather than imported
-# so neither file can quietly change the other's idea of the page list.
+# path -> root prefix. console.html is deliberately absent from the console
+# link but still needs its bar ordered, so it carries a None root instead.
 PAGES = {
     "index.html": "",
     "genaryx.html": "",
@@ -51,6 +57,7 @@ PAGES = {
     "what-runs-where.html": "",
     "first-alert.html": "",
     "what-is-proven.html": "",
+    "console.html": None,
     "404.html": "/",
     "services/engram.html": "../",
     "services/idryx.html": "../",
@@ -66,44 +73,55 @@ PAGES = {
     "services/wardryx.html": "../",
 }
 
+ELEMENT = re.compile(r'<(a|button)\b[^>]*>.*?</\1>', re.S)
+
+# Byte for byte what every page carries today. It is written out here so a page
+# that somehow lost the button gets it back rather than silently going without.
+JUMP = ('<button class="kbd-hint" data-cmdk type="button">'
+        '<span>jump</span><kbd>&#8984;K</kbd></button>')
+
 written = 0
-missing = []
 
 for path, root in PAGES.items():
     p = ROOT / path
     if not p.exists():
-        missing.append(path)
-        continue
+        sys.exit(f"{path}: in the page list and not on disk.")
     h = p.read_text(encoding="utf-8")
-    if JUMP not in h:
-        sys.exit(f"{path}: the jump button is not where this script expects it. "
-                 "It anchors on the button's exact markup, so either the button "
-                 "changed or this page never had one. Fix the anchor rather than "
-                 "letting the link land somewhere arbitrary.")
 
-    # Match from the jump button through the close of the bar, and rebuild the
-    # whole span. Matching only the button and appending after it looks simpler
-    # and is not: the first version did that, its `\s*` swallowed the newline
-    # before `</div>`, and 27 pages ended up with the tag glued to the link.
-    # Rewriting a span you have measured end to end cannot half-apply.
-    span = re.search(
-        re.escape(JUMP)
-        + r'(?:\s*<a class="tb-link" href="[^"]*console\.html">[^<]*</a>)?'
-        + r'\s*</div>',
-        h)
-    if not span:
-        sys.exit(f"{path}: found the jump button but not the close of the bar after it.")
-    want = JUMP + "\n    " + LINK.format(root=root) + "\n  </div>"
-    if span.group(0) == want:
+    start = h.find(SPACER)
+    if start < 0:
+        sys.exit(f"{path}: no spacer in the top bar, so there is no block to order. "
+                 "Fix the anchor rather than letting this write somewhere arbitrary.")
+    start += len(SPACER)
+    end = h.find("\n  </div>", start)
+    if end < 0:
+        sys.exit(f"{path}: found the spacer but not the end of the bar after it.")
+
+    block = h[start:end]
+    items = ELEMENT.findall(block)  # returns tags; take the full matches instead
+    items = [m.group(0) for m in ELEMENT.finditer(block)]
+    if not items:
+        sys.exit(f"{path}: the bar has no controls after the spacer, which cannot be right.")
+
+    # Everything with a fixed place comes out, so its position is rebuilt from
+    # this list rather than from wherever it happened to sit.
+    jump = [i for i in items if 'kbd-hint' in i]
+    cta = [i for i in items if 'tb-cta' in i]
+    items = [i for i in items
+             if 'kbd-hint' not in i and 'tb-cta' not in i and 'console.html' not in i]
+
+    ordered = cta + items
+    if root is not None:
+        ordered.append(CONSOLE.format(root=root))
+    ordered += (jump or [JUMP])
+    items = ordered
+
+    want = "".join("\n    " + i for i in items)
+    if block == want:
         continue
-    h = h[:span.start()] + want + h[span.end():]
-    p.write_text(h, encoding="utf-8")
+    p.write_text(h[:start] + want + h[end:], encoding="utf-8")
     print(f"{path:36} written")
     written += 1
 
-if missing:
-    sys.exit("pages in the list and not on disk: " + ", ".join(missing))
-
-# console.html is deliberately absent from PAGES. Say so every run rather than
-# leaving somebody to wonder whether it was forgotten.
-print(f"\n{written} file(s) updated. console.html has no link to itself, by design.")
+print(f"\n{written} file(s) updated. Order: cta, content links, Console, jump. "
+      "console.html has no link to itself.")

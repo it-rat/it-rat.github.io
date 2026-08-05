@@ -78,10 +78,15 @@ p{margin:0}
 .topbar .spacer{flex:1}
 .tb-link{font-size:13.5px;color:var(--dim);padding:7px 10px;border-radius:9px;transition:color .15s, background .15s}
 .tb-link:hover{color:var(--fg);background:rgba(255,255,255,.05)}
-/* Account entry, not another page to read. It sits at the right edge, after
-   the content links, because that is where every user has been taught to look
-   for their own account, and it carries a border so the eye separates "go to
-   my thing" from "read about the thing". */
+/* The one thing in the bar that is an action rather than a page to read, so it
+   carries a border and the eye separates "do this" from "read about this".
+   It sits FIRST, before the content links (@yurii, 2026-08-05).
+   This comment used to say the opposite, that it belonged at the right edge
+   "because that is where every user has been taught to look for their own
+   account". That is the right rule for an account entry and this is not one:
+   on every page it is "Live demo" or "The stack", which is the first thing
+   worth doing here rather than the last. The rule was inherited from a pattern
+   this control never belonged to. */
 .tb-cta{border:1px solid var(--line-2);color:var(--fg)}
 .tb-cta:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2));background:rgba(255,255,255,.04)}
 .kbd-hint{
