@@ -152,27 +152,56 @@ def groups(root, here):
 
 
 def cols(root, here):
+    # The last column is three links. Four more were removed on 2026-08-05 by
+    # @yurii, and each of them was reachable somewhere better:
+    #
+    #   Guides              a button in the top bar, on every page
+    #   The people          a section of the front page, one scroll down
+    #   Leave a note        the same action as the address beside it
+    #   Yurii / Tania on LinkedIn   in the people section, next to the person
+    #
+    # A footer link that repeats the top bar earns nothing and spends a
+    # reader's attention, twenty-eight pages over.
+    #
+    # The console link went with them and came back the same day, @yurii:
+    # "щоб не було якихось непорозумінь". It reads `Console`, one word, to
+    # match the two beside it: this column is three nouns, not a sentence and
+    # two nouns. It said `Go to your console` until 2026-08-05.
+    #
+    # It is deliberately absent from the top bar, because it addresses somebody
+    # who already runs a console of their own over their own tunnel, a
+    # returning operator rather than a visitor, and the primary slot belongs to
+    # what a stranger should do first. The footer is the only place that link
+    # exists anywhere on the site, which is exactly why removing it was the one
+    # item on that list with a cost.
+    #
+    # This rationale lives here rather than in an HTML comment on purpose: the
+    # first version of it shipped into all 28 pages, which put an explanation
+    # of our own housekeeping in front of every visitor and made a grep for
+    # leftover links match its own footnote.
     return f"""    <div class="cols">
       <div>
         <a class="brand" href="{root}index.html" style="margin-bottom:10px">{BRAND_SVG}IT<b>-</b>RAT</a>
       </div>
       {groups(root, here)}
       <div>
-        <a href="{root}guides.html">Guides</a>
-        <a href="{root}index.html#people">The people</a>
-        <a href="{root}index.html#contact">Leave a note</a>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
         <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
-        <!-- Not in the top bar: it is addressed to someone who already runs a
-             console of their own, over their own tunnel, which is a returning
-             operator rather than a visitor. The primary slot belongs to the
-             action a stranger should take. -->
-        <a href="{root}console.html">Go to your console</a>
+        <a href="{root}console.html">Console</a>
       </div>
     </div>"""
 
 
 def footer(path, root, tail, here):
+    # NOTE on console.html, 2026-08-05. The footer link to it is the ONLY
+    # inbound link it has anywhere: it is not in the top bar, not in the STACK
+    # registry, so not on the rail, the walk or the palette, not in the sitemap,
+    # and it carries noindex. It was removed with the rest of the column that
+    # day and restored within the hour once that was measured and said out loud.
+    # Take it out again and the page is reachable by typing the address and by
+    # nothing else, which is also how it stops being noticed and gets deleted as
+    # dead in some later sweep. It is not dead.
+    #
     # Only the service pages carry a licence tag; everywhere else the line
     # ends at the flag. An empty tail means exactly that, separator included.
     #
