@@ -87,7 +87,7 @@
       <div class="hero-side rv d2">
         <div class="row"><span class="k">passport schema</span><span class="v">v0.1 &#183; stable</span></div>
         <div class="row"><span class="k">event envelope</span><span class="v">v0.1 + v0.2 &#183; NDJSON</span></div>
-        <div class="row"><span class="k">Go binding</span><span class="v">agent-stack-go v0.4.0</span></div>
+        <div class="row"><span class="k">Go binding</span><span class="v">agent-stack-go v0.5.0</span></div>
         <div class="row"><span class="k">conformance</span><span class="v">agent-conform CLI &#183; exit 0/1</span></div>
         <div class="row"><span class="k">as code</span><span class="v" style="font-size:11px;text-align:right">taipan_budget &#183; taipan_agent_passport &#183; taipan_wardryx_policy</span></div>
         <div class="row"><span class="k">licence</span><span class="v">Apache-2.0</span></div>
@@ -219,7 +219,7 @@
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>The passport</h3><p>One agent, one URI: agent://trust-domain/path, at most 255 bytes, aligned with SPIFFE without requiring it. The document behind the ID names an owner, a runtime and one of five attestation methods. The delegation chain is ordered root first, acyclic, and capped at 32 entries.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>The envelope</h3><p>Five required fields: schema, ts, source, type, agent_id. Two versions coexist by design: v0.1 with a closed source enum, v0.2 with an open string. Event types live in a per-source registry, so tokenfuse can add a type without asking engram.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go v0.4.0 ships passport.Parse, an append-only event.Writer and chain.Validate, stdlib only at runtime. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go v0.5.0 ships passport.Parse, an append-only event.Writer and chain.Validate, stdlib only at runtime. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
       <div class="card hover feature b-4 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped. Exit 0 or exit 1; it has already caught a real 63-versus-64 hex character prev_hash defect.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Governance as code</h3><p>Three Terraform resources: taipan_budget, taipan_agent_passport, taipan_wardryx_policy. Budgets and policies get PRs, plans and diffs like everything else, and edits made out of band surface on the next plan. Where the API has no delete, the provider says so instead of pretending.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is published on the Terraform Registry as <span class="mono">TAIPANBOX/taipan</span>: a normal <span class="mono">required_providers</span> block and <span class="mono">terraform init</span> pull it, GPG-verified, no build-from-source needed. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
@@ -373,8 +373,8 @@
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v0.4.0</span></div>
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go install github.com/TAIPANBOX/agent-stack-go/cmd/<b>agent-conform</b>@v0.4.0</span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v0.5.0</span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go install github.com/TAIPANBOX/agent-stack-go/cmd/<b>agent-conform</b>@v0.5.0</span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>agent-conform</b> passport.json events.ndjson</span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">This installs nothing of the stack: it is the contract itself, for an agent of your own. Exit 0 means every file and every NDJSON line conforms; exit 1 means at least one did not. That is the whole interface.</p>
         </div>

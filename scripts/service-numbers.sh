@@ -63,6 +63,36 @@ FIGURE = re.compile(
     r"[0-9][0-9,]*\s*(?:tests|crates|detectors|entries|documented|gotchas|scenarios|checks|invariants)"
 )
 
+# A version is a figure too, and on 2026-08-05 it was the one nobody owned.
+# Four were stale on the live site at once: idryx and qryx said v0.2.0 against
+# v0.3.0, engram said v2.2.1 against v2.4.1 (six days), and the platform page
+# said agent-stack-go v0.4.0 in FOUR places, two of them inside install
+# commands, because a tag had been cut in that repository an hour earlier. The
+# check printed "no page states a number nobody owns" through all of it, since
+# a version matches none of the nouns above.
+VERSION = re.compile(r"\bv\d+\.\d+\.\d+\b")
+
+
+def outside_scripts(text):
+    """Page copy with <script> blocks removed.
+
+    The two sweeps below deliberately read DIFFERENT text, and the difference
+    was measured rather than assumed.
+
+    A count is a state claim wherever it appears, including inside a script:
+    trailryx states `1,064 tests` in one, and stripping scripts for FIGURE
+    would silently stop owning it. Measured: that is the only figure affected,
+    and losing it is not acceptable.
+
+    A version is not. heraldyx carries `v0.2.3` in a script comment explaining
+    when its path escaping changed, which is history and is true forever.
+    Sweeping it would report a page as stating an unowned number, and a check
+    that fires on correct copy is one everybody learns to skip. Measured:
+    removing scripts drops exactly that one case and leaves seven real claims,
+    one per page.
+    """
+    return re.sub(r"<script\b.*?</script>", " ", text, flags=re.S | re.I)
+
 for e in entries:
     page = pathlib.Path(e["page"])
     claim = e["claim"]
@@ -103,12 +133,14 @@ for e in entries:
 # exists for, so it is found rather than assumed away.
 managed = {(e["page"], e["claim"]) for e in entries}
 for page in sorted(pathlib.Path("services").glob("*.html")):
-    text = page.read_text()
-    for m in set(FIGURE.findall(text.replace("&#183;", "·"))):
-        if any(m in c for p, c in managed if p == str(page)):
-            continue
-        print(f"FAIL: {page} states {m!r} and nothing in numbers.json owns it")
-        problems += 1
+    text = page.read_text().replace("&#183;", "·")
+    sweeps = ((FIGURE, text), (VERSION, outside_scripts(text)))
+    for pattern, subject in sweeps:
+        for m in set(pattern.findall(subject)):
+            if any(m in c for p, c in managed if p == str(page)):
+                continue
+            print(f"FAIL: {page} states {m!r} and nothing in numbers.json owns it")
+            problems += 1
 
 if unverified:
     print()
