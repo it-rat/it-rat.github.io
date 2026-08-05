@@ -430,6 +430,18 @@ p{margin:0}
 .footer .cols{display:flex;gap:34px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
 .footer .cols a{color:var(--dim);font-size:13.5px;display:block;padding:3px 0}
 .footer .cols a:hover{color:var(--fg)}
+/* The first column is the mark alone since the licence line was removed from
+   under it on 2026-08-05. That line carried max-width:34ch, and it was what
+   gave this flex item its width. Without it the column shrank to its minimum
+   content width, 46px, and the mark broke in two: the glyph on one line and
+   IT-RAT under it.
+   The fix is not nowrap. `.footer .cols a{display:block}` above overrides
+   `.brand{display:flex}`, so the glyph and the word were two block-level
+   pieces stacking rather than one line wrapping, and nowrap has nothing to
+   say about that. Restore the flex the mark is built as, and let the column
+   size to it. */
+.footer .cols>div:first-child{flex:0 0 auto}
+.footer .cols .brand{display:flex;align-items:center;gap:10px}
 /* ---------- footer: the stack as chips, not a column ---------- */
 /* Nine links stacked in one tall column read as a list to skim past. The same
    nine as chips read as a set you can take in at a glance, and grouping them

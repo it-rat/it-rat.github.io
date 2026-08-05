@@ -155,7 +155,6 @@ def cols(root, here):
     return f"""    <div class="cols">
       <div>
         <a class="brand" href="{root}index.html" style="margin-bottom:10px">{BRAND_SVG}IT<b>-</b>RAT</a>
-        <div class="foot-note" style="margin-top:8px;max-width:34ch">The agent-governance stack, Apache-2.0.</div>
       </div>
       {groups(root, here)}
       <div>
@@ -176,6 +175,21 @@ def cols(root, here):
 def footer(path, root, tail, here):
     # Only the service pages carry a licence tag; everywhere else the line
     # ends at the flag. An empty tail means exactly that, separator included.
+    #
+    # This tail is now the ONLY licence the footer states. A second line used to
+    # sit under the brand on every page reading "The agent-governance stack,
+    # Apache-2.0.", and it was removed on 2026-08-05 for two reasons.
+    #
+    # It was a duplicate on the thirteen pages that carry a tail, which are
+    # exactly the pages whose own body already explains their licence.
+    #
+    # And on one page it was simply wrong. services/sphere.html is MIT, so its
+    # footer stated two different licences, one above the other. A line printed
+    # unconditionally cannot be right about a page it does not read.
+    #
+    # The fourteen pages with no tail now state no licence, which is correct:
+    # a glossary and a guide are not products and have nothing to license. The
+    # products say it on their own pages, where a reader is deciding.
     suffix = f' &#183; {tail}' if tail else ''
     return (f'<footer class="footer">\n  <div class="wrap">\n<!-- footer:auto -->\n'
             f'{cols(root, here)}\n<!-- /footer:auto -->\n'
