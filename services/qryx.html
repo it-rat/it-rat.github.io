@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="alternate" type="text/markdown" href="https://it-rat.com/services/qryx.md">
-<link rel="stylesheet" href="../assets/site.css?v=e13">
+<link rel="stylesheet" href="../assets/site.css?v=e14">
 <style>
   :root{--accent:#B48CFF}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="hero-side rv d2">
-        <div class="row"><span class="k">release</span><span class="v">v0.3.0 &#183; prebuilt binaries</span></div>
+        <div class="row"><span class="k">release</span><span class="v">v0.3.1 &#183; prebuilt binaries</span></div>
         <div class="row"><span class="k">core</span><span class="v">Go 1.27 &#183; ML-DSA (FIPS 204)</span></div>
         <div class="row"><span class="k">scans</span><span class="v">binaries &#183; containers &#183; TLS &#183; cloud KMS &#183; source &#183; certs</span></div>
         <div class="row"><span class="k">output</span><span class="v">CBOM &#183; NCSC report &#183; signed evidence</span></div>
@@ -267,7 +267,10 @@
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>scan</b> .</span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>tls</b> api.anthropic.com:443</span></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">Grab a v0.3.0 binary from the <a href="https://github.com/TAIPANBOX/qryx/releases" style="color:var(--dim);text-decoration:underline">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source: the ML-DSA toolchain downloads itself on the first build, Go 1.27.</p>
+          <p class="dim" style="font-size:13px;line-height:1.6">Grab a v0.3.1 binary from the <a href="https://github.com/TAIPANBOX/qryx/releases" style="color:var(--dim);text-decoration:underline">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source: the ML-DSA toolchain downloads itself on the first build, Go 1.27.</p>
+          <div class="kicker" style="margin-top:20px">download, any platform</div>
+          <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">qryx version</span> reads it back.</p>
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="alternate" type="text/markdown" href="https://it-rat.com/services/mockryx.md">
-<link rel="stylesheet" href="../assets/site.css?v=e13">
+<link rel="stylesheet" href="../assets/site.css?v=e14">
 <style>
   :root{--accent:#FF8A5B}
   .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
@@ -248,6 +248,9 @@
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx run</b> --gateway http://127.0.0.1:8080 ./scenarios</span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx report</b> out/report.json</span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">Add <span class="mono" style="font-size:12px">--save out/report.json</span> to keep the evidence. Point it at pre-prod, never at prod: the URL you pass is the only place it will ever send traffic.</p>
+          <div class="kicker" style="margin-top:20px">download, any platform</div>
+          <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">mockryx version</span> reads it back.</p>
         </div>
       </div>
     </div>

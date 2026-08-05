@@ -823,3 +823,15 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
   color:var(--amber);border:1px solid color-mix(in srgb, var(--amber) 34%, transparent);
   border-radius:999px;padding:2px 8px;white-space:nowrap;flex:0 0 auto;
 }
+
+/* ---------- per-platform downloads ---------- */
+/* Pills that are links. Each one points at
+   releases/latest/download/<name>, an address that never changes because the
+   release assets carry no version in their names. A link saved from this page
+   still serves the newest build after the next release, which is the whole
+   reason the naming was changed in the four repositories behind it. */
+.dl-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+a.pill{color:var(--dim);text-decoration:none;
+  transition:border-color .16s, color .16s, transform .16s cubic-bezier(.2,.7,.2,1.2)}
+a.pill:hover{border-color:var(--accent);color:var(--fg);transform:translateY(-1px)}
+a.pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
