@@ -80,8 +80,15 @@
         <h1 class="rv d1"><span class="nm">The contract</span>. The boring layer that makes seven services one system.</h1>
         <p class="lede rv d2">Under the seven services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
         <div class="cta-row rv d3">
-          <a class="btn primary" href="#sim">Watch one envelope cross the stack <span class="mono">&#9654;</span></a>
-          <a class="btn" href="#run">Run the live stack locally</a>
+          <!-- No "watch the simulation" button here, unlike every other service
+               page, and the reason is this page's own layout: #sim is the first
+               section under this row, so the button scrolled the reader a
+               screen down to something already in front of them. Removed
+               2026-08-05 (@yurii). Nothing else links to #sim and nothing needs
+               to; it is the next thing on the page.
+               "Run the live stack locally" takes the primary style it left
+               behind, so the row still has one action that stands out. -->
+          <a class="btn primary" href="#run">Run the live stack locally</a>
           <a class="btn" href="https://github.com/TAIPANBOX/agent-passport" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
