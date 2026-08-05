@@ -163,6 +163,14 @@ def cols(root, here):
     # A footer link that repeats the top bar earns nothing and spends a
     # reader's attention, twenty-eight pages over.
     #
+    # index.html is one link shorter than this, on purpose, and its own footer
+    # says so. There the footer IS the contact section, footer#contact, so the
+    # address already appears in the "before you go" block inside the same
+    # footer and printing it twice was visible. Nowhere else has that block,
+    # which makes this column the only way to write to us from a service page,
+    # so it stays here. If this column ever loses the address too, check that
+    # something else on those 27 pages carries it first.
+    #
     # The console link went with them and came back the same day, @yurii:
     # "щоб не було якихось непорозумінь". It reads `Console`, one word, to
     # match the two beside it: this column is three nouns, not a sentence and

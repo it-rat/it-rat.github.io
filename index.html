@@ -445,9 +445,15 @@
           </div>
         </div>
       </div>
-      <!-- Hand-kept in step with tools/footer.py: only foot-groups is generated here. -->
+      <!-- Hand-kept: only foot-groups is generated here, by tools/footer.py.
+           This column is DELIBERATELY one link shorter than the generated one.
+           On this page the footer IS the contact section (footer#contact), so
+           the address already sits in the "before you go" block a few hundred
+           pixels above, and printing it twice inside one footer is what it
+           looked like. Everywhere else that block does not exist and the
+           column is the only way to write to us, which is why the generator
+           still emits it. Do not "sync" this back. -->
       <div>
-        <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
         <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
         <a href="console.html">Console</a>
       </div>
