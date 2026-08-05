@@ -250,9 +250,13 @@
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">idryx detect <b>events.ndjson</b></span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">idryx serve <b>events.ndjson</b></span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">Download a <a href="https://github.com/TAIPANBOX/idryx/releases" target="_blank" rel="noopener" style="color:var(--accent)">the latest release binary</a> (SHA256SUMS ships next to it), run detect against a log, then serve for the read-only dashboard on <span class="mono" style="font-size:12px">:8080</span>.</p>
-          <div class="kicker" style="margin-top:20px">download, any platform</div>
-          <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">idryx version</span> reads it back.</p>
+          <details class="sheet" data-sheet-kicker="download" data-sheet-title="idryx, every platform">
+            <summary>Download, any platform</summary>
+            <div class="sheet-in">
+              <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/idryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/idryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
+              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">idryx version</span> reads it back.</p>
+            </div>
+          </details>
         </div>
       </div>
     </div>
