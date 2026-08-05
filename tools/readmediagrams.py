@@ -41,9 +41,22 @@ ROOMS = {
     "engram":    ("services/engram.html", "#6C7BFF",
                   "Engram: agent memory in one SQLite file, recalled with provenance"),
     "platform":  ("services/platform.html", "#93A8C4",
-                  "Platform: seven emitters, one agent-event envelope, three consumers"),
+                  "Platform: seven emitters, one agent-event envelope, four consumers"),
     "genaryx":   ("genaryx.html", "#B48CFF",
                   "Genaryx: one browser control room over the stack, reached only over the tunnel"),
+}
+
+# Rooms whose README diagram is drawn by hand, and the reason for each. This
+# tool lifts a page's schematic, and for these the page and the README answer
+# different questions, so lifting would replace an architecture diagram with a
+# flow one and lose exactly what the README needs.
+HAND_DRAWN = {
+    "heraldyx": "the page draws the four checks one event passes; the README draws "
+                "the census of which planes write the log and which read it",
+    "trailryx": "the page draws a predicate becoming an authenticated index range; "
+                "the README draws the transports, the plane boundary and the chain",
+    "pocket":   "no repository carries a diagram for it, and the room is marked "
+                "not wired in yet",
 }
 
 
@@ -116,7 +129,45 @@ def build(room, page, accent, title):
     )
 
 
+def registry():
+    """The room ids in STACK, which is the site's own list of what exists."""
+    js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
+    block = re.search(r"STACK\s*=\s*\[(.*?)\n\]", js, re.S)
+    if not block:
+        raise SystemExit("assets/site.js: no STACK array found, so nothing can be checked against it")
+    ids = re.findall(r'id\s*:\s*"([^"]+)"', block.group(1))
+    if not ids:
+        raise SystemExit("assets/site.js: STACK carries no id fields, so no room can be named")
+    return set(ids)
+
+
+def account_for_every_room():
+    """Every room is generated or named as hand-drawn, in both directions.
+
+    The header of this file used to say a room that leaves the site leaves the
+    images with it, and that was only ever half true: ROOMS is a hand-kept dict,
+    so a room ARRIVING was silently absent instead. Heraldyx and Trailryx were
+    absent that way for a week, and nothing said so, because a dict that is
+    never compared to anything cannot be short.
+    """
+    rooms, hand = set(ROOMS), set(HAND_DRAWN)
+    both = rooms & hand
+    if both:
+        raise SystemExit(f"generated AND listed as hand-drawn, so one is a lie: {', '.join(sorted(both))}")
+    missing = registry() - rooms - hand
+    if missing:
+        raise SystemExit(
+            f"in STACK, neither generated nor excluded: {', '.join(sorted(missing))}. "
+            "Add each to ROOMS, or to HAND_DRAWN with the reason its README diagram "
+            "is not the one on its page."
+        )
+    stale = rooms - registry()
+    if stale:
+        raise SystemExit(f"generated but no longer in STACK: {', '.join(sorted(stale))}")
+
+
 def main():
+    account_for_every_room()
     OUT.mkdir(parents=True, exist_ok=True)
     for room, (page, accent, title) in ROOMS.items():
         out = OUT / f"{room}.svg"
