@@ -100,66 +100,21 @@
       "note": "Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson."
     },
     {
-      "page": "services/engram.html",
-      "claim": "v2.4.1",
-      "occurrences": 1,
-      "status": "measured",
-      "repo": "Engram",
-      "command": "gh release view -R TAIPANBOX/Engram --json tagName --jq .tagName; and curl -s https://pypi.org/pypi/engdbram/json | python3 -c \"import sys,json;print(json.load(sys.stdin)['info']['version'])\", because this chip names both and they can drift apart",
-      "measured_on": "2026-08-05"
-    },
-    {
       "page": "services/heraldyx.html",
       "claim": "v0.2.2",
-      "occurrences": 2,
+      "occurrences": 1,
       "status": "measured",
       "repo": "TAIPANBOX/heraldyx",
-      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; heraldyx publishes a tag and a GHCR image and no GitHub release, so the tag is the shipped thing and `gh release view` would wrongly report nothing",
-      "measured_on": "2026-08-05"
-    },
-    {
-      "page": "services/idryx.html",
-      "claim": "v0.3.1",
-      "occurrences": 2,
-      "status": "measured",
-      "repo": "TAIPANBOX/idryx",
-      "command": "gh release view -R TAIPANBOX/idryx --json tagName --jq .tagName",
-      "measured_on": "2026-08-05"
-    },
-    {
-      "page": "services/qryx.html",
-      "claim": "v0.3.1",
-      "occurrences": 2,
-      "status": "measured",
-      "repo": "TAIPANBOX/qryx",
-      "command": "gh release view -R TAIPANBOX/qryx --json tagName --jq .tagName",
-      "measured_on": "2026-08-05"
-    },
-    {
-      "page": "services/tokenfuse.html",
-      "claim": "v0.4.0",
-      "occurrences": 1,
-      "status": "measured",
-      "repo": "TAIPANBOX/tokenfuse",
-      "command": "gh release view -R TAIPANBOX/tokenfuse --json tagName --jq .tagName",
-      "measured_on": "2026-08-05"
-    },
-    {
-      "page": "services/trailryx.html",
-      "claim": "v0.1.1",
-      "occurrences": 1,
-      "status": "measured",
-      "repo": "TAIPANBOX/trailryx",
-      "command": "gh release view -R TAIPANBOX/trailryx --json tagName --jq .tagName",
+      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; heraldyx publishes a tag and a GHCR image and no GitHub release, so the tag is the shipped thing and `gh release view` would wrongly report nothing; the page states it once, in `shipped v0.2.2, pinned in the deploy`, where the version IS the claim: it says what the stack-k8s manifests pin, so `latest` would make it false",
       "measured_on": "2026-08-05"
     },
     {
       "page": "services/platform.html",
       "claim": "v0.5.1",
-      "occurrences": 4,
+      "occurrences": 1,
       "status": "measured",
       "repo": "TAIPANBOX/agent-stack-go",
-      "command": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName; this page states it four times, twice inside install commands, so a tag cut in that repository makes four claims wrong here at once",
+      "command": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName; this page states it four times, twice inside install commands, so a tag cut in that repository makes four claims wrong here at once; down to one occurrence, the `go get` line, which stays pinned because agent-stack-go's own README forbids @latest for the library. `go install` of the agent-conform COMMAND is now @latest, since nothing lands in a consumer's go.mod",
       "measured_on": "2026-08-05"
     }
   ]
