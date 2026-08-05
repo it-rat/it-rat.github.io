@@ -47,8 +47,11 @@ true.
    with its repository, the command that produces it and the date somebody last
    ran that command, and a page edited without the manifest fails. Figures
    nobody has reproduced are ALLOWED and reported every run, because refusing
-   them would only teach people to leave numbers off the page. Two of seven are
-   reproduced today; the other five are printed by name on every publish.)*
+   them would only teach people to leave numbers off the page. **All seven are
+   reproduced as of 2026-08-05**, which took a venv, one `git clone` and reading
+   two type signatures, and found four of the seven wrong: trailryx by 33,
+   tokenfuse by 196, engram by 42 and verdryx by 75. Nothing keeps them true;
+   the manifest keeps them dated.)*
 4. **A refresh updates numbers. Only a sweep updates status sentences.** The
    sentence "we are building X" outlives the number beside it by months. When
    the numbers change, read the sentences too. *(not enforced)*

@@ -1,19 +1,22 @@
 {
   "_why": [
     "Invariant 3 of CLAUDE.md says a number on this site is a claim with an owner, and until",
-    "2026-08-04 it carried `(not enforced)` beside it. On that day two numbers on the trailryx",
-    "page were found stale by a week (1,031 tests where the repository ran 1,064), and one on the",
-    "tokenfuse page was stale by 196 (513 where the workspace runs 709). Neither was wrong when",
-    "written. That is the whole problem: a figure on a marketing page has no owner and no clock.",
+    "2026-08-04 it carried `(not enforced)` beside it. Checking every figure took a venv, one",
+    "git clone and reading two type signatures, and FOUR OF SEVEN WERE WRONG: trailryx said",
+    "1,031 tests where the repository ran 1,064, tokenfuse said 513 where it runs 709, engram",
+    "said 424 where it collects 466, verdryx said 217 where it collects 292. None was wrong the",
+    "day it was written. That is the whole problem: a figure on a marketing page has no owner",
+    "and no clock, and the person it misleads is a stranger who cannot check it.",
     "",
-    "This file gives every one of them both. `scripts/service-numbers.sh` refuses a push whose",
-    "pages disagree with what is written here, and reports loudly on entries nobody has ever",
-    "reproduced or has not reproduced recently.",
+    "This file gives every one of them both. `scripts/service-numbers.sh` refuses a publish whose",
+    "pages disagree with what is written here, and refuses a page that states a figure nothing",
+    "here owns.",
     "",
     "It CANNOT check that a recorded value is still true: this repository has no access to the",
-    "other repositories' test suites. What it makes impossible is the silent case, a number",
-    "changed on a page with nothing recording where it came from. `status` says which of those",
-    "two situations each entry is in, and lying in it is the only way to defeat this."
+    "others' test suites, and a network call in a publish gate trades silent staleness for a",
+    "flaky deploy. What it makes impossible is the silent case. What keeps the values true is",
+    "somebody running the commands below and writing the date back, and `measured_on` is what",
+    "says how long since anybody did."
   ],
   "entries": [
     {
@@ -41,50 +44,50 @@
       "claim": "22 detectors",
       "occurrences": 5,
       "repo": "TAIPANBOX/idryx",
-      "command": null,
-      "status": "agrees-with-the-repo-but-nothing-counts-it",
-      "measured_on": null,
-      "note": "The repository's own README says 22 in two places and its VALIDATION reports three of twenty-two firing under load, so the site and the source agree. No command reproduces the figure: the detectors are not enumerable by a grep that would still be right next month. Recorded as agreement rather than as measurement, because those are different things and only one of them survives a refactor."
+      "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Correct, and now counted rather than merely agreed with. Every detector implements Name(); there are 22 distinct ones, from agent_shadow_tool to unmanaged_egress. The earlier entry here said no command could reproduce this, which was true of the greps tried at the time and not of the type system: the interface is the enumeration."
     },
     {
       "page": "services/engram.html",
-      "claim": "424 tests",
+      "claim": "466 tests",
       "occurrences": 1,
       "repo": "Engram",
-      "command": "python3 -m pytest --collect-only -q",
-      "status": "unverified",
-      "measured_on": null,
-      "note": "pytest is not installed on the machine this was written on, so the number has never been reproduced here. Counting `def test_` gives about 457, which is indicative and not authoritative: parametrised tests multiply and some files are not collected. Not written into the page on the strength of a grep."
+      "command": "python3 -m pytest --collect-only -q, in a venv with jsonschema, numpy, rfc8785, sqlite-vec and pytest-asyncio",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Was 424 on the page and collects 466. One file, tests/test_encryption.py, is SKIPPED for want of sqlcipher3, which has no wheel for Python 3.14, so the true figure on a machine that has it is higher than this. Recorded as the number this command reproduces, with the condition named, rather than as an estimate of the number it would reach elsewhere."
     },
     {
       "page": "services/verdryx.html",
-      "claim": "217 tests",
+      "claim": "292 tests",
       "occurrences": 2,
       "repo": "verdryx",
       "command": "python3 -m pytest --collect-only -q",
-      "status": "unverified",
-      "measured_on": null,
-      "note": "Same as engram. A grep counts about 276, which is far enough from 217 to be worth a real run rather than a correction made from a guess."
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Was 217 on the page and collects 292, with no errors and nothing skipped."
     },
     {
       "page": "services/sphere.html",
       "claim": "588 tests",
       "occurrences": 3,
       "repo": "sphere-ios",
-      "command": "xcodebuild test, count from the result bundle",
-      "status": "unverified",
-      "measured_on": null,
-      "note": "The repository is not checked out on this machine, so nothing here has ever seen this figure."
+      "command": "grep -rhcE '^\\s*@Test' --include='*.swift' . | awk '{s+=$1} END {print s+0}'",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Correct. The repository was cloned to check it: 588 swift-testing @Test macros, which is also what its own README badge says and what its CI gates. The one figure on this site that was already right and had simply never been verified from here."
     },
     {
       "page": "services/platform.html",
       "claim": "32 entries",
       "occurrences": 3,
-      "repo": null,
-      "command": null,
-      "status": "unverified",
-      "measured_on": null,
-      "note": "Entries of what, and counted by whom, is not recorded anywhere this file can reach. The first job of a gate is to make that visible rather than to guess."
+      "repo": "TAIPANBOX/agent-stack-go",
+      "command": "grep -n 'MaxDepth = ' chain/chain.go",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite."
     }
   ]
 }
