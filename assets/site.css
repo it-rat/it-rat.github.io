@@ -133,6 +133,38 @@ p{margin:0}
    the whole of its job. */
 .crumb{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
 
+/* The row gained a sixth control on 2026-08-05, `Console`, and it costs 65px
+   at phone sizes. Measured on a service page at a 390px viewport: items 335px
+   plus 40px of gaps is 375, against 354 available inside the bar's padding, so
+   the row ran 21px past its container. Nothing showed up as page-level
+   horizontal scroll, which is the same way the 2026-08-03 pass nearly missed
+   the earlier version of this.
+   The shrinking half of the 380px rule below therefore starts earlier, at
+   480px, and that number is measured rather than rounded: free space in the
+   bar is 0px at a 431px window and 35px at 480px, so the row is an
+   arithmetic problem all the way up to about 460 and only stops being one
+   above that. Setting it at 430 would have left the tight zone in place and
+   merely moved it. The
+   DROPPING half, the jump palette, deliberately does not move: that was a
+   reluctant trade the first time and one more item on the bar is not a reason
+   to take the palette away from a wider band of phones. */
+@media(max-width:480px){
+  .topbar .wrap{padding:0 10px;gap:9px}
+  .tb-link{padding:7px 6px}
+  /* And the wordmark goes, leaving the glyph. Shaving padding and gaps alone
+     was measured and was NOT enough: at 383px, one pixel above the rule below,
+     the row still ran 3px over. Chasing the last three would have put this
+     back where the 380px comment says it does not want to be, a few pixels
+     from the limit until somebody changes a label.
+     The wordmark is the one thing here that is redundant rather than merely
+     small: it sits beside its own glyph, which is already the logo, already
+     links home, and is what a phone user recognises anyway. It frees 55px,
+     which is the difference between an arithmetic problem and a row with room
+     in it. font-size:0 rather than hiding a node, because "IT" and "RAT" are
+     bare text nodes in that anchor with only the hyphen wrapped. */
+  .topbar .brand{font-size:0;gap:0}
+  .topbar .brand .glyph{width:22px;height:22px}
+}
 @media(max-width:380px){
   .topbar .wrap{padding:0 12px;gap:9px}
   .tb-link{padding:7px 6px}

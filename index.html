@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="alternate" type="text/markdown" href="https://it-rat.com/index.md">
-<link rel="stylesheet" href="assets/site.css?v=e15">
+<link rel="stylesheet" href="assets/site.css?v=e17">
 <style>
   :root{--accent:#F4B23E}
   /* ---- the proof grid ----
@@ -100,10 +100,10 @@
     <span class="crumb">agent governance<span class="sep">/</span><span class="here">the stack</span></span>
     <span class="spacer"></span>
     <a class="tb-link" href="guides.html">Guides</a>
-    <a class="tb-link tb-opt" href="#stack">Stack</a>
     <a class="tb-link tb-opt" href="#proof">Proof</a>
     <a class="tb-link tb-cta" href="demo/">Live demo</a>
     <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+    <a class="tb-link" href="console.html">Console</a>
   </div>
 </header>
 
@@ -117,6 +117,11 @@
     <div class="cta rv d3">
       <a class="btn primary" href="genaryx.html" data-dir="fwd">Enter the stack <span class="mono">&#8594;</span></a>
       <button class="btn" data-cmdk type="button">Jump anywhere <span class="mono">&#8984;K</span></button>
+      <!-- Third, and last, because it leaves the site. The two before it are
+           what a stranger should do here; this one is for the reader who has
+           decided to go and read the code, which is the strongest thing an
+           open stack has to offer and the weakest opening move. -->
+      <a class="btn" href="https://github.com/TAIPANBOX" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub <span class="mono">&#8599;</span></a>
     </div>
     <div class="ticker rv d3">
       <div class="tick"><div class="n" style="color:var(--amber)"><span data-count="176">176</span></div><div class="l">real Claude calls in one governed validation campaign</div></div>
@@ -446,17 +451,13 @@
         </div>
       </div>
       <!-- Hand-kept: only foot-groups is generated here, by tools/footer.py.
-           This column is DELIBERATELY one link shorter than the generated one.
-           On this page the footer IS the contact section (footer#contact), so
-           the address already sits in the "before you go" block a few hundred
-           pixels above, and printing it twice inside one footer is what it
-           looked like. Everywhere else that block does not exist and the
-           column is the only way to write to us, which is why the generator
-           still emits it. Do not "sync" this back. -->
-      <div>
-        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
-        <a href="console.html">Console</a>
-      </div>
+           This page has NO link column at all, where the other 27 have one
+           holding the address. Here the footer IS the contact section
+           (footer#contact), so the address already sits in the "before you go"
+           block a few hundred pixels above and printing it twice inside one
+           footer was what it looked like. Everywhere else that block does not
+           exist and the column is the only way to write to us, which is why
+           the generator still emits it there. Do not "sync" this back. -->
     </div>
     <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
   </div>

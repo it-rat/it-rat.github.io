@@ -152,36 +152,28 @@ def groups(root, here):
 
 
 def cols(root, here):
-    # The last column is three links. Four more were removed on 2026-08-05 by
-    # @yurii, and each of them was reachable somewhere better:
+    # The last column is one link: the address. Everything else that stood here
+    # left on 2026-08-05 (@yurii), and none of it was deleted, it moved to
+    # where somebody would actually look for it:
     #
-    #   Guides              a button in the top bar, on every page
+    #   Guides              already a button in the top bar, on every page
     #   The people          a section of the front page, one scroll down
     #   Leave a note        the same action as the address beside it
-    #   Yurii / Tania on LinkedIn   in the people section, next to the person
+    #   Yurii / Tania on LinkedIn   the people section, next to the person
+    #   GitHub              the third button in the hero of index.html
+    #   Console             the top bar, after the jump button, tools/topbar.py
     #
-    # A footer link that repeats the top bar earns nothing and spends a
-    # reader's attention, twenty-eight pages over.
+    # The last two are the reason for the rest. Left alone at the bottom of a
+    # page they read as leftovers rather than as choices, which is what @yurii
+    # saw. A footer is where a reader checks what else exists, not where the
+    # two things you most want them to do should be hiding.
     #
-    # index.html is one link shorter than this, on purpose, and its own footer
-    # says so. There the footer IS the contact section, footer#contact, so the
+    # index.html has NO column here at all, on purpose, and its own footer says
+    # so. There the footer IS the contact section, footer#contact, so the
     # address already appears in the "before you go" block inside the same
-    # footer and printing it twice was visible. Nowhere else has that block,
-    # which makes this column the only way to write to us from a service page,
-    # so it stays here. If this column ever loses the address too, check that
-    # something else on those 27 pages carries it first.
-    #
-    # The console link went with them and came back the same day, @yurii:
-    # "щоб не було якихось непорозумінь". It reads `Console`, one word, to
-    # match the two beside it: this column is three nouns, not a sentence and
-    # two nouns. It said `Go to your console` until 2026-08-05.
-    #
-    # It is deliberately absent from the top bar, because it addresses somebody
-    # who already runs a console of their own over their own tunnel, a
-    # returning operator rather than a visitor, and the primary slot belongs to
-    # what a stranger should do first. The footer is the only place that link
-    # exists anywhere on the site, which is exactly why removing it was the one
-    # item on that list with a cost.
+    # footer. Nowhere else has that block, which makes this column the only way
+    # to write to us from a service page. If it ever goes too, check what those
+    # 27 pages would have left first.
     #
     # This rationale lives here rather than in an HTML comment on purpose: the
     # first version of it shipped into all 28 pages, which put an explanation
@@ -194,21 +186,19 @@ def cols(root, here):
       {groups(root, here)}
       <div>
         <a href="mailto:itratmail@gmail.com">itratmail@gmail.com</a>
-        <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub &#8599;</a>
-        <a href="{root}console.html">Console</a>
       </div>
     </div>"""
 
 
 def footer(path, root, tail, here):
-    # NOTE on console.html, 2026-08-05. The footer link to it is the ONLY
-    # inbound link it has anywhere: it is not in the top bar, not in the STACK
-    # registry, so not on the rail, the walk or the palette, not in the sitemap,
-    # and it carries noindex. It was removed with the rest of the column that
-    # day and restored within the hour once that was measured and said out loud.
-    # Take it out again and the page is reachable by typing the address and by
-    # nothing else, which is also how it stops being noticed and gets deleted as
-    # dead in some later sweep. It is not dead.
+    # NOTE on console.html, 2026-08-05. It is not in the STACK registry, so not
+    # on the rail, the walk or the palette, not in the sitemap, and it carries
+    # noindex. For one day the footer held its only inbound link anywhere; that
+    # link now lives in the top bar and `tools/topbar.py` owns it. Whichever
+    # place it sits in, it needs to sit in ONE of them: take it out of both and
+    # the page is reachable by typing the address and by nothing else, which is
+    # also how it stops being noticed and gets deleted as dead in some later
+    # sweep. It is not dead.
     #
     # Only the service pages carry a licence tag; everywhere else the line
     # ends at the flag. An empty tail means exactly that, separator included.
