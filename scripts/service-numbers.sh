@@ -52,10 +52,16 @@ if not entries:
 problems = 0
 unverified = []
 
-# Every figure a reader would take at face value. Deliberately narrow: this
-# matches the shapes the service pages actually use, so a new shape shows up as
-# an unmanaged number below rather than being silently skipped.
-FIGURE = re.compile(r"[0-9][0-9,]*\s*(?:tests|crates|detectors|entries)")
+# Every figure a reader would take at face value.
+#
+# Widened on 2026-08-05 after this check walked straight past `70 documented and
+# already fixed` on the platform page while stack-k8s counted 79. The first
+# version knew four nouns and the page used a fifth, so a stale figure sat
+# inside the very thing written to catch stale figures. A narrow pattern does
+# not fail loudly; it reports OK about the part it happens to understand.
+FIGURE = re.compile(
+    r"[0-9][0-9,]*\s*(?:tests|crates|detectors|entries|documented|gotchas|scenarios|checks|invariants)"
+)
 
 for e in entries:
     page = pathlib.Path(e["page"])

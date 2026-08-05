@@ -88,6 +88,16 @@
       "status": "measured",
       "measured_on": "2026-08-05",
       "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite."
+    },
+    {
+      "page": "services/platform.html",
+      "claim": "79 documented and already fixed",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-k8s",
+      "command": "./scripts/gotchas-classified.sh, which prints the total and the four-way split",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson."
     }
   ]
 }
