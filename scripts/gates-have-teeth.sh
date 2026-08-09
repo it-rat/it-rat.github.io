@@ -72,7 +72,15 @@ restore() {
 	git reset -q --hard HEAD 2>/dev/null
 	git clean -fdq 2>/dev/null
 }
-trap restore EXIT INT TERM
+baseline_dir="$(mktemp -d)"
+
+# One trap for both, because a second `trap ... EXIT` REPLACES the first
+# rather than adding to it.
+cleanup() {
+	restore
+	rm -rf "$baseline_dir"
+}
+trap cleanup EXIT INT TERM
 
 failures=0
 cases=0
@@ -86,12 +94,29 @@ run_case() {
 	local name="$1" expect="$2" gate="$3" edit="$4" needle="${5:-}"
 	cases=$((cases + 1))
 
-	# A gate that is ALREADY failing cannot be judged: every fail-case would
-	# pass while proving nothing. This is the harness's own version of the
-	# fault it exists to catch, and this repository is where it showed up.
-	if [ "$expect" = fail ]; then
-		if ! eval "$gate" >/dev/null 2>&1; then
-			printf 'UNJUDGEABLE  %s\n             the gate is already failing on a clean tree, so a\n             failure after the mutation would prove nothing\n' "$name"
+	# The baseline applies to EVERY case, not only the ones expecting a failure.
+	# It was `fail`-only until 2026-08-09, which left the mirror of the bug it was
+	# written for: on a gate that is already red, a `pass` case reports OVEREAGER,
+	# "the gate failed on something it must not catch", and sends the reader to
+	# look at a harmless mutation while the gate was failing without it. Neither
+	# verdict means anything on a red gate, so neither is given.
+	skip_baseline=0
+	if [ "$expect" = fail_env ]; then
+		# `fail` with the baseline skipped, for cases whose fault IS the command
+		# rather than a mutation: red before and after is the point there.
+		expect=fail
+		skip_baseline=1
+	fi
+
+	if [ "$skip_baseline" = 0 ]; then
+		local key base_out
+		key="$baseline_dir/$(printf '%s' "$gate" | cksum | tr -d ' ')"
+		if [ ! -f "$key" ]; then
+			if eval "$gate" >/dev/null 2>&1; then printf 'green' >"$key"; else printf 'red' >"$key"; fi
+		fi
+		base_out="$(cat "$key")"
+		if [ "$base_out" = red ]; then
+			printf 'UNJUDGEABLE  %s\n             the gate is already failing on a clean tree, so neither a\n             failure nor a pass after the mutation would prove anything\n' "$name"
 			failures=$((failures + 1))
 			return
 		fi
