@@ -80,6 +80,12 @@ jobs:
         ## anywhere recording where it came from or when anybody last looked.
         run: ./scripts/service-numbers.sh
 
+      # Last, because it mutates tracked files and restores them. It needs a
+      # clean tree and says so plainly, so it also reports any earlier step
+      # that starts writing into the checkout.
+      - name: the gates above can still fail
+        run: ./scripts/gates-have-teeth.sh
+
       - name: Fail on a published demo that genaryx has moved past
         ## /demo is not built here: it is a hand-pasted copy of genaryx's
         ## `apps/web/dist`, and nothing about a copy says how old it is. Every

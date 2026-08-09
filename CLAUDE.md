@@ -18,6 +18,18 @@ This is the public face of the business. A wrong claim here is not a bug report,
 it is something a prospective client reads and quietly discounts. Everything
 committed is published.
 
+## Gates
+
+```sh
+./scripts/page-metadata.sh
+./scripts/service-numbers.sh
+./scripts/demo-bundle-current.sh
+./scripts/gates-have-teeth.sh     # invariant 8; needs a clean tree
+```
+
+This list did not exist until 2026-08-09: the gates were named only inside the
+invariants that own them, while the Pages workflow ran three of them.
+
 ## Hard invariants
 
 Each one carries how it is held today. Use `(gate: ...)`, `(test: ...)`,
@@ -104,6 +116,37 @@ true.
    files `demo/BUILD.json` records and that no previous build's hashed assets
    linger beside them, since a content-hashed name is served for as long as the
    file exists.)*
+
+8. **A check must be able to tell "did not fail" from "did not run", and every
+   gate here has been made to fail on purpose to prove it can.**
+   `page-metadata.sh` and `service-numbers.sh` already refuse when their
+   subject is absent, and say so in their own words: no HTML pages found,
+   `numbers.json` missing, `numbers.json` recording no entries. Those sentences
+   were true, were established by hand once, and nothing re-ran them.
+
+   **This repository added a fourth property to the harness, and the reason is
+   worth keeping.** A case expecting a gate to FAIL proves nothing if the gate
+   was already failing before the mutation. On 2026-08-09
+   `demo-bundle-current.sh` was red on a clean tree here, correctly: the
+   published demo is built from an older genaryx than `apps/web` now holds. A
+   case written against it would have gone green while measuring nothing, which
+   is the fault this harness exists to catch, one level up. So every fail-case
+   now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
+   rather than a pass. Verified by writing exactly that case and watching it
+   refuse.
+   *(gate: `scripts/gates-have-teeth.sh`, 5 cases: two real faults, one
+   non-fault, and two subjects taken away entirely. The non-fault is the one
+   worth keeping: prose that happens to contain digits is not a claim with an
+   owner, and a gate that flagged one would be flagging most of the site.)*
+
+   **`demo-bundle-current.sh` has no case here, deliberately.** It is red on
+   this tree today, so no case written against it could mean anything; that is
+   what the UNJUDGEABLE check reports rather than hides. A case belongs there
+   once the demo is refreshed, which is a deploy decision rather than a gate
+   decision.
+
+   **What else it does not cover.** It cannot test itself. It proves each gate
+   catches the faults named in it, not every fault of that kind.
 
 ## Decisions that have no gate yet
 
