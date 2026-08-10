@@ -52,7 +52,7 @@ A free-form header parameter is a credential-laundering channel straight past a 
 
 ## What it will not do, stated rather than discovered.
 
-No stealth, no CAPTCHA solving, no TLS-fingerprint matching, no bulk crawl, no image harvesting. It identifies itself as scopyx and never as a browser, and honours `robots.txt` by default.
+No stealth, no CAPTCHA solving, no TLS-fingerprint matching, no bulk crawl, no image harvesting. It identifies itself as scopyx and never as a browser.
 
 Two of those are positioning and two are law-shaped. This is defensive tooling for an operator governing their own agents, and a component that defeated a third party's controls would be the first thing here useful to somebody attacking a stranger. Separately, EU AI Act Article 5(1)(e) prohibits untargeted scraping of facial images to build recognition databases, and a bulk-crawl mode is the feature that turns a governance tool into that.
 
