@@ -182,6 +182,42 @@ d["entries"] = d["entries"][1:]
 json.dump(d, open(p, "w"), indent=2)')" \
 	"FAIL"
 
+# Invariant 7. This case could not exist until 2026-08-10: the gate was red on
+# a clean tree here (the published demo was older than `apps/web`), so any case
+# written against it would have measured nothing, which is what the UNJUDGEABLE
+# check reports rather than hides. The demo was refreshed, the gate went green,
+# and the case became possible. CLAUDE.md said exactly this would happen.
+run_case "demo-bundle-current: index.html loads an asset the manifest does not record" fail \
+	'./scripts/demo-bundle-current.sh' \
+	"$(py 'import json
+d = json.load(open("demo/BUILD.json"))
+d["bundle"] = "assets/index-NOTTHEONE.js"
+json.dump(d, open("demo/BUILD.json", "w"), indent=2)')" \
+	"does not exist"
+
+# The fault that put it-rat.com seven commits behind: the remote that actually
+# deploys was missing from the clone, so every push went to the mirror and
+# succeeded. Mutating the SCRIPT rather than the repo config here, because a
+# case that runs `git remote remove` mutates state this harness does not
+# restore on a crash, and a half-removed remote is a worse mess than a missing
+# case.
+run_case "deploy-target: the live repository is not the one holding the domain" fail \
+	'./scripts/deploy-target-current.sh' \
+	"$(py 'edit("scripts/deploy-target-current.sh",
+     "LIVE_REPO=\"it-rat/it-rat.github.io\"",
+     "LIVE_REPO=\"TAIPANBOX/it-rat.github.io\"")')" \
+	"does not hold a custom domain"
+
+# The other half of the same fault: the two published copies disagree. This is
+# what a push to the mirror leaves behind, and it is invisible from either
+# repository on its own.
+run_case "deploy-target: the domain is behind the mirror" fail \
+	'./scripts/deploy-target-current.sh' \
+	"$(py 'edit("scripts/deploy-target-current.sh",
+     "LIVE_REPO=\"it-rat/it-rat.github.io\"",
+     "LIVE_REPO=\"TAIPANBOX/it-rat-v1\"")')" \
+	"behind by"
+
 echo
 echo "=== and what they must NOT catch ==="
 
@@ -194,6 +230,13 @@ s = open("index.html").read()
 m = re.search(r"</body>", s)
 assert m, "index.html has no closing body tag"
 open("index.html","w").write(s.replace(m.group(0), "<p>Since 2026, on version 2.1, this sentence carries digits and owns nothing.</p></body>", 1))')"
+
+# Work in progress is normal. A local HEAD ahead of both published copies is
+# somebody mid-edit, and a gate that failed on it would be switched off inside
+# a week.
+run_case "deploy-target: an uncommitted local change" pass \
+	'./scripts/deploy-target-current.sh' \
+	"$(py 'edit("index.html", "</body>", "<p>work in progress</p></body>")')"
 
 echo
 echo "=== and the one this estate learned the hard way ==="

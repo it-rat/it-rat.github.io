@@ -100,6 +100,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: ./scripts/demo-bundle-current.sh
 
+      - name: Fail when the domain is behind the mirror
+        ## Runs HERE, in the workflow of whichever repository received the push,
+        ## because the fault it catches is a push that never arrives at the
+        ## other one. On the live repository this is a tautology and passes; on
+        ## the mirror it is the whole point, and it is the mirror that gets
+        ## pushed to by mistake.
+        ##
+        ## The clone CI makes has no `upstream` remote, so check 1 of the script
+        ## is skipped here by construction and only the two published copies are
+        ## compared. That is the half a workflow can see.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/deploy-target-current.sh
+
       - name: Version the shared assets
         ## site.css and site.js are referenced without a version and served with
         ## max-age=600, so for ten minutes after a deploy a returning visitor

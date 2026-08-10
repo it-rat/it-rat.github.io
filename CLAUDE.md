@@ -24,6 +24,7 @@ committed is published.
 ./scripts/page-metadata.sh
 ./scripts/service-numbers.sh
 ./scripts/demo-bundle-current.sh
+./scripts/deploy-target-current.sh  # invariant 9; needs network
 ./scripts/gates-have-teeth.sh     # invariant 8; needs a clean tree
 ```
 
@@ -134,23 +135,48 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 5 cases: two real faults, one
-   non-fault, and two subjects taken away entirely. The non-fault is the one
-   worth keeping: prose that happens to contain digits is not a claim with an
-   owner, and a gate that flagged one would be flagging most of the site.)*
+   *(gate: `scripts/gates-have-teeth.sh`, 9 cases: five real faults, two
+   non-faults, and two subjects taken away entirely. The non-faults are the
+   ones worth keeping: prose that happens to contain digits is not a claim with
+   an owner, and an uncommitted local edit is not a deploy that failed to
+   arrive. A gate flagging either would be switched off inside a week.)*
 
-   **`demo-bundle-current.sh` has no case here, deliberately.** It is red on
-   this tree today, so no case written against it could mean anything; that is
-   what the UNJUDGEABLE check reports rather than hides. A case belongs there
-   once the demo is refreshed, which is a deploy decision rather than a gate
-   decision.
+   **`demo-bundle-current.sh` now HAS a case, and the delay is the record worth
+   keeping.** This file used to say it deliberately had none, because the gate
+   was red on a clean tree (the published demo was older than `apps/web`) and
+   any case written against it would have measured nothing. The demo was
+   refreshed on 2026-08-10, the gate went green, and the case became possible.
+   The prediction held exactly: it was a deploy decision, not a gate decision.
 
    **What else it does not cover.** It cannot test itself. It proves each gate
    catches the faults named in it, not every fault of that kind.
 
+9. **The repository that serves the domain is not behind the one that gets
+   pushed to.** `origin` is a mirror and `upstream` is the live site, and a
+   push to the mirror succeeds, reports nothing wrong and deploys nothing.
+
+   This is not hypothetical and it is not rare. On 2026-08-10 it-rat.com was
+   found **seven commits behind**: the scopyx room, the pass fixing seven
+   drifted figures, this repository's own gate work, and a rebuilt demo. Every
+   one had been merged and pushed. Several sessions in a row had believed they
+   shipped.
+
+   Two things made it invisible. A successful `git push` is not evidence of a
+   deploy, and the tracked `CNAME` file says `it-rat.com` in BOTH repositories,
+   so reading it is what convinced a session that the mirror was live. A
+   `CNAME` in a tree is a request; the Pages API says who was granted it.
+   *(gate: `scripts/deploy-target-current.sh`, three checks: the `upstream`
+   remote exists and points at the live repository, the live repository is not
+   behind the mirror, and the repository this all calls "live" really holds the
+   domain per the API rather than per the file. It runs in the Pages workflow
+   too, where only the second check applies, because a CI clone has no
+   `upstream`. It cannot run inside the LIVE repository's own workflow and mean
+   anything: that workflow only runs when a push arrives, and the fault is a
+   push that never arrives.)*
+
 ## Decisions that have no gate yet
 
-**Held by this file alone: invariants 4 and 6.** Invariant 2 is half held, and invariant 3 is now half held too: the manifest is enforced, the truth of what it records is not.
+**Held by this file alone: invariants 4 and 6.** Invariant 9 arrived with its gate on the day the fault was found, which is the standing rule working rather than being quoted. Invariant 2 is half held, and invariant 3 is now half held too: the manifest is enforced, the truth of what it records is not.
 
 Invariants 1 and 2 are now `scripts/page-metadata.sh`, and it found invariant 2
 being violated rather than merely unenforced: `console.html` carried a canonical
