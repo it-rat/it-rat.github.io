@@ -2,9 +2,9 @@
 
 # Guides index
 
-> Ten guides: six on the field of AI agent governance, and four on running this stack in practice, from a first alert to what the numbers prove.
+> Eleven guides: seven on the field of AI agent governance, and four on running this stack, from a first alert to what the numbers prove.
 
-Ten guides. Six are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, and what changes when tools arrive over a protocol. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other four are about this stack specifically: getting a first alert, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.
+Eleven guides. Seven are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, what changes when tools arrive over a protocol, and what the tools on this market can and cannot actually do. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other four are about this stack specifically: getting a first alert, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.
 
 *start here*
 
@@ -35,6 +35,12 @@ The damage does not arrive as a sentence, it arrives as a tool call. Eight failu
 ## AI observability and governance are not rivals
 
 One explains what happened, the other decides what may happen. The same incident seen by each, why governance without observability is opaque, and the single integration decision that makes them compose: one run id.
+
+*the shapes*
+
+## Three shapes of agent tooling, and what each cannot do
+
+Named products change monthly and the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one of them.
 
 *the operational half*
 

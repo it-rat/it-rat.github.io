@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three shapes of agent tooling, and what each cannot do · IT-RAT</title>
+<meta name="description" content="Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, where each stops, and twelve differences you can go and check.">
+<link rel="canonical" href="https://it-rat.com/agent-tooling-compared.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/agent-tooling-compared.html">
+<meta property="og:title" content="Three shapes of agent tooling, and what each cannot do · IT-RAT">
+<meta property="og:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three shapes of agent tooling, and what each cannot do · IT-RAT">
+<meta name="twitter:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/agent-tooling-compared.md">
+<link rel="stylesheet" href="assets/site.css?v=e19">
+<style>
+  :root{--accent:#6C7BFF;--amb:#F4B23E;--mnt:#2DD4BF;--vio:#B48CFF;--rose:#E4626F}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+  @media(max-width:900px){.three{grid-template-columns:1fr}}
+  .side{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:20px}
+  .side .n{display:flex;align-items:center;gap:9px;font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .side .n b{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:0}
+  .side h3{margin-top:11px;font-size:17px}
+  .side p{margin-top:10px;color:var(--dim);font-size:14px;line-height:1.65}
+  .side .k{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim);line-height:1.6}
+  .side .k b{color:var(--fg)}
+  .wide{margin-top:14px;border:1px solid color-mix(in srgb,var(--amb) 35%,var(--line));border-radius:var(--rad-s);background:var(--panel);padding:22px}
+  .wide .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .wide h3{margin-top:9px;font-size:18px}
+  .wide p{margin-top:10px;color:var(--dim);font-size:14px;line-height:1.65}
+  .wide .k{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13.5px;color:var(--dim);line-height:1.6}
+  .wide .k b{color:var(--fg)}
+
+
+  .map{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+  @media(max-width:820px){.map{grid-template-columns:1fr}}
+  .map .row{display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:15px 17px;transition:transform .18s cubic-bezier(.2,.6,.2,1),border-color .18s,box-shadow .18s}
+  .map a.row:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 18px 44px -24px rgba(0,0,0,.8)}
+  .map .row .s{display:flex;align-items:center;gap:8px;font-weight:650;color:var(--fg);font-size:14.5px}
+  .map .row .s i{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
+  .map .row .s .go{margin-left:auto;font-size:13px;color:var(--faint);opacity:0;transform:translateX(-4px);transition:opacity .18s,transform .18s,color .18s}
+  .map a.row:hover .s .go{opacity:1;transform:none;color:var(--accent)}
+  .map .row p{margin-top:7px;color:var(--dim);font-size:13.5px;line-height:1.6}
+
+  .tbl th{padding:12px 14px;text-align:left;font-family:var(--font-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);white-space:nowrap}
+  .tbl th .bdg{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:5px;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-size:10px;margin-right:6px;vertical-align:-3px}
+
+  /* the advantages */
+  .edges{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+  .edge{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:20px 22px}
+  @media(max-width:720px){.edge{grid-template-columns:1fr;gap:10px}}
+  .edge .e-n{font-family:var(--font-m);font-size:26px;font-weight:700;line-height:1;color:color-mix(in srgb,var(--amb) 55%,transparent)}
+  .edge h3{font-size:18px;margin:0}
+  .edge > div > p{margin-top:10px;color:var(--dim);font-size:15px;line-height:1.7;max-width:78ch}
+  .edge .e-x,.edge .e-c{margin-top:12px;padding-left:13px;border-left:2px solid var(--line);color:var(--dim);font-size:13.5px;line-height:1.6;max-width:78ch}
+  .edge .e-x b,.edge .e-c b{color:var(--fg)}
+  .edge .e-c{border-left-color:color-mix(in srgb,var(--mnt) 45%,var(--line))}
+  .edge .e-p{margin-top:13px;color:var(--fg);font-size:14.5px;line-height:1.6;font-weight:600}
+  .band{display:flex;align-items:baseline;gap:14px;margin:22px 0 2px;padding-top:14px;border-top:1px solid var(--line)}
+  .band .b-k{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);white-space:nowrap}
+  .band .b-t{color:var(--dim);font-size:14.5px;line-height:1.6}
+  .band .b-t b{color:var(--fg)}
+
+  /* the live diagram */
+  .rig{margin-top:20px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);overflow:hidden}
+  .rig-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .rig-ctl .lbl{font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:2px}
+  .rig-ctl .sep{width:1px;height:20px;background:var(--line);margin:0 6px}
+  .rig-b{appearance:none;cursor:pointer;font:inherit;font-size:13px;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 13px;transition:color .16s,border-color .16s,background .16s}
+  .rig-b:hover{color:var(--fg);border-color:var(--line-2)}
+  .rig-b[aria-pressed="true"]{color:#0b0d12;background:var(--accent);border-color:var(--accent);font-weight:600}
+  .rig-b.amb[aria-pressed="true"]{background:var(--amb);border-color:var(--amb)}
+  .rig svg{display:block;width:100%;height:auto}
+  .rig-cap{padding:13px 16px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px;line-height:1.6;min-height:44px}
+  .rig-cap b{color:var(--fg)}
+  .sv-lbl{font-family:var(--font-m);font-size:11px;fill:#93a8c4;letter-spacing:.04em}
+  .sv-ttl{font-size:13px;font-weight:600;fill:#e8ecf3}
+  .sv-mono{font-family:var(--font-m);font-size:12px;font-weight:600}
+  .sv-box{fill:#12151c;stroke:#252a35}
+  .sv-wire{stroke:#252a35;stroke-width:2;fill:none}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Three shapes of agent tooling, and what each cannot do","name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html","description":"Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, where each stops, and twelve differences you can go and check.","inLanguage":"en","datePublished":"2026-08-10","dateModified":"2026-08-10","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Three shapes of agent tooling","item":"https://it-rat.com/agent-tooling-compared.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do we have to drop our tracing to use this?","acceptedAnswer":{"@type":"Answer","text":"No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are."}},{"@type":"Question","name":"Our observability tool already tracks cost. Is that not the same?","acceptedAnswer":{"@type":"Answer","text":"Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it."}},{"@type":"Question","name":"Why describe products by shape instead of naming them?","acceptedAnswer":{"@type":"Answer","text":"Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes say what a category can and cannot do architecturally, which is the part that does not change with a release note."}},{"@type":"Question","name":"Could one of them add enforcement later?","acceptedAnswer":{"@type":"Answer","text":"They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">tooling compared</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a comparison &#183; three tool shapes, and the half they leave</div>
+    <h1 class="rv d1">Every agent tool on the market can tell you what happened. Almost none of them can say no.</h1>
+    <p class="lede rv d2">Three shapes of tooling exist today, and a team evaluating them usually compares one against another without noticing that two of the three answer only the first question: what did the agent do. The third can act, on the condition that the agent moves onto its platform first. Nobody in this list stands in front of an agent that stays where it is and answers before the call, which is the question that shows up on an invoice, in an incident review, and in front of an auditor.</p>
+    </div>
+</section>
+
+<section class="sec" style="padding-top:6px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">one request, three ways</div>
+      <h2>Watch it happen.</h2>
+      <p class="lede">The same call, sent twice: once through a fleet that only watches, once through a fleet that can also refuse. Pick what the agent is trying to do and see where each one ends up.</p>
+    </div>
+
+    <div class="rig rv">
+      <div class="rig-ctl">
+        <span class="lbl">the fleet</span>
+        <button class="rig-b" type="button" data-mode="watch" aria-pressed="true">Tracing only</button>
+        <button class="rig-b amb" type="button" data-mode="govern" aria-pressed="false">Tracing and control</button>
+        <span class="sep"></span>
+        <span class="lbl">the call</span>
+        <button class="rig-b" type="button" data-case="ok" aria-pressed="true">Within budget</button>
+        <button class="rig-b" type="button" data-case="over" aria-pressed="false">Over budget</button>
+        <button class="rig-b" type="button" data-case="risk" aria-pressed="false">Deletes a bucket</button>
+        <span class="spacer" style="flex:1"></span>
+        <button class="rig-b" type="button" id="rig-replay">Replay</button>
+      </div>
+
+      <svg viewBox="0 0 960 330" role="img" aria-label="A request travelling from an agent to a model, with a control plane in the path and a dashboard beside it">
+        <!-- wire -->
+        <path class="sv-wire" d="M186 130 H 774"/>
+        <path id="w-live" d="M186 130 H 774" fill="none" stroke="#2DD4BF" stroke-width="2" stroke-dasharray="588" stroke-dashoffset="588" opacity="0"/>
+
+        <!-- tap to the dashboard, always present, always after the fact -->
+        <path id="w-tap" class="sv-wire" d="M660 130 V 214 H 700" stroke-dasharray="4 5"/>
+        <text class="sv-lbl" x="672" y="176" fill="#5c6b82">a copy</text>
+
+        <!-- agent -->
+        <rect class="sv-box" x="46" y="98" width="140" height="64" rx="12"/>
+        <text class="sv-ttl" x="116" y="126" text-anchor="middle">Agent</text>
+        <text class="sv-lbl" x="116" y="146" text-anchor="middle">makes a call</text>
+
+        <!-- the gate -->
+        <g id="g-gate">
+          <rect id="gate-body" x="452" y="76" width="56" height="108" rx="14" fill="#12151c" stroke="#F4B23E" stroke-width="2"/>
+          <path id="gate-bar" d="M480 96 V 164" stroke="#F4B23E" stroke-width="4" stroke-linecap="round"/>
+          <text class="sv-lbl" id="gate-cap" x="480" y="204" text-anchor="middle" fill="#F4B23E">control plane</text>
+          <text class="sv-lbl" id="gate-sub" x="480" y="220" text-anchor="middle" fill="#5c6b82">answers before the call</text>
+        </g>
+
+        <!-- destination -->
+        <rect class="sv-box" x="774" y="98" width="140" height="64" rx="12"/>
+        <text class="sv-ttl" x="844" y="126" text-anchor="middle">Model, cloud</text>
+        <text class="sv-lbl" x="844" y="146" text-anchor="middle">the money, the action</text>
+
+        <!-- dashboard -->
+        <rect class="sv-box" id="dash-body" x="700" y="186" width="214" height="106" rx="12"/>
+        <text class="sv-ttl" x="716" y="212">Dashboard</text>
+        <text class="sv-lbl" x="716" y="231" fill="#5c6b82">traces, tokens, cost</text>
+        <g id="dash-fill" opacity="0">
+          <rect x="716" y="244" width="182" height="1.5" rx="1" fill="#252a35"/>
+          <text class="sv-mono" id="dash-line" x="716" y="268" fill="#93a8c4">&#8212;</text>
+          <text class="sv-lbl" id="dash-when" x="716" y="284" fill="#5c6b82"></text>
+        </g>
+
+        <!-- verdict badge on the wire -->
+        <g id="verdict" opacity="0">
+          <rect id="v-box" x="424" y="30" width="112" height="30" rx="15" fill="#12151c" stroke="#F4B23E"/>
+          <text class="sv-mono" id="v-text" x="480" y="50" text-anchor="middle" fill="#F4B23E">402</text>
+        </g>
+
+        <!-- the packet -->
+        <circle id="pkt" cx="186" cy="130" r="7" fill="#6C7BFF"/>
+        <circle id="pkt-halo" cx="186" cy="130" r="7" fill="none" stroke="#6C7BFF" stroke-width="2" opacity="0"/>
+      </svg>
+
+      <div class="rig-cap" id="rig-cap"></div>
+    </div>
+
+    <div class="prose rv" style="margin-top:18px">
+      <p><b>The tap is the whole argument.</b> In both fleets a copy of the event goes sideways into the dashboard, and in both fleets it arrives after the thing already happened. The only difference is whether anything stood on the wire itself with the authority to stop it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the three shapes</div>
+      <h2>What is actually on the market.</h2>
+      <p class="lede">Named products change monthly. These shapes do not, and every tool a team is likely to already run falls into one of them.</p>
+    </div>
+    <div class="three rv">
+      <div class="side">
+        <div class="n"><b>A</b>framework-native tracing</div>
+        <h3>Deep inside the chain you wrote</h3>
+        <p>Sold by the company behind an agent framework, and genuinely framework-agnostic: the SDKs cover the other frameworks and the model providers directly. Traces every step, captures prompts and responses, counts tokens and latency, runs evaluation suites online and offline, versions prompts, raises alerts, and clusters recurring failures into a root cause. Commercial, hosted by the vendor, with self-hosting on the enterprise tier only.</p>
+        <div class="k"><b>Best at:</b> why a chain produced a bad answer, and whether a model upgrade changed behaviour.</div>
+        <div class="k"><b>Says of itself:</b> observability and evaluation. It does not enforce or block anything at runtime.</div>
+      </div>
+      <div class="side">
+        <div class="n"><b>B</b>open observability, self-hosted</div>
+        <h3>The same job, on your own metal</h3>
+        <p>An MIT-licensed core you run yourself, with its own SDKs for the common frameworks and an OpenTelemetry path for anything that already emits spans, plus prompt management, model-as-judge evaluation and per-model cost accounting. The whole observability surface is free; what a commercial key unlocks is the administration around it, which is worth noticing: role permissions, retention policies, audit logs, data masking, directory sync.</p>
+        <div class="k"><b>Best at:</b> the same as A, without sending prompts and completions to somebody else's cloud.</div>
+        <div class="k"><b>Says of itself:</b> the run-time measures belong to separate guardrail libraries; its own job is judging afterwards whether they worked.</div>
+      </div>
+      <div class="side">
+        <div class="n"><b>C</b>a vendor's hosted control plane</div>
+        <h3>One pane over the agents that run on it</h3>
+        <p>The large-vendor answer: a hosted console with a catalog, a gateway to models and tools, policy and lifecycle management. It no longer covers only agents built in its own builder, and this is the part most comparisons get wrong: agents written in other frameworks can be imported. What they cannot do is stay where they were. An imported agent is deployed onto the vendor's own infrastructure in order to be governed there.</p>
+        <div class="k"><b>Best at:</b> assembling agents quickly from a catalog, with support and a contract behind it.</div>
+        <div class="k"><b>The entry:</b> tiered plans with a monthly floor and capacity ceilings above it, the lowest one in the hundreds per month and the next one an order of magnitude higher.</div>
+      </div>
+    </div>
+    <div class="wide rv">
+      <div class="n">what is left over</div>
+      <h3>Planes that stand in the path and answer before the action</h3>
+      <p>A gateway that gives every run a budget and answers 402 the moment it is crossed. A policy plane the agent asks before acting, which can hold the expensive one for a person. An egress plane that decides the destination before anything leaves the machine. An identity graph that knows which human a key ultimately belongs to. A record built so that somebody who does not trust you can still check it is complete. None of that is a view of the past. Each one is a decision that either happened or did not.</p>
+      <div class="k"><b>Not best at:</b> explaining why the model wanted to do it. That is what A and B are for, and this stack exports into them rather than competing.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the same questions to all four</div>
+      <h2>Where each one stops.</h2>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th></th><th><span class="bdg">A</span>framework tracing</th><th><span class="bdg">B</span>open observability</th><th><span class="bdg">C</span>hosted control plane</th><th><span class="bdg" style="visibility:hidden">&#183;</span>this stack</th></tr></thead>
+        <tbody>
+          <tr><td>Where it sits</td><td class="warn">Beside the app</td><td class="warn">Beside the app</td><td class="warn">Under the agent: it hosts it</td><td class="yes">In the request path</td></tr>
+          <tr><td>What comes out</td><td class="warn">A trace, a score, a chart</td><td class="warn">A trace, a score, a chart</td><td class="warn">A queue, a chart, a policy on its own platform</td><td class="yes">An action that did or did not occur</td></tr>
+          <tr><td>Can it stop a run</td><td class="no">No, and it says so</td><td class="no">No, and it says so</td><td class="warn">On the agents it hosts</td><td class="yes">Yes, at the budget or the policy</td></tr>
+          <tr><td>Whose agents it sees</td><td class="warn">Yours, if instrumented</td><td class="warn">Yours, if instrumented</td><td class="warn">Any, once imported and redeployed there</td><td class="yes">Anyone's, wherever they already run</td></tr>
+          <tr><td>What it can see</td><td class="warn">The model call</td><td class="warn">The model call</td><td class="warn">What crosses its own platform</td><td class="yes">Spend, destination, identity, approval</td></tr>
+          <tr><td>Who can verify the record</td><td class="warn">Your team, after sampling</td><td class="warn">Your team, after sampling</td><td class="warn">Your team, in their console</td><td class="yes">An outsider, from the record's own proofs</td></tr>
+          <tr><td>Where the data lives</td><td class="warn">Their cloud, yours on enterprise</td><td class="yes">Yours</td><td class="warn">Their cloud, with an on-prem option</td><td class="yes">Yours</td></tr>
+          <tr><td>Cost of entry</td><td class="warn">Per seat, plus usage</td><td class="yes">Free to self-host</td><td class="no">A monthly floor, then capacity tiers</td><td class="yes">Clone the repository</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv" style="margin-top:20px">
+      <p><b>Read the third row first.</b> A tool that cannot stop a run is telemetry, however good its dashboard is, and telemetry is priced and staffed differently from a control. Then read the sixth. Dev telemetry is sampled, editable and eventually dropped, because it was built for an engineer debugging on a Tuesday. Nobody designed it to be read by a regulator two years later.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">why this one</div>
+      <h2>Twelve differences, and how to check each one.</h2>
+      <p class="lede">A comparison you cannot verify is an advertisement. Every claim below says what makes it true and where to go and look, because the only durable advantage in this market is being the one whose claims survive being checked. The first six are visible on a single request. The second six are the ones that actually decide whether a regulated organisation can buy anything at all.</p>
+    </div>
+
+    <div class="edges rv">
+
+      <div class="band" style="margin-top:0;padding-top:0;border-top:0">
+        <span class="b-k">first six &#183; in the path</span>
+        <span class="b-t">Differences you can see on a single request. These are the ones an engineer evaluates.</span>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">01</div>
+        <div>
+          <h3>It answers before the call, not after it</h3>
+          <p>The gateway prices every call against the run's budget and, on the one that would cross it, replies 402 with a stable error and never forwards the request to the provider. The policy plane answers allow, deny or hold before the action, and never performs the action itself. Neither of those is a notification.</p>
+          <div class="e-x"><b>The other three:</b> shape A's own documentation says it does not enforce or block anything at runtime. Shape B's says the run-time measures belong to separate guardrail libraries, and its own job is judging afterwards whether they worked. Shape C can act, on agents that run on its platform.</div>
+          <div class="e-c"><b>Check it:</b> the refusal is five call sites in the gateway proxy, and the comment above them says the request never reaches the provider. A drill in CI asserts the exact status.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">02</div>
+        <div>
+          <h3>The agent stays where it is, and does not have to be declared at all</h3>
+          <p>Integration is one base URL. Nothing is rewritten, nothing is redeployed, no SDK enters the agent. Underneath, a kernel-level sensor reads real outbound connections, so an agent nobody registered anywhere still appears, along with the model providers it is quietly reaching.</p>
+          <div class="e-x"><b>The other three:</b> A and B see what somebody instrumented. C sees what somebody registered, and an imported agent moves inside its runtime to be governed there, capped at three per tenant and only in cloud regions.</div>
+          <div class="e-c"><b>Check it:</b> the detectors are called shadow_ai, unmanaged_egress, undeclared_llm and unrouted_egress, and every one of them is deterministic, with no model in the decision path.</div>
+          <div class="e-p">The agent that causes the incident is the one nobody wrote down.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">03</div>
+        <div>
+          <h3>The record answers to somebody who does not trust you</h3>
+          <p>Every query comes back with a completeness proof: a short receipt, checkable on its own, that the rows shown are all the rows matching the question. The verifier that checks it carries zero dependencies, so an auditor can read the whole of it before believing any of it.</p>
+          <div class="e-x"><b>The other three:</b> developer telemetry, sampled, editable and retention-bound. In shape B, retention policies and audit logs are precisely what the commercial key unlocks.</div>
+          <div class="e-c"><b>Check it:</b> the verifier's dependency list is empty in its manifest. That is a design constraint, not an aesthetic: every library pulled in there is one more thing an auditor is asked to take on faith.</div>
+          <div class="e-p">Their record proves what it shows. This one proves that what it does not show is nothing.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">04</div>
+        <div>
+          <h3>The guardrails are themselves fired, in CI, before release</h3>
+          <p>Adversarial scenarios run against a real gateway with a fake provider behind it. Burn the budget and require the 402. Ask for a forbidden tool and require the 403. Present a forged delegation chain and require it to be rejected. The exit codes differ on purpose, so the pipeline can tell a genuine hole in the defence from a broken test rig.</p>
+          <div class="e-x"><b>The other three:</b> no analogue in any of them. Evaluation suites measure the model's answers, not whether the brakes hold.</div>
+          <div class="e-c"><b>Check it:</b> a scenario has a required status field and it takes 402, 403 or 200, nothing vaguer than that.</div>
+          <div class="e-p">A guardrail nobody has ever fired is a comment with a name.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">05</div>
+        <div>
+          <h3>Governance is not the part you pay for</h3>
+          <p>Thirteen repositories, Apache-2.0 throughout, the console included. Nothing in the governance layer sits behind a licence key, a seat count or a tier.</p>
+          <div class="e-x"><b>The other three:</b> A is commercial and closed, with self-hosting on the enterprise tier only. B's core is MIT, and what its commercial key gates is exactly the governance layer: role permissions, retention, audit logs, data masking, directory sync. C starts at a monthly floor in the hundreds, with the next tier an order of magnitude above it.</div>
+          <div class="e-c"><b>Check it:</b> open the licence file in any repository in the stack. This is the cheapest claim on the page to falsify, which is the point of putting it here.</div>
+          <div class="e-p">The thing an auditor asks for is the thing the others charge for.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">06</div>
+        <div>
+          <h3>An alert is a coordinate, and a session is not an authority</h3>
+          <p>The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, the privileged actions each require a fresh passkey assertion bound to that action and its arguments, rather than to whoever is signed in.</p>
+          <div class="e-x"><b>The other three:</b> a dashboard waits to be opened, and a console button rides on the session that opened it.</div>
+          <div class="e-c"><b>Check it:</b> the ceremony writes the signature algorithm and the credential fingerprint into the record beside the action, so a decision can be traced to a device rather than to an account.</div>
+          <div class="e-p">A stolen session should not be able to pull the lever.</div>
+        </div>
+      </div>
+
+      <div class="band">
+        <span class="b-k">next six &#183; in the room</span>
+        <span class="b-t"><b>These are the ones that decide a purchase.</b> Nobody signs off on a tool because of its architecture. They sign off because of what it answers when the auditor, the regulator or the finance director asks.</span>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">07</div>
+        <div>
+          <h3>Post-quantum sits inside the agent loop, and it has legal dates attached</h3>
+          <p>Every key, certificate and algorithm actually running is inventoried, graded for quantum risk and emitted as a CBOM in the CycloneDX format, scored against the published CNSA and NCSC timelines: new systems by 2027, legacy migration by 2030, everything by 2035. The cryptography agents themselves use is inventoried too, which is the part the established crypto-inventory vendors do not reach, because their products were designed before agents existed.</p>
+          <div class="e-x"><b>The other three:</b> nothing at all. Observability has no view of cryptography, and the hosted control plane has none inside the agent loop.</div>
+          <div class="e-c"><b>Check it:</b> the output formats are standards rather than ours, a CycloneDX CBOM and the NCSC timeline, so a security team can compare the result against a public reference instead of against our description of it.</div>
+          <div class="e-p">A migration with a legal deadline begins with an inventory, and the inventory is the part nobody has.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">08</div>
+        <div>
+          <h3>A person can be erased without breaking the audit trail</h3>
+          <p>Every payload is encrypted under its own key, so erasing a person means destroying their keys. The content becomes unrecoverable, every earlier proof still verifies, and the record itself carries the fact that an erasure happened. Nothing is re-encrypted afterwards, and records written later are reached by the same erasure.</p>
+          <div class="e-x"><b>The other three:</b> deletion in a telemetry store is deletion. Whatever it breaks, it breaks silently, and the question of what the trail looked like before is unanswerable afterwards.</div>
+          <div class="e-c"><b>Check it:</b> erasure is its own component, small enough to read, and the property to test is exactly this one: destroy the keys and confirm the proofs still verify.</div>
+          <div class="e-p">"Delete their data" and "keep the audit trail" stop being a contradiction you have to argue about with legal.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">09</div>
+        <div>
+          <h3>A refusal is a pure function, so an auditor can rerun it</h3>
+          <p>No model anywhere in the decision path. Given the same policy set and the same request, the answer is always the same, which means a refusal from six months ago can be reproduced today in front of somebody who wants to see it. The policy primitives are deliberately dull: deny a tool, deny an unattested agent, cap the number of steps, restrict the destinations, require a human above a sum.</p>
+          <div class="e-x"><b>The other three:</b> a model-as-judge score is not reproducible, and was never meant to be. It is a measurement, not a ruling, and it moves when the judging model is upgraded.</div>
+          <div class="e-c"><b>Check it:</b> the decision function is documented as pure, and the identity detectors follow the same rule, deterministic with no model in the path.</div>
+          <div class="e-p">"Why was this refused" needs an answer that does not depend on which model version happened to answer.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">10</div>
+        <div>
+          <h3>The kill switch does not run through the thing it kills</h3>
+          <p>The out-of-band control is a phone and a watch. The signing key is generated inside the device's secure element and never leaves it, not even to the app. A kill is signed on the device and the control plane verifies that signature before it acts, so the stop still works when the agent's own host is precisely what is misbehaving or compromised.</p>
+          <div class="e-x"><b>The other three:</b> the stop button, where one exists at all, lives in the same console, on the same session, reached over the same network as everything else it is meant to stop.</div>
+          <div class="e-c"><b>Check it honestly:</b> this one is built and not yet wired into a running stack, and its own page on this site says so in its fact table. Judge it as a design decision, not as a shipped feature.</div>
+          <div class="e-p">The control worth having in an incident is the one that does not share fate with the incident.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">11</div>
+        <div>
+          <h3>Changing a limit goes through code review, like changing a firewall rule</h3>
+          <p>Budgets, agent passports and policies are ordinary Terraform resources: in version control, reviewed in a pull request the way an IAM policy or a security group is, planned before they apply, and diffed when somebody has changed them outside the process.</p>
+          <div class="e-x"><b>The other three:</b> a setting in a console, changed by whoever is signed in, leaving whatever audit trail that console happens to keep.</div>
+          <div class="e-c"><b>Check it:</b> the provider is published on the public Terraform registry, so the resource types can be read without anyone talking to us first.</div>
+          <div class="e-p">"Who raised the spend limit, and when" is a question that has an answer, or it is not.</div>
+        </div>
+      </div>
+
+      <div class="edge">
+        <div class="e-n">12</div>
+        <div>
+          <h3>The money is counted per resolved case, not per token</h3>
+          <p>Token spend says how much was burned. It does not say whether the burning bought anything. The quality plane joins the cost trace to your own outcome tags and returns the price of a resolved case beside the price of an escalated one and an abandoned one, which is the same arithmetic a finance function already applies to everything else it funds.</p>
+          <div class="e-x"><b>The other three:</b> cost per model, per trace, per user, per project. All true, and none of them an answer to whether it was worth doing.</div>
+          <div class="e-c"><b>Check it:</b> the computation is a small named script over a flat export of outcome and cost, so the arithmetic can be repeated on your own numbers without trusting ours.</div>
+          <div class="e-p">Nobody buys a lower cost per token. They buy a lower cost per case closed.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prose rv" style="margin-top:22px">
+      <h3>And what it costs, since none of this is free</h3>
+      <p>Standing in the request path buys the refusal and charges latency for it, on every call, including the overwhelming majority that were always going to be fine. It also forces a decision nobody enjoys making: what happens when the control plane itself is unreachable, fail-open or fail-closed. Observability never has to answer that question, because nothing waits on it. <b>That is the actual trade, and a vendor who will not name it has not thought about it.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the honest part</div>
+      <h2>Where they are plainly better than us.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><b>Prompt iteration.</b> Playgrounds, prompt versioning, side-by-side runs on a dataset. That is the core loop of A and B, refined for years, and we do not have it.</li>
+        <li><b>Evaluation tooling.</b> We do have a quality plane, and it is deliberately narrower: cost per correctly resolved case, scored on your own outcome tags. For general offline evaluation suites, theirs are more complete.</li>
+        <li><b>Assembling agents at speed.</b> Shape C sells a catalog, support and a contract. We are not an agent-building platform and have no answer to that ask.</li>
+        <li><b>Open source is not the differentiator against B.</b> Its core is MIT and self-hosts for free. Against A and C the licence matters; against B the argument has to be enforcement, or it is not an argument. The one thing worth saying out loud is which part B does charge for: not the observability, but the governance around it, the audit logs and retention and role permissions. Ours is Apache-2.0 including that part.</li>
+        <li><b>Maturity.</b> All three are established products with real deployments behind them. Several planes here are younger than that, and the site says which.</li>
+      </ul>
+      <p>None of this is a reason to pick one. If a team runs B today, the sensible move is to keep it and put a gateway in front of the model calls in shadow mode. The traces keep working and gain a spend line and a verdict per run.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what does what</div>
+      <h2>The half they do not cover, by service.</h2>
+    </div>
+    <div class="map rv">
+      <a class="row" href="services/tokenfuse.html"><div class="s"><i style="background:#F4B23E"></i>TokenFuse<span class="go">the room &#8594;</span></div><p>A budget per run, and a 402 the moment it is crossed. A dashboard shows you the spend; this refuses it.</p></a>
+      <a class="row" href="services/wardryx.html"><div class="s"><i style="background:#2DD4BF"></i>Wardryx<span class="go">the room &#8594;</span></div><p>Allow, deny, or hold for a human, asked before the action, with a hard ceiling that outranks approvals.</p></a>
+      <a class="row" href="services/scopyx.html"><div class="s"><i style="background:#F0ABFC"></i>Scopyx<span class="go">the room &#8594;</span></div><p>Every destination decided before anything leaves. Tracing sees the request; this sees whether it should exist.</p></a>
+      <a class="row" href="services/idryx.html"><div class="s"><i style="background:#34D399"></i>Idryx<span class="go">the room &#8594;</span></div><p>One identity graph for humans, keys, service accounts and agents, so "who did this" ends at a person.</p></a>
+      <a class="row" href="services/trailryx.html"><div class="s"><i style="background:#E4626F"></i>Trailryx<span class="go">the room &#8594;</span></div><p>A record nobody can quietly change or shorten, where every answer carries a proof that it is complete.</p></a>
+      <a class="row" href="services/verdryx.html"><div class="s"><i style="background:#FF7AA2"></i>Verdryx<span class="go">the room &#8594;</span></div><p>The one place we overlap on purpose: quality as a denominator, cost per correctly resolved case rather than per token.</p></a>
+      <a class="row" href="services/mockryx.html"><div class="s"><i style="background:#FF8A5B"></i>Mockryx<span class="go">the room &#8594;</span></div><p>Fire drills for the guardrails themselves, asserting the 402 and the 403 in CI. No shape above has an analogue.</p></a>
+      <a class="row" href="services/heraldyx.html"><div class="s"><i style="background:#5BC8F5"></i>Heraldyx<span class="go">the room &#8594;</span></div><p>Decides what is worth waking a human for tonight, and mails it with one link. A dashboard waits to be opened.</p></a>
+    </div>
+    <div class="prose rv" style="margin-top:20px">
+      <p>All of it is Apache-2.0 and runs on infrastructure you own, and the governance planes export over OTLP into whatever tracing backend you already have. <b>Governance data belongs in your observability stack. The enforcement decision does not belong in a dashboard.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask when they have already bought one</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Do we have to drop our tracing to use this?</summary>
+        <div class="a"><p>No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are.</p></div>
+      </details>
+      <details>
+        <summary>Our observability tool already tracks cost. Is that not the same?</summary>
+        <div class="a"><p>Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it.</p></div>
+      </details>
+      <details>
+        <summary>Why describe products by shape instead of naming them?</summary>
+        <div class="a"><p>Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes are also more useful: they say what a category of tool can and cannot do architecturally, which is the part that does not change with a release note.</p></div>
+      </details>
+      <details>
+        <summary>Could one of them add enforcement later?</summary>
+        <div class="a"><p>They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-group"><div class="l">the stack</div>
+          <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+        </div>
+        <div class="foot-row">
+          <div class="foot-group"><div class="l">standalone</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script>
+/* The request rig. One timeline, pure function of t, so a replay is identical
+   and a reduced-motion visitor gets the end state without the travel. */
+(function () {
+  "use strict";
+  var svg = document.querySelector(".rig svg");
+  if (!svg) return;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pkt = $("pkt"), halo = $("pkt-halo"), live = $("w-live");
+  var gate = $("g-gate"), body = $("gate-body"), bar = $("gate-bar");
+  var gcap = $("gate-cap"), gsub = $("gate-sub");
+  var verdict = $("verdict"), vbox = $("v-box"), vtext = $("v-text");
+  var dfill = $("dash-fill"), dline = $("dash-line"), dwhen = $("dash-when");
+  var cap = $("rig-cap");
+
+  var X0 = 186, XG = 480, X1 = 774;
+  var AMB = "#F4B23E", MNT = "#2DD4BF", VIO = "#B48CFF", ROSE = "#E4626F", ACC = "#6C7BFF";
+
+  var mode = "watch", kase = "ok", t0 = 0, raf = 0;
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var CASES = {
+    ok:   { line: "run 8f21  ·  $0.42 spent",  what: "the call went through" },
+    over: { line: "run 8f21  ·  $412.00 spent", what: "the call went through" },
+    risk: { line: "run 8f21  ·  bucket deleted", what: "the call went through" }
+  };
+
+  var COPY = {
+    "watch|ok":    "<b>Nothing to stop, and nothing that could have.</b> The call was within budget, so both fleets look identical here. That is the case people evaluate on, and it is the one that hides the difference.",
+    "watch|over":  "<b>The money is gone before the chart exists.</b> The trace is faithful and complete: it records, correctly, that four hundred and twelve dollars left the account. Reading it tomorrow does not bring them back.",
+    "watch|risk":  "<b>The trace ends at the model's answer.</b> What the agent did next, in a cloud API, is outside what a tracing tool was ever pointed at. The bucket is gone and the dashboard shows a normal-looking run.",
+    "govern|ok":   "<b>The common case costs one policy lookup.</b> Allowed, forwarded, and the dashboard still gets its copy. Enforcement is not a tax on the calls that were fine.",
+    "govern|over": "<b>402, and the provider never hears the request.</b> The budget is a ceiling, not a report, so the money is not spent and then noticed. The dashboard records a refusal instead of an invoice.",
+    "govern|risk": "<b>Held, with a person on the other end.</b> The destructive action is not refused outright and not allowed outright: it waits for an approval that carries a signature, and the record keeps who gave it."
+  };
+
+  function setBtns() {
+    [].forEach.call(document.querySelectorAll("[data-mode]"), function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+    });
+    [].forEach.call(document.querySelectorAll("[data-case]"), function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.case === kase));
+    });
+    cap.innerHTML = COPY[mode + "|" + kase];
+  }
+
+  /* what the gate does in this combination */
+  function verdictOf() {
+    if (mode === "watch") return "pass";
+    if (kase === "over") return "refuse";
+    if (kase === "risk") return "hold";
+    return "pass";
+  }
+
+  function paintGate() {
+    var watching = mode === "watch";
+    var v = verdictOf();
+    var col = watching ? "#252a35" : (v === "refuse" ? ROSE : v === "hold" ? VIO : MNT);
+    gate.setAttribute("opacity", watching ? ".45" : "1");
+    body.setAttribute("stroke", col);
+    body.setAttribute("stroke-dasharray", watching ? "5 5" : "0");
+    bar.setAttribute("stroke", col);
+    bar.setAttribute("d", watching || v === "pass" ? "M480 96 V 110 M480 150 V 164" : "M480 96 V 164");
+    gcap.setAttribute("fill", watching ? "#5c6b82" : col);
+    gcap.textContent = watching ? "no control plane" : "control plane";
+    gsub.textContent = watching ? "nothing on the wire" :
+      (v === "refuse" ? "budget exceeded" : v === "hold" ? "waiting on a person" : "allowed, forwarded");
+  }
+
+  function frame(now) {
+    if (!t0) t0 = now;
+    var t = (now - t0) / 1000;
+    var v = verdictOf();
+
+    var stopAt = v === "pass" ? X1 : (v === "hold" ? XG - 26 : XG - 26);
+    var x, showVerdict = 0, dashOn = 0;
+
+    if (v === "pass") {
+      x = X0 + (X1 - X0) * Math.min(1, t / 1.6);
+      dashOn = t > 2.1 ? 1 : 0;
+      live.setAttribute("opacity", t > 0 ? "1" : "0");
+      live.setAttribute("stroke", MNT);
+      live.setAttribute("stroke-dashoffset", String(588 * (1 - Math.min(1, t / 1.6))));
+    } else if (v === "refuse") {
+      if (t < 1.0) { x = X0 + (XG - 26 - X0) * (t / 1.0); }
+      else if (t < 1.25) { x = XG - 26; }
+      else { x = (XG - 26) - ((XG - 26) - X0) * Math.min(1, (t - 1.25) / 0.9); }
+      showVerdict = t > 1.0 ? 1 : 0;
+      dashOn = t > 2.4 ? 1 : 0;
+      live.setAttribute("opacity", "0");
+    } else {
+      x = X0 + (XG - 26 - X0) * Math.min(1, t / 1.0);
+      showVerdict = t > 1.0 ? 1 : 0;
+      dashOn = t > 2.4 ? 1 : 0;
+      live.setAttribute("opacity", "0");
+    }
+
+    pkt.setAttribute("cx", String(x));
+    pkt.setAttribute("fill", v === "refuse" && t > 1.0 ? ROSE : v === "hold" && t > 1.0 ? VIO : ACC);
+
+    /* the held packet breathes, so a paused thing does not read as a stuck one */
+    if (v === "hold" && t > 1.0) {
+      var p = 0.5 + 0.5 * Math.sin((t - 1.0) * 3.4);
+      halo.setAttribute("cx", String(x));
+      halo.setAttribute("r", String(7 + 7 * p));
+      halo.setAttribute("stroke", VIO);
+      halo.setAttribute("opacity", String(0.45 * (1 - p)));
+    } else {
+      halo.setAttribute("opacity", "0");
+    }
+
+    verdict.setAttribute("opacity", String(showVerdict));
+    if (showVerdict) {
+      var refuse = v === "refuse";
+      vbox.setAttribute("stroke", refuse ? ROSE : VIO);
+      vbox.setAttribute("width", refuse ? "112" : "168");
+      vbox.setAttribute("x", refuse ? "424" : "396");
+      vtext.setAttribute("fill", refuse ? ROSE : VIO);
+      vtext.textContent = refuse ? "402  refused" : "held for a human";
+    }
+
+    dfill.setAttribute("opacity", String(dashOn));
+    if (dashOn) {
+      if (v === "pass") {
+        dline.textContent = CASES[kase].line;
+        dline.setAttribute("fill", kase === "ok" ? "#93a8c4" : AMB);
+        dwhen.textContent = "written after the fact";
+      } else if (v === "refuse") {
+        dline.textContent = "run 8f21  ·  $0.00, refused";
+        dline.setAttribute("fill", MNT);
+        dwhen.textContent = "the refusal is the record";
+      } else {
+        dline.textContent = "run 8f21  ·  awaiting approval";
+        dline.setAttribute("fill", VIO);
+        dwhen.textContent = "and who approved it, later";
+      }
+    }
+
+    if (t < 4.2) raf = requestAnimationFrame(frame);
+  }
+
+  function play() {
+    cancelAnimationFrame(raf);
+    t0 = 0;
+    paintGate();
+    setBtns();
+    if (reduce) { frame(performance.now() + 4300); return; }
+    raf = requestAnimationFrame(frame);
+  }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest(".rig-b") : null;
+    if (!b) return;
+    if (b.dataset.mode) mode = b.dataset.mode;
+    else if (b.dataset.case) kase = b.dataset.case;
+    play();
+  });
+
+  /* start when it is actually looked at, and never before */
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { if (en.isIntersecting) { play(); io.disconnect(); } });
+  }, { threshold: .25 });
+  io.observe(svg);
+  setBtns();
+  paintGate();
+})();
+</script>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>
