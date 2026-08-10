@@ -28,6 +28,14 @@ Budgets, policy verdicts, identity, approval ceremonies, hard ceilings. It sits 
 
 **Useless for:** explaining why the model wanted to do it. A refusal is not an analysis.
 
+*a third shape*
+
+### Governance, with a condition attached
+
+The split above is between two jobs rather than two vendors, and one product shape sits awkwardly across it: the large platform that hosts your agents and governs them where they run, which is to say on itself. That shape genuinely acts in the request path, so calling it observability would be wrong. What comes with it is a condition. The agent has to be registered, and in the common case it has to be redeployed onto that platform before it can be governed at all. The question stops being whether a tool enforces, and becomes whether it enforces for an agent that stays where it already is.
+
+**Worth asking directly:** what happens to the agent nobody registered? A tool that governs by hosting can only govern what was handed to it, and the agent that causes the incident is usually the one nobody wrote down.
+
 ## Same incident, two tools.
 
 Take one concrete case: an agent enters a retry loop against a production API at two in the morning and spends four figures before anyone wakes up.
@@ -56,7 +64,7 @@ In this stack the run id is the unit everything keys on, and the governance plan
 
 - **What happens when it is unreachable?** Fail-open or fail-closed, chosen and documented, is the honest answer; silence is not.
 
-- **Can somebody else verify the record?** A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. An export from a dashboard cannot.
+- **Can somebody else verify the record?** A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. Stronger still is a completeness proof on every answer: a short receipt, checkable on its own, that the rows you were shown are all the rows that matched the question. A chain proves nothing was altered. Only a completeness proof says nothing was left out, and that is the half an auditor actually needs. An export from a dashboard offers neither.
 
 - **Does it join on the same id as everything else?** If it invents its own identifier, you are buying the integration project as well.
 

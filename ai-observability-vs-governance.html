@@ -93,6 +93,12 @@
         <div class="k"><b>Useless for:</b> explaining why the model wanted to do it. A refusal is not an analysis.</div>
       </div>
     </div>
+    <div class="side rv" style="margin-top:14px;border-color:color-mix(in srgb,#B48CFF 35%,var(--line))">
+      <div class="n">a third shape</div>
+      <h3>Governance, with a condition attached</h3>
+      <p>The split above is between two jobs rather than two vendors, and one product shape sits awkwardly across it: the large platform that hosts your agents and governs them where they run, which is to say on itself. That shape genuinely acts in the request path, so calling it observability would be wrong. What comes with it is a condition. The agent has to be registered, and in the common case it has to be redeployed onto that platform before it can be governed at all. The question stops being whether a tool enforces, and becomes whether it enforces for an agent that stays where it already is.</p>
+      <div class="k"><b>Worth asking directly:</b> what happens to the agent nobody registered? A tool that governs by hosting can only govern what was handed to it, and the agent that causes the incident is usually the one nobody wrote down.</div>
+    </div>
   </div>
 </section>
 
@@ -135,7 +141,7 @@
         <li><b>Does it act in the path, or after it?</b> If the answer arrives after the call, it is observability, whatever the marketing says.</li>
         <li><b>Is the answer binding?</b> A warning an agent can proceed past is telemetry with a stern voice.</li>
         <li><b>What happens when it is unreachable?</b> Fail-open or fail-closed, chosen and documented, is the honest answer; silence is not.</li>
-        <li><b>Can somebody else verify the record?</b> A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. An export from a dashboard cannot.</li>
+        <li><b>Can somebody else verify the record?</b> A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. Stronger still is a completeness proof on every answer: a short receipt, checkable on its own, that the rows you were shown are all the rows that matched the question. A chain proves nothing was altered. Only a completeness proof says nothing was left out, and that is the half an auditor actually needs. An export from a dashboard offers neither.</li>
         <li><b>Does it join on the same id as everything else?</b> If it invents its own identifier, you are buying the integration project as well.</li>
       </ul>
     </div>
