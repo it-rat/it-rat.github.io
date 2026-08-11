@@ -1,0 +1,81 @@
+## Asks, once a day, whether the published demo is still a build of the current
+## genaryx.
+##
+## WHY THIS EXISTS SEPARATELY FROM THE DEPLOY WORKFLOW
+##
+## `scripts/demo-bundle-current.sh` has been correct since it was written and
+## it caught nothing twice, because nothing called it at the moment it mattered.
+## It runs inside `pages.yml`, which runs on a push to this repository. The
+## demo goes stale when GENARYX changes, and genaryx changing pushes nothing
+## here. So between a merge there and the next push here, the gate is right and
+## silent, and the site serves an old console for as long as that gap lasts.
+##
+## Twice in two days that gap was found by a person opening the live demo and
+## seeing yesterday's build: 2026-08-10 (seven commits behind, and the site
+## itself undeployed) and 2026-08-11 (four merges' worth of Agent 360 and
+## Statistics work missing). Both times the check existed. Neither time did
+## anything run it.
+##
+## A schedule is the smallest thing that closes that. It needs no cross-repo
+## token, no webhook from genaryx, and nothing to remember.
+##
+## WHY NOT A TRIGGER FROM GENARYX, WHICH WOULD BE MORE PRECISE
+##
+## It would fire on the merge that causes the staleness rather than up to a day
+## later, and it needs a credential this repository cannot grant itself: a PAT
+## with dispatch rights here, stored as a secret over there. `repository_dispatch`
+## is accepted below so that door is open the moment such a token exists, and
+## nothing depends on it until then.
+##
+## WHY IT DOES NOT DEPLOY
+##
+## Refreshing the demo runs genaryx's own build with two load-bearing flags and
+## then deletes the previous hashed assets (`scripts/refresh-demo.sh`). A robot
+## doing that unattended would publish a console nobody looked at, to the public
+## face of the business. This job's whole job is to SAY so.
+##
+## COST
+##
+## Both copies of this repository are public, and Actions minutes on public
+## repositories are free and unmetered. One run a day, about twenty seconds,
+## one `gh api` call. Delete the `schedule:` block to stop it.
+
+name: Demo freshness
+
+on:
+  schedule:
+    ## 06:40 UTC. Off the hour on purpose: GitHub queues scheduled jobs at
+    ## popular minutes, and a run that starts late is a run somebody stops
+    ## trusting.
+    - cron: "40 6 * * *"
+  workflow_dispatch:
+  ## Unused today. Here so genaryx can poke this the moment a token exists,
+  ## without a workflow change landing at the same time as the credential.
+  repository_dispatch:
+    types: [genaryx-web-changed]
+
+permissions:
+  contents: read
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Is the published demo a build of the current genaryx
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/demo-bundle-current.sh
+
+      - name: Say what to do about it
+        ## Only on failure, and it names the one command rather than describing
+        ## it. A red check whose fix lives in somebody's memory is a red check
+        ## that gets muted.
+        if: failure()
+        run: |
+          echo "::notice::The published demo is behind genaryx. Refresh it:"
+          echo "::notice::  cd ~/Development/it-rat && ./scripts/refresh-demo.sh"
+          echo "::notice::then push master to BOTH remotes (origin and upstream);"
+          echo "::notice::scripts/deploy-target-current.sh checks that half."
