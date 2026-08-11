@@ -22,6 +22,63 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
 
 const MOTIFS={
 
+/* trailryx - the record plane: a question is answered by a CONTIGUOUS range.
+   Records arrive and chain, drawn as a dense run of ticks joined hairline to
+   hairline. A question sweeps along and encloses a span with hard bracket
+   edges; every tick inside it lights as one block. That contiguity IS the
+   proof of completeness, which is this service's whole claim, so the figure is
+   the unbroken span rather than the ticks.
+
+   The contrast is drawn too, faintly: an ordinary store answers the same
+   question with scattered rows and no way to show nothing is missing. Those
+   appear as amber ticks with gaps, and they never get a bracket.
+
+   Written 2026-08-11. It hand-declared `web`, which is engram's motif, so two
+   rooms drew one graph. Third and last such collision on the site. */
+contiguity(ctx,w,h,t){
+  const rows=3, per=54, top=h*0.30, gap=h*0.16;
+  const rr=rng(71);
+  const scatter=[];
+  for(let i=0;i<rows*per;i++) scatter.push(rr()<0.10);
+
+  for(let r=0;r<rows;r++){
+    const y=top+r*gap;
+    /* The chain: every record joined to the next, hairline thin. */
+    ctx.strokeStyle=`rgba(${C.dim},.10)`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(w*0.06,y);ctx.lineTo(w*0.94,y);ctx.stroke();
+
+    /* One question per row, offset in time so the three do not march. */
+    const speed=0.055+r*0.012, phase=r*0.31;
+    const u=((t*speed+phase)%1);
+    const span=0.13+0.05*Math.sin(t*0.4+r);
+    const a=u*(1-span), b=a+span;                 /* the proved range, 0..1 */
+
+    for(let i=0;i<per;i++){
+      const f=i/(per-1), x=w*(0.06+f*0.88);
+      const inside=f>=a&&f<=b;
+      if(inside){
+        dot(ctx,x,y,1.7,C.rose,0.34);
+      }else if(scatter[r*per+i]){
+        /* What an ordinary store would have handed back: rows, with gaps. */
+        dot(ctx,x,y,1.3,C.amber,0.13);
+      }else{
+        dot(ctx,x,y,1.1,C.dim,0.08);
+      }
+    }
+
+    /* Hard bracket edges. The proof is that nothing between them is missing,
+       so the edges are drawn sharp and the fill is not drawn at all. */
+    const bx0=w*(0.06+a*0.88), bx1=w*(0.06+b*0.88), lip=7;
+    ctx.strokeStyle=`rgba(${C.rose},.42)`;ctx.lineWidth=1.4;
+    ctx.beginPath();
+    ctx.moveTo(bx0,y-lip);ctx.lineTo(bx0,y+lip);
+    ctx.moveTo(bx1,y-lip);ctx.lineTo(bx1,y+lip);
+    ctx.moveTo(bx0,y-lip);ctx.lineTo(bx0+6,y-lip);
+    ctx.moveTo(bx1,y-lip);ctx.lineTo(bx1-6,y-lip);
+    ctx.stroke();
+  }
+},
+
 /* heraldyx - the alerts plane: a log streams past, one line is worth a human.
    Events run left to right along the shared log, dim and unremarked. Now and
    then one is lifted out, brightens, arcs up to a recipient and lands as a
@@ -385,7 +442,7 @@ tensor(ctx,w,h,t){
 
 /* motif per service */
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
-  scopyx:"egress",heraldyx:"dispatch",
+  scopyx:"egress",heraldyx:"dispatch",trailryx:"contiguity",
   qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
