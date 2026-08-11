@@ -22,6 +22,62 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
 
 const MOTIFS={
 
+/* scopyx - the egress plane: outbound reaches that must pass a decision.
+   Requests leave the fleet on the left, converge on a gate, and either pass
+   through its aperture and continue to a destination or are turned back at it.
+   The gate breathes, so the aperture is sometimes narrow and sometimes wide,
+   which is what a policy that actually decides looks like over time.
+
+   Written 2026-08-11 because scopyx and heraldyx both declared `boundary` by
+   hand, so two rooms in the corridor drew the same waves in different colours.
+   A motif is supposed to say which room you are in. */
+egress(ctx,w,h,t){
+  const rr=rng(29), gx=w*0.58, n=26;
+  /* The gate: a vertical bar with an aperture that opens and closes. */
+  const open=0.16+0.13*(0.5+0.5*Math.sin(t*0.55));
+  const ay0=h*(0.5-open), ay1=h*(0.5+open);
+  ctx.strokeStyle=`rgba(${C.violet},.26)`;ctx.lineWidth=1.6;
+  ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,ay0);ctx.moveTo(gx,ay1);ctx.lineTo(gx,h);ctx.stroke();
+  /* Aperture lips, brighter, so the opening reads as the decision it is. */
+  ctx.strokeStyle=`rgba(${C.violet},.5)`;ctx.lineWidth=2.4;
+  ctx.beginPath();ctx.moveTo(gx,ay0-9);ctx.lineTo(gx,ay0);ctx.moveTo(gx,ay1);ctx.lineTo(gx,ay1+9);ctx.stroke();
+
+  for(let i=0;i<n;i++){
+    const y0=rr()*h, sp=0.10+rr()*0.16, ph=rr();
+    const u=((t*sp+ph)%1);                    /* 0..1 along its journey */
+    const x=u*w;
+    /* Aimed at a point on the gate line; passes only if that point is open. */
+    const aim=h*0.5+(y0-h*0.5)*0.35;
+    const passes=aim>ay0&&aim<ay1;
+    const yAt=(xx)=>{
+      const k=Math.min(1,xx/gx);
+      return y0+(aim-y0)*k;
+    };
+    if(x<gx||passes){
+      /* Still approaching, or through and continuing to a destination. */
+      const col=x<gx?C.steel:C.mint;
+      ctx.strokeStyle=`rgba(${col},${x<gx?0.13:0.22})`;ctx.lineWidth=1;
+      ctx.beginPath();
+      const tail=Math.max(0,x-w*0.10);
+      for(let xx=tail;xx<=x;xx+=6){const yy=xx<=gx?yAt(xx):aim;xx===tail?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}
+      ctx.stroke();
+      dot(ctx,x,x<=gx?yAt(x):aim,1.5,col,x<gx?0.16:0.26);
+    }else{
+      /* Turned back AT the gate: the reach that did not happen. */
+      const back=(u-gx/w)/(1-gx/w);            /* 0..1 after the refusal */
+      const bx=gx-back*w*0.22, by=aim+Math.sin(back*3.1)*10;
+      ctx.strokeStyle=`rgba(${C.ember},${0.20*(1-back)})`;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(gx,aim);ctx.lineTo(bx,by);ctx.stroke();
+      dot(ctx,bx,by,1.5,C.ember,0.24*(1-back));
+    }
+  }
+  /* Destinations beyond the gate, faint and fixed: the web it may reach. */
+  for(let i=0;i<5;i++){
+    const dy=h*(0.14+0.18*i), dx=w*(0.82+0.06*((i*7)%3)/2);
+    dot(ctx,dx,dy,1.8,C.violet,0.10+0.05*Math.sin(t*0.7+i));
+  }
+},
+
 /* tokenfuse - gradient descent on a cost surface: the burn optimizer.
    A loss valley, an SGD ball stepping down it, step ticks fading behind. */
 descent(ctx,w,h,t){
@@ -278,6 +334,7 @@ tensor(ctx,w,h,t){
 
 /* motif per service */
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
+  scopyx:"egress",
   qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
