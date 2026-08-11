@@ -22,6 +22,57 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
 
 const MOTIFS={
 
+/* heraldyx - the alerts plane: a log streams past, one line is worth a human.
+   Events run left to right along the shared log, dim and unremarked. Now and
+   then one is lifted out, brightens, arcs up to a recipient and lands as a
+   single pulse. The STILLNESS between dispatches is the figure: this service's
+   own rule is what is worth a human tonight, and a motif that fired constantly
+   would be drawing a firehose, which is the thing it exists not to be.
+
+   Written 2026-08-11. It shared `boundary` with wardryx and scopyx, so three
+   rooms in the corridor drew one figure. */
+dispatch(ctx,w,h,t){
+  const rr=rng(53), baseY=h*0.66, n=34;
+  /* The shared log: a faint rule with events running along it. */
+  ctx.strokeStyle=`rgba(${C.steel},.10)`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,baseY);ctx.lineTo(w,baseY);ctx.stroke();
+
+  /* Recipients: a few fixed marks up and to the right. Somebody's evening. */
+  const rec=[[w*0.78,h*0.20],[w*0.88,h*0.30],[w*0.70,h*0.13]];
+  rec.forEach((r,i)=>dot(ctx,r[0],r[1],2.0,C.cyan,0.10+0.05*Math.sin(t*0.6+i*2)));
+
+  for(let i=0;i<n;i++){
+    const sp=0.045+rr()*0.05, ph=rr(), u=((t*sp+ph)%1);
+    const x=u*w, y=baseY+Math.sin(i*1.7)*3;
+    /* One in eight is worth telling somebody about, chosen by the seed rather
+       than at random so the same events are the notable ones every render. */
+    const notable=(i%8)===3;
+    if(!notable||u<0.42){
+      dot(ctx,x,y,1.3,C.steel,0.10);
+      continue;
+    }
+    /* Lifted out of the log and arced to a recipient. */
+    const k=Math.min(1,(u-0.42)/0.46);
+    const to=rec[i%rec.length];
+    const lift=x+(to[0]-x)*k, ly=y+(to[1]-y)*k-Math.sin(k*Math.PI)*h*0.13;
+    ctx.strokeStyle=`rgba(${C.cyan},${0.16*(1-k*0.5)})`;ctx.lineWidth=1;
+    ctx.setLineDash([2,5]);
+    ctx.beginPath();
+    for(let j=0;j<=12;j++){
+      const kk=k*j/12, px=x+(to[0]-x)*kk, py=y+(to[1]-y)*kk-Math.sin(kk*Math.PI)*h*0.13;
+      j?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();ctx.setLineDash([]);
+    dot(ctx,lift,ly,1.8,C.cyan,0.30);
+    /* It landed: one ring at the recipient, then quiet. Never a second. */
+    if(k>0.93){
+      const a=(k-0.93)/0.07;
+      ctx.strokeStyle=`rgba(${C.mint},${0.34*(1-a)})`;ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.arc(to[0],to[1],3+a*13,0,TAU);ctx.stroke();
+    }
+  }
+},
+
 /* scopyx - the egress plane: outbound reaches that must pass a decision.
    Requests leave the fleet on the left, converge on a gate, and either pass
    through its aperture and continue to a destination or are turned back at it.
@@ -334,7 +385,7 @@ tensor(ctx,w,h,t){
 
 /* motif per service */
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
-  scopyx:"egress",
+  scopyx:"egress",heraldyx:"dispatch",
   qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
