@@ -25,6 +25,7 @@ committed is published.
 ./scripts/service-numbers.sh
 ./scripts/demo-bundle-current.sh
 ./scripts/deploy-target-current.sh  # invariant 9; needs network
+# demo-bundle-current.sh also runs daily on its own schedule; see invariant 7
 ./scripts/gates-have-teeth.sh     # invariant 8; needs a clean tree
 ```
 
@@ -110,7 +111,14 @@ true.
    `scripts/refresh-demo.sh`, never by hand, because two flags in genaryx's
    build command are load-bearing and neither is guessable.
    *(gate: `scripts/demo-bundle-current.sh`, in the Pages workflow before the
-   upload. It compares the last commit that touched `apps/web`, NOT genaryx's
+   upload AND on a daily schedule of its own
+   (`.github/workflows/demo-freshness.yml`), which is the half that took two
+   incidents to learn. The gate was correct from the day it was written and
+   caught neither of them, because the Pages workflow only runs on a push HERE
+   and the demo goes stale when GENARYX changes. Between a merge there and the
+   next push here it was right and silent, and both times a person found the
+   stale demo by opening it. A check nothing invokes at the moment of the fault
+   is documentation. It compares the last commit that touched `apps/web`, NOT genaryx's
    main tip: most commits there cannot change the bundle, and a check that
    fails on every unrelated merge is one somebody switches off. It also holds
    the local half with no network, that `demo/index.html` loads exactly the two
