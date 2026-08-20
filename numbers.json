@@ -21,33 +21,42 @@
   "entries": [
     {
       "page": "services/trailryx.html",
-      "claim": "1,172 tests \u00b7 31 crates",
+      "claim": "1,178 tests · 31 crates",
       "occurrences": 1,
       "repo": "TAIPANBOX/trailryx",
       "command": "cargo test --workspace, summed; and ./scripts/readme-numbers.sh, which gates the same figure inside that repository",
       "status": "measured",
-      "measured_on": "2026-08-10",
-      "note": "The strongest entry here: the repository refuses its own push when this number drifts, so the site only has to keep up with a figure that is already true."
+      "measured_on": "2026-08-20",
+      "note": "The strongest entry here: the repository refuses its own push when this number drifts, so the site only has to keep up with a figure that is already true. It did not keep up. On 2026-08-20 the repo gate said 1178 and this page still said 1,172, six behind since 2026-08-10. The repo being honest is what makes the drift measurable, not what prevents it.",
+      "repo_dir": "trailryx",
+      "check": "./scripts/readme-numbers.sh | grep -oE '^[0-9]+' | head -1",
+      "slow": true
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "804 tests",
+      "claim": "814 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "cargo test --all, summed over every `test result` line",
       "status": "measured",
-      "measured_on": "2026-08-10",
-      "note": "Found stale by this file's own first run: the page said 513 and `cargo test --all` sums to 709. The gap, not the number, is why this file exists, so it is recorded here rather than only in git history. Unlike trailryx, this repository has no gate on its own README figure, so nothing but this entry will notice the next drift."
+      "measured_on": "2026-08-20",
+      "note": "Found stale by this file's own first run: the page said 513 and `cargo test --all` sums to 709. The gap, not the number, is why this file exists, so it is recorded here rather than only in git history. Unlike trailryx, this repository has no gate on its own README figure, so nothing but this entry will notice the next drift.",
+      "repo_dir": "tokenfuse",
+      "check": "cargo test --all 2>&1 | grep -E '^test result' | awk '{s+=$4} END {print s}'",
+      "slow": true
     },
     {
       "page": "services/idryx.html",
-      "claim": "25 detectors",
+      "claim": "27 detectors",
       "occurrences": 5,
       "repo": "TAIPANBOX/idryx",
       "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
       "status": "measured",
-      "measured_on": "2026-08-10",
-      "note": "Correct, and now counted rather than merely agreed with. Every detector implements Name(); there are 22 distinct ones, from agent_shadow_tool to unmanaged_egress. The earlier entry here said no command could reproduce this, which was true of the greps tried at the time and not of the type system: the interface is the enumeration."
+      "measured_on": "2026-08-20",
+      "note": "Two detectors were added since 2026-08-10 and the page did not move. The command counts DISTINCT detector names, not files: there are 25 non-test .go files and 27 names, so counting files would give the old figure and look right.",
+      "repo_dir": "Idryx",
+      "check": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l | tr -d ' '",
+      "slow": false
     },
     {
       "page": "services/engram.html",
@@ -57,7 +66,10 @@
       "command": "python3 -m pytest --collect-only -q, in a venv with jsonschema, numpy, rfc8785, sqlite-vec and pytest-asyncio",
       "status": "measured",
       "measured_on": "2026-08-10",
-      "note": "Was 424 on the page and collects 466. One file, tests/test_encryption.py, is SKIPPED for want of sqlcipher3, which has no wheel for Python 3.14, so the true figure on a machine that has it is higher than this. Recorded as the number this command reproduces, with the condition named, rather than as an estimate of the number it would reach elsewhere."
+      "note": "Was 424 on the page and collects 466. One file, tests/test_encryption.py, is SKIPPED for want of sqlcipher3, which has no wheel for Python 3.14, so the true figure on a machine that has it is higher than this. Recorded as the number this command reproduces, with the condition named, rather than as an estimate of the number it would reach elsewhere.",
+      "repo_dir": "Engram",
+      "check": "${PYTHON:-python3} -m pytest --collect-only -q 2>/dev/null | grep -oE '^[0-9]+ tests? collected' | grep -oE '^[0-9]+'",
+      "slow": false
     },
     {
       "page": "services/verdryx.html",
@@ -67,7 +79,10 @@
       "command": "python3 -m pytest --collect-only -q",
       "status": "measured",
       "measured_on": "2026-08-10",
-      "note": "Was 217 on the page and collects 292, with no errors and nothing skipped."
+      "note": "Was 217 on the page and collects 292, with no errors and nothing skipped.",
+      "repo_dir": "verdryx",
+      "check": "${PYTHON:-python3} -m pytest --collect-only -q 2>/dev/null | grep -oE '^[0-9]+ tests? collected' | grep -oE '^[0-9]+'",
+      "slow": false
     },
     {
       "page": "services/sphere.html",
@@ -77,7 +92,10 @@
       "command": "grep -rhcE '^\\s*@Test' --include='*.swift' . | awk '{s+=$1} END {print s+0}'",
       "status": "measured",
       "measured_on": "2026-08-05",
-      "note": "Correct. The repository was cloned to check it: 588 swift-testing @Test macros, which is also what its own README badge says and what its CI gates. The one figure on this site that was already right and had simply never been verified from here."
+      "note": "Correct. The repository was cloned to check it: 588 swift-testing @Test macros, which is also what its own README badge says and what its CI gates. The one figure on this site that was already right and had simply never been verified from here.",
+      "repo_dir": "sphere-ios",
+      "check": "grep -rhcE '^\\s*@Test' --include='*.swift' . | awk '{s+=$1} END {print s+0}'",
+      "slow": false
     },
     {
       "page": "services/platform.html",
@@ -87,17 +105,23 @@
       "command": "grep -n 'MaxDepth = ' chain/chain.go",
       "status": "measured",
       "measured_on": "2026-08-05",
-      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite."
+      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite.",
+      "repo_dir": "agent-stack-go",
+      "check": "grep -h 'MaxDepth = ' chain/chain.go | grep -oE '[0-9]+'",
+      "slow": false
     },
     {
       "page": "services/platform.html",
-      "claim": "82 documented and already fixed",
+      "claim": "85 documented and already fixed",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-k8s",
       "command": "./scripts/gotchas-classified.sh, which prints the total and the four-way split",
       "status": "measured",
-      "measured_on": "2026-08-10",
-      "note": "Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson."
+      "measured_on": "2026-08-20",
+      "note": "Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson.",
+      "repo_dir": "stack-k8s",
+      "check": "./scripts/gotchas-classified.sh | grep -oE '[0-9]+ gotchas' | grep -oE '[0-9]+'",
+      "slow": false
     },
     {
       "page": "services/heraldyx.html",
@@ -106,16 +130,22 @@
       "status": "measured",
       "repo": "TAIPANBOX/heraldyx",
       "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; heraldyx publishes a tag and a GHCR image and no GitHub release, so the tag is the shipped thing and `gh release view` would wrongly report nothing; the page states it once, in `shipped v0.2.2, pinned in the deploy`, where the version IS the claim: it says what the stack-k8s manifests pin, so `latest` would make it false",
-      "measured_on": "2026-08-05"
+      "measured_on": "2026-08-05",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
+      "slow": false
     },
     {
       "page": "services/platform.html",
-      "claim": "v0.6.0",
+      "claim": "v0.7.0",
       "occurrences": 1,
       "status": "measured",
       "repo": "TAIPANBOX/agent-stack-go",
       "command": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName; this page states it four times, twice inside install commands, so a tag cut in that repository makes four claims wrong here at once; down to one occurrence, the `go get` line, which stays pinned because agent-stack-go's own README forbids @latest for the library. `go install` of the agent-conform COMMAND is now @latest, since nothing lands in a consumer's go.mod",
-      "measured_on": "2026-08-10"
+      "measured_on": "2026-08-20",
+      "repo_dir": null,
+      "check": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName",
+      "slow": false
     },
     {
       "page": "services/scopyx.html",
@@ -125,7 +155,10 @@
       "command": "gh api repos/TAIPANBOX/scopyx/tags --jq '.[0].name'; scopyx publishes a tag and TWO multi-arch GHCR images, the service and a `-chromium` variant, and the page states the version four times: the spec rail, the header of the measured run, and both docker run lines. The last two are instructions somebody follows, so all four must agree",
       "status": "measured",
       "measured_on": "2026-08-10",
-      "note": "Bumped from v0.1.0 on 2026-08-10 and the measured panel was RE-RUN rather than relabelled: all four requests were sent again to the published v0.1.2 image against a fixture policy, and every verdict matched the row it is drawn beside, including the header refusal, which comes back as a JSON-RPC -32602 naming the argument. Relabelling a measured panel with a new version without re-running it is precisely the fault this file exists to prevent."
+      "note": "Bumped from v0.1.0 on 2026-08-10 and the measured panel was RE-RUN rather than relabelled: all four requests were sent again to the published v0.1.2 image against a fixture policy, and every verdict matched the row it is drawn beside, including the header refusal, which comes back as a JSON-RPC -32602 naming the argument. Relabelling a measured panel with a new version without re-running it is precisely the fault this file exists to prevent.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/scopyx/tags --jq '.[0].name'",
+      "slow": false
     }
   ]
 }

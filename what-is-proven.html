@@ -96,6 +96,8 @@
     <div class="prose rv">
       <p>The single most useful habit in this project came out of a boring observation: a check that cannot produce a red result will report green forever, and nobody will notice, because green is what everyone expected.</p>
       <p>So the rule is that a passing measurement is only worth reading next to a run where the same measurement fails. The record plane's durability sweep is the cleanest example. Eight hundred million shard ticks across four hundred thousand seeded runs, roughly twelve million injected crashes, zero durability violations. On its own that number is worth very little. The same sweep is then run again with the simulated disk allowed to lie about flushing, and <b>17,869 of 20,000 seeds fail</b>. The first number is only evidence because the second one exists.</p>
+      <p>The rule stopped being about measurements and became about the checks themselves on 2026-08-09, when a harness was put into twenty of the twenty-six repositories that plants each gate's own fault and requires the failure. <b>Eight gates could not produce one.</b> Every one had the same silhouette: a counter or a scan reading an empty subject as a clean one, so renaming a directory turned a check on eleven things into a check on nothing while the wording stayed confident. One of them held the only promise its repository makes to a stranger, that a local demo does not publish a money plane onto whatever network the laptop is on, and it was judging zero addresses.</p>
+      <p>It keeps earning its place. On 2026-08-20 the same harness was pointed at a dependency check written that morning, and reported it toothless: the check read as "every crate has its own justification" and could not hold that, because a comment covering a pair of crates is one decision and deleting a comment in the middle merely merges two groups. The claim was narrowed to what it actually holds, in the script, in the invariant and in the case. Narrowing the claim is the cheaper half of that; the expensive half is that nothing else would have said so.</p>
       <p>The same shape applies to everything below. Where a claim has no companion failure, it says so.</p>
     </div>
   </div>
@@ -193,6 +195,7 @@
         <li><b>No years of simulated time, and no second I/O backend</b> to compare the first against.</li>
         <li><b>The detectors have not been driven at production scale.</b> They fire correctly on seeded fleets and against real event data, which is not the same as an estate's worth of identities.</li>
         <li><b>The federation completeness rule is specified and its transport is unbuilt.</b> The rule exists; the wires do not.</li>
+        <li><b>The figures on this site go stale, and did again this month.</b> Eleven of them name a source repository, the command that produces them and the date somebody last ran it, and a gate refuses a page that states a number nobody owns. That gate cannot tell you an owned number is still true, and on 2026-08-20 five of the eleven were not: two test counts out by six and ten, a detector count out by two, a trap count out by three, and a release a whole version behind. None was wrong when written. Re-measuring now costs one command rather than an afternoon, which is the actual fix; being more careful was never available.</li>
       </ul>
     </div>
 

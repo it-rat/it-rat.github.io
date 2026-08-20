@@ -29,6 +29,17 @@ committed is published.
 ./scripts/gates-have-teeth.sh     # invariant 8; needs a clean tree
 ```
 
+And one that is deliberately NOT a gate:
+
+```sh
+PYTHON=/path/to/venv/bin/python ./scripts/numbers-drift.sh [--slow]
+```
+
+It re-measures every figure in `numbers.json` against the sibling checkouts and
+prints what drifted. Run it before a sweep, never in the publish path: see
+invariant 3 for why a deploy must not depend on nine other repositories being
+present and buildable.
+
 This list did not exist until 2026-08-09: the gates were named only inside the
 invariants that own them, while the Pages workflow ran three of them.
 
@@ -66,6 +77,26 @@ true.
    two type signatures, and found four of the seven wrong: trailryx by 33,
    tokenfuse by 196, engram by 42 and verdryx by 75. Nothing keeps them true;
    the manifest keeps them dated.)*
+
+   **It happened again on 2026-08-20, and that is the argument for the tool
+   rather than for more care.** Ten days after the last sweep, five of the now
+   eleven figures were stale: trailryx by 6 tests, tokenfuse by 10, idryx by 2
+   detectors, stack-k8s by 3 traps, and agent-stack-go a whole release behind
+   at v0.6.0. None was wrong when written, which is the same finding as last
+   time and will be the same finding next time.
+
+   So each entry now also carries `check`, a runnable form of its prose
+   `command`, and `repo_dir`, the sibling checkout to run it in.
+   `scripts/numbers-drift.sh` walks the manifest, re-measures everything it can
+   reach and prints what drifted. **It is a tool, not a gate, and must not
+   become one.** The reasoning above still holds: a publish that depended on
+   nine sibling checkouts, a cargo build and GitHub answering would trade a
+   silent staleness for a flaky deploy. It exits 0 whatever it finds, it says
+   "measured nothing" rather than "agrees" when a check prints no value, and it
+   skips the slow ones unless asked. The prose `command` stays, because it says
+   WHAT is counted, which a one-liner cannot: "test functions, not subtests" is
+   the difference between a number somebody can reproduce and one that merely
+   looks precise.
 4. **A refresh updates numbers. Only a sweep updates status sentences.** The
    sentence "we are building X" outlives the number beside it by months. When
    the numbers change, read the sentences too. *(not enforced)*
