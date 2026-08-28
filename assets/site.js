@@ -14,20 +14,30 @@
    2026-08-03): one is built and not connected, the other is built and
    wired to nothing, and a reader walking the corridor meets everything
    that works before meeting either. */
+const CATEGORIES = [
+  {id:"room",       label:"the room",   color:"#B48CFF"},
+  {id:"money",      label:"money",      color:"#F4B23E"},
+  {id:"guardrails", label:"guardrails", color:"#2DD4BF"},
+  {id:"proof",      label:"proof",      color:"#FF7AA2"},
+  {id:"ground",     label:"ground",     color:"#6C7BFF"},
+];
+window.CATEGORIES = CATEGORIES;
+
 const STACK = [
-  {id:"genaryx",   name:"Genaryx",    plane:"control room", color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"genaryx.html"},
-  {id:"engram",    name:"Engram",     plane:"memory",    color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
-  {id:"tokenfuse", name:"TokenFuse",  plane:"money",     color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
-  {id:"wardryx",   name:"Wardryx",    plane:"policy",    color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},
-  {id:"idryx",     name:"Idryx",      plane:"access",    color:"#34D399", what:"One identity graph for humans, keys and agents",  href:"services/idryx.html"},
-  {id:"qryx",      name:"Qryx",       plane:"crypto",    color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
-  {id:"verdryx",   name:"Verdryx",    plane:"quality",   color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
-  {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
-  {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},
-  {id:"scopyx",    name:"Scopyx",     plane:"egress",    color:"#F0ABFC", what:"Agents reach the web through a decision, not around one", href:"services/scopyx.html"},
-  {id:"pocket",    name:"TokenFuse Pocket", plane:"out of band", color:"#22D3EE", what:"The kill switch on a device the agent's host never touches", href:"services/pocket.html", note:"not wired in yet"},
-  {id:"trailryx",  name:"Trailryx",   plane:"the record",color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html", group:"standalone", note:"standalone"},
-  {id:"platform",  name:"Platform",   plane:"contract",  color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
+  {id:"genaryx",   name:"Genaryx",    plane:"control room", cat:"room",       color:"#B48CFF", what:"The control room over all of it, in your browser on your own box", href:"genaryx.html"},
+  {id:"tokenfuse", name:"TokenFuse",  plane:"money",     cat:"money",      color:"#F4B23E", what:"Runtime spend control and the in-line kill switch", href:"services/tokenfuse.html"},
+  {id:"costcrew",  name:"CostCrew",   plane:"finops",    cat:"money",      color:"#7DD3A0", what:"A crew of agents takes your cloud bill apart, a person signs it off", href:"services/costcrew.html"},
+  {id:"pocket",    name:"TokenFuse Pocket", plane:"out of band", cat:"money", color:"#22D3EE", what:"The kill switch on a device the agent's host never touches", href:"services/pocket.html", note:"not wired in yet"},
+  {id:"wardryx",   name:"Wardryx",    plane:"policy",    cat:"guardrails", color:"#2DD4BF", what:"Policy decisions with a human in the loop",       href:"services/wardryx.html"},
+  {id:"idryx",     name:"Idryx",      plane:"access",    cat:"guardrails", color:"#34D399", what:"One identity graph for humans, keys and agents",  href:"services/idryx.html"},
+  {id:"scopyx",    name:"Scopyx",     plane:"egress",    cat:"guardrails", color:"#F0ABFC", what:"Agents reach the web through a decision, not around one", href:"services/scopyx.html"},
+  {id:"qryx",      name:"Qryx",       plane:"crypto",    cat:"proof",      color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
+  {id:"verdryx",   name:"Verdryx",    plane:"quality",   cat:"proof",      color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
+  {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  cat:"proof",      color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
+  {id:"trailryx",  name:"Trailryx",   plane:"the record",cat:"proof",      color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html", note:"not wired into the console yet"},
+  {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    cat:"ground",     color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},
+  {id:"engram",    name:"Engram",     plane:"memory",    cat:"ground",     color:"#6C7BFF", what:"The SQLite of agent memory",                      href:"services/engram.html"},
+  {id:"platform",  name:"Platform",   plane:"contract",  cat:"ground",     color:"#93A8C4", what:"Agent Passport, shared contract, Terraform",      href:"services/platform.html"},
 ];
 window.STACK = STACK;
 
@@ -166,7 +176,11 @@ document.body.appendChild(k);
 const kin = k.querySelector("input"), klist = k.querySelector(".cmdk-list");
 /* Genaryx is a room in STACK now, so it needs no separate palette entry: it
    used to be appended here because the corridor did not hold it. */
-const pages = [{id:"home",name:"Home",plane:"the stack",color:"#E9EFF6",what:"The whole control room",href:"index.html"}].concat(STACK);
+const pages = [{id:"home",name:"Home",plane:"the stack",cat:"start",color:"#E9EFF6",what:"The whole control room",href:"index.html"}].concat(STACK);
+/* One label per group, so a stranger reading the list learns what the stack is
+   made of rather than fourteen names in a row. The label is the quiet part: a
+   small dot in the group's colour and faint type, never a coloured row. */
+const CAT_LABEL = Object.fromEntries(CATEGORIES.map(c=>[c.id,c]));
 let ksel=0, khits=pages;
 function kOpen(){k.classList.add("open");kin.value="";ksel=0;kRender("");setTimeout(()=>kin.focus(),10);}
 function kClose(){k.classList.remove("open");}
@@ -175,10 +189,16 @@ function kRender(q){
   const ql=q.trim().toLowerCase();
   khits = pages.filter(p=>!ql || (p.name+" "+p.plane+" "+p.what).toLowerCase().includes(ql));
   ksel=Math.min(ksel,Math.max(0,khits.length-1));
-  klist.innerHTML = khits.length ? khits.map((p,i)=>
-    `<div class="cmdk-item${i===ksel?" sel":""}" data-i="${i}">
+  let last=null;
+  klist.innerHTML = khits.length ? khits.map((p,i)=>{
+    const c=CAT_LABEL[p.cat];
+    const head = (p.cat!==last && c)
+      ? `<div class="cmdk-cat"><i style="background:${c.color}"></i>${c.label}</div>` : "";
+    last=p.cat;
+    return head+`<div class="cmdk-item${i===ksel?" sel":""}" data-i="${i}">
        <span class="g" style="background:${p.color}"></span>
-       <span class="nm">${p.name}</span><span class="ds">${p.what}</span></div>`).join("")
+       <span class="nm">${p.name}</span><span class="ds">${p.what}</span></div>`;
+  }).join("")
     : `<div class="cmdk-empty">Nothing in the stack matches that.</div>`;
 }
 function kSelect(i){ /* move selection without rebuilding the DOM */

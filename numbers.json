@@ -247,6 +247,32 @@
       "repo_dir": "agent-stack-go",
       "check": "grep -h 'MaxDepth = ' chain/chain.go | grep -oE '[0-9]+'",
       "slow": false
+    },
+    {
+      "page": "services/costcrew.html",
+      "claim": "261 tests",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/costcrew",
+      "command": "go test ./... -list '.*' | grep -c '^Test', which counts test functions and not subtests",
+      "status": "measured",
+      "measured_on": "2026-08-28",
+      "note": "Measured on the day the page was written, on the branch that renames agent360.go to analyst.go. The repository also gates two things the count does not cover: every Gherkin scenario bound to a named test in both directions (scripts/features-are-bound.sh) and a planted-fault case per gate (scripts/gates-have-teeth.sh).",
+      "repo_dir": "costcrew",
+      "check": "go test ./... -list '.*' | grep -c '^Test'",
+      "slow": false
+    },
+    {
+      "page": "services/costcrew.md",
+      "claim": "261 tests",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/costcrew",
+      "command": "go test ./... -list '.*' | grep -c '^Test', which counts test functions and not subtests",
+      "status": "measured",
+      "measured_on": "2026-08-28",
+      "note": "The .md twin, published and linked from llms.txt, generated from the page by tools/llms.py.",
+      "repo_dir": "costcrew",
+      "check": "go test ./... -list '.*' | grep -c '^Test'",
+      "slow": false
     }
   ]
 }

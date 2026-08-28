@@ -59,6 +59,7 @@ PAGES = {
     "what-is-proven.html": "",
     "console.html": None,
     "404.html": "/",
+    "services/costcrew.html": "../",
     "services/engram.html": "../",
     "services/idryx.html": "../",
     "services/mockryx.html": "../",

@@ -14,13 +14,17 @@ Every service has its own room: what it does, how it behaves over a live time wi
 
 The control room over all of it, in your browser on your own box.
 
-### Engram
-
-The SQLite of agent memory.
-
 ### TokenFuse
 
 Runtime spend control and the in-line kill switch.
+
+### CostCrew
+
+A crew of agents takes your cloud bill apart, a person signs it off.
+
+### TokenFuse Pocket
+
+The kill switch on a device the agent's host never touches.
 
 ### Wardryx
 
@@ -29,6 +33,10 @@ Policy decisions with a human in the loop.
 ### Idryx
 
 One identity graph for humans, keys and agents.
+
+### Scopyx
+
+Agents reach the web through a decision, not around one.
 
 ### Qryx
 
@@ -42,21 +50,17 @@ Cost per correctly resolved case, not per token.
 
 Fire drills that prove guardrails hold.
 
+### Trailryx
+
+A record nobody can quietly change or shorten.
+
 ### Heraldyx
 
 The box writes to you, with a link and never a button.
 
-### Scopyx
+### Engram
 
-Agents reach the web through a decision, not around one.
-
-### TokenFuse Pocket
-
-The kill switch on a device the agent's host never touches.
-
-### Trailryx
-
-A record nobody can quietly change or shorten.
+The SQLite of agent memory.
 
 ### Platform
 
