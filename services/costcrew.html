@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CostCrew - a FinOps crew of agents &#183; IT-RAT</title>
+<meta name="description" content="A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it.">
+<link rel="canonical" href="https://it-rat.com/services/costcrew.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/costcrew.html">
+<meta property="og:title" content="CostCrew - a FinOps crew of agents &#183; IT-RAT">
+<meta property="og:description" content="Analysts with missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. Every deliverable arrives as a draft, and this console enforces nothing.">
+<meta property="og:image" content="https://it-rat.com/assets/og/costcrew.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CostCrew - a FinOps crew of agents &#183; IT-RAT">
+<meta name="twitter:description" content="Analysts with missions, budgets and owners take the cloud, SaaS and AI bill apart. Every deliverable arrives as a draft, and this console enforces nothing.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/costcrew.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/costcrew.md">
+<link rel="stylesheet" href="../assets/site.css?v=e19">
+<style>
+  :root{--accent:#7DD3A0}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg);text-align:right}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px}
+  .install .cmd{color:var(--fg)}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+
+  /* ---- screenshots: one horizontal gallery, same as the console page ----
+     Arrows, a counter and arrow keys here; each frame enlarges through
+     shotbox.js, which binds .gxc-teaser as well as .shot. */
+  .gxc-gal{margin-top:18px}
+  .gxc-galhead{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .gxc-count{font-family:var(--font-m);font-size:11px;letter-spacing:.08em;color:var(--faint)}
+  .gxc-arrows{margin-left:auto;display:flex;gap:8px}
+  .gxc-arr{width:34px;height:34px;border-radius:9px;cursor:pointer;display:grid;place-items:center;
+    border:1px solid var(--line-2);background:var(--panel-2);color:var(--dim);font-size:14px;
+    transition:color .15s,border-color .15s,opacity .15s}
+  .gxc-arr:hover:not(:disabled){color:var(--fg);border-color:var(--accent)}
+  .gxc-arr:disabled{opacity:.3;cursor:default}
+  .gxc-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;scrollbar-width:none;padding:2px 0}
+  .gxc-track::-webkit-scrollbar{display:none}
+  .gxc-track:focus-visible{outline:1px solid var(--accent);outline-offset:6px;border-radius:14px}
+  /* Two across, not three, and the gallery runs wider than the text column it
+     sits under. These frames are a dense console at rest rather than a
+     dashboard of big numbers: a third of a text-width row was unreadable
+     before anybody clicked, which is the whole point of a teaser failing. */
+  .gxc-gal{width:min(1560px,calc(100vw - 36px));
+    margin-left:calc((100% - min(1560px, 100vw - 36px))/2)}
+  .gxc-teaser{position:relative;margin:0;flex:0 0 calc((100% - 14px)/2);scroll-snap-align:start;
+    transition:transform .2s ease}
+  @media(max-width:900px){.gxc-teaser{flex-basis:100%}}
+  .gxc-teaser:hover{transform:translateY(-2px)}
+  .gxc-teaser img{display:block;width:100%;height:auto;border:1px solid var(--line-2);border-radius:12px;transition:border-color .2s ease}
+  .gxc-teaser:hover img{border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2))}
+  .gxc-teaser figcaption{display:block;margin-top:9px;color:var(--dim);font-size:13px;line-height:1.5}
+  .gxc-teaser figcaption b{display:block;margin-bottom:3px;color:var(--fg);font-family:var(--font-m);
+    font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  .gxc-teaser .dg-btn{top:8px;right:8px}
+  .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"CostCrew","url":"https://it-rat.com/services/costcrew.html","description":"A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/costcrew","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"CostCrew","item":"https://it-rat.com/services/costcrew.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do the agents change anything in my cloud account?","acceptedAnswer":{"@type":"Answer","text":"No. This console reads billing exports and vendor usage APIs and writes only its own database. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it."}},{"@type":"Question","name":"How is this different from the console that kills runs?","acceptedAnswer":{"@type":"Answer","text":"Different question, different clock. Genaryx and TokenFuse work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too."}},{"@type":"Question","name":"What does it do about anomalies nobody has time for?","acceptedAnswer":{"@type":"Answer","text":"It ranks them by money rather than by how far out they sit, and it looks both ways: a fall matters as much as a rise, because a feed that stopped delivering looks exactly like a drop. A four sigma move worth three dollars is real, true, and not worth anybody's morning."}},{"@type":"Question","name":"Can it tell me what each AI agent cost?","acceptedAnswer":{"@type":"Answer","text":"Not from an invoice. A charge carries a model and a workload, not an agent, and the console says so rather than inventing an attribution. Route the calls through TokenFuse with an agent id and the same page answers per agent."}},{"@type":"Question","name":"What does it cost to run?","acceptedAnswer":{"@type":"Answer","text":"Nothing to us and nothing to a vendor: one Apache-2.0 binary on a box you already have. What can cost money is a connector, so every entry says whether running it is metered per call, because that is the fact that decides whether an integration is a good idea."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="costcrew" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">costcrew</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link" href="../console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">finops plane &#183; the crew</div>
+        <h1 class="rv d1"><span class="nm">CostCrew</span>. A crew of agents works your bill, and a person signs off every line.</h1>
+        <p class="lede rv d2">Analysts with named missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. Each one is hired into a desk, given a mandate and a monthly guard, and the work it does arrives as a draft. Nothing is published until a person stamps it, and this console enforces nothing at all: it watches spend, it does not spend, and it cannot stop anything.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#shots">See the console <span class="mono">&#8595;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/costcrew" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">pre-1.0 &#183; main is supported</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go &#183; one static binary</span></div>
+        <div class="row"><span class="k">store</span><span class="v">SQLite, in a directory you name</span></div>
+        <div class="row"><span class="k">reads</span><span class="v">AWS, GCP, Azure, Kubecost, vendor usage APIs</span></div>
+        <div class="row"><span class="k">enforces</span><span class="v">nothing, by design</span></div>
+        <div class="row"><span class="k">licence</span><span class="v">Apache-2.0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOTS ================= -->
+<section class="sec" id="shots" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the console, twelve frames</div>
+      <h2>A FinOps practice, staffed.</h2>
+      <p class="lede">Every frame below is a fresh installation of the binary on its own seeded estate: nineteen thousand charge rows over fourteen months, thirty-nine analysts, twenty sprints. Click any still to open it full screen. The figures are the fixture's, and the console says on each page which of its numbers are real money and which the estate generated.</p>
+    </div>
+    <div class="gxc-gal rv" id="gxc-gal">
+      <div class="gxc-galhead">
+        <span class="gxc-count" id="gxc-count">01-02 of 12</span>
+        <span class="gxc-arrows">
+          <button class="gxc-arr" type="button" data-arr="prev" aria-label="Previous frames" aria-controls="gxc-track">&#8592;</button>
+          <button class="gxc-arr" type="button" data-arr="next" aria-label="Next frames" aria-controls="gxc-track">&#8594;</button>
+        </span>
+      </div>
+      <div class="gxc-track" id="gxc-track" tabindex="0" role="region" aria-label="Frames from a fresh installation, use the arrow keys to move">
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-board.webp?v=e02" alt="CostCrew board" width="1760" height="1138">
+            <figcaption><b>The board</b>Blocked and returned work sits first on purpose: it is the work that has stopped, and a board that buries it hides its own problems.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-staff.webp?v=e02" alt="CostCrew crew roster" width="1760" height="1138">
+            <figcaption><b>The crew</b>Thirty-nine analysts, 3,871.35 of work across 310 tasks, and a first-pass rate left blank where nothing has been reviewed yet, because a rate over no reviews is not a rate.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-analyst.webp?v=e02" alt="CostCrew analyst card" width="1760" height="1138" loading="lazy">
+            <figcaption><b>One analyst</b>Its desk and mission, one open task of the four it has ever been given, what it posted, and 66.72 of work against a 150.00 monthly guard.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-hire.webp?v=e02" alt="CostCrew hire form" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Hiring</b>Everything the form asks is a governance fact, asked once. The name becomes part of an agent:// identity that other services parse.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-anomalies.webp?v=e02" alt="CostCrew anomalies queue" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Anomalies</b>Every irregularity ranked by money rather than by how far out it sits, 2,475.10 of it still unexplained. A four sigma move worth three dollars is real and is not worth your morning.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-anomaly.webp?v=e02" alt="CostCrew one anomaly" width="1760" height="1138" loading="lazy">
+            <figcaption><b>One finding</b>2,054.10 above baseline on Amazon EC2, the day marked on its own series, and the rule that judged it: 3.5 robust deviations from the median of the last 28 comparable days.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-allocation.webp?v=e02" alt="CostCrew allocation" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Allocation</b>The part of the bill that arrived with nobody's name on it: 136,848.58 direct against 14,540.00 shared, placed by rules a team can argue with rather than by a number it must accept.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-chargeback.webp?v=e02" alt="CostCrew chargeback" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Chargeback</b>Closing a period is what stops the numbers moving, because an allocation recomputed every time somebody opens the page cannot be charged to anybody. Out as a general ledger CSV.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-results.webp?v=e02" alt="CostCrew results" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Results</b>Found, never saved. 1,254.35 found since the board opened against 3,871.35 the crew cost, and the word is load-bearing: nothing is saved until somebody acts.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-kpis.webp?v=e02" alt="CostCrew KPI library" width="1760" height="1138" loading="lazy">
+            <figcaption><b>KPIs</b>Nine report a number and three refuse. The refusals are the important part: a library where everything reports is one where several of the figures are invented.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-connectors.webp?v=e02" alt="CostCrew connectors" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Connectors</b>Every entry says which table it fills, what it needs, and whether running it costs money, because that last one is what decides whether an integration is a good idea.</figcaption>
+          </figure>
+          <figure class="gxc-teaser">
+            <img src="../assets/shots/costcrew/cc-audit.webp?v=e02" alt="CostCrew audit chain" width="1760" height="1138" loading="lazy">
+            <figcaption><b>Audit</b>Everything the console did, in order, each entry hashed against the one before it. Tamper-evidence rather than tamper-proofing, and the page says which one it is.</figcaption>
+          </figure>
+      </div>
+      <div class="gxc-note">twelve frames, one fresh installation, click any still to open it full screen</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW THE WORK MOVES ================= -->
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">how the work moves</div>
+      <h2>A finding becomes a task, a task becomes a draft, a person stamps it.</h2>
+      <p class="lede">The detector is two-sided and ranks by money: a fall matters as much as a rise, because a feed that stopped delivering and a workload switched off unnoticed both look like a drop. A Sunday is judged against Sundays, and the baseline is a median with a robust deviation, so last month's spike does not raise the bar for this month's.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>The finding names its rule</h3><p>Every anomaly carries the rule that judged it, the baseline it was judged against and the day marked on its own series. A queue whose entries cannot be argued with is a queue nobody works.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>The task carries a guard</h3><p>An analyst gets the task with a mandate, the rights that come with its skills and a spend guard on the row. What it may read follows from what it was hired to do, not from what is convenient.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Only a person publishes</h3><p>Work comes back as a draft. A person posts it or returns it, and the return is on the analyst's own card next to its first-pass rate, so a crew that produces confident noise is visible rather than merely busy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE MONEY ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the part finance argues about</div>
+      <h2>Found, never saved.</h2>
+      <p class="lede">One word is load-bearing throughout this console: money is found, never saved, because nothing is saved until somebody acts. A console that reports found money as saved is one whose numbers stop being believed the first time finance checks them against the invoice.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Shared cost gets a defensible owner</h3><p>Direct cost needs no product. This is about the part of the bill that arrived with nobody's name on it, placed by a rule a team can read and dispute rather than a figure it must accept.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Closing a period stops the numbers</h3><p>An allocation recomputed every time somebody opens the page cannot be charged to anybody: March's number is not April's, and the team is right to refuse it. A closed period freezes, and leaves as a general ledger CSV.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>A measure that cannot be computed refuses</h3><p>The KPI library reports a number or says by name why it cannot. A practice that measures itself with invented figures is worse off than one that measures nothing.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where it sits</div>
+      <h2>Genaryx governs agents. This is a crew of agents that works your bill.</h2>
+      <p class="lede">They are floors, not alternatives. <a href="../genaryx.html">Genaryx</a> is the control room over a fleet: it watches what is running now, demands a signature for anything destructive, and stops things. CostCrew's analysts are agents like any other, so Genaryx governs them too. This console runs the other way round: it reads last month's invoices, hands you drafts, and stops nothing. It emits its own work onto the same agent-event bus, so <a href="trailryx.html">Trailryx</a> can seal it and <a href="heraldyx.html">Heraldyx</a> can mail you about it.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Runtime is not the ledger</h3><p><a href="tokenfuse.html">TokenFuse</a> counts a run in micro-dollars while it happens and can kill it. CostCrew counts an invoice line in cents a month later and allocates it. Same money, two questions, and only one of them has a kill switch.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Hiring is registration</h3><p>The hire form collects what a Passport needs, so an analyst joins the crew and the estate in one act. In the original, those were two unrelated steps and the second one mostly did not happen.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>It says what it cannot do</h3><p>Per-agent attribution of AI spend is not possible from an invoice: the charge carries a model and a workload, not an agent. It becomes possible when the calls go through TokenFuse, and until then the console does not pretend.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RUN IT ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">run it</div>
+      <h2>One binary, one directory.</h2>
+      <p class="lede">No interpreter, no virtual environment, no second database engine in the process. It listens on loopback by default and expects a proxy in front of it for TLS. First account created at /signup becomes the admin of that installation, so make one before you hand anybody the address.</p>
+    </div>
+    <div class="install rv">
+      <span class="cmd"><b>go install</b> github.com/TAIPANBOX/costcrew/cmd/costcrew@latest</span>
+      <span class="note">then: costcrew -data ./local</span>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <span class="cmd"><b>./up.sh</b> --with-finops</span>
+      <span class="note">the whole local stack with the console on :8321, from TAIPANBOX/stack-up</span>
+    </div>
+    <p class="lede rv d2" style="margin-top:18px">261 tests, and the repository gates more than the suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.</p>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What a crew of agents can and cannot do to your bill</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Do the agents change anything in my cloud account?</summary>
+        <div class="a"><p>No. This console reads billing exports and vendor usage APIs and writes only its own database. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.</p></div>
+      </details>
+      <details>
+        <summary>How is this different from the console that kills runs?</summary>
+        <div class="a"><p>Different question, different clock. <a href="../genaryx.html">Genaryx</a> and <a href="tokenfuse.html">TokenFuse</a> work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.</p></div>
+      </details>
+      <details>
+        <summary>What does it do about anomalies nobody has time for?</summary>
+        <div class="a"><p>It ranks them by money rather than by how far out they sit, and it looks both ways: a fall matters as much as a rise, because a feed that stopped delivering looks exactly like a drop. A four sigma move worth three dollars is real, true, and not worth anybody's morning.</p></div>
+      </details>
+      <details>
+        <summary>Can it tell me what each AI agent cost?</summary>
+        <div class="a"><p>Not from an invoice. A charge carries a model and a workload, not an agent, and the console says so rather than inventing an attribution. Route the calls through TokenFuse with an agent id and the same page answers per agent.</p></div>
+      </details>
+      <details>
+        <summary>What does it cost to run?</summary>
+        <div class="a"><p>Nothing to us and nothing to a vendor: one Apache-2.0 binary on a box you already have. What can cost money is a connector, so every entry says whether running it is metered per call, because that is the fact that decides whether an integration is a good idea.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><span class="foot-chip here" aria-current="page"><i style="background:#7DD3A0"></i>CostCrew</span><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=e13"></script>
+<script src="../assets/sheet.js?v=e06"></script>
+<script src="../assets/shotbox.js?v=e06"></script>
+<script>
+/* ---- gallery: arrows, counter, arrow keys. The frames themselves enlarge
+   through shotbox.js. Same behaviour as the console page's gallery. ---- */
+(function(){
+const gal=document.getElementById("gxc-gal"); if(!gal) return;
+const track=document.getElementById("gxc-track"), count=document.getElementById("gxc-count");
+const prev=gal.querySelector('[data-arr="prev"]'), next=gal.querySelector('[data-arr="next"]');
+const slides=[...track.querySelectorAll(".gxc-teaser")];
+const pad=n=>String(n).padStart(2,"0");
+const step=()=>slides[0].getBoundingClientRect().width+14;
+const perView=()=>Math.max(1,Math.round(track.clientWidth/step()));
+function sync(){
+  const first=Math.min(Math.round(track.scrollLeft/step())+1,slides.length);
+  const last=Math.min(first+perView()-1,slides.length);
+  count.textContent=`${pad(first)}-${pad(last)} of ${slides.length}`;
+  prev.disabled=track.scrollLeft<4;
+  next.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-4;
+}
+const page=d=>track.scrollBy({left:d*step()*perView(),behavior:"smooth"});
+prev.addEventListener("click",()=>page(-1));
+next.addEventListener("click",()=>page(1));
+let t; track.addEventListener("scroll",()=>{clearTimeout(t);t=setTimeout(sync,60);},{passive:true});
+/* arrows move the gallery while it holds focus; site.js pages the whole stack
+   on the same keys, so the event must stop here */
+track.addEventListener("keydown",e=>{
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft") return;
+  e.preventDefault(); e.stopPropagation();
+  page(e.key==="ArrowRight"?1:-1);
+});
+addEventListener("resize",sync); sync();
+})();
+</script>
+<script src="../assets/ambient.js"></script>
+</body>
+</html>

@@ -110,6 +110,13 @@
       "description": "A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP."
     },
     {
+      "url": "https://it-rat.com/services/costcrew.html",
+      "markdown": "https://it-rat.com/services/costcrew.md",
+      "title": "CostCrew, the finops plane",
+      "kind": "service",
+      "description": "A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it."
+    },
+    {
       "url": "https://it-rat.com/services/wardryx.html",
       "markdown": "https://it-rat.com/services/wardryx.md",
       "title": "Wardryx, the policy plane",
@@ -121,7 +128,7 @@
       "markdown": "https://it-rat.com/services/idryx.md",
       "title": "Idryx, the access plane",
       "kind": "service",
-      "description": "One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 22 deterministic detectors and a CycloneDX Agent-BOM."
+      "description": "One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 27 deterministic detectors and a CycloneDX Agent-BOM."
     },
     {
       "url": "https://it-rat.com/services/engram.html",

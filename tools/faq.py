@@ -112,6 +112,19 @@ FAQ = {
   "<p>Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see <a href=\"services/platform.html#run\">run the live stack locally</a>. The four that are libraries and CLIs each carry a one-line try-it on their own page.</p>"),
 ]),
 
+"services/costcrew.html": ("common questions", "What a crew of agents can and cannot do to your bill", [
+ ("Do the agents change anything in my cloud account?",
+  "<p>No. This console reads billing exports and vendor usage APIs and writes only its own database. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.</p>"),
+ ("How is this different from the console that kills runs?",
+  "<p>Different question, different clock. <a href=\"../genaryx.html\">Genaryx</a> and <a href=\"tokenfuse.html\">TokenFuse</a> work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.</p>"),
+ ("What does it do about anomalies nobody has time for?",
+  "<p>It ranks them by money rather than by how far out they sit, and it looks both ways: a fall matters as much as a rise, because a feed that stopped delivering looks exactly like a drop. A four sigma move worth three dollars is real, true, and not worth anybody's morning.</p>"),
+ ("Can it tell me what each AI agent cost?",
+  "<p>Not from an invoice. A charge carries a model and a workload, not an agent, and the console says so rather than inventing an attribution. Route the calls through TokenFuse with an agent id and the same page answers per agent.</p>"),
+ ("What does it cost to run?",
+  "<p>Nothing to us and nothing to a vendor: one Apache-2.0 binary on a box you already have. What can cost money is a connector, so every entry says whether running it is metered per call, because that is the fact that decides whether an integration is a good idea.</p>"),
+]),
+
 "services/tokenfuse.html": ("common questions", "How teams put a ceiling on agent spend", [
  ("How do I cap what an AI agent can spend?",
   "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.</p>"),
@@ -155,7 +168,7 @@ FAQ = {
  ("What is an Agent-BOM?",
   "<p>A CycloneDX 1.6 bill of materials for your agents: who owns each one, what runtime it runs on, what it is attested by, and what it can reach. It plugs into the same supply-chain tooling that already ingests your SBOMs.</p>"),
  ("What does it actually detect?",
-  "<p>Twenty-two deterministic detectors in four families: identity threats, non-human identity hygiene, agents and AI, and least privilege. Detection is statistics and rules over the graph; the model is never in the detection path, so every finding is reproducible and defensible in an audit.</p>"),
+  "<p>Twenty-seven deterministic detectors in four families: identity threats, non-human identity hygiene, agents and AI, and least privilege. Detection is statistics and rules over the graph; the model is never in the detection path, so every finding is reproducible and defensible in an audit.</p>"),
 ]),
 
 "services/qryx.html": ("common questions", "Where a post-quantum migration actually starts", [

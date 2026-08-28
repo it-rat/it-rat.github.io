@@ -24,9 +24,9 @@ You can stand up the open stack's live services yourself in one command, and ple
 | Proving it to an auditor | Exports from each service | One signed evidence pack: EU AI Act, SR 11-7, SOC 2 mappings built in |
 | Where your data lives | Your infrastructure | Still yours: AWS, GCP, Hetzner and other clouds, or on-prem |
 
-## One Rust core. The whole console, one live run.
+## One Rust core. Fifteen frames you can open yourself.
 
-The actual console against a live plane on a Hetzner box: $42,895 of governed spend this month across 86 agents and 125,897 model calls, 203 open incidents, and the runaway reconciliation batch caught and killed. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. Try it yourself below: the live demo is the whole console on simulated data, nothing leaving your browser, and the gallery under it slides through fifteen frozen frames of that same real run, any of them opening full screen.
+Every frame below is the demo above, which is the console itself on simulated data: $35,818 of AI spend in the rolling window across 42 agents and 4,466,489 model calls, one runaway already killed by hand and its cap proposed by the copilot. Nothing here is a mock-up and nothing leaves your browser, so you can open the demo, click the same tabs and land on the same screens. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. What this console did on a real box against a live plane, where it killed a runaway on live traffic, is written up in [what is proven](https://it-rat.com/what-is-proven.html).
 
 ## An AI that reads everything and can touch nothing.
 

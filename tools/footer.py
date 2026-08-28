@@ -52,6 +52,7 @@ PAGES = {
     "services/pocket.html": ("../", "Apache-2.0"),
     "services/sphere.html": ("../", "MIT"),
     "services/platform.html": ("../", "Apache-2.0"),
+    "services/costcrew.html": ("../", "Apache-2.0"),
     "services/qryx.html": ("../", "Apache-2.0"),
     "services/tokenfuse.html": ("../", "Apache-2.0"),
     "services/verdryx.html": ("../", "Apache-2.0"),
@@ -73,6 +74,8 @@ def stack():
             s = dict(zip(("id", "name", "plane", "color", "what", "href"), m.groups()))
             g = re.search(r'group:"([^"]+)"', line)
             s["group"] = g.group(1) if g else "stack"
+            c = re.search(r'cat:"([^"]+)"', line)
+            s["cat"] = c.group(1) if c else ""
             # An optional status, shown on the corridor card. It is a field
             # rather than something appended to `plane` because plane is what a
             # thing IS and this is how far along it is, and because the hand
@@ -83,6 +86,21 @@ def stack():
             out.append(s)
     if len(out) < 5:
         sys.exit("site.js: parsed too few services, refusing to write a broken footer")
+    return out
+
+
+def categories():
+    """The groups, in the order the registry declares them. One source, so the
+    footer and the jump palette can never disagree about what the stack is made
+    of, which is the only reason this is parsed rather than restated."""
+    js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
+    block = re.search(r"const CATEGORIES = \[(.*?)\n\];", js, re.S)
+    if not block:
+        sys.exit("site.js: could not find the CATEGORIES registry")
+    out = [dict(zip(("id", "label", "color"), m.groups()))
+           for m in re.finditer(r'id:"([^"]+)".*?label:"([^"]+)".*?color:"([^"]+)"', block.group(1))]
+    if not out:
+        sys.exit("site.js: CATEGORIES parsed empty, refusing to write an ungrouped footer")
     return out
 
 
@@ -102,10 +120,10 @@ def side():
     return out
 
 
-def chips(root, here, group="stack"):
+def chips(root, here, cat):
     out = []
     for s in stack():
-        if s["group"] != group:
+        if s["cat"] != cat:
             continue
         dot = f'<i style="background:{s["color"]}"></i>{s["name"]}'
         if s["id"] == here:
@@ -130,26 +148,35 @@ def side_chips(root, here):
 
 
 def groups(root, here):
-    """The three states these things are actually in, which is not the same
-    question as what they do: running and wired together; running and wired to
-    nothing; not finished and not checkable. The headings carry that; what each
-    one MEANS is on the rooms themselves, where somebody is reading."""
-    return (
-        '<div class="foot-groups">\n'
-        '        <div class="foot-group"><div class="l">the stack</div>\n'
-        f'          <div class="foot-chips">{chips(root, here)}</div>\n'
-        '        </div>\n'
-        # The two small shelves sit BESIDE each other rather than stacked: they
-        # hold one item each, and a column of two one-item groups reads like a
-        # list that ran out rather than like two categories (Yurii, 2026-08-03).
-        '        <div class="foot-row">\n'
-        '          <div class="foot-group"><div class="l">standalone</div>\n'
-        f'            <div class="foot-chips">{chips(root, here, "standalone")}</div>\n'
-        '          </div>\n'
+    """One shelf per category, in registry order, plus the side project.
+
+    It used to be three shelves for three STATES: wired together, running and
+    wired to nothing, unfinished. That answered a question a stranger does not
+    have yet. What they are asking on a first visit is what the stack is made
+    of, so the shelves are what each part is FOR, and how far along a thing is
+    stays where it is checkable: the note on its own room.
+
+    Sphere keeps its own shelf. It is not in the registry at all (CLAUDE.md
+    invariant 5), and that exclusion is the mechanism, not this heading.
+    """
+    shelves = []
+    for c in categories():
+        chip_html = chips(root, here, c["id"])
+        if not chip_html:
+            continue
+        shelves.append(
+            '          <div class="foot-group"><div class="l">'
+            f'<i style="background:{c["color"]}"></i>{c["label"]}</div>\n'
+            f'            <div class="foot-chips">{chip_html}</div>\n'
+            '          </div>\n')
+    shelves.append(
         '          <div class="foot-group"><div class="l">side project</div>\n'
         f'            <div class="foot-chips">{side_chips(root, here)}</div>\n'
-        '          </div>\n'
-        '        </div>\n      </div>')
+        '          </div>\n')
+    return ('<div class="foot-groups">\n'
+            '        <div class="foot-row">\n'
+            + "".join(shelves)
+            + '        </div>\n      </div>')
 
 
 def cols(root, here):
