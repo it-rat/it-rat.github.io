@@ -62,21 +62,24 @@
     scroll-behavior:smooth;scrollbar-width:none;padding:2px 0}
   .gxc-track::-webkit-scrollbar{display:none}
   .gxc-track:focus-visible{outline:1px solid var(--accent);outline-offset:6px;border-radius:14px}
-  /* Two across, not three, and the gallery runs wider than the text column it
-     sits under. These frames are a dense console at rest rather than a
-     dashboard of big numbers: a third of a text-width row was unreadable
-     before anybody clicked, which is the whole point of a teaser failing. */
-  .gxc-gal{width:min(1560px,calc(100vw - 36px));
-    margin-left:calc((100% - min(1560px, 100vw - 36px))/2)}
-  .gxc-teaser{position:relative;margin:0;flex:0 0 calc((100% - 14px)/2);scroll-snap-align:start;
+  /* Same geometry as the console page: three across, inside the text column.
+     A still of a dense console is never readable at a third of a row, so the
+     frame is a thumbnail and the TITLE is what tells you which screen this is.
+     Whoever wants the detail opens it full screen, where the console's own
+     text is at full size. */
+  .gxc-teaser{position:relative;margin:0;flex:0 0 calc((100% - 28px)/3);scroll-snap-align:start;
     transition:transform .2s ease}
-  @media(max-width:900px){.gxc-teaser{flex-basis:100%}}
+  @media(max-width:1000px){.gxc-teaser{flex-basis:calc((100% - 14px)/2)}}
+  @media(max-width:700px){.gxc-teaser{flex-basis:100%}}
   .gxc-teaser:hover{transform:translateY(-2px)}
   .gxc-teaser img{display:block;width:100%;height:auto;border:1px solid var(--line-2);border-radius:12px;transition:border-color .2s ease}
   .gxc-teaser:hover img{border-color:color-mix(in srgb,var(--accent) 55%,var(--line-2))}
-  .gxc-teaser figcaption{display:block;margin-top:9px;color:var(--dim);font-size:13px;line-height:1.5}
-  .gxc-teaser figcaption b{display:block;margin-bottom:3px;color:var(--fg);font-family:var(--font-m);
-    font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+  .gxc-teaser figcaption{display:block;margin-top:11px;color:var(--faint);font-size:12.5px;line-height:1.5}
+  /* The title carries the frame. At a third of a row nobody reads the console
+     in the still, so what has to be legible from a scroll is which screen it
+     is; the sentence under it is for whoever is already reading. */
+  .gxc-teaser figcaption b{display:block;margin-bottom:5px;color:var(--fg);
+    font-size:18px;line-height:1.25;font-weight:650;letter-spacing:-.01em}
   .gxc-teaser .dg-btn{top:8px;right:8px}
   .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
 </style>
@@ -133,7 +136,7 @@
     </div>
     <div class="gxc-gal rv" id="gxc-gal">
       <div class="gxc-galhead">
-        <span class="gxc-count" id="gxc-count">01-02 of 12</span>
+        <span class="gxc-count" id="gxc-count">01-03 of 12</span>
         <span class="gxc-arrows">
           <button class="gxc-arr" type="button" data-arr="prev" aria-label="Previous frames" aria-controls="gxc-track">&#8592;</button>
           <button class="gxc-arr" type="button" data-arr="next" aria-label="Next frames" aria-controls="gxc-track">&#8594;</button>
