@@ -1,10 +1,10 @@
 <!-- https://it-rat.com/index.html -->
 
-# IT-RAT, the agent-governance stack
+# IT-RAT, open-source governance for AI agents
 
 > Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted.
 
-A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source stack that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime, proven on real infrastructure before anyone saw a slide about it. Around them sit the parts a fleet needs and nobody builds first: a decision before an agent reaches the web, a delegation it can prove and a person can end, alerts by mail, a record nobody can quietly shorten, and a kill switch out of band.
+A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source governance that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime, each installed on its own rather than adopted whole, and proven on real infrastructure before anyone saw a slide about it. Around them sit the parts a fleet needs and nobody builds first: a decision before an agent reaches the web, a delegation it can prove and a person can end, alerts by mail, a record nobody can quietly shorten, and a kill switch out of band.
 
 ## One corridor, every door on it.
 

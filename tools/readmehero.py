@@ -125,7 +125,7 @@ def html(services):
       <div class="kicker"><b>&#9889;</b> IT-RAT.COM &#183; STATIC SITE &#183; NO BUILD STEP</div>
       <div class="mark">IT-RAT<span>.</span></div>
       <div class="lede">The source of <b>it-rat.com</b>: an interactive control room
-        for the open agent-governance stack, one room per service.</div>
+        for open agent governance, one room per service.</div>
       <div class="chips">{chips}</div>
     </div>
     <div class="card">

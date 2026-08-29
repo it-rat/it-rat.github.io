@@ -24,7 +24,7 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 # id -> (page path, kicker, headline, line under it, accent)
 EXTRA = {
-    "index": ("index.html", "the agent-governance stack",
+    "index": ("index.html", "governance for AI agents",
               "Run AI agents like a workforce, not a wildfire.",
               "Budgets, policy, identity, memory, crypto, quality and drills. Apache-2.0.", "#F4B23E"),
 }

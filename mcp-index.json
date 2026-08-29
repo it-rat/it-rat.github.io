@@ -1,13 +1,13 @@
 {
   "site": "https://it-rat.com",
   "name": "IT-RAT",
-  "description": "The open-source agent-governance stack, and the guides that explain it.",
+  "description": "Open-source governance for AI agents, and the guides that explain it.",
   "license": "Apache-2.0",
   "pages": [
     {
       "url": "https://it-rat.com/index.html",
       "markdown": "https://it-rat.com/index.md",
-      "title": "IT-RAT, the agent-governance stack",
+      "title": "IT-RAT, open-source governance for AI agents",
       "kind": "page",
       "description": "Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted."
     },

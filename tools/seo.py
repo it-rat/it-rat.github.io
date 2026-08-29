@@ -85,7 +85,7 @@ def organization():
         "logo": f"{SITE}/apple-touch-icon.png",
         "image": f"{SITE}/assets/og.png",
         "email": "itratmail@gmail.com",
-        "description": ("The authors of the open-source agent-governance stack: runtime spend "
+        "description": ("The authors of open-source governance for AI agents: runtime spend "
                         "control, policy, memory, identity, cryptography, quality and "
                         "pre-production drills for AI agents. Apache-2.0."),
         "sameAs": [

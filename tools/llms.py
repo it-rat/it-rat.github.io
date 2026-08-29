@@ -54,7 +54,7 @@ SERVICES = [
     ("services/platform.html", "Platform, the shared contract"),
 ]
 OTHER = [
-    ("index.html", "IT-RAT, the agent-governance stack"),
+    ("index.html", "IT-RAT, open-source governance for AI agents"),
     ("genaryx.html", "Genaryx, the console over the stack"),
 ]
 ALL = OTHER + GUIDES + SERVICES
@@ -200,11 +200,11 @@ def main():
     llms = [
         "# IT-RAT",
         "",
-        "> The open-source agent-governance stack: runtime spend control, policy decisions,",
+        "> Open-source governance for AI agents: runtime spend control, policy decisions,",
         "> identity and delegation, egress, memory with provenance, cryptography posture,",
-        "> quality scoring, pre-production drills, alerting and an auditable record for AI",
-        "> agents. Self-hosted on infrastructure the operator owns, plus Genaryx, the",
-        "> console over them. Every part of it is Apache-2.0.",
+        "> quality scoring, pre-production drills, alerting and an auditable record.",
+        "> Each plane installs on its own, self-hosted on infrastructure the operator",
+        "> owns, plus Genaryx, the console over them. Every part of it is Apache-2.0.",
         "",
         "Every page below is available as markdown at the same path with a .md extension.",
         "",
@@ -239,7 +239,7 @@ def main():
     index = {
         "site": SITE,
         "name": "IT-RAT",
-        "description": "The open-source agent-governance stack, and the guides that explain it.",
+        "description": "Open-source governance for AI agents, and the guides that explain it.",
         "license": "Apache-2.0",
         "pages": [
             {

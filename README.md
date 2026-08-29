@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/img/readme/hero.png" alt="IT-RAT: the source of it-rat.com, an interactive control room for the open agent-governance stack" width="100%">
+  <img src="assets/img/readme/hero.png" alt="IT-RAT: the source of it-rat.com, an interactive control room for open agent governance" width="100%">
 </p>
 
 <p align="center">
