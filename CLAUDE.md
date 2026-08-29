@@ -131,8 +131,23 @@ true.
    decision it describes is the one way a rule like this destroys work rather
    than protecting it.
    *(not enforced)*
-6. **Nothing on this site is sold.** The stack is open; consulting is the
-   commercial motion. No pricing, no plans, no upgrade language.
+6. **Nothing on this site is sold, and no page says how anything is paid
+   for.** No pricing, no plans, no upgrade language, and no sentence naming a
+   commercial motion of any kind.
+
+   Until 2026-08-29 this invariant read "the stack is open; consulting is the
+   commercial motion", and the Genaryx FAQ carried a question answering where
+   the money comes from. `@yurii 2026-08-29`: "там ніякого комерційного боку
+   немає... Ми колись так думали, але про це не має бути написано ніде."
+   The question is gone, so is the paragraph about the console once being the
+   one thing that would be sold, and so is the same history in the redirect
+   page's comment. What survives is the plain fact that the licence is
+   Apache-2.0 and there is no tier.
+
+   The market descriptions in `agent-tooling-compared.html` and the comparison
+   row on the TokenFuse page are NOT this. They describe how other shapes of
+   tooling are licensed, anonymously, which is a fact about the field rather
+   than a claim about us. Leave them.
    *(not enforced)*
 7. **The published demo is a build of the current genaryx.** `/demo` is not
    built here: it is a hand-pasted copy of `genaryx/apps/web/dist`, and a copy
