@@ -12,7 +12,7 @@ This is a simulation, labeled as one: a replay of the envelope's normal day. A p
 
 ## Everything meets at the envelope.
 
-Twelve registered sources write one shape onto one NDJSON bus: five required fields, five optional ones. Four consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, and Heraldyx mails the operator about the few worth interrupting them for. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
+Twelve registered sources write one shape onto one NDJSON bus: five required fields, five optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
 
 ## Boring on purpose. Load-bearing anyway.
 
