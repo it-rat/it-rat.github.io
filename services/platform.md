@@ -95,7 +95,7 @@ Without a shared contract you get one of two outcomes: every tool logs its own J
 
 Every other page on this site is a producer or a consumer of this contract. [TokenFuse](https://it-rat.com/tokenfuse.html) pushes its incident taxonomy through the envelope verbatim, zero renaming. [Wardryx](https://it-rat.com/wardryx.html) answers policy_deny in schema v0.2. [Engram](https://it-rat.com/engram.html) writes memory_written and reflection_run into the same stream, and [Idryx](https://it-rat.com/idryx.html) reads everything back into one identity graph, checking passports with the same passport.Parse this platform ships. Different rooms, one grammar.
 
-What the contract is for, in practice: [AI agent governance](https://it-rat.com/ai-agent-governance.html) and the controls it lets seven tools share.
+What the contract is for, in practice: [AI agent governance](https://it-rat.com/ai-agent-governance.html) and the controls it lets independent tools share.
 
 This installs nothing of the stack: it is the contract itself, for an agent of your own. Exit 0 means every file and every NDJSON line conforms; exit 1 means at least one did not. That is the whole interface.
 
@@ -103,7 +103,7 @@ This installs nothing of the stack: it is the contract itself, for an agent of y
 
 Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where `agent-conform -version` reads it back.
 
-## The contract the whole stack agrees on
+## The contract every service agrees on
 
 **Q: What is an Agent Passport?**
 One identifier and one document per agent: an `agent://` URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries.

@@ -8,7 +8,7 @@ The open services each govern one plane of an agent fleet. Genaryx is the consol
 
 ### The open stack stays open.
 
-Genaryx is Apache-2.0, like everything under it. It is the room built on top of the open services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of seven dashboards and a terminal, and you can read every line of it before you run it. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
+Genaryx is Apache-2.0, like everything under it. It is the room built on top of the open services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of a dashboard per plane and a terminal, and you can read every line of it before you run it. And every screenshot on this page is the real app against a live plane, not a mockup: a fictional tier-1 bank, `meridian.example`, run on real infrastructure.
 
 ## What the console adds that the stack alone does not.
 
@@ -129,7 +129,7 @@ The practice this console is built for is written up separately: [AI agent gover
 ## What the console is, and what it costs
 
 **Q: Is Genaryx free, or is there a paid tier above it?**
-It is Apache-2.0, the same licence as the services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create. For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.
+It is Apache-2.0, the same licence as every service under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create. For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.
 
 **Q: Is it open source, or open core with the useful parts held back?**
 Open source, and nothing is held back. The console is one repository, [TAIPANBOX/genaryx](https://github.com/TAIPANBOX/genaryx), and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled.

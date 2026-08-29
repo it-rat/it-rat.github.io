@@ -4,7 +4,7 @@
 
 > A single runaway agent followed through spend, policy, identity, memory, mail and evidence: what each plane sees, what it emits, and who is told.
 
-Every plane in this stack is easy to describe on its own and hard to judge on its own. So here is one ordinary failure, a support agent that gets stuck in a loop, followed from its first expensive call to the evidence somebody hands an auditor months later. **Nothing below is a new capability.** It is the same seven services, in the order the incident actually reaches them, which is the only order that shows why they are separate.
+Every plane in this stack is easy to describe on its own and hard to judge on its own. So here is one ordinary failure, a support agent that gets stuck in a loop, followed from its first expensive call to the evidence somebody hands an auditor months later. **Nothing below is a new capability.** It is the same planes as everywhere else on this site, in the order the incident actually reaches them, which is the only order that shows why they are separate.
 
 ## An agent, a budget, and a loop.
 
