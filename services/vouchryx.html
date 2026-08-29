@@ -136,7 +136,7 @@
       <p class="lede">Two signed tokens and a proof go in, a short-lived one comes out, and the enforcement point verifies it without asking anybody. The dotted path is the one that matters in an incident: a revocation reaches the poller and the same token stops working before it expires.</p>
     </div>
     <div class="diagram rv">
-      <svg viewBox="0 0 960 372" role="img" aria-label="Vouchryx loop: a subject token, an actor token and a DPoP proof are exchanged at POST /v1/token for a short-lived JWT carrying nested act and a key thumbprint; an enforcement point verifies it offline against the JWKS and polls the revocation list; a person posting to /v1/revoke with an actor and a reason puts the token on that list, and the enforcement point then refuses it before it expires">
+      <svg viewBox="0 0 960 382" role="img" aria-label="Vouchryx loop: a subject token, an actor token and a DPoP proof are exchanged at POST /v1/token for a short-lived JWT carrying nested act and a key thumbprint; an enforcement point verifies it offline against the JWKS and polls the revocation list; a person posting to /v1/revoke with an actor and a reason puts the token on that list, and the enforcement point then refuses it before it expires">
         <defs>
           <marker id="vx-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
           <marker id="vx-r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#FF574B"/></marker>
@@ -150,21 +150,21 @@
         <g class="vx-t" text-anchor="middle">
 
           <!-- inputs -->
-          <rect x="12" y="26" width="196" height="46" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
-          <text x="110" y="47" fill="#93A8C4" font-size="12" font-weight="700">subject_token</text>
-          <text x="110" y="63" fill="#8A97A6" font-size="10.5">from your IdP &#183; user://acme/ada</text>
+          <rect x="12" y="26" width="222" height="46" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="123" y="47" fill="#93A8C4" font-size="12" font-weight="700">subject_token</text>
+          <text x="123" y="63" fill="#8A97A6" font-size="10.5">from your IdP &#183; user://acme/ada</text>
 
-          <rect x="12" y="88" width="196" height="46" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
-          <text x="110" y="109" fill="#93A8C4" font-size="12" font-weight="700">actor_token</text>
-          <text x="110" y="125" fill="#8A97A6" font-size="10.5">agent://acme/triage</text>
+          <rect x="12" y="88" width="222" height="46" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="123" y="109" fill="#93A8C4" font-size="12" font-weight="700">actor_token</text>
+          <text x="123" y="125" fill="#8A97A6" font-size="10.5">agent://acme/triage</text>
 
-          <rect x="12" y="150" width="196" height="46" rx="11" fill="#141C27" stroke="#8B9DFF" stroke-width="1.2"/>
-          <text x="110" y="171" fill="#8B9DFF" font-size="12" font-weight="700">DPoP proof</text>
-          <text x="110" y="187" fill="#8A97A6" font-size="10.5">signed by the holder key</text>
+          <rect x="12" y="150" width="222" height="46" rx="11" fill="#141C27" stroke="#8B9DFF" stroke-width="1.2"/>
+          <text x="123" y="171" fill="#8B9DFF" font-size="12" font-weight="700">DPoP proof</text>
+          <text x="123" y="187" fill="#8A97A6" font-size="10.5">signed by the holder key</text>
 
-          <path d="M212 49 L332 96" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
-          <path d="M212 111 L332 111" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
-          <path d="M212 173 L332 126" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
+          <path d="M238 49 L332 96" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
+          <path d="M238 111 L332 111" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
+          <path d="M238 173 L332 126" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
 
           <!-- the exchange -->
           <rect x="336" y="72" width="196" height="80" rx="13" fill="#161F2C" stroke="#8B9DFF" stroke-width="1.6"/>
@@ -183,16 +183,16 @@
 
           <!-- the enforcement point -->
           <path d="M794 172 L794 214" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
-          <rect x="626" y="218" width="336" height="86" rx="13" fill="#161F2C" stroke="#2DD4BF" stroke-width="1.4"/>
-          <text x="794" y="244" fill="#2DD4BF" font-size="12.5" font-weight="700">enforcement point</text>
-          <text x="794" y="264" fill="#8A97A6" font-size="10.5">a gateway, a proxy, whatever is in the path</text>
-          <text x="794" y="285" fill="#E9EFF6" font-size="11">verifies offline &#183; needs a fresh proof per call</text>
+          <rect x="622" y="218" width="330" height="86" rx="13" fill="#161F2C" stroke="#2DD4BF" stroke-width="1.4"/>
+          <text x="787" y="244" fill="#2DD4BF" font-size="12.5" font-weight="700">enforcement point</text>
+          <text x="787" y="264" fill="#8A97A6" font-size="10.5">a gateway, a proxy, whatever is in the path</text>
+          <text x="787" y="285" fill="#E9EFF6" font-size="11">verifies offline &#183; needs a fresh proof per call</text>
 
           <!-- offline verification -->
           <rect x="336" y="196" width="196" height="46" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
           <text x="434" y="217" fill="#93A8C4" font-size="11.5" font-weight="700">/.well-known/jwks.json</text>
           <text x="434" y="233" fill="#8A97A6" font-size="10.5">public keys, no round trip</text>
-          <path d="M536 219 L622 244" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
+          <path d="M536 219 L618 244" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#vx-a)"/>
 
           <!-- the revocation path -->
           <rect x="12" y="252" width="196" height="46" rx="11" fill="#141C27" stroke="#FF574B" stroke-width="1.2"/>
@@ -204,18 +204,14 @@
           <text x="434" y="289" fill="#8A97A6" font-size="10.5">polled, and carries as_of</text>
 
           <path d="M212 275 L332 275" stroke="#FF574B" stroke-width="1.2" fill="none" marker-end="url(#vx-r)"/>
-          <path d="M536 275 L622 268" stroke="#FF574B" stroke-width="1.2" stroke-dasharray="5 4" fill="none" marker-end="url(#vx-r)"/>
+          <path d="M536 275 L618 268" stroke="#FF574B" stroke-width="1.2" stroke-dasharray="5 4" fill="none" marker-end="url(#vx-r)"/>
 
-          <!-- what the enforcement point answers, before and after -->
-          <text x="794" y="330" font-size="11.5" fill="#34D399" class="vx-anim">
-            200 &#183; the chain is proven
-            <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.5;0.92;1" dur="9s" repeatCount="indefinite"/>
-          </text>
-          <text x="794" y="330" font-size="11.5" fill="#FF574B" opacity="0" class="vx-anim">
-            401 &#183; reason=BadToken, before it expired
-            <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.42;0.5;0.92;1" dur="9s" repeatCount="indefinite"/>
-          </text>
-          <text x="794" y="330" font-size="11.5" fill="#34D399" opacity="0">200 &#183; the chain is proven</text>
+          <!-- what the enforcement point answers, before and after. Two lines,
+               never one line crossfading between them: stacked at one anchor
+               they overlapped for half a second on every swap, and the longer
+               red string read as an artefact printed over the green one. -->
+          <text x="948" y="326" font-size="11.5" fill="#34D399" text-anchor="end">200 &#183; the chain is proven</text>
+          <text x="948" y="346" font-size="11.5" fill="#FF574B" text-anchor="end">after /v1/revoke: 401 &#183; reason=BadToken, before it expired</text>
 
           <!-- the token travelling, and the revocation catching it -->
           <g class="vx-anim">
@@ -227,7 +223,7 @@
             </circle>
           </g>
 
-          <text x="480" y="358" fill="#5A6675" font-size="10.5">nothing on this line asks vouchryx at request time, on purpose</text>
+          <text x="480" y="368" fill="#5A6675" font-size="10.5">nothing on this line asks vouchryx at request time, on purpose</text>
         </g>
       </svg>
     </div>
