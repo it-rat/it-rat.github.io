@@ -273,6 +273,26 @@ edit("scripts/deploy-target-current.sh",
 	"ship it: git push upstream"
 
 echo
+# invariant: the footer's shelves and the stylesheet's columns are the same
+# number. Above 860px the row is a six-column grid, and six is a constant in a
+# stylesheet describing content generated from a registry.
+run_case "footer-shelves: a page loses a shelf" fail \
+	'./scripts/footer-shelves.sh' \
+	"$(py 'import re
+p = "services/qryx.html"
+s = open(p).read()
+m = re.search(r'\n *<div class="foot-group"><div class="l">side project</div>.*?\n *</div>', s, re.S)
+assert m, "the side project shelf is not where this case expects it"
+open(p, "w").write(s.replace(m.group(0), "", 1))')" \
+	"shelves, expected 6"
+
+run_case "footer-shelves: the stylesheet draws a different number of columns" fail \
+	'./scripts/footer-shelves.sh' \
+	"$(py 'edit("assets/site.css",
+     ".foot-row{display:grid;grid-template-columns:repeat(6,1fr)",
+     ".foot-row{display:grid;grid-template-columns:repeat(5,1fr)")')" \
+	"columns for 6 shelves"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate
@@ -284,6 +304,12 @@ s = open("index.html").read()
 m = re.search(r"</body>", s)
 assert m, "index.html has no closing body tag"
 open("index.html","w").write(s.replace(m.group(0), "<p>Since 2026, on version 2.1, this sentence carries digits and owns nothing.</p></body>", 1))')"
+
+# The footer's SHAPE is what this gate owns. Prose arriving on a page is not a
+# shape, and a gate that failed on it would be failing on ordinary writing.
+run_case "footer-shelves: a page gains a paragraph" pass \
+	'./scripts/footer-shelves.sh' \
+	"$(py 'edit("index.html", "</body>", "<p>a sentence that changes no shelf.</p></body>")')"
 
 # Work in progress is normal. A local HEAD ahead of both published copies is
 # somebody mid-edit, and a gate that failed on it would be switched off inside
@@ -304,6 +330,16 @@ d = json.load(open(p))
 d["entries"] = []
 json.dump(d, open(p, "w"), indent=2)')" \
 	"records no entries"
+
+run_case "footer-shelves: the registry it counts shelves from is gone" fail \
+	'./scripts/footer-shelves.sh' \
+	"$(py 'import re
+p = "assets/site.js"
+s = open(p).read()
+m = re.search(r"const CATEGORIES = \[.*?\n\];", s, re.S)
+assert m, "site.js has no CATEGORIES registry"
+open(p, "w").write(s.replace(m.group(0), "", 1))')" \
+	"nothing was measured"
 
 run_case "page-metadata: no HTML pages left to read" fail \
 	'./scripts/page-metadata.sh' \

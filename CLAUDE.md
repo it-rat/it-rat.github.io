@@ -23,6 +23,7 @@ committed is published.
 ```sh
 ./scripts/page-metadata.sh
 ./scripts/service-numbers.sh
+./scripts/footer-shelves.sh       # invariant 10
 ./scripts/demo-bundle-current.sh
 ./scripts/deploy-target-current.sh  # invariant 9; needs network
 # demo-bundle-current.sh also runs daily on its own schedule; see invariant 7
@@ -189,11 +190,15 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 9 cases: five real faults, two
-   non-faults, and two subjects taken away entirely. The non-faults are the
+   *(gate: `scripts/gates-have-teeth.sh`, 15 cases: nine real faults, three
+   non-faults, and three subjects taken away entirely. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
-   an owner, and an uncommitted local edit is not a deploy that failed to
-   arrive. A gate flagging either would be switched off inside a week.)*
+   an owner, an uncommitted local edit is not a deploy that failed to arrive,
+   and a paragraph arriving on a page is not a change of footer shape. A gate
+   flagging any of them would be switched off inside a week. This line said
+   nine until 2026-08-29 while eleven cases ran, which is the same class of
+   drift the site's own figures have: a count restated by hand and never
+   measured.)*
 
    **`demo-bundle-current.sh` now HAS a case, and the delay is the record worth
    keeping.** This file used to say it deliberately had none, because the gate
@@ -227,6 +232,30 @@ true.
    `upstream`. It cannot run inside the LIVE repository's own workflow and mean
    anything: that workflow only runs when a push arrives, and the fault is a
    push that never arrives.)*
+
+10. **The footer's shape is generated, and the stylesheet's constant agrees
+   with it.** Above 860px the footer row is a six-column grid, one column per
+   shelf. Six is a number written into `assets/site.css`, describing content
+   written from the registry in `assets/site.js`, and nothing connected the
+   two: a seventh category would give every page a seventh shelf that wraps to
+   a row of its own, half empty, with no build failing and no link breaking.
+
+   Writing that grid on 2026-08-29 found the page it would have drawn wrong.
+   `agent-tooling-compared.html` was published on 2026-08-11 and never added to
+   `tools/footer.py`'s `PAGES`, so every regeneration since had skipped it: one
+   shelf of twelve chips, CostCrew and Vouchryx missing outright, and Trailryx
+   under a `standalone` heading that stopped being true the same week.
+   Thirty-one pages were current and one had been stale for three months.
+
+   So the gate does not read that list. **A hand-written list of what to check
+   is itself unchecked, and that list was the bug.** It finds every page with a
+   footer and judges what it finds.
+   *(gate: `scripts/footer-shelves.sh`, three checks: how many shelves the
+   registry would emit, that every page carrying a footer has exactly that many
+   with those labels in one row, and that the column count in the stylesheet is
+   the same number. In the Pages workflow before the upload. It says nothing
+   about WHICH chips sit on a shelf: `tools/footer.py` writes those and
+   `service-numbers.sh` owns what a page may claim.)*
 
 ## Decisions that have no gate yet
 

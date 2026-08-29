@@ -523,6 +523,43 @@ p{margin:0}
 }
 .foot-chip i{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
 .foot-chip em{font-style:normal;color:var(--faint);font-size:10.5px;margin-left:1px}
+/* Where there is width to share, each shelf becomes a column of its own.
+   Wrapped along one row, the shelves break wherever the previous one happened
+   to end, so the footer reshuffles into a different ragged shape at every
+   window size and grows as the window narrows: 118px of chips at 1280 becomes
+   252px and five uneven rows at 900. As six equal columns it holds one shape
+   and one height, 152px, all the way down.
+
+   860px is measured, not chosen. The narrowest column that still holds this
+   content is about 90px, because "side project" is the longest label at 86px
+   and breaks in two below that. Six of those plus five 16px gaps needs 620px
+   of row, and the row is the wrap minus the brand column, which reaches 620px
+   at a 860px viewport.
+
+   Under that there is nothing to distribute, so the footer keeps exactly the
+   layout it has today rather than trading a ragged shape for a taller one:
+   three columns there measured 73px taller than what it replaced.
+
+   max-width on the chip is what lets the one long name, TokenFuse Pocket, wrap
+   inside its column instead of hanging out of it. The column is a flex box
+   aligned to its start, so without it the chip sizes to its content and
+   overflows.
+
+   The chip's own line-height is 1, which is right for a pill that can never
+   wrap and wrong the moment one can: two lines of 12.5px type with no leading
+   at all. It is set here, with the vertical padding trimmed to match, so a
+   single-line chip stays the height it is today (26px against 27) and the
+   wrapped one gets its second line back. The row measures 151px with this and
+   152px without, so the leading is free.
+
+   This assumes six shelves, and scripts/footer-shelves.sh holds that: a
+   seventh category or a page the generator forgot would otherwise leave a hole
+   in the row that nothing would report. */
+@media (min-width:860px){
+  .foot-row{display:grid;grid-template-columns:repeat(6,1fr);gap:22px 16px}
+  .foot-chips{flex-direction:column;align-items:flex-start;gap:7px}
+  .footer .cols .foot-chip{max-width:100%;line-height:1.3;padding-top:4px;padding-bottom:4px}
+}
 /* One line under a group, saying what that group's state IS. The labels alone
    carry the difference between "the stack" and "standalone" only for somebody
    who already knows the difference, and the reader this footer is for does

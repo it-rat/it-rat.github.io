@@ -35,6 +35,14 @@ PAGES = {
     "guides.html": ("", ""),
     "ai-observability-vs-governance.html": ("", ""),
     "one-incident-end-to-end.html": ("", ""),
+    # Added 2026-08-29. It was written on 2026-08-11 and never put in this
+    # list, so every regeneration since has skipped it and its footer stayed on
+    # the shape from before the categories existed: one shelf of twelve chips,
+    # CostCrew and Vouchryx missing entirely, and Trailryx under a "standalone"
+    # heading that stopped being true on 2026-08-29. A hand-written list of
+    # what to write is itself unchecked, which is why scripts/footer-shelves.sh
+    # now finds the pages rather than trusting this dict.
+    "agent-tooling-compared.html": ("", ""),
     "what-runs-where.html": ("", ""),
     "first-alert.html": ("", ""),
     "what-is-proven.html": ("", ""),

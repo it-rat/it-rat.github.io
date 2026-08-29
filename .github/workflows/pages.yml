@@ -80,6 +80,18 @@ jobs:
         ## anywhere recording where it came from or when anybody last looked.
         run: ./scripts/service-numbers.sh
 
+      - name: Fail when the footer's shelves and its columns disagree
+        ## Above 860px the footer row is a six-column grid, and that 6 is a
+        ## constant in a stylesheet describing content generated from the
+        ## registry in site.js. Add a category and every page grows a seventh
+        ## shelf that wraps on its own, half empty; nothing else fails.
+        ##
+        ## It finds the pages rather than reading tools/footer.py's list,
+        ## because that list was the bug: agent-tooling-compared.html was
+        ## published on 2026-08-11, never added to it, and carried a footer
+        ## three categories out of date until 2026-08-29.
+        run: ./scripts/footer-shelves.sh
+
       # Last, because it mutates tracked files and restores them. It needs a
       # clean tree and says so plainly, so it also reports any earlier step
       # that starts writing into the checkout.
