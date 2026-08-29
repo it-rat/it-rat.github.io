@@ -78,8 +78,8 @@
       "repo": "verdryx",
       "command": "python3 -m pytest --collect-only -q",
       "status": "measured",
-      "measured_on": "2026-08-28",
-      "note": "Moved twice on 2026-08-28: 300 -> 361 when the check stopped printing nothing, then 361 -> 365 when four manifest tests were added to that repository the same day. The second was self-inflicted and the drift tool caught it, which is the argument for running the tool rather than trusting the morning's number. Was 300 and measured 361, sixty-one behind. The check printed NOTHING before today, which the drift tool reports as unmeasured rather than as agreement, and that is the only reason the gap was visible at all: system python3 has no pytest on this machine and the interpreter is EXTERNALLY-MANAGED. It now prefers the repository's own .venv when there is one, so the figure is measurable without installing anything.",
+      "measured_on": "2026-08-29",
+      "note": "Moved twice on 2026-08-28: 300 -> 361 when the check stopped printing nothing, then 361 -> 365 when four manifest tests were added to that repository the same day. The second was self-inflicted and the drift tool caught it, which is the argument for running the tool rather than trusting the morning's number. Was 300 and measured 361, sixty-one behind. The check printed NOTHING before today, which the drift tool reports as unmeasured rather than as agreement, and that is the only reason the gap was visible at all: system python3 has no pytest on this machine and the interpreter is EXTERNALLY-MANAGED. It now prefers the repository's own .venv when there is one, so the figure is measurable without installing anything. Re-measured 2026-08-29 in a fresh .venv (pip install -e . pytest jsonschema): 365, unchanged.",
       "repo_dir": "verdryx",
       "check": "${PYTHON:-$([ -x .venv/bin/python ] && echo .venv/bin/python || echo python3)} -m pytest --collect-only -q 2>/dev/null | grep -oE '^[0-9]+ tests? collected' | grep -oE '^[0-9]+'",
       "slow": false
@@ -216,8 +216,8 @@
       "repo": "verdryx",
       "command": "python3 -m pytest --collect-only -q",
       "status": "measured",
-      "measured_on": "2026-08-28",
-      "note": "Moved twice on 2026-08-28: 300 -> 361 when the check stopped printing nothing, then 361 -> 365 when four manifest tests were added to that repository the same day. The second was self-inflicted and the drift tool caught it, which is the argument for running the tool rather than trusting the morning's number. The .md twin is published and linked from llms.txt, and the sweep for unowned figures globs services/*.html, so this copy of the same claim was held by nothing.",
+      "measured_on": "2026-08-29",
+      "note": "Moved twice on 2026-08-28: 300 -> 361 when the check stopped printing nothing, then 361 -> 365 when four manifest tests were added to that repository the same day. The second was self-inflicted and the drift tool caught it, which is the argument for running the tool rather than trusting the morning's number. The .md twin is published and linked from llms.txt, and the sweep for unowned figures globs services/*.html, so this copy of the same claim was held by nothing. Re-measured 2026-08-29 in a fresh .venv (pip install -e . pytest jsonschema): 365, unchanged.",
       "repo_dir": "verdryx",
       "check": "${PYTHON:-$([ -x .venv/bin/python ] && echo .venv/bin/python || echo python3)} -m pytest --collect-only -q 2>/dev/null | grep -oE '^[0-9]+ tests? collected' | grep -oE '^[0-9]+'",
       "slow": false
