@@ -103,7 +103,7 @@
 <section class="sec" style="padding-top:8px">
   <div class="wrap">
     <div class="standalone rv">
-      <p><b>Where this sits today, stated rather than implied.</b> Trailryx is not wired into the rest of the stack yet. It takes the OTLP traces you already have, from a collector or straight over the wire, and it holds no knowledge of the agent-event envelope the other planes share. That is a real gap and it has a design: a small shipper reads the shared log and maps it, so this store stays useful to somebody who has OTLP and no TAIPANBOX. Until that ships, treat this as a record store that happens to live in the same estate, not as a plane of it.</p>
+      <p><b>Where this sits today, stated rather than implied.</b> Trailryx reads the shared agent-event bus and seals it. That was the open gap on this page until 2026-08-27 and it is closed: a dedicated crate maps the envelope the other planes write, <span class="mono">stack-up</span> runs the sealing routine at 06:57 by default, and the Kubernetes install has a nightly job that packs the ledger and verifies the pack before it exits. It still takes plain OTLP as well, from a collector or straight over the wire, so it stays useful to somebody who has traces and no TAIPANBOX. <b>One gap is left and it is narrower:</b> the console has no panel for the record plane, so what is sealed is read with the CLI rather than in a browser.</p>
     </div>
   </div>
 </section>
@@ -255,7 +255,7 @@
             <div class="foot-chips"><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
-            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a></div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="../services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
             <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><span class="foot-chip here" aria-current="page"><i style="background:#E4626F"></i>Trailryx</span></div>

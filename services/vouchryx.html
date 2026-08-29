@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vouchryx - provable agent delegation &#183; IT-RAT</title>
+<meta name="description" content="RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once.">
+<link rel="canonical" href="https://it-rat.com/services/vouchryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/vouchryx.html">
+<meta property="og:title" content="Vouchryx - provable agent delegation &#183; IT-RAT">
+<meta property="og:description" content="RFC 8693 exchange with nested act, sender-constrained by RFC 9449 DPoP, short-lived tokens, a revocation list enforcement points poll, and public keys anybody can verify offline. Revoking ends authority the way a kill switch ends spend.">
+<meta property="og:image" content="https://it-rat.com/assets/og/vouchryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vouchryx - provable agent delegation &#183; IT-RAT">
+<meta name="twitter:description" content="A delegation an agent can prove it holds, and that a person can end at every enforcement point at once.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/vouchryx.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/vouchryx.md">
+<link rel="stylesheet" href="../assets/site.css?v=e19">
+<style>
+  :root{--accent:#8B9DFF}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg);text-align:right}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px}
+  .install .cmd{color:var(--fg);overflow-wrap:anywhere;min-width:0}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  .api{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+  .api td{border-bottom:1px solid var(--line);padding:11px 8px;vertical-align:top}
+  .api td:first-child{font-family:var(--font-m);color:var(--accent);white-space:nowrap;width:1%;padding-right:20px}
+  .api td:last-child{color:var(--dim);line-height:1.6}
+  @media(max-width:700px){.api td:first-child{white-space:normal}}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Vouchryx","url":"https://it-rat.com/services/vouchryx.html","description":"RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/vouchryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Vouchryx","item":"https://it-rat.com/services/vouchryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is this different from just giving the agent an API key?","acceptedAnswer":{"@type":"Answer","text":"A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested act claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point at once rather than waiting for an expiry."}},{"@type":"Question","name":"What happens to a token that is already in flight when we revoke it?","acceptedAnswer":{"@type":"Answer","text":"It stops working. Enforcement points poll the revocation list and refuse anything on it, so the token's own expiry has no say. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401."}},{"@type":"Question","name":"Does this replace the delegation chain in the Passport?","acceptedAnswer":{"@type":"Answer","text":"No, it is the half the Passport spec deliberately leaves out. The spec says plainly that it names an agent without proving possession, and records who acted for whom without saying when. This provides both, and the record still lives where it lived."}},{"@type":"Question","name":"Why is there no introspection endpoint?","acceptedAnswer":{"@type":"Answer","text":"Because it would put this service on the request path of every enforcement point at once. Verification is offline against published keys instead, and the policy plane keeps answering in single-digit milliseconds."}},{"@type":"Question","name":"What does it do if it is configured wrong?","acceptedAnswer":{"@type":"Answer","text":"It refuses to start and names the variable. A token service that came up trusting nothing would issue nothing and look healthy; one that came up trusting a default would issue everything. Neither failure should be quiet."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="vouchryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">vouchryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link" href="../console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">delegation plane &#183; guardrails</div>
+        <h1 class="rv d1"><span class="nm">Vouchryx</span>. A delegation an agent can prove it holds, and a person can end.</h1>
+        <p class="lede rv d2">An RFC 8693 token exchange that mints a short-lived token carrying nested <span class="mono">act</span>, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf everywhere at once, whatever the token still says about its own expiry.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#loop">Walk the loop <span class="mono">&#8595;</span></a>
+          <a class="btn" href="https://github.com/TAIPANBOX/vouchryx" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">pre-1.0 &#183; main is supported</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go &#183; ES256, one runtime dependency</span></div>
+        <div class="row"><span class="k">API</span><span class="v">POST /v1/token on :4310</span></div>
+        <div class="row"><span class="k">tokens</span><span class="v">300s by default, capped at 3600</span></div>
+        <div class="row"><span class="k">standards</span><span class="v">RFC 8693 &#183; RFC 9449 DPoP</span></div>
+        <div class="row"><span class="k">licence</span><span class="v">Apache-2.0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE GAP ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the gap this closes</div>
+      <h2>The record said who acted for whom. Nothing proved it.</h2>
+      <p class="lede">The Agent Passport spec disclaims two things on purpose. It is not an authentication protocol: the Passport names an agent, it does not prove possession. And it is not a freshness claim: the delegation chain records who acted on behalf of whom, not when. So the estate held the record of a delegation and pointed at a mechanism that did not exist. This is that mechanism, and it does not replace <span class="mono">on_behalf_of</span>; it makes it provable and lets it be ended.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>Proof of possession, per request</h3><p>The minted token carries <span class="mono">cnf.jkt</span>, the thumbprint of the caller's own key. Spending it needs a fresh DPoP proof from that same key on every call, so a token copied out of a log buys nothing.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Revocation an incident can use</h3><p>By one token id, or by subject for every token an agent already holds. The list carries <span class="mono">as_of</span>, so an empty answer and an unreachable service are never the same answer to a machine reading it.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Verification without a round trip</h3><p>Public keys at a JWKS endpoint, so an enforcement point verifies offline. That is also why there is no introspection endpoint, on purpose: it would put this service on the request path of every enforcement point at once.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SURFACE ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the surface, all of it</div>
+      <h2>Four endpoints, and one that deliberately does not exist.</h2>
+    </div>
+    <table class="api rv">
+      <tr><td>POST /v1/token</td><td>The exchange. A <span class="mono">subject_token</span> and an <span class="mono">actor_token</span> in, plus a DPoP header. Out comes a short-lived JWT with nested <span class="mono">act</span> and <span class="mono">cnf.jkt</span>.</td></tr>
+      <tr><td>POST /v1/revoke</td><td>By <span class="mono">jti</span> for one token, or by <span class="mono">subject</span> for every token an agent holds. Both <span class="mono">actor</span> and <span class="mono">reason</span> are required, because a revocation nobody can attribute is an outage rather than a decision.</td></tr>
+      <tr><td>GET /v1/revocations</td><td>What enforcement points poll, carrying <span class="mono">as_of</span>.</td></tr>
+      <tr><td>GET /.well-known/jwks.json</td><td>Public keys. Verification is offline and stays offline.</td></tr>
+      <tr><td>no introspection</td><td>Refused by design. Wardryx answers at a 3.2 ms p50 and nothing here is going to sit in front of that.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= TWO SWITCHES ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">two kill switches, different axes</div>
+      <h2>One stops the money. This one stops the authority.</h2>
+      <p class="lede"><a href="tokenfuse.html">TokenFuse</a> refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all. Revoking ends that at every enforcement point at once, and the token's own expiry has no say in it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFUSES TO START ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">configuration</div>
+      <h2>It refuses to start rather than start permissive.</h2>
+      <p class="lede">Every value is required except the listen address, and none has a permissive default. A missing or malformed one aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE LOOP ================= -->
+<section class="sec" id="loop" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">walking the loop</div>
+      <h2>Mint it, prove it, then end it.</h2>
+      <p class="lede">An RFC 8693 exchange takes two signed input tokens and a DPoP proof whose public key travels in the JWS header, which is a JOSE client before it is a curl command. So the client ships with the service: <span class="mono">vouchryx-demo</span> makes the keys, performs the exchange and prints a proof.</p>
+    </div>
+    <div class="install rv">
+      <span class="cmd"><b>./up.sh</b> --with-delegation</span>
+      <span class="note">the whole local stack with the delegation door open, from TAIPANBOX/stack-up</span>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <span class="cmd"><b>vouchryx-demo</b> exchange -subject user://acme/ada -actor agent://acme/triage</span>
+      <span class="note">prints the token, its nested act and the key thumbprint bound to it</span>
+    </div>
+    <p class="lede rv d2" style="margin-top:18px">Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a call to <span class="mono">/v1/revoke</span> the same token answered 401 with <span class="mono">reason=BadToken</span>. The control run is the part worth keeping: with the delegation door shut, that same revoked token answered 200, because nothing was looking at it. 44 tests, and the repository gates that number against its own suite.</p>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Proving and ending a delegation</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>How is this different from just giving the agent an API key?</summary>
+        <div class="a"><p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class="mono">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point at once rather than waiting for an expiry.</p></div>
+      </details>
+      <details>
+        <summary>What happens to a token that is already in flight when we revoke it?</summary>
+        <div class="a"><p>It stops working. Enforcement points poll the revocation list and refuse anything on it, so the token's own expiry has no say. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.</p></div>
+      </details>
+      <details>
+        <summary>Does this replace the delegation chain in the Passport?</summary>
+        <div class="a"><p>No, it is the half the Passport spec deliberately leaves out. The spec says plainly that it names an agent without proving possession, and records who acted for whom without saying when. This provides both, and the record still lives where it lived.</p></div>
+      </details>
+      <details>
+        <summary>Why is there no introspection endpoint?</summary>
+        <div class="a"><p>Because it would put this service on the request path of every enforcement point at once. Verification is offline against published keys instead, and the policy plane keeps answering in single-digit milliseconds.</p></div>
+      </details>
+      <details>
+        <summary>What does it do if it is configured wrong?</summary>
+        <div class="a"><p>It refuses to start and names the variable. A token service that came up trusting nothing would issue nothing and look healthy; one that came up trusting a default would issue everything. Neither failure should be quiet.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><span class="foot-chip here" aria-current="page"><i style="background:#8B9DFF"></i>Vouchryx</span></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l">side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=e13"></script>
+<script src="../assets/sheet.js?v=e06"></script>
+<script src="../assets/ambient.js"></script>
+</body>
+</html>

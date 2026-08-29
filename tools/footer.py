@@ -53,6 +53,7 @@ PAGES = {
     "services/sphere.html": ("../", "MIT"),
     "services/platform.html": ("../", "Apache-2.0"),
     "services/costcrew.html": ("../", "Apache-2.0"),
+    "services/vouchryx.html": ("../", "Apache-2.0"),
     "services/qryx.html": ("../", "Apache-2.0"),
     "services/tokenfuse.html": ("../", "Apache-2.0"),
     "services/verdryx.html": ("../", "Apache-2.0"),
