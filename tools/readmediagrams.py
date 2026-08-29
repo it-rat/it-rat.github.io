@@ -17,6 +17,7 @@ Run from the repo root:  python3 tools/readmediagrams.py
 import pathlib
 import re
 import sys
+from xml.etree import ElementTree
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets/img/readme/diagrams"
@@ -44,6 +45,19 @@ ROOMS = {
                   "Platform: seven emitters, one agent-event envelope, four consumers"),
     "genaryx":   ("genaryx.html", "#B48CFF",
                   "Genaryx: one browser control room over the stack, reached only over the tunnel"),
+    "costcrew":  ("services/costcrew.html", "#7DD3A0",
+                  "CostCrew: charges arrive from three connectors, a two-sided detector opens anomalies, "
+                  "and an agent analyst drafts a fix a person posts or returns"),
+    "vouchryx":  ("services/vouchryx.html", "#8B9DFF",
+                  "Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a "
+                  "short-lived delegation token, verified offline and revoked by a polled list"),
+    # Sourced from a standalone file rather than a page: the schematic on the
+    # scopyx page is filled in by JavaScript as a request travels it, so a lift
+    # of it renders five empty boxes. The file says the rest. Everything else
+    # here, including this room, is generated the same way from that source.
+    "scopyx":    ("assets/img/readme/sources/scopyx-gates.svg", "#F0ABFC",
+                  "Scopyx: a request passes five gates in order, scheme, host, resolved addresses, "
+                  "your policy and robots.txt, before anything leaves"),
 }
 
 # Rooms whose README diagram is drawn by hand, and the reason for each. This
@@ -61,7 +75,12 @@ HAND_DRAWN = {
 
 
 def diagram(page):
-    """The first wide inline <svg> on a page is that room's schematic."""
+    """The first wide <svg> in the source is that room's schematic.
+
+    The source is normally the room's own page, so the README and the site can
+    never drift apart. Where it cannot be, it is a standalone .svg under
+    assets/img/readme/sources/ that says in its own header why.
+    """
     s = (ROOT / page).read_text(encoding="utf-8")
     for m in re.finditer(r'<svg\b[^>]*viewBox="([^"]+)"[^>]*>', s):
         vb = [float(v) for v in m.group(1).split()]
@@ -87,7 +106,15 @@ def pulses(svg, accent):
     wires += re.findall(r'<path\b[^>]*marker-end[^>]*/>', svg)
     for i, wire in enumerate(wires):
         tag = "line" if wire.startswith("<line") else "path"
-        geom = re.sub(r'\s(marker-end|stroke|stroke-width|class)="[^"]*"', "", wire[:-2])
+        # Strip every attribute this function is about to set. Leaving one in
+        # place does not lose an argument, it emits the attribute TWICE, and a
+        # duplicate attribute is not valid XML: GitHub then renders nothing at
+        # all. It cost nine working diagrams to miss one. costcrew and vouchryx
+        # were the first rooms here with a dashed wire that also carries an
+        # arrowhead, so `stroke-dasharray` survived the old list and both files
+        # came out broken.
+        geom = re.sub(r'\s(marker-end|stroke|stroke-width|stroke-dasharray|stroke-dashoffset'
+                      r'|stroke-linecap|pathLength|class|style)="[^"]*"', "", wire[:-2])
         out.append(
             f'{geom} pathLength="100" stroke="{accent}" stroke-width="2.6" '
             f'stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7">'
@@ -110,8 +137,40 @@ def breathe(svg, accent):
     return svg[:m.start()] + animated + svg[m.end():]
 
 
+def park_motion_tokens(svg):
+    """Put every animateMotion token at the start of its own path.
+
+    An element carrying `animateMotion` sits at its authored coordinates until
+    the animation begins, and these are authored centred on the origin because
+    the motion supplies the position. On the page that is invisible: every
+    token there begins at 0s. Vouchryx has one that begins at 3.6s, so for the
+    first three and a half seconds, and in any still of the file, a red dot sits
+    in the top-left corner of the picture.
+
+    A transform equal to the path's first point fixes it and cannot affect
+    anything else: animateMotion replaces the transform the moment it starts,
+    so this is only ever what the frame before the start should have looked
+    like.
+    """
+    out, cursor = [], 0
+    for m in re.finditer(r'<(circle|rect|g|path|ellipse)\b([^>]*)>(\s*<animateMotion\b[^>]*>)',
+                         svg):
+        tag, attrs, motion = m.group(1), m.group(2), m.group(3)
+        if "transform=" in attrs:
+            continue
+        d = re.search(r'path="M\s*(-?[\d.]+)[ ,]+(-?[\d.]+)', motion)
+        if not d:
+            continue
+        out.append(svg[cursor:m.start()])
+        out.append(f"<{tag}{attrs} transform=\"translate({d.group(1)},{d.group(2)})\">{motion}")
+        cursor = m.end()
+    out.append(svg[cursor:])
+    return "".join(out)
+
+
 def build(room, page, accent, title):
     svg, vb = diagram(page)
+    svg = park_motion_tokens(svg)
     x, y, w, h = vb[0] - PAD, vb[1] - PAD, vb[2] + PAD * 2, vb[3] + PAD * 2
     inner = breathe(svg, accent)
     # Strip the page-level wrapper; everything inside is reused verbatim.
@@ -127,6 +186,21 @@ def build(room, page, accent, title):
         f'  <g fill="none">\n  {pulses(svg, accent)}\n  </g>\n'
         f'</svg>\n'
     )
+
+
+def valid_xml(svg, room):
+    """An SVG that does not parse is a file GitHub renders as nothing.
+
+    This is here because the duplicate-attribute bug above shipped nine correct
+    files and two broken ones, and the only symptom was a red banner in a
+    browser nobody had opened. A generator that can emit invalid XML should be
+    the thing that notices.
+    """
+    try:
+        ElementTree.fromstring(svg)
+    except ElementTree.ParseError as e:
+        raise SystemExit(f"{room}: the generated SVG does not parse, so GitHub would render "
+                         f"nothing: {e}")
 
 
 def registry():
@@ -171,7 +245,9 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for room, (page, accent, title) in ROOMS.items():
         out = OUT / f"{room}.svg"
-        out.write_text(build(room, page, accent, title), encoding="utf-8")
+        svg = build(room, page, accent, title)
+        valid_xml(svg, room)
+        out.write_text(svg, encoding="utf-8")
         print(f"{out.relative_to(ROOT)}  {out.stat().st_size // 1024 or 1} KB")
 
 

@@ -191,7 +191,7 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 21 cases: thirteen real faults, four
+   *(gate: `scripts/gates-have-teeth.sh`, 22 cases: fourteen real faults, four
    non-faults, and four subjects taken away entirely. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
@@ -279,7 +279,7 @@ true.
    *(gate: `scripts/generated-blocks.sh`, two halves. Coverage: every page that
    is not `noindex` carries a canonical, a JSON-LD block and a sitemap entry,
    and every page in the STACK registry carries a markdown twin. Freshness: all
-   six generators run against a copy of the tracked tree and must change
+   seven generators run against a copy of the tracked tree and must change
    nothing, since a generator is idempotent by design and anything it would
    rewrite is drift. It copies rather than runs in place, because a gate that
    fixes what it is judging is green the next run with nobody the wiser. In the
@@ -316,6 +316,36 @@ true.
    commit being made has not happened yet. It refuses outright on a shallow
    clone, where every page would look as though it arrived at HEAD, which is why
    the Pages workflow checks out with `fetch-depth: 0`.
+
+   **`tools/readmediagrams.py` is the seventh, and it had been refusing to run
+   since 2026-08-10.** It lifts each room's schematic off its own page into a
+   standalone animated SVG for that repository's README, and it checks its own
+   list against the registry in both directions, which is the right design and
+   is why it stopped rather than skipping: costcrew, scopyx and vouchryx were in
+   STACK and in neither of its lists. Nothing ran it, so nobody read the
+   refusal, and its other nine outputs went stale behind it. Three had:
+   idryx's said 22 detectors where the page says 27, and platform's drew seven
+   emitters where the page has drawn twelve since 2026-08-28.
+
+   Two things it needed before those three could be added.
+   **A wire that is both dashed and arrowed produced invalid XML**, because the
+   overlay copy kept the original `stroke-dasharray` and then had another one
+   written onto it; costcrew and vouchryx were the first rooms with such a wire,
+   and GitHub renders a file like that as nothing at all. The generator now
+   strips every attribute it is about to set and **parses its own output before
+   writing it**. And a token whose `animateMotion` begins later than 0s sits at
+   its authored coordinates until it starts, which put a red dot in the corner
+   of the vouchryx picture; each one is now parked at the first point of its own
+   path, which is what the frame before the start should have looked like.
+
+   **Scopyx is sourced from a file rather than from its page**, and that is the
+   one exception here. Its page schematic is filled in by
+   `assets/stages/scopyx.js` as a request travels it, so a lift renders five
+   empty boxes and a redirect arc frozen mid-flight. That was measured, not
+   assumed: the file was generated and looked at first. The source is
+   `assets/img/readme/sources/scopyx-gates.svg`, drawn for the fifth article
+   where it also had to work as a still, and it carries the reason in its own
+   header.
 
 ## Decisions that have no gate yet
 

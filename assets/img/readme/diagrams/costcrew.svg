@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 428" width="996" height="428" role="img" aria-label="CostCrew: charges arrive from three connectors, a two-sided detector opens anomalies, and an agent analyst drafts a fix a person posts or returns">
+  <title>CostCrew: charges arrive from three connectors, a two-sided detector opens anomalies, and an agent analyst drafts a fix a person posts or returns</title>
+  <rect x="-18" y="-18" width="996" height="428" rx="16" fill="#0A0E13"/>
+  <rect x="-17.5" y="-17.5" width="995" height="427" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
+
+        <defs>
+          <marker id="cc-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="cc-w" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#F4B23E"/></marker>
+          <style>
+            .cc-t{font-family:ui-monospace,Menlo,monospace}
+            @media (prefers-reduced-motion: reduce){ .cc-anim{display:none} }
+          </style>
+        </defs>
+        <g class="cc-t" text-anchor="middle">
+
+          <!-- the estate -->
+          <rect x="12" y="30" width="180" height="62" rx="12" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="102" y="53" fill="#93A8C4" font-size="12" font-weight="700">the bill arrives</text>
+          <text x="102" y="70" fill="#8A97A6" font-size="10.5">AWS, GCP, Azure, Kubecost,</text>
+          <text x="102" y="84" fill="#8A97A6" font-size="10.5">SaaS seats, model usage</text>
+
+          <path d="M196 61 L246 61" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- the detector -->
+          <rect x="250" y="30" width="196" height="62" rx="12" fill="#161F2C" stroke="#7DD3A0" stroke-width="1.4"><animate attributeName="stroke-opacity" values="1;.45;1" dur="3.4s" repeatCount="indefinite"/></rect>
+          <text x="348" y="53" fill="#7DD3A0" font-size="12" font-weight="700">the detector</text>
+          <text x="348" y="70" fill="#8A97A6" font-size="10.5">median and robust deviation,</text>
+          <text x="348" y="84" fill="#8A97A6" font-size="10.5">two-sided, ranked by money</text>
+
+          <path d="M450 61 L500 61" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- the finding -->
+          <rect x="504" y="30" width="200" height="62" rx="12" fill="#141C27" stroke="#F4B23E" stroke-width="1.2"/>
+          <text x="604" y="53" fill="#F4B23E" font-size="12" font-weight="700">a finding, with its rule</text>
+          <text x="604" y="70" fill="#E9EFF6" font-size="10.5">2,054.10 above baseline</text>
+          <text x="604" y="84" fill="#8A97A6" font-size="10.5">aws &#183; Amazon EC2 &#183; one day</text>
+
+          <path d="M604 96 L604 132" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- the task -->
+          <rect x="504" y="136" width="200" height="62" rx="12" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="604" y="159" fill="#93A8C4" font-size="12" font-weight="700">a task, and a guard</text>
+          <text x="604" y="176" fill="#8A97A6" font-size="10.5">one named analyst, its desk,</text>
+          <text x="604" y="190" fill="#8A97A6" font-size="10.5">a ceiling on what it may spend</text>
+
+          <path d="M500 167 L446 167" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- the draft -->
+          <rect x="250" y="136" width="196" height="62" rx="12" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="348" y="159" fill="#93A8C4" font-size="12" font-weight="700">a draft comes back</text>
+          <text x="348" y="176" fill="#8A97A6" font-size="10.5">marked as written by a model,</text>
+          <text x="348" y="190" fill="#8A97A6" font-size="10.5">changing nothing yet</text>
+
+          <path d="M348 202 L348 232" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- THE GATE -->
+          <rect x="118" y="236" width="460" height="52" rx="12" fill="#16211B" stroke="#7DD3A0" stroke-width="1.8"/>
+          <text x="348" y="258" fill="#7DD3A0" font-size="13" font-weight="700">a person stamps it</text>
+          <text x="348" y="277" fill="#8A97A6" font-size="10.5">the only step an agent cannot take</text>
+
+          <!-- returned, back up to the analyst -->
+          <path d="M578 262 C 700 262, 720 200, 704 172" stroke="#F4B23E" stroke-width="1.2" stroke-dasharray="5 4" fill="none" marker-end="url(#cc-w)"/>
+          <text x="742" y="238" fill="#F4B23E" font-size="10.5" text-anchor="start">returned, and it</text>
+          <text x="742" y="252" fill="#F4B23E" font-size="10.5" text-anchor="start">shows on the card</text>
+
+          <!-- posted, down into the money -->
+          <path d="M348 292 L348 322" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <rect x="12" y="326" width="212" height="54" rx="12" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="118" y="348" fill="#93A8C4" font-size="11.5" font-weight="700">allocation</text>
+          <text x="118" y="366" fill="#8A97A6" font-size="10.5">shared cost placed by a rule</text>
+
+          <rect x="242" y="326" width="212" height="54" rx="12" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="348" y="348" fill="#93A8C4" font-size="11.5" font-weight="700">the period closes</text>
+          <text x="348" y="366" fill="#8A97A6" font-size="10.5">and the numbers stop moving</text>
+
+          <rect x="472" y="326" width="212" height="54" rx="12" fill="#141C27" stroke="#7DD3A0" stroke-width="1.2"/>
+          <text x="578" y="348" fill="#7DD3A0" font-size="11.5" font-weight="700">general ledger CSV</text>
+          <text x="578" y="366" fill="#8A97A6" font-size="10.5">what finance is actually sent</text>
+
+          <path d="M228 353 L238 353" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+          <path d="M458 353 L468 353" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
+
+          <!-- what this line never does -->
+          <rect x="712" y="326" width="236" height="54" rx="12" fill="#141C27" stroke="#5A6675" stroke-width="1" stroke-dasharray="4 4"/>
+          <text x="830" y="348" fill="#8A97A6" font-size="11" font-weight="700">nothing here enforces</text>
+          <text x="830" y="366" fill="#5A6675" font-size="10.5">no workload is stopped, ever</text>
+
+          <text x="830" y="128" fill="#7DD3A0" font-size="11.5" font-weight="700">found</text>
+          <text x="830" y="146" fill="#8A97A6" font-size="10.5">never saved, because nothing</text>
+          <text x="830" y="160" fill="#8A97A6" font-size="10.5">is saved until somebody acts</text>
+
+          <!-- one finding walking the line -->
+          <g class="cc-anim">
+            <circle r="4.5" fill="#F4B23E" opacity=".9" transform="translate(102,61)">
+              <animateMotion dur="11s" repeatCount="indefinite"
+                path="M102 61 L348 61 L604 61 L604 167 L348 167 L348 262 L348 353 L578 353"/>
+            </circle>
+          </g>
+        </g>
+      
+  <g fill="none">
+  <path d="M196 61 L246 61" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></path>
+  <path d="M450 61 L500 61" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></path>
+  <path d="M604 96 L604 132" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></path>
+  <path d="M500 167 L446 167" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.11s" repeatCount="indefinite"/></path>
+  <path d="M348 202 L348 232" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.48s" repeatCount="indefinite"/></path>
+  <path d="M578 262 C 700 262, 720 200, 704 172" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.85s" repeatCount="indefinite"/></path>
+  <path d="M348 292 L348 322" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.22s" repeatCount="indefinite"/></path>
+  <path d="M228 353 L238 353" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.59s" repeatCount="indefinite"/></path>
+  <path d="M458 353 L468 353" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.96s" repeatCount="indefinite"/></path>
+  </g>
+</svg>

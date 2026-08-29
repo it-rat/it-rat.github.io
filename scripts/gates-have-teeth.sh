@@ -329,6 +329,11 @@ run_case "generated-blocks: a lastmod in the sitemap edited by hand" fail \
 	"$(py 'edit("sitemap.xml", "<lastmod>2026-07-27</lastmod>", "<lastmod>2026-08-29</lastmod>")')" \
 	"a generator would rewrite it"
 
+run_case "generated-blocks: a README diagram edited by hand" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("assets/img/readme/diagrams/idryx.svg", "27 detectors", "26 detectors")')" \
+	"a generator would rewrite it"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate

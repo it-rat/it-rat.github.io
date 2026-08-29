@@ -107,7 +107,14 @@ for p in pages:
 # B. Freshness
 # ---------------------------------------------------------------------------
 GENERATORS = ["tools/footer.py", "tools/topbar.py", "tools/faq.py",
-              "tools/seo.py", "tools/llms.py", "tools/sitemap.py"]
+              "tools/seo.py", "tools/llms.py", "tools/sitemap.py",
+              # Writes the README diagrams rather than anything on a page, and
+              # it belongs here for the same reason as the rest: it refused to
+              # run from the day costcrew arrived, so three of its nine outputs
+              # sat weeks behind their own pages. idryx's said 22 detectors
+              # where the page says 27, and platform's drew seven emitters
+              # where the page draws twelve.
+              "tools/readmediagrams.py"]
 
 tracked = subprocess.run(["git", "ls-files", "-z"], capture_output=True, text=True)
 files = [f for f in tracked.stdout.split("\0") if f and not f.startswith("demo/")]
@@ -153,7 +160,7 @@ if problems:
     for line in problems:
         print("FAIL " + line)
     print(f"\n{len(problems)} problem(s). Run the generators and commit what they write:")
-    print("  for t in footer topbar faq seo llms sitemap; do python3 tools/$t.py; done")
+    print("  for t in footer topbar faq seo llms sitemap readmediagrams; do python3 tools/$t.py; done")
     print("A page no generator knows about keeps whatever it was born with, and the")
     print("markdown twin of one went on serving deleted copy for a day.")
     sys.exit(1)

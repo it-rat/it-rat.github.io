@@ -1,0 +1,88 @@
+<!-- The five gates of Scopyx, in order, drawn for a static context.
+
+     Every other room's README diagram is lifted off its own page by
+     tools/readmediagrams.py. Scopyx cannot be: the schematic on that page
+     is `sx-flight`, whose five gate boxes are filled in by
+     assets/stages/scopyx.js as a request travels through them. Lifted, it
+     renders five empty rectangles and a redirect arc frozen mid-flight,
+     which was measured rather than guessed: the file was generated and
+     looked at before this one was written.
+
+     So this is the source for that room instead, and it lives here rather
+     than on the page because the page already has the better thing for a
+     reader with JavaScript. It was drawn on 2026-08-29 for the fifth
+     article of the series, where it had to work as a still image, which is
+     the same requirement a README has. Edit this file and re-run the tool. -->
+<svg viewBox="0 0 960 300" role="img" aria-label="One request passes five gates in order: the scheme, the host, every address the name resolves to at the moment of the fetch, your policy plane, and last the site's own robots.txt. The first three are answered inside your own process, so nothing has left the box until the fourth gate has spoken.">
+        <defs><marker id="sxa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <text x="462" y="16" fill="#F0ABFC" font-size="9.5" font-weight="700">the network starts here</text>
+          <line x1="462" y1="24" x2="462" y2="200" stroke="#F0ABFC" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.7"/>
+
+          <rect x="8" y="30" width="138" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="77" y="52" fill="#E9EFF6" font-size="11" font-weight="700">a scheme we</text>
+          <text x="77" y="66" fill="#E9EFF6" font-size="11" font-weight="700">allow?</text>
+          <text x="77" y="80" fill="#8A97A6" font-size="9.5">http and https only</text>
+
+          <rect x="162" y="30" width="138" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="231" y="52" fill="#E9EFF6" font-size="11" font-weight="700">a host you</text>
+          <text x="231" y="66" fill="#E9EFF6" font-size="11" font-weight="700">permit?</text>
+          <text x="231" y="80" fill="#8A97A6" font-size="9.5">the name as written</text>
+
+          <rect x="316" y="30" width="138" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="385" y="52" fill="#E9EFF6" font-size="11" font-weight="700">every address</text>
+          <text x="385" y="66" fill="#E9EFF6" font-size="11" font-weight="700">it resolves to?</text>
+          <text x="385" y="80" fill="#8A97A6" font-size="9.5">looked up now</text>
+
+          <rect x="470" y="30" width="138" height="56" rx="10" fill="#141C27" stroke="#2DD4BF" stroke-width="1.3"/>
+          <text x="539" y="52" fill="#2DD4BF" font-size="11" font-weight="700">your policy</text>
+          <text x="539" y="66" fill="#2DD4BF" font-size="11" font-weight="700">plane</text>
+          <text x="539" y="80" fill="#8A97A6" font-size="9.5">the first call out</text>
+
+          <rect x="624" y="30" width="138" height="56" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="693" y="52" fill="#E9EFF6" font-size="11" font-weight="700">the site's own</text>
+          <text x="693" y="66" fill="#E9EFF6" font-size="11" font-weight="700">robots.txt</text>
+          <text x="693" y="80" fill="#8A97A6" font-size="9.5">asked last, on purpose</text>
+
+          <rect x="788" y="30" width="164" height="56" rx="10" fill="#141C27" stroke="#34D399" stroke-width="1.3"/>
+          <text x="870" y="50" fill="#34D399" font-size="12" font-weight="700">FETCH</text>
+          <text x="870" y="66" fill="#8A97A6" font-size="9.5">the origin and a SHA-384</text>
+          <text x="870" y="78" fill="#8A97A6" font-size="9.5">never the path or query</text>
+
+          <path d="M150 58 L158 58" stroke="#F0ABFC" stroke-width="1.3" marker-end="url(#sxa)" fill="none"/>
+          <path d="M304 58 L312 58" stroke="#F0ABFC" stroke-width="1.3" marker-end="url(#sxa)" fill="none"/>
+          <path d="M458 58 L466 58" stroke="#F0ABFC" stroke-width="1.3" marker-end="url(#sxa)" fill="none"/>
+          <path d="M612 58 L620 58" stroke="#F0ABFC" stroke-width="1.3" marker-end="url(#sxa)" fill="none"/>
+          <path d="M766 58 L784 58" stroke="#F0ABFC" stroke-width="1.3" marker-end="url(#sxa)" fill="none"/>
+
+          <path d="M77 92 L77 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#sxa)" fill="none"/>
+          <path d="M231 92 L231 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#sxa)" fill="none"/>
+          <path d="M385 92 L385 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#sxa)" fill="none"/>
+          <path d="M539 92 L539 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#sxa)" fill="none"/>
+          <path d="M693 92 L693 132" stroke="#5A6675" stroke-width="1.2" marker-end="url(#sxa)" fill="none"/>
+
+          <rect x="8" y="136" width="446" height="58" rx="10" fill="#141C27" stroke="#F4B23E"/>
+          <text x="231" y="158" fill="#F4B23E" font-size="11" font-weight="700">REFUSED WITHOUT LEAVING THE PROCESS</text>
+          <text x="231" y="175" fill="#8A97A6" font-size="10">no socket, no packet, no request to be logged anywhere else.</text>
+          <text x="231" y="187" fill="#8A97A6" font-size="10">A scheme, a name and a set of addresses cost nothing to refuse.</text>
+
+          <rect x="470" y="136" width="138" height="58" rx="10" fill="#141C27" stroke="#FF574B"/>
+          <text x="539" y="158" fill="#FF574B" font-size="11" font-weight="700">REFUSED</text>
+          <text x="539" y="175" fill="#8A97A6" font-size="9.5">and its robots.txt</text>
+          <text x="539" y="187" fill="#8A97A6" font-size="9.5">is never read</text>
+
+          <rect x="624" y="136" width="138" height="58" rx="10" fill="#141C27" stroke="#5A6675"/>
+          <text x="693" y="158" fill="#9AA7B8" font-size="11" font-weight="700">DECLINED</text>
+          <text x="693" y="175" fill="#8A97A6" font-size="9.5">the site's own</text>
+          <text x="693" y="187" fill="#8A97A6" font-size="9.5">preference, honoured</text>
+
+          <rect x="8" y="216" width="606" height="46" rx="9" fill="#10161F" stroke="#2a3547"/>
+          <text x="311" y="236" fill="#E9EFF6" font-size="11" font-weight="700">the order is the claim, not the list</text>
+          <text x="311" y="252" fill="#8A97A6" font-size="10">a destination your policy refuses is never contacted at all, not even to read its robots.txt</text>
+
+          <rect x="640" y="216" width="312" height="46" rx="9" fill="#10161F" stroke="#2a3547"/>
+          <text x="796" y="234" fill="#8A97A6" font-size="10">a 302 is returned, never followed, and</text>
+          <text x="796" y="247" fill="#8A97A6" font-size="10">every hop runs all five again, because a</text>
+          <text x="796" y="259" fill="#F0ABFC" font-size="10" font-weight="700">redirect is a destination nobody named</text>
+        </g>
+      </svg>
