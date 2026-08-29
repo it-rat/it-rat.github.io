@@ -56,19 +56,6 @@ That was tested rather than assumed. A four-node cluster across two datacenters 
 
 Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.
 
-## Where the breaker lives matters.
-
-We would rather argue with the strongest version of the alternative than with a straw man. The best in-line proxies in this space do real work: per-agent budgets, several independent kill triggers, even fleet control planes. Every one of those triggers is software, reachable from the same estate it guards. Ours adds one that is not: a kill signed on the device's own secure element, hardware that never sat in the request path, and verifiable offline long after the incident is cold.
-
-|  | TokenFuse | In-line budget proxies | Observability dashboards |
-|---|---|---|---|
-| Enforcement | In-line 402, seconds | In-line, in the request path | Alert after the fact |
-| Kill switch | Software triggers, plus one that is not: an ES256 signature from a separate device's secure element, verifiable offline | Remote APIs, signals, sentinel files: all software, all reachable from the estate they guard | None |
-| Shared budget across machines | Raft consensus, byte-identical state on every node | Per-agent budgets; fleet planes exist, typically behind commercial licences | n/a |
-| Cost optimization | Router + semantic cache, measured 22% | Rarely a goal | Recommendations only |
-| FinOps handoff | FOCUS format, the one finance already reads | Security formats: SIEM, syslog, OTLP. Not the ones finance reads | Vendor lock |
-| Fleet, incidents, evidence | Cloud plane + audit hash chain | Policy distribution and evidence logs in the strongest tools | Strong, read-only |
-
 ### The loud neighbor everyone listens to.
 
 TokenFuse asks [Wardryx](https://it-rat.com/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material [Verdryx](https://it-rat.com/verdryx.html) prices outcomes from. [Mockryx](https://it-rat.com/mockryx.html) attacks it on purpose in pre-prod. [Idryx](https://it-rat.com/idryx.html) correlates its events into the identity graph. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
