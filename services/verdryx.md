@@ -77,6 +77,8 @@ Verdryx prices the traces [TokenFuse](https://it-rat.com/tokenfuse.html) writes:
 
 Cost per resolved case sits inside a wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html), and the controls around it in [AI agent governance](https://it-rat.com/ai-agent-governance.html).
 
+Into a virtual environment: system Python is usually externally managed. There is no PyPI package, so the version you run is the commit you can read.
+
 No network, no key: `--model stub` is deterministic. Then price the traces it left behind.
 
 ## Measuring quality in money, not vibes

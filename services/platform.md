@@ -50,7 +50,7 @@ The first run builds tokenfuse in release mode and takes a few minutes; after th
 
 Open the link it prints and you are looking at your own local money plane, live, with a short demo dataset already in it. Point an agent's OpenAI base URL at the gateway to feed it your own.
 
-It builds and starts the stack's long-running services from source: TokenFuse's gateway, cloud and dashboard, plus Wardryx and Idryx. Engram, Qryx, Verdryx and Mockryx are deliberately not servers, they are libraries and one-shot CLIs, each with its own one-line try-it on its page.
+It builds and starts the stack's long-running services from source. Measured on a clean run on 2026-08-29, that is TokenFuse's gateway, cloud and dashboard, plus Wardryx, Idryx, Heraldyx and Scopyx, six ports on loopback answering 200. Heraldyx is pinned to file mode there, writing what it would have mailed rather than mailing it. Trailryx is built and wired as a sealing routine rather than a port. Engram, Qryx, Verdryx and Mockryx are deliberately not servers: they are libraries and one-shot CLIs, installed into your home directory and started when you want them, each with its own try-it on its page. The delegation plane and the FinOps console stay behind a flag, `--with-delegation` and `--with-finops`, because one needs an issuer to trust and the other is a different product.
 
 Press Ctrl-C and it stops clean, with no orphaned processes.
 

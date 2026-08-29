@@ -250,7 +250,15 @@
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>verdryx eval</b> evalset.json --model stub --db verdryx.db</span></div>
+          <!-- The install line was missing here and nowhere else in this set: qryx
+           points at its releases, mockryx carries per-platform links and engram
+           names its PyPI package, so this card said what to run without saying
+           how to get it. There is no PyPI package to point at, checked on
+           2026-08-29 and it 404s, so the honest route is the one the README
+           documents. -->
+        <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>pip install</b> git+https://github.com/TAIPANBOX/verdryx</span></div>
+        <p class="dim" style="font-size:13px;line-height:1.6">Into a virtual environment: system Python is usually externally managed. There is no PyPI package, so the version you run is the commit you can read.</p>
+        <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>verdryx eval</b> evalset.json --model stub --db verdryx.db</span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">No network, no key: <span class="mono" style="font-size:12px">--model stub</span> is deterministic. Then price the traces it left behind.</p>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>verdryx cost-per-correct</b> --traces $TOKENFUSE_DATA_DIR</span></div>
         </div>
