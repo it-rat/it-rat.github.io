@@ -53,6 +53,7 @@ set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
 python3 - <<'PY'
+import os
 import pathlib
 import re
 import shutil
@@ -106,7 +107,7 @@ for p in pages:
 # B. Freshness
 # ---------------------------------------------------------------------------
 GENERATORS = ["tools/footer.py", "tools/topbar.py", "tools/faq.py",
-              "tools/seo.py", "tools/llms.py"]
+              "tools/seo.py", "tools/llms.py", "tools/sitemap.py"]
 
 tracked = subprocess.run(["git", "ls-files", "-z"], capture_output=True, text=True)
 files = [f for f in tracked.stdout.split("\0") if f and not f.startswith("demo/")]
@@ -124,8 +125,12 @@ with tempfile.TemporaryDirectory() as tmp:
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
 
+    # sitemap.py reads dates out of git, and the copy has no .git in it. It is
+    # told where the real repository is rather than being given one, because it
+    # only ever runs `git log` and `git show`; see the note in that file.
+    env = {**os.environ, "IT_RAT_GIT_ROOT": str(ROOT)}
     for gen in GENERATORS:
-        r = subprocess.run([sys.executable, gen], cwd=tmp,
+        r = subprocess.run([sys.executable, gen], cwd=tmp, env=env,
                            capture_output=True, text=True)
         if r.returncode != 0:
             problems.append(f"{gen}: refused to run ({r.stderr.strip().splitlines()[-1] if r.stderr.strip() else 'no message'})")
@@ -148,7 +153,7 @@ if problems:
     for line in problems:
         print("FAIL " + line)
     print(f"\n{len(problems)} problem(s). Run the generators and commit what they write:")
-    print("  for t in footer topbar faq seo llms; do python3 tools/$t.py; done")
+    print("  for t in footer topbar faq seo llms sitemap; do python3 tools/$t.py; done")
     print("A page no generator knows about keeps whatever it was born with, and the")
     print("markdown twin of one went on serving deleted copy for a day.")
     sys.exit(1)

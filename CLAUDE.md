@@ -191,7 +191,7 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 20 cases: twelve real faults, four
+   *(gate: `scripts/gates-have-teeth.sh`, 21 cases: thirteen real faults, four
    non-faults, and four subjects taken away entirely. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
@@ -279,7 +279,7 @@ true.
    *(gate: `scripts/generated-blocks.sh`, two halves. Coverage: every page that
    is not `noindex` carries a canonical, a JSON-LD block and a sitemap entry,
    and every page in the STACK registry carries a markdown twin. Freshness: all
-   five generators run against a copy of the tracked tree and must change
+   six generators run against a copy of the tracked tree and must change
    nothing, since a generator is idempotent by design and anything it would
    rewrite is drift. It copies rather than runs in place, because a gate that
    fixes what it is judging is green the next run with nobody the wiser. In the
@@ -294,6 +294,28 @@ true.
    claimed Apache-2.0 where the repository is MIT, "Linux, macOS" where the page
    says iOS only, and a breadcrumb through "The stack" on the page that denies
    being part of it.
+
+   **`sitemap.xml` is the sixth generator, added 2026-08-29, and the interesting
+   part is what a `lastmod` is allowed to mean.** The file had been hand-kept
+   and carried three dates, the newest 2026-08-10, for pages edited on the 28th
+   and 29th. The naive repair, the date of the last commit touching the file, is
+   wrong here: a footer sweep writes all thirty pages in one commit, and a
+   sitemap where everything changed today is one a crawler learns to ignore.
+   So `tools/sitemap.py` masks the blocks the other generators own and walks
+   each page's history backwards while the stripped content still matches what
+   is on disk; the oldest commit that still matches is when the page became what
+   it is. **Measured on the day it was written, that mask changes the answer on
+   seven of thirty pages**, each of which the naive rule would have dated to
+   that day while its content was between nine and thirty-three days old.
+
+   Two things it needs to be honest about. It errs towards dates that are too
+   new, never too old, because a blob from before a marker existed cannot have
+   that block masked out of it. And a page whose content matches no commit takes
+   today's date, which is the only clock in it: without that the tool could not
+   agree with itself across the commit that introduces a change, since the
+   commit being made has not happened yet. It refuses outright on a shallow
+   clone, where every page would look as though it arrived at HEAD, which is why
+   the Pages workflow checks out with `fetch-depth: 0`.
 
 ## Decisions that have no gate yet
 

@@ -324,6 +324,11 @@ run_case "generated-blocks: a service in the registry loses its markdown twin" f
 subprocess.run(["git", "rm", "-q", "services/tokenfuse.md"], check=True)')" \
 	"no markdown twin"
 
+run_case "generated-blocks: a lastmod in the sitemap edited by hand" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("sitemap.xml", "<lastmod>2026-07-27</lastmod>", "<lastmod>2026-08-29</lastmod>")')" \
+	"a generator would rewrite it"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate

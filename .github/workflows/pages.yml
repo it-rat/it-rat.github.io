@@ -35,7 +35,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out
+        ## Full history, not the default depth of 1. tools/sitemap.py reads
+        ## each page's lastmod out of git by walking that page's commits, and
+        ## on a shallow clone every page looks as though it arrived at HEAD.
+        ## It refuses rather than answering wrongly, which would fail the
+        ## generated-blocks gate here on every deploy.
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Fail on a broken internal link or a missing asset
         ## Cheap gate, and it exists because this repo has shipped both mistakes
