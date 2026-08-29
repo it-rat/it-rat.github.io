@@ -2,7 +2,7 @@
   "site": "https://it-rat.com",
   "name": "IT-RAT",
   "description": "The open-source agent-governance stack, and the guides that explain it.",
-  "license": "Apache-2.0 for the seven services",
+  "license": "Apache-2.0",
   "pages": [
     {
       "url": "https://it-rat.com/index.html",
@@ -30,7 +30,7 @@
       "markdown": "https://it-rat.com/ai-agent-governance.md",
       "title": "AI agent governance",
       "kind": "guide",
-      "description": "What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after."
+      "description": "What AI agent governance means in practice: budgets, policy, identity, delegation, egress, provenance, quality, drills and an auditable record."
     },
     {
       "url": "https://it-rat.com/finops-for-ai.html",

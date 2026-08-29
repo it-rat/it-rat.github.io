@@ -4,7 +4,7 @@
 
 > A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it.
 
-Analysts with named missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. Each one is hired into a desk, given a mandate and a monthly guard, and the work it does arrives as a draft. Nothing is published until a person stamps it, and this console enforces nothing at all: it watches spend, it does not spend, and it cannot stop anything.
+Analysts with named missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. Each one is hired into a desk, given a mandate and a monthly guard, and the work it does arrives as a draft. Nothing is published until a person stamps it. On your bill it enforces nothing at all: it watches spend, it does not spend, and it stops nothing out there. On its own crew it does enforce, because a mandate you cannot withdraw is not a mandate: suspend an analyst and its rights go to none, neither queue will hand it new work, and the runner refuses to price anything it still holds.
 
 ## A FinOps practice, staffed.
 

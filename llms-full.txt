@@ -18,7 +18,7 @@ One command on a box you own, one agent pointed at it, one address to write to, 
 
 ## AI agent governance, and what it means at runtime
 
-Governance is the set of controls that decide what an agent may do while it is doing it. The seven questions a fleet has to answer, the five decisions every governed team ends up making, and the order to adopt them in.
+Governance is the set of controls that decide what an agent may do while it is doing it. Every question a fleet has to answer at runtime with the tool that owns it, the five decisions every governed team ends up making, and the order to adopt them in.
 
 *the money*
 
@@ -76,7 +76,7 @@ A static key answers one question, badly. What an identity has to be instead, na
 
 ## Every control in the guides has an open implementation.
 
-Seven Apache-2.0 services cover the planes the guides describe, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
+Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
 
 
 ---
@@ -85,9 +85,9 @@ Seven Apache-2.0 services cover the planes the guides describe, and they run on 
 
 # AI agent governance
 
-> What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after.
+> What AI agent governance means in practice: budgets, policy, identity, delegation, egress, provenance, quality, drills and an auditable record.
 
-An AI agent does not answer a question and stop. It calls tools, spends money, touches data and hands work to other agents, on its own schedule and at machine speed. Governance is the set of controls that decide what it is allowed to do while it is doing it: a budget it cannot exceed, a policy it must ask, an identity that records who it acts for, a memory that can say where a belief came from, and evidence somebody else can check afterwards.
+An AI agent does not answer a question and stop. It calls tools, spends money, touches data and hands work to other agents, on its own schedule and at machine speed. Governance is the set of controls that decide what it is allowed to do while it is doing it: a budget it cannot exceed, a policy it must ask, an identity that records who it acts for and a delegation it can prove when it acts for somebody else, a decision before it reaches anything outside your walls, a memory that can say where a belief came from, and evidence somebody else can check afterwards.
 
 ## Observability is a witness. Governance is a brake.
 
@@ -97,9 +97,9 @@ The distinction is not academic. Every failure mode teams actually hit with agen
 
 **Runtime governance means the control sits in the request path, and its answer is binding.** Anything else is reporting.
 
-## Seven questions, each with an owner.
+## The questions a fleet has to answer, each with an owner.
 
-Governance sounds abstract until it is broken into the questions a fleet has to answer at runtime. Each one is a separate control, and each has an open-source tool in this stack.
+Governance sounds abstract until it is broken into questions. Each one below is a separate control with an open-source tool behind it, and they are in the order a request meets them: what it may spend, what it may do, who it is, whose authority it borrowed, where it may reach, and then the planes that watch, warn and remember. The last is the one people leave out, and it is the earliest: what the agent was hired to do at all.
 
 *money*
 
@@ -118,6 +118,18 @@ Allow, deny, or hold for a human, decided per action against policy as code, wit
 ### Who is it acting for?
 
 One graph of humans, service accounts, keys and agents, with delegation chains and the true blast radius of each identity, not the list of grants on its own name.
+
+*delegation*
+
+### Whose authority is it borrowing?
+
+A short-lived token an agent can prove it holds and cannot lend, carrying the chain of who asked for what on whose behalf. Revoking it ends the right to act for somebody everywhere at once, whatever the token still says about its own expiry.
+
+*egress*
+
+### Where may it reach, and what may come back?
+
+Every question above governs what an agent does to your own services. None watches the direction that leads outside, where a page it reads can tell it what to do next and an address it found in a prompt can receive your data. A decision before the request, another on every redirect, and a bound on the reply.
 
 *memory*
 
@@ -143,11 +155,29 @@ An inventory of the keys, certificates and algorithms actually running, graded a
 
 Fire drills against a real gateway, so a broken defence fails a build rather than an incident review. A guardrail nobody tests is a guardrail nobody has.
 
+*alerting*
+
+### Who finds out, and when?
+
+A control that refuses at 3am and tells nobody has stopped the spend and not the incident. One mail, from your own box, carrying a link into your own console and no button that acts: mail gateways prefetch links, so a one-click kill fires before anybody reads the sentence beside it.
+
+*the record*
+
+### How is any of this proven a year later?
+
+Tamper-evident is the easy half. The hard half is the answer: ask what an agent did in March and an ordinary store hands you rows with no way to know it handed you all of them. A record that carries a completeness proof, and names the reason when it can only be partial.
+
+*the hire*
+
+### What was it hired to do in the first place?
+
+The questions above meet an agent already running. This one comes before its first call: an agent is hired into a named desk with a mission, an owner, a per-task and a monthly guard, and exactly the rights its skills need and no others. Suspending it withdraws them, and the withdrawal binds, because neither queue accepts new work for a suspended mandate and the runner refuses to price anything it holds.
+
 *the contract*
 
 ### How do they agree?
 
-One agent identifier, one event envelope and one Go binding under all of it, so seven independent tools can describe the same agent without a shared runtime or database.
+One agent identifier, one event envelope and one Go binding under all of it, so independent tools can describe the same agent without a shared runtime or database.
 
 ## Five decisions every governed fleet ends up making.
 
@@ -192,13 +222,13 @@ All of it is Apache-2.0 and runs on infrastructure you own. [One command starts 
 ## What people ask about agent governance
 
 **Q: What is AI agent governance?**
-The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold.
+The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for and a provable delegation when it acts for somebody else, a decision before it reaches anything outside, memory with provenance, quality measured in outcomes, drills that prove the guardrails still hold, and a record of all of it somebody who does not trust you can check.
 
 **Q: How is agent governance different from LLM observability?**
 Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters.
 
 **Q: Do I have to adopt all of it at once?**
-No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.
+No, and nobody does. The order that works is metering first, then a ceiling, then a decision in front of the web, then naming the actions that need a human, then drawing the identities and making borrowed authority provable, then rehearsing the guardrails in CI, then sealing the record, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.
 
 **Q: Does putting controls in the request path slow agents down?**
 The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.
@@ -953,7 +983,7 @@ Four questions. Does it act in the path or after it? Is the answer binding, or c
 
 > A single runaway agent followed through spend, policy, identity, memory, mail and evidence: what each plane sees, what it emits, and who is told.
 
-Every plane in this stack is easy to describe on its own and hard to judge on its own. So here is one ordinary failure, a support agent that gets stuck in a loop, followed from its first expensive call to the evidence somebody hands an auditor months later. **Nothing below is a new capability.** It is the same seven services, in the order the incident actually reaches them, which is the only order that shows why they are separate.
+Every plane in this stack is easy to describe on its own and hard to judge on its own. So here is one ordinary failure, a support agent that gets stuck in a loop, followed from its first expensive call to the evidence somebody hands an auditor months later. **Nothing below is a new capability.** It is the same planes as everywhere else on this site, in the order the incident actually reaches them, which is the only order that shows why they are separate.
 
 ## An agent, a budget, and a loop.
 

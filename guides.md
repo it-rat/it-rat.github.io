@@ -16,7 +16,7 @@ One command on a box you own, one agent pointed at it, one address to write to, 
 
 ## AI agent governance, and what it means at runtime
 
-Governance is the set of controls that decide what an agent may do while it is doing it. The seven questions a fleet has to answer, the five decisions every governed team ends up making, and the order to adopt them in.
+Governance is the set of controls that decide what an agent may do while it is doing it. Every question a fleet has to answer at runtime with the tool that owns it, the five decisions every governed team ends up making, and the order to adopt them in.
 
 *the money*
 
@@ -74,4 +74,4 @@ A static key answers one question, badly. What an identity has to be instead, na
 
 ## Every control in the guides has an open implementation.
 
-Seven Apache-2.0 services cover the planes the guides describe, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
+Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.

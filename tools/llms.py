@@ -201,10 +201,10 @@ def main():
         "# IT-RAT",
         "",
         "> The open-source agent-governance stack: runtime spend control, policy decisions,",
-        "> identity, memory with provenance, cryptography posture, quality scoring and",
-        "> pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted",
-        "> on infrastructure the operator owns, plus Genaryx, the console over them.",
-        "> Every part of it is Apache-2.0.",
+        "> identity and delegation, egress, memory with provenance, cryptography posture,",
+        "> quality scoring, pre-production drills, alerting and an auditable record for AI",
+        "> agents. Self-hosted on infrastructure the operator owns, plus Genaryx, the",
+        "> console over them. Every part of it is Apache-2.0.",
         "",
         "Every page below is available as markdown at the same path with a .md extension.",
         "",
@@ -240,7 +240,7 @@ def main():
         "site": SITE,
         "name": "IT-RAT",
         "description": "The open-source agent-governance stack, and the guides that explain it.",
-        "license": "Apache-2.0 for the seven services",
+        "license": "Apache-2.0",
         "pages": [
             {
                 "url": f"{SITE}/{p}",

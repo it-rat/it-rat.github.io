@@ -18,14 +18,14 @@ MARK_CLOSE = "<!-- /faq:auto -->"
 FAQ = {
 "genaryx.html": ("common questions", "What the console is, and what it costs", [
  ("Is Genaryx free, or is there a paid tier above it?",
-  "<p>It is Apache-2.0, the same licence as the seven services under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create.</p>"
+  "<p>It is Apache-2.0, the same licence as every service under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create.</p>"
   "<p>For a while this console was going to be the one thing we sold, and descriptions of it as a paid product are left over from that plan. The plan was dropped in July 2026 and the whole stack went open.</p>"),
  ("Is it open source, or open core with the useful parts held back?",
   "<p>Open source, and nothing is held back. The console is one repository, <a href=\"https://github.com/TAIPANBOX/genaryx\" target=\"_blank\" rel=\"noopener\">TAIPANBOX/genaryx</a>, and every tab in the screenshots above is built from it. There is no edition kept beside it for paying customers, because that edition is the thing we cancelled.</p>"),
  ("Is Genaryx a desktop application?",
   "<p>No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain.</p>"),
- ("What does the console add that the seven services do not already do?",
-  "<p>One window over seven planes, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings.</p>"
+ ("What does the console add that the services do not already do?",
+  "<p>One window over every plane, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings.</p>"
   "<p>You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it.</p>"),
  ("If none of it is sold, where does the money come from?",
   "<p>Consulting. The people who wrote the stack are available to stand it up, adapt it to what you already run, and stay reachable when it matters. That is the commercial side of this, and the software is not part of it.</p>"),
@@ -217,7 +217,7 @@ FAQ = {
   "<p>That is the intended home. Exit 0 means every drill held, exit 1 is a real defensive gap and should fail the build, exit 2 means the harness itself is broken so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p>"),
 ]),
 
-"services/platform.html": ("common questions", "The contract seven services agree on", [
+"services/platform.html": ("common questions", "The contract every service agrees on", [
  ("What is an Agent Passport?",
   "<p>One identifier and one document per agent: an <span class=\"mono\">agent://</span> URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries.</p>"),
  ("Do I have to adopt the whole stack to use the contract?",
@@ -230,11 +230,11 @@ FAQ = {
 
 "ai-agent-governance.html": ("common questions", "What people ask about agent governance", [
  ("What is AI agent governance?",
-  "<p>The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice that is six things: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, memory with provenance, quality measured in outcomes, and drills that prove the guardrails still hold.</p>"),
+  "<p>The controls that decide what an AI agent may do while it is running, rather than the reports that describe what it did. In practice: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for and a provable delegation when it acts for somebody else, a decision before it reaches anything outside, memory with provenance, quality measured in outcomes, drills that prove the guardrails still hold, and a record of all of it somebody who does not trust you can check.</p>"),
  ("How is agent governance different from LLM observability?",
   "<p>Observability is a witness; governance is a brake. A trace tells you afterwards that an agent looped four hundred times against a production API. A budget tells the agent on call five that it may not. Both are useful, but only one of them is standing in the path when it matters.</p>"),
  ("Do I have to adopt all of it at once?",
-  "<p>No, and nobody does. The order that works is metering first, then a ceiling, then naming the actions that need a human, then drawing the identities, then rehearsing the guardrails in CI, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.</p>"),
+  "<p>No, and nobody does. The order that works is metering first, then a ceiling, then a decision in front of the web, then naming the actions that need a human, then drawing the identities and making borrowed authority provable, then rehearsing the guardrails in CI, then sealing the record, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.</p>"),
  ("Does putting controls in the request path slow agents down?",
   "<p>The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.</p>"),
  ("Can this run on our own infrastructure?",

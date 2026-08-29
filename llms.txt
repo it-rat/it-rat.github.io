@@ -1,17 +1,17 @@
 # IT-RAT
 
 > The open-source agent-governance stack: runtime spend control, policy decisions,
-> identity, memory with provenance, cryptography posture, quality scoring and
-> pre-production drills for AI agents. Seven services under Apache-2.0, self-hosted
-> on infrastructure the operator owns, plus Genaryx, the console over them.
-> Every part of it is Apache-2.0.
+> identity and delegation, egress, memory with provenance, cryptography posture,
+> quality scoring, pre-production drills, alerting and an auditable record for AI
+> agents. Self-hosted on infrastructure the operator owns, plus Genaryx, the
+> console over them. Every part of it is Apache-2.0.
 
 Every page below is available as markdown at the same path with a .md extension.
 
 ## Guides
 
 - [Guides index](https://it-rat.com/guides.md): Eleven guides: seven on the field of AI agent governance, and four on running this stack, from a first alert to what the numbers prove.
-- [AI agent governance](https://it-rat.com/ai-agent-governance.md): What AI agent governance means in practice: budgets, policy, identity, provenance, quality and drills applied while an agent runs, not after.
+- [AI agent governance](https://it-rat.com/ai-agent-governance.md): What AI agent governance means in practice: budgets, policy, identity, delegation, egress, provenance, quality, drills and an auditable record.
 - [FinOps for AI](https://it-rat.com/finops-for-ai.md): FinOps applied to LLM and agent spend: the unit of work, per-run budgets, reserve-then-settle, FOCUS showback and cost per resolved case.
 - [AI agent security](https://it-rat.com/ai-agent-security.md): The failure modes an autonomous agent introduces, the runtime guardrail that answers each one, and how to rehearse them in CI. Defensive practice.
 - [MCP security](https://it-rat.com/mcp-security.md): What changes when tools arrive over the Model Context Protocol: descriptions the model reads, servers nobody sanctioned, tools that change later.
