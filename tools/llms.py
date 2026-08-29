@@ -41,6 +41,7 @@ GUIDES = [
 SERVICES = [
     ("services/tokenfuse.html", "TokenFuse, the money plane"),
     ("services/costcrew.html", "CostCrew, the finops plane"),
+    ("services/vouchryx.html", "Vouchryx, the delegation plane"),
     ("services/wardryx.html", "Wardryx, the policy plane"),
     ("services/idryx.html", "Idryx, the access plane"),
     ("services/engram.html", "Engram, the knowledge plane"),

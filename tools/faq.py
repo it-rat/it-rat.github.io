@@ -125,6 +125,19 @@ FAQ = {
   "<p>Nothing to us and nothing to a vendor: one Apache-2.0 binary on a box you already have. What can cost money is a connector, so every entry says whether running it is metered per call, because that is the fact that decides whether an integration is a good idea.</p>"),
 ]),
 
+"services/vouchryx.html": ("common questions", "Proving and ending a delegation", [
+ ("How is this different from just giving the agent an API key?",
+  "<p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class=\"mono\">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point at once rather than waiting for an expiry.</p>"),
+ ("What happens to a token that is already in flight when we revoke it?",
+  "<p>It stops working. Enforcement points poll the revocation list and refuse anything on it, so the token's own expiry has no say. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.</p>"),
+ ("Does this replace the delegation chain in the Passport?",
+  "<p>No, it is the half the Passport spec deliberately leaves out. The spec says plainly that it names an agent without proving possession, and records who acted for whom without saying when. This provides both, and the record still lives where it lived.</p>"),
+ ("Why is there no introspection endpoint?",
+  "<p>Because it would put this service on the request path of every enforcement point at once. Verification is offline against published keys instead, and the policy plane keeps answering in single-digit milliseconds.</p>"),
+ ("What does it do if it is configured wrong?",
+  "<p>It refuses to start and names the variable. A token service that came up trusting nothing would issue nothing and look healthy; one that came up trusting a default would issue everything. Neither failure should be quiet.</p>"),
+]),
+
 "services/tokenfuse.html": ("common questions", "How teams put a ceiling on agent spend", [
  ("How do I cap what an AI agent can spend?",
   "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.</p>"),

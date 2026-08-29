@@ -35,6 +35,7 @@ SERVICE_PAGES = [
     "services/idryx.html", "services/qryx.html", "services/verdryx.html",
     "services/mockryx.html", "services/heraldyx.html", "services/pocket.html",
     "services/trailryx.html", "services/platform.html", "services/costcrew.html",
+    "services/vouchryx.html",
 ]
 
 

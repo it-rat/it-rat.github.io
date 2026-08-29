@@ -117,6 +117,13 @@
       "description": "A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it."
     },
     {
+      "url": "https://it-rat.com/services/vouchryx.html",
+      "markdown": "https://it-rat.com/services/vouchryx.md",
+      "title": "Vouchryx, the delegation plane",
+      "kind": "service",
+      "description": "RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once."
+    },
+    {
       "url": "https://it-rat.com/services/wardryx.html",
       "markdown": "https://it-rat.com/services/wardryx.md",
       "title": "Wardryx, the policy plane",

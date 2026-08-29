@@ -27,6 +27,7 @@ Every page below is available as markdown at the same path with a .md extension.
 
 - [TokenFuse, the money plane](https://it-rat.com/services/tokenfuse.md): A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP.
 - [CostCrew, the finops plane](https://it-rat.com/services/costcrew.md): A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it.
+- [Vouchryx, the delegation plane](https://it-rat.com/services/vouchryx.md): RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once.
 - [Wardryx, the policy plane](https://it-rat.com/services/wardryx.md): The policy plane your agents ask before acting: allow, deny or hold for a human, with signed approval tokens and a hard ceiling that outranks approvals.
 - [Idryx, the access plane](https://it-rat.com/services/idryx.md): One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 27 deterministic detectors and a CycloneDX Agent-BOM.
 - [Engram, the knowledge plane](https://it-rat.com/services/engram.md): Embeddable agent memory in one SQLite file: bitemporal facts, hybrid BM25 and vector recall, why() provenance and GDPR forget. No server, no API key to start.

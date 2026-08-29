@@ -60,6 +60,7 @@ PAGES = {
     "console.html": None,
     "404.html": "/",
     "services/costcrew.html": "../",
+    "services/vouchryx.html": "../",
     "services/engram.html": "../",
     "services/idryx.html": "../",
     "services/mockryx.html": "../",

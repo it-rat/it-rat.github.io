@@ -38,6 +38,10 @@ One identity graph for humans, keys and agents.
 
 Agents reach the web through a decision, not around one.
 
+### Vouchryx
+
+A delegation an agent can prove it holds, and a person can end.
+
 ### Qryx
 
 Cryptography inventory and post-quantum risk.
