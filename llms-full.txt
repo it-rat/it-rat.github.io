@@ -42,7 +42,7 @@ One explains what happened, the other decides what may happen. The same incident
 
 ## Three shapes of agent tooling, and what each cannot do
 
-Named products change monthly and the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one of them.
+Named products change monthly and the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, and twelve differences with a way to check every one of them.
 
 *the operational half*
 

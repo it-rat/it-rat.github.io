@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Three shapes of agent tooling, and what each cannot do · IT-RAT</title>
-<meta name="description" content="Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, where each stops, and twelve differences you can go and check.">
+<meta name="description" content="Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, and twelve differences you can go and check for yourself.">
 <link rel="canonical" href="https://it-rat.com/agent-tooling-compared.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/agent-tooling-compared.html">
 <meta property="og:title" content="Three shapes of agent tooling, and what each cannot do · IT-RAT">
-<meta property="og:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one.">
+<meta property="og:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, and twelve differences with a way to check every one.">
 <meta property="og:image" content="https://it-rat.com/assets/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Three shapes of agent tooling, and what each cannot do · IT-RAT">
-<meta name="twitter:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, where each one stops, and twelve differences with a way to check every one.">
+<meta name="twitter:description" content="Named products change monthly; the shapes do not. What framework-native tracing, open self-hosted observability and a vendor's hosted control plane each answer, and twelve differences with a way to check every one.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -102,7 +102,7 @@
   .sv-wire{stroke:#252a35;stroke-width:2;fill:none}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Three shapes of agent tooling, and what each cannot do","name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html","description":"Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, where each stops, and twelve differences you can go and check.","inLanguage":"en","datePublished":"2026-08-10","dateModified":"2026-08-10","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Three shapes of agent tooling","item":"https://it-rat.com/agent-tooling-compared.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do we have to drop our tracing to use this?","acceptedAnswer":{"@type":"Answer","text":"No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are."}},{"@type":"Question","name":"Our observability tool already tracks cost. Is that not the same?","acceptedAnswer":{"@type":"Answer","text":"Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it."}},{"@type":"Question","name":"Why describe products by shape instead of naming them?","acceptedAnswer":{"@type":"Answer","text":"Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes say what a category can and cannot do architecturally, which is the part that does not change with a release note."}},{"@type":"Question","name":"Could one of them add enforcement later?","acceptedAnswer":{"@type":"Answer","text":"They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Three shapes of agent tooling, and what each cannot do","name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html","description":"Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, and twelve differences you can go and check for yourself.","inLanguage":"en","datePublished":"2026-08-10","dateModified":"2026-08-10","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Three shapes of agent tooling","item":"https://it-rat.com/agent-tooling-compared.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do we have to drop our tracing to use this?","acceptedAnswer":{"@type":"Answer","text":"No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are."}},{"@type":"Question","name":"Our observability tool already tracks cost. Is that not the same?","acceptedAnswer":{"@type":"Answer","text":"Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it."}},{"@type":"Question","name":"Why describe products by shape instead of naming them?","acceptedAnswer":{"@type":"Answer","text":"Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes say what a category can and cannot do architecturally, which is the part that does not change with a release note."}},{"@type":"Question","name":"Could one of them add enforcement later?","acceptedAnswer":{"@type":"Answer","text":"They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -241,33 +241,6 @@
       <h3>Planes that stand in the path and answer before the action</h3>
       <p>A gateway that gives every run a budget and answers 402 the moment it is crossed. A policy plane the agent asks before acting, which can hold the expensive one for a person. An egress plane that decides the destination before anything leaves the machine. An identity graph that knows which human a key ultimately belongs to. A record built so that somebody who does not trust you can still check it is complete. None of that is a view of the past. Each one is a decision that either happened or did not.</p>
       <div class="k"><b>Not best at:</b> explaining why the model wanted to do it. That is what A and B are for, and this stack exports into them rather than competing.</div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:14px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">the same questions to all four</div>
-      <h2>Where each one stops.</h2>
-    </div>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th></th><th><span class="bdg">A</span>framework tracing</th><th><span class="bdg">B</span>open observability</th><th><span class="bdg">C</span>hosted control plane</th><th><span class="bdg" style="visibility:hidden">&#183;</span>this stack</th></tr></thead>
-        <tbody>
-          <tr><td>Where it sits</td><td class="warn">Beside the app</td><td class="warn">Beside the app</td><td class="warn">Under the agent: it hosts it</td><td class="yes">In the request path</td></tr>
-          <tr><td>What comes out</td><td class="warn">A trace, a score, a chart</td><td class="warn">A trace, a score, a chart</td><td class="warn">A queue, a chart, a policy on its own platform</td><td class="yes">An action that did or did not occur</td></tr>
-          <tr><td>Can it stop a run</td><td class="no">No, and it says so</td><td class="no">No, and it says so</td><td class="warn">On the agents it hosts</td><td class="yes">Yes, at the budget or the policy</td></tr>
-          <tr><td>Whose agents it sees</td><td class="warn">Yours, if instrumented</td><td class="warn">Yours, if instrumented</td><td class="warn">Any, once imported and redeployed there</td><td class="yes">Anyone's, wherever they already run</td></tr>
-          <tr><td>What it can see</td><td class="warn">The model call</td><td class="warn">The model call</td><td class="warn">What crosses its own platform</td><td class="yes">Spend, destination, identity, approval</td></tr>
-          <tr><td>Who can verify the record</td><td class="warn">Your team, after sampling</td><td class="warn">Your team, after sampling</td><td class="warn">Your team, in their console</td><td class="yes">An outsider, from the record's own proofs</td></tr>
-          <tr><td>Where the data lives</td><td class="warn">Their cloud, yours on enterprise</td><td class="yes">Yours</td><td class="warn">Their cloud, with an on-prem option</td><td class="yes">Yours</td></tr>
-          <tr><td>Cost of entry</td><td class="warn">Per seat, plus usage</td><td class="yes">Free to self-host</td><td class="no">A monthly floor, then capacity tiers</td><td class="yes">Clone the repository</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="prose rv" style="margin-top:20px">
-      <p><b>Read the third row first.</b> A tool that cannot stop a run is telemetry, however good its dashboard is, and telemetry is priced and staffed differently from a control. Then read the sixth. Dev telemetry is sampled, editable and eventually dropped, because it was built for an engineer debugging on a Tuesday. Nobody designed it to be read by a regulator two years later.</p>
     </div>
   </div>
 </section>
@@ -428,25 +401,6 @@
     <div class="prose rv" style="margin-top:22px">
       <h3>And what it costs, since none of this is free</h3>
       <p>Standing in the request path buys the refusal and charges latency for it, on every call, including the overwhelming majority that were always going to be fine. It also forces a decision nobody enjoys making: what happens when the control plane itself is unreachable, fail-open or fail-closed. Observability never has to answer that question, because nothing waits on it. <b>That is the actual trade, and a vendor who will not name it has not thought about it.</b></p>
-    </div>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:14px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">the honest part</div>
-      <h2>Where they are plainly better than us.</h2>
-    </div>
-    <div class="prose rv">
-      <ul>
-        <li><b>Prompt iteration.</b> Playgrounds, prompt versioning, side-by-side runs on a dataset. That is the core loop of A and B, refined for years, and we do not have it.</li>
-        <li><b>Evaluation tooling.</b> We do have a quality plane, and it is deliberately narrower: cost per correctly resolved case, scored on your own outcome tags. For general offline evaluation suites, theirs are more complete.</li>
-        <li><b>Assembling agents at speed.</b> Shape C sells a catalog, support and a contract. We are not an agent-building platform and have no answer to that ask.</li>
-        <li><b>Open source is not the differentiator against B.</b> Its core is MIT and self-hosts for free. Against A and C the licence matters; against B the argument has to be enforcement, or it is not an argument. The one thing worth saying out loud is which part B does charge for: not the observability, but the governance around it, the audit logs and retention and role permissions. Ours is Apache-2.0 including that part.</li>
-        <li><b>Maturity.</b> All three are established products with real deployments behind them. Several planes here are younger than that, and the site says which.</li>
-      </ul>
-      <p>None of this is a reason to pick one. If a team runs B today, the sensible move is to keep it and put a gateway in front of the model calls in shadow mode. The traces keep working and gain a spend line and a verdict per run.</p>
     </div>
   </div>
 </section>
