@@ -403,6 +403,46 @@
       "repo_dir": "qryx",
       "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
       "slow": false
+    },
+    {
+      "page": "index.html",
+      "claim": "8000",
+      "occurrences": 6,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Money, under load. 8,000 of 8,000 requests admitted against one budget by 100 to 500 concurrent agents, none dropped and none over it. The hero ticker and the proof grid both state it, which is why the count is page-wide rather than per block. Added 2026-08-29, when the hero ticker was found stating four figures that nothing here owned: 176 'real Claude calls' where the same page says 176 enforcement decisions, plus a 64% and a 583 ms that appear nowhere else on the site. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+    },
+    {
+      "page": "index.html",
+      "claim": "$0.00042",
+      "occurrences": 3,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Money, per unit of work. The measured cost of one correctly resolved case, from the Verdryx run in the validation campaign. Added 2026-08-29, when the hero ticker was found stating four figures that nothing here owned: 176 'real Claude calls' where the same page says 176 enforcement decisions, plus a 64% and a 583 ms that appear nowhere else on the site. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+    },
+    {
+      "page": "index.html",
+      "claim": "2,449",
+      "occurrences": 3,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Policy, throughput. Decisions one pod makes each second on dedicated cores, with no cliff out to 256 concurrent callers. Added 2026-08-29, when the hero ticker was found stating four figures that nothing here owned: 176 'real Claude calls' where the same page says 176 enforcement decisions, plus a 64% and a 583 ms that appear nowhere else on the site. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+    },
+    {
+      "page": "index.html",
+      "claim": "426",
+      "occurrences": 5,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Evidence, per decision. Bytes of hash-linked audit written for every decision rather than a sample, which is the line that turns provability into a capacity plan. Added 2026-08-29, when the hero ticker was found stating four figures that nothing here owned: 176 'real Claude calls' where the same page says 176 enforcement decisions, plus a 64% and a 583 ms that appear nowhere else on the site. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
     }
   ]
 }
