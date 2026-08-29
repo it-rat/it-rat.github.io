@@ -1,7 +1,10 @@
 ## Everything here is meant to be read, by people and by machines.
 ## The guides exist to be quoted; the services are Apache-2.0 anyway.
 ## A machine-readable index of the whole site lives at /llms.txt, with a
-## markdown mirror of every page at the same path and a .md extension.
+## markdown mirror of every page IT LISTS at the same path and a .md extension.
+## "every page" was the claim until 2026-08-29 and it was one page out: Sphere
+## is a side project rather than part of the stack, so it is not in that index
+## and has no mirror. A file machines read should not overstate by one.
 
 User-agent: *
 Allow: /
