@@ -87,6 +87,10 @@ Download a [the latest release binary](https://github.com/TAIPANBOX/idryx/releas
 
 Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where `idryx version` reads it back.
 
+## It records who acts for whom. It does not prove it.
+
+The delegation chain here is a record, and the spec says so plainly: it names an agent without proving possession, and says who acted for whom without saying when. [Vouchryx](https://it-rat.com/vouchryx.html) is the other half, proof of possession per request and a revocation an incident can actually use, and every finding it produces lands on the same bus this graph is folded from.
+
 ## Counting the identities nobody is counting
 
 **Q: How do I find every AI agent and service account we actually have?**

@@ -120,7 +120,7 @@
         <div class="n">delegation</div>
         <h3>Who is it acting for, right now?</h3>
         <p>An agent rarely acts for itself. It acts for a user, or for another agent that acts for a user. That chain is what makes an action attributable to a person, and it has to be ordered, acyclic and bounded, or it becomes a way to launder authority through three hops.</p>
-        <div class="fix"><b>In practice:</b> a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. <a href="services/idryx.html">Idryx &#8594;</a></div>
+        <div class="fix"><b>In practice:</b> a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. <a href="services/idryx.html">Idryx &#8594;</a> The chain is the record; proving the agent actually holds that delegation is a different mechanism. <a href="services/vouchryx.html">Vouchryx &#8594;</a></div>
       </div>
       <div class="q" style="--c:#F4B23E">
         <div class="n">authorisation per action</div>
@@ -132,7 +132,7 @@
         <div class="n">revocation</div>
         <h3>How does it stop existing?</h3>
         <p>An identity you cannot switch off is a credential with a personality. Revocation has to be a single action with a visible effect, and it has to cover the paths the identity opened: its tokens, its device access, and the delegation others hold to it.</p>
-        <div class="fix"><b>In practice:</b> revocation as a first-class operation, and an inventory that shows what each identity still reaches. <a href="services/idryx.html">Idryx &#8594;</a></div>
+        <div class="fix"><b>In practice:</b> revocation as a first-class operation, and an inventory that shows what each identity still reaches. <a href="services/idryx.html">Idryx &#8594;</a> One call ends a delegation at every enforcement point at once, whatever the token says about its own expiry. <a href="services/vouchryx.html">Vouchryx &#8594;</a></div>
       </div>
     </div>
   </div>

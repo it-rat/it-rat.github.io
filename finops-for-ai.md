@@ -52,6 +52,10 @@ The number that changes a decision is not monthly spend. It is **cost per resolv
 
 Every control above produces a record, and the records are the part of an agent programme that grows without anyone deciding to grow it. This is the rare budget line that can be forecast exactly, because it is linear in a quantity you already track: measure the bytes one governed decision writes, multiply by the decisions your fleet will make, add whatever retention your compliance function demands. On a control plane we measured across three clouds it came to 426 bytes per decision, with every decision audited rather than a sample, which is 614 MB a day at a thousand calls a minute and a 5 GiB volume filled in nine.
 
+### 7. Somebody to actually do it
+
+Every part above is work, and it is the work that gets dropped first: the variance nobody wrote up, the shared cost nobody placed, the anomaly queue nobody triaged. [CostCrew](https://it-rat.com/services/costcrew.html) is that practice staffed by agents, with a person on the stamp: analysts hired into desks with a mandate and a spend guard, drafts that change nothing until somebody posts them, and a KPI library that refuses to report a number it cannot compute. Money there is found, never saved, because nothing is saved until a person acts on it.
+
 Two consequences, and both are finance decisions rather than engineering ones. First, supervising an agent is cheap in processor and expensive in gigabytes, so a capacity plan built from CPU alone will be wrong in the only dimension that runs out. Second, retention is a design parameter from day one, not a cleanup task for later: when the audit volume fills, what disappears is not disk, it is the ability to prove to an auditor why each of those costs was permitted. Provability is measured in gigabytes, and it can be priced a year ahead from a single number.
 
 ## What to instrument, in what order.

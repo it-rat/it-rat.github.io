@@ -173,7 +173,7 @@ Governance that has to be reconstructed for an audit will be reconstructed badly
 
 ## The order that works.
 
-Nobody governs seven planes on the first day. This is the order we deploy in, and the reasoning behind it.
+Nobody governs every plane on the first day. This is the order we deploy in, and the reasoning behind it.
 
 All of it is Apache-2.0 and runs on infrastructure you own. [One command starts the live services locally](https://it-rat.com/services/platform.html#run) if you want to see the shape before you commit to any of it, and the whole corridor is [on the stack page](https://it-rat.com/index.html#stack). The defensive half of the same job is in [AI agent security](https://it-rat.com/ai-agent-security.html).
 
@@ -262,6 +262,10 @@ The number that changes a decision is not monthly spend. It is **cost per resolv
 ### 6. The line item nobody forecasts: the evidence itself
 
 Every control above produces a record, and the records are the part of an agent programme that grows without anyone deciding to grow it. This is the rare budget line that can be forecast exactly, because it is linear in a quantity you already track: measure the bytes one governed decision writes, multiply by the decisions your fleet will make, add whatever retention your compliance function demands. On a control plane we measured across three clouds it came to 426 bytes per decision, with every decision audited rather than a sample, which is 614 MB a day at a thousand calls a minute and a 5 GiB volume filled in nine.
+
+### 7. Somebody to actually do it
+
+Every part above is work, and it is the work that gets dropped first: the variance nobody wrote up, the shared cost nobody placed, the anomaly queue nobody triaged. [CostCrew](https://it-rat.com/services/costcrew.html) is that practice staffed by agents, with a person on the stamp: analysts hired into desks with a mandate and a spend guard, drafts that change nothing until somebody posts them, and a KPI library that refuses to report a number it cannot compute. Money there is found, never saved, because nothing is saved until a person acts on it.
 
 Two consequences, and both are finance decisions rather than engineering ones. First, supervising an agent is cheap in processor and expensive in gigabytes, so a capacity plan built from CPU alone will be wrong in the only dimension that runs out. Second, retention is a design parameter from day one, not a cleanup task for later: when the audit volume fills, what disappears is not disk, it is the ability to prove to an auditor why each of those costs was permitted. Provability is measured in gigabytes, and it can be priced a year ahead from a single number.
 
@@ -637,7 +641,7 @@ Anyone can claim a name. Attestation is the evidence behind it: an OIDC token, a
 
 An agent rarely acts for itself. It acts for a user, or for another agent that acts for a user. That chain is what makes an action attributable to a person, and it has to be ordered, acyclic and bounded, or it becomes a way to launder authority through three hops.
 
-**In practice:** a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. [Idryx →](https://it-rat.com/services/idryx.html)
+**In practice:** a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. [Idryx →](https://it-rat.com/services/idryx.html) The chain is the record; proving the agent actually holds that delegation is a different mechanism. [Vouchryx →](https://it-rat.com/services/vouchryx.html)
 
 *authorisation per action*
 
@@ -653,7 +657,7 @@ Identity says who is asking. It does not say yes. For the small set of actions t
 
 An identity you cannot switch off is a credential with a personality. Revocation has to be a single action with a visible effect, and it has to cover the paths the identity opened: its tokens, its device access, and the delegation others hold to it.
 
-**In practice:** revocation as a first-class operation, and an inventory that shows what each identity still reaches. [Idryx →](https://it-rat.com/services/idryx.html)
+**In practice:** revocation as a first-class operation, and an inventory that shows what each identity still reaches. [Idryx →](https://it-rat.com/services/idryx.html) One call ends a delegation at every enforcement point at once, whatever the token says about its own expiry. [Vouchryx →](https://it-rat.com/services/vouchryx.html)
 
 ## What tends to work.
 
@@ -740,6 +744,15 @@ The evidence binding a name to the workload using it: an OIDC token, a SPIFFE SV
 
 **Delegation chain on_behalf_of**
 The ordered record of who an agent is acting for on this request: agent, then whatever spawned it, up to the human at the root. Kept acyclic and capped in length. Distinct from the static parent that provisioned the agent, which is an org chart rather than authority.
+
+**Proof of possession DPoP, cnf.jkt**
+Evidence that the caller holds the key a token was issued to, rather than merely holding the token. The token carries a thumbprint of the caller's public key, and every request carries a fresh signature from that key, so a token lifted from a log buys nothing. This is the half a delegation chain deliberately does not cover, and it is what [Vouchryx](https://it-rat.com/services/vouchryx.html) adds.
+
+**Delegation revocation**
+Ending an agent's right to act for somebody, at every enforcement point at once, without waiting for a token to expire. Distinct from a kill switch, which ends spend: the money case is a runaway, the authority case is a delegation that should never have been made or should stop now. Both are one operation and both have to be attributable, so an actor and a reason are required.
+
+**Found, not saved**
+A FinOps distinction that decides whether anybody believes the rest of your numbers. A finding puts money on the table; nothing is saved until a person acts on it and the invoice changes. A console that reports found money as saved is disbelieved the first time finance checks it, and after that every other figure it prints is suspect too. See [CostCrew](https://it-rat.com/services/costcrew.html).
 
 **Non-human identity NHI**
 Any identity that is not a person: a service account, an access key, a workload, an agent. The category matters because most organisations count their humans carefully and their non-humans not at all, and the second group is usually larger.
@@ -1038,7 +1051,7 @@ Each line under a step is a real event on a shared contract, which is why an inc
 
 ## Where this sits.
 
-This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/index.html#stack).
+Two moves in this walk are newer than the walk itself. Stopping the spend and stopping the authority are different acts, and the second one is [a revocation](https://it-rat.com/services/vouchryx.html) that lands at every enforcement point at once rather than a 402 on the next call. And what the incident leaves behind is [sealed](https://it-rat.com/services/trailryx.html) nightly, so the record of it can be shown to somebody who was not there. This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/index.html#stack).
 
 ## What people ask about the incident path
 

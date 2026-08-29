@@ -48,7 +48,7 @@ Anyone can claim a name. Attestation is the evidence behind it: an OIDC token, a
 
 An agent rarely acts for itself. It acts for a user, or for another agent that acts for a user. That chain is what makes an action attributable to a person, and it has to be ordered, acyclic and bounded, or it becomes a way to launder authority through three hops.
 
-**In practice:** a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. [Idryx →](https://it-rat.com/services/idryx.html)
+**In practice:** a chain ordered root first, capped in length, kept separate from the static parent that provisioned the agent. [Idryx →](https://it-rat.com/services/idryx.html) The chain is the record; proving the agent actually holds that delegation is a different mechanism. [Vouchryx →](https://it-rat.com/services/vouchryx.html)
 
 *authorisation per action*
 
@@ -64,7 +64,7 @@ Identity says who is asking. It does not say yes. For the small set of actions t
 
 An identity you cannot switch off is a credential with a personality. Revocation has to be a single action with a visible effect, and it has to cover the paths the identity opened: its tokens, its device access, and the delegation others hold to it.
 
-**In practice:** revocation as a first-class operation, and an inventory that shows what each identity still reaches. [Idryx →](https://it-rat.com/services/idryx.html)
+**In practice:** revocation as a first-class operation, and an inventory that shows what each identity still reaches. [Idryx →](https://it-rat.com/services/idryx.html) One call ends a delegation at every enforcement point at once, whatever the token says about its own expiry. [Vouchryx →](https://it-rat.com/services/vouchryx.html)
 
 ## What tends to work.
 

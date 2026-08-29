@@ -90,7 +90,7 @@ Governance that has to be reconstructed for an audit will be reconstructed badly
 
 ## The order that works.
 
-Nobody governs seven planes on the first day. This is the order we deploy in, and the reasoning behind it.
+Nobody governs every plane on the first day. This is the order we deploy in, and the reasoning behind it.
 
 All of it is Apache-2.0 and runs on infrastructure you own. [One command starts the live services locally](https://it-rat.com/services/platform.html#run) if you want to see the shape before you commit to any of it, and the whole corridor is [on the stack page](https://it-rat.com/index.html#stack). The defensive half of the same job is in [AI agent security](https://it-rat.com/ai-agent-security.html).
 

@@ -31,6 +31,10 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 | GET /.well-known/jwks.json | Public keys. Verification is offline and stays offline. |
 | no introspection | Refused by design. Wardryx answers at a 3.2 ms p50 and nothing here is going to sit in front of that. |
 
+## Mint, prove, verify, end.
+
+Two signed tokens and a proof go in, a short-lived one comes out, and the enforcement point verifies it without asking anybody. The dotted path is the one that matters in an incident: a revocation reaches the poller and the same token stops working before it expires.
+
 ## One stops the money. This one stops the authority.
 
 [TokenFuse](https://it-rat.com/tokenfuse.html) refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all. Revoking ends that at every enforcement point at once, and the token's own expiry has no say in it.

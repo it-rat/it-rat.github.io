@@ -37,7 +37,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Heraldyx, the alerts plane](https://it-rat.com/services/heraldyx.md): The part of the agent stack that writes to you: it reads the shared event log, decides what is worth a human tonight, and mails it with one link.
 - [Scopyx, the egress plane](https://it-rat.com/services/scopyx.md): Your agents already reach the web and nothing governs it. Scopyx decides every destination before anything leaves, and keeps origins rather than URLs.
 - [Trailryx, the record](https://it-rat.com/services/trailryx.md): A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete.
-- [Platform, the shared contract](https://it-rat.com/services/platform.md): One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0.
+- [Platform, the shared contract](https://it-rat.com/services/platform.md): One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.
 
 ## Other
 

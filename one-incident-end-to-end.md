@@ -102,7 +102,7 @@ Each line under a step is a real event on a shared contract, which is why an inc
 
 ## Where this sits.
 
-This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/index.html#stack).
+Two moves in this walk are newer than the walk itself. Stopping the spend and stopping the authority are different acts, and the second one is [a revocation](https://it-rat.com/services/vouchryx.html) that lands at every enforcement point at once rather than a 402 on the next call. And what the incident leaves behind is [sealed](https://it-rat.com/services/trailryx.html) nightly, so the record of it can be shown to somebody who was not there. This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/index.html#stack).
 
 ## What people ask about the incident path
 

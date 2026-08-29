@@ -43,3 +43,7 @@ The same harness, the honest-disk assumption removed: 17,869 of 20,000 seeds fai
 **Q: Download the verifier**
 
 Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. These are the offline verifier; `trailryx-ingest` sits beside them on the releases page. No Windows build yet, and saying so is cheaper than a broken link.
+
+## The newest thing on the bus is a crew of agents.
+
+[CostCrew](https://it-rat.com/costcrew.html) writes fifteen event types about money and about its own analysts, and this plane seals them with everything else. Measured on 2026-08-28: twenty-six events on the bus in one run, and nine of them sealed into records in that same run. The rest were refused by design rather than dropped, which is the distinction this store exists to keep.

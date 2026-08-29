@@ -72,3 +72,7 @@ The shared envelope requires an agent id, so a fact about an org has no subject 
 ### It does not carry history
 
 A first run starts at the end of the log. A month of old incidents arriving at once is how an operator learns to filter this sender to trash.
+
+## Two more sources arrived on the bus.
+
+This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding. Both are in the shared registry, so a mail about either needs no new code here.

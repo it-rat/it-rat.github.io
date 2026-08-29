@@ -85,6 +85,10 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 
 No per-platform binaries here, and the honest reason is that a gateway sits in front of traffic rather than on a laptop: it ships as an image. The tag and the command to run it live in the repository, next to the version they pull.
 
+## It stops the spend. Two neighbours stop other things.
+
+A breaker is the right answer to a runaway and the wrong one to a compromised delegation, where the money is affordable and the problem is that the agent may act for somebody at all. [Vouchryx](https://it-rat.com/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/costcrew.html) is where a bill gets taken apart, allocated and closed, by a crew of agents whose work a person stamps.
+
 ## How teams put a ceiling on agent spend
 
 **Q: How do I cap what an AI agent can spend?**

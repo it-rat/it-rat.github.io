@@ -2,17 +2,17 @@
 
 # Platform, the shared contract
 
-> One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0.
+> One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.
 
-Under the seven services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.
+Under the services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.
 
 ## One envelope, end to end.
 
-This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, seven services emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end. Exit 0.
+This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, the planes emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end. Exit 0.
 
 ## Everything meets at the envelope.
 
-Seven emitters write one shape onto one NDJSON bus: five required fields, five optional ones. Four consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, and Heraldyx mails the operator about the few worth interrupting them for. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
+Twelve registered sources write one shape onto one NDJSON bus: five required fields, five optional ones. Four consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, and Heraldyx mails the operator about the few worth interrupting them for. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
 
 ## Boring on purpose. Load-bearing anyway.
 
@@ -103,7 +103,7 @@ This installs nothing of the stack: it is the contract itself, for an agent of y
 
 Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where `agent-conform -version` reads it back.
 
-## The contract seven services agree on
+## The contract the whole stack agrees on
 
 **Q: What is an Agent Passport?**
 One identifier and one document per agent: an `agent://` URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries.

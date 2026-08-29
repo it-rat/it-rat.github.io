@@ -191,7 +191,7 @@
       "markdown": "https://it-rat.com/services/platform.md",
       "title": "Platform, the shared contract",
       "kind": "service",
-      "description": "One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0."
+      "description": "One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0."
     }
   ]
 }

@@ -78,6 +78,10 @@ The policy point is one control among several: see [AI agent security](https://i
 
 Boots on `:8090` with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
 
+## A decision is only as good as the identity under it.
+
+This plane answers about an action. What it cannot answer is whether the caller really holds the delegation it claims, which is a different question with a different mechanism: [Vouchryx](https://it-rat.com/vouchryx.html) mints a short-lived token bound to the caller's own key and lets a person end it, and a hold resolved by a signed approval token is the same idea pointed at one action rather than at a delegation.
+
 ## Putting a human in front of the expensive actions
 
 **Q: How do I require human approval before an agent does something expensive?**

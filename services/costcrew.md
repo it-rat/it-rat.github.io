@@ -26,6 +26,10 @@ An analyst gets the task with a mandate, the rights that come with its skills an
 
 Work comes back as a draft. A person posts it or returns it, and the return is on the analyst's own card next to its first-pass rate, so a crew that produces confident noise is visible rather than merely busy.
 
+## The path a number takes before anybody is charged for it.
+
+Every screen above shows one station on this line. What no screenshot shows is the line itself, and the gate in the middle of it: an agent can carry a finding all the way to the stamp and no further. Returned work goes back up the dashed path and lands on that analyst's own card, next to its first-pass rate.
+
 ## Found, never saved.
 
 One word is load-bearing throughout this console: money is found, never saved, because nothing is saved until somebody acts. A console that reports found money as saved is one whose numbers stop being believed the first time finance checks them against the invoice.

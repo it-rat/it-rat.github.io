@@ -20,6 +20,15 @@ The evidence binding a name to the workload using it: an OIDC token, a SPIFFE SV
 **Delegation chain on_behalf_of**
 The ordered record of who an agent is acting for on this request: agent, then whatever spawned it, up to the human at the root. Kept acyclic and capped in length. Distinct from the static parent that provisioned the agent, which is an org chart rather than authority.
 
+**Proof of possession DPoP, cnf.jkt**
+Evidence that the caller holds the key a token was issued to, rather than merely holding the token. The token carries a thumbprint of the caller's public key, and every request carries a fresh signature from that key, so a token lifted from a log buys nothing. This is the half a delegation chain deliberately does not cover, and it is what [Vouchryx](https://it-rat.com/services/vouchryx.html) adds.
+
+**Delegation revocation**
+Ending an agent's right to act for somebody, at every enforcement point at once, without waiting for a token to expire. Distinct from a kill switch, which ends spend: the money case is a runaway, the authority case is a delegation that should never have been made or should stop now. Both are one operation and both have to be attributable, so an actor and a reason are required.
+
+**Found, not saved**
+A FinOps distinction that decides whether anybody believes the rest of your numbers. A finding puts money on the table; nothing is saved until a person acts on it and the invoice changes. A console that reports found money as saved is disbelieved the first time finance checks it, and after that every other figure it prints is suspect too. See [CostCrew](https://it-rat.com/services/costcrew.html).
+
 **Non-human identity NHI**
 Any identity that is not a person: a service account, an access key, a workload, an agent. The category matters because most organisations count their humans carefully and their non-humans not at all, and the second group is usually larger.
 

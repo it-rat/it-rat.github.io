@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Platform - the Agent Passport contract for AI agent tooling · IT-RAT</title>
-<meta name="description" content="One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0.">
+<meta name="description" content="One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.">
 <link rel="canonical" href="https://it-rat.com/services/platform.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/platform.html">
 <meta property="og:title" content="Platform - the Agent Passport contract for AI agent tooling · IT-RAT">
-<meta property="og:description" content="The contract under the IT-RAT stack: one agent:// identifier, one Agent Passport document, one NDJSON event envelope shared by seven services. agent-stack-go bindings, the agent-conform checker, and three Terraform resources for budgets, passports and policies.">
+<meta property="og:description" content="The contract under the IT-RAT stack: one agent:// identifier, one Agent Passport document, one NDJSON event envelope every service shares. agent-stack-go bindings, the agent-conform checker, and three Terraform resources for budgets, passports and policies.">
 <meta property="og:image" content="https://it-rat.com/assets/og/platform.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Platform - the Agent Passport contract for AI agent tooling · IT-RAT">
-<meta name="twitter:description" content="The contract under the IT-RAT stack: one agent:// identifier, one Agent Passport document, one NDJSON event envelope shared by seven services. agent-stack-go bindings, the agent-conform checker, and three Terraform resources for budgets, passports and policies.">
+<meta name="twitter:description" content="The contract under the IT-RAT stack: one agent:// identifier, one Agent Passport document, one NDJSON event envelope every service shares. agent-stack-go bindings, the agent-conform checker, and three Terraform resources for budgets, passports and policies.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/platform.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -54,7 +54,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Platform","url":"https://it-rat.com/services/platform.html","description":"One agent:// passport, one event envelope, one Go binding and a Terraform provider: the shared contract under all seven services of the stack. Apache-2.0.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/agent-passport","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Platform","item":"https://it-rat.com/services/platform.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an Agent Passport?","acceptedAnswer":{"@type":"Answer","text":"One identifier and one document per agent: an agent:// URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries."}},{"@type":"Question","name":"Do I have to adopt the whole stack to use the contract?","acceptedAnswer":{"@type":"Answer","text":"No. There is no shared runtime and no shared database. Adopting it is a naming agreement plus a few optional fields on events you already emit, which is why a service can add an event type without asking any other service for permission."}},{"@type":"Question","name":"Can budgets and policies live in version control?","acceptedAnswer":{"@type":"Answer","text":"Yes. Three Terraform resources cover budgets, agent passports and policies, published on the public Terraform Registry, so governance gets pull requests, plans and diffs like the rest of your infrastructure. Where the API has no delete, the provider says so instead of pretending."}},{"@type":"Question","name":"How do I check that my events actually conform?","acceptedAnswer":{"@type":"Answer","text":"Run agent-conform . It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Platform","url":"https://it-rat.com/services/platform.html","description":"One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/agent-passport","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Platform","item":"https://it-rat.com/services/platform.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an Agent Passport?","acceptedAnswer":{"@type":"Answer","text":"One identifier and one document per agent: an agent:// URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of five attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries."}},{"@type":"Question","name":"Do I have to adopt the whole stack to use the contract?","acceptedAnswer":{"@type":"Answer","text":"No. There is no shared runtime and no shared database. Adopting it is a naming agreement plus a few optional fields on events you already emit, which is why a service can add an event type without asking any other service for permission."}},{"@type":"Question","name":"Can budgets and policies live in version control?","acceptedAnswer":{"@type":"Answer","text":"Yes. Three Terraform resources cover budgets, agent passports and policies, published on the public Terraform Registry, so governance gets pull requests, plans and diffs like the rest of your infrastructure. Where the API has no delete, the provider says so instead of pretending."}},{"@type":"Question","name":"How do I check that my events actually conform?","acceptedAnswer":{"@type":"Answer","text":"Run agent-conform . It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="platform" data-root="../">
@@ -77,8 +77,8 @@
     <div class="hero-grid">
       <div>
         <div class="kicker rv">the contract &#183; under everything</div>
-        <h1 class="rv d1"><span class="nm">The contract</span>. The boring layer that makes seven services one system.</h1>
-        <p class="lede rv d2">Under the seven services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
+        <h1 class="rv d1"><span class="nm">The contract</span>. The boring layer that makes a dozen services one system.</h1>
+        <p class="lede rv d2">Under the services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
         <div class="cta-row rv d3">
           <!-- No "watch the simulation" button here, unlike every other service
                page, and the reason is this page's own layout: #sim is the first
@@ -108,9 +108,9 @@
 <section class="sec" id="sim" style="padding-top:26px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">sixty seconds, seven sources</div>
+      <div class="kicker">sixty seconds, one grammar</div>
       <h2>One envelope, end to end.</h2>
-      <p class="lede">This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, seven services emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end. Exit 0.</p>
+      <p class="lede">This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, the planes emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end. Exit 0.</p>
     </div>
     <div class="rv" id="pf-sim"></div>
   </div>
@@ -122,21 +122,29 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>Everything meets at the envelope.</h2>
-      <p class="lede">Seven emitters write one shape onto one NDJSON bus: five required fields, five optional ones. Four consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, and Heraldyx mails the operator about the few worth interrupting them for. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.</p>
+      <p class="lede">Twelve registered sources write one shape onto one NDJSON bus: five required fields, five optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas, Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.</p>
     </div>
     <div class="diagram rv">
-      <svg viewBox="0 0 960 400" role="img" aria-label="Platform contract: seven emitters feed the agent-event bus, the envelope card lists its ten fields, four consumers read the stream, and the Terraform loop manages budgets, passports and policies as code">
+      <svg viewBox="0 0 960 400" role="img" aria-label="Platform contract: twelve registered sources feed the agent-event bus, the envelope card lists its ten fields, five consumers read the stream, and the Terraform loop manages budgets, passports and policies as code">
         <defs><marker id="ap" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
         <g font-family="ui-monospace,Menlo" text-anchor="middle">
-          <!-- seven emitters -->
+          <!-- twelve registered sources, two rows. The second row is offset by
+               half a cell so the first row's arrows pass through its gaps
+               rather than through its boxes, which is why nothing below here
+               had to move when the registry grew past seven. -->
           <g font-size="11" font-weight="700">
-            <rect x="20"  y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#F4B23E"/><text x="64"  y="38" fill="#F4B23E">tokenfuse</text>
-            <rect x="116" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#6C7BFF"/><text x="160" y="38" fill="#6C7BFF">engram</text>
-            <rect x="212" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#34D399"/><text x="256" y="38" fill="#34D399">idryx</text>
-            <rect x="308" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#B48CFF"/><text x="352" y="38" fill="#B48CFF">qryx</text>
-            <rect x="404" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#2DD4BF"/><text x="448" y="38" fill="#2DD4BF">wardryx</text>
-            <rect x="500" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#FF7AA2"/><text x="544" y="38" fill="#FF7AA2">verdryx</text>
-            <rect x="596" y="18" width="88" height="32" rx="9" fill="#141C27" stroke="#FF8A5B"/><text x="640" y="38" fill="#FF8A5B">mockryx</text>
+            <rect x="20"  y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#F4B23E"/><text x="64"  y="32" fill="#F4B23E">tokenfuse</text>
+            <rect x="116" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#6C7BFF"/><text x="160" y="32" fill="#6C7BFF">engram</text>
+            <rect x="212" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#34D399"/><text x="256" y="32" fill="#34D399">idryx</text>
+            <rect x="308" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#B48CFF"/><text x="352" y="32" fill="#B48CFF">qryx</text>
+            <rect x="404" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#2DD4BF"/><text x="448" y="32" fill="#2DD4BF">wardryx</text>
+            <rect x="500" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#FF7AA2"/><text x="544" y="32" fill="#FF7AA2">verdryx</text>
+            <rect x="596" y="14" width="88" height="28" rx="9" fill="#141C27" stroke="#FF8A5B"/><text x="640" y="32" fill="#FF8A5B">mockryx</text>
+            <rect x="68"  y="48" width="88" height="28" rx="9" fill="#141C27" stroke="#B48CFF"/><text x="112" y="66" fill="#B48CFF">console</text>
+            <rect x="164" y="48" width="88" height="28" rx="9" fill="#141C27" stroke="#5BC8F5"/><text x="208" y="66" fill="#5BC8F5">heraldyx</text>
+            <rect x="260" y="48" width="88" height="28" rx="9" fill="#141C27" stroke="#8B9DFF"/><text x="304" y="66" fill="#8B9DFF">vouchryx</text>
+            <rect x="356" y="48" width="88" height="28" rx="9" fill="#141C27" stroke="#F0ABFC"/><text x="400" y="66" fill="#F0ABFC">scopyx</text>
+            <rect x="452" y="48" width="88" height="28" rx="9" fill="#141C27" stroke="#7DD3A0"/><text x="496" y="66" fill="#7DD3A0">costcrew</text>
           </g>
           <!-- the bus -->
           <rect x="20" y="84" width="664" height="30" rx="9" fill="#0F151E" stroke="#2a3547"/>
@@ -162,22 +170,26 @@
             <text x="448" y="272">prev_hash</text>
           </g>
           <text x="352" y="289" fill="#5A6675" font-size="10">prev_hash: sha256 chain &#183; unknown fields ignored</text>
-          <!-- consumers -->
-          <g font-size="11.5" font-weight="700">
-            <rect x="20"  y="330" width="154" height="48" rx="10" fill="#141C27" stroke="#93A8C4"/>
-            <text x="97"  y="350" fill="#E9EFF6">agent-conform CLI</text>
-            <rect x="190" y="330" width="154" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
-            <text x="267" y="350" fill="#E9EFF6">Idryx graph</text>
-            <rect x="360" y="330" width="154" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
-            <text x="437" y="350" fill="#E9EFF6">TokenFuse Cloud</text>
-            <rect x="530" y="330" width="154" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
-            <text x="607" y="350" fill="#E9EFF6">Heraldyx mail</text>
+          <!-- consumers. Five now: the record plane reads the same stream and
+               seals it, which is what made this row too narrow at four. -->
+          <g font-size="10.5" font-weight="700">
+            <rect x="20"  y="330" width="124" height="48" rx="10" fill="#141C27" stroke="#93A8C4"/>
+            <text x="82"  y="350" fill="#E9EFF6">agent-conform</text>
+            <rect x="155" y="330" width="124" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
+            <text x="217" y="350" fill="#E9EFF6">Idryx graph</text>
+            <rect x="290" y="330" width="124" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
+            <text x="352" y="350" fill="#E9EFF6">TokenFuse Cloud</text>
+            <rect x="425" y="330" width="124" height="48" rx="10" fill="#141C27" stroke="#2a3547"/>
+            <text x="487" y="350" fill="#E9EFF6">Heraldyx mail</text>
+            <rect x="560" y="330" width="124" height="48" rx="10" fill="#141C27" stroke="#E4626F"/>
+            <text x="622" y="350" fill="#E9EFF6">Trailryx records</text>
           </g>
           <g font-size="10" fill="#8A97A6">
-            <text x="97"  y="366">JSON Schemas &#183; exit 0/1</text>
-            <text x="267" y="366">logged as identity edges</text>
-            <text x="437" y="366">evidence packs</text>
-            <text x="607" y="366">an alert with a link</text>
+            <text x="82" y="366">schemas &#183; exit 0/1</text>
+            <text x="217" y="366">logged as identity edges</text>
+            <text x="352" y="366">evidence packs</text>
+            <text x="487" y="366">an alert with a link</text>
+            <text x="622" y="366">sealed, hash-chained</text>
           </g>
           <!-- terraform side box -->
           <rect x="720" y="18" width="224" height="360" rx="14" fill="#10161F" stroke="#2a3547"/>
@@ -200,18 +212,24 @@
           <text x="832" y="350" fill="#5A6675" font-size="10.5">in the next plan</text>
         </g>
         <g stroke="#5A6675" stroke-width="1.3" class="flow">
-          <line x1="64"  y1="50" x2="64"  y2="80" marker-end="url(#ap)"/>
-          <line x1="160" y1="50" x2="160" y2="80" marker-end="url(#ap)"/>
-          <line x1="256" y1="50" x2="256" y2="80" marker-end="url(#ap)"/>
-          <line x1="352" y1="50" x2="352" y2="80" marker-end="url(#ap)"/>
-          <line x1="448" y1="50" x2="448" y2="80" marker-end="url(#ap)"/>
-          <line x1="544" y1="50" x2="544" y2="80" marker-end="url(#ap)"/>
-          <line x1="640" y1="50" x2="640" y2="80" marker-end="url(#ap)"/>
+          <line x1="64"  y1="42" x2="64"  y2="80" marker-end="url(#ap)"/>
+          <line x1="160" y1="42" x2="160" y2="80" marker-end="url(#ap)"/>
+          <line x1="256" y1="42" x2="256" y2="80" marker-end="url(#ap)"/>
+          <line x1="352" y1="42" x2="352" y2="80" marker-end="url(#ap)"/>
+          <line x1="448" y1="42" x2="448" y2="80" marker-end="url(#ap)"/>
+          <line x1="544" y1="42" x2="544" y2="80" marker-end="url(#ap)"/>
+          <line x1="640" y1="42" x2="640" y2="80" marker-end="url(#ap)"/>
+          <line x1="112" y1="76" x2="112" y2="80" marker-end="url(#ap)"/>
+          <line x1="208" y1="76" x2="208" y2="80" marker-end="url(#ap)"/>
+          <line x1="304" y1="76" x2="304" y2="80" marker-end="url(#ap)"/>
+          <line x1="400" y1="76" x2="400" y2="80" marker-end="url(#ap)"/>
+          <line x1="496" y1="76" x2="496" y2="80" marker-end="url(#ap)"/>
           <line x1="352" y1="114" x2="352" y2="134" marker-end="url(#ap)"/>
-          <line x1="253" y1="296" x2="97"  y2="326" marker-end="url(#ap)"/>
-          <line x1="319" y1="296" x2="267" y2="326" marker-end="url(#ap)"/>
-          <line x1="385" y1="296" x2="437" y2="326" marker-end="url(#ap)"/>
-          <line x1="451" y1="296" x2="607" y2="326" marker-end="url(#ap)"/>
+          <line x1="240" y1="296" x2="82"  y2="326" marker-end="url(#ap)"/>
+          <line x1="296" y1="296" x2="217" y2="326" marker-end="url(#ap)"/>
+          <line x1="352" y1="296" x2="352" y2="326" marker-end="url(#ap)"/>
+          <line x1="408" y1="296" x2="487" y2="326" marker-end="url(#ap)"/>
+          <line x1="464" y1="296" x2="622" y2="326" marker-end="url(#ap)"/>
           <line x1="832" y1="102" x2="832" y2="118" marker-end="url(#ap)"/>
           <line x1="832" y1="148" x2="832" y2="164" marker-end="url(#ap)"/>
           <line x1="832" y1="194" x2="832" y2="210" marker-end="url(#ap)"/>
@@ -408,7 +426,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">common questions</div>
-      <h2>The contract seven services agree on</h2>
+      <h2>The contract the whole stack agrees on</h2>
     </div>
     <div class="faq rv">
       <details>
@@ -474,7 +492,7 @@
 <script src="../assets/diagram.js"></script>
 <script src="../assets/ambient.js"></script>
 <script>
-/* One envelope crosses the whole stack. A passport is issued, seven
+/* One envelope crosses the whole stack. A passport is issued, the
    sources emit their registered event types (SPEC.md 6.2), v0.1 and
    v0.2 ride the same stream, and agent-conform validates it: exit 0. */
 Sim.mount(document.getElementById("pf-sim"),{
@@ -498,7 +516,7 @@ Sim.mount(document.getElementById("pf-sim"),{
       [0,0],[9,0],[10,1],[16,1],[17,2],[23,2],[24,3],[30,3],[31,4],[37,4],[38,5],[44,5],[45,7],[60,7]]}
   ],
   counters:[
-    {id:"c1",label:"sources emitting",color:"#93A8C4",from:t=>t<10?0:t<17?1:t<24?2:t<31?3:t<38?4:t<45?5:7},
+    {id:"c1",label:"sources emitting",color:"#93A8C4",from:t=>t<10?0:t<17?2:t<24?4:t<31?6:t<38?8:t<45?10:12},
     {id:"c2",label:"schema versions",color:"#E9EFF6",from:t=>2},
     {id:"c3",label:"conformance failures",color:"#34D399",from:t=>0},
     {id:"c4",label:"resources as code",color:"#8A97A6",from:t=>3}
@@ -512,7 +530,7 @@ Sim.mount(document.getElementById("pf-sim"),{
     {t:38,cls:"ok",label:"qryx signs evidence · evidence_signed"},
     {t:45,cls:"ok",label:"verdryx: quality_score · mockryx: sim_run"},
     {t:52,cls:"ok",label:"agent-conform validates the whole stream · exit 0"},
-    {t:58,cls:"info",label:"seven sources, one grammar, one audit story"}
+    {t:58,cls:"info",label:"twelve sources, one grammar, one audit story"}
   ]
 });
 </script>
