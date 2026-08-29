@@ -22,6 +22,128 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
 
 const MOTIFS={
 
+/* vouchryx - the delegation plane: a right that travels, proves itself, and
+   can be cut mid-flight.
+
+   Each lane is one delegation chain: a person on the left, an agent, then
+   whoever that agent delegates to. Tokens travel it as small capsules, and
+   each carries a thumbprint mark, because the token is bound to a key rather
+   than to a bearer. They dim as they go: these are short-lived by design, and
+   an expiry is not a failure.
+
+   Twice a cycle a revocation sweeps back from the right, against the traffic.
+   Anything it touches turns ember and stops at the next node rather than at
+   its own expiry, which is the difference this service exists to draw. The
+   chain behind it stays lit: revoking one delegation is not tearing down the
+   graph.
+
+   Written 2026-08-29. */
+delegate(ctx,w,h,t){
+  const lanes=3, rr=rng(913);
+  const revoke=((t*0.085)%1);                 /* the sweep, right to left */
+  const sweepX=w*(1.05-revoke*1.15);
+  for(let l=0;l<lanes;l++){
+    const y=h*(0.30+l*0.17)+Math.sin(t*0.25+l)*3;
+    const nodes=4+((l+1)%2);
+    /* the chain itself, hairline, always there */
+    ctx.strokeStyle=`rgba(${C.dim},.10)`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(w*0.08,y);ctx.lineTo(w*0.93,y);ctx.stroke();
+    for(let n=0;n<nodes;n++){
+      const x=w*(0.08+n*(0.85/(nodes-1)));
+      dot(ctx,x,y,n===0?2.4:1.9,n===0?C.steel:C.iris,n===0?0.30:0.22);
+    }
+    /* tokens in flight, staggered so the lanes never march together */
+    for(let k=0;k<3;k++){
+      const ph=rr(), speed=0.10+ph*0.05;
+      const u=((t*speed+ph+l*0.27)%1);
+      const x=w*(0.08+u*0.85);
+      const ttl=1-u*0.75;                     /* short-lived: it fades as it goes */
+      const cut=x>sweepX-6&&x<sweepX+34&&((l+k)%2===0);
+      const col=cut?C.ember:C.iris;
+      const a=(cut?0.42:0.30)*ttl;
+      ctx.fillStyle=`rgba(${col},${a})`;
+      ctx.beginPath();
+      if(ctx.roundRect) ctx.roundRect(x-9,y-3.5,18,7,3.5); else ctx.rect(x-9,y-3.5,18,7);
+      ctx.fill();
+      /* the thumbprint the token is bound to: two short arcs, never a bearer dot */
+      ctx.strokeStyle=`rgba(${col},${a*1.5})`;ctx.lineWidth=1;
+      for(let r=2;r<=4;r+=2){
+        ctx.beginPath();ctx.arc(x+13,y,r,-0.9,0.9);ctx.stroke();
+      }
+      if(cut){ /* stopped here, not at its own expiry */
+        ctx.strokeStyle=`rgba(${C.ember},.5)`;ctx.lineWidth=1.4;
+        ctx.beginPath();ctx.moveTo(x+19,y-6);ctx.lineTo(x+25,y+6);ctx.stroke();
+      }
+    }
+  }
+  /* the sweep, drawn faintly and only while it is crossing */
+  if(revoke>0.04&&revoke<0.96){
+    const g=ctx.createLinearGradient(sweepX-30,0,sweepX+8,0);
+    g.addColorStop(0,`rgba(${C.ember},0)`);g.addColorStop(1,`rgba(${C.ember},.16)`);
+    ctx.fillStyle=g;ctx.fillRect(sweepX-30,h*0.20,38,h*0.52);
+    ctx.strokeStyle=`rgba(${C.ember},.24)`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(sweepX,h*0.20);ctx.lineTo(sweepX,h*0.72);ctx.stroke();
+  }
+  /* signed segments drifting: header, payload, signature, never parsed here */
+  ctx.font="10px ui-monospace,Menlo,monospace";
+  for(let i=0;i<7;i++){
+    const ph=i*0.9, x=w*(0.05+((t*0.02+i*0.14)%0.92)), y=h*(0.12+((i*0.37)%0.78));
+    ctx.fillStyle=`rgba(${C.dim},${0.08+0.05*Math.abs(Math.sin(t*0.4+ph))})`;
+    ctx.fillText("eyJ...·...·sig",x,y);
+  }
+},
+
+/* costcrew - the finops plane: a bill taken apart by hand.
+
+   A daily cost series runs across, with the baseline it is judged against
+   drawn under it as a dashed median and a soft band of robust deviation. One
+   day at a time steps outside the band and gets a mark; the mark is sized by
+   MONEY rather than by how far out the day sits, which is the whole ranking
+   argument of the product.
+
+   Under it, the part of the bill that arrived with nobody's name on it splits
+   into slices and drifts toward owners. Nothing here is red: this plane
+   reports, it never stops anything.
+
+   Written 2026-08-29. */
+ledger(ctx,w,h,t){
+  const n=64, base=h*0.42, amp=h*0.055;
+  const rr=rng(4210);
+  const days=[];
+  for(let i=0;i<n;i++) days.push(rr());
+  /* the band the median allows */
+  ctx.fillStyle=`rgba(${C.dim},.05)`;
+  ctx.fillRect(w*0.06,base-amp*0.9,w*0.88,amp*1.8);
+  ctx.strokeStyle=`rgba(${C.dim},.14)`;ctx.lineWidth=1;ctx.setLineDash([4,5]);
+  ctx.beginPath();ctx.moveTo(w*0.06,base);ctx.lineTo(w*0.94,base);ctx.stroke();
+  ctx.setLineDash([]);
+  /* the series */
+  ctx.strokeStyle=`rgba(${C.mint},.22)`;ctx.lineWidth=1.4;ctx.beginPath();
+  const spike=Math.floor(((t*0.05)%1)*n);
+  for(let i=0;i<n;i++){
+    const x=w*(0.06+i/(n-1)*0.88);
+    let y=base-(days[i]-0.5)*amp*1.1-Math.sin(t*0.3+i*0.4)*2;
+    if(i===spike) y-=amp*2.6;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  }
+  ctx.stroke();
+  /* the day in question, marked, and sized by the money rather than the sigma */
+  const sx=w*(0.06+spike/(n-1)*0.88), sy=base-amp*3.0;
+  dot(ctx,sx,sy,3.1,C.amber,0.34);
+  ctx.strokeStyle=`rgba(${C.amber},.22)`;ctx.lineWidth=1;ctx.setLineDash([2,4]);
+  ctx.beginPath();ctx.moveTo(sx,sy+6);ctx.lineTo(sx,base);ctx.stroke();ctx.setLineDash([]);
+  /* shared cost finding an owner */
+  const ty=h*0.72;
+  ctx.fillStyle=`rgba(${C.dim},.07)`;ctx.fillRect(w*0.10,ty-7,w*0.24,14);
+  for(let k=0;k<4;k++){
+    const u=((t*0.09+k*0.25)%1);
+    const x=w*(0.34+u*0.52), y=ty+Math.sin(t*0.5+k*1.7)*7;
+    ctx.fillStyle=`rgba(${C.mint},${0.20*(1-u*0.5)})`;
+    ctx.fillRect(x,y-3,11,6);
+    if(u>0.9) dot(ctx,w*0.90,y,2.2,C.mint,0.26);
+  }
+},
+
 /* trailryx - the record plane: a question is answered by a CONTIGUOUS range.
    Records arrive and chain, drawn as a dense run of ticks joined hairline to
    hairline. A question sweeps along and encloses a span with hard bracket
@@ -443,7 +565,8 @@ tensor(ctx,w,h,t){
 /* motif per service */
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
   scopyx:"egress",heraldyx:"dispatch",trailryx:"contiguity",
-  qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor"};
+  qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor",
+  vouchryx:"delegate",costcrew:"ledger"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
    alive below the hero. One fixed layer behind all content, evolving with
