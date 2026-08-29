@@ -42,11 +42,13 @@ deny_if_unattested demands a live attestation before an agent touches the sensit
 
 ### Fail-open or fail-closed, your call
 
-When the decision point is unreachable, the enforcement point picks the failure mode per deployment, and the two that exist chose opposite defaults on purpose. TokenFuse's LLM path fails open: a money plane that refused every call when this one blinked would cost an operator production traffic over a network partition. Scopyx fails closed: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and the failure would be silent. Both defaults are documented, and so is the tradeoff.
+When the decision point is unreachable, the enforcement point picks the failure mode per deployment, and the two that exist chose opposite defaults on purpose. Both defaults are documented, and so is the tradeoff.
 
 **Q: The modes, and what an outage costs**
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
+
+The two enforcement points in this stack chose opposite defaults, and each choice follows from what its own failure costs. **TokenFuse**'s LLM path fails open: a money plane that refused every call when this one blinked would cost an operator production traffic over a network partition. **Scopyx** fails closed: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 
