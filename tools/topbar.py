@@ -57,6 +57,10 @@ PAGES = {
     "what-runs-where.html": "",
     "first-alert.html": "",
     "what-is-proven.html": "",
+    # Added 2026-08-29. Its own commit said it was "listed in all seven places";
+    # it was in none of the four generators, so its bar, its JSON-LD and its
+    # markdown twin have all been frozen since the day it was written.
+    "agent-tooling-compared.html": "",
     "console.html": None,
     "404.html": "/",
     "services/costcrew.html": "../",
@@ -70,6 +74,8 @@ PAGES = {
     "services/sphere.html": "../",
     "services/platform.html": "../",
     "services/qryx.html": "../",
+    # Added 2026-08-29, missing since the room was written on 2026-08-10.
+    "services/scopyx.html": "../",
     "services/tokenfuse.html": "../",
     "services/verdryx.html": "../",
     "services/wardryx.html": "../",

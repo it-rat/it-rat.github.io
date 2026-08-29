@@ -297,6 +297,29 @@ run_case "footer-shelves: the stylesheet draws a different number of columns" fa
      ".foot-row{display:grid;grid-template-columns:repeat(5,1fr)")')" \
 	"columns for 6 shelves"
 
+# invariant 11: the generated blocks are on every page that should have them,
+# and they are what the generators would write today.
+run_case "generated-blocks: a page loses its JSON-LD" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'import re
+p = "services/wardryx.html"
+s = open(p).read()
+m = re.search(r"<script type=.application/ld\+json.>.*?</script>", s, re.S)
+assert m, p + " has no JSON-LD to remove"
+open(p, "w").write(s.replace(m.group(0), "", 1))')" \
+	"no JSON-LD"
+
+run_case "generated-blocks: a generated block edited by hand" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("services/qryx.html", ">Heraldyx</a>", ">Heraldix</a>")')" \
+	"a generator would rewrite it"
+
+run_case "generated-blocks: a service in the registry loses its markdown twin" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'import subprocess
+subprocess.run(["git", "rm", "-q", "services/tokenfuse.md"], check=True)')" \
+	"no markdown twin"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate
@@ -314,6 +337,13 @@ open("index.html","w").write(s.replace(m.group(0), "<p>Since 2026, on version 2.
 run_case "footer-shelves: a page gains a paragraph" pass \
 	'./scripts/footer-shelves.sh' \
 	"$(py 'edit("index.html", "</body>", "<p>a sentence that changes no shelf.</p></body>")')"
+
+# The stylesheet is not a generated block. No generator reads it and none
+# writes it, so an edit there is somebody working, not drift.
+run_case "generated-blocks: a comment added to the stylesheet" pass \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("assets/site.css", "/* ---------- footer ---------- */",
+     "/* ---------- footer ---------- */\n/* a comment no generator reads */")')"
 
 # Work in progress is normal. A local HEAD ahead of both published copies is
 # somebody mid-edit, and a gate that failed on it would be switched off inside
@@ -344,6 +374,16 @@ m = re.search(r"const CATEGORIES = \[.*?\n\];", s, re.S)
 assert m, "site.js has no CATEGORIES registry"
 open(p, "w").write(s.replace(m.group(0), "", 1))')" \
 	"nothing was measured"
+
+run_case "generated-blocks: the registry it reads the services from is gone" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'import re
+p = "assets/site.js"
+s = open(p).read()
+m = re.search(r"const STACK = \[.*?\n\];", s, re.S)
+assert m, "site.js has no STACK registry"
+open(p, "w").write(s.replace(m.group(0), "", 1))')" \
+	"Nothing was measured"
 
 run_case "page-metadata: no HTML pages left to read" fail \
 	'./scripts/page-metadata.sh' \

@@ -277,6 +277,17 @@ FAQ = {
   "<p>Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?</p>"),
 ]),
 
+"agent-tooling-compared.html": ("common questions", "What people ask when they have already bought one", [
+ ("Do we have to drop our tracing to use this?",
+  "<p>No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are.</p>"),
+ ("Our observability tool already tracks cost. Is that not the same?",
+  "<p>Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it.</p>"),
+ ("Why describe products by shape instead of naming them?",
+  "<p>Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes are also more useful: they say what a category of tool can and cannot do architecturally, which is the part that does not change with a release note.</p>"),
+ ("Could one of them add enforcement later?",
+  "<p>They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far.</p>"),
+ ]),
+
 "mcp-security.html": ("common questions", "What people ask about MCP", [
  ("What are the main security risks of the Model Context Protocol?",
   "<p>Two structural ones and the rest follow. A tool definition is a description the model reads as instructions, so it is content, not just a signature. And clients re-fetch definitions on connect, so the tool you approved is not necessarily the tool in use later. From those come poisoned descriptions, rug pulls, unsanctioned servers, credentials passing through the model, and drift nobody tracks.</p>"),

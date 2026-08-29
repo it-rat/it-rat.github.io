@@ -92,6 +92,18 @@ jobs:
         ## three categories out of date until 2026-08-29.
         run: ./scripts/footer-shelves.sh
 
+      - name: Fail on a generated block nobody generates
+        ## Five tools write into these pages and each keeps its own list of
+        ## which ones. Two pages were outside all five lists for months, and
+        ## one of them published a markdown twin still carrying copy that had
+        ## been taken off the page a day earlier.
+        ##
+        ## Half of this asks whether a page has its blocks at all; the other
+        ## half runs every generator against a COPY of the tree and requires
+        ## that it change nothing. A gate that ran them in place would fix the
+        ## drift it is meant to report.
+        run: ./scripts/generated-blocks.sh
+
       # Last, because it mutates tracked files and restores them. It needs a
       # clean tree and says so plainly, so it also reports any earlier step
       # that starts writing into the checkout.

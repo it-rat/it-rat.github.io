@@ -24,6 +24,7 @@ committed is published.
 ./scripts/page-metadata.sh
 ./scripts/service-numbers.sh
 ./scripts/footer-shelves.sh       # invariant 10
+./scripts/generated-blocks.sh     # invariant 11
 ./scripts/demo-bundle-current.sh
 ./scripts/deploy-target-current.sh  # invariant 9; needs network
 # demo-bundle-current.sh also runs daily on its own schedule; see invariant 7
@@ -190,12 +191,13 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 15 cases: nine real faults, three
-   non-faults, and three subjects taken away entirely. The non-faults are the
+   *(gate: `scripts/gates-have-teeth.sh`, 20 cases: twelve real faults, four
+   non-faults, and four subjects taken away entirely. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
-   and a paragraph arriving on a page is not a change of footer shape. A gate
-   flagging any of them would be switched off inside a week. This line said
+   a paragraph arriving on a page is not a change of footer shape, and a
+   comment added to the stylesheet is not a generator that stopped running. A
+   gate flagging any of them would be switched off inside a week. This line said
    nine until 2026-08-29 while eleven cases ran, which is the same class of
    drift the site's own figures have: a count restated by hand and never
    measured.)*
@@ -256,6 +258,42 @@ true.
    the same number. In the Pages workflow before the upload. It says nothing
    about WHICH chips sit on a shelf: `tools/footer.py` writes those and
    `service-numbers.sh` owns what a page may claim.)*
+
+11. **A page's generated blocks are on it, and they are what the generators
+   would write today.** Five tools write into these pages: the footer, the top
+   bar, the visible FAQ, the JSON-LD, and the markdown twins with the `llms.txt`
+   index. Each keeps its own hand-written list of pages, and until 2026-08-29
+   nothing compared those five lists with each other or with the pages on disk.
+
+   Two pages were outside all of them, both for months.
+   `agent-tooling-compared.html` went up on 2026-08-11 in none of the five,
+   though its own commit message said it was "listed in all seven places", and
+   its markdown twin, served at `it-rat.com/agent-tooling-compared.md`, was
+   still publishing the competitor comparison table and a section headed "Where
+   they are plainly better than us" a day after both came off the page itself on
+   Yurii's instruction. `services/scopyx.html` went up on 2026-08-10 and was the
+   one indexable page here carrying no JSON-LD at all.
+
+   **A generated file nobody regenerates is worse than a hand-written one**,
+   because everybody assumes it is current, and this one was published.
+   *(gate: `scripts/generated-blocks.sh`, two halves. Coverage: every page that
+   is not `noindex` carries a canonical, a JSON-LD block and a sitemap entry,
+   and every page in the STACK registry carries a markdown twin. Freshness: all
+   five generators run against a copy of the tracked tree and must change
+   nothing, since a generator is idempotent by design and anything it would
+   rewrite is drift. It copies rather than runs in place, because a gate that
+   fixes what it is judging is green the next run with nobody the wiser. In the
+   Pages workflow before the upload.)*
+
+   **The one exemption, and why it is derived rather than listed.** Sphere owes
+   no markdown twin because it is not in the STACK registry. `llms.txt` is the
+   stack's index for machine readers and Sphere's first sentence is that it is
+   not the stack, so the exemption states its own reason and disappears the day
+   somebody puts Sphere in the registry. It does carry JSON-LD, written by four
+   lines of its own in `tools/seo.py`: the generic service branch would have
+   claimed Apache-2.0 where the repository is MIT, "Linux, macOS" where the page
+   says iOS only, and a breadcrumb through "The stack" on the page that denies
+   being part of it.
 
 ## Decisions that have no gate yet
 

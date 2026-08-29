@@ -178,8 +178,25 @@ def groups(root, here):
             f'<i style="background:{c["color"]}"></i>{c["label"]}</div>\n'
             f'            <div class="foot-chips">{chip_html}</div>\n'
             '          </div>\n')
+    # The side project's shelf takes its dot from the SIDE registry rather than
+    # from CATEGORIES, because it is not a category and has no colour of its
+    # own. Every other shelf carries one, and this one did not, which read as a
+    # heading of a different kind rather than as the same heading without a
+    # colour to give it. @yurii 2026-08-29 asked for the dot.
+    #
+    # One entry, so one colour. A second side project in a different colour
+    # would make this the first one's, which is why it is asserted rather than
+    # assumed: two colours under one heading is a decision for whoever adds the
+    # second, not something this line should quietly pick.
+    sides = side()
+    colours = {s["color"] for s in sides}
+    if len(colours) != 1:
+        sys.exit(f"site.js: SIDE holds {len(colours)} colours {sorted(colours)}, so the "
+                 "'side project' heading has no single dot to wear. Decide what that "
+                 "shelf's colour is before this can write it.")
     shelves.append(
-        '          <div class="foot-group"><div class="l">side project</div>\n'
+        f'          <div class="foot-group"><div class="l">'
+        f'<i style="background:{colours.pop()}"></i>side project</div>\n'
         f'            <div class="foot-chips">{side_chips(root, here)}</div>\n'
         '          </div>\n')
     return ('<div class="foot-groups">\n'

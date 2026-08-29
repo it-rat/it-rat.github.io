@@ -22,6 +22,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [What runs where and what it costs](https://it-rat.com/what-runs-where.md): One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.
 - [From zero to your first alert](https://it-rat.com/first-alert.md): One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line.
 - [What is proven and what is not](https://it-rat.com/what-is-proven.md): How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.
+- [Three shapes of agent tooling](https://it-rat.com/agent-tooling-compared.md): Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, and twelve differences you can go and check for yourself.
 
 ## Services
 
@@ -38,6 +39,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Scopyx, the egress plane](https://it-rat.com/services/scopyx.md): Your agents already reach the web and nothing governs it. Scopyx decides every destination before anything leaves, and keeps origins rather than URLs.
 - [Trailryx, the record](https://it-rat.com/services/trailryx.md): A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete.
 - [Platform, the shared contract](https://it-rat.com/services/platform.md): One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.
+- [TokenFuse Pocket, the out-of-band kill switch](https://it-rat.com/services/pocket.md): Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet.
 
 ## Other
 

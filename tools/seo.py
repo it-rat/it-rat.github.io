@@ -28,6 +28,11 @@ GUIDES = {
     "what-runs-where.html": "What runs where and what it costs",
     "first-alert.html": "From zero to your first alert",
     "what-is-proven.html": "What is proven and what is not",
+    # Added 2026-08-29. Written 2026-08-11 and left out of every generator, so
+    # its JSON-LD had been frozen since that day: it still described a page
+    # holding a comparison table and a section of competitors' strengths, both
+    # of which came off the page on 2026-08-28.
+    "agent-tooling-compared.html": "Three shapes of agent tooling",
 }
 
 SERVICE_PAGES = [
@@ -36,6 +41,10 @@ SERVICE_PAGES = [
     "services/mockryx.html", "services/heraldyx.html", "services/pocket.html",
     "services/trailryx.html", "services/platform.html", "services/costcrew.html",
     "services/vouchryx.html",
+    # Added 2026-08-29. The room was written on 2026-08-10 and never listed
+    # here, so it was the one indexable page on this site carrying no JSON-LD
+    # while sitting in the sitemap next to fourteen pages that do.
+    "services/scopyx.html",
 ]
 
 
@@ -166,6 +175,7 @@ def faq(html):
 # older than it is, on a site whose whole argument is that its claims are
 # checkable. Add the date here when a guide is added.
 PUBLISHED = {
+    "agent-tooling-compared.html": "2026-08-11",
     "first-alert.html": "2026-08-04",
     "one-incident-end-to-end.html": "2026-08-04",
     "what-runs-where.html": "2026-08-04",
@@ -310,6 +320,29 @@ def main():
         if q:
             graph.append(q)
         n += write(path, graph)
+
+    # Sphere gets four lines of its own rather than a place in SERVICE_PAGES,
+    # because the generic service branch would state three things about it that
+    # its own page denies. Apache-2.0, when the repository is MIT and the
+    # footer says so. "Linux, macOS", when the band under the title says iOS
+    # only. And a breadcrumb through "The stack", when the first sentence of
+    # the page is that it is not part of the stack.
+    #
+    # It had no JSON-LD at all until 2026-08-29, which is how it avoided saying
+    # anything false; that is not the same as being right, because it sits in
+    # the sitemap and is indexed like every other page here. Machine-readable
+    # claims outlive the copy that contradicts them, and a licence is the worst
+    # of them to get wrong.
+    sp_html = (ROOT / "services/sphere.html").read_text(encoding="utf-8")
+    sp = head_bits(sp_html, "services/sphere.html")
+    if sp["name"] != "Sphere":
+        sys.exit(f"services/sphere.html: read the name as {sp['name']!r}, refusing to guess")
+    sp_app = software(sp)
+    sp_app["operatingSystem"] = "iOS"
+    sp_app["applicationCategory"] = "LifestyleApplication"
+    sp_app["license"] = "https://opensource.org/licenses/MIT"
+    n += write("services/sphere.html", [sp_app, guide_crumbs(sp, sp["name"])])
+
     print(f"\n{n} file(s) updated")
 
 

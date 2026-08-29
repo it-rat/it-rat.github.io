@@ -37,6 +37,11 @@ GUIDES = [
     ("what-runs-where.html", "What runs where and what it costs"),
     ("first-alert.html", "From zero to your first alert"),
     ("what-is-proven.html", "What is proven and what is not"),
+    # Added 2026-08-29, and this one had already gone wrong rather than merely
+    # being absent. The twin was written on 2026-08-11 and never regenerated,
+    # so it went on serving the comparison table and the section of
+    # competitors' strengths for a day after both came off the page itself.
+    ("agent-tooling-compared.html", "Three shapes of agent tooling"),
 ]
 SERVICES = [
     ("services/tokenfuse.html", "TokenFuse, the money plane"),
@@ -52,6 +57,11 @@ SERVICES = [
     ("services/scopyx.html", "Scopyx, the egress plane"),
     ("services/trailryx.html", "Trailryx, the record"),
     ("services/platform.html", "Platform, the shared contract"),
+    # Added 2026-08-29. It is in the STACK registry, on the rail, in the money
+    # shelf of the footer and in the sitemap, and it was the only page there
+    # with no markdown twin. Its plane in the registry is "out of band", which
+    # is what it is: the switch that is deliberately not in the box.
+    ("services/pocket.html", "TokenFuse Pocket, the out-of-band kill switch"),
 ]
 OTHER = [
     ("index.html", "IT-RAT, open-source governance for AI agents"),

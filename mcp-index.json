@@ -103,6 +103,13 @@
       "description": "How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw."
     },
     {
+      "url": "https://it-rat.com/agent-tooling-compared.html",
+      "markdown": "https://it-rat.com/agent-tooling-compared.md",
+      "title": "Three shapes of agent tooling",
+      "kind": "guide",
+      "description": "Three shapes of agent tooling exist and two of them cannot stop anything. What each is for, and twelve differences you can go and check for yourself."
+    },
+    {
       "url": "https://it-rat.com/services/tokenfuse.html",
       "markdown": "https://it-rat.com/services/tokenfuse.md",
       "title": "TokenFuse, the money plane",
@@ -192,6 +199,13 @@
       "title": "Platform, the shared contract",
       "kind": "service",
       "description": "One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0."
+    },
+    {
+      "url": "https://it-rat.com/services/pocket.html",
+      "markdown": "https://it-rat.com/services/pocket.md",
+      "title": "TokenFuse Pocket, the out-of-band kill switch",
+      "kind": "service",
+      "description": "Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet."
     }
   ]
 }
