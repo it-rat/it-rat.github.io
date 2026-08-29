@@ -14,6 +14,7 @@ from there into each service repo's README.
 
 Run from the repo root:  python3 tools/readmediagrams.py
 """
+import hashlib
 import pathlib
 import re
 import sys
@@ -25,39 +26,53 @@ PAD = 18
 BG = "#0A0E13"
 DUR = 2.4  # seconds for one pulse to cross a wire, whatever that wire's length
 
-# id -> (page, accent, the one-line title screen readers and tooltips get)
+# id -> (page, accent, the one-line title screen readers and tooltips get,
+#        a fingerprint of the drawing that sentence describes)
 ROOMS = {
     "tokenfuse": ("services/tokenfuse.html", "#F4B23E",
-                  "TokenFuse: every agent call priced and gated in-line, budgets replicated by raft"),
+                  "TokenFuse: every agent call priced and gated in-line, budgets replicated by raft",
+                  "7b68c964f4a9"),
     "wardryx":   ("services/wardryx.html", "#2DD4BF",
-                  "Wardryx: the PEP asks per request, the PDP answers allow, deny or hold"),
+                  "Wardryx: the PEP asks per request, the PDP answers allow, deny or hold",
+                  "05d9bd048860"),
     "idryx":     ("services/idryx.html", "#34D399",
-                  "Idryx: identity sources feed one graph that emits alerts, an Agent-BOM and proposed diffs"),
+                  "Idryx: identity sources feed one graph that emits alerts, an Agent-BOM and proposed diffs",
+                  "fd83459a2b8b"),
     "qryx":      ("services/qryx.html", "#B48CFF",
-                  "Qryx: the estate is swept into a crypto inventory and scored for post-quantum risk"),
+                  "Qryx: the estate is swept into a crypto inventory and scored for post-quantum risk",
+                  "190487967423"),
     "verdryx":   ("services/verdryx.html", "#FF7AA2",
-                  "Verdryx: outcomes judged and priced per resolved case, with drift watched over time"),
+                  "Verdryx: outcomes judged and priced per resolved case, with drift watched over time",
+                  "28b6c4a3ba0d"),
     "mockryx":   ("services/mockryx.html", "#FF8A5B",
-                  "Mockryx: hostile scenarios driven at the gateway, with the guardrails asserted"),
+                  "Mockryx: hostile scenarios driven at the gateway, with the guardrails asserted",
+                  "ddbb636342e0"),
     "engram":    ("services/engram.html", "#6C7BFF",
-                  "Engram: agent memory in one SQLite file, recalled with provenance"),
+                  "Engram: agent memory in one SQLite file, recalled with provenance",
+                  "0d71541037a9"),
     "platform":  ("services/platform.html", "#93A8C4",
-                  "Platform: seven emitters, one agent-event envelope, four consumers"),
+                  "Platform: twelve registered sources write one envelope onto one NDJSON bus, "
+                  "and five consumers read it back",
+                  "86ef8a54bde8"),
     "genaryx":   ("genaryx.html", "#B48CFF",
-                  "Genaryx: one browser control room over the stack, reached only over the tunnel"),
+                  "Genaryx: one browser control room over the stack, reached only over the tunnel",
+                  "81bdf83f6f14"),
     "costcrew":  ("services/costcrew.html", "#7DD3A0",
                   "CostCrew: charges arrive from three connectors, a two-sided detector opens anomalies, "
-                  "and an agent analyst drafts a fix a person posts or returns"),
+                  "and an agent analyst drafts a fix a person posts or returns",
+                  "647e8504b137"),
     "vouchryx":  ("services/vouchryx.html", "#8B9DFF",
                   "Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a "
-                  "short-lived delegation token, verified offline and revoked by a polled list"),
+                  "short-lived delegation token, verified offline and revoked by a polled list",
+                  "b0b13590f130"),
     # Sourced from a standalone file rather than a page: the schematic on the
     # scopyx page is filled in by JavaScript as a request travels it, so a lift
     # of it renders five empty boxes. The file says the rest. Everything else
     # here, including this room, is generated the same way from that source.
     "scopyx":    ("assets/img/readme/sources/scopyx-gates.svg", "#F0ABFC",
                   "Scopyx: a request passes five gates in order, scheme, host, resolved addresses, "
-                  "your policy and robots.txt, before anything leaves"),
+                  "your policy and robots.txt, before anything leaves",
+                  "d986b000dbe7"),
 }
 
 # Rooms whose README diagram is drawn by hand, and the reason for each. This
@@ -203,6 +218,48 @@ def valid_xml(svg, room):
                          f"nothing: {e}")
 
 
+def fingerprint(svg):
+    """A short digest of what the picture SAYS, so a redraw is visible here.
+
+    The title beside each room is a hand-written sentence about a generated
+    picture, and it becomes the file's <title> and its aria-label: what a
+    screen reader is given instead of the diagram. Platform's said "seven
+    emitters, one agent-event envelope, four consumers" for three weeks after
+    the page was redrawn to twelve sources and five consumers, and nothing
+    anywhere could notice, because a sentence about a drawing has nothing to
+    compare itself with.
+
+    So the drawing gets a fingerprint and the sentence is pinned to it. Redraw
+    the diagram and this tool stops and asks whether the sentence still holds.
+
+    It digests the TEXT of the diagram rather than the file, so moving a box or
+    changing a colour does not ask a question there is no reason to ask, and
+    adding, removing or rewording a label always does.
+    """
+    words = " ".join(re.sub(r"\s+", " ", t).strip()
+                     for t in re.findall(r"<text\b[^>]*>(.*?)</text>", svg, re.S))
+    return hashlib.sha256(words.encode("utf-8")).hexdigest()[:12]
+
+
+def titles_match_their_drawings():
+    """Every room's sentence is pinned to the drawing it describes."""
+    stale = []
+    for room, (page, accent, title, pin) in ROOMS.items():
+        svg, _ = diagram(page)
+        now = fingerprint(svg)
+        if now != pin:
+            stale.append((room, pin, now, title, page))
+    if stale:
+        lines = ["a diagram has been redrawn since its sentence was written, and that "
+                 "sentence is what a screen reader is given instead of the picture:\n"]
+        for room, pin, now, title, page in stale:
+            lines.append(f'  {room}: {page}')
+            lines.append(f'    it now says: "{title}"')
+            lines.append(f"    read the drawing, fix the line if it no longer holds, then "
+                         f"change the pin from {pin} to {now}\n")
+        raise SystemExit("\n".join(lines))
+
+
 def registry():
     """The room ids in STACK, which is the site's own list of what exists."""
     js = (ROOT / "assets/site.js").read_text(encoding="utf-8")
@@ -242,8 +299,9 @@ def account_for_every_room():
 
 def main():
     account_for_every_room()
+    titles_match_their_drawings()
     OUT.mkdir(parents=True, exist_ok=True)
-    for room, (page, accent, title) in ROOMS.items():
+    for room, (page, accent, title, _pin) in ROOMS.items():
         out = OUT / f"{room}.svg"
         svg = build(room, page, accent, title)
         valid_xml(svg, room)

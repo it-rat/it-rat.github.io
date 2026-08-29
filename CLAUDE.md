@@ -191,7 +191,7 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 22 cases: fourteen real faults, four
+   *(gate: `scripts/gates-have-teeth.sh`, 23 cases: fifteen real faults, four
    non-faults, and four subjects taken away entirely. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
@@ -346,6 +346,25 @@ true.
    `assets/img/readme/sources/scopyx-gates.svg`, drawn for the fifth article
    where it also had to work as a still, and it carries the reason in its own
    header.
+
+   **The sentence beside each room is pinned to the drawing it describes.** That
+   sentence becomes the file's `<title>` and its `aria-label`, which is what a
+   screen reader is given instead of the picture, and it is hand-written about
+   generated output, so nothing could ever notice it going wrong. Platform's
+   said "seven emitters, one agent-event envelope, four consumers" for three
+   weeks after the page was redrawn to twelve sources and five consumers, and
+   the wrong sentence was the only place on the whole site still saying seven:
+   the page, its prose and its own label were all correct.
+
+   So each room carries a short digest of its drawing's text labels, and a
+   redraw stops the generator with the old sentence printed and the new digest
+   ready to paste. It digests the labels rather than the file, so moving a box
+   or changing a colour asks nothing, and adding, removing or rewording a label
+   always does. A count in a title cannot be checked against the drawing
+   directly: that was tried, and comparing the numbers in the two strings gave
+   four false positives ("one graph", "one SQLite file", "one browser control
+   room", "three connectors") against the one real fault, which is a gate that
+   gets switched off inside a week.
 
 ## Decisions that have no gate yet
 

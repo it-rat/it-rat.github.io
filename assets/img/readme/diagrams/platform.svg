@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 436" width="996" height="436" role="img" aria-label="Platform: seven emitters, one agent-event envelope, four consumers">
-  <title>Platform: seven emitters, one agent-event envelope, four consumers</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 436" width="996" height="436" role="img" aria-label="Platform: twelve registered sources write one envelope onto one NDJSON bus, and five consumers read it back">
+  <title>Platform: twelve registered sources write one envelope onto one NDJSON bus, and five consumers read it back</title>
   <rect x="-18" y="-18" width="996" height="436" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="995" height="435" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 

@@ -334,6 +334,16 @@ run_case "generated-blocks: a README diagram edited by hand" fail \
 	"$(py 'edit("assets/img/readme/diagrams/idryx.svg", "27 detectors", "26 detectors")')" \
 	"a generator would rewrite it"
 
+# A diagram's one-line title is what a screen reader gets instead of the
+# picture, and it is hand-written. It is pinned to a digest of the drawing's own
+# labels, so a redraw stops the generator and asks whether the sentence still
+# holds. Platform's said seven emitters and four consumers for three weeks after
+# the page was redrawn to twelve and five.
+run_case "generated-blocks: a diagram redrawn without re-reading its title" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("services/platform.html", ">heraldyx</text>", ">heraldyx-renamed</text>")')" \
+	"read the drawing"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate
