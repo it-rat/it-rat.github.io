@@ -281,7 +281,11 @@ run_case "footer-shelves: a page loses a shelf" fail \
 	"$(py 'import re
 p = "services/qryx.html"
 s = open(p).read()
-m = re.search(r'\n *<div class="foot-group"><div class="l">side project</div>.*?\n *</div>', s, re.S)
+# Double quotes throughout: this python source sits inside SHELL single
+# quotes, so one apostrophe in it ends the argument and the case silently
+# stops applying. That is what happened the first time this was written,
+# and the harness reported the gate TOOTHLESS rather than the case broken.
+m = re.search(r"\n *<div class=\"foot-group\"><div class=\"l\">side project</div>.*?\n *</div>", s, re.S)
 assert m, "the side project shelf is not where this case expects it"
 open(p, "w").write(s.replace(m.group(0), "", 1))')" \
 	"shelves, expected 6"
