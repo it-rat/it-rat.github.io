@@ -263,16 +263,21 @@
     <div class="sec-head rv">
       <div class="kicker">try the whole thing</div>
       <h2>Run the live stack locally.</h2>
-      <p class="lede">One command builds the stack's long-running services from source, starts them on a fixed loopback port map, and prints a one-click link to your own money plane. No Docker, no account, nothing leaves your machine.</p>
+      <p class="lede">Two ways in, and they are for different machines. On your own laptop the sandbox builds from source and binds loopback only. On a Linux box you own, one line pulls the published images and the whole governed stack is up in under two minutes.</p>
     </div>
     <div class="bento">
       <div class="card b-8 rv">
-        <div class="kicker">two commands</div>
+        <div class="kicker">on a box you own &#183; fastest</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <div class="install"><span class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/<b>stack-single</b>/main/install.sh | bash</span></div>
+        </div>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-01 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: <b>111 seconds</b>, with the installer's own nineteen checks green. It needs root on Debian or Ubuntu, and docker and git; it survives a reboot, and it is reachable by agents running anywhere else.</p>
+        <div class="kicker" style="margin-top:26px">on your laptop &#183; no Docker</div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
           <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
           <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
         </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The first run builds tokenfuse in release mode and takes a few minutes; after that startup is seconds.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The sandbox, and it builds from source on purpose: nothing but your own compilers touches it. That is the cost as well as the point, so it wants Rust, Go, Node and Python already installed. Measured on 2026-09-01 from an empty build cache: <b>221 seconds</b> to a working dashboard. Binds <span class="mono">127.0.0.1</span> only, stops on Ctrl-C, keeps nothing.</p>
         <div class="sheet-row">
           <details class="sheet" data-sheet-kicker="run the live stack locally" data-sheet-title="What the first run actually does">
             <summary>What the first run does</summary>
@@ -282,6 +287,7 @@
               <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">Press Ctrl-C and it stops clean, with no orphaned processes.</p>
             </div>
           </details>
+          <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
           <a class="btn" href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener">stack-up on GitHub &#183; Apache-2.0</a>
         </div>
       </div>

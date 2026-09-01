@@ -42,9 +42,11 @@ The provider is published on the Terraform Registry as `TAIPANBOX/taipan`: a nor
 
 ## Run the live stack locally.
 
-One command builds the stack's long-running services from source, starts them on a fixed loopback port map, and prints a one-click link to your own money plane. No Docker, no account, nothing leaves your machine.
+Two ways in, and they are for different machines. On your own laptop the sandbox builds from source and binds loopback only. On a Linux box you own, one line pulls the published images and the whole governed stack is up in under two minutes.
 
-The first run builds tokenfuse in release mode and takes a few minutes; after that startup is seconds.
+Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-01 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: **111 seconds**, with the installer's own nineteen checks green. It needs root on Debian or Ubuntu, and docker and git; it survives a reboot, and it is reachable by agents running anywhere else.
+
+The sandbox, and it builds from source on purpose: nothing but your own compilers touches it. That is the cost as well as the point, so it wants Rust, Go, Node and Python already installed. Measured on 2026-09-01 from an empty build cache: **221 seconds** to a working dashboard. Binds `127.0.0.1` only, stops on Ctrl-C, keeps nothing.
 
 **Q: What the first run does**
 

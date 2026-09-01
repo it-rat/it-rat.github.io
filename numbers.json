@@ -21,7 +21,7 @@
   "entries": [
     {
       "page": "services/trailryx.html",
-      "claim": "1,209 tests · 31 crates",
+      "claim": "1,209 tests \u00b7 31 crates",
       "occurrences": 1,
       "repo": "TAIPANBOX/trailryx",
       "command": "cargo test --workspace, summed; and ./scripts/readme-numbers.sh, which gates the same figure inside that repository",
@@ -443,6 +443,28 @@
       "status": "measured",
       "measured_on": "2026-07-20",
       "note": "Evidence, per decision. Bytes of hash-linked audit written for every decision rather than a sample, which is the line that turns provability into a capacity plan. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+    },
+    {
+      "page": "services/platform.html",
+      "claim": "111 seconds",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-single",
+      "command": "curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/stack-single/main/install.sh | bash, on a fresh GCP e2-standard-2 (2 vCPU, Ubuntu 26.04); START and END stamps written by the run itself",
+      "status": "measured",
+      "measured_on": "2026-09-01",
+      "note": "One of three installs of the same box that day, on identical machines, and the other two are why this figure is worth stating rather than rounding. Before the launcher pulled published images it compiled all ten on the operator's machine: that run was stopped at 51 minutes, unfinished, still building the console. Pulling the planes but building the two tunnel images gave 442 s. Pulling everything gave 111 s, exit 0, nineteen of the installer's own checks green and the console answering 200. It cannot be re-run by a script from this repository, because it needs a cloud machine and a teardown; the evidence is go-to-market-2026-09/evidence/stack-single-three-installs-2026-09-01.md, which also records that the full install logs died with the instances.",
+      "repo_dir": "stack-single"
+    },
+    {
+      "page": "services/platform.html",
+      "claim": "221 seconds",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-up",
+      "command": "git clone --depth 1 stack-up && ./up.sh --no-tools, with CARGO_HOME, GOMODCACHE, GOCACHE and the npm cache all empty and fresh STACK_UP_HOME and TAIPAN_HOME",
+      "status": "measured",
+      "measured_on": "2026-09-01",
+      "note": "Cold on purpose, and the emptied caches are the whole measurement: a first attempt reported 86 s and was false, because the machine already carried binaries from earlier work and the log said 'up to date, skipping build' on almost everything. The honest run downloaded 399 crates and compiled 353, reusing nothing, and reached a working dashboard in 221 s on an Apple Silicon Mac that already had Rust, Go and Node installed. A machine without those toolchains is slower by however long installing them takes, which is why the page states the requirement beside the figure. Run with --no-tools, so four installed-not-started tools sat outside it. Log: go-to-market-2026-09/evidence/stack-up-cold-run-2026-09-01.log.",
+      "repo_dir": "stack-up"
     }
   ]
 }
