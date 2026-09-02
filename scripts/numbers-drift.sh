@@ -41,6 +41,15 @@
 #
 # Slow checks (a full cargo test) are skipped unless --slow is passed, and the
 # skip is reported rather than silently counted as agreement.
+#
+# WHEN THE CHECK ITSELF DID NOT MEASURE ANYTHING
+#
+# A check can fail and still print a number: pytest prints "69 tests
+# collected, 22 errors" when a dependency is missing, and the count sits
+# right beside the reason it is not a real one. A non-zero exit, or an error
+# count anywhere in what the check printed, is reported as COULD NOT MEASURE
+# and folded into the same total as "measured nothing", never shown as
+# drift.
 
 set -uo pipefail
 
@@ -54,11 +63,43 @@ siblings="${SIBLINGS_DIR:-$(cd .. && pwd)}"
 python3 - "$siblings" "$run_slow" <<'PY'
 import json
 import pathlib
+import re
 import subprocess
 import sys
 
 siblings = pathlib.Path(sys.argv[1])
 run_slow = sys.argv[2] == "1"
+
+
+def summary_line(text):
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    return lines[-1] if lines else ""
+
+
+def clip(s, n=160):
+    s = " ".join(s.split())
+    return s if len(s) <= n else s[: n - 3] + "..."
+
+
+def error_signal(text):
+    """The line that shows a check did not measure anything real.
+
+    Two shapes count: a digit sitting next to "error(s)" anywhere in the
+    output ("69 tests collected, 22 errors" is pytest with a missing
+    dependency), or the bare word "error" on the summary line, the last one
+    printed, which is the line a person actually reads when something
+    breaks.
+    """
+    if not text:
+        return ""
+    for line in text.splitlines():
+        if re.search(r"\b\d+\s+errors?\b", line, re.IGNORECASE):
+            return line.strip()
+    tail = summary_line(text)
+    if tail and re.search(r"\berror\b", tail, re.IGNORECASE):
+        return tail
+    return ""
+
 
 data = json.loads(pathlib.Path("numbers.json").read_text())
 entries = data.get("entries", [])
@@ -94,15 +135,28 @@ for e in entries:
             continue
 
     try:
-        out = subprocess.run(
+        proc = subprocess.run(
             ["bash", "-c", check],
             cwd=cwd,
             capture_output=True,
             text=True,
             timeout=900,
-        ).stdout.strip()
+        )
     except subprocess.TimeoutExpired:
         print(f"  TIMED OUT   {label}")
+        unavailable += 1
+        continue
+
+    out = proc.stdout.strip()
+    err = proc.stderr.strip()
+
+    # Checked before the empty-output case below, because this failure shape
+    # usually DOES print something: a non-zero exit, or a count sitting next
+    # to the word that says it is not a real one.
+    problem = error_signal(out) or error_signal(err)
+    if proc.returncode != 0 or problem:
+        shown = clip(problem or summary_line(out) or summary_line(err) or "(no output)")
+        print(f"  COULD NOT MEASURE  {label}   (check exited {proc.returncode} / printed: {shown})")
         unavailable += 1
         continue
 
