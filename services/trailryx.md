@@ -14,7 +14,7 @@ Records arrive and chain. Then a question lands on one of the five dimensions th
 
 ## SQL does not become a hole in the proof model.
 
-You get ordinary SQL over the records. What you also get, on every answer, is how much of it is actually proved, because an answer of unknown completeness must not read like a proved one.
+SQL is a facade in the tree and not yet a port in the shipped node: today you read the records through `read`. What every answer carries, either way, is how much of it is actually proved, because an answer of unknown completeness must not read like a proved one.
 
 ## Erase one person, and the trail still verifies.
 
