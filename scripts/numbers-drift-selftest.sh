@@ -69,6 +69,18 @@ fault_manifest='{"entries": [
 check_case "a check that errors and still prints a count" \
 	"$fault_manifest" "COULD NOT MEASURE" "DRIFTED"
 
+# A clean run that SAYS it had no errors is still a clean run. pytest and
+# friends print "0 errors" on a good day; a rule that reads any digit beside
+# the word would sweep every honest zero into COULD NOT MEASURE, which is a
+# check red on a GOOD build, the worse failure. The count goes to stdout and
+# the reassurance to stderr, which is where pytest puts its own.
+zero_manifest='{"entries": [
+  {"page": "services/fake.html", "claim": "69 tests", "repo_dir": null,
+   "check": "echo '"'"'0 errors'"'"' >&2; echo 69"}
+]}'
+check_case "a clean run that also says 0 errors is left alone" \
+	"$zero_manifest" "agrees" "COULD NOT MEASURE"
+
 # The non-fault: a clean count, exit 0, the word "error" nowhere in it, must
 # read as an ordinary measurement and must NOT be swept into COULD NOT
 # MEASURE alongside it.

@@ -80,7 +80,7 @@ For teams whose answer to everything is a cluster. One script brings up k3s acro
 
 Both paths are one command, and both ask what they need before the long part rather than failing on it afterwards. So the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.
 
-That trade, and seventy-eight other things that bite, are documented in the repositories rather than discovered by you. The same manifests came up on six clusters across Hetzner, AWS and GCP, and exactly one line of Kubernetes configuration differs between the three: Calico has to encapsulate unconditionally on GCP, because a GCE VPC routes every packet by destination and a pod address matches no route. Every trap we hit is written down and already fixed in the files.
+That trade, and every other thing that bites, are documented in the repositories rather than discovered by you. The same manifests came up on six clusters across Hetzner, AWS and GCP, and exactly one line of Kubernetes configuration differs between the three: Calico has to encapsulate unconditionally on GCP, because a GCE VPC routes every packet by destination and a pod address matches no route. Every trap we hit is written down and already fixed in the files.
 
 ## Two default futures, one contract.
 

@@ -84,16 +84,16 @@ def clip(s, n=160):
 def error_signal(text):
     """The line that shows a check did not measure anything real.
 
-    Two shapes count: a digit sitting next to "error(s)" anywhere in the
-    output ("69 tests collected, 22 errors" is pytest with a missing
-    dependency), or the bare word "error" on the summary line, the last one
-    printed, which is the line a person actually reads when something
-    breaks.
+    Two shapes count: a non-zero count sitting next to "error(s)" anywhere in
+    the output ("69 tests collected, 22 errors" is pytest with a missing
+    dependency; "0 errors" is a clean run saying so and is left alone), or
+    the bare word "error" on the summary line, the last one printed, which is
+    the line a person actually reads when something breaks.
     """
     if not text:
         return ""
     for line in text.splitlines():
-        if re.search(r"\b\d+\s+errors?\b", line, re.IGNORECASE):
+        if re.search(r"\b[1-9]\d*\s+errors?\b", line, re.IGNORECASE):
             return line.strip()
     tail = summary_line(text)
     if tail and re.search(r"\berror\b", tail, re.IGNORECASE):
