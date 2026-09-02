@@ -70,7 +70,7 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 
 **Q: How this one ships**
 
-No per-platform binaries here, and the honest reason is that a gateway sits in front of traffic rather than on a laptop: it ships as an image. The tag and the command to run it live in the repository, next to the version they pull.
+The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
 
 ## It stops the spend. Two neighbours stop other things.
 

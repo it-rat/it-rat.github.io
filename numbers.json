@@ -21,7 +21,7 @@
   "entries": [
     {
       "page": "services/trailryx.html",
-      "claim": "1,209 tests \u00b7 31 crates",
+      "claim": "1,209 tests · 31 crates",
       "occurrences": 1,
       "repo": "TAIPANBOX/trailryx",
       "command": "cargo test --workspace, summed; and ./scripts/readme-numbers.sh, which gates the same figure inside that repository",
@@ -34,13 +34,13 @@
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "1,111 tests",
+      "claim": "1,127 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "cargo test --all, summed over every `test result` line",
       "status": "measured",
-      "measured_on": "2026-08-29",
-      "note": "Measured 1107 on 2026-08-28 against a page saying 814: 293 behind, the largest gap this manifest has recorded. Found stale by this file's own first run: the page said 513 and `cargo test --all` sums to 709. The gap, not the number, is why this file exists, so it is recorded here rather than only in git history. Unlike trailryx, this repository has no gate on its own README figure, so nothing but this entry will notice the next drift. Re-measured 2026-08-29 by numbers-drift.sh --slow: 1,107 -> 1,111.",
+      "measured_on": "2026-09-02",
+      "note": "Moved to 1,127 on 2026-09-02 after TAIPANBOX/tokenfuse#249, #250 and #251 (the usage-cap settlement says so, the local trace reaches disk, the release workflow proves its binaries job); `cargo test --all` on main 9270fd4 summed to 1127. Measured 1107 on 2026-08-28 against a page saying 814: 293 behind, the largest gap this manifest has recorded. Found stale by this file's own first run: the page said 513 and `cargo test --all` sums to 709. The gap, not the number, is why this file exists, so it is recorded here rather than only in git history. Unlike trailryx, this repository has no gate on its own README figure, so nothing but this entry will notice the next drift. Re-measured 2026-08-29 by numbers-drift.sh --slow: 1,107 -> 1,111.",
       "repo_dir": "tokenfuse",
       "check": "cargo test --all 2>&1 | grep -E '^test result' | awk '{s+=$4} END {print s}'",
       "slow": true
@@ -465,6 +465,32 @@
       "measured_on": "2026-09-01",
       "note": "Cold on purpose, and the emptied caches are the whole measurement: a first attempt reported 86 s and was false, because the machine already carried binaries from earlier work and the log said 'up to date, skipping build' on almost everything. The honest run downloaded 399 crates and compiled 353, reusing nothing, and reached a working dashboard in 221 s on an Apple Silicon Mac that already had Rust, Go and Node installed. A machine without those toolchains is slower by however long installing them takes, which is why the page states the requirement beside the figure. Run with --no-tools, so four installed-not-started tools sat outside it. Log: go-to-market-2026-09/evidence/stack-up-cold-run-2026-09-01.log.",
       "repo_dir": "stack-up"
+    },
+    {
+      "page": "services/tokenfuse.html",
+      "claim": "v0.4.3",
+      "occurrences": 2,
+      "repo": "TAIPANBOX/tokenfuse",
+      "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name; the page says binaries exist since this release, so the release that carries them IS the claim: v0.4.1 and v0.4.2 published images and no assets, and v0.4.3 is the first with SHA256SUMS and eight binaries (run 33648540190)",
+      "status": "measured",
+      "measured_on": "2026-09-02",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
+      "slow": false,
+      "note": "Stated twice on the page: in the sheet's title and in the sentence under the download pills. Both mean the same release."
+    },
+    {
+      "page": "services/tokenfuse.md",
+      "claim": "v0.4.3",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/tokenfuse",
+      "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name; the page says binaries exist since this release, so the release that carries them IS the claim: v0.4.1 and v0.4.2 published images and no assets, and v0.4.3 is the first with SHA256SUMS and eight binaries (run 33648540190)",
+      "status": "measured",
+      "measured_on": "2026-09-02",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
+      "slow": false,
+      "note": "The .md twin, generated from the page by tools/llms.py, carries the sentence once."
     }
   ]
 }
