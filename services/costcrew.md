@@ -66,7 +66,7 @@ Per-agent attribution of AI spend is not possible from an invoice: the charge ca
 
 No interpreter, no virtual environment, no second database engine in the process. It listens on loopback by default and expects a proxy in front of it for TLS. First account created at /signup becomes the admin of that installation, so make one before you hand anybody the address.
 
-382 tests, and the repository gates more than the suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.
+475 tests, and the repository gates more than the suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.
 
 ## What a crew of agents can and cannot do to your bill
 
