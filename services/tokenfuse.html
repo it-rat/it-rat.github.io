@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TokenFuse - LLM cost control for AI agents · IT-RAT</title>
-<meta name="description" content="A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP.">
+<meta name="description" content="A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Speaks Anthropic and OpenAI, validated on Hetzner, AWS and GCP.">
 <link rel="canonical" href="https://it-rat.com/services/tokenfuse.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/tokenfuse.html">
 <meta property="og:title" content="TokenFuse - LLM cost control for AI agents · IT-RAT">
-<meta property="og:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
+<meta property="og:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. One gateway by default, a raft cluster build when you need several; validated with real Claude traffic on Hetzner, AWS and GCP.">
 <meta property="og:image" content="https://it-rat.com/assets/og/tokenfuse.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TokenFuse - LLM cost control for AI agents · IT-RAT">
-<meta name="twitter:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. Raft-replicated across machines, validated with real Claude traffic on Hetzner, AWS and GCP.">
+<meta name="twitter:description" content="Per-run budgets, loop detection, burn forecast and a breaker that answers 402 in seconds. One gateway by default, a raft cluster build when you need several; validated with real Claude traffic on Hetzner, AWS and GCP.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/tokenfuse.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -50,7 +50,7 @@
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse","url":"https://it-rat.com/services/tokenfuse.html","description":"A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse","item":"https://it-rat.com/services/tokenfuse.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I cap what an AI agent can spend?","acceptedAnswer":{"@type":"Answer","text":"Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps."}},{"@type":"Question","name":"What happens to my agent when it hits the budget?","acceptedAnswer":{"@type":"Answer","text":"It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens."}},{"@type":"Question","name":"Do I have to rewrite my agent to use it?","acceptedAnswer":{"@type":"Answer","text":"No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure."}},{"@type":"Question","name":"Can it catch a retry loop before the bill does?","acceptedAnswer":{"@type":"Answer","text":"That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice."}},{"@type":"Question","name":"Does it still work with several gateways behind a load balancer?","acceptedAnswer":{"@type":"Answer","text":"Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse","url":"https://it-rat.com/services/tokenfuse.html","description":"A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Speaks Anthropic and OpenAI, validated on Hetzner, AWS and GCP.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse","item":"https://it-rat.com/services/tokenfuse.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I cap what an AI agent can spend?","acceptedAnswer":{"@type":"Answer","text":"Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps."}},{"@type":"Question","name":"What happens to my agent when it hits the budget?","acceptedAnswer":{"@type":"Answer","text":"It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens."}},{"@type":"Question","name":"Do I have to rewrite my agent to use it?","acceptedAnswer":{"@type":"Answer","text":"No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure."}},{"@type":"Question","name":"Can it catch a retry loop before the bill does?","acceptedAnswer":{"@type":"Answer","text":"That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice."}},{"@type":"Question","name":"Does it still work with several gateways behind a load balancer?","acceptedAnswer":{"@type":"Answer","text":"In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows, and that was tested through a leader kill and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="tokenfuse" data-root="../">
@@ -83,7 +83,7 @@
       <div class="hero-side rv d2">
         <div class="row"><span class="k">release</span><span class="v">latest &#183; ghcr images</span></div>
         <div class="row"><span class="k">core</span><span class="v">Rust &#183; 1,127 tests</span></div>
-        <div class="row"><span class="k">consensus</span><span class="v">raft &#183; redb ledger</span></div>
+        <div class="row"><span class="k">ledger</span><span class="v">in-process by default &#183; raft cluster build optional</span></div>
         <div class="row"><span class="k">enforcement</span><span class="v">HTTP 402, in-line</span></div>
         <div class="row"><span class="k">proven on</span><span class="v">Hetzner &#183; AWS &#183; GCP</span></div>
         <div class="row"><span class="k">licence</span><span class="v">Apache-2.0</span></div>
@@ -98,7 +98,7 @@
     <div class="sec-head rv">
       <div class="kicker">sixty seconds, one runaway</div>
       <h2>Watch the breaker do its job.</h2>
-      <p class="lede">This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget. Four calls land. The reserve for the fifth would cross the cap, so the raft ledger refuses it, and every node agrees.</p>
+      <p class="lede">This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget. Four calls land. The reserve for the fifth would cross the cap, so the ledger refuses it.</p>
     </div>
     <div class="rv" id="tf-sim"></div>
   </div>
@@ -110,7 +110,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>One gateway in the path. One ledger everyone trusts.</h2>
-      <p class="lede">Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook. Behind it: a raft-replicated spend ledger, so five gateways on five machines still admit exactly what one budget allows.</p>
+      <p class="lede">Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook. Behind it: the spend ledger, in one process by default; the optional cluster build replicates it with raft, so five gateways on five machines still admit exactly what one budget allows.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 330" role="img" aria-label="TokenFuse architecture">
@@ -137,7 +137,7 @@
           <text x="621" y="163" fill="#8A97A6" font-size="10.5">Anthropic &#183; OpenAI &#183; local</text>
 
           <rect x="742" y="30" width="200" height="118" rx="14" fill="#10161F" stroke="#2a3547"/>
-          <text x="842" y="56" fill="#E9EFF6" font-size="12.5" font-weight="700">raft spend ledger</text>
+          <text x="842" y="56" fill="#E9EFF6" font-size="12.5" font-weight="700">spend ledger</text>
           <g font-size="10.5" fill="#8A97A6">
             <circle cx="792" cy="92" r="17" fill="#141C27" stroke="#F4B23E"/><text x="792" y="96" fill="#F4B23E">n1</text>
             <circle cx="842" cy="112" r="17" fill="#141C27" stroke="#2a3547"/><text x="842" y="116">n2</text>
@@ -182,12 +182,12 @@
       <div class="card hover feature b-4 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens, with the 2026 model price book built in. The estimate is fast and honest about being an estimate.</p></div>
       <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Raft-replicated ledger</h3><p>Three machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p>
+      <div class="card hover feature b-4 rv d1"><h3>Cluster build: a raft-replicated ledger</h3><p>An optional build, not what the shipped images run. Three machines held one shared budget through a leader kill and a real network partition: majority kept serving, the isolated node could not overspend, nothing split-brained.</p>
         <details class="sheet" data-sheet-kicker="the shared ledger" data-sheet-title="What a budget survives: a crash, a restart, a partition">
           <summary>What it survives</summary>
           <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">A budget only means something if two gateways racing each other cannot both spend it. In cluster mode the ledger is a raft state machine, and the affordability check is linearized across the whole fleet: five gateways on five machines admit exactly what one budget allows, not five copies of it.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">With durable storage on redb, a budget outlives more than a node crash: it survives a full process restart, because a cap that resets when a process dies is a cap an unlucky deploy can hand back to a runaway.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7">The images every launcher installs run one gateway with a ledger in memory, and a restart forgets it. A budget only means something if two gateways racing each other cannot both spend it, and that is what the cluster build is for, a separate build of the same binary: there the ledger is a raft state machine, and the affordability check is linearized across the whole fleet: five gateways on five machines admit exactly what one budget allows, not five copies of it.</p>
+            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">In that build, with durable storage on redb, a budget outlives more than a node crash: it survives a full process restart, because a cap that resets when a process dies is a cap an unlucky deploy can hand back to a runaway.</p>
             <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">That was tested rather than assumed. A four-node cluster across two datacenters took a leader kill and a real network partition: the majority side kept serving, the isolated node could not overspend, and nothing split-brained. Enforcement then held under a burst of 34 concurrent agents, and the cost accounting was run on the same protocol against Hetzner, AWS and GCP so the numbers could be compared honestly.</p>
           </div>
         </details>
@@ -258,7 +258,7 @@
       </details>
       <details>
         <summary>Do I have to rewrite my agent to use it?</summary>
-        <div class="a"><p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p></div>
+        <div class="a"><p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p></div>
       </details>
       <details>
         <summary>Can it catch a retry loop before the bill does?</summary>
@@ -266,7 +266,7 @@
       </details>
       <details>
         <summary>Does it still work with several gateways behind a load balancer?</summary>
-        <div class="a"><p>Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition.</p></div>
+        <div class="a"><p>In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows, and that was tested through a leader kill and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory.</p></div>
       </details>
     </div>
   </div>
@@ -342,7 +342,7 @@ Sim.mount(document.getElementById("tf-sim"),{
     {t:23,cls:"ok",label:"call #3 admitted · settle $0.00120"},
     {t:28,cls:"warn",label:"burn forecast: next reserve crosses the cap"},
     {t:31,cls:"ok",label:"call #4 admitted · settle $0.00129"},
-    {t:36,cls:"bad",label:"reserve #5 refused by the raft ledger · CIRCUIT OPEN"},
+    {t:36,cls:"bad",label:"reserve #5 refused by the ledger · CIRCUIT OPEN"},
     {t:38,cls:"bad",label:"call #5 &#8594; 402 budget_exceeded"},
     {t:44,cls:"bad",label:"call #6 &#8594; 402 · loop signature detected"},
     {t:50,cls:"bad",label:"call #7 &#8594; 402"},

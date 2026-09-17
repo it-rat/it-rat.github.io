@@ -124,9 +124,9 @@ FAQ = {
 
 "services/vouchryx.html": ("common questions", "Proving and ending a delegation", [
  ("How is this different from just giving the agent an API key?",
-  "<p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class=\"mono\">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point at once rather than waiting for an expiry.</p>"),
+  "<p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class=\"mono\">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point on its next poll of the list, rather than waiting for an expiry.</p>"),
  ("What happens to a token that is already in flight when we revoke it?",
-  "<p>It stops working. Enforcement points poll the revocation list and refuse anything on it, so the token's own expiry has no say. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.</p>"),
+  "<p>Its next use is refused. Enforcement points poll the revocation list, every 12 seconds by default, and refuse anything on it, so the token's own expiry has no say; a call admitted before that poll is not pulled back, and a door that cannot reach the list keeps the last one it fetched and, past a minute, refuses by default. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.</p>"),
  ("Does this replace the delegation chain in the Passport?",
   "<p>No, it is the half the Passport spec deliberately leaves out. The spec says plainly that it names an agent without proving possession, and records who acted for whom without saying when. This provides both, and the record still lives where it lived.</p>"),
  ("Why is there no introspection endpoint?",
@@ -141,11 +141,11 @@ FAQ = {
  ("What happens to my agent when it hits the budget?",
   "<p>It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.</p>"),
  ("Do I have to rewrite my agent to use it?",
-  "<p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p>"),
+  "<p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p>"),
  ("Can it catch a retry loop before the bill does?",
   "<p>That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.</p>"),
  ("Does it still work with several gateways behind a load balancer?",
-  "<p>Yes. The spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows. That was tested through a leader kill and a real network partition.</p>"),
+  "<p>In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows, and that was tested through a leader kill and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory.</p>"),
 ]),
 
 "services/wardryx.html": ("common questions", "Putting a human in front of the expensive actions", [

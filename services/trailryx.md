@@ -40,6 +40,8 @@ A durability sweep reporting zero violations proves nothing on its own: a check 
 
 The same harness, the honest-disk assumption removed: 17,869 of 20,000 seeds fail, each naming its own seed and digest. That is what makes the zero above worth reading.
 
+What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that it carries no root signature and no witness until an operator configures both. So the verdict proves the chain was not altered, not who published it or when.
+
 **Q: Download the verifier**
 
 Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. These are the offline verifier; `trailryx-ingest` sits beside them on the releases page. No Windows build yet, and saying so is cheaper than a broken link.

@@ -114,7 +114,7 @@
       "markdown": "https://it-rat.com/services/tokenfuse.md",
       "title": "TokenFuse, the money plane",
       "kind": "service",
-      "description": "A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Raft-replicated, validated on Hetzner, AWS and GCP."
+      "description": "A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Speaks Anthropic and OpenAI, validated on Hetzner, AWS and GCP."
     },
     {
       "url": "https://it-rat.com/services/costcrew.html",
@@ -128,7 +128,7 @@
       "markdown": "https://it-rat.com/services/vouchryx.md",
       "title": "Vouchryx, the delegation plane",
       "kind": "service",
-      "description": "RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once."
+      "description": "RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and can end before it expires at every point that polls the list."
     },
     {
       "url": "https://it-rat.com/services/wardryx.html",

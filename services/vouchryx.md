@@ -2,9 +2,9 @@
 
 # Vouchryx, the delegation plane
 
-> RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and a person can end everywhere at once.
+> RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and can end before it expires at every point that polls the list.
 
-An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf everywhere at once, whatever the token still says about its own expiry.
+An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway, whatever the token still says about its own expiry; a call admitted before that poll is not pulled back.
 
 ## The record said who acted for whom. Nothing proved it.
 
@@ -37,7 +37,7 @@ Two signed tokens and a proof go in, a short-lived one comes out, and the enforc
 
 ## One stops the money. This one stops the authority.
 
-[TokenFuse](https://it-rat.com/tokenfuse.html) refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all. Revoking ends that at every enforcement point at once, and the token's own expiry has no say in it.
+[TokenFuse](https://it-rat.com/tokenfuse.html) refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all. Revoking ends that at every enforcement point on its next poll, and the token's own expiry has no say in it.
 
 ## It refuses to start rather than start permissive.
 
@@ -52,10 +52,10 @@ Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a 
 ## Proving and ending a delegation
 
 **Q: How is this different from just giving the agent an API key?**
-A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested `act` claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point at once rather than waiting for an expiry.
+A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested `act` claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point on its next poll of the list, rather than waiting for an expiry.
 
 **Q: What happens to a token that is already in flight when we revoke it?**
-It stops working. Enforcement points poll the revocation list and refuse anything on it, so the token's own expiry has no say. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.
+Its next use is refused. Enforcement points poll the revocation list, every 12 seconds by default, and refuse anything on it, so the token's own expiry has no say; a call admitted before that poll is not pulled back, and a door that cannot reach the list keeps the last one it fetched and, past a minute, refuses by default. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.
 
 **Q: Does this replace the delegation chain in the Passport?**
 No, it is the half the Passport spec deliberately leaves out. The spec says plainly that it names an agent without proving possession, and records who acted for whom without saying when. This provides both, and the record still lives where it lived.

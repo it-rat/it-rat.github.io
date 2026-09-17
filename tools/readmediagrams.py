@@ -30,8 +30,8 @@ DUR = 2.4  # seconds for one pulse to cross a wire, whatever that wire's length
 #        a fingerprint of the drawing that sentence describes)
 ROOMS = {
     "tokenfuse": ("services/tokenfuse.html", "#F4B23E",
-                  "TokenFuse: every agent call priced and gated in-line, budgets replicated by raft",
-                  "7b68c964f4a9"),
+                  "TokenFuse: every agent call priced and gated in-line, one gateway by default and a raft cluster build when you need several",
+                  "de020e052276"),
     "wardryx":   ("services/wardryx.html", "#2DD4BF",
                   "Wardryx: the PEP asks per request, the PDP answers allow, deny or hold",
                   "05d9bd048860"),
