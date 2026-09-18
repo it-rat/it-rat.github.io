@@ -268,7 +268,7 @@
       <span class="cmd"><b>vouchryx-demo</b> exchange -subject user://acme/ada -actor agent://acme/triage</span>
       <span class="note">prints the token, its nested act and the key thumbprint bound to it</span>
     </div>
-    <p class="lede rv d2" style="margin-top:18px">Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a call to <span class="mono">/v1/revoke</span> the same token answered 401 with <span class="mono">reason=BadToken</span>. The control run is the part worth keeping: with the delegation door shut, that same revoked token answered 200, because nothing was looking at it. 44 tests, and the repository gates that number against its own suite.</p>
+    <p class="lede rv d2" style="margin-top:18px">Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a call to <span class="mono">/v1/revoke</span> the same token answered 401 with <span class="mono">reason=BadToken</span>. The control run is the part worth keeping: with the delegation door shut, that same revoked token answered 200, because nothing was looking at it. 84 tests, and the repository gates that number against its own suite.</p>
   </div>
 </section>
 

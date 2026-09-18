@@ -33,13 +33,13 @@ FAQ = {
   "<p>A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected.</p>"
   "<p>The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail.</p>"),
  ("What has been measured on real infrastructure rather than in a simulator?",
-  "<p>Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes.</p>"
+  "<p>Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, an adversarial pass against a running cluster that found four real holes, and, on 2026-09-17, the whole stack on a small box behind a home router governing agents in AWS and GCP at the same time through sixteen injected failures.</p>"
   "<p>Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.</p>"),
  ("What has this project got wrong and had to withdraw?",
   "<p>Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108.</p>"
   "<p>All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.</p>"),
  ("What has not been established yet?",
-  "<p>No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p>"),
+  "<p>No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p>"),
  ("Why publish the things that went wrong?",
   "<p>Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.</p>"),
 ]),
@@ -57,7 +57,7 @@ FAQ = {
  ("Why does this guide not list the exact commands?",
   "<p>Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.</p>"),
  ("How do I check it works without waiting for a real incident?",
-  "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
+  "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the second refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
 ]),
 
 "what-runs-where.html": ("common questions", "What people ask about running it", [
@@ -77,6 +77,8 @@ FAQ = {
   "<p>It is the line worth planning against, because it is the only one that grows without anybody deciding to grow it.</p>"),
  ("What does a cluster cost per hour rather than per month?",
   "<p>About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575.</p>"),
+ ("Can the stack sit in my own building while the agents run in a cloud?",
+  "<p>Yes, and it has been measured that way. On 2026-09-17 the single-machine installer went onto a small Debian box behind a home router on carrier-grade NAT, with the gateway published only on a tunnel address; two clusters, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real provider, 23 and 29 ms away. Nothing from the internet reaches such a box; the agents come in over the tunnel. The same day a failure matrix of sixteen cases ran on it, and the reboot found the one thing the installer now fixes for you: on a tunnel address, Docker has to start after the tunnel.</p>"),
 ]),
 
 "one-incident-end-to-end.html": ("common questions", "What people ask about the incident path", [
@@ -104,14 +106,14 @@ FAQ = {
  ("Is the stack open source?",
   "<p>Yes, all of it. Apache-2.0, source on <a href=\"https://github.com/TAIPANBOX\" target=\"_blank\" rel=\"noopener\">GitHub</a>: TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, the shared <a href=\"services/platform.html\">contract</a> under them, and <a href=\"genaryx.html\">Genaryx</a>, the console over all of them.</p>"),
  ("Do you host any of this, or see our data?",
-  "<p>No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.</p>"),
+  "<p>No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem, and on-prem is measured rather than merely allowed: on 2026-09-17 the whole stack ran on a small box behind a home router, governing agents in AWS and GCP at the same time. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.</p>"),
  ("What does it cost to try?",
   "<p>Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see <a href=\"services/platform.html#run\">run the live stack locally</a>. The four that are libraries and CLIs each carry a one-line try-it on their own page.</p>"),
 ]),
 
 "services/costcrew.html": ("common questions", "What a crew of agents can and cannot do to your bill", [
  ("Do the agents change anything in my cloud account?",
-  "<p>No. This console reads billing exports and vendor usage APIs and writes only its own database. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.</p>"),
+  "<p>No. This console reads exports that land in a folder and, where a connector is built, a vendor's usage API, and it writes only its own database. Eight of its seventeen connectors read today; the AWS, GCP and Azure billing exports are specified and not yet written, and the catalogue says so per entry. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.</p>"),
  ("How is this different from the console that kills runs?",
   "<p>Different question, different clock. <a href=\"../genaryx.html\">Genaryx</a> and <a href=\"tokenfuse.html\">TokenFuse</a> work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.</p>"),
  ("What does it do about anomalies nobody has time for?",
@@ -141,7 +143,7 @@ FAQ = {
  ("What happens to my agent when it hits the budget?",
   "<p>It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.</p>"),
  ("Do I have to rewrite my agent to use it?",
-  "<p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.</p>"),
+  "<p>No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open, so a lost event or an unreachable control plane never refuses a call; what happens when the policy plane is unreachable is the deployment's choice, and both launchers ship it closed.</p>"),
  ("Can it catch a retry loop before the bill does?",
   "<p>That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.</p>"),
  ("Does it still work with several gateways behind a load balancer?",
@@ -154,7 +156,7 @@ FAQ = {
  ("What answers can the policy plane give?",
   "<p>Three, and only three: allow, deny, or hold for a human. There is no improvisation and no fourth case, which is what makes the decisions reproducible and arguable after the fact.</p>"),
  ("What happens if the policy service is unreachable?",
-  "<p>You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.</p>"),
+  "<p>You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. The shipped launchers choose closed for the gateway, and it was fired on purpose on 2026-09-17: the policy plane stopped, every governed call refused in 0.3 s, none reaching the provider, and the first call after the restart allowed. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.</p>"),
  ("Can policies be reviewed like code?",
   "<p>Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting.</p>"),
 ]),
@@ -233,7 +235,7 @@ FAQ = {
  ("Do I have to adopt all of it at once?",
   "<p>No, and nobody does. The order that works is metering first, then a ceiling, then a decision in front of the web, then naming the actions that need a human, then drawing the identities and making borrowed authority provable, then rehearsing the guardrails in CI, then sealing the record, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.</p>"),
  ("Does putting controls in the request path slow agents down?",
-  "<p>The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.</p>"),
+  "<p>The enforcement decision itself is in-process and measured in microseconds, and the gateway's own bookkeeping fails open, so a lost event never stops a call. What happens when the policy plane is unreachable is a decision the deployment makes on purpose: both launchers ship it fail-closed, and a run on 2026-09-17 measured exactly that, every call refused in 0.3 s until the plane was back. The latency people notice in agent systems comes from models and tools, not from a budget check.</p>"),
  ("Can this run on our own infrastructure?",
   "<p>It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data.</p>"),
 ]),

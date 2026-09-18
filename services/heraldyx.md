@@ -12,7 +12,7 @@ This is a simulation of a real run: `scripts/burst-demo.sh` in the repository fe
 
 ## Four checks, in this order, and the order is the point.
 
-The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server.
+The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server. The last cell was redrawn after a run on 2026-09-17: the v0.2.3 image, which the launchers still pin, sent one notice at the ceiling and then nothing for 28 minutes of high and critical events. On main a critical now passes the ceiling and whatever is held is summarised every ten minutes until the hour turns; the next tag carries it.
 
 ## Four short paragraphs, and one link that is a view.
 

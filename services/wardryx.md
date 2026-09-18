@@ -42,13 +42,13 @@ deny_if_unattested demands a live attestation before an agent touches the sensit
 
 ### Fail-open or fail-closed, your call
 
-When the decision point is unreachable, the enforcement point picks the failure mode per deployment, and the two that exist chose opposite defaults on purpose. Both defaults are documented, and so is the tradeoff.
+When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override. Every default is documented, and so is the tradeoff.
 
 **Q: The modes, and what an outage costs**
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
 
-The two enforcement points in this stack chose opposite defaults, and each choice follows from what its own failure costs. **TokenFuse**'s LLM path fails open: a money plane that refused every call when this one blinked would cost an operator production traffic over a network partition. **Scopyx** fails closed: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
+Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary defaults to open, because a money plane that refused every call whenever the policy plane blinked would cost an operator production traffic over a network partition; both launchers override that to closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 
@@ -93,7 +93,7 @@ Set a threshold in policy. Above it the answer to the agent is `hold` rather tha
 Three, and only three: allow, deny, or hold for a human. There is no improvisation and no fourth case, which is what makes the decisions reproducible and arguable after the fact.
 
 **Q: What happens if the policy service is unreachable?**
-You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.
+You choose, per deployment, and the choice is written down. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action. The shipped launchers choose closed for the gateway, and it was fired on purpose on 2026-09-17: the policy plane stopped, every governed call refused in 0.3 s, none reaching the provider, and the first call after the restart allowed. Started with no policy loaded, Wardryx allows and says so in the log rather than pretending to enforce.
 
 **Q: Can policies be reviewed like code?**
 Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting.

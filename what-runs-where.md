@@ -4,7 +4,7 @@
 
 > One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.
 
-Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the three shapes this stack runs in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026. Six clusters, all destroyed afterwards. **Two of the findings contradicted things we had already published**, and both are below with the correction attached.
+Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the four shapes this stack has been measured in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026, then the whole stack on a box behind a home router on 2026-09-17 with the agents in two clouds at once. Six clusters and two more clouds, all destroyed afterwards. **Two of the findings contradicted things we had already published**, and both are below with the correction attached.
 
 ## Pick by blast radius, not by fashion.
 
@@ -33,6 +33,18 @@ It buys you node failure tolerance and costs you a shared-storage decision that 
 One line of Kubernetes configuration differs between the three clouds, and it is a Calico encapsulation mode: a Google VPC has no layer 2 at all, so on GCP the encapsulation becomes unconditional. On AWS the equivalent fix was one Terraform line and the Kubernetes side stayed byte for byte identical to Hetzner.
 
 You are paying for managed everything, and the bill reflects it.
+
+*shape four*
+
+### A box at your premises, the agents in the clouds
+
+The whole stack on a small machine behind your own router, carrier-grade NAT and all, with the gateway published only on a tunnel address. Nothing from the internet reaches the box; the agents come in over the tunnel, from wherever they run. Measured on 2026-09-17: the installer in 61 seconds on Debian 13 with Docker already present, direct WireGuard paths of 23 and 29 ms from AWS and GCP, both clouds refused on their eighteenth call, one cloud frozen by one policy while the other kept running.
+
+The failure matrix below ran on this shape. Sixteen cases, and the reboot is the one to read first.
+
+## One box at home, two clouds, and the day we tried to break it.
+
+This is a replay, and it says so: the shapes and the numbers are the 2026-09-17 record, the timing is compressed. A small Debian box behind carrier-grade NAT holds the whole stack, its gateway on a tunnel address only. Two clusters, one in AWS and one in GCP, join the tunnel and run their agents through it to the real provider. Pick what happens.
 
 ## One storage row differs by a factor of 108.
 
@@ -92,6 +104,8 @@ For reference, the same benchmark on AWS Genoa reached 4,028 decisions per secon
 
 The hourly figure is the one that matters in practice, because a cluster like this is usually created for a purpose rather than left standing. On AWS a six hour working session is about USD 13, forgetting it overnight is about USD 26, and forgetting it for a month is about USD 1,575.
 
+The fourth shape, for comparison: the box is yours and costs nothing metered. On 2026-09-17 the two small VMs standing in for the customer's clusters ran 63 minutes each, about USD 0.11 together, and the real model calls came to USD 0.066, of which one call by the FinOps crew was USD 0.058. The whole run, with the failure matrix, was about USD 0.18, and both accounts read back empty by API before the day ended.
+
 Two smaller findings from the same exercise, both of which invert the intuition:
 
 - **GCP is the cheaper hyperscaler here**, by about 13% on compute, and the cheaper machine is the AMD one. On AWS the AMD part cost more than the Intel part; on GCP the AMD part is cheaper. The architecture-faithful choice is the cheap one on one cloud and the dear one on the other.
@@ -118,7 +132,7 @@ And whichever you pick, **plan for the audit volume rather than the compute**. T
 
 - **Was the shared-vCPU instance the thing you measured?** A collapse under concurrency is a neighbour until proven otherwise.
 
-- **Can you destroy it and prove the account is empty?** If teardown is not verified, the running cost is open-ended.
+- **Can you destroy it and prove the account is empty?** If teardown is not verified, the running cost is open-ended. The 2026-09-17 run ended that way: instances, disks, addresses and volumes listed by direct API query on both clouds, all empty, before the report was written.
 
 ## Where this sits.
 
@@ -143,3 +157,6 @@ About 426 bytes per governed decision, measured at 427.6 and 426.4 on two differ
 
 **Q: What does a cluster cost per hour rather than per month?**
 About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575.
+
+**Q: Can the stack sit in my own building while the agents run in a cloud?**
+Yes, and it has been measured that way. On 2026-09-17 the single-machine installer went onto a small Debian box behind a home router on carrier-grade NAT, with the gateway published only on a tunnel address; two clusters, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real provider, 23 and 29 ms away. Nothing from the internet reaches such a box; the agents come in over the tunnel. The same day a failure matrix of sixteen cases ran on it, and the reboot found the one thing the installer now fixes for you: on a tunnel address, Docker has to start after the tunnel.

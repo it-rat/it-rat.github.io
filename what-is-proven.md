@@ -18,7 +18,7 @@ It keeps earning its place. On 2026-08-20 the same harness was pointed at a depe
 
 The same shape applies to everything below. Where a claim has no companion failure, it says so.
 
-## Five claims and what each one stops short of.
+## Six claims and what each one stops short of.
 
 Every figure here was produced by a run with a command and a date behind it, recorded in that repository's own validation file. The line under each is not a disclaimer, it is part of the claim.
 
@@ -42,6 +42,48 @@ Not a fixture directory: an actual filesystem's worth of ELF binaries, a real co
 
 Every plane answered, the shared event log bound across nodes, and an agent frozen from the browser stayed frozen after the policy plane's pod was restarted. Then the same cluster was attacked, and four real holes came out: a pod that labelled itself as the console deleted a freeze using a literal development bearer while the console still displayed the agent as frozen, secrets were readable in plaintext straight out of the datastore, the kubelet API was open to the internet on every node, and the gateway never asked the policy plane anything.
 
+### A box behind a home router governed two clouds at once, then took sixteen failures
+
+On 2026-09-17 the single-machine installer went onto a small Debian 13 box behind carrier-grade NAT, its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, then a 402 on the eighteenth, interleaved on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and ran the FinOps crew through a second door of its own until a monthly cap stopped it. Both cloud accounts were empty afterwards, by direct query, and the day cost USD 0.18.
+
+## Sixteen ways to break it, and what each one did.
+
+Each tile is one injected failure on the box above, with the customer's agents still calling. The colour is the outcome, not the severity: green held as designed, red found something, amber found something that is fixed on main and not yet in a release.
+
+The run froze at step seven and no plane said anything, at five seconds or at sixty. Absence was undetected; a stalled-run detector now exists.
+
+The agent timed out, resumed afterwards under the same run, and the box saw nothing at all. Same gap, same fix.
+
+Every call refused 403 in 0.3 s, fail-closed, one dependency event per call; the first call after the restart allowed.
+
+Decisions continued from memory, which is right. The health check stayed 200 and a policy write hung instead of refusing; a readiness route and a 3 s deadline followed.
+
+Egress blocked: 502 in 53 ms with an event. A retired model id: 404 with an event. A revoked key: 401 passed through and no event, by design.
+
+Three identical tool calls among the last ten: 402 loop_detected before the provider was asked, at zero spend.
+
+Not a loop by that definition, so the budget caught it instead. Written down so nobody files it as a bug.
+
+The gateway kept enforcing; three calls' telemetry were dropped rather than queued and the fleet view kept the hole. A bounded replay queue followed.
+
+Eight refusals under distinct runs inside two seconds after the hour's twentieth mail: one notice saying eight, all eight lines on the log.
+
+Twenty-eight minutes of high and critical events with no mail and no second notice. A critical now passes the ceiling and the rest is summarised every ten minutes.
+
+It caught up from its cursor, 52 records verified, no gap; the console's own lines refused as foreign, as designed.
+
+The gateway came back exited and stayed down: Docker bound the port before the tunnel held the address. The installer now orders the two; the second reboot was back in 40 s.
+
+Every volume survived. The gateway's in-memory run and unit ledgers did not (26 runs to zero, the month restarted), so a monthly cap could be spent twice. The month is now re-seeded from the control plane.
+
+One byte flipped in a copy of a sealed pack: NOT VERIFIED. The untouched pack verified. The record does what it is for.
+
+Accepted with no event while delegation verification was off. The record holds 32; both doors now refuse more, before anything is forwarded.
+
+An hour forward, then NTP back: nothing changed on the tunnel or in the calls within three minutes. The clock that would matter is the box's own, not injected.
+
+Two things the tiles do not show. The control plane's own incidents never reached the notifier or the record on the released installer, because the control plane could not create its events file and said nothing about it; the installer now creates the file for it, and the images say so at startup. And the crew's runner reported its own estimate as spent, five times under what the gateway settled, because the gateway's price book lacked the model and fell back to its ceiling rate. Both are in the repositories' validation files with their dates.
+
 ## Three things we published and had to withdraw.
 
 Each of these was wrong in a way that a reader could have acted on, which is the only kind worth listing.
@@ -58,11 +100,11 @@ There is a fourth worth naming that is not a number at all. Pointed at real obje
 
 This list is deliberately visible rather than tidy, and it is the section worth reading first if you are evaluating rather than browsing.
 
-- **No machine has ever died, only processes.** Everything about durability is established against process death, and power loss is a harsher test that has not been run.
+- **No machine has ever died, only processes.** Everything about durability is established against process death, and power loss is a harsher test that has not been run. The nearest thing so far: a box was rebooted twice under load on 2026-09-17, and the record's chain and cursor survived both, which is a reboot, not a power cut.
 
 - **No external audit of the cryptographic layer.** The primitives match their published vectors and two independent implementations of the verifier agree, which is a different and weaker claim than somebody outside this project having reviewed it.
 
-- **Two of the five shipped pre-production drills have never been fired at a real gateway.** They were written after the campaigns that produced the published "no gaps" result, and that result covers the three that were.
+- **Six of the nine shipped pre-production drills have never been fired at a real gateway.** They were written after the campaigns that produced the published "no gaps" result, and that result covers the three that were.
 
 - **No years of simulated time, and no second I/O backend** to compare the first against.
 
@@ -100,13 +142,13 @@ The numbers behind every claim here live in each repository's own validation fil
 A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected. The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail.
 
 **Q: What has been measured on real infrastructure rather than in a simulator?**
-Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes. Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.
+Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, an adversarial pass against a running cluster that found four real holes, and, on 2026-09-17, the whole stack on a small box behind a home router governing agents in AWS and GCP at the same time through sixteen injected failures. Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.
 
 **Q: What has this project got wrong and had to withdraw?**
 Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108. All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.
 
 **Q: What has not been established yet?**
-No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
+No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
 
 **Q: Why publish the things that went wrong?**
 Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.

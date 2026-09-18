@@ -231,7 +231,7 @@ Observability is a witness; governance is a brake. A trace tells you afterwards 
 No, and nobody does. The order that works is metering first, then a ceiling, then a decision in front of the web, then naming the actions that need a human, then drawing the identities and making borrowed authority provable, then rehearsing the guardrails in CI, then sealing the record, and only then measuring quality in money. Each step is a separate Apache-2.0 tool and each is useful alone.
 
 **Q: Does putting controls in the request path slow agents down?**
-The enforcement decision itself is in-process and measured in microseconds, and the gateway is fail-open by design, so an unreachable control plane never becomes the thing that stops your fleet. The latency people notice in agent systems comes from models and tools, not from a budget check.
+The enforcement decision itself is in-process and measured in microseconds, and the gateway's own bookkeeping fails open, so a lost event never stops a call. What happens when the policy plane is unreachable is a decision the deployment makes on purpose: both launchers ship it fail-closed, and a run on 2026-09-17 measured exactly that, every call refused in 0.3 s until the plane was back. The latency people notice in agent systems comes from models and tools, not from a budget check.
 
 **Q: Can this run on our own infrastructure?**
 It is the only way it runs. Every plane is self-hosted on infrastructure you own, any cloud or on-prem, and nothing is sent to us: we never hold your keys, your traffic or your data.
@@ -269,11 +269,11 @@ Pick the run as the unit and make every plane key on it. That single decision is
 
 ### 2. Budgets that nest, enforced in the path
 
-A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove.
+A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove. The fallback is deliberately high, and that cuts both ways: on 2026-09-17 a model the book did not yet carry was priced at five times its list rate, so the run was refused early rather than late, and the figure a team saw was the ceiling rather than the bill. Keep the book current and read the flag on the response that says a fallback was used.
 
 - **Start in shadow mode.** Price and record everything, refuse nothing, and look at what would have been blocked before anything is.
 
-- **Fail open.** A cost control that can take your fleet down has traded one incident for a worse one.
+- **Decide the failure mode on purpose.** A cost control's own bookkeeping should fail open: a lost telemetry line must never refuse a call. Whether its policy hook fails open or closed is a real choice with a real cost either way; write it down and fire it once. The shipped launchers fire closed, and that was measured on 2026-09-17: the policy plane stopped, every governed call refused within a third of a second, none of them reaching the provider.
 
 - **Enforce where the money is spent,** in the request path, not in a nightly job that reads yesterday's logs.
 
@@ -283,11 +283,11 @@ Three mechanisms do most of the work, and each should report separately: a **bre
 
 ### 4. Showback in a format finance already reads
 
-Agent spend that lives only in an engineering dashboard is invisible to the people who allocate budget. Exported in the FinOps Foundation's FOCUS format, one row per model call, it lands in the same pipelines and dashboards as the rest of the cloud bill, and showback or chargeback by team and business unit stops being a bespoke project.
+Agent spend that lives only in an engineering dashboard is invisible to the people who allocate budget. Exported in the FinOps Foundation's FOCUS format, one row per model call, it lands in the same pipelines and dashboards as the rest of the cloud bill, and showback or chargeback by team and business unit stops being a bespoke project. Measured on 2026-09-17 on a box governing two clouds: one export per gateway door, 272 rows for the customer's agents and 5 for the FinOps crew, each row carrying the agent, the run, the team, whether the call was refused and what it settled at.
 
 ### 5. Unit economics, not just totals
 
-The number that changes a decision is not monthly spend. It is **cost per resolved case**: tag outcomes in production, then read the cost of every call in the run behind each one, including the intermediate calls nobody tagged and the calls the breaker refused. A support agent at forty cents a resolved case and one at four dollars are different businesses, and the total spend line cannot tell them apart.
+The number that changes a decision is not monthly spend. It is **cost per resolved case**: tag outcomes in production, then read the cost of every call in the run behind each one, including the intermediate calls nobody tagged and the calls the breaker refused. A support agent at forty cents a resolved case and one at four dollars are different businesses, and the total spend line cannot tell them apart. The tag is one request header, and the same 2026-09-17 run priced every outcome it carried, the refused calls included.
 
 ### 6. The line item nobody forecasts: the evidence itself
 
@@ -313,7 +313,7 @@ The tools behind each step are open source and run on your own infrastructure: [
 
 - **Does it export in a format finance already reads?** Agent spend that lives only in an engineering dashboard is invisible where budgets are actually allocated.
 
-- **What does it cost you when it fails?** A cost control that can take the fleet down has traded one incident for a worse one. Ask whether it fails open.
+- **What does it cost you when it fails?** Ask which of its failures are open and which are closed, and whether anybody has fired each one on purpose. A cost control that takes the fleet down by accident has traded one incident for a worse one; one that refuses on purpose while its policy plane is unreachable is a decision you should recognise as yours.
 
 ## What people ask about AI cost control
 
@@ -1112,7 +1112,7 @@ Yes, and you should not trust the path until you have. The pre-production harnes
 
 > One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.
 
-Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the three shapes this stack runs in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026. Six clusters, all destroyed afterwards. **Two of the findings contradicted things we had already published**, and both are below with the correction attached.
+Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the four shapes this stack has been measured in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026, then the whole stack on a box behind a home router on 2026-09-17 with the agents in two clouds at once. Six clusters and two more clouds, all destroyed afterwards. **Two of the findings contradicted things we had already published**, and both are below with the correction attached.
 
 ## Pick by blast radius, not by fashion.
 
@@ -1141,6 +1141,18 @@ It buys you node failure tolerance and costs you a shared-storage decision that 
 One line of Kubernetes configuration differs between the three clouds, and it is a Calico encapsulation mode: a Google VPC has no layer 2 at all, so on GCP the encapsulation becomes unconditional. On AWS the equivalent fix was one Terraform line and the Kubernetes side stayed byte for byte identical to Hetzner.
 
 You are paying for managed everything, and the bill reflects it.
+
+*shape four*
+
+### A box at your premises, the agents in the clouds
+
+The whole stack on a small machine behind your own router, carrier-grade NAT and all, with the gateway published only on a tunnel address. Nothing from the internet reaches the box; the agents come in over the tunnel, from wherever they run. Measured on 2026-09-17: the installer in 61 seconds on Debian 13 with Docker already present, direct WireGuard paths of 23 and 29 ms from AWS and GCP, both clouds refused on their eighteenth call, one cloud frozen by one policy while the other kept running.
+
+The failure matrix below ran on this shape. Sixteen cases, and the reboot is the one to read first.
+
+## One box at home, two clouds, and the day we tried to break it.
+
+This is a replay, and it says so: the shapes and the numbers are the 2026-09-17 record, the timing is compressed. A small Debian box behind carrier-grade NAT holds the whole stack, its gateway on a tunnel address only. Two clusters, one in AWS and one in GCP, join the tunnel and run their agents through it to the real provider. Pick what happens.
 
 ## One storage row differs by a factor of 108.
 
@@ -1200,6 +1212,8 @@ For reference, the same benchmark on AWS Genoa reached 4,028 decisions per secon
 
 The hourly figure is the one that matters in practice, because a cluster like this is usually created for a purpose rather than left standing. On AWS a six hour working session is about USD 13, forgetting it overnight is about USD 26, and forgetting it for a month is about USD 1,575.
 
+The fourth shape, for comparison: the box is yours and costs nothing metered. On 2026-09-17 the two small VMs standing in for the customer's clusters ran 63 minutes each, about USD 0.11 together, and the real model calls came to USD 0.066, of which one call by the FinOps crew was USD 0.058. The whole run, with the failure matrix, was about USD 0.18, and both accounts read back empty by API before the day ended.
+
 Two smaller findings from the same exercise, both of which invert the intuition:
 
 - **GCP is the cheaper hyperscaler here**, by about 13% on compute, and the cheaper machine is the AMD one. On AWS the AMD part cost more than the Intel part; on GCP the AMD part is cheaper. The architecture-faithful choice is the cheap one on one cloud and the dear one on the other.
@@ -1226,7 +1240,7 @@ And whichever you pick, **plan for the audit volume rather than the compute**. T
 
 - **Was the shared-vCPU instance the thing you measured?** A collapse under concurrency is a neighbour until proven otherwise.
 
-- **Can you destroy it and prove the account is empty?** If teardown is not verified, the running cost is open-ended.
+- **Can you destroy it and prove the account is empty?** If teardown is not verified, the running cost is open-ended. The 2026-09-17 run ended that way: instances, disks, addresses and volumes listed by direct API query on both clouds, all empty, before the report was written.
 
 ## Where this sits.
 
@@ -1251,6 +1265,9 @@ About 426 bytes per governed decision, measured at 427.6 and 426.4 on two differ
 
 **Q: What does a cluster cost per hour rather than per month?**
 About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575.
+
+**Q: Can the stack sit in my own building while the agents run in a cloud?**
+Yes, and it has been measured that way. On 2026-09-17 the single-machine installer went onto a small Debian box behind a home router on carrier-grade NAT, with the gateway published only on a tunnel address; two clusters, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real provider, 23 and 29 ms away. Nothing from the internet reaches such a box; the agents come in over the tunnel. The same day a failure matrix of sixteen cases ran on it, and the reboot found the one thing the installer now fixes for you: on a tunnel address, Docker has to start after the tunnel.
 
 
 ---
@@ -1293,7 +1310,7 @@ What it will not do is more interesting than what it will. It holds no credentia
 
 ### Make it fire on purpose
 
-Do not wait for a real incident to find out whether any of this works. Give a run a budget of a fraction of a cent and let an agent loop against it: the gateway answers 402 in the request path, the event lands in the log, and the mail arrives. That is the whole chain, exercised in a minute, at no cost.
+Do not wait for a real incident to find out whether any of this works. Give a run a budget of a fraction of a cent and let an agent loop against it: the gateway answers 402 in the request path, the event lands in the log, and the mail arrives. That is the whole chain, exercised in a minute, at no cost. Know which mail you are waiting for: at the notifier's default floor a single refusal is below it, and the message comes from the control plane once a run has been refused twice, as `budget_exhausted`. A run on 2026-09-17 found that on the installer's released versions that message never reached the log at all, because the control plane could not create its own events file and said nothing; the installer on `main` creates the file for it, which is what the one-line command installs.
 
 Then read the mail carefully, because it is deliberately almost nothing: identifiers and numbers, never content, and one link into your own console rather than a button. Following it opens the panel showing that event. The action happens there, behind your sign-in.
 
@@ -1323,7 +1340,7 @@ Every governed decision is audited rather than sampled, at roughly 426 bytes eac
 
 - **Have you fired the guardrail on purpose at least once?** Before you rely on it, not after.
 
-- **Does it survive a reboot?** Restart the box and check that everything comes back, including the notifier's own read position.
+- **Does it survive a reboot?** Restart the box and check that everything comes back, including the notifier's own read position. We measured one on 2026-09-17: the first reboot lost the gateway on a box whose gateway sat on a tunnel address, because Docker bound the port before the tunnel held the address, and the installer now orders the two; the second reboot brought everything back on its own.
 
 ## Where this sits.
 
@@ -1347,7 +1364,7 @@ No. The gateway publishes to the host's loopback by default, so a machine that j
 Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.
 
 **Q: How do I check it works without waiting for a real incident?**
-Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.
+Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the second refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.
 
 
 ---
@@ -1372,7 +1389,7 @@ It keeps earning its place. On 2026-08-20 the same harness was pointed at a depe
 
 The same shape applies to everything below. Where a claim has no companion failure, it says so.
 
-## Five claims and what each one stops short of.
+## Six claims and what each one stops short of.
 
 Every figure here was produced by a run with a command and a date behind it, recorded in that repository's own validation file. The line under each is not a disclaimer, it is part of the claim.
 
@@ -1396,6 +1413,48 @@ Not a fixture directory: an actual filesystem's worth of ELF binaries, a real co
 
 Every plane answered, the shared event log bound across nodes, and an agent frozen from the browser stayed frozen after the policy plane's pod was restarted. Then the same cluster was attacked, and four real holes came out: a pod that labelled itself as the console deleted a freeze using a literal development bearer while the console still displayed the agent as frozen, secrets were readable in plaintext straight out of the datastore, the kubelet API was open to the internet on every node, and the gateway never asked the policy plane anything.
 
+### A box behind a home router governed two clouds at once, then took sixteen failures
+
+On 2026-09-17 the single-machine installer went onto a small Debian 13 box behind carrier-grade NAT, its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, then a 402 on the eighteenth, interleaved on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and ran the FinOps crew through a second door of its own until a monthly cap stopped it. Both cloud accounts were empty afterwards, by direct query, and the day cost USD 0.18.
+
+## Sixteen ways to break it, and what each one did.
+
+Each tile is one injected failure on the box above, with the customer's agents still calling. The colour is the outcome, not the severity: green held as designed, red found something, amber found something that is fixed on main and not yet in a release.
+
+The run froze at step seven and no plane said anything, at five seconds or at sixty. Absence was undetected; a stalled-run detector now exists.
+
+The agent timed out, resumed afterwards under the same run, and the box saw nothing at all. Same gap, same fix.
+
+Every call refused 403 in 0.3 s, fail-closed, one dependency event per call; the first call after the restart allowed.
+
+Decisions continued from memory, which is right. The health check stayed 200 and a policy write hung instead of refusing; a readiness route and a 3 s deadline followed.
+
+Egress blocked: 502 in 53 ms with an event. A retired model id: 404 with an event. A revoked key: 401 passed through and no event, by design.
+
+Three identical tool calls among the last ten: 402 loop_detected before the provider was asked, at zero spend.
+
+Not a loop by that definition, so the budget caught it instead. Written down so nobody files it as a bug.
+
+The gateway kept enforcing; three calls' telemetry were dropped rather than queued and the fleet view kept the hole. A bounded replay queue followed.
+
+Eight refusals under distinct runs inside two seconds after the hour's twentieth mail: one notice saying eight, all eight lines on the log.
+
+Twenty-eight minutes of high and critical events with no mail and no second notice. A critical now passes the ceiling and the rest is summarised every ten minutes.
+
+It caught up from its cursor, 52 records verified, no gap; the console's own lines refused as foreign, as designed.
+
+The gateway came back exited and stayed down: Docker bound the port before the tunnel held the address. The installer now orders the two; the second reboot was back in 40 s.
+
+Every volume survived. The gateway's in-memory run and unit ledgers did not (26 runs to zero, the month restarted), so a monthly cap could be spent twice. The month is now re-seeded from the control plane.
+
+One byte flipped in a copy of a sealed pack: NOT VERIFIED. The untouched pack verified. The record does what it is for.
+
+Accepted with no event while delegation verification was off. The record holds 32; both doors now refuse more, before anything is forwarded.
+
+An hour forward, then NTP back: nothing changed on the tunnel or in the calls within three minutes. The clock that would matter is the box's own, not injected.
+
+Two things the tiles do not show. The control plane's own incidents never reached the notifier or the record on the released installer, because the control plane could not create its events file and said nothing about it; the installer now creates the file for it, and the images say so at startup. And the crew's runner reported its own estimate as spent, five times under what the gateway settled, because the gateway's price book lacked the model and fell back to its ceiling rate. Both are in the repositories' validation files with their dates.
+
 ## Three things we published and had to withdraw.
 
 Each of these was wrong in a way that a reader could have acted on, which is the only kind worth listing.
@@ -1412,11 +1471,11 @@ There is a fourth worth naming that is not a number at all. Pointed at real obje
 
 This list is deliberately visible rather than tidy, and it is the section worth reading first if you are evaluating rather than browsing.
 
-- **No machine has ever died, only processes.** Everything about durability is established against process death, and power loss is a harsher test that has not been run.
+- **No machine has ever died, only processes.** Everything about durability is established against process death, and power loss is a harsher test that has not been run. The nearest thing so far: a box was rebooted twice under load on 2026-09-17, and the record's chain and cursor survived both, which is a reboot, not a power cut.
 
 - **No external audit of the cryptographic layer.** The primitives match their published vectors and two independent implementations of the verifier agree, which is a different and weaker claim than somebody outside this project having reviewed it.
 
-- **Two of the five shipped pre-production drills have never been fired at a real gateway.** They were written after the campaigns that produced the published "no gaps" result, and that result covers the three that were.
+- **Six of the nine shipped pre-production drills have never been fired at a real gateway.** They were written after the campaigns that produced the published "no gaps" result, and that result covers the three that were.
 
 - **No years of simulated time, and no second I/O backend** to compare the first against.
 
@@ -1454,13 +1513,13 @@ The numbers behind every claim here live in each repository's own validation fil
 A companion run where the same check fails. A check that cannot produce a red result reports green forever and nobody notices, because green is what everyone expected. The durability sweep is the clearest case here: zero violations across four hundred thousand seeded runs means very little on its own, and means a great deal beside the same sweep with a lying disk, where 17,869 of 20,000 seeds fail.
 
 **Q: What has been measured on real infrastructure rather than in a simulator?**
-Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, and an adversarial pass against a running cluster that found four real holes. Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.
+Process-kill durability across three filesystems, policy-plane throughput on live five-node clusters on three clouds, recall on a full public benchmark rather than a fixture, a crypto scan over 25,586 real binaries and a live TLS endpoint, an adversarial pass against a running cluster that found four real holes, and, on 2026-09-17, the whole stack on a small box behind a home router governing agents in AWS and GCP at the same time through sixteen injected failures. Each has a limit published beside it, and the limit is part of the claim rather than a disclaimer under it.
 
 **Q: What has this project got wrong and had to withdraw?**
 Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108. All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.
 
 **Q: What has not been established yet?**
-No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Two of the five shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
+No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
 
 **Q: Why publish the things that went wrong?**
 Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.

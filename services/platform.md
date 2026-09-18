@@ -44,7 +44,7 @@ The provider is published on the Terraform Registry as `TAIPANBOX/taipan`: a nor
 
 Two ways in, and they are for different machines. On your own laptop the sandbox builds from source and binds loopback only. On a Linux box you own, one line pulls the published images and the whole governed stack is up in under two minutes.
 
-Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-01 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: **111 seconds**, with the installer's own nineteen checks green. It needs root on Debian or Ubuntu, and docker and git; it survives a reboot, and it is reachable by agents running anywhere else.
+Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-13 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: **109 seconds**, with every one of the installer's own checks green; on 2026-09-17, on a mini PC that already had Docker, **61 seconds** for the first run and 36 for the second. It needs root on Debian or Ubuntu, and docker and git; it comes back after a reboot (measured once, on 2026-09-17, on a box whose gateway sat on a tailnet address: the first reboot lost the gateway until the installer learned to order Docker after the tunnel, the second brought it back on its own); and it is reachable by agents running anywhere else, which the same day proved from two clouds at once.
 
 The sandbox, and it builds from source on purpose: nothing but your own compilers touches it. That is the cost as well as the point, so it wants Rust, Go, Node and Python already installed. Measured on 2026-09-01 from an empty build cache: **221 seconds** to a working dashboard. Binds `127.0.0.1` only, stops on Ctrl-C, keeps nothing.
 
@@ -72,7 +72,7 @@ It comes up closed: the gateway lands on the host's loopback and everything else
 
 It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.
 
-It ends by verifying itself, and two of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.
+It ends by verifying itself, and three of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host, and a gateway bound to one address must not answer on loopback. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.
 
 For teams whose answer to everything is a cluster. One script brings up k3s across your nodes with the CNI, storage and hardening the stack actually needs, then the workload applies from plain manifests.
 

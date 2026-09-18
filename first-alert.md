@@ -36,7 +36,7 @@ What it will not do is more interesting than what it will. It holds no credentia
 
 ### Make it fire on purpose
 
-Do not wait for a real incident to find out whether any of this works. Give a run a budget of a fraction of a cent and let an agent loop against it: the gateway answers 402 in the request path, the event lands in the log, and the mail arrives. That is the whole chain, exercised in a minute, at no cost.
+Do not wait for a real incident to find out whether any of this works. Give a run a budget of a fraction of a cent and let an agent loop against it: the gateway answers 402 in the request path, the event lands in the log, and the mail arrives. That is the whole chain, exercised in a minute, at no cost. Know which mail you are waiting for: at the notifier's default floor a single refusal is below it, and the message comes from the control plane once a run has been refused twice, as `budget_exhausted`. A run on 2026-09-17 found that on the installer's released versions that message never reached the log at all, because the control plane could not create its own events file and said nothing; the installer on `main` creates the file for it, which is what the one-line command installs.
 
 Then read the mail carefully, because it is deliberately almost nothing: identifiers and numbers, never content, and one link into your own console rather than a button. Following it opens the panel showing that event. The action happens there, behind your sign-in.
 
@@ -66,7 +66,7 @@ Every governed decision is audited rather than sampled, at roughly 426 bytes eac
 
 - **Have you fired the guardrail on purpose at least once?** Before you rely on it, not after.
 
-- **Does it survive a reboot?** Restart the box and check that everything comes back, including the notifier's own read position.
+- **Does it survive a reboot?** Restart the box and check that everything comes back, including the notifier's own read position. We measured one on 2026-09-17: the first reboot lost the gateway on a box whose gateway sat on a tunnel address, because Docker bound the port before the tunnel held the address, and the installer now orders the two; the second reboot brought everything back on its own.
 
 ## Where this sits.
 
@@ -90,4 +90,4 @@ No. The gateway publishes to the host's loopback by default, so a machine that j
 Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.
 
 **Q: How do I check it works without waiting for a real incident?**
-Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.
+Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the second refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.

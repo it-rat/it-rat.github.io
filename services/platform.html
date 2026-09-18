@@ -271,7 +271,7 @@
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
           <div class="install"><span class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/<b>stack-single</b>/main/install.sh | bash</span></div>
         </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-01 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: <b>111 seconds</b>, with the installer's own nineteen checks green. It needs root on Debian or Ubuntu, and docker and git; it survives a reboot, and it is reachable by agents running anywhere else.</p>
+        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-13 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: <b>109 seconds</b>, with every one of the installer's own checks green; on 2026-09-17, on a mini PC that already had Docker, <b>61 seconds</b> for the first run and 36 for the second. It needs root on Debian or Ubuntu, and docker and git; it comes back after a reboot (measured once, on 2026-09-17, on a box whose gateway sat on a tailnet address: the first reboot lost the gateway until the installer learned to order Docker after the tunnel, the second brought it back on its own); and it is reachable by agents running anywhere else, which the same day proved from two clouds at once.</p>
         <div class="kicker" style="margin-top:26px">on your laptop &#183; no Docker</div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
           <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
@@ -338,7 +338,7 @@
             <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
             <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px"><a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
             <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.</p>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It ends by verifying itself, and two of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
+            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It ends by verifying itself, and three of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host, and a gateway bound to one address must not answer on loopback. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
           </div>
         </details>
         <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
@@ -352,7 +352,7 @@
           <div class="row"><span class="k">proven on</span><span class="v">Hetzner, AWS and GCP</span></div>
           <div class="row"><span class="k">what it buys</span><span class="v">high availability</span></div>
           <div class="row"><span class="k">what it costs</span><span class="v">a ReadWriteMany volume</span></div>
-          <div class="row"><span class="k">traps</span><span class="v">96 documented, with whose fault each was</span></div>
+          <div class="row"><span class="k">traps</span><span class="v">105 documented, with whose fault each was</span></div>
         </div>
         <div class="sheet-row">
         <details class="sheet" data-sheet-kicker="a cluster &#183; stack-k8s" data-sheet-title="The commands, and the one thing a cluster costs you">
@@ -409,7 +409,7 @@
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v0.8.0</span></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v1.0.2</span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go install github.com/TAIPANBOX/agent-stack-go/cmd/<b>agent-conform</b>@latest</span></div>
           <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>agent-conform</b> passport.json events.ndjson</span></div>
           <p class="dim" style="font-size:13px;line-height:1.6">This installs nothing of the stack: it is the contract itself, for an agent of your own. Exit 0 means every file and every NDJSON line conforms; exit 1 means at least one did not. That is the whole interface.</p>

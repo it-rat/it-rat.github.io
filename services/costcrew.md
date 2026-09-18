@@ -60,18 +60,20 @@ The hire form collects what a Passport needs, so an analyst joins the crew and t
 
 ### It says what it cannot do
 
-Per-agent attribution of AI spend is not possible from an invoice: the charge carries a model and a workload, not an agent. It becomes possible when the calls go through TokenFuse, and until then the console does not pretend.
+Per-agent attribution of AI spend is not possible from an invoice: the charge carries a model and a workload, not an agent. It becomes possible when the calls go through TokenFuse, and until then the console does not pretend. Nor does it read your cloud bill yet: of the seventeen connectors in its catalogue, eight are built (the TokenFuse FOCUS export, SaaS seats, three rightsizing and three budget-recommendation readers) and nine, the AWS, GCP and Azure billing exports among them, are specified with their endpoint and not written. The catalogue says which is which, per entry, and so does this page.
 
 ## One binary, one directory.
 
 No interpreter, no virtual environment, no second database engine in the process. It listens on loopback by default and expects a proxy in front of it for TLS. First account created at /signup becomes the admin of that installation, so make one before you hand anybody the address.
 
-854 tests, and the repository gates more than the suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.
+Measured on a box behind a home router on 2026-09-17: the crew ran beside the single-machine stack through a gateway door of its own, one real model call was settled at USD 0.05811 and the next was refused by a monthly cap set centrally, and the notifier mailed the crew's findings with the owner taken from a passport. The same run found the runner reporting its own estimate as spent, five times under the gateway's settlement, and an import of the box's real AI spend refused by an empty severity field; both are fixed on main and neither is in the v0.2.0 image yet. It also confirmed what the paragraph above says: no reader for a cloud bill exists, so the crew worked the generated estate.
+
+878 tests, and the repository gates more than the suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.
 
 ## What a crew of agents can and cannot do to your bill
 
 **Q: Do the agents change anything in my cloud account?**
-No. This console reads billing exports and vendor usage APIs and writes only its own database. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.
+No. This console reads exports that land in a folder and, where a connector is built, a vendor's usage API, and it writes only its own database. Eight of its seventeen connectors read today; the AWS, GCP and Azure billing exports are specified and not yet written, and the catalogue says so per entry. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.
 
 **Q: How is this different from the console that kills runs?**
 Different question, different clock. [Genaryx](https://it-rat.com/genaryx.html) and [TokenFuse](https://it-rat.com/tokenfuse.html) work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.

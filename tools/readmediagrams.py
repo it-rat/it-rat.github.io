@@ -58,9 +58,10 @@ ROOMS = {
                   "Genaryx: one browser control room over the stack, reached only over the tunnel",
                   "81bdf83f6f14"),
     "costcrew":  ("services/costcrew.html", "#7DD3A0",
-                  "CostCrew: charges arrive from three connectors, a two-sided detector opens anomalies, "
-                  "and an agent analyst drafts a fix a person posts or returns",
-                  "647e8504b137"),
+                  "CostCrew: charges arrive from the connectors built so far (the TokenFuse FOCUS export, "
+                  "seats, recommendations; the cloud bills are specified and not yet read), a two-sided "
+                  "detector opens anomalies, and an agent analyst drafts a fix a person posts or returns",
+                  "0fdd1b68f53e"),
     "vouchryx":  ("services/vouchryx.html", "#8B9DFF",
                   "Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a "
                   "short-lived delegation token, verified offline and revoked by a polled list",

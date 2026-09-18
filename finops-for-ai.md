@@ -28,11 +28,11 @@ Pick the run as the unit and make every plane key on it. That single decision is
 
 ### 2. Budgets that nest, enforced in the path
 
-A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove.
+A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove. The fallback is deliberately high, and that cuts both ways: on 2026-09-17 a model the book did not yet carry was priced at five times its list rate, so the run was refused early rather than late, and the figure a team saw was the ceiling rather than the bill. Keep the book current and read the flag on the response that says a fallback was used.
 
 - **Start in shadow mode.** Price and record everything, refuse nothing, and look at what would have been blocked before anything is.
 
-- **Fail open.** A cost control that can take your fleet down has traded one incident for a worse one.
+- **Decide the failure mode on purpose.** A cost control's own bookkeeping should fail open: a lost telemetry line must never refuse a call. Whether its policy hook fails open or closed is a real choice with a real cost either way; write it down and fire it once. The shipped launchers fire closed, and that was measured on 2026-09-17: the policy plane stopped, every governed call refused within a third of a second, none of them reaching the provider.
 
 - **Enforce where the money is spent,** in the request path, not in a nightly job that reads yesterday's logs.
 
@@ -42,11 +42,11 @@ Three mechanisms do most of the work, and each should report separately: a **bre
 
 ### 4. Showback in a format finance already reads
 
-Agent spend that lives only in an engineering dashboard is invisible to the people who allocate budget. Exported in the FinOps Foundation's FOCUS format, one row per model call, it lands in the same pipelines and dashboards as the rest of the cloud bill, and showback or chargeback by team and business unit stops being a bespoke project.
+Agent spend that lives only in an engineering dashboard is invisible to the people who allocate budget. Exported in the FinOps Foundation's FOCUS format, one row per model call, it lands in the same pipelines and dashboards as the rest of the cloud bill, and showback or chargeback by team and business unit stops being a bespoke project. Measured on 2026-09-17 on a box governing two clouds: one export per gateway door, 272 rows for the customer's agents and 5 for the FinOps crew, each row carrying the agent, the run, the team, whether the call was refused and what it settled at.
 
 ### 5. Unit economics, not just totals
 
-The number that changes a decision is not monthly spend. It is **cost per resolved case**: tag outcomes in production, then read the cost of every call in the run behind each one, including the intermediate calls nobody tagged and the calls the breaker refused. A support agent at forty cents a resolved case and one at four dollars are different businesses, and the total spend line cannot tell them apart.
+The number that changes a decision is not monthly spend. It is **cost per resolved case**: tag outcomes in production, then read the cost of every call in the run behind each one, including the intermediate calls nobody tagged and the calls the breaker refused. A support agent at forty cents a resolved case and one at four dollars are different businesses, and the total spend line cannot tell them apart. The tag is one request header, and the same 2026-09-17 run priced every outcome it carried, the refused calls included.
 
 ### 6. The line item nobody forecasts: the evidence itself
 
@@ -72,7 +72,7 @@ The tools behind each step are open source and run on your own infrastructure: [
 
 - **Does it export in a format finance already reads?** Agent spend that lives only in an engineering dashboard is invisible where budgets are actually allocated.
 
-- **What does it cost you when it fails?** A cost control that can take the fleet down has traded one incident for a worse one. Ask whether it fails open.
+- **What does it cost you when it fails?** Ask which of its failures are open and which are closed, and whether anybody has fired each one on purpose. A cost control that takes the fleet down by accident has traded one incident for a worse one; one that refuses on purpose while its policy plane is unreachable is a decision you should recognise as yours.
 
 ## What people ask about AI cost control
 

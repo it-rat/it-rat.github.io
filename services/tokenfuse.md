@@ -2,7 +2,7 @@
 
 # TokenFuse, the money plane
 
-> A drop-in gateway that gives every agent run a budget and answers 402 the moment it is crossed. Speaks Anthropic and OpenAI, validated on Hetzner, AWS and GCP.
+> A drop-in gateway that gives every agent run a budget and answers 402 when it is crossed. Anthropic and OpenAI wires, proven on three clouds and on premises.
 
 Observability tells you about the fire in next month's bill. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.
 
@@ -26,7 +26,7 @@ Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls u
 
 Accounting is reserve then settle. Each call is priced before it happens, the reserve is taken, and the real cost settles afterwards; a call that would cross the cap is refused before the provider ever sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is exactly the failure mode this exists to remove.
 
-Adoption is a one-line base-URL swap, and the gateway runs in shadow mode first: it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open by design, so it never becomes the single point of failure between your agents and their provider, and the enforcement decision itself is in-process Rust, about 0.4 microseconds at p99. The thing standing between an agent and a four-digit night should not be the slow part.
+Adoption is a one-line base-URL swap, and the gateway runs in shadow mode first: it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open: a telemetry push, an event write or a control-plane call that fails never refuses a call. The one failure mode that is a choice is the policy hook, and the launchers make it for you: both ship it fail-closed, so a policy plane that cannot be reached refuses every governed call rather than waving it through. That is measured, not read off a config file: on 2026-09-17 the policy plane was stopped under a box governing two clouds and every call came back 403 in 0.3 s until it was started again. The enforcement decision itself is in-process Rust, about 0.4 microseconds at p99. The thing standing between an agent and a four-digit night should not be the slow part.
 
 ### Loop detection
 
@@ -34,11 +34,11 @@ A retrying agent looks exactly like a compromised one from the budget's side. Su
 
 ### Burn forecast
 
-Reserve-then-settle accounting prices each call before it happens, with the 2026 model price book built in. The estimate is fast and honest about being an estimate.
+Reserve-then-settle accounting prices each call before it happens, with a built-in price book (the Claude 4.5 and GPT-4o families at v1.0.2) and a deliberately high fallback rate for a model id it does not know, flagged on the response, so an unknown model is refused sooner rather than tracked never. The estimate is fast and honest about being an estimate.
 
 ### Model router
 
-Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend.
+Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend. Both ship switched off in the launchers (the router off, the cache in shadow), so that figure arrives when you turn them on, not by default.
 
 ### Cluster build: a raft-replicated ledger
 
@@ -70,7 +70,7 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 
 **Q: How this one ships**
 
-The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
+The current release is v1.0.2. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
 
 ## It stops the spend. Two neighbours stop other things.
 
@@ -85,7 +85,7 @@ Give the run a budget. Every call is priced before it happens, the reserve is ta
 It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.
 
 **Q: Do I have to rewrite my agent to use it?**
-No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. It is fail-open, so it never becomes a single point of failure.
+No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open, so a lost event or an unreachable control plane never refuses a call; what happens when the policy plane is unreachable is the deployment's choice, and both launchers ship it closed.
 
 **Q: Can it catch a retry loop before the bill does?**
 That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.

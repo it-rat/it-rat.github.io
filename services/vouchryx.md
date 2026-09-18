@@ -47,7 +47,7 @@ Every value is required except the listen address, and none has a permissive def
 
 An RFC 8693 exchange takes two signed input tokens and a DPoP proof whose public key travels in the JWS header, which is a JOSE client before it is a curl command. So the client ships with the service: `vouchryx-demo` makes the keys, performs the exchange and prints a proof.
 
-Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a call to `/v1/revoke` the same token answered 401 with `reason=BadToken`. The control run is the part worth keeping: with the delegation door shut, that same revoked token answered 200, because nothing was looking at it. 44 tests, and the repository gates that number against its own suite.
+Measured on 2026-08-27 on a clean box: a proven chain answered 200, and after a call to `/v1/revoke` the same token answered 401 with `reason=BadToken`. The control run is the part worth keeping: with the delegation door shut, that same revoked token answered 200, because nothing was looking at it. 84 tests, and the repository gates that number against its own suite.
 
 ## Proving and ending a delegation
 

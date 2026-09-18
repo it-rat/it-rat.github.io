@@ -37,7 +37,7 @@
   .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
   .prose li b{color:var(--fg)}
   /* three shapes, side by side */
-  .shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:14px;margin-top:20px}
+  .shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}
   .shape{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:20px;border-top:2px solid var(--c,var(--accent))}
   .shape .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
   .shape h3{margin-top:9px;font-size:17px}
@@ -53,6 +53,23 @@
   .tbl td:first-child{color:var(--fg)}
   .tbl td b{color:var(--accent);font-weight:650}
   .tbl .src{font-family:var(--font-m);font-size:11.5px;color:var(--faint);margin-top:10px;line-height:1.6}
+  .rig{margin-top:20px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);overflow:hidden}
+  .rig-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .rig-ctl .lbl{font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:2px}
+  .rig-ctl .sep{width:1px;height:20px;background:var(--line);margin:0 6px}
+  .rig-b{appearance:none;cursor:pointer;font:inherit;font-size:13px;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 13px;transition:color .16s,border-color .16s,background .16s}
+  .rig-b:hover{color:var(--fg);border-color:var(--line-2)}
+  .rig-b[aria-pressed="true"]{color:#0b0d12;background:var(--accent);border-color:var(--accent);font-weight:600}
+  .rig-b.amb[aria-pressed="true"]{background:#F4B23E;border-color:#F4B23E}
+  .rig-stage{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .rig svg{display:block;width:100%;min-width:640px;height:auto}
+  .rig-cap{padding:13px 16px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px;line-height:1.6;min-height:44px}
+  .rig-cap b{color:var(--fg)}
+  .sv-lbl{font-family:var(--font-m);font-size:11px;fill:#93a8c4;letter-spacing:.04em}
+  .sv-ttl{font-size:13px;font-weight:600;fill:#e8ecf3}
+  .sv-mono{font-family:var(--font-m);font-size:12px;font-weight:600}
+  .sv-box{fill:#12151c;stroke:#252a35}
+  .sv-wire{stroke:#252a35;stroke-width:2;fill:none}
   .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
     background:var(--panel);padding:18px 20px;margin-top:22px;max-width:76ch}
   .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -64,7 +81,7 @@
   .evals b{color:var(--fg)}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What runs where, and what it costs","name":"What runs where and what it costs","url":"https://it-rat.com/what-runs-where.html","description":"One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.","inLanguage":"en","datePublished":"2026-08-04","dateModified":"2026-08-04","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/what-runs-where.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"What runs where and what it costs","item":"https://it-rat.com/what-runs-where.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need Kubernetes to run this?","acceptedAnswer":{"@type":"Answer","text":"No, and most teams should not start there. The same binaries, ports and wiring run as containers on one machine you own, with the gateway published to loopback by default so an install does not quietly create an internet-facing enforcement plane. A cluster buys node failure tolerance and matches an estate that already runs Kubernetes. It also costs you a shared-storage decision the single machine hides completely."}},{"@type":"Question","name":"Why does the shared storage line differ so much between clouds?","acceptedAnswer":{"@type":"Answer","text":"Because the planes couple through a shared NDJSON event log rather than through APIs, so on Kubernetes that directory needs a ReadWriteMany volume. For the same 5 GiB the published rates are EUR 0 in-cluster on Hetzner, USD 1.80 a month on EFS, and USD 194.56 a month on Filestore, which bills a whole TiB. Nothing about the software changes. One provider sells the capacity you use and the other sells a minimum you must buy, and a 5 GiB requirement lands inside a 1 TiB block."}},{"@type":"Question","name":"Is one cloud faster than the other for this?","acceptedAnswer":{"@type":"Answer","text":"Not measurably. On matched silicon the policy plane reached 2,449 decisions per second on AWS and 2,479 on GCP, which is 1.2% apart, with p50 latencies of 3.21 ms and 3.22 ms. An earlier comparison of ours put AWS 62% ahead, and that was a chip generation rather than a cloud: the AWS run used a newer instance family because the equivalent GCP part was quota-blocked. If a benchmark makes two clouds look different, check the instance families first."}},{"@type":"Question","name":"Does throughput really collapse past 64 concurrent callers?","acceptedAnswer":{"@type":"Answer","text":"No, and we published that it did before measuring it properly. Neither dedicated-core cloud loses throughput out to 256 concurrent on either chip generation; only latency grows. The collapse was a property of a shared-vCPU instance, which is to say a noisy neighbour rather than the software. The correction is published alongside the original claim."}},{"@type":"Question","name":"How much storage does the audit trail actually need?","acceptedAnswer":{"@type":"Answer","text":"About 426 bytes per governed decision, measured at 427.6 and 426.4 on two different clouds from the same binary, because every decision is audited rather than sampled. At a thousand governed calls a minute that is roughly 614 MB a day. It is the line worth planning against, because it is the only one that grows without anybody deciding to grow it."}},{"@type":"Question","name":"What does a cluster cost per hour rather than per month?","acceptedAnswer":{"@type":"Answer","text":"About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What runs where, and what it costs","name":"What runs where and what it costs","url":"https://it-rat.com/what-runs-where.html","description":"One machine, a five-node cluster, or three clouds: the measured shapes of this stack, what each burns per hour, and the storage line that changes by 108x.","inLanguage":"en","datePublished":"2026-08-04","dateModified":"2026-08-04","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/what-runs-where.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"What runs where and what it costs","item":"https://it-rat.com/what-runs-where.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need Kubernetes to run this?","acceptedAnswer":{"@type":"Answer","text":"No, and most teams should not start there. The same binaries, ports and wiring run as containers on one machine you own, with the gateway published to loopback by default so an install does not quietly create an internet-facing enforcement plane. A cluster buys node failure tolerance and matches an estate that already runs Kubernetes. It also costs you a shared-storage decision the single machine hides completely."}},{"@type":"Question","name":"Why does the shared storage line differ so much between clouds?","acceptedAnswer":{"@type":"Answer","text":"Because the planes couple through a shared NDJSON event log rather than through APIs, so on Kubernetes that directory needs a ReadWriteMany volume. For the same 5 GiB the published rates are EUR 0 in-cluster on Hetzner, USD 1.80 a month on EFS, and USD 194.56 a month on Filestore, which bills a whole TiB. Nothing about the software changes. One provider sells the capacity you use and the other sells a minimum you must buy, and a 5 GiB requirement lands inside a 1 TiB block."}},{"@type":"Question","name":"Is one cloud faster than the other for this?","acceptedAnswer":{"@type":"Answer","text":"Not measurably. On matched silicon the policy plane reached 2,449 decisions per second on AWS and 2,479 on GCP, which is 1.2% apart, with p50 latencies of 3.21 ms and 3.22 ms. An earlier comparison of ours put AWS 62% ahead, and that was a chip generation rather than a cloud: the AWS run used a newer instance family because the equivalent GCP part was quota-blocked. If a benchmark makes two clouds look different, check the instance families first."}},{"@type":"Question","name":"Does throughput really collapse past 64 concurrent callers?","acceptedAnswer":{"@type":"Answer","text":"No, and we published that it did before measuring it properly. Neither dedicated-core cloud loses throughput out to 256 concurrent on either chip generation; only latency grows. The collapse was a property of a shared-vCPU instance, which is to say a noisy neighbour rather than the software. The correction is published alongside the original claim."}},{"@type":"Question","name":"How much storage does the audit trail actually need?","acceptedAnswer":{"@type":"Answer","text":"About 426 bytes per governed decision, measured at 427.6 and 426.4 on two different clouds from the same binary, because every decision is audited rather than sampled. At a thousand governed calls a minute that is roughly 614 MB a day. It is the line worth planning against, because it is the only one that grows without anybody deciding to grow it."}},{"@type":"Question","name":"What does a cluster cost per hour rather than per month?","acceptedAnswer":{"@type":"Answer","text":"About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575."}},{"@type":"Question","name":"Can the stack sit in my own building while the agents run in a cloud?","acceptedAnswer":{"@type":"Answer","text":"Yes, and it has been measured that way. On 2026-09-17 the single-machine installer went onto a small Debian box behind a home router on carrier-grade NAT, with the gateway published only on a tunnel address; two clusters, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real provider, 23 and 29 ms away. Nothing from the internet reaches such a box; the agents come in over the tunnel. The same day a failure matrix of sixteen cases ran on it, and the reboot found the one thing the installer now fixes for you: on a tunnel address, Docker has to start after the tunnel."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -85,14 +102,14 @@
   <div class="wrap">
     <div class="kicker rv">a guide &#183; what runs where</div>
     <h1 class="rv d1">What runs where, and what it costs.</h1>
-    <p class="lede rv d2">Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the three shapes this stack runs in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026. Six clusters, all destroyed afterwards. <b>Two of the findings contradicted things we had already published</b>, and both are below with the correction attached.</p>
+    <p class="lede rv d2">Governance software is bought on its promises and lived with on its bill. So this page is the operational half: the four shapes this stack has been measured in, what each one burns, and the numbers that came out of putting the same manifests on Hetzner, AWS and GCP between 25 and 27 July 2026, then the whole stack on a box behind a home router on 2026-09-17 with the agents in two clouds at once. Six clusters and two more clouds, all destroyed afterwards. <b>Two of the findings contradicted things we had already published</b>, and both are below with the correction attached.</p>
   </div>
 </section>
 
 <section class="sec" style="padding-top:10px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">three shapes</div>
+      <div class="kicker">four shapes</div>
       <h2>Pick by blast radius, not by fashion.</h2>
       <p class="lede">The same binaries, the same ports, the same wiring. What changes is who can reach them and what happens when a machine dies.</p>
     </div>
@@ -118,6 +135,111 @@
         <p>You are paying for managed everything, and the bill reflects it.</p>
         <div class="cost">about 10x the compute<span>USD 1,291 to 1,487 / month</span></div>
       </div>
+      <div class="shape" style="--c:#B48CFF">
+        <div class="n">shape four</div>
+        <h3>A box at your premises, the agents in the clouds</h3>
+        <p>The whole stack on a small machine behind your own router, carrier-grade NAT and all, with the gateway published only on a tunnel address. Nothing from the internet reaches the box; the agents come in over the tunnel, from wherever they run. Measured on 2026-09-17: the installer in 61 seconds on Debian 13 with Docker already present, direct WireGuard paths of 23 and 29 ms from AWS and GCP, both clouds refused on their eighteenth call, one cloud frozen by one policy while the other kept running.</p>
+        <p>The failure matrix below ran on this shape. Sixteen cases, and the reboot is the one to read first.</p>
+        <div class="cost">a mini PC you own<span>plus about USD 0.10 an hour for two small cloud VMs while they exist; the whole day cost USD 0.18</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">shape four, replayed</div>
+      <h2>One box at home, two clouds, and the day we tried to break it.</h2>
+      <p class="lede">This is a replay, and it says so: the shapes and the numbers are the 2026-09-17 record, the timing is compressed. A small Debian box behind carrier-grade NAT holds the whole stack, its gateway on a tunnel address only. Two clusters, one in AWS and one in GCP, join the tunnel and run their agents through it to the real provider. Pick what happens.</p>
+    </div>
+
+    <div class="rig rv" id="ap-rig">
+      <div class="rig-ctl">
+        <span class="lbl">the day</span>
+        <button class="rig-b" type="button" data-scene="both" aria-pressed="true">Both clouds run</button>
+        <button class="rig-b" type="button" data-scene="freeze" aria-pressed="false">Freeze one cloud</button>
+        <button class="rig-b amb" type="button" data-scene="pdp" aria-pressed="false">Policy plane down</button>
+        <button class="rig-b amb" type="button" data-scene="reboot" aria-pressed="false">The box reboots</button>
+        <button class="rig-b amb" type="button" data-scene="node" aria-pressed="false">A node dies</button>
+        <span class="spacer" style="flex:1"></span>
+        <button class="rig-b" type="button" id="ap-replay">Replay</button>
+      </div>
+
+      <div class="rig-stage"><svg viewBox="0 0 960 372" role="img" aria-label="Two cloud clusters calling through a tunnel into a box behind a home router, where a gateway, a policy plane, a notifier and a record decide before the call reaches the model provider">
+        <!-- the premises boundary -->
+        <rect x="446" y="22" width="286" height="318" rx="16" fill="none" stroke="#252a35" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <text class="sv-lbl" x="589" y="44" text-anchor="middle" fill="#5c6b82">your premises · carrier-grade NAT · nothing inbound</text>
+
+        <!-- the tunnel corridor -->
+        <path class="sv-wire" d="M206 106 C 320 106, 340 150, 470 150"/>
+        <path class="sv-wire" d="M206 246 C 320 246, 340 194, 470 194"/>
+        <text class="sv-lbl" x="322" y="96" text-anchor="middle" fill="#5c6b82">tunnel · 23 ms</text>
+        <text class="sv-lbl" x="322" y="270" text-anchor="middle" fill="#5c6b82">tunnel · 29 ms</text>
+        <text class="sv-lbl" x="322" y="180" text-anchor="middle" fill="#5c6b82">WireGuard mesh, ephemeral nodes</text>
+
+        <!-- the box to the provider -->
+        <path class="sv-wire" d="M700 172 H 786"/>
+
+        <!-- AWS cluster -->
+        <g id="ap-aws">
+          <rect class="sv-box" x="46" y="70" width="160" height="72" rx="12"/>
+          <text class="sv-ttl" x="62" y="96">AWS · Frankfurt</text>
+          <text class="sv-lbl" x="62" y="114" fill="#5c6b82">t3.medium · k3s · one Job</text>
+          <text class="sv-mono" id="ap-aws-n" x="62" y="132" fill="#6C7BFF">calls 0</text>
+        </g>
+        <!-- GCP cluster -->
+        <g id="ap-gcp">
+          <rect class="sv-box" x="46" y="210" width="160" height="72" rx="12"/>
+          <text class="sv-ttl" x="62" y="236">GCP · Frankfurt</text>
+          <text class="sv-lbl" x="62" y="254" fill="#5c6b82">e2-medium · k3s · one Job</text>
+          <text class="sv-mono" id="ap-gcp-n" x="62" y="272" fill="#34D399">calls 0</text>
+        </g>
+
+        <!-- the box -->
+        <g id="ap-box">
+          <rect class="sv-box" x="470" y="66" width="230" height="238" rx="14"/>
+          <text class="sv-ttl" x="486" y="90">the box</text>
+          <text class="sv-lbl" x="486" y="106" fill="#5c6b82">Debian 13 · one installer</text>
+
+          <!-- the gateway gate -->
+          <g id="ap-gate">
+            <rect id="ap-gate-body" x="486" y="136" width="52" height="70" rx="12" fill="#12151c" stroke="#F4B23E" stroke-width="2"/>
+            <path id="ap-gate-bar" d="M512 150 V 192" stroke="#F4B23E" stroke-width="4" stroke-linecap="round"/>
+            <text class="sv-lbl" x="512" y="224" text-anchor="middle" fill="#F4B23E">gateway</text>
+            <text class="sv-lbl" id="ap-gate-sub" x="512" y="240" text-anchor="middle" fill="#5c6b82">budgets · keys</text>
+          </g>
+
+          <!-- the planes beside it -->
+          <g id="ap-pdp"><rect x="548" y="126" width="146" height="30" rx="8" fill="#12151c" stroke="#2DD4BF"/><text class="sv-lbl" x="621" y="145" text-anchor="middle" fill="#2DD4BF">policy · asked</text></g>
+          <g id="ap-ntf"><rect x="548" y="164" width="146" height="30" rx="8" fill="#12151c" stroke="#252a35"/><text class="sv-lbl" x="621" y="183" text-anchor="middle" fill="#93a8c4">notifier · mail</text></g>
+          <g id="ap-rec"><rect x="548" y="202" width="146" height="30" rx="8" fill="#12151c" stroke="#252a35"/><text class="sv-lbl" x="621" y="221" text-anchor="middle" fill="#93a8c4">record · sealed</text></g>
+          <g id="ap-crew"><rect x="486" y="256" width="198" height="30" rx="8" fill="#12151c" stroke="#252a35"/><text class="sv-lbl" x="585" y="275" text-anchor="middle" fill="#93a8c4">FinOps crew · its own door</text></g>
+
+          <text class="sv-lbl" id="ap-box-state" x="585" y="326" text-anchor="middle" fill="#5c6b82"></text>
+        </g>
+
+        <!-- the provider -->
+        <rect class="sv-box" x="786" y="140" width="128" height="64" rx="12"/>
+        <text class="sv-ttl" x="850" y="166" text-anchor="middle">the provider</text>
+        <text class="sv-lbl" x="850" y="186" text-anchor="middle" fill="#5c6b82">the real API</text>
+
+        <!-- the verdict badge -->
+        <g id="ap-verdict" opacity="0">
+          <rect id="ap-v-box" x="440" y="8" width="0" height="26" rx="13" fill="#12151c" stroke="#F4B23E"/>
+          <text class="sv-mono" id="ap-v-text" x="0" y="26" text-anchor="middle" fill="#F4B23E"></text>
+        </g>
+
+        <!-- the event log strip -->
+        <text class="sv-lbl" x="46" y="336" fill="#5c6b82">event log, one line per event, chained</text>
+        <rect x="46" y="346" width="386" height="10" rx="5" fill="#12151c" stroke="#252a35"/>
+        <g id="ap-log"></g>
+
+        <!-- the packets -->
+        <circle id="ap-p1" cx="206" cy="106" r="6" fill="#6C7BFF" opacity="0"/>
+        <circle id="ap-p2" cx="206" cy="246" r="6" fill="#34D399" opacity="0"/>
+      </svg></div>
+
+      <div class="rig-cap" id="ap-cap"></div>
     </div>
   </div>
 </section>
@@ -217,6 +339,7 @@
 
     <div class="prose rv">
       <p>The hourly figure is the one that matters in practice, because a cluster like this is usually created for a purpose rather than left standing. On AWS a six hour working session is about USD 13, forgetting it overnight is about USD 26, and forgetting it for a month is about USD 1,575.</p>
+      <p>The fourth shape, for comparison: the box is yours and costs nothing metered. On 2026-09-17 the two small VMs standing in for the customer's clusters ran 63 minutes each, about USD 0.11 together, and the real model calls came to USD 0.066, of which one call by the FinOps crew was USD 0.058. The whole run, with the failure matrix, was about USD 0.18, and both accounts read back empty by API before the day ended.</p>
       <p>Two smaller findings from the same exercise, both of which invert the intuition:</p>
       <ul>
         <li><b>GCP is the cheaper hyperscaler here</b>, by about 13% on compute, and the cheaper machine is the AMD one. On AWS the AMD part cost more than the Intel part; on GCP the AMD part is cheaper. The architecture-faithful choice is the cheap one on one cloud and the dear one on the other.</li>
@@ -251,7 +374,7 @@
         <li><b>How many bytes of audit per governed action?</b> Multiply by your call rate before you agree to retention.</li>
         <li><b>What does it cost per hour, not per month?</b> Clusters get created for an afternoon and forgotten for a week.</li>
         <li><b>Was the shared-vCPU instance the thing you measured?</b> A collapse under concurrency is a neighbour until proven otherwise.</li>
-        <li><b>Can you destroy it and prove the account is empty?</b> If teardown is not verified, the running cost is open-ended.</li>
+        <li><b>Can you destroy it and prove the account is empty?</b> If teardown is not verified, the running cost is open-ended. The 2026-09-17 run ended that way: instances, disks, addresses and volumes listed by direct API query on both clouds, all empty, before the report was written.</li>
       </ol>
     </div>
   </div>
@@ -299,6 +422,10 @@
         <summary>What does a cluster cost per hour rather than per month?</summary>
         <div class="a"><p>About EUR 0.20 an hour on Hetzner, USD 2.16 on AWS and USD 1.91 on GCP for five nodes at 8 vCPU and 16 GB. The hourly figure is the one that matters, because clusters get created for an afternoon and forgotten: on AWS a six hour session is about USD 13 and leaving it up for a month is about USD 1,575.</p></div>
       </details>
+      <details>
+        <summary>Can the stack sit in my own building while the agents run in a cloud?</summary>
+        <div class="a"><p>Yes, and it has been measured that way. On 2026-09-17 the single-machine installer went onto a small Debian box behind a home router on carrier-grade NAT, with the gateway published only on a tunnel address; two clusters, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real provider, 23 and 29 ms away. Nothing from the internet reaches such a box; the agents come in over the tunnel. The same day a failure matrix of sixteen cases ran on it, and the reboot found the one thing the installer now fixes for you: on a tunnel address, Docker has to start after the tunnel.</p></div>
+      </details>
     </div>
   </div>
 </section>
@@ -339,6 +466,209 @@
   </div>
 </footer>
 
+<script>
+/* The appliance replay. One timeline per scene, a pure function of t, so a
+   replay is identical and a reduced-motion visitor gets the end state. The
+   numbers are the 2026-09-17 record; the timing is compressed. */
+(function () {
+  "use strict";
+  var rig = document.getElementById("ap-rig");
+  if (!rig) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var svg = rig.querySelector("svg");
+  var wires = svg.querySelectorAll("path.sv-wire");
+  var wAws = wires[0], wGcp = wires[1];
+  var p1 = $("ap-p1"), p2 = $("ap-p2");
+  var awsN = $("ap-aws-n"), gcpN = $("ap-gcp-n");
+  var awsG = $("ap-aws"), gcpG = $("ap-gcp"), box = $("ap-box");
+  var gateBody = $("ap-gate-body"), gateBar = $("ap-gate-bar"), gateSub = $("ap-gate-sub");
+  var pdp = $("ap-pdp"), pdpBox = pdp.querySelector("rect"), pdpTxt = pdp.querySelector("text");
+  var ntfBox = $("ap-ntf").querySelector("rect"), recBox = $("ap-rec").querySelector("rect");
+  var boxState = $("ap-box-state");
+  var verdict = $("ap-verdict"), vbox = $("ap-v-box"), vtext = $("ap-v-text");
+  var log = $("ap-log"), cap = $("ap-cap");
+
+  var MNT = "#2DD4BF", AMB = "#F4B23E", ROSE = "#E4626F", VIO = "#B48CFF", BLU = "#6C7BFF", GRN = "#34D399", DIM = "#252a35", FAINT = "#5c6b82";
+  var GX = 486, GY1 = 150, GY2 = 194, PX = 786, PY = 172;
+  var CALL = 0.36;
+
+  var SCENES = {
+    both:   { dur: 7.2,
+      cap: "<b>Seventeen calls each, then a 402 on the eighteenth, on both clouds inside one minute.</b> Every call was priced, asked of the policy plane and forwarded; the eighteenth would have crossed the run's 0.0006 USD budget and never reached the provider. Six breaker events landed on one log, interleaved by timestamp, which is the proof that one box governed both clouds at once." },
+    freeze: { dur: 6.8,
+      cap: "<b>One policy, one cloud.</b> A single PUT froze the GCP path (deny above a millionth of a dollar) and the GCP agent was refused from its first call while the AWS agent ran seventeen in the same minute; three policy denials on the log, then a DELETE, and GCP was back on its next call." },
+    pdp:    { dur: 6.6,
+      cap: "<b>The policy plane stopped, and the box failed closed.</b> Every call from both clouds was refused in 0.3 s, none reached the provider, one dependency event per call, and the first call after the restart went through. This is the launchers' setting rather than the binary's default, and it was fired on purpose." },
+    reboot: { dur: 7.6,
+      cap: "<b>The first reboot took the door down and nothing brought it back.</b> Docker bound the port before the tunnel held the address, the failed start was never retried, and 44 calls were refused in two and a half minutes. Ordering Docker after the tunnel fixed it: the second reboot brought the gateway back on its own in 40 s, and the installer writes both settings now." },
+    node:   { dur: 6.6,
+      cap: "<b>A node died and nobody noticed.</b> The AWS cluster was killed mid-run; the run froze at step seven and no plane said anything at five seconds or at sixty. Absence is a gap the run found rather than a failure it held. A stalled-run detector exists on main since the next day; the released images do not have it yet." }
+  };
+
+  var scene = "both", t0 = 0, raf = 0;
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var lenAws = wAws.getTotalLength(), lenGcp = wGcp.getTotalLength();
+
+  function onWire(w, len, f) { var p = w.getPointAtLength(len * Math.max(0, Math.min(1, f))); return { x: p.x, y: p.y }; }
+  function lerp(a, b, f) { return a + (b - a) * Math.max(0, Math.min(1, f)); }
+
+  /* what the gate answers a given agent at a given moment, per scene */
+  function answer(sc, agent, k, t) {
+    if (sc === "both") return k >= 18 ? "402" : "200";
+    if (sc === "freeze") { if (agent === "gcp") return t < 4.6 ? "403p" : "200"; return "200"; }
+    if (sc === "pdp") return (t > 0.5 && t < 4.2) ? "403c" : "200";
+    if (sc === "reboot") { if (t > 0.6 && t < 4.6) return "000"; if (t > 4.6 && t < 5.4) return "000"; return "200"; }
+    if (sc === "node") { if (agent === "aws" && k >= 8) return "dead"; return "200"; }
+    return "200";
+  }
+
+  /* the state of one agent at t: how many calls are done, where its packet is, what colour */
+  function agentAt(sc, agent, t) {
+    var offset = agent === "aws" ? 0.2 : 0.38, w = agent === "aws" ? wAws : wGcp, len = agent === "aws" ? lenAws : lenGcp;
+    var gy = agent === "aws" ? GY1 : GY2, base = agent === "aws" ? BLU : GRN;
+    var out = { calls: 0, pos: null, color: base, verdict: null, held: false };
+    if (t < offset) return out;
+    var k = Math.floor((t - offset) / CALL) + 1, f = ((t - offset) % CALL) / CALL;
+    var maxCalls = sc === "both" ? 18 : 99;
+    if (k > maxCalls) { out.calls = 18; return finish(out, sc, agent, t); }
+    var a = answer(sc, agent, k, t);
+    if (a === "dead") { out.calls = 7; out.held = true; return out; }
+    out.calls = k - 1 + (f > 0.98 ? 1 : 0);
+    if (a === "200") {
+      if (f < 0.3) out.pos = onWire(w, len, f / 0.3);
+      else if (f < 0.55) { out.pos = { x: lerp(GX + 52, PX, (f - 0.3) / 0.25), y: lerp(gy, PY, (f - 0.3) / 0.25) }; out.color = MNT; }
+      else if (f < 0.8) { out.pos = { x: lerp(PX, GX + 52, (f - 0.55) / 0.25), y: lerp(PY, gy, (f - 0.55) / 0.25) }; out.color = MNT; }
+      else { out.pos = onWire(w, len, 1 - (f - 0.8) / 0.2); out.color = MNT; }
+      return out;
+    }
+    if (a === "000") {
+      if (f < 0.3) out.pos = onWire(w, len, f / 0.3);
+      else if (f < 0.5) { out.pos = onWire(w, len, 1); out.color = FAINT; out.verdict = "000 · no answer"; }
+      else { out.pos = null; }
+      return out;
+    }
+    /* a refusal at the gate: 402, a policy 403, or a fail-closed 403 */
+    var col = a === "402" ? ROSE : a === "403p" ? VIO : AMB;
+    if (f < 0.3) out.pos = onWire(w, len, f / 0.3);
+    else if (f < 0.5) { out.pos = onWire(w, len, 1); out.color = col; out.verdict = a; }
+    else { out.pos = onWire(w, len, 1 - (f - 0.5) / 0.5); out.color = col; }
+    return out;
+  }
+  function finish(out, sc, agent, t) { out.pos = null; return out; }
+
+  /* the event log: one dim dot per allowed call, a coloured one per refusal */
+  function drawLog(events) {
+    while (log.firstChild) log.removeChild(log.firstChild);
+    var x = 52;
+    events.forEach(function (e) {
+      if (x > 424) return;
+      var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("cx", x); c.setAttribute("cy", 351); c.setAttribute("r", e === "allow" ? 2.2 : 3.4);
+      c.setAttribute("fill", e === "allow" ? "#3a4252" : e === "402" ? ROSE : e === "403p" ? VIO : e === "403c" ? AMB : FAINT);
+      log.appendChild(c);
+      x += e === "allow" ? 8 : 10;
+    });
+  }
+
+  function logAt(sc, t) {
+    var ev = [];
+    ["aws", "gcp"].forEach(function (agent) {
+      var offset = agent === "aws" ? 0.2 : 0.38;
+      var n = Math.floor((t - offset) / CALL);
+      for (var k = 1; k <= n; k++) {
+        var tk = offset + (k - 1) * CALL + CALL * 0.5;
+        var a = answer(sc, agent, k, tk);
+        if (sc === "both" && k > 18) break;
+        if (sc === "node" && agent === "aws" && k >= 8) break;
+        if (a === "200") ev.push("allow");
+        else if (a === "000") continue;
+        else ev.push(a);
+      }
+    });
+    return ev;
+  }
+
+  function setBadge(text, col) {
+    if (!text) { verdict.setAttribute("opacity", "0"); return; }
+    verdict.setAttribute("opacity", "1");
+    vtext.textContent = text; vtext.setAttribute("fill", col); vbox.setAttribute("stroke", col);
+    var w = Math.max(90, text.length * 7.4 + 26);
+    vbox.setAttribute("width", w); vbox.setAttribute("x", 589 - w / 2); vtext.setAttribute("x", 589);
+  }
+
+  function paint(sc, t) {
+    var A = agentAt(sc, "aws", t), G = agentAt(sc, "gcp", t);
+    [[p1, A], [p2, G]].forEach(function (pair) {
+      var el = pair[0], s = pair[1];
+      if (!s.pos) { el.setAttribute("opacity", "0"); return; }
+      el.setAttribute("opacity", "1"); el.setAttribute("cx", s.pos.x); el.setAttribute("cy", s.pos.y); el.setAttribute("fill", s.color);
+    });
+    awsN.textContent = "calls " + A.calls + (sc === "both" && A.calls >= 18 ? " · 402" : "");
+    gcpN.textContent = "calls " + G.calls + (sc === "both" && G.calls >= 18 ? " · 402" : "");
+    awsG.setAttribute("opacity", A.held ? ".3" : "1");
+    gcpG.setAttribute("opacity", "1");
+    drawLog(logAt(sc, t));
+
+    /* the planes and the box, per scene */
+    var pdpDown = sc === "pdp" && t > 0.5 && t < 4.2;
+    pdpBox.setAttribute("stroke", pdpDown ? ROSE : MNT); pdpTxt.setAttribute("fill", pdpDown ? ROSE : MNT);
+    pdpTxt.textContent = pdpDown ? "policy · stopped" : (sc === "pdp" && t >= 4.2 ? "policy · back" : "policy · asked");
+    var rebooting = sc === "reboot" && ((t > 0.6 && t < 1.4) || (t > 4.6 && t < 5.4));
+    var doorDown = sc === "reboot" && t >= 1.4 && t < 4.6;
+    box.setAttribute("opacity", rebooting ? ".28" : "1");
+    var gcol = (doorDown || pdpDown) ? ROSE : (sc === "reboot" && t >= 5.4 ? MNT : AMB);
+    gateBody.setAttribute("stroke", gcol); gateBar.setAttribute("stroke", gcol);
+    gateSub.textContent = doorDown ? "Exited (128)" : pdpDown ? "refusing, fail-closed" : (sc === "reboot" && t >= 5.4 ? "back in 40 s, on its own" : "budgets · keys");
+    boxState.textContent = rebooting ? "rebooting" : doorDown ? "the door is down and nothing retries it" : (sc === "reboot" && t >= 5.4 ? "reboot two, after the fix" : (sc === "node" && t > 3.2 ? "the box has nothing to say" : ""));
+    boxState.setAttribute("fill", doorDown ? ROSE : FAINT);
+    ntfBox.setAttribute("stroke", (A.verdict || G.verdict) && !rebooting ? "#93a8c4" : DIM);
+    recBox.setAttribute("stroke", t > 1.2 && !rebooting ? "#93a8c4" : DIM);
+
+    /* the badge */
+    var v = A.verdict || G.verdict, text = null, col = AMB;
+    if (sc === "freeze") { if (t < 0.9) { text = "PUT /v1/policies/freeze-gcp"; col = VIO; } else if (t > 4.6 && t < 5.4) { text = "DELETE freeze-gcp"; col = VIO; } }
+    if (sc === "reboot" && t > 4.0 && t < 4.6) { text = "fix: Docker after the tunnel · reboot two"; col = MNT; }
+    if (sc === "node" && t > 4.6) { text = "on main: run_stalled after 5 min of silence"; col = MNT; }
+    if (!text && v) {
+      if (v === "402") { text = "402 budget_exceeded · call 18"; col = ROSE; }
+      else if (v === "403p") { text = "403 wardryx=deny · policy"; col = VIO; }
+      else if (v === "403c") { text = "403 wardryx unreachable · fail-closed · 0.3 s"; col = AMB; }
+      else if (v === "000 · no answer") { text = "000 · the door did not answer"; col = FAINT; }
+    }
+    setBadge(text, col);
+  }
+
+  function frame(now) {
+    if (!t0) t0 = now;
+    var t = (now - t0) / 1000, d = SCENES[scene].dur;
+    paint(scene, Math.min(t, d));
+    if (t < d) raf = requestAnimationFrame(frame);
+  }
+  function play() {
+    cancelAnimationFrame(raf); t0 = 0;
+    cap.innerHTML = SCENES[scene].cap;
+    if (reduce) { paint(scene, SCENES[scene].dur); return; }
+    raf = requestAnimationFrame(frame);
+  }
+  [].forEach.call(rig.querySelectorAll("[data-scene]"), function (b) {
+    b.addEventListener("click", function () {
+      scene = b.dataset.scene;
+      [].forEach.call(rig.querySelectorAll("[data-scene]"), function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+      play();
+    });
+  });
+  $("ap-replay").addEventListener("click", play);
+
+  /* start when it scrolls into view, once; a page that opens above it should not run it unseen */
+  var started = false;
+  function start() { if (started) return; started = true; play(); }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { start(); io.disconnect(); } }); }, { threshold: 0.35 });
+    io.observe(rig);
+    setTimeout(start, 6000);
+  } else { start(); }
+})();
+</script>
 <script src="assets/site.js?v=e13"></script>
 <script src="assets/sheet.js?v=e06"></script>
 <script src="assets/ambient.js"></script>
