@@ -100,7 +100,7 @@ There is a fourth worth naming that is not a number at all. Pointed at real obje
 
 This list is deliberately visible rather than tidy, and it is the section worth reading first if you are evaluating rather than browsing.
 
-- **No machine has ever died, only processes.** Everything about durability is established against process death, and power loss is a harsher test that has not been run. The nearest thing so far: a box was rebooted twice under load on 2026-09-17, and the record's chain and cursor survived both, which is a reboot, not a power cut.
+- **One machine has lost power, once.** Everything else about durability is established against process death. On 2026-09-23 a small box running the single-machine install had its plug pulled with two agents calling: it came back by itself, every container restarted, the record's packs from before and after the cut both verified, and no event line was torn. One cut on one box is a data point, not a claim about hardware in general.
 
 - **No external audit of the cryptographic layer.** The primitives match their published vectors and two independent implementations of the verifier agree, which is a different and weaker claim than somebody outside this project having reviewed it.
 
@@ -148,7 +148,7 @@ Process-kill durability across three filesystems, policy-plane throughput on liv
 Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108. All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.
 
 **Q: What has not been established yet?**
-No machine has ever died, only processes, so durability is a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
+Power has been pulled from a running machine once, on one small box, so durability is still mainly a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
 
 **Q: Why publish the things that went wrong?**
 Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 78 entries and 28 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.
