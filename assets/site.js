@@ -34,6 +34,7 @@ const STACK = [
   {id:"vouchryx",  name:"Vouchryx",   plane:"delegation",cat:"guardrails", color:"#8B9DFF", what:"A delegation an agent can prove it holds, and a person can end", href:"services/vouchryx.html"},
   {id:"qryx",      name:"Qryx",       plane:"crypto",    cat:"proof",      color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   cat:"proof",      color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
+  {id:"typryx",    name:"Typryx",     plane:"typed answers", cat:"proof",  color:"#60A5FA", what:"A typed answer with a probability, never a guess", href:"services/typryx.html", note:"optional add-on"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  cat:"proof",      color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},
   {id:"trailryx",  name:"Trailryx",   plane:"the record",cat:"proof",      color:"#E4626F", what:"A record nobody can quietly change or shorten",   href:"services/trailryx.html"},
   {id:"heraldyx",  name:"Heraldyx",   plane:"alerts",    cat:"ground",     color:"#5BC8F5", what:"The box writes to you, with a link and never a button", href:"services/heraldyx.html"},

@@ -161,6 +161,19 @@ FAQ = {
   "<p>Yes. Budgets, passports and policies are Terraform resources, so they get pull requests, plans and diffs, and an edit made out of band shows up on the next plan instead of quietly persisting.</p>"),
 ]),
 
+"services/typryx.html": ("common questions", "A typed answer, and what it does and does not do", [
+ ("Is typryx required to run the rest of the stack?",
+  "<p>No. It is an optional add-on, and every other service keeps its current path unchanged when it is absent. Nothing in this repository or a planned consumer is built to depend on it.</p>"),
+ ("What leaves the box when I send it a state?",
+  "<p>Only the fields the template's own <span class=\"mono\">fields</span> list names, held by the type system rather than a promise: <span class=\"mono\">internal/backend.Backend.Ask</span> takes a <span class=\"mono\">template.Egress</span>, a type constructible only inside the template package. Measured on a live run: a state carrying <span class=\"mono\">user_email</span> and, separately, <span class=\"mono\">customer_iban</span>, neither reached the backend or the record.</p>"),
+ ("Can a probability block anything?",
+  "<p>Not here, and not in a consumer. A probability is a signal a policy can threshold; the planned Wardryx rule may turn one into a hold, which a person releases, never a deny.</p>"),
+ ("How do I know a probability is honest?",
+  "<p>Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. <span class=\"mono\">typryx calibration</span> groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to <span class=\"mono\">/v1/outcome</span>, so calibration is measured rather than assumed.</p>"),
+ ("Does typryx need Jev to be useful?",
+  "<p>No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25.</p>"),
+]),
+
 "services/engram.html": ("common questions", "What a memory has to do that similarity search cannot", [
  ("How is this different from a vector database?",
   "<p>A vector store finds text that looks similar. It cannot tell you when a fact was true, where a belief came from, or that two beliefs disagree. Engram ships a vector index too, in-process, and adds the three answers similarity has no concept for: bitemporal validity, a <span class=\"mono\">why()</span> chain back to source episodes, and contradiction detection.</p>"),

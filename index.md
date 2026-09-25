@@ -76,6 +76,10 @@ Cryptography inventory and post-quantum risk.
 
 Cost per correctly resolved case, not per token.
 
+### Typryx
+
+A typed answer with a probability, never a guess.
+
 ### Mockryx
 
 Fire drills that prove guardrails hold.

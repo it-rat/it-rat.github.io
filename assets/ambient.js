@@ -7,6 +7,7 @@
 "use strict";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const TAU=Math.PI*2;
+function U_clamp(v,a,b){return v<a?a:v>b?b:v;}
 function rng(seed){let a=seed>>>0||1;return function(){a|=0;a=a+0x6D2B79F5|0;let x=Math.imul(a^a>>>15,1|a);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296;};}
 function dot(ctx,x,y,r,col,a){
   const g=ctx.createRadialGradient(x,y,0,x,y,r*3.2);
@@ -540,6 +541,200 @@ adversary(ctx,w,h,t){
   }
 },
 
+/* typryx - what one ask does inside the box, left to right: a state arrives
+   as five field capsules; a vertical sieve, the egress filter, lets only the
+   template's named fields (task, final_answer) through its two lit slots,
+   the rest hit the comb, turn ember and fall away, and a faint tally counts
+   them; the fields that passed converge and fan into a probability
+   distribution, cycling the three template types typryx actually has (noul,
+   2 bars; choice, 4 bars, cheap/default/hard/reasoning; score, 4 ordered
+   bars); the bars settle and the argmax locks with an outline, never a
+   backend's own claim; a small mark then drops into an append-only ledger
+   chain scrolling along the bottom. Now and then a later truth flies in from
+   the right and colours an earlier tick mint or ember: the calibration loop.
+   Very faint in a back corner: the eight measured calibration groups
+   (stated confidence, accuracy) under the "stated = actual" diagonal, the
+   same points the calibration section plots, here only as texture.
+
+   Pointer: capsules near the cursor lean toward it, as if it were the agent
+   asking; an unnamed field still cannot pass the sieve and bounces off
+   regardless. `ptr` is `{x,y}` in hero-local pixels, or null off-hero;
+   everything else here is a pure function of t.
+
+   Drawn inside one region of the hero rather than across it: the first
+   version sat behind the headline and the fact rail and could not be seen.
+
+   Written 2026-09-25. */
+typed(ctx,w,h,t,ptr){
+  /* Everything is drawn inside one region, so the motif lives where the hero
+     has room: on a wide hero the empty upper right, above the fact rail and
+     beside the headline; on a narrow one a band across the top, behind the
+     kicker and the first lines, where it stays faint. */
+  const wide=w>=900;
+  const R=wide?{x0:w*0.55,x1:w*0.97,y0:h*0.07,y1:h*0.50}
+              :{x0:w*0.04,x1:w*0.96,y0:h*0.03,y1:h*0.34};
+  const RW=R.x1-R.x0, RH=R.y1-R.y0;
+  const X=u=>R.x0+RW*u, Y=v=>R.y0+RH*v;
+  const sieveX=X(0.40), fanU=0.78, ledgerY=Y(1.0);
+  const FIELDS=[
+    {name:"task",named:true},{name:"final_answer",named:true},
+    {name:"user_email",named:false},{name:"customer_iban",named:false},{name:"api_token",named:false}
+  ];
+  const PERIOD=2.6, TRAVEL=2.2;
+  const slotY=[Y(0.34),Y(0.48)];
+  const font=(px)=>ctx.font=px+"px ui-monospace,Menlo,monospace";
+
+  /* a running tally: every unnamed capsule that has reached the comb so far */
+  let heldBack=0;
+  FIELDS.forEach((f,fi)=>{
+    if(!f.named) heldBack+=Math.max(0,Math.floor((t-TRAVEL)/PERIOD-fi*0.63)+1);
+  });
+
+  /* ---- the state: five named capsules drifting toward the sieve ---- */
+  FIELDS.forEach((f,fi)=>{
+    const ph=fi*0.63, cyc=Math.floor(t/PERIOD-ph);
+    for(let c=cyc-1;c<=cyc;c++){
+      const spawn=(c+ph)*PERIOD, age=t-spawn;
+      if(age<0||age>TRAVEL+1.0) continue;
+      const u=U_clamp(age/TRAVEL,0,1);
+      const x0=X(0.16), y0=Y(0.14+0.17*fi)+Math.sin(t*0.4+fi)*3;
+      let x=x0+(sieveX-x0)*u, y=y0;
+      /* the pointer is the agent asking: it pulls the state its way */
+      if(ptr){
+        const d=Math.hypot(x-ptr.x,y-ptr.y);
+        if(d<180&&u<0.92){ const k=(1-d/180)*0.35; x+=(ptr.x-x)*k*0.4; y+=(ptr.y-y)*k*0.4; }
+      }
+      /* however hard it pulls, a field the template does not name stops at
+         the comb: the one thing this service is for */
+      if(!f.named&&x>sieveX-8){
+        x=sieveX-8;
+        ctx.fillStyle=`rgba(${C.ember},.35)`;ctx.beginPath();ctx.arc(sieveX-2,y,2.2,0,7);ctx.fill();
+      }
+      if(age<=TRAVEL){
+        font(10);ctx.textAlign="right";
+        ctx.fillStyle=`rgba(${f.named?C.mint:C.dim},${0.30+0.08*Math.sin(t*2+fi)})`;
+        ctx.fillText(f.name,x,y+3);
+        continue;
+      }
+      const post=U_clamp(age-TRAVEL,0,1);
+      if(f.named){
+        /* through its lit slot and on to the question */
+        const sy=slotY[fi], x2=sieveX+(X(fanU-0.14)-sieveX)*post;
+        font(10);ctx.textAlign="left";
+        ctx.fillStyle=`rgba(${C.mint},${0.36*(1-post*0.7)})`;
+        ctx.fillText(f.name,x2+4,sy+3);
+      }else{
+        /* held back: turns ember and falls away from the comb */
+        const fx=sieveX-6-post*10, fy=y0+post*post*RH*0.3;
+        ctx.fillStyle=`rgba(${C.ember},${0.34*(1-post)})`;
+        ctx.beginPath();ctx.arc(fx,fy,2,0,7);ctx.fill();
+      }
+    }
+  });
+
+  /* the sieve: a comb with two lit slots, and its tally */
+  ctx.strokeStyle=`rgba(${C.dim},.24)`;ctx.lineWidth=1.3;
+  ctx.beginPath();ctx.moveTo(sieveX,Y(0.06));ctx.lineTo(sieveX,Y(0.90));ctx.stroke();
+  for(let k=0;k<9;k++){ /* comb teeth */
+    const ty=Y(0.08+k*0.1);
+    if(slotY.some(sy=>Math.abs(ty-sy)<10)) continue;
+    ctx.beginPath();ctx.moveTo(sieveX-4,ty);ctx.lineTo(sieveX,ty);ctx.stroke();
+  }
+  slotY.forEach(sy=>{
+    ctx.strokeStyle=`rgba(${C.mint},.50)`;ctx.lineWidth=2.6;
+    ctx.beginPath();ctx.moveTo(sieveX,sy-9);ctx.lineTo(sieveX,sy+9);ctx.stroke();
+  });
+  font(10);ctx.textAlign="center";ctx.fillStyle=`rgba(${C.dim},.34)`;
+  ctx.fillText("egress filter",sieveX,Y(0.0));
+  ctx.fillStyle=`rgba(${C.ember},.34)`;
+  ctx.fillText("held back "+heldBack,sieveX,Y(0.97)-6);
+
+  /* ---- the question resolving: one template type at a time ---- */
+  const TYPES=[
+    {kind:"noul",labels:["true","false"]},
+    {kind:"choice",labels:["cheap","default","hard","reasoning"]},
+    {kind:"score",labels:["1","2","3","4"]}
+  ];
+  const cycle=6.0, cy=Math.floor(t/cycle), cp=(t%cycle)/cycle;
+  const type=TYPES[cy%TYPES.length], n=type.labels.length;
+  const rr=rng(cy*97+11);
+  const raw=[]; let sum=0;
+  for(let i=0;i<n;i++){ const v=0.4+rr()*1.6; raw.push(v); sum+=Math.exp(v); }
+  const probs=raw.map(v=>Math.exp(v)/sum);
+  const winner=probs.indexOf(Math.max(...probs));
+  const settle=U_clamp(cp/0.5,0,1);
+  const baseY=Y(0.80), maxH=RH*0.58;
+  const bw=Math.min(28,RW*0.07), gap=Math.max(6,RW*0.03), cx=X(fanU);
+  for(let i=0;i<n;i++){
+    const x=cx-((n-1)/2-i)*(bw+gap);
+    const wob=Math.sin(t*1.7+i*1.3)*0.05*(1-settle);
+    const shown=probs[i]*(0.55+0.45*settle)+wob*(1-settle);
+    const bh=Math.max(2,shown*maxH);
+    const win=i===winner&&settle>0.7;
+    ctx.fillStyle=`rgba(${win?C.amber:C.dim},${win?0.42:0.16+0.06*(1-settle)})`;
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x-bw/2,baseY-bh,bw,bh,3);ctx.fill();}
+    else ctx.fillRect(x-bw/2,baseY-bh,bw,bh);
+    if(i===winner&&settle>0.85){
+      ctx.strokeStyle=`rgba(${C.amber},${0.6*(settle-0.85)/0.15})`;ctx.lineWidth=1.3;
+      ctx.strokeRect(x-bw/2-2,baseY-bh-2,bw+4,bh+2);
+    }
+    font(9);
+    if(settle>0.5&&ctx.measureText(type.labels[i]).width+4<bw+gap){
+      ctx.textAlign="center";ctx.fillStyle=`rgba(${C.dim},${0.30*settle})`;
+      ctx.fillText(type.labels[i],x,baseY+12);
+    }
+  }
+  font(10);ctx.textAlign="center";ctx.fillStyle=`rgba(${C.dim},.34)`;
+  ctx.fillText(type.kind+(settle>0.85?" · argmax locked":" · resolving"),cx,baseY+26);
+
+  /* ---- the ledger: an append-only chain along the bottom of the region ---- */
+  const lx0=X(0.0), lspan=RW, tickGap=Math.max(7,lspan/42);
+  const nTicks=Math.floor(t/cycle)+1;
+  if(settle>0.9){ /* the answer's mark drops into it */
+    const fall=U_clamp((cp-0.9)/0.1,0,1), top=baseY-maxH*0.6;
+    ctx.fillStyle=`rgba(${C.amber},${0.55*(1-fall)})`;
+    ctx.beginPath();ctx.arc(cx,top+fall*(ledgerY-top),2,0,7);ctx.fill();
+  }
+  ctx.strokeStyle=`rgba(${C.dim},.16)`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(lx0,ledgerY);ctx.lineTo(lx0+lspan,ledgerY);ctx.stroke();
+  const scroll=(t*3)%tickGap;
+  for(let i=0;i<60;i++){
+    const x=lx0+lspan-scroll-i*tickGap;
+    if(x<lx0) break;
+    const idx=nTicks-1-i; if(idx<0) break;
+    /* a later truth lands on some ticks and colours them */
+    const judged=(idx%3===0)&&(t-((idx+2)*cycle))>1.4;
+    const good=idx%2===0;
+    ctx.strokeStyle=`rgba(${!judged?C.dim:good?C.mint:C.ember},${judged?0.5:0.22})`;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(x,ledgerY-5);ctx.lineTo(x,ledgerY+5);ctx.stroke();
+  }
+  /* the truth itself, flying in from the right toward an earlier tick */
+  const fl=t%cycle;
+  if(fl>1.0&&fl<1.7){
+    const fp=(fl-1.0)/0.7, targetIdx=nTicks-1-6;
+    const tx=lx0+lspan-scroll-6*tickGap, sx=R.x1+18, sy=ledgerY-34;
+    const x=sx+(tx-sx)*fp, y=sy+(ledgerY-sy)*fp, good=targetIdx%2===0;
+    ctx.strokeStyle=`rgba(${good?C.mint:C.ember},${0.7*(1-Math.abs(fp-0.5)*0.6)})`;ctx.lineWidth=1.6;
+    ctx.beginPath();
+    if(good){ctx.moveTo(x-4,y);ctx.lineTo(x-1,y+3);ctx.lineTo(x+5,y-5);}
+    else{ctx.moveTo(x-3,y-3);ctx.lineTo(x+3,y+3);ctx.moveTo(x+3,y-3);ctx.lineTo(x-3,y+3);}
+    ctx.stroke();
+  }
+  font(9);ctx.textAlign="left";ctx.fillStyle=`rgba(${C.dim},.28)`;
+  ctx.fillText("ledger · a later truth scores each answer",lx0,ledgerY+16);
+
+  /* ---- the eight measured calibration groups (stated, accuracy), from the
+     calibration section's own table, under the "stated = actual" line.
+     Texture, bottom left of the whole hero, not a chart. ---- */
+  const ox=w*0.03,oy=h*0.97,S=Math.min(w,h)*0.14;
+  ctx.strokeStyle=`rgba(${C.dim},.12)`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(ox+S,oy-S);ctx.stroke();
+  [[0.990,0.733],[0.958,0.733],[0.987,0.583],[0.983,0.633],
+   [0.99999,0.500],[0.9995,0.500],[0.998,0.500],[0.965,0.667]].forEach(([cf,ac])=>{
+    dot(ctx,ox+S*cf,oy-S*ac,1.4,C.rose,0.14);
+  });
+},
+
 /* platform - tiled matrix multiply: activation waves sweep a grid of
    cells diagonally, the tensor language every event speaks. */
 tensor(ctx,w,h,t){
@@ -566,7 +761,7 @@ tensor(ctx,w,h,t){
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
   scopyx:"egress",heraldyx:"dispatch",trailryx:"contiguity",
   qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor",
-  vouchryx:"delegate",costcrew:"ledger"};
+  vouchryx:"delegate",costcrew:"ledger",typryx:"typed"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
    alive below the hero. One fixed layer behind all content, evolving with
@@ -728,12 +923,27 @@ function mount(){
   hero.prepend(cv);
   const ctx=cv.getContext("2d");
   let w=0,h=0,seen=!1,raf=null;
+  /* the pointer, in hero-local pixels; null off-hero or untouched. Passed as
+     a 5th argument to every motif so one of them (typryx's "typed") can lean
+     its state capsules toward it; every other motif's signature is
+     (ctx,w,h,t) and simply ignores the extra argument. */
+  const heroPtr={x:null,y:null};
+  function trackPtr(e){
+    const r=hero.getBoundingClientRect();
+    if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){
+      heroPtr.x=e.clientX-r.left; heroPtr.y=e.clientY-r.top;
+    }else{ heroPtr.x=null; heroPtr.y=null; }
+  }
+  if(!reduce){
+    addEventListener("pointermove",trackPtr,{passive:true});
+    addEventListener("pointerleave",()=>{heroPtr.x=null;heroPtr.y=null;},{passive:true});
+  }
   function resize(){
     const dpr=Math.min(2,devicePixelRatio||1);
     w=hero.clientWidth;h=hero.clientHeight;
     cv.width=w*dpr;cv.height=h*dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    if(reduce){ctx.clearRect(0,0,w,h);motif(ctx,w,h,8);}
+    if(reduce){ctx.clearRect(0,0,w,h);motif(ctx,w,h,8,null);}
   }
   resize();addEventListener("resize",resize);
   if(reduce) return;
@@ -742,7 +952,8 @@ function mount(){
     raf=null;
     if(!seen) return;
     ctx.clearRect(0,0,w,h);
-    motif(ctx,w,h,(now-t0)/1000);
+    const ptr=heroPtr.x==null?null:{x:heroPtr.x,y:heroPtr.y};
+    motif(ctx,w,h,(now-t0)/1000,ptr);
     raf=requestAnimationFrame(frame);
   }
   /* only animate while the hero is on screen */

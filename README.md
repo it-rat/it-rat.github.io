@@ -31,6 +31,7 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 | `services/idryx.html` | access | One identity graph for humans, keys and agents |
 | `services/qryx.html` | crypto | Cryptography inventory and post-quantum risk |
 | `services/verdryx.html` | quality | Cost per correctly resolved case, not per token |
+| `services/typryx.html` | typed answers | A typed answer with a probability, never a guess; an optional add-on |
 | `services/mockryx.html` | pre-prod | Fire drills that prove guardrails hold |
 | `services/heraldyx.html` | alerts | The box writes to you, with a link and never a button |
 | `services/pocket.html` | out of band | The kill switch on a device the agent's host never touches |

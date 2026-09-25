@@ -62,6 +62,8 @@ SERVICES = [
     # with no markdown twin. Its plane in the registry is "out of band", which
     # is what it is: the switch that is deliberately not in the box.
     ("services/pocket.html", "TokenFuse Pocket, the out-of-band kill switch"),
+    # Added 2026-09-25. Optional add-on, cat "proof" in the registry.
+    ("services/typryx.html", "Typryx, typed answers"),
 ]
 OTHER = [
     ("index.html", "IT-RAT, open-source governance for AI agents"),

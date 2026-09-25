@@ -66,6 +66,7 @@ PAGES = {
     "services/tokenfuse.html": ("../", "Apache-2.0"),
     "services/verdryx.html": ("../", "Apache-2.0"),
     "services/wardryx.html": ("../", "Apache-2.0"),
+    "services/typryx.html": ("../", "Apache-2.0"),
 }
 
 

@@ -206,6 +206,13 @@
       "title": "TokenFuse Pocket, the out-of-band kill switch",
       "kind": "service",
       "description": "Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet."
+    },
+    {
+      "url": "https://it-rat.com/services/typryx.html",
+      "markdown": "https://it-rat.com/services/typryx.md",
+      "title": "Typryx, typed answers",
+      "kind": "service",
+      "description": "A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes."
     }
   ]
 }

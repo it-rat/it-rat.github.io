@@ -74,6 +74,11 @@ ROOMS = {
                   "Scopyx: a request passes five gates in order, scheme, host, resolved addresses, "
                   "your policy and robots.txt, before anything leaves",
                   "d986b000dbe7"),
+    "typryx":    ("services/typryx.html", "#60A5FA",
+                  "Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a "
+                  "swappable backend, stub, openai-logprobs or jev, and every answer or refusal is "
+                  "journaled, with a calibration loop and journal readers on the side",
+                  "b8d11d7fc8cc"),
 }
 
 # Rooms whose README diagram is drawn by hand, and the reason for each. This

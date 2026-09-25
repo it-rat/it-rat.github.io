@@ -40,6 +40,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Trailryx, the record](https://it-rat.com/services/trailryx.md): A record of what your AI agents did that nobody can quietly change or shorten, where every answer carries a proof that it is complete.
 - [Platform, the shared contract](https://it-rat.com/services/platform.md): One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.
 - [TokenFuse Pocket, the out-of-band kill switch](https://it-rat.com/services/pocket.md): Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet.
+- [Typryx, typed answers](https://it-rat.com/services/typryx.md): A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes.
 
 ## Other
 

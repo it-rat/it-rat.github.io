@@ -73,7 +73,7 @@ Cost-per-token dashboards answer the easy question: what a call cost. Verdryx an
 
 ### The line that turns spend into a verdict.
 
-Verdryx prices the traces [TokenFuse](https://it-rat.com/tokenfuse.html) writes: outcome tags and spend data share the same request path, so cost and quality can never quietly drift apart. Its `quality_drift` events ride the same bus as [Platform](https://it-rat.com/platform.html)'s Agent Passport contract. [Mockryx](https://it-rat.com/mockryx.html) can require an off-path reaction from Verdryx as part of a pre-prod drill.
+Verdryx prices the traces [TokenFuse](https://it-rat.com/tokenfuse.html) writes: outcome tags and spend data share the same request path, so cost and quality can never quietly drift apart. Its `quality_drift` events ride the same bus as [Platform](https://it-rat.com/platform.html)'s Agent Passport contract. [Mockryx](https://it-rat.com/mockryx.html) can require an off-path reaction from Verdryx as part of a pre-prod drill. A typed grader from [Typryx](https://it-rat.com/typryx.html) is planned beside its LLM judge, not built.
 
 Cost per resolved case sits inside a wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html), and the controls around it in [AI agent governance](https://it-rat.com/ai-agent-governance.html).
 

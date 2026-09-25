@@ -79,6 +79,7 @@ PAGES = {
     "services/tokenfuse.html": "../",
     "services/verdryx.html": "../",
     "services/wardryx.html": "../",
+    "services/typryx.html": "../",
 }
 
 ELEMENT = re.compile(r'<(a|button)\b[^>]*>.*?</\1>', re.S)

@@ -74,7 +74,7 @@ Two substitutes get proposed for a policy plane: asking the model to behave in t
 
 ### The desk every expensive idea stops at.
 
-[TokenFuse](https://it-rat.com/tokenfuse.html)'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which [Idryx](https://it-rat.com/idryx.html) correlates into the identity graph. [Mockryx](https://it-rat.com/mockryx.html) rehearses the denials in pre-prod, so the first real no is never the first no ever. And the policies themselves are code: the [Platform](https://it-rat.com/platform.html) page's Terraform provider creates, changes and destroys them like any other resource.
+[TokenFuse](https://it-rat.com/tokenfuse.html)'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which [Idryx](https://it-rat.com/idryx.html) correlates into the identity graph. [Mockryx](https://it-rat.com/mockryx.html) rehearses the denials in pre-prod, so the first real no is never the first no ever. And the policies themselves are code: the [Platform](https://it-rat.com/platform.html) page's Terraform provider creates, changes and destroys them like any other resource. A probability from [Typryx](https://it-rat.com/typryx.html) is a planned, optional signal a policy may turn into a hold, never a deny.
 
 The policy point is one control among several: see [AI agent security](https://it-rat.com/ai-agent-security.html) for the failure modes it answers, and [AI agent governance](https://it-rat.com/ai-agent-governance.html) for how the planes fit together.
 

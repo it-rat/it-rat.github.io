@@ -45,6 +45,10 @@ SERVICE_PAGES = [
     # here, so it was the one indexable page on this site carrying no JSON-LD
     # while sitting in the sitemap next to fourteen pages that do.
     "services/scopyx.html",
+    # Added 2026-09-25. Optional add-on, cat "proof" in the registry; needs
+    # SERVICE_PAGES like every other room so its JSON-LD is not silently
+    # skipped the way scopyx's was for three weeks.
+    "services/typryx.html",
 ]
 
 

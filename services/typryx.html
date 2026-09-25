@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typryx - a typed answer with a probability, never a guess &#183; IT-RAT</title>
+<meta name="description" content="A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes.">
+<link rel="canonical" href="https://it-rat.com/services/typryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/typryx.html">
+<meta property="og:title" content="Typryx - a typed answer with a probability, never a guess &#183; IT-RAT">
+<meta property="og:description" content="A typed answer with a probability, never an invented guess: only the template's fields leave the box, spend is capped by default, and every answer is journaled and calibrated against real outcomes, measured across five models behind one backend, never pooled.">
+<meta property="og:image" content="https://it-rat.com/assets/og/typryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Typryx - a typed answer with a probability, never a guess &#183; IT-RAT">
+<meta name="twitter:description" content="A typed answer with a probability, never a guess, on a versioned template: capped by default, journaled, and calibrated against a later truth rather than assumed honest.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/typryx.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/typryx.md">
+<link rel="stylesheet" href="../assets/site.css?v=e20">
+<style>
+  :root{--accent:#60A5FA}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero .plane{font-family:var(--font-m);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg);text-align:right}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+
+  /* the three-way status chip invariant 5 asks for: measured, planned, or
+     built-but-not-run-live. Every unshipped thing on this page carries one. */
+  .chip{display:inline-block;font-family:var(--font-m);font-size:10.5px;letter-spacing:.03em;
+    border-radius:6px;padding:2px 8px;white-space:nowrap;line-height:1.6}
+  .chip-measured{color:var(--mint);border:1px solid rgba(52,211,153,.4)}
+  .chip-planned{color:var(--faint);border:1px dashed var(--line-2)}
+  .chip-builtnotlive{color:var(--amber);border:1px dashed rgba(244,178,62,.55)}
+
+  /* the .flight pattern (scopyx): a boxed widget with an svg, tabs that
+     drive it, an output line and a why-paragraph. Reused four times below
+     with different data, so the CSS lives once here. */
+  .flight{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);overflow:hidden}
+  .fl-head{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--font-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .fl-head .n{margin-left:auto;text-transform:none;letter-spacing:0;font-size:11.5px}
+  .fl-head .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);flex:0 0 auto}
+  .flight svg{display:block;width:100%;height:auto}
+  .fl-tabs{display:flex;gap:8px;flex-wrap:wrap;padding:12px 15px;border-top:1px solid var(--line)}
+  .fl-tab{font-family:var(--font-m);font-size:11.5px;color:var(--dim);cursor:pointer;
+    background:var(--panel-2);border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;
+    transition:color .15s,border-color .15s,background .15s}
+  .fl-tab:hover{color:var(--fg);border-color:color-mix(in srgb, var(--accent) 55%, var(--line-2))}
+  .fl-tab[aria-pressed="true"]{color:#0A1420;background:var(--accent);border-color:var(--accent)}
+  .fl-out{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:12px 15px;border-top:1px solid var(--line);font-family:var(--font-m);font-size:12.5px}
+  .fl-out .u{color:var(--dim)}
+  .fl-out .e{color:var(--faint);font-size:11.5px}
+  .fl-out .v{margin-left:auto;font-size:11.5px;padding:3px 9px;border-radius:3px;white-space:nowrap;
+    color:var(--faint);border:1px solid var(--line-2)}
+  .fl-out .v.go{color:#7BE0A8;border-color:#7BE0A833;background:#7BE0A812}
+  .fl-out .v.stop{color:#FF8A8A;border-color:#FF8A8A33;background:#FF8A8A12}
+  .fl-why{margin:0;padding:13px 15px;border-top:1px solid var(--line);
+    color:var(--faint);font-size:12px;line-height:1.65}
+  @media(max-width:640px){.fl-out .v{margin-left:0}}
+  /* the house rule for schematics on a phone (.diagram svg has min-width
+     640px inside a horizontal scroller): the widgets here carry more text
+     per box, so they hold 720px, which keeps a 10.5 label near 8px. */
+  .fl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .fl-scroll svg{min-width:720px}
+  .fl-scroll #sp-svg,.fl-scroll #cl-svg{min-width:0}
+
+  /* field chips (widget: what leaves the box) */
+  .chips{display:flex;gap:9px;flex-wrap:wrap;padding:12px 15px;border-top:1px solid var(--line)}
+  .fchip{font-family:var(--font-m);font-size:11.5px;border-radius:999px;padding:6px 12px;
+    border:1px solid var(--line-2);background:var(--panel-2);color:var(--dim);cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .fchip[data-fixed="true"]{cursor:default;color:var(--mint);border-color:rgba(52,211,153,.4)}
+  .fchip[aria-pressed="true"]:not([data-fixed="true"]){color:var(--fg);border-color:var(--accent)}
+  .fchip[aria-pressed="false"]:not([data-fixed="true"]){color:var(--faint);text-decoration:line-through}
+
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.4vw,26px)}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  .defs dt{font-family:var(--font-m);color:var(--fg);font-size:13px;margin-top:12px}
+  .defs dd{color:var(--dim);font-size:13.5px;line-height:1.6;margin:4px 0 0}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Typryx","url":"https://it-rat.com/services/typryx.html","description":"A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/typryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Typryx","item":"https://it-rat.com/services/typryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is typryx required to run the rest of the stack?","acceptedAnswer":{"@type":"Answer","text":"No. It is an optional add-on, and every other service keeps its current path unchanged when it is absent. Nothing in this repository or a planned consumer is built to depend on it."}},{"@type":"Question","name":"What leaves the box when I send it a state?","acceptedAnswer":{"@type":"Answer","text":"Only the fields the template's own fields list names, held by the type system rather than a promise: internal/backend.Backend.Ask takes a template.Egress , a type constructible only inside the template package. Measured on a live run: a state carrying user_email and, separately, customer_iban , neither reached the backend or the record."}},{"@type":"Question","name":"Can a probability block anything?","acceptedAnswer":{"@type":"Answer","text":"Not here, and not in a consumer. A probability is a signal a policy can threshold; the planned Wardryx rule may turn one into a hold, which a person releases, never a deny."}},{"@type":"Question","name":"How do I know a probability is honest?","acceptedAnswer":{"@type":"Answer","text":"Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. typryx calibration groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to /v1/outcome , so calibration is measured rather than assumed."}},{"@type":"Question","name":"Does typryx need Jev to be useful?","acceptedAnswer":{"@type":"Answer","text":"No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="typryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">typryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link" href="../console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">typed answers &#183; optional add-on</div>
+        <h1 class="rv d1"><span class="nm">Typryx</span>. A typed answer with a probability, never a guess.</h1>
+        <p class="lede rv d2">Agents already ask each other, and their models, questions that have exactly one shape: choice (which option), score (how good, on an ordered scale) or yes/no. Typryx takes a question from a versioned template and returns a typed answer read off a probability distribution, or refuses with a named reason instead of inventing one. Only the fields the template names ever leave the box, and every answer, refusal or timeout lands on a hash-chained journal.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#sim">Watch the measured run <span class="mono">&#9654;</span></a>
+          <a class="btn" href="#jev">Where Jev meets the stack</a>
+          <a class="btn" href="https://github.com/TAIPANBOX/typryx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">release</span><span class="v">v0.1.0 &#183; Go 1.27</span></div>
+        <div class="row"><span class="k">tests</span><span class="v">806 tests &#183; httptest fakes, no live calls</span></div>
+        <div class="row"><span class="k">deps</span><span class="v">one direct dependency</span></div>
+        <div class="row"><span class="k">spend cap</span><span class="v">1,000 calls an hour, by default</span></div>
+        <div class="row"><span class="k">image</span><span class="v">16.6 MB &#183; ghcr.io, signed</span></div>
+        <div class="row"><span class="k">licence</span><span class="v">Apache-2.0 &#183; public on GitHub</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIM ================= -->
+<section class="sec" id="sim" style="padding-top:26px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">a measured replay</div>
+      <h2>Every real judgement from one run, replayed in the same order.</h2>
+      <p class="lede">Not an illustration: these are the 60 real arithmetic judgements from the calibration table below, local 7B, wording v2, in the order they were asked (the real run took 9.44 seconds; this replay plays it about 2&#215; slower). Watch the resolved probability, the verdict, and how often "confident" and "right" turn out to be different things.</p>
+    </div>
+    <div class="rv" id="tx-sim"></div>
+  </div>
+</section>
+
+<!-- ================= DIAGRAM A: THE PATH OF ONE ASK ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>The path of one ask.</h2>
+      <p class="lede">An agent reaches typryx over MCP, most often through tokenfuse's broker, both measured. Inside, a call crosses the door, the template lookup, the egress filter and the hourly cap before it reaches a swappable backend; the answer is read off the probability distribution, never taken as the backend's own claim. Everything is journaled. On the right: the calibration loop that scores a later truth, and the consumers, all still planned, that would read the journal.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 660" role="img" aria-label="An agent over MCP, or through tokenfuse's broker, reaches typryx's door, template lookup, egress filter and hourly cap, then a swappable backend, stub, openai-logprobs or jev, jev marked built but not run live; the result is a typed answer and probability, or unanswered with a reason, either way journaled with a sha-384 of what left the box; a second, dashed path shows a call that is capped and turns ember before reaching a backend; on the right, the calibration loop scores a later truth, and journal readers Trailryx, Idryx and Genaryx are marked launcher wiring planned, along with six other planned consumers">
+        <defs>
+          <marker id="txa1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="txa2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#8A97A6"/></marker>
+        </defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="30" y="18" width="320" height="48" rx="10" fill="#141C27" stroke="#34D399"/>
+          <text x="190" y="40" fill="#E9EFF6" font-size="12" font-weight="700">agent, over MCP</text>
+          <text x="190" y="56" fill="#34D399" font-size="10.5">measured: Claude Code 2.1.270</text>
+
+          <rect x="30" y="96" width="360" height="54" rx="10" fill="#141C27" stroke="#34D399"/>
+          <text x="210" y="118" fill="#E9EFF6" font-size="11.5" font-weight="700">tokenfuse MCP broker</text>
+          <text x="210" y="135" fill="#34D399" font-size="10.5">measured: named upstream, tool_call recorded</text>
+
+          <rect x="30" y="178" width="440" height="126" rx="14" fill="#10161F" stroke="#60A5FA" stroke-width="1.4"/>
+          <text x="250" y="202" fill="#60A5FA" font-size="13.5" font-weight="700">typryx</text>
+          <rect x="48" y="214" width="82" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="89" y="232" fill="#E9EFF6" font-size="10.5">door</text>
+          <rect x="138" y="214" width="98" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="187" y="232" fill="#E9EFF6" font-size="10.5">template</text>
+          <rect x="244" y="214" width="120" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="304" y="232" fill="#E9EFF6" font-size="10.5">egress filter</text>
+          <rect x="372" y="214" width="88" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="416" y="232" fill="#E9EFF6" font-size="10.5">hourly cap</text>
+          <text x="250" y="268" fill="#8A97A6" font-size="10.5">only the fields a template names ever leave</text>
+          <text x="250" y="285" fill="#5A6675" font-size="10.5">1,000 calls/hour by default, counted past door + template + filter</text>
+
+          <rect x="30" y="326" width="440" height="98" rx="14" fill="#10161F" stroke="#2a3547" stroke-width="1.4"/>
+          <text x="250" y="350" fill="#E9EFF6" font-size="12.5" font-weight="700">backend, swappable</text>
+          <rect x="48" y="362" width="70" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="83" y="380" fill="#E9EFF6" font-size="10.5">stub</text>
+          <rect x="126" y="362" width="144" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="198" y="380" fill="#E9EFF6" font-size="10.5">openai-logprobs</text>
+          <rect x="278" y="362" width="64" height="28" rx="7" fill="#141C27" stroke="#F4B23E" stroke-dasharray="3 3"/><text x="310" y="380" fill="#F4B23E" font-size="10.5">jev</text>
+          <text x="250" y="410" fill="#5A6675" font-size="10.5">answer read from the distribution, never the backend&#8217;s claim</text>
+
+          <rect x="30" y="450" width="440" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="250" y="474" fill="#E9EFF6" font-size="12" font-weight="700">typed answer + probability</text>
+          <text x="250" y="492" fill="#8A97A6" font-size="10.5">or: unanswered, with a reason &#183; wire omits both fields</text>
+
+          <rect x="30" y="534" width="440" height="72" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="250" y="558" fill="#E9EFF6" font-size="12" font-weight="700">journal + ledger</text>
+          <text x="250" y="576" fill="#8A97A6" font-size="10.5">4 event types &#183; sha-384 of what left the box</text>
+          <text x="250" y="593" fill="#5A6675" font-size="10.5">never the state itself</text>
+
+          <!-- right column: calibration loop -->
+          <rect x="546" y="178" width="384" height="150" rx="14" fill="none" stroke="#5A6675" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <text x="738" y="200" fill="#8A97A6" font-size="11.5" font-weight="700">the calibration loop</text>
+          <rect x="564" y="212" width="180" height="34" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="654" y="233" fill="#8A97A6" font-size="10.5">a later truth</text>
+          <rect x="756" y="212" width="156" height="34" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="834" y="233" fill="#8A97A6" font-size="10.5">POST /v1/outcome</text>
+          <rect x="564" y="258" width="180" height="34" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="654" y="279" fill="#8A97A6" font-size="10.5">typryx calibration</text>
+          <rect x="756" y="258" width="156" height="34" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="834" y="279" fill="#8A97A6" font-size="10.5">calibration_drift</text>
+          <text x="738" y="312" fill="#5A6675" font-size="10.5">a bound crossed, per template &#215; version &#215; backend &#215; model</text>
+
+          <rect x="546" y="340" width="384" height="300" rx="14" fill="none" stroke="#5A6675" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <text x="738" y="362" fill="#8A97A6" font-size="11" font-weight="700">planned, none of these consume typryx yet</text>
+          <rect x="555" y="376" width="366" height="30" rx="8" fill="#141C27" stroke="#FF7AA2" stroke-dasharray="3 3"/><text x="738" y="396" fill="#FF7AA2" font-size="10.5">verdryx: a typed grader beside the LLM judge</text>
+          <rect x="555" y="414" width="366" height="30" rx="8" fill="#141C27" stroke="#2DD4BF" stroke-dasharray="3 3"/><text x="738" y="434" fill="#2DD4BF" font-size="10.5">wardryx: a signal that may become a hold, never a deny</text>
+          <rect x="555" y="452" width="366" height="30" rx="8" fill="#141C27" stroke="#F4B23E" stroke-dasharray="3 3"/><text x="738" y="472" fill="#F4B23E" font-size="10.5">tokenfuse: router shadow mode</text>
+          <rect x="555" y="490" width="366" height="30" rx="8" fill="#141C27" stroke="#7DD3A0" stroke-dasharray="3 3"/><text x="738" y="510" fill="#7DD3A0" font-size="10.5">costcrew: a suggested class/priority at triage</text>
+          <rect x="555" y="528" width="366" height="30" rx="8" fill="#141C27" stroke="#B48CFF" stroke-dasharray="3 3"/><text x="738" y="548" fill="#B48CFF" font-size="10.5">genaryx: a panel, live only when configured</text>
+          <rect x="555" y="566" width="366" height="30" rx="8" fill="#141C27" stroke="#6C7BFF" stroke-dasharray="3 3"/><text x="738" y="586" fill="#6C7BFF" font-size="10.5">engram: an optional importance score</text>
+          <text x="738" y="614" fill="#5A6675" font-size="10.5">journal readers Trailryx, Idryx, Genaryx:</text>
+          <text x="738" y="630" fill="#5A6675" font-size="10.5">launcher wiring planned</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="190" y1="66" x2="210" y2="94" marker-end="url(#txa1)"/>
+          <line x1="210" y1="150" x2="230" y2="176" marker-end="url(#txa1)"/>
+          <line x1="250" y1="304" x2="250" y2="324" marker-end="url(#txa1)"/>
+          <line x1="250" y1="424" x2="250" y2="448" marker-end="url(#txa1)"/>
+          <line x1="250" y1="508" x2="250" y2="532" marker-end="url(#txa1)"/>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.2" stroke-dasharray="3 4" class="flow">
+          <path d="M470 570 L544 292" fill="none" marker-end="url(#txa2)"/>
+        </g>
+        <!-- two animated tokens, both starting together: one an answered ask
+             riding the whole path to the ledger, the other stopped at the
+             cap and turning ember, which is the branch a reader cannot see
+             from the boxes alone -->
+        <g class="flow">
+          <circle r="5" fill="#34D399" opacity=".9">
+            <animateMotion begin="0s" dur="7s" repeatCount="indefinite"
+              path="M190 42 L190 94 L210 120 L250 190 L250 290 L250 375 L250 479 L250 570"/>
+          </circle>
+          <circle r="5" fill="#FF574B" opacity="0">
+            <animateMotion begin="0s" dur="7s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.62;1" calcMode="linear"
+              path="M190 42 L190 94 L210 120 L250 190 L416 228"/>
+            <animate attributeName="opacity" values="0.9;0.9;0.9;0;0" keyTimes="0;0.62;0.85;0.9;1" begin="0s" dur="7s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#34D399;#FF574B;#FF574B" keyTimes="0;0.6;1" begin="0s" dur="7s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WIDGET: WHERE CAN AN ASK STOP ================= -->
+<section class="sec" id="stop" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">every named exit</div>
+      <h2>Where can an ask stop, and what does it leave behind?</h2>
+      <p class="lede">Six shapes, exact codes from <span class="mono" style="font-size:12.5px">internal/service/service.go</span> and <span class="mono" style="font-size:12.5px">internal/api/api.go</span>. Pick one.</p>
+    </div>
+    <div class="flight rv" id="st-box">
+      <div class="fl-head"><span class="dot"></span>one ask, five gates <span class="n" id="st-label">answered</span></div>
+      <div class="fl-scroll"><svg id="st-svg" viewBox="0 0 960 190" role="img" aria-label="A horizontal row of five gates an ask crosses in order: door, template lookup, egress filter, hourly cap, backend. Picking a case lights the gate it stops at, or shows it passing all five to an answer.">
+        <defs><marker id="stArrow" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <line x1="60" y1="90" x2="900" y2="90" stroke="#2a3547" stroke-width="1.4"/>
+          <g id="st-gates">
+            <g class="stg" data-g="door"><rect class="post" x="40" y="66" width="118" height="48" rx="10" fill="#141C27" stroke="#2a3547" stroke-width="1.4"/><text x="99" y="95" fill="#E9EFF6" font-size="11.5" font-weight="700">door</text></g>
+            <g class="stg" data-g="template"><rect class="post" x="212" y="66" width="150" height="48" rx="10" fill="#141C27" stroke="#2a3547" stroke-width="1.4"/><text x="287" y="95" fill="#E9EFF6" font-size="11.5" font-weight="700">template</text></g>
+            <g class="stg" data-g="filter"><rect class="post" x="416" y="66" width="150" height="48" rx="10" fill="#141C27" stroke="#2a3547" stroke-width="1.4"/><text x="491" y="95" fill="#E9EFF6" font-size="11.5" font-weight="700">egress filter</text></g>
+            <g class="stg" data-g="cap"><rect class="post" x="620" y="66" width="120" height="48" rx="10" fill="#141C27" stroke="#2a3547" stroke-width="1.4"/><text x="680" y="95" fill="#E9EFF6" font-size="11.5" font-weight="700">hourly cap</text></g>
+            <g class="stg" data-g="backend"><rect class="post" x="794" y="66" width="128" height="48" rx="10" fill="#141C27" stroke="#2a3547" stroke-width="1.4"/><text x="858" y="95" fill="#E9EFF6" font-size="11.5" font-weight="700">backend</text></g>
+          </g>
+          <g fill="#8A97A6" font-size="10.5">
+            <text x="99" y="140">key -&gt; agent://</text>
+            <text x="287" y="140">versioned registry</text>
+            <text x="491" y="140">named fields, size cap</text>
+            <text x="680" y="140">1,000 an hour</text>
+            <text x="858" y="140">under a timeout</text>
+          </g>
+          <g fill="#5A6675" font-size="10.5">
+            <text x="99" y="46">401</text>
+            <text x="287" y="46">404</text>
+            <text x="491" y="46">400 / 413</text>
+            <text x="680" y="46">429</text>
+            <text x="858" y="46">200, unanswered</text>
+          </g>
+          <circle id="st-pkt" cx="20" cy="90" r="7" fill="#60A5FA"/>
+        </g>
+      </svg></div>
+      <div class="fl-tabs" role="group" aria-label="Choose where an ask stops">
+        <button class="fl-tab" type="button" aria-pressed="true" data-k="answered">answered</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="nokey">no key</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="template">unknown template</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="state">state too large</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="cap">cap spent</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="timeout">backend timed out</button>
+      </div>
+      <div class="fl-out">
+        <span class="u" id="st-status">HTTP 200</span>
+        <span class="e" id="st-code">answered</span>
+        <span class="v go" id="st-verdict">on the wire</span>
+      </div>
+      <p class="fl-why" id="st-why"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WIDGET: WHERE JEV MEETS THE STACK ================= -->
+<section class="sec" id="jev" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the core of this page</div>
+      <h2>Where Jev meets the stack.</h2>
+      <p class="lede">Three question shapes are the whole contract: <span class="mono" style="font-size:12.5px">choice</span>, <span class="mono" style="font-size:12.5px">score</span>, <span class="mono" style="font-size:12.5px">noul</span> (yes/no). A template goes to any backend unchanged, because the templates are the contract and the backend is swappable. Switch the backend and watch what is sent and what comes back change; the typed-answer shape at the far right never does.</p>
+    </div>
+    <div class="flight rv" id="jv-box">
+      <div class="fl-head"><span class="dot"></span>one template, three backends <span class="n" id="jv-label">stub</span></div>
+      <div class="fl-scroll"><svg id="jv-svg" viewBox="0 0 960 300" role="img" aria-label="A template on the left enters typryx's door, filter and cap in the middle, the same for every backend, then reaches one of three backends on the right: stub, openai-logprobs or jev. Each sends something different and gets something different back, but produces the same typed-answer shape at the far right.">
+        <g font-family="ui-monospace,Menlo">
+          <rect x="18" y="20" width="196" height="84" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text x="116" y="42" fill="#E9EFF6" font-size="11.5" font-weight="700" text-anchor="middle">eval.outcome_met</text>
+          <text x="116" y="60" fill="#8A97A6" font-size="10.5" text-anchor="middle">type: noul</text>
+          <text x="116" y="77" fill="#8A97A6" font-size="10.5" text-anchor="middle">fields: task, final_answer</text>
+          <text x="116" y="94" fill="#5A6675" font-size="10.5" text-anchor="middle">used in the calibration run</text>
+
+          <rect x="238" y="60" width="196" height="182" rx="14" fill="#10161F" stroke="#60A5FA" stroke-width="1.3"/>
+          <text x="336" y="84" fill="#60A5FA" font-size="12" font-weight="700" text-anchor="middle">typryx</text>
+          <text x="336" y="102" fill="#8A97A6" font-size="10.5" text-anchor="middle">door &#183; template &#183; filter</text>
+          <text x="336" y="120" fill="#8A97A6" font-size="10.5" text-anchor="middle">hourly cap</text>
+          <text x="336" y="146" fill="#5A6675" font-size="10.5" text-anchor="middle">same gates for every backend</text>
+          <text x="336" y="164" fill="#5A6675" font-size="10.5" text-anchor="middle">only task + final_answer</text>
+          <text x="336" y="181" fill="#5A6675" font-size="10.5" text-anchor="middle">ever reach the backend below</text>
+          <text x="336" y="216" fill="#60A5FA" font-size="10.5" text-anchor="middle" id="jv-sentto">sent &#8594;</text>
+
+          <rect id="jv-sentbox" x="494" y="18" width="220" height="100" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text id="jv-sent1" x="604" y="42" fill="#E9EFF6" font-size="10.5" text-anchor="middle">nothing leaves the process</text>
+          <text id="jv-sent2" x="604" y="60" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+          <text id="jv-sent3" x="604" y="78" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+          <text id="jv-sent4" x="604" y="96" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+
+          <rect id="jv-backbox" x="494" y="132" width="220" height="60" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text id="jv-backname" x="604" y="156" fill="#E9EFF6" font-size="11.5" font-weight="700" text-anchor="middle">stub</text>
+          <text id="jv-backstatus" x="604" y="174" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+
+          
+          <rect id="jv-retbox" x="494" y="200" width="220" height="78" rx="10" fill="#141C27" stroke="#2a3547"/>
+          <text id="jv-ret-label" x="604" y="218" fill="#F4B23E" font-size="10.5" text-anchor="middle">comes back &#8594;</text>
+          <text id="jv-ret1" x="604" y="236" fill="#E9EFF6" font-size="10.5" text-anchor="middle"></text>
+          <text id="jv-ret2" x="604" y="252" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+          <text id="jv-ret3" x="604" y="268" fill="#8A97A6" font-size="10.5" text-anchor="middle"></text>
+
+          <rect x="756" y="88" width="188" height="112" rx="12" fill="#141C27" stroke="#34D399"/>
+          <text x="850" y="112" fill="#E9EFF6" font-size="11.5" font-weight="700" text-anchor="middle">typed answer</text>
+          <text x="850" y="132" fill="#8A97A6" font-size="10.5" text-anchor="middle">answer, probability</text>
+          <text x="850" y="150" fill="#8A97A6" font-size="10.5" text-anchor="middle">or unanswered + reason</text>
+          <text x="850" y="172" fill="#5A6675" font-size="10.5" text-anchor="middle">same shape for all three</text>
+          <text id="jv-chip" x="850" y="192" fill="#34D399" font-size="10.5" font-weight="700" text-anchor="middle">measured</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.4" fill="none">
+          <path d="M214 62 L236 90" marker-end="url(#txjv)"/>
+          <path d="M434 150 L492 68" marker-end="url(#txjv)"/>
+          <path d="M714 239 L754 186" marker-end="url(#txjv)"/>
+        </g>
+        <defs><marker id="txjv" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+      </svg></div>
+      <div class="fl-tabs" role="group" aria-label="Choose a backend">
+        <button class="fl-tab" type="button" aria-pressed="true" data-k="stub">stub</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="logprobs">openai-logprobs</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="jev">jev</button>
+      </div>
+      <p class="fl-why" id="jv-why"></p>
+    </div>
+
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th>template</th><th>type</th><th>options</th><th>who would ask it</th><th>status</th></tr></thead>
+        <tbody>
+          <tr><td>eval.outcome_met</td><td>noul (yes/no)</td><td>n/a</td><td>Verdryx's grading; the calibration run below used it</td><td><span class="chip chip-planned">planned</span></td></tr>
+          <tr><td>eval.answer_quality</td><td>score</td><td>4 ordered levels</td><td>Verdryx grader</td><td><span class="chip chip-planned">planned</span></td></tr>
+          <tr><td>request.complexity</td><td>choice</td><td>cheap / default / hard / reasoning</td><td>TokenFuse router, shadow mode only</td><td><span class="chip chip-planned">planned, shadow only</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WIDGET: WHAT LEAVES THE BOX ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">what leaves the box</div>
+        <h3 style="margin-top:10px">Toggle the extra fields. The egress never changes.</h3>
+        <p style="margin-top:8px;color:var(--dim);font-size:14.5px;line-height:1.65">Only <span class="mono" style="font-size:12.5px">task</span> and <span class="mono" style="font-size:12.5px">final_answer</span> are in the template's <span class="mono" style="font-size:12.5px">fields</span>, so they are the only two that ever reach the backend, whatever else sits in the state. The type a backend receives is constructible only inside the template package, so a map or raw state cannot reach one even by an implementation mistake.</p>
+        <div class="flight" style="margin-top:16px">
+          <div class="fl-scroll"><svg id="eg-svg" viewBox="0 0 960 250" role="img" aria-label="Five field chips represent one state. Two, task and final_answer, always pass the egress filter. The other three can be toggled in or out of the state, and whichever are in, the filter still lets through only task and final_answer, held back and counted.">
+            <defs><marker id="txeg" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+            <g font-family="ui-monospace,Menlo" text-anchor="middle">
+              <text x="130" y="20" fill="#8A97A6" font-size="10.5">state, up to 5 fields</text>
+              <rect x="30" y="30" width="200" height="30" rx="8" fill="#141C27" stroke="#34D399"/><text x="130" y="49" fill="#E9EFF6" font-size="10.5">task</text>
+              <rect x="30" y="68" width="200" height="30" rx="8" fill="#141C27" stroke="#34D399"/><text x="130" y="87" fill="#E9EFF6" font-size="10.5">final_answer</text>
+              <rect id="eg-f2" x="30" y="106" width="200" height="30" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="130" y="125" fill="#8A97A6" font-size="10.5">user_email</text>
+              <rect id="eg-f3" x="30" y="144" width="200" height="30" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="130" y="163" fill="#8A97A6" font-size="10.5">customer_iban</text>
+              <rect id="eg-f4" x="30" y="182" width="200" height="30" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="130" y="201" fill="#8A97A6" font-size="10.5">api_token</text>
+
+              <line x1="270" y1="16" x2="270" y2="222" stroke="#60A5FA" stroke-width="1.4" stroke-dasharray="3 4"/>
+              <text x="270" y="10" fill="#60A5FA" font-size="10.5">egress filter</text>
+
+              <text x="390" y="20" fill="#8A97A6" font-size="10.5">template.Egress, 2 out, always</text>
+              <rect x="310" y="55" width="160" height="30" rx="8" fill="#141C27" stroke="#34D399"/><text x="390" y="74" fill="#34D399" font-size="10.5">task</text>
+              <rect x="310" y="99" width="160" height="30" rx="8" fill="#141C27" stroke="#34D399"/><text x="390" y="118" fill="#34D399" font-size="10.5">final_answer</text>
+              <text x="390" y="150" fill="#5A6675" font-size="10.5">&#8594; backend, and only there</text>
+
+              <rect x="520" y="30" width="420" height="180" rx="14" fill="none" stroke="#5A6675" stroke-dasharray="4 5"/>
+              <text x="730" y="52" fill="#8A97A6" font-size="11" font-weight="700">held back, counted</text>
+              <text id="eg-held" x="730" y="74" fill="#F4B23E" font-size="14" font-weight="700">held_back_fields: 0</text>
+              <text id="eg-hb2" x="730" y="102" fill="#5A6675" font-size="10.5">toggle a field on above to hold it back</text>
+              <text x="730" y="150" fill="#5A6675" font-size="10.5">sha-384 of the egress: unchanged</text>
+              <text x="730" y="170" fill="#5A6675" font-size="10.5">the hash covers what LEFT the box,</text>
+              <text x="730" y="188" fill="#5A6675" font-size="10.5">so extra held-back state never moves it</text>
+            </g>
+            <g stroke="#5A6675" stroke-width="1.4" class="flow">
+              <line x1="232" y1="45" x2="308" y2="70" marker-end="url(#txeg)"/>
+              <line x1="232" y1="83" x2="308" y2="114" marker-end="url(#txeg)"/>
+              <line x1="470" y1="70" x2="518" y2="66" marker-end="url(#txeg)"/>
+            </g>
+          </svg></div>
+          <div class="chips" role="group" aria-label="Toggle optional fields">
+            <button class="fchip" type="button" data-fixed="true" aria-pressed="true">task</button>
+            <button class="fchip" type="button" data-fixed="true" aria-pressed="true">final_answer</button>
+            <button class="fchip" type="button" data-f="user_email" aria-pressed="true">user_email</button>
+            <button class="fchip" type="button" data-f="customer_iban" aria-pressed="true">customer_iban</button>
+            <button class="fchip" type="button" data-f="api_token" aria-pressed="true">api_token</button>
+          </div>
+          <p class="fl-why">Measured on a live run: a five-field state carrying <span class="mono" style="font-size:12.5px">user_email</span> and, separately, <span class="mono" style="font-size:12.5px">customer_iban</span>, neither ever reached the backend or the record. Through Claude Code over MCP, an extra <span class="mono" style="font-size:12.5px">api_token</span> field never reached the record either (<span class="mono" style="font-size:12.5px">held_back_fields: 1</span>).</p>
+        </div>
+      </div>
+      <div class="card feature b-4 rv d1">
+        <h3>Never invents an answer</h3>
+        <p>A backend error, a timeout, missing or malformed probabilities, a cap hit: the answer is unanswered with a named reason, and the wire shape omits <span class="mono" style="font-size:12.5px">answer</span> and <span class="mono" style="font-size:12.5px">probabilities</span> entirely. No renormalizing, no fallback guess.</p>
+        <p style="margin-top:12px">The served answer is always read back off the probability distribution itself: the argmax for a choice, the level for a score, <span class="mono" style="font-size:12.5px">probabilities["true"]</span> for a yes-or-no, never from a claim the backend states alongside a disagreeing distribution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPEED ================= -->
+<section class="sec" id="speed" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision speed, measured 2026-09-25</div>
+      <h2>The one-token shortcut is not always faster.</h2>
+      <p class="lede">Same 60 items, seed 1, timed end to end from the caller (<span class="mono" style="font-size:12.5px">go run ./examples/speed</span>, typryx f4045e0, one run each, so read the medians as indicative rather than final).</p>
+    </div>
+    <div class="flight rv" id="sp-box">
+      <div class="fl-head"><span class="dot"></span>median, with a p95 whisker <span class="n" id="sp-label">hosted API</span></div>
+      <div class="fl-scroll"><svg id="sp-svg" viewBox="0 0 960 220" role="img" aria-label="Horizontal bars comparing median decision time with a p95 whisker, accuracy chip at the bar end, for a typed one-token judge through typryx, a text judge and a reasoning judge, against a hosted model and a local 7B model, plus an empty row for Jev, not measured yet"></svg></div>
+      <div class="fl-tabs" role="group" aria-label="Choose a comparison">
+        <button class="fl-tab" type="button" aria-pressed="true" data-k="hosted">hosted API</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="local">local 7B</button>
+      </div>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:16px">
+      <table class="tbl">
+        <thead><tr><th>way of deciding</th><th>model label</th><th>median</th><th>p95</th><th>accuracy</th></tr></thead>
+        <tbody>
+          <tr><td>typed, one token, through typryx</td><td>hosted A</td><td>538 ms</td><td>795 ms</td><td>71.7%</td></tr>
+          <tr><td>text judge, short verdict</td><td>hosted A</td><td>723 ms</td><td>1,012 ms</td><td>100%</td></tr>
+          <tr><td>reasoning judge</td><td>a current small hosted reasoning model</td><td>562 ms</td><td>896 ms</td><td>100%</td></tr>
+          <tr><td>typed, one token, through typryx</td><td>local 7B</td><td>148 ms</td><td>159 ms</td><td>66.7% (3 of 60 unparsed, counted wrong)</td></tr>
+          <tr><td>text judge, short verdict</td><td>local 7B</td><td>1,509 ms</td><td>2,103 ms</td><td>100%</td></tr>
+          <tr><td>typed, through typryx</td><td>Jev</td><td colspan="2">not measured</td><td><span class="chip chip-builtnotlive">built, not run live</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="dim rv" style="margin-top:12px;font-size:13px;line-height:1.6">Against a hosted API the network dominates: the shortcut was about 1.3&#215; faster than a short text verdict and gave up about a third of the accuracy, and a current small reasoning model was right on all 60 in about the same time as the shortcut. Locally the shortcut is about 10&#215; faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page.</p>
+  </div>
+</section>
+
+<!-- ================= CALIBRATION ================= -->
+<section class="sec" id="calibration" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">calibration, measured 2026-09-25</div>
+      <h2>Stated confidence and actual accuracy are not the same number.</h2>
+      <p class="lede">Eight groups, 480 judgements, never pooled: <span class="mono" style="font-size:12.5px">typryx calibration --min-n 30 --json</span> over durable ledgers, 60 arithmetic judgements per group, seed 1, template <span class="mono" style="font-size:12.5px">eval.outcome_met</span>, backend openai-logprobs, half the items right and half wrong. Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.</p>
+    </div>
+    <div class="flight rv" id="cl-box">
+      <div class="fl-head"><span class="dot"></span>reliability, 8 groups <span class="n" id="cl-label">all</span></div>
+      <div class="fl-scroll"><svg id="cl-svg" viewBox="0 0 960 400" role="img" aria-label="A reliability diagram: x axis is mean stated confidence from 0.5 to 1.0, y axis is accuracy from 0.4 to 1.0, a dashed diagonal marks stated equals actual, and eight dots, one per model and wording, sit at or below it. Switching to kind of wrong replaces the chart with eight stacked bars showing how many of 60 were right, called a wrong answer right, or called a right answer wrong."></svg></div>
+      <div class="fl-tabs" role="group" aria-label="Choose a view">
+        <button class="fl-tab" type="button" aria-pressed="true" data-k="all">all</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="v1">wording v1</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="v2">wording v2</button>
+        <button class="fl-tab" type="button" aria-pressed="false" data-k="wrong">kind of wrong</button>
+      </div>
+      <div class="fl-out">
+        <span class="u" id="cl-name">pick a dot for its numbers</span>
+        <span class="e" id="cl-detail"></span>
+      </div>
+      <p class="fl-why">Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (hosted C in both wordings, and the local 3B) said "correct" to every one of 60 items, right exactly half the time, the base rate. Hosted A mostly passed a wrong answer as right; hosted B erred both ways; the local 7B never passed a wrong answer but failed a third of the right ones. Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. The current hosted generation refuses token probabilities outright (probed 2026-09-25: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.</p>
+    </div>
+
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th>label</th><th>wording</th><th>n</th><th>stated</th><th>accuracy</th><th>ECE</th><th>Brier</th><th>right</th><th>lenient</th><th>strict</th></tr></thead>
+        <tbody>
+          <tr><td>hosted A</td><td>v1</td><td>60</td><td>0.990</td><td>0.733</td><td>0.267</td><td>0.525</td><td>44</td><td>15</td><td>1</td></tr>
+          <tr><td>hosted A</td><td>v2</td><td>60</td><td>0.958</td><td>0.733</td><td>0.243</td><td>0.505</td><td>44</td><td>15</td><td>1</td></tr>
+          <tr><td>hosted B</td><td>v1</td><td>60</td><td>0.987</td><td>0.583</td><td>0.414</td><td>0.823</td><td>35</td><td>11</td><td>14</td></tr>
+          <tr><td>hosted B</td><td>v2</td><td>60</td><td>0.983</td><td>0.633</td><td>0.358</td><td>0.716</td><td>38</td><td>5</td><td>17</td></tr>
+          <tr><td>hosted C</td><td>v1</td><td>60</td><td>0.99999</td><td>0.500</td><td>0.500</td><td>1.000</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>hosted C</td><td>v2</td><td>60</td><td>0.9995</td><td>0.500</td><td>0.500</td><td>0.999</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>local 3B</td><td>v2</td><td>60</td><td>0.998</td><td>0.500</td><td>0.498</td><td>0.995</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>local 7B</td><td>v2</td><td>60</td><td>0.965</td><td>0.667</td><td>0.298</td><td>0.597</td><td>40</td><td>0</td><td>20</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <dl class="defs rv" style="margin-top:20px">
+      <dt>stated confidence</dt><dd>The probability the model's own answer carried when it was given, averaged over the group.</dd>
+      <dt>ECE</dt><dd>Expected calibration error: the average gap between stated confidence and actual accuracy across the bins, 0 is perfect.</dd>
+      <dt>Brier</dt><dd>Mean squared error between the stated probabilities and the true outcome; here, multi-class, 0 is best and 2 is worst.</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ================= WHERE IT PLUGS IN ================= -->
+<section class="sec" id="plugs" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where it plugs in</div>
+      <h2>What each part of the stack would get.</h2>
+      <p class="lede">Two edges are measured; the rest are what a later integration would read, not something built. Click or focus a node.</p>
+    </div>
+    <div class="flight rv" id="hb-box">
+      <div class="fl-head"><span class="dot"></span>typryx, and nine possible readers <span class="n">solid mint = measured, dashed = planned</span></div>
+      <div class="fl-scroll"><svg id="hb-svg" viewBox="0 0 960 440" role="img" aria-label="A hub diagram: typryx at the centre, with edges to MCP clients and the tokenfuse broker, both solid and measured, and to TokenFuse router shadow, Verdryx, Wardryx, CostCrew, Genaryx, Engram and the journal readers Trailryx and Idryx, all dashed and planned. Selecting a node shows what typryx would give it, which template, what happens when typryx is absent, and its status."></svg></div>
+      <div class="fl-out">
+        <span class="u" id="hb-name">pick a node</span>
+        <span class="e" id="hb-status"></span>
+      </div>
+      <p class="fl-why" id="hb-detail">Click or focus a node above for what typryx gives it, which template, and what happens with typryx absent.</p>
+    </div>
+
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th></th><th>what typryx gives it</th><th>status</th></tr></thead>
+        <tbody>
+          <tr><td>MCP clients (Claude Code and others)</td><td>a typed answer with a probability, per call, over MCP</td><td class="yes">measured</td></tr>
+          <tr><td>TokenFuse, as broker</td><td>a named upstream; one tool_call recorded against the agent</td><td class="yes">measured</td></tr>
+          <tr><td>TokenFuse, router shadow mode</td><td>the class it would have routed to, alongside cost, recorded only</td><td class="warn">planned</td></tr>
+          <tr><td>Verdryx</td><td>a typed grader beside the existing LLM judge</td><td class="warn">planned</td></tr>
+          <tr><td>Wardryx</td><td>an optional signal that may become a hold, never a deny</td><td class="warn">planned</td></tr>
+          <tr><td>CostCrew</td><td>a suggested class or priority at triage; a person still decides</td><td class="warn">planned</td></tr>
+          <tr><td>Genaryx</td><td>a panel, live only when <span class="mono" style="font-size:12.5px">GENARYX_TYPRYX_URL</span> resolves</td><td class="warn">planned</td></tr>
+          <tr><td>Engram</td><td>an optional importance score</td><td class="warn">planned</td></tr>
+          <tr><td>Journal readers (Trailryx, Idryx)</td><td>the same agent-event envelope; Idryx will never call typryx, its detection stays deterministic</td><td class="warn">planned</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds to</div>
+      <h2>A probability, never an enforcement decision.</h2>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv"><h3>No deny from a probability</h3><p>Not here, and not in a consumer. The planned Wardryx rule may turn a signal into a hold, which a person releases; nothing turns a probability into a deny.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Calibration, never pooled</h3><p><span class="mono" style="font-size:12.5px">typryx calibration</span> groups by template, template version, backend and model, never averaged across any of the four. Two models under the same question with opposite calibration would otherwise cancel out on paper while neither is fine.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>A later truth, scored honestly</h3><p>An outcome posted later is scored against the exact template version an answer was asked under, read from the ledger's own record, never against whatever the live template says today. A second outcome for the same answer is refused.</p></div>
+      <div class="card hover feature b-4 rv"><h3>One direct dependency</h3><p>agent-stack-go, the stack's shared envelope library, is the only import beyond the standard library. A hostile-input sweep runs against the backends that parse bytes from outside the process, and the ledger survives a torn write mid-crash without losing the record after it.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Spend capped by default</h3><p>1,000 calls an hour by default, counted only against calls that got past the door, the template lookup and the egress filter. Disabling it logs a warning at boot rather than doing it quietly.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>Offline by default</h3><p>The stub backend is deterministic and free, for tests and demos, and every answer it gives says so. The suite itself runs against httptest fakes; nothing in the test run reaches a live network.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IN THE STACK / STATUS ================= -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="bento">
+      <div class="card b-8 rv">
+        <div class="kicker">in the stack</div>
+        <h3 style="margin-top:12px">Optional, and it changes nothing when it is absent.</h3>
+        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
+          Typryx sits behind <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the <span class="mono" style="font-size:12.5px">request.complexity</span> template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. A typed grader beside <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>'s existing LLM judge is on the planned list above, not built: a typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.</p>
+      </div>
+      <div class="card b-4 rv d1">
+        <div class="kicker" style="--accent:var(--mint)">status</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+          <p class="dim" style="font-size:13.5px;line-height:1.7">Released as v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.</p>
+          <p class="dim" style="font-size:13.5px;line-height:1.7">Not yet: any launcher wiring (stack-single, stack-up, stack-k8s), agent-passport registration of its four event types, and every consumer in the tables above.</p>
+        </div>
+      </div>
+    </div>
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>A typed answer, and what it does and does not do</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Is typryx required to run the rest of the stack?</summary>
+        <div class="a"><p>No. It is an optional add-on, and every other service keeps its current path unchanged when it is absent. Nothing in this repository or a planned consumer is built to depend on it.</p></div>
+      </details>
+      <details>
+        <summary>What leaves the box when I send it a state?</summary>
+        <div class="a"><p>Only the fields the template's own <span class="mono">fields</span> list names, held by the type system rather than a promise: <span class="mono">internal/backend.Backend.Ask</span> takes a <span class="mono">template.Egress</span>, a type constructible only inside the template package. Measured on a live run: a state carrying <span class="mono">user_email</span> and, separately, <span class="mono">customer_iban</span>, neither reached the backend or the record.</p></div>
+      </details>
+      <details>
+        <summary>Can a probability block anything?</summary>
+        <div class="a"><p>Not here, and not in a consumer. A probability is a signal a policy can threshold; the planned Wardryx rule may turn one into a hold, which a person releases, never a deny.</p></div>
+      </details>
+      <details>
+        <summary>How do I know a probability is honest?</summary>
+        <div class="a"><p>Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. <span class="mono">typryx calibration</span> groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to <span class="mono">/v1/outcome</span>, so calibration is measured rather than assumed.</p></div>
+      </details>
+      <details>
+        <summary>Does typryx need Jev to be useful?</summary>
+        <div class="a"><p>No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="../services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><span class="foot-chip here" aria-current="page"><i style="background:#60A5FA"></i>Typryx</span><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=e13"></script>
+<script src="../assets/sheet.js?v=e06"></script>
+<script src="../assets/sim.js?v=e13"></script>
+<script src="../assets/stages/typryx.js"></script>
+<script src="../assets/diagram.js"></script>
+<script>
+/* The measured replay: 60 real judgements, local 7B, wording v2, backend
+   openai-logprobs, 2026-09-25 (services/typryx.html's own calibration
+   table). This array duplicates assets/stages/typryx.js's ROWS on purpose:
+   the stage is a pure function of (w,h,t) and cannot be queried for its own
+   data, and the counters below need the same 60 outcomes the canvas draws. */
+(function(){
+"use strict";
+const ROWS=[
+  [0.0124,1],[0.0,0],[0.9986,1],[0.0,0],[0.0003,1],[0.0,0],[0.0343,1],[0.0,0],
+  [0.0001,1],[0.0,0],[0.9465,1],[0.0,0],[0.1517,1],[0.0,0],[0.0,1],[0.0,0],
+  [0.0001,1],[0.0,0],[0.0419,1],[0.0,0],[0.9983,1],[0.0,0],[0.0,1],[0.0,0],
+  [0.06,1],[0.0513,0],[0.5651,1],[0.0,0],[0.0265,1],[0.0,0],[0.9978,1],[0.0001,0],
+  [0.0004,1],[0.0,0],[0.0395,1],[0.0,0],[0.2438,1],[0.0,0],[0.0,1],[0.0,0],
+  [0.4532,1],[0.0363,0],[0.0012,1],[0.0,0],[0.0001,1],[0.0,0],[0.0811,1],[0.0,0],
+  [0.9003,1],[0.0,0],[0.9543,1],[0.0205,0],[0.9926,1],[0.0,0],[0.9678,1],[0.0,0],
+  [0.1617,1],[0.0,0],[0.9978,1],[0.0,0]
+];
+function upto(t){ return Math.min(ROWS.length,Math.max(0,Math.floor(t)+1)); }
+function stats(t){
+  const n=upto(t); let right=0,lenient=0,strict=0;
+  for(let i=0;i<n;i++){
+    const [p,truth]=ROWS[i], pred=p>=0.5?1:0;
+    if(pred===truth) right++;
+    else if(truth===0&&pred===1) lenient++;
+    else strict++;
+  }
+  return {n,right,lenient,strict};
+}
+Sim.mount(document.getElementById("tx-sim"),{
+  title:"measured replay &#183; 60 judgements, local 7B, 2026-09-25",
+  window:60, duration:19000,
+  clock:t=>"ask "+Math.min(60,Math.floor(t)+1),
+  badges:[{label:"measured run",color:"#34D399"},{label:"806 tests",color:"#60A5FA"}],
+  stage:{mode:"typed", rows:ROWS},
+  series:[{id:"noop",label:"",color:"#8A97A6",max:1,points:[[0,0],[60,0]]}],
+  counters:[
+    {id:"c1",label:"asked",color:"#8A97A6",from:t=>stats(t).n},
+    {id:"c2",label:"answered right",color:"#34D399",from:t=>stats(t).right},
+    {id:"c3",label:"passed a wrong answer",color:"#7BE0A8",from:t=>stats(t).lenient},
+    {id:"c4",label:"failed a right answer",color:"#F4B23E",from:t=>stats(t).strict},
+    {id:"c5",label:"cap used",unit:"/1,000",color:"#5A6675",from:t=>stats(t).n}
+  ],
+  events:[
+    {t:0.7,cls:"warn",label:"first strict miss &#183; a right answer read as false"},
+    {t:26.7,cls:"ok",label:"p=0.5651, correct &#183; a close call resolved right"},
+    {t:40.7,cls:"warn",label:"p=0.4532, wrong &#183; the closest call missed"},
+    {t:59,cls:"info",label:"end: 40 of 60 right at 0.965 stated confidence"}
+  ]
+});
+})();
+</script>
+
+<!-- Widget: where can an ask stop -->
+<script>
+/* on a phone the widget svgs sit in a horizontal scroller (.fl-scroll);
+   centre the part a tab just changed so the answer is never off-screen */
+window.txCentre=function(svg,vbX){
+  const sc=svg&&svg.closest(".fl-scroll"); if(!sc||sc.scrollWidth<=sc.clientWidth+2) return;
+  const vbW=svg.viewBox.baseVal.width||960;
+  sc.scrollLeft=Math.max(0,vbX/vbW*sc.scrollWidth-sc.clientWidth/2);
+};
+(function(){
+"use strict";
+const box=document.getElementById("st-box"); if(!box) return;
+const GATES=["door","template","filter","cap","backend"];
+const GX={door:99,template:287,filter:491,cap:680,backend:858};
+const pkt=document.getElementById("st-pkt");
+const gEls={}; document.querySelectorAll(".stg").forEach(g=>gEls[g.dataset.g]=g);
+const statusEl=document.getElementById("st-status"), codeEl=document.getElementById("st-code");
+const verdictEl=document.getElementById("st-verdict"), whyEl=document.getElementById("st-why");
+const labelEl=document.getElementById("st-label");
+const tabs=[...box.querySelectorAll(".fl-tab")];
+
+const CASES={
+  answered:{status:"HTTP 200",code:"answered",journal:"typed_answer",wire:"on the wire",wireCls:"go",
+    why:"All five gates pass. The answer is read off the probability distribution itself, never taken as the backend's own claim, and both answer and probabilities are on the wire.",
+    stop:null},
+  nokey:{status:"HTTP 401",code:"unauthorized",journal:"nothing: the door refused before anything ran",wire:"neither field present",wireCls:"stop",
+    why:"No key, or a key the door does not recognise, refuses at the door itself. Nothing past it runs: no template lookup, no journal write, nothing.",
+    stop:"door"},
+  template:{status:"HTTP 404",code:"unknown_template",journal:"typed_refused",wire:"neither field present",wireCls:"stop",
+    why:"The door accepted the key; the named template does not exist. This never reaches the egress filter or the cap, so nothing is counted against the hourly limit.",
+    stop:"template"},
+  state:{status:"HTTP 413",code:"state_too_large",journal:"typed_refused",wire:"neither field present",wireCls:"stop",
+    why:"The state is over max_state_bytes (16384 in the example templates). A state that is not a JSON object at all is the same shape, HTTP 400 bad_state, also journaled typed_refused.",
+    stop:"filter"},
+  cap:{status:"HTTP 429",code:"over_hourly_cap",journal:"typed_refused",wire:"neither field present",wireCls:"stop",
+    why:"1,000 calls an hour by default, counted only for calls that already passed the door, the template lookup and the egress filter. The window rolls over rather than resetting on the clock hour.",
+    stop:"cap"},
+  timeout:{status:"HTTP 200",code:"unanswered: true, reason: timeout",journal:"typed_unanswered",wire:"answer + probabilities OMITTED",wireCls:"stop",
+    why:"The backend was reached and never answered in time. The HTTP status is 200: it is a normal response shape, just one that says unanswered rather than inventing an answer. The same shape covers backend_error and a backend's own refusal reasons, such as no_logprobs or label_mass_too_low.",
+    stop:"backend"}
+};
+
+function render(k){
+  const c=CASES[k];
+  labelEl.textContent=k;
+  statusEl.textContent=c.status; codeEl.textContent=c.code;
+  verdictEl.textContent=c.wire; verdictEl.className="v "+c.wireCls;
+  whyEl.textContent=c.why+" Journal: "+c.journal+".";
+  const stopIdx=c.stop?GATES.indexOf(c.stop):-1;
+  GATES.forEach((g,i)=>{
+    const cls = stopIdx<0 ? "stg pass" : i<stopIdx ? "stg pass" : i===stopIdx ? "stg stop" : "stg skip";
+    gEls[g].setAttribute("class",cls);
+  });
+  const atX = stopIdx<0 ? GX.backend+70 : GX[GATES[stopIdx]];
+  pkt.setAttribute("cx",atX);
+  pkt.setAttribute("fill", stopIdx<0 ? "#34D399" : "#FF574B");
+  if(rendered) txCentre(document.getElementById("st-svg"),atX);
+  rendered=true;
+}
+let rendered=false;
+box.querySelectorAll(".stg .post").forEach(()=>{});
+const style=document.createElement("style");
+style.textContent=".stg.pass .post{stroke:#34D399}.stg.stop .post{stroke:#FF574B;fill:#1F1418}.stg.skip{opacity:.3}";
+document.head.appendChild(style);
+
+tabs.forEach(b=>b.addEventListener("click",()=>{
+  tabs.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  render(b.dataset.k);
+}));
+render("answered");
+})();
+</script>
+
+<!-- Widget: where Jev meets the stack -->
+<script>
+(function(){
+"use strict";
+const box=document.getElementById("jv-box"); if(!box) return;
+const tabs=[...box.querySelectorAll(".fl-tab")];
+const label=document.getElementById("jv-label"), why=document.getElementById("jv-why");
+const s1=document.getElementById("jv-sent1"), s2=document.getElementById("jv-sent2"),
+      s3=document.getElementById("jv-sent3"), s4=document.getElementById("jv-sent4");
+const bname=document.getElementById("jv-backname"), bstatus=document.getElementById("jv-backstatus");
+const r1=document.getElementById("jv-ret1"), r2=document.getElementById("jv-ret2"), r3=document.getElementById("jv-ret3");
+const chip=document.getElementById("jv-chip");
+
+const CASES={
+  stub:{name:"stub",
+    sent:["nothing leaves the process","","",""],
+    backStatus:"from a sha-256, no network",
+    ret:["a hash-derived answer","every answer says it is the stub",""],
+    chip:"measured", chipCol:"#34D399",
+    why:"The stub backend calls no network at all: it derives a deterministic answer from a hash of the input, for tests and demos, and every answer it gives says so."},
+  logprobs:{name:"openai-logprobs",
+    sent:["a one-token prompt","max_tokens: 1, temperature: 0","logprobs: true, top_logprobs: 20",""],
+    backStatus:"any OpenAI-compatible server",
+    ret:["label token probabilities","label_mass_too_low when too",
+         "little lands on the labels"],
+    chip:"measured on 5 models", chipCol:"#34D399",
+    why:"Reaches any OpenAI-compatible server, including a local Ollama or vLLM. The current hosted generation refuses logprobs outright (probed 2026-09-25), so this backend in practice reaches earlier hosted models and open models, five of which are the models in the calibration table below."},
+  jev:{name:"jev",
+    sent:["POST {base}/systemone","{state, model,","questions:{q:{type,",
+          "instructions, criteria}}}"],
+    backStatus:"api.typesafe.ai &#183; not yet called",
+    ret:["answers.q.probabilities","or answers.q.noul, mapped to",
+         "{true: n, false: 1-n}"],
+    chip:"built, not run live", chipCol:"#F4B23E",
+    why:"Built and tested against the documented wire shape from docs.typesafe.ai, replayed by an httptest fake. No key, no spend approval, and no call has been made: TypeSafe AI paused new signups on 2026-09-25."}
+};
+
+function render(k){
+  const c=CASES[k]; label.textContent=c.name;
+  s1.textContent=c.sent[0]; s2.textContent=c.sent[1]; s3.textContent=c.sent[2]; s4.textContent=c.sent[3];
+  bname.textContent=c.name; bstatus.innerHTML=c.backStatus;
+  r1.textContent=c.ret[0]; r2.textContent=c.ret[1]; r3.textContent=c.ret[2];
+  chip.textContent=c.chip; chip.setAttribute("fill",c.chipCol);
+  why.textContent=c.why;
+  if(jvRendered) txCentre(document.getElementById("jv-svg"),640);
+  jvRendered=true;
+}
+let jvRendered=false;
+tabs.forEach(b=>b.addEventListener("click",()=>{
+  tabs.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  render(b.dataset.k);
+}));
+render("stub");
+})();
+</script>
+
+<!-- Widget: what leaves the box (field toggles) -->
+<script>
+(function(){
+"use strict";
+const box=document.querySelector(".chips"); if(!box) return;
+const held=document.getElementById("eg-held"), hb2=document.getElementById("eg-hb2");
+const boxes={user_email:document.getElementById("eg-f2"),customer_iban:document.getElementById("eg-f3"),api_token:document.getElementById("eg-f4")};
+const on={user_email:true,customer_iban:true,api_token:true};
+function render(){
+  const n=Object.values(on).filter(Boolean).length;
+  held.textContent="held_back_fields: "+n;
+  hb2.textContent = n===0 ? "no optional field is in the state right now" : "task + final_answer still the only two that pass";
+  Object.keys(on).forEach(k=>{
+    boxes[k].setAttribute("opacity", on[k]?"1":"0.28");
+  });
+  box.querySelectorAll(".fchip[data-f]").forEach(b=>b.setAttribute("aria-pressed",String(on[b.dataset.f])));
+}
+box.querySelectorAll(".fchip[data-f]").forEach(b=>b.addEventListener("click",()=>{
+  on[b.dataset.f]=!on[b.dataset.f]; render();
+}));
+render();
+})();
+</script>
+
+<!-- Widget: speed bar chart -->
+<script>
+(function(){
+"use strict";
+const svg=document.getElementById("sp-svg"); if(!svg) return;
+const ns="http://www.w3.org/2000/svg";
+const box=document.getElementById("sp-box");
+const label=document.getElementById("sp-label");
+const tabs=[...box.querySelectorAll(".fl-tab")];
+
+const DATA={
+  hosted:[
+    {label:"typed, one token (hosted A)",median:538,p95:795,acc:"71.7%",col:"#60A5FA"},
+    {label:"text judge (hosted A)",median:723,p95:1012,acc:"100%",col:"#8A97A6"},
+    {label:"reasoning judge",median:562,p95:896,acc:"100%",col:"#34D399"},
+    {label:"typed, through typryx (Jev)",median:null,p95:null,acc:"built, not run live",col:"#F4B23E"}
+  ],
+  local:[
+    {label:"typed, one token (local 7B)",median:148,p95:159,acc:"66.7%",col:"#60A5FA"},
+    {label:"text judge (local 7B)",median:1509,p95:2103,acc:"100%",col:"#8A97A6"},
+    {label:"typed, through typryx (Jev)",median:null,p95:null,acc:"built, not run live",col:"#F4B23E"}
+  ]
+};
+
+function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+
+function render(k){
+  label.textContent = k==="hosted"?"hosted API":"local 7B";
+  const rows=DATA[k];
+  const maxMs=Math.max(...rows.map(r=>r.p95||0),200)*1.6;
+  /* narrow screens get their own layout, labels above the bars, instead of
+     a 960-wide chart shrunk to unreadable or scrolled half off-screen */
+  const narrow=svg.parentElement.clientWidth<600;
+  const padL=narrow?12:280,padR=narrow?120:170,padT=narrow?34:28,rowH=narrow?66:54,w=narrow?480:960,h=padT+rows.length*rowH+(narrow?4:20);
+  const fs=narrow?"13":"11", fsS=narrow?"12":"10.5";
+  svg.setAttribute("viewBox","0 0 "+w+" "+h);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const g=el("g",{"font-family":"ui-monospace,Menlo"});
+  svg.appendChild(g);
+  rows.forEach((r,i)=>{
+    const y=padT+i*rowH+rowH/2;
+    const lbl=narrow?el("text",{x:padL,y:y-16,fill:"#E9EFF6","font-size":fs})
+                    :el("text",{x:padL-14,y:y+4,fill:"#E9EFF6","font-size":fs,"text-anchor":"end"});
+    lbl.textContent=r.label; g.appendChild(lbl);
+    const track=el("rect",{x:padL,y:y-9,width:w-padL-padR,height:18,rx:4,fill:"#141C27",stroke:"#2a3547"});
+    g.appendChild(track);
+    if(r.median==null){
+      const dash=el("rect",{x:padL,y:y-9,width:w-padL-padR,height:18,rx:4,fill:"none",stroke:"#F4B23E","stroke-dasharray":"4 5"});
+      g.appendChild(dash);
+      const t=el("text",{x:padL+12,y:y+5,fill:"#F4B23E","font-size":fsS});
+      t.textContent=narrow?"not measured yet":"measured the day access opens"; g.appendChild(t);
+    }else{
+      const bw=(w-padL-padR)*(r.median/maxMs);
+      const bar=el("rect",{x:padL,y:y-8,width:Math.max(3,bw),height:16,rx:3,fill:r.col,opacity:"0.55"});
+      g.appendChild(bar);
+      const p95x=padL+(w-padL-padR)*(r.p95/maxMs);
+      const whisk=el("line",{x1:p95x,x2:p95x,y1:y-13,y2:y+13,stroke:"#E9EFF6","stroke-width":"1.6"});
+      g.appendChild(whisk);
+      const mt=el("text",{x:Math.max(padL+bw,p95x)+10,y:y+5,fill:"#8A97A6","font-size":fsS});
+      mt.textContent=narrow?r.median+" / "+r.p95+" ms":r.median+" ms median, "+r.p95+" ms p95"; g.appendChild(mt);
+    }
+    const chip=el("text",{x:w-padR+14,y:y+5,fill:r.median==null?"#F4B23E":"#34D399","font-size":fsS,"font-weight":"700"});
+    chip.textContent=narrow&&r.median==null?"not run live":r.acc; g.appendChild(chip);
+  });
+}
+tabs.forEach(b=>b.addEventListener("click",()=>{
+  tabs.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  render(b.dataset.k);
+}));
+let cur="hosted";
+tabs.forEach(b=>b.addEventListener("click",()=>{cur=b.dataset.k;}));
+addEventListener("resize",()=>render(cur));
+render("hosted");
+})();
+</script>
+
+<!-- Widget: calibration reliability chart -->
+<script>
+(function(){
+"use strict";
+const svg=document.getElementById("cl-svg"); if(!svg) return;
+const ns="http://www.w3.org/2000/svg";
+const box=document.getElementById("cl-box");
+const label=document.getElementById("cl-label");
+const nameEl=document.getElementById("cl-name"), detailEl=document.getElementById("cl-detail");
+const tabs=[...box.querySelectorAll(".fl-tab")];
+
+const GROUPS=[
+  {label:"hosted A",wording:"v1",n:60,stated:0.990,acc:0.733,ece:0.267,brier:0.525,right:44,lenient:15,strict:1,kind:"hosted"},
+  {label:"hosted A",wording:"v2",n:60,stated:0.958,acc:0.733,ece:0.243,brier:0.505,right:44,lenient:15,strict:1,kind:"hosted"},
+  {label:"hosted B",wording:"v1",n:60,stated:0.987,acc:0.583,ece:0.414,brier:0.823,right:35,lenient:11,strict:14,kind:"hosted"},
+  {label:"hosted B",wording:"v2",n:60,stated:0.983,acc:0.633,ece:0.358,brier:0.716,right:38,lenient:5,strict:17,kind:"hosted"},
+  {label:"hosted C",wording:"v1",n:60,stated:0.99999,acc:0.500,ece:0.500,brier:1.000,right:30,lenient:30,strict:0,kind:"hosted"},
+  {label:"hosted C",wording:"v2",n:60,stated:0.9995,acc:0.500,ece:0.500,brier:0.999,right:30,lenient:30,strict:0,kind:"hosted"},
+  {label:"local 3B",wording:"v2",n:60,stated:0.998,acc:0.500,ece:0.498,brier:0.995,right:30,lenient:30,strict:0,kind:"local"},
+  {label:"local 7B",wording:"v2",n:60,stated:0.965,acc:0.667,ece:0.298,brier:0.597,right:40,lenient:0,strict:20,kind:"local"}
+];
+
+function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+
+function scatter(filterFn){
+  /* narrow screens: the list goes under the chart instead of beside it */
+  const narrow=svg.parentElement.clientWidth<600;
+  const nList=GROUPS.filter(filterFn).length;
+  const w=narrow?480:960, plotH=narrow?340:400, h=narrow?plotH+30+nList*40:400;
+  svg.setAttribute("viewBox","0 0 "+w+" "+h);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const padL=narrow?50:54,padR=narrow?16:380,padT=20,padB=narrow?h-plotH+40:40;
+  const fs=narrow?"12":"10.5";
+  const x0=0.5,x1=1.0,y0=0.4,y1=1.0;
+  const X=v=>padL+(w-padL-padR)*(v-x0)/(x1-x0);
+  const Y=v=>h-padB-(h-padT-padB)*(v-y0)/(y1-y0);
+  const g=el("g",{"font-family":"ui-monospace,Menlo"}); svg.appendChild(g);
+  g.appendChild(el("line",{x1:X(x0),y1:Y(x0<y1?x0:y1),x2:X(1.0),y2:Y(1.0),stroke:"#5A6675","stroke-width":"1.4","stroke-dasharray":"3 4"}));
+  const axx=el("line",{x1:padL,y1:h-padB,x2:w-padR,y2:h-padB,stroke:"#2a3547"}); g.appendChild(axx);
+  const axy=el("line",{x1:padL,y1:padT,x2:padL,y2:h-padB,stroke:"#2a3547"}); g.appendChild(axy);
+  [0.5,0.6,0.7,0.8,0.9,1.0].forEach(v=>{
+    const t=el("text",{x:X(v),y:h-padB+16,fill:"#8A97A6","font-size":fs,"text-anchor":"middle"});
+    t.textContent=v.toFixed(1); g.appendChild(t);
+  });
+  [0.4,0.5,0.6,0.7,0.8,0.9,1.0].forEach(v=>{
+    const t=el("text",{x:padL-8,y:Y(v)+3,fill:"#8A97A6","font-size":fs,"text-anchor":"end"});
+    t.textContent=v.toFixed(1); g.appendChild(t);
+  });
+  const xl=el("text",{x:(padL+(w-padR))/2,y:h-padB+34,fill:"#8A97A6","font-size":narrow?"12":"11","text-anchor":"middle"});
+  xl.textContent="mean stated confidence"; g.appendChild(xl);
+  const yl=el("text",{x:14,y:(padT+h-padB)/2,"data-n":"1",fill:"#8A97A6","font-size":"11","text-anchor":"middle",transform:"rotate(-90 14 "+((padT+h-padB)/2)+")"});
+  yl.textContent="actual accuracy"; g.appendChild(yl);
+  const ang=-Math.atan(((h-padT-padB)/0.6)/((w-padL-padR)/0.5))*180/Math.PI;
+  const dl=el("text",{x:X(0.62),y:Y(0.62)-10,fill:"#5A6675","font-size":fs,transform:"rotate("+ang.toFixed(1)+" "+X(0.62)+" "+(Y(0.62)-10)+")"});
+  dl.textContent="stated = actual"; g.appendChild(dl);
+
+  /* join v1/v2 of the same model */
+  const byLabel={};
+  GROUPS.forEach(gr=>{(byLabel[gr.label]=byLabel[gr.label]||[]).push(gr);});
+  Object.values(byLabel).forEach(pair=>{
+    if(pair.length<2) return;
+    const a=pair[0],b=pair[1];
+    if(!filterFn(a)||!filterFn(b)) return;
+    g.appendChild(el("line",{x1:X(a.stated),y1:Y(a.acc),x2:X(b.stated),y2:Y(b.acc),stroke:"#5A6675","stroke-width":"1"}));
+  });
+
+  GROUPS.forEach((gr,i)=>{
+    if(!filterFn(gr)) return;
+    const col=gr.kind==="hosted"?"#FF7AA2":"#6C7BFF";
+    const c=el("circle",{cx:X(gr.stated),cy:Y(gr.acc),r:9,fill:col,opacity:"0.7",tabindex:"0",role:"button",
+      "aria-label":gr.label+" "+gr.wording+": stated "+gr.stated.toFixed(3)+", accuracy "+gr.acc.toFixed(3)});
+    c.style.cursor="pointer";
+    c.addEventListener("click",()=>pick(gr));
+    c.addEventListener("focus",()=>pick(gr));
+    g.appendChild(c);
+  });
+
+  /* three groups land almost on one point (hosted C in both wordings and
+     the local 3B, all at 0.5 accuracy and ~1.0 stated), so a dot alone
+     cannot be picked; this list beside the chart reaches every group */
+  const lx=narrow?padL-40:padL+(w-padL-padR)+44, ly=narrow?plotH+22:padT+10;
+  const hd=el("text",{x:lx,y:ly,fill:"#8A97A6","font-size":fs});
+  hd.textContent="group, stated -> actual"; g.appendChild(hd);
+  GROUPS.filter(filterFn).forEach((gr,i)=>{
+    const ry=ly+14+i*(narrow?40:38);
+    const col=gr.kind==="hosted"?"#FF7AA2":"#6C7BFF";
+    const r=el("rect",{x:lx,y:ry,width:narrow?w-lx-10:300,height:narrow?32:30,rx:7,fill:"#141C27",stroke:"#2a3547",tabindex:"0",role:"button",
+      "aria-label":gr.label+" "+gr.wording+": stated "+gr.stated.toFixed(3)+", accuracy "+gr.acc.toFixed(3)});
+    r.style.cursor="pointer";
+    r.addEventListener("click",()=>pick(gr)); r.addEventListener("focus",()=>pick(gr));
+    g.appendChild(r);
+    g.appendChild(el("circle",{cx:lx+16,cy:ry+(narrow?16:15),r:5,fill:col,opacity:"0.8","pointer-events":"none"}));
+    const t=el("text",{x:lx+30,y:ry+(narrow?20:19),fill:"#E9EFF6","font-size":fs,"pointer-events":"none"});
+    t.textContent=gr.label+" "+gr.wording+"   "+gr.stated.toFixed(3)+" -> "+gr.acc.toFixed(3);
+    g.appendChild(t);
+  });
+}
+
+function bars(){
+  const narrow=svg.parentElement.clientWidth<600;
+  const w=narrow?480:960;
+  svg.setAttribute("viewBox","0 0 "+w+" "+(narrow?420:400));
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const padL=narrow?120:190,padR=narrow?14:60,padT=narrow?50:20,rowH=44;
+  const g=el("g",{"font-family":"ui-monospace,Menlo"}); svg.appendChild(g);
+  GROUPS.forEach((gr,i)=>{
+    const y=padT+i*rowH+rowH/2, bw=w-padL-padR, n=gr.n;
+    const lbl=el("text",{x:padL-12,y:y+4,fill:"#E9EFF6","font-size":narrow?"12":"11","text-anchor":"end"});
+    lbl.textContent=gr.label+" "+gr.wording; g.appendChild(lbl);
+    let x=padL;
+    [["right",gr.right,"#34D399"],["lenient",gr.lenient,"#F4B23E"],["strict",gr.strict,"#FF574B"]].forEach(([k,v,col])=>{
+      const bwv=bw*(v/n);
+      if(v>0){
+        g.appendChild(el("rect",{x,y:y-11,width:bwv,height:22,fill:col,opacity:"0.55"}));
+        if(bwv>26){
+          const t=el("text",{x:x+bwv/2,y:y+4,fill:"#0A0E13","font-size":"10.5","text-anchor":"middle"});
+          t.textContent=v; g.appendChild(t);
+        }
+      }
+      x+=bwv;
+    });
+  });
+  const lines=narrow?["right (mint) · out of 60 each","lenient: passed a wrong answer (amber)","strict: failed a right answer (ember)"]
+    :["right (mint) · lenient: passed a wrong answer (amber) · strict: failed a right answer (ember) · out of 60"];
+  lines.forEach((tx,i)=>{
+    const legend=el("text",{x:narrow?12:padL,y:12+i*15,fill:"#8A97A6","font-size":narrow?"12":"10.5"});
+    legend.textContent=tx; g.appendChild(legend);
+  });
+}
+
+function pick(gr){
+  nameEl.textContent=gr.label+" · "+gr.wording;
+  detailEl.textContent="n="+gr.n+"  stated "+gr.stated.toFixed(3)+"  actual "+gr.acc.toFixed(3)+
+    "  ECE "+gr.ece.toFixed(3)+"  Brier "+gr.brier.toFixed(3);
+}
+
+function render(k){
+  label.textContent=k;
+  if(k==="wrong"){ bars(); nameEl.textContent="stacked, out of 60 each"; detailEl.textContent=""; return; }
+  const filt = k==="all" ? ()=>true : gr=>gr.wording===k;
+  scatter(filt);
+  nameEl.textContent="pick a dot for its numbers"; detailEl.textContent="";
+}
+tabs.forEach(b=>b.addEventListener("click",()=>{
+  tabs.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  render(b.dataset.k);
+}));
+let clCur="all";
+tabs.forEach(b=>b.addEventListener("click",()=>{clCur=b.dataset.k;}));
+addEventListener("resize",()=>render(clCur));
+render("all");
+})();
+</script>
+
+<!-- Widget: where it plugs in (hub) -->
+<script>
+(function(){
+"use strict";
+const svg=document.getElementById("hb-svg"); if(!svg) return;
+const ns="http://www.w3.org/2000/svg";
+const nameEl=document.getElementById("hb-name"), statusEl=document.getElementById("hb-status"), detailEl=document.getElementById("hb-detail");
+function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+
+const CX=480,CY=210;
+const NODES=[
+  {id:"mcp",col:"#34D399",label:"MCP clients",x:200,y:60,measured:true,gives:"a typed answer with a probability, per call, over MCP",template:"any",absent:"the agent gets no typed answer; it decides however it already does",status:"measured"},
+  {id:"tf-broker",col:"#34D399",label:"TokenFuse broker",x:760,y:60,measured:true,gives:"a named upstream; one tool_call recorded against the agent",template:"any",absent:"typryx is simply not a configured upstream",status:"measured"},
+  {id:"tf-router",col:"#F4B23E",label:"TokenFuse router (shadow)",x:840,y:150,measured:false,gives:"the class it would have routed to, recorded only, never used to route",template:"request.complexity",absent:"the router keeps deciding the way it does today",status:"planned, shadow only"},
+  {id:"verdryx",col:"#FF7AA2",label:"Verdryx",x:840,y:270,measured:false,gives:"a typed grader beside the existing LLM judge",template:"eval.outcome_met, eval.answer_quality",absent:"Verdryx keeps grading with its LLM judge alone",status:"planned"},
+  {id:"wardryx",col:"#2DD4BF",label:"Wardryx",x:740,y:360,measured:false,gives:"an optional signal a policy may turn into a hold, never a deny",template:"any",absent:"Wardryx's policy plane is unchanged",status:"planned"},
+  {id:"costcrew",col:"#7DD3A0",label:"CostCrew",x:560,y:400,measured:false,gives:"a suggested class or priority shown at triage; a person still decides",template:"an anomaly-class template, not written yet",absent:"CostCrew's triage is unchanged",status:"planned"},
+  {id:"genaryx",col:"#B48CFF",label:"Genaryx",x:380,y:400,measured:false,gives:"a panel of calibration verdicts, live only when GENARYX_TYPRYX_URL resolves",template:"any",absent:"no typryx panel is shown",status:"planned"},
+  {id:"engram",col:"#6C7BFF",label:"Engram",x:200,y:360,measured:false,gives:"an optional importance score",template:"any",absent:"Engram's importance scoring is unchanged",status:"planned"},
+  {id:"journal",col:"#E4626F",label:"Trailryx / Idryx",x:100,y:270,measured:false,gives:"the same agent-event envelope the rest of the stack writes; Idryx would only ever read it, never call typryx",template:"n/a, journal only",absent:"nothing to read; Idryx's detection stays deterministic either way",status:"planned"}
+];
+
+const g=el("g",{"font-family":"ui-monospace,Menlo"}); svg.appendChild(g);
+NODES.forEach(n=>{
+  g.appendChild(el("line",{x1:CX,y1:CY,x2:n.x,y2:n.y,stroke:n.measured?"#34D399":"#5A6675","stroke-width":n.measured?"1.6":"1.2",
+    "stroke-dasharray":n.measured?"":"4 5", opacity:n.measured?"0.6":"0.4"}));
+});
+/* a pulse travels each measured edge: the two connections that have
+   actually carried a call, drawn moving; the planned ones stay still */
+NODES.filter(n=>n.measured).forEach((n,i)=>{
+  const c=el("circle",{r:"4",fill:"#34D399",opacity:".85"});
+  const m=el("animateMotion",{path:"M"+n.x+" "+n.y+" L"+CX+" "+CY,dur:"2.6s",begin:(i*1.3)+"s",repeatCount:"indefinite"});
+  c.appendChild(m); g.appendChild(c);
+});
+g.appendChild(el("circle",{cx:CX,cy:CY,r:44,fill:"#10161F",stroke:"#60A5FA","stroke-width":"1.6"}));
+const ct=el("text",{x:CX,y:CY+5,fill:"#60A5FA","font-size":"13","font-weight":"700","text-anchor":"middle"});
+ct.textContent="typryx"; g.appendChild(ct);
+
+NODES.forEach(n=>{
+  const bw=Math.max(140,n.label.length*6.6+24);
+  const r=el("rect",{x:n.x-bw/2,y:n.y-16,width:bw,height:32,rx:9,fill:"#141C27",stroke:n.col,
+    "stroke-dasharray":n.measured?"":"3 3",tabindex:"0",role:"button","aria-label":n.label+", "+n.status});
+  r.style.cursor="pointer";
+  g.appendChild(r);
+  const t=el("text",{x:n.x,y:n.y+4,fill:"#E9EFF6","font-size":"10.5","text-anchor":"middle","pointer-events":"none"});
+  t.textContent=n.label; g.appendChild(t);
+  function pick(){
+    nameEl.textContent=n.label; statusEl.textContent=n.status;
+    detailEl.textContent="gives: "+n.gives+"  ·  template: "+n.template+"  ·  absent: "+n.absent;
+  }
+  r.addEventListener("click",pick); r.addEventListener("focus",pick);
+});
+/* on a phone the hub scrolls sideways; start with typryx in the middle */
+const sc=svg.closest(".fl-scroll");
+if(sc&&sc.scrollWidth>sc.clientWidth+2) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)/2;
+})();
+</script>
+
+<!-- The site-wide backdrop and this room's own hero motif. -->
+<script src="../assets/ambient.js"></script>
+</body>
+</html>
