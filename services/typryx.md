@@ -8,7 +8,7 @@ Agents already ask each other, and their models, questions that have exactly one
 
 ## Every real judgement from one run, replayed in the same order.
 
-Not an illustration: these are the 60 real arithmetic judgements from the calibration table below, local 7B, wording v2, in the order they were asked (the real run took 9.44 seconds; this replay plays it about 2× slower). Watch the resolved probability, the verdict, and how often "confident" and "right" turn out to be different things.
+Not an illustration: these are the 60 real arithmetic judgements from the calibration table below, qwen2.5:7b run locally on Ollama, wording v2, in the order they were asked (the real run took 9.44 seconds; this replay plays it about 2× slower). Watch the resolved probability, the verdict, and how often "confident" and "right" turn out to be different things.
 
 ## The path of one ask.
 
@@ -44,33 +44,35 @@ The served answer is always read back off the probability distribution itself: t
 
 Same 60 items, seed 1, timed end to end from the caller (`go run ./examples/speed`, typryx f4045e0, one run each, so read the medians as indicative rather than final).
 
-| way of deciding | model label | median | p95 | accuracy |
+| way of deciding | model | median | p95 | accuracy |
 |---|---|---|---|---|
-| typed, one token, through typryx | hosted A | 538 ms | 795 ms | 71.7% |
-| text judge, short verdict | hosted A | 723 ms | 1,012 ms | 100% |
-| reasoning judge | a current small hosted reasoning model | 562 ms | 896 ms | 100% |
-| typed, one token, through typryx | local 7B | 148 ms | 159 ms | 66.7% (3 of 60 unparsed, counted wrong) |
-| text judge, short verdict | local 7B | 1,509 ms | 2,103 ms | 100% |
+| typed, one token, through typryx | gpt-4.1-mini | 538 ms | 795 ms | 71.7% |
+| text judge, short verdict | gpt-4.1-mini | 723 ms | 1,012 ms | 100% |
+| reasoning judge | gpt-5.4-mini (current, reasoning) | 562 ms | 896 ms | 100% |
+| typed, one token, through typryx | qwen2.5:7b | 148 ms | 159 ms | 66.7% (3 of 60 unparsed, counted wrong) |
+| text judge, short verdict | qwen2.5:7b | 1,509 ms | 2,103 ms | 100% |
 | typed, through typryx | Jev | not measured | built, not run live |  |
 
-Against a hosted API the network dominates: the shortcut was about 1.3× faster than a short text verdict and gave up about a third of the accuracy, and a current small reasoning model was right on all 60 in about the same time as the shortcut. Locally the shortcut is about 10× faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page.
+Against a gpt-4.1-miniPI the network dominates: on gpt-4.1-mini the shortcut was about 1.3× faster than a short text verdict and gave up about a third of the accuracy, and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10× faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page.
 
 ## Stated confidence and actual accuracy are not the same number.
 
-Eight groups, 480 judgements, never pooled: `typryx calibration --min-n 30 --json` over durable ledgers, 60 arithmetic judgements per group, seed 1, template `eval.outcome_met`, backend openai-logprobs, half the items right and half wrong. Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.
+Eight groups, 480 judgements, never pooled: `typryx calibration --min-n 30 --json` over durable ledgers, 60 arithmetic judgements per group, seed 1, template `eval.outcome_met`, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the gpt-4.1-miniPI (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.
 
-Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (hosted C in both wordings, and the local 3B) said "correct" to every one of 60 items, right exactly half the time, the base rate. Hosted A mostly passed a wrong answer as right; hosted B erred both ways; the local 7B never passed a wrong answer but failed a third of the right ones. Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. The current hosted generation refuses token probabilities outright (probed 2026-09-25: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.
+Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (gpt-4.1-nano in both wordings, and qwen2.5:3b) said "correct" to every one of 60 items, right exactly half the time, the base rate. gpt-4.1-mini mostly passed a wrong answer as right; gpt-4o-mini erred both ways; qwen2.5:7b never passed a wrong answer but failed a third of the right ones. Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright (probed 2026-09-25: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.
 
-| label | wording | n | stated | accuracy | ECE | Brier | right | lenient | strict |
+| model | wording | n | stated | accuracy | ECE | Brier | right | lenient | strict |
 |---|---|---|---|---|---|---|---|---|---|
-| hosted A | v1 | 60 | 0.990 | 0.733 | 0.267 | 0.525 | 44 | 15 | 1 |
-| hosted A | v2 | 60 | 0.958 | 0.733 | 0.243 | 0.505 | 44 | 15 | 1 |
-| hosted B | v1 | 60 | 0.987 | 0.583 | 0.414 | 0.823 | 35 | 11 | 14 |
-| hosted B | v2 | 60 | 0.983 | 0.633 | 0.358 | 0.716 | 38 | 5 | 17 |
-| hosted C | v1 | 60 | 0.99999 | 0.500 | 0.500 | 1.000 | 30 | 30 | 0 |
-| hosted C | v2 | 60 | 0.9995 | 0.500 | 0.500 | 0.999 | 30 | 30 | 0 |
-| local 3B | v2 | 60 | 0.998 | 0.500 | 0.498 | 0.995 | 30 | 30 | 0 |
-| local 7B | v2 | 60 | 0.965 | 0.667 | 0.298 | 0.597 | 40 | 0 | 20 |
+| gpt-4.1-mini | v1 | 60 | 0.990 | 0.733 | 0.267 | 0.525 | 44 | 15 | 1 |
+| gpt-4.1-mini | v2 | 60 | 0.958 | 0.733 | 0.243 | 0.505 | 44 | 15 | 1 |
+| gpt-4o-mini | v1 | 60 | 0.987 | 0.583 | 0.414 | 0.823 | 35 | 11 | 14 |
+| gpt-4o-mini | v2 | 60 | 0.983 | 0.633 | 0.358 | 0.716 | 38 | 5 | 17 |
+| gpt-4.1-nano | v1 | 60 | 0.99999 | 0.500 | 0.500 | 1.000 | 30 | 30 | 0 |
+| gpt-4.1-nano | v2 | 60 | 0.9995 | 0.500 | 0.500 | 0.999 | 30 | 30 | 0 |
+| qwen2.5:3b | v2 | 60 | 0.998 | 0.500 | 0.498 | 0.995 | 30 | 30 | 0 |
+| qwen2.5:7b | v2 | 60 | 0.965 | 0.667 | 0.298 | 0.597 | 40 | 0 | 20 |
+
+Exact models: gpt-4.1-mini-2025-04-14, gpt-4o-mini-2024-07-18 and gpt-4.1-nano-2025-04-14 over OpenAI's API; qwen2.5:3b and qwen2.5:7b on Ollama on a development Mac. Wording v1 is the example template (`2d3ecbdc`), v2 asks plainly whether the answer is exactly correct (`781efaaf`); the local models ran v2 only. Every figure here is one run of 60 items, reproducible with `examples/calibration` in the repository.
 
 **stated confidence**
 The probability the model's own answer carried when it was given, averaged over the group.

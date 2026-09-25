@@ -1,6 +1,6 @@
 /* Stage "typed" - Typryx. An exact replay of one real run: 60 arithmetic
-   judgements, local 7B, wording v2, backend openai-logprobs, measured
-   2026-09-25 (services/typryx.html, the calibration section: the "local 7B"
+   judgements, qwen2.5:7b run locally, wording v2, backend openai-logprobs, measured
+   2026-09-25 (services/typryx.html, the calibration section: the qwen2.5:7b
    row, n=60, stated 0.965, accuracy 0.667). The real run took 9.44s; this
    replay spreads the same 60 items one per unit across the 60-unit sim
    window, played over 19 seconds, so it runs about 2x slower than it
@@ -65,7 +65,7 @@ Sim.registerStage("typed",function(o,cfg){
          itself since the mount title above it is fixed text */
       ctx.textAlign="left";ctx.font="10px ui-monospace,Menlo,monospace";
       ctx.fillStyle="rgba("+P.dim+",.7)";
-      ctx.fillText("60 judgements · local 7B · openai-logprobs · 2026-09-25 · real run 9.44 s, replayed about 2× slower",padL,16);
+      ctx.fillText("60 judgements · qwen2.5:7b · openai-logprobs · 2026-09-25 · real run 9.44 s, replayed about 2× slower",padL,16);
 
       /* door and egress filter, near the left where new asks arrive */
       [[doorPx,"door",P.steel],[gatePx,"egress filter",P.violet]].forEach(([gx,label,col])=>{
