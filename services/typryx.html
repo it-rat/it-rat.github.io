@@ -79,8 +79,10 @@
      640px inside a horizontal scroller): the widgets here carry more text
      per box, so they hold 720px, which keeps a 10.5 label near 8px. */
   .fl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .fl-scroll svg{min-width:720px}
-  .fl-scroll #sp-svg,.fl-scroll #cl-svg{min-width:0}
+  @media(max-width:760px){
+    .fl-scroll svg{min-width:720px}
+    .fl-scroll #sp-svg,.fl-scroll #cl-svg{min-width:0}
+  }
 
   /* field chips (widget: what leaves the box) */
   .chips{display:flex;gap:9px;flex-wrap:wrap;padding:12px 15px;border-top:1px solid var(--line)}
