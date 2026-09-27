@@ -205,7 +205,7 @@
       </div>
       <div class="card hover feature b-4 rv"><h3>The Agent-BOM</h3><p>When the auditor asks what agents you run, the answer is a CycloneDX 1.6 document: owner, runtime, attestation, tools and delegation chain for every agent identity. Its companion detector, bom_incomplete, flags the agents the BOM cannot yet prove.</p></div>
       <div class="card hover feature b-4 rv d1"><h3>Blast radius</h3><p>What does this key reach, transitively? Idryx computes the union of every permission reachable through an identity's delegation chain. excessive_agency fires when an agent reaches admin-equivalent power through that chain (OWASP LLM06).</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>eBPF network sensor</h3><p>A Linux-only sensor on the sys_enter_connect tracepoint captures real outbound connections and flags egress to known LLM APIs. unmanaged_egress fires for identities the sensor is the only evidence of: no IAM record, no passport, just traffic.</p></div>
+      <div class="card hover feature b-4 rv d2"><h3>eBPF network sensor</h3><p>A Linux-only sensor on a kprobe on __sys_connect_file, run on arm64 and x86_64 kernels, captures real outbound connections and flags egress to known LLM APIs. unmanaged_egress fires for identities the sensor is the only evidence of: no IAM record, no passport, just traffic.</p></div>
     </div>
   </div>
 </section>

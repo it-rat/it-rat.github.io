@@ -54,7 +54,7 @@ The hard floor is deterministic code: an over-cap or runaway event fires immedia
 
 ### Metered like any other agent
 
-Felyx's own LLM calls route through TokenFuse under their own run id, so the assistant that watches your budgets has a budget: visible, cappable, killable. The thesis, dogfooded.
+Felyx's own LLM calls carry their own run id and agent id, so pointed at the stack's TokenFuse gateway the assistant that watches your budgets has a budget: visible, cappable, killable. Through that gateway, with policy enforced, it answered across the planes and stopped at its run budget with a 402. The thesis, dogfooded.
 
 ## Your plane stays yours. Every path in is signed.
 
