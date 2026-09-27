@@ -582,7 +582,7 @@
       "measured_on": "2026-09-27",
       "note": "Re-run 2026-09-25 against typryx main (f4045e0, and again at 42a4ab1 after a README-only change): './scripts/readme-numbers.sh' printed '806 tests, and the README says so'. 299 top-level test functions plus 507 subtests, counted from 'go test ./... -json', the same convention as vouchryx. Stated twice on the page: the hero rail and the replay badge. Swept 2026-09-27; the README says the same.",
       "repo_dir": "typryx",
-      "check": "./scripts/readme-numbers.sh"
+      "check": "./scripts/readme-numbers.sh | grep -oE '^[0-9]+' | head -1"
     },
     {
       "page": "services/typryx.html",
