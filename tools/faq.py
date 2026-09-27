@@ -60,6 +60,21 @@ FAQ = {
   "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the second refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
 ]),
 
+"two-sites.html": ("common questions", "What people ask before connecting a second site", [
+ ("Does a site need a VPN or an open inbound port?",
+  "<p>No. A site only makes outbound HTTPS calls to one public entry on the hub, the same kind of connection an agent already makes to its model provider. Nothing at the site accepts a connection from outside, so there is no tunnel to run, no firewall hole to open and no client to install on anyone's machine.</p>"),
+ ("Does every model call now travel through the hub?",
+  "<p>No. Each site keeps its own gateway, and the call goes from that gateway straight to the provider, priced and budgeted next to the agent that made it. What reaches the hub is the gateway's telemetry and its questions to the policy plane, not the prompts and not the provider traffic.</p>"),
+ ("How does the hub know which site it is talking to?",
+  "<p>From the key the site pushed with. Each site gets its own pair of keys, bound to its name, and the hub never takes a site's word about who it is. That also means a copied key is that site, so the key file belongs wherever the site's other secrets live.</p>"),
+ ("What happens at a site when the link to the hub drops?",
+  "<p>What you configured. With the policy plane set to fail closed, the site's gateway refuses calls until the hub is back, which is what a governed fleet should do. Its telemetry is kept in a queue meanwhile and sent when the link returns; in our run nothing was lost.</p>"),
+ ("How do I tell a quiet site from a dead one?",
+  "<p>By its heartbeat. A gateway with nothing to report still checks in every 30 seconds by default, so the hub shows when each site last reported whether or not it had traffic. Without the heartbeat, an idle site in our run looked nearly five minutes stale; with it, never more than 22 seconds.</p>"),
+ ("What does the public entry cost?",
+  "<p>The software costs nothing. The entry is a load balancer, and your cloud bills it by the hour for as long as it exists, at that cloud's published rate. It is not part of the default install, so a cluster that never opens it pays nothing extra, and taking it down with the launcher's own script removes the billed part first.</p>"),
+]),
+
 "what-runs-where.html": ("common questions", "What people ask about running it", [
  ("Do I need Kubernetes to run this?",
   "<p>No, and most teams should not start there. The same binaries, ports and wiring run as containers on one machine you own, with the gateway published to loopback by default so an install does not quietly create an internet-facing enforcement plane.</p>"

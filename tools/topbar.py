@@ -56,6 +56,7 @@ PAGES = {
     "one-incident-end-to-end.html": "",
     "what-runs-where.html": "",
     "first-alert.html": "",
+    "two-sites.html": "",
     "what-is-proven.html": "",
     # Added 2026-08-29. Its own commit said it was "listed in all seven places";
     # it was in none of the four generators, so its bar, its JSON-LD and its

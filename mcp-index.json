@@ -23,7 +23,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Eleven guides: seven on the field of AI agent governance, and four on running this stack, from a first alert to what the numbers prove."
+      "description": "Twelve guides: seven on the field of AI agent governance, and five on running this stack, from a first alert to what the numbers prove."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -94,6 +94,13 @@
       "title": "From zero to your first alert",
       "kind": "guide",
       "description": "One command, one address, one mail: the shortest honest path from nothing to a governed agent that writes to you when it crosses a line."
+    },
+    {
+      "url": "https://it-rat.com/two-sites.html",
+      "markdown": "https://it-rat.com/two-sites.md",
+      "title": "Two sites, one control plane, no VPN",
+      "kind": "guide",
+      "description": "Sites reach one hub over outbound HTTPS through one narrow door: every site by name, one policy everywhere, and a quiet site never mistaken for a dead one."
     },
     {
       "url": "https://it-rat.com/what-is-proven.html",

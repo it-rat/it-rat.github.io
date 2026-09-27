@@ -27,6 +27,7 @@ GUIDES = {
     "one-incident-end-to-end.html": "One incident, end to end",
     "what-runs-where.html": "What runs where and what it costs",
     "first-alert.html": "From zero to your first alert",
+    "two-sites.html": "Two sites, one control plane, no VPN",
     "what-is-proven.html": "What is proven and what is not",
     # Added 2026-08-29. Written 2026-08-11 and left out of every generator, so
     # its JSON-LD had been frozen since that day: it still described a page
@@ -181,6 +182,7 @@ def faq(html):
 PUBLISHED = {
     "agent-tooling-compared.html": "2026-08-11",
     "first-alert.html": "2026-08-04",
+    "two-sites.html": "2026-09-27",
     "one-incident-end-to-end.html": "2026-08-04",
     "what-runs-where.html": "2026-08-04",
     "what-is-proven.html": "2026-08-04",

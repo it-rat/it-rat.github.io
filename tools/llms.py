@@ -36,6 +36,7 @@ GUIDES = [
     ("one-incident-end-to-end.html", "One incident, end to end"),
     ("what-runs-where.html", "What runs where and what it costs"),
     ("first-alert.html", "From zero to your first alert"),
+    ("two-sites.html", "Two sites, one control plane, no VPN"),
     ("what-is-proven.html", "What is proven and what is not"),
     # Added 2026-08-29, and this one had already gone wrong rather than merely
     # being absent. The twin was written on 2026-08-11 and never regenerated,

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two sites, one control plane, no VPN · IT-RAT</title>
+<meta name="description" content="Sites reach one hub over outbound HTTPS through one narrow door: every site by name, one policy everywhere, and a quiet site never mistaken for a dead one.">
+<link rel="canonical" href="https://it-rat.com/two-sites.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/two-sites.html">
+<meta property="og:title" content="Two sites, one control plane, no VPN · IT-RAT">
+<meta property="og:description" content="Open one entry on the hub, give each site its own keys, point its gateway at the hub: what each step does, where it goes wrong, and what the runs showed.">
+<meta property="og:image" content="https://it-rat.com/assets/og/platform.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Two sites, one control plane, no VPN · IT-RAT">
+<meta name="twitter:description" content="Open one entry on the hub, give each site its own keys, point its gateway at the hub: what each step does, where it goes wrong, and what the runs showed.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/platform.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/two-sites.md">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#5BC8F5}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line);max-width:80ch}
+  .step:first-child{border-top:0}
+  .step .no{font-family:var(--font-m);font-size:12px;color:var(--accent);padding-top:3px;letter-spacing:.08em}
+  .step h3{font-size:17.5px}
+  .step p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .step a{color:var(--accent)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .gotcha{margin-top:12px;font-size:13.5px;color:var(--dim);line-height:1.65;
+    border-left:2px solid var(--line-2);padding-left:13px}
+  .gotcha b{color:var(--fg)}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:22px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals{border:1px solid var(--line-2);border-radius:12px;background:var(--panel);padding:20px 22px;margin-top:24px;max-width:76ch}
+  .evals .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .evals ol{margin:12px 0 0;padding-left:20px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .evals li{margin-top:8px}
+  .evals b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Two sites, one control plane, no VPN","name":"Two sites, one control plane, no VPN","url":"https://it-rat.com/two-sites.html","description":"Sites reach one hub over outbound HTTPS through one narrow door: every site by name, one policy everywhere, and a quiet site never mistaken for a dead one.","inLanguage":"en","datePublished":"2026-09-27","dateModified":"2026-09-27","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/two-sites.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Two sites, one control plane, no VPN","item":"https://it-rat.com/two-sites.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does a site need a VPN or an open inbound port?","acceptedAnswer":{"@type":"Answer","text":"No. A site only makes outbound HTTPS calls to one public entry on the hub, the same kind of connection an agent already makes to its model provider. Nothing at the site accepts a connection from outside, so there is no tunnel to run, no firewall hole to open and no client to install on anyone's machine."}},{"@type":"Question","name":"Does every model call now travel through the hub?","acceptedAnswer":{"@type":"Answer","text":"No. Each site keeps its own gateway, and the call goes from that gateway straight to the provider, priced and budgeted next to the agent that made it. What reaches the hub is the gateway's telemetry and its questions to the policy plane, not the prompts and not the provider traffic."}},{"@type":"Question","name":"How does the hub know which site it is talking to?","acceptedAnswer":{"@type":"Answer","text":"From the key the site pushed with. Each site gets its own pair of keys, bound to its name, and the hub never takes a site's word about who it is. That also means a copied key is that site, so the key file belongs wherever the site's other secrets live."}},{"@type":"Question","name":"What happens at a site when the link to the hub drops?","acceptedAnswer":{"@type":"Answer","text":"What you configured. With the policy plane set to fail closed, the site's gateway refuses calls until the hub is back, which is what a governed fleet should do. Its telemetry is kept in a queue meanwhile and sent when the link returns; in our run nothing was lost."}},{"@type":"Question","name":"How do I tell a quiet site from a dead one?","acceptedAnswer":{"@type":"Answer","text":"By its heartbeat. A gateway with nothing to report still checks in every 30 seconds by default, so the hub shows when each site last reported whether or not it had traffic. Without the heartbeat, an idle site in our run looked nearly five minutes stale; with it, never more than 22 seconds."}},{"@type":"Question","name":"What does the public entry cost?","acceptedAnswer":{"@type":"Answer","text":"The software costs nothing. The entry is a load balancer, and your cloud bills it by the hour for as long as it exists, at that cloud's published rate. It is not part of the default install, so a cluster that never opens it pays nothing extra, and taking it down with the launcher's own script removes the billed part first."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">two sites</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; two sites</div>
+    <h1 class="rv d1">Two sites, one control plane, no VPN.</h1>
+    <p class="lede rv d2">A team with agents in more than one place wants one view of what they spend and one place to set what they may do, and it does not want to install and run a VPN to get it. <b>Here the sites reach the hub over ordinary outbound HTTPS, through one narrow door, each with a key that names it.</b> One script on the hub, one command per site, four variables at each site's gateway, and every site shows up by name, obeys the same policy within seconds and stays visible while it is quiet.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the shape</div>
+      <h2>One hub, a gateway at every site.</h2>
+    </div>
+    <div class="prose rv">
+      <p><b>The hub</b> is the cluster that runs the control plane, the policy plane and its store. <b>A site</b> is wherever agents run: another cluster, a single box, a machine in an office. Each site keeps its own gateway, so every model call is still priced, budgeted and policy-checked next to the agent that makes it, and nothing about a call waits on a round trip to the hub.</p>
+      <p>What travels to the hub is what a gateway already produces: its telemetry, and its questions to the policy plane. It travels out of the site, over HTTPS, to one public entry on the hub. Nothing at the site accepts a connection from outside, and nothing at the hub is reachable except that entry.</p>
+      <p><b>The entry is deliberately narrow.</b> It is a small proxy with a free certificate in front of the hub's planes, and it routes exactly the seven paths a remote gateway calls. Everything else answers 404 at the edge, the console included, so the entry cannot become a second way into the parts an operator uses.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the path</div>
+      <h2>Three steps.</h2>
+    </div>
+    <div class="rv">
+
+      <div class="step">
+        <div class="no">01</div>
+        <div>
+          <h3>Open the entry on the hub</h3>
+          <p>One script applies the entry, waits for the cloud to hand it an address, derives a name for that address, waits until both certificates are issued, and prints the two addresses a site needs. It is not part of the default install: a cluster that never runs it publishes nothing new.</p>
+          <div class="cmd"><span class="c"># on the hub, from the cluster launcher</span><br>./hub/up.sh</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> the entry is a cloud load balancer, billed by your cloud by the hour from the moment it exists, and it is created by Kubernetes, not by the tool that built the cluster. Tear it down with the launcher's own <code>hub/down.sh</code>, which removes the load balancer first, or the cluster's teardown can fail on a resource it never knew about.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="no">02</div>
+        <div>
+          <h3>Give each site its own keys</h3>
+          <p>One command per site mints two keys: one the control plane accepts only for pushing and reading, bound to that site's name, and one the policy plane accepts for reading decisions. It writes them to a file only the operator can read and prints no secret. Asked again for a site that already has keys, it refuses rather than minting a second pair.</p>
+          <div class="cmd"><span class="c"># on the hub, once per site</span><br>./hub/add-site.sh warehouse-east</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> the key is the site's identity. The hub names a site from the key it pushed with, never from anything the site's gateway says about itself, so a copied key is that site. Keep the file where the site's other secrets live.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="no">03</div>
+        <div>
+          <h3>Point the site's gateway at the hub</h3>
+          <p>At the site, four variables on the gateway: where the control plane is and its key, where the policy plane is and its key. That is the whole change. Calls keep flowing through the same gateway, and from then on its spend appears at the hub under the site's name and its calls are decided by the hub's policy.</p>
+          <div class="cmd"><span class="c"># on the site's gateway</span><br>TOKENFUSE_CLOUD_URL, TOKENFUSE_CLOUD_KEY<br>TOKENFUSE_WARDRYX_URL, TOKENFUSE_WARDRYX_KEY</div>
+          <div class="gotcha"><b>Where this goes wrong:</b> a gateway with the policy plane set to fail closed refuses every call while it cannot reach the hub, which is the right answer for a governed fleet and a surprise for a team that expected the old behaviour. Decide which one each site should have before the first outage decides for you.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what you get</div>
+      <h2>One view, one policy, and a quiet site that is not mistaken for a dead one.</h2>
+    </div>
+    <div class="prose rv">
+      <p><b>Every site by name.</b> The control plane lists each site with its spend, its calls and when it last reported, and labels every run with the site it came from.</p>
+      <p><b>One policy, everywhere.</b> A rule written once at the hub applies at every site's gateway within seconds, and lifting it lifts it everywhere.</p>
+      <p><b>A quiet site stays visible.</b> A gateway with nothing to report still sends a heartbeat every 30 seconds, so a site with no traffic and a site that has gone down no longer look the same.</p>
+      <p><b>A cut link fails the way you chose.</b> A site that loses the hub keeps its telemetry queued and replays it when the link returns, and a kill issued at the hub stops a site's run within seconds.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">measured</div>
+      <h2>What the runs showed.</h2>
+    </div>
+    <div class="prose rv">
+      <p>On 2026-09-26 and 2026-09-27, a hub of three virtual machines on a public cloud and a second site on a small box at home, the site reaching the hub only by outbound HTTPS:</p>
+      <ol>
+        <li><b>From the public internet, the entry answered exactly as designed in 16 cases out of 16:</b> the site's calls with its key succeeded, a call with no key was refused, and the console and every other path answered 404 at the edge.</li>
+        <li><b>The entry came up with both certificates in 66 seconds</b> after the load balancer existed.</li>
+        <li><b>One policy written once at the hub</b> refused calls at both sites' gateways, and both answered again within 5 seconds of its removal.</li>
+        <li><b>With the home site cut off from the hub,</b> its gateway refused in 255 ms, the hub was untouched, and the site's telemetry was queued and replayed with nothing lost when the link came back.</li>
+        <li><b>A run killed through the hub</b> was refused at the site within 4 seconds.</li>
+        <li><b>With the site idle,</b> its last report at the hub aged from 34 to 286 seconds in four minutes without the heartbeat; with it, it never passed 22 seconds.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Where this sits.</h2>
+      <p class="lede"><a href="first-alert.html" style="color:var(--accent)">From zero to your first alert</a> is the single-machine start, <a href="what-runs-where.html" style="color:var(--accent)">what runs where and what it costs</a> covers the cluster shapes a hub runs on, and <a href="what-is-proven.html" style="color:var(--accent)">what is proven here</a> is where each of these runs is recorded. Everything named here is Apache-2.0 and runs on infrastructure you own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>What people ask before connecting a second site</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Does a site need a VPN or an open inbound port?</summary>
+        <div class="a"><p>No. A site only makes outbound HTTPS calls to one public entry on the hub, the same kind of connection an agent already makes to its model provider. Nothing at the site accepts a connection from outside, so there is no tunnel to run, no firewall hole to open and no client to install on anyone's machine.</p></div>
+      </details>
+      <details>
+        <summary>Does every model call now travel through the hub?</summary>
+        <div class="a"><p>No. Each site keeps its own gateway, and the call goes from that gateway straight to the provider, priced and budgeted next to the agent that made it. What reaches the hub is the gateway's telemetry and its questions to the policy plane, not the prompts and not the provider traffic.</p></div>
+      </details>
+      <details>
+        <summary>How does the hub know which site it is talking to?</summary>
+        <div class="a"><p>From the key the site pushed with. Each site gets its own pair of keys, bound to its name, and the hub never takes a site's word about who it is. That also means a copied key is that site, so the key file belongs wherever the site's other secrets live.</p></div>
+      </details>
+      <details>
+        <summary>What happens at a site when the link to the hub drops?</summary>
+        <div class="a"><p>What you configured. With the policy plane set to fail closed, the site's gateway refuses calls until the hub is back, which is what a governed fleet should do. Its telemetry is kept in a queue meanwhile and sent when the link returns; in our run nothing was lost.</p></div>
+      </details>
+      <details>
+        <summary>How do I tell a quiet site from a dead one?</summary>
+        <div class="a"><p>By its heartbeat. A gateway with nothing to report still checks in every 30 seconds by default, so the hub shows when each site last reported whether or not it had traffic. Without the heartbeat, an idle site in our run looked nearly five minutes stale; with it, never more than 22 seconds.</p></div>
+      </details>
+      <details>
+        <summary>What does the public entry cost?</summary>
+        <div class="a"><p>The software costs nothing. The entry is a load balancer, and your cloud bills it by the hour for as long as it exists, at that cloud's published rate. It is not part of the default install, so a cluster that never opens it pays nothing extra, and taking it down with the launcher's own script removes the billed part first.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

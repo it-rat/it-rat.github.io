@@ -45,6 +45,7 @@ PAGES = {
     "agent-tooling-compared.html": ("", ""),
     "what-runs-where.html": ("", ""),
     "first-alert.html": ("", ""),
+    "two-sites.html": ("", ""),
     "what-is-proven.html": ("", ""),
     "console.html": ("", ""),
     "404.html": ("/", ""),

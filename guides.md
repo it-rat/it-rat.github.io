@@ -2,9 +2,9 @@
 
 # Guides index
 
-> Eleven guides: seven on the field of AI agent governance, and four on running this stack, from a first alert to what the numbers prove.
+> Twelve guides: seven on the field of AI agent governance, and five on running this stack, from a first alert to what the numbers prove.
 
-Eleven guides. Seven are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, what changes when tools arrive over a protocol, and what the tools on this market can and cannot actually do. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other four are about this stack specifically: getting a first alert, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.
+Twelve guides. Seven are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, what changes when tools arrive over a protocol, and what the tools on this market can and cannot actually do. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other five are about this stack specifically: getting a first alert, connecting a second site without a VPN, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.
 
 *start here*
 
@@ -47,6 +47,12 @@ Named products change monthly and the shapes do not. What framework-native traci
 ## What runs where, and what it costs
 
 One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: what each burns per hour, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.
+
+*the second site*
+
+## Two sites, one control plane, no VPN
+
+A hub that holds the control plane and the policy, and a gateway at every site that reaches it over outbound HTTPS through one narrow door. One script on the hub, one command per site, four variables at the site, and what the runs showed.
 
 *the honest half*
 
