@@ -34,12 +34,12 @@
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "1,395 tests",
+      "claim": "1,552 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "cargo test --all, summed over every `test result` line",
       "status": "measured",
-      "measured_on": "2026-09-18",
+      "measured_on": "2026-09-27",
       "note": "Moved to 1,127 on 2026-09-02 after TAIPANBOX/tokenfuse#249, #250 and #251 (the usage-cap settlement says so, the local trace reaches disk, the release workflow proves its binaries job); `cargo test --all` on main 9270fd4 summed to 1127. Measured 1107 on 2026-08-28 against a page saying 814: 293 behind, the largest gap this manifest has recorded. Found stale by this file's own first run: the page said 513 and `cargo test --all` sums to 709. The gap, not the number, is why this file exists, so it is recorded here rather than only in git history. Unlike trailryx, this repository has no gate on its own README figure, so nothing but this entry will notice the next drift. Re-measured 2026-08-29 by numbers-drift.sh --slow: 1,107 -> 1,111. Moved to 1,395 on 2026-09-18: the README badge at 3787ccd (#310), gated there by stated-numbers.sh, after the appliance run's fixes #303, #304, #306, #307, #310; the slow cargo check was not re-run here that day.",
       "repo_dir": "tokenfuse",
       "check": "cargo test --all 2>&1 | grep -E '^test result' | awk '{s+=$4} END {print s}'",
@@ -112,7 +112,7 @@
     },
     {
       "page": "services/platform.html",
-      "claim": "112 documented, with whose fault each was",
+      "claim": "114 documented, with whose fault each was",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-k8s",
       "command": "./scripts/gotchas-classified.sh, which prints the total and the four-way split",
