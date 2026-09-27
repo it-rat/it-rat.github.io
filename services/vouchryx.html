@@ -104,7 +104,7 @@
     </div>
     <div class="bento">
       <div class="card hover feature b-4 rv"><h3>Proof of possession, per request</h3><p>The minted token carries <span class="mono">cnf.jkt</span>, the thumbprint of the caller's own key. Spending it needs a fresh DPoP proof from that same key on every call, so a token copied out of a log buys nothing.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Revocation an incident can use</h3><p>By one token id, or by subject for every token an agent already holds. The list carries <span class="mono">as_of</span>, so an empty answer and an unreachable service are never the same answer to a machine reading it.</p></div>
+      <div class="card hover feature b-4 rv d1"><h3>Revocation an incident can use</h3><p>By one token id, or by subject for every token an agent already holds. The list carries <span class="mono">as_of</span>, so an empty answer and an unreachable service are never the same answer to a machine reading it. Run end to end on a cluster: an agent revoked by subject mid-run was refused at the gateway 2.2 seconds later, with the gateway polling every second rather than its default of every 12.</p></div>
       <div class="card hover feature b-4 rv d2"><h3>Verification without a round trip</h3><p>Public keys at a JWKS endpoint, so an enforcement point verifies offline. That is also why there is no introspection endpoint, on purpose: it would put this service on the request path of every enforcement point at once.</p></div>
     </div>
   </div>

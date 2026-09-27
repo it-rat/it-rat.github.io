@@ -1478,7 +1478,7 @@ It keeps earning its place. On 2026-08-20 the same harness was pointed at a depe
 
 The same shape applies to everything below. Where a claim has no companion failure, it says so.
 
-## Six claims and what each one stops short of.
+## Seven claims and what each one stops short of.
 
 Every figure here was produced by a run with a command and a date behind it, recorded in that repository's own validation file. The line under each is not a disclaimer, it is part of the claim.
 
@@ -1505,6 +1505,10 @@ Every plane answered, the shared event log bound across nodes, and an agent froz
 ### A box behind a home router governed two clouds at once, then took sixteen failures
 
 On 2026-09-17 the single-machine installer went onto a small Debian 13 box behind carrier-grade NAT, its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, then a 402 on the eighteenth, interleaved on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and ran the FinOps crew through a second door of its own until a monthly cap stopped it. Both cloud accounts were empty afterwards, by direct query, and the day cost USD 0.18.
+
+### One cluster on three kinds of processor, then a second site with no VPN
+
+On 2026-09-26 the cluster launcher built one cluster from AMD, Intel and Ampere machines across three zones, in 13 minutes 46 seconds from bare VMs. Every plane moved onto the two Arm nodes in 49 seconds and back onto x86 in 111, the policy database's volume following it. A rolling upgrade under a probe asking every quarter second lost 1 health check of 256, and three later rolling restarts lost none of 825. That night and the next morning, a hub of three cloud VMs took a second site at home that reached it only over outbound HTTPS: one policy written at the hub refused calls at both sites, a run killed at the hub was refused at the site within 4 seconds, and a cut link failed closed at the site in 255 ms, its telemetry replayed afterwards with nothing lost. On 2026-09-27, on a three-node cluster at home, a delegated agent revoked mid-run was refused 2.2 seconds later, the OpenAI-compatible door priced and budgeted real calls, the console's own copilot ran through the stack's gateway under a budget, and the network sensor on an x86 kernel caught an agent reaching PyPI directly.
 
 ## Sixteen ways to break it, and what each one did.
 

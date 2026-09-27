@@ -116,7 +116,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">measured, with the limit attached</div>
-      <h2>Six claims and what each one stops short of.</h2>
+      <h2>Seven claims and what each one stops short of.</h2>
       <p class="lede">Every figure here was produced by a run with a command and a date behind it, recorded in that repository's own validation file. The line under each is not a disclaimer, it is part of the claim.</p>
     </div>
     <div class="claims rv">
@@ -161,6 +161,13 @@
         <h3>A box behind a home router governed two clouds at once, then took sixteen failures</h3>
         <p>On 2026-09-17 the single-machine installer went onto a small Debian 13 box behind carrier-grade NAT, its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, then a 402 on the eighteenth, interleaved on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and ran the FinOps crew through a second door of its own until a monthly cap stopped it. Both cloud accounts were empty afterwards, by direct query, and the day cost USD 0.18.</p>
         <div class="lim"><b>What it does not cover:</b> the run wrote up sixteen findings. Eleven were fixed on the repositories' main branches within a day, two are open issues (the crew's cloud billing readers, and a tag), one is a console argument the docs did not name, and two were defects in the run's own compose override rather than in a product. None of the eleven fixes is in a released image yet: the launchers pin the versions the run tested, so what an installer pulls today still has them. Nothing here ran on a managed agent runtime, on a managed cluster, on more than one node per cloud, or under load; two agents at half a call per second is a proof of plumbing, not of capacity.</div>
+      </div>
+
+      <div class="claim">
+        <div class="who">the whole stack &#183; chips, zones and sites</div>
+        <h3>One cluster on three kinds of processor, then a second site with no VPN</h3>
+        <p>On 2026-09-26 the cluster launcher built one cluster from AMD, Intel and Ampere machines across three zones, in 13 minutes 46 seconds from bare VMs. Every plane moved onto the two Arm nodes in 49 seconds and back onto x86 in 111, the policy database's volume following it. A rolling upgrade under a probe asking every quarter second lost 1 health check of 256, and three later rolling restarts lost none of 825. That night and the next morning, a hub of three cloud VMs took a second site at home that reached it only over outbound HTTPS: one policy written at the hub refused calls at both sites, a run killed at the hub was refused at the site within 4 seconds, and a cut link failed closed at the site in 255 ms, its telemetry replayed afterwards with nothing lost. On 2026-09-27, on a three-node cluster at home, a delegated agent revoked mid-run was refused 2.2 seconds later, the OpenAI-compatible door priced and budgeted real calls, the console's own copilot ran through the stack's gateway under a budget, and the network sensor on an x86 kernel caught an agent reaching PyPI directly.</p>
+        <div class="lim"><b>What it does not cover:</b> the second site was a small cluster at home sharing the house's address, not a customer's network, and nothing ran concurrently across sites, under load, or through a hub outage longer than a minute. A stolen site key would push as that site. When a VM was stopped the gateway was down for 94 seconds before it moved, and the policy database did not move by itself at all until the machine came back. The runs also found real defects, among them a call's cost rounded down part by part and a delegation proof checked against the wrong door's path; both are fixed in TokenFuse 1.4.0, which the launchers now pin.</div>
       </div>
 
     </div>
