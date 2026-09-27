@@ -112,13 +112,13 @@
     },
     {
       "page": "services/platform.html",
-      "claim": "111 documented, with whose fault each was",
+      "claim": "112 documented, with whose fault each was",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-k8s",
       "command": "./scripts/gotchas-classified.sh, which prints the total and the four-way split",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Re-measured 2026-09-03 by running ./scripts/gotchas-classified.sh directly in stack-k8s: `OK: 96 gotchas, all classified (40 platform, 38 ours, 14 the stack's own contract, 4 upstream).`, up from 95 measured 2026-09-02, split now 40 platform, 38 ours, 14 the stack's own contract and 4 upstream. Was `87 documented and already fixed`, and the second half was never true. stack-k8s classifies every entry by whose fault it was, and on 2026-08-28 the split is 39 platform, 34 ours, 11 the stack's own contract and 4 upstream. Only the 34 are `fixed` in the sense a reader takes; the 11 are not faults at all. The count moved 87 -> 88 the same day, when the record profile's first live cluster run was written up. Two more traps documented in stack-k8s since 2026-08-20. Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson. Re-measured 2026-09-02 by running the check directly: `OK: 95 gotchas, all classified (40 platform, 38 ours, 13 the stack's own contract, 4 upstream).`, up from 88 measured 2026-08-28, split now 40 platform, 38 ours, 13 the stack's own contract and 4 upstream. Re-measured 2026-09-18 by numbers-drift.sh: 96 -> 105 (GOTCHAS 97 to 105 landed with the 1.0 proving runs and the appliance run). Swept 2026-09-27: 111 gotchas, all classified.",
+      "note": "Re-measured 2026-09-03 by running ./scripts/gotchas-classified.sh directly in stack-k8s: `OK: 96 gotchas, all classified (40 platform, 38 ours, 14 the stack's own contract, 4 upstream).`, up from 95 measured 2026-09-02, split now 40 platform, 38 ours, 14 the stack's own contract and 4 upstream. Was `87 documented and already fixed`, and the second half was never true. stack-k8s classifies every entry by whose fault it was, and on 2026-08-28 the split is 39 platform, 34 ours, 11 the stack's own contract and 4 upstream. Only the 34 are `fixed` in the sense a reader takes; the 11 are not faults at all. The count moved 87 -> 88 the same day, when the record profile's first live cluster run was written up. Two more traps documented in stack-k8s since 2026-08-20. Said 70 while the repository counted 79, and the prose beside it said sixty-nine, now seventy-eight. This check walked past both because its pattern knew tests, crates, detectors and entries and the page used a fifth noun: a stale figure sitting inside the thing written to catch stale figures. The pattern is wider now, which is the fix; that it needed widening at all is the lesson. Re-measured 2026-09-02 by running the check directly: `OK: 95 gotchas, all classified (40 platform, 38 ours, 13 the stack's own contract, 4 upstream).`, up from 88 measured 2026-08-28, split now 40 platform, 38 ours, 13 the stack's own contract and 4 upstream. Re-measured 2026-09-18 by numbers-drift.sh: 96 -> 105 (GOTCHAS 97 to 105 landed with the 1.0 proving runs and the appliance run). Swept 2026-09-27: 111 gotchas, all classified. Then 112 the same day (GOTCHAS 112).",
       "repo_dir": "stack-k8s",
       "check": "./scripts/gotchas-classified.sh | grep -oE '[0-9]+ gotchas' | grep -oE '[0-9]+'",
       "slow": false
@@ -496,13 +496,13 @@
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "v1.3.0",
+      "claim": "v1.4.0",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Added 2026-09-18: the page now names the current release once in the ships sheet and once beside the price book families it carries. v1.0.2 was tagged on 2026-09-18 (945acee); the appliance run of 2026-09-17 ran v1.0.1, and the fixes it produced sit on main past v1.0.2. Moved to v1.3.0 on 2026-09-27 (tagged on ce33518 that day); the price book sentence was re-read against v1.3.0: it carries the Claude 4.5 and GPT-4o families.",
+      "note": "Added 2026-09-18: the page now names the current release once in the ships sheet and once beside the price book families it carries. v1.0.2 was tagged on 2026-09-18 (945acee); the appliance run of 2026-09-17 ran v1.0.1, and the fixes it produced sit on main past v1.0.2. Moved to v1.3.0 on 2026-09-27 (tagged on ce33518 that day); the price book sentence was re-read against v1.3.0: it carries the Claude 4.5 and GPT-4o families. Moved to v1.4.0 later on 2026-09-27 (tagged on 613b150); the price book is unchanged between v1.3.0 and v1.4.0.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
       "slow": false
@@ -561,13 +561,13 @@
     },
     {
       "page": "services/tokenfuse.md",
-      "claim": "v1.3.0",
+      "claim": "v1.4.0",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "The markdown twin of the html entry above; generated by tools/llms.py from the page, swept separately since 2026-08-28. Added 2026-09-18. Moved to v1.3.0 on 2026-09-27 (tagged on ce33518 that day); the price book sentence was re-read against v1.3.0: it carries the Claude 4.5 and GPT-4o families.",
+      "note": "The markdown twin of the html entry above; generated by tools/llms.py from the page, swept separately since 2026-08-28. Added 2026-09-18. Moved to v1.3.0 on 2026-09-27 (tagged on ce33518 that day); the price book sentence was re-read against v1.3.0: it carries the Claude 4.5 and GPT-4o families. Moved to v1.4.0 later on 2026-09-27 (tagged on 613b150); the price book is unchanged between v1.3.0 and v1.4.0.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
       "slow": false
