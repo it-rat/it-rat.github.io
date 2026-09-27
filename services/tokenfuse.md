@@ -34,7 +34,7 @@ A retrying agent looks exactly like a compromised one from the budget's side. Su
 
 ### Burn forecast
 
-Reserve-then-settle accounting prices each call before it happens, with a built-in price book (the Claude 4.5 and GPT-4o families at v1.4.0) and a deliberately high fallback rate for a model id it does not know, flagged on the response, so an unknown model is refused sooner rather than tracked never. The estimate is fast and honest about being an estimate.
+Reserve-then-settle accounting prices each call before it happens, with a built-in price book (the Claude 4.5 and GPT-4o families at v1.4.1) and a deliberately high fallback rate for a model id it does not know, flagged on the response, so an unknown model is refused sooner rather than tracked never. The estimate is fast and honest about being an estimate.
 
 ### Model router
 
@@ -70,7 +70,7 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 
 **Q: How this one ships**
 
-The current release is v1.4.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
+The current release is v1.4.1. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
 
 ## It stops the spend. Two neighbours stop other things.
 

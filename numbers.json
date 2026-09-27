@@ -34,7 +34,7 @@
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "1,552 tests",
+      "claim": "1,584 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "cargo test --all, summed over every `test result` line",
@@ -496,7 +496,7 @@
     },
     {
       "page": "services/tokenfuse.html",
-      "claim": "v1.4.0",
+      "claim": "v1.4.1",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
@@ -561,7 +561,7 @@
     },
     {
       "page": "services/tokenfuse.md",
-      "claim": "v1.4.0",
+      "claim": "v1.4.1",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "gh api repos/TAIPANBOX/tokenfuse/releases/latest --jq .tag_name",
