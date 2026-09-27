@@ -133,7 +133,7 @@ Typryx sits behind [TokenFuse](https://it-rat.com/tokenfuse.html)'s MCP broker a
 
 Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.
 
-Released as v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.
+Released as v0.2.0 on 2026-09-26, after v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.
 
 Not yet: any launcher wiring (stack-single, stack-up, stack-k8s), agent-passport registration of its four event types, and every consumer in the tables above.
 

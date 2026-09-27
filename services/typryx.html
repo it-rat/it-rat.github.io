@@ -131,8 +131,8 @@
         </div>
       </div>
       <div class="hero-side rv d2">
-        <div class="row"><span class="k">release</span><span class="v">v0.1.0 &#183; Go 1.27</span></div>
-        <div class="row"><span class="k">tests</span><span class="v">806 tests &#183; httptest fakes, no live calls</span></div>
+        <div class="row"><span class="k">release</span><span class="v">v0.2.0 &#183; Go 1.27</span></div>
+        <div class="row"><span class="k">tests</span><span class="v">897 tests &#183; httptest fakes, no live calls</span></div>
         <div class="row"><span class="k">deps</span><span class="v">one direct dependency</span></div>
         <div class="row"><span class="k">spend cap</span><span class="v">1,000 calls an hour, by default</span></div>
         <div class="row"><span class="k">image</span><span class="v">16.6 MB &#183; ghcr.io, signed</span></div>
@@ -599,7 +599,7 @@
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">status</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <p class="dim" style="font-size:13.5px;line-height:1.7">Released as v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.</p>
+          <p class="dim" style="font-size:13.5px;line-height:1.7">Released as v0.2.0 on 2026-09-26, after v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.</p>
           <p class="dim" style="font-size:13.5px;line-height:1.7">Not yet: any launcher wiring (stack-single, stack-up, stack-k8s), agent-passport registration of its four event types, and every consumer in the tables above.</p>
         </div>
       </div>
@@ -714,7 +714,7 @@ Sim.mount(document.getElementById("tx-sim"),{
   title:"measured replay &#183; 60 judgements, qwen2.5:7b, 2026-09-25",
   window:60, duration:19000,
   clock:t=>"ask "+Math.min(60,Math.floor(t)+1),
-  badges:[{label:"measured run",color:"#34D399"},{label:"806 tests",color:"#60A5FA"}],
+  badges:[{label:"measured run",color:"#34D399"},{label:"897 tests",color:"#60A5FA"}],
   stage:{mode:"typed", rows:ROWS},
   series:[{id:"noop",label:"",color:"#8A97A6",max:1,points:[[0,0],[60,0]]}],
   counters:[
