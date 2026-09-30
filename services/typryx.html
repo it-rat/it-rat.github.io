@@ -1369,7 +1369,7 @@ const STEPS=[
    why:"An agent or your own code asks a typed question through a template. typryx returns a choice, a score or a yes or no with a probability, or refuses and says why."},
   {t:"ledger",who:"typryx",col:TY,lines:["the answer is kept","under its answer id","(TYPRYX_LEDGER_DIR)"],short:"kept under its answer id",
    why:"With TYPRYX_LEDGER_DIR set, every answered question is on the ledger under an answer id."},
-  {t:"a person judges",who:"a person",col:TY,lines:["posts the right answer","to POST /v1/outcome","once per answer"],short:"a person posts the right answer",
+  {t:"the truth",who:"a person",col:TY,lines:["posts the right answer","to POST /v1/outcome","once per answer"],short:"a person posts the right answer",
    why:"A person decides what the right answer was and posts it to POST /v1/outcome, once per answer. Verdryx can do this, and so can curl."},
   {t:"training log",who:"typryx",col:TY,lines:["named fields only,","never a backend's","answer; off by default"],short:"named fields, no backend answer",
    why:"With TYPRYX_TRAINING_DIR set, each answered question adds a line to training.ndjson on your disk: the template and its version, the answer id, the backend and model, and the state as the template let it through. Never the backend's answer, never its probabilities, and nothing for a refused or unanswered question."},

@@ -601,10 +601,10 @@
       "claim": "16.6 MB",
       "occurrences": 1,
       "repo": "TAIPANBOX/typryx",
-      "command": "docker pull ghcr.io/taipanbox/typryx:v0.1.0 (anonymous); docker images --format '{{.Size}}'",
+      "command": "docker pull ghcr.io/taipanbox/typryx:v0.3.0; docker image inspect --format '{{.Size}}'",
       "status": "measured",
-      "measured_on": "2026-09-25",
-      "note": "The PUBLISHED v0.1.0 image, pulled anonymously 2026-09-25 on Apple Silicon (arm64 variant): 16.6MB, reports version=v0.1.0, answered /healthz and a real POST /v1/ask, refused to start without keys (exit 1). Replaced the 15.7 MB of a local dev build the same day, when the release made a published image the thing a reader would pull.",
+      "measured_on": "2026-09-30",
+      "note": "The PUBLISHED v0.3.0 image, pulled 2026-09-30 on Apple Silicon (arm64 variant): 16.6 MB, reports version=v0.3.0, answered an ask with the training log on and exported one row (typryx README, Install). Earlier: the v0.1.0 image, pulled anonymously 2026-09-25 on Apple Silicon (arm64 variant): 16.6MB, reports version=v0.1.0, answered /healthz and a real POST /v1/ask, refused to start without keys (exit 1). Replaced the 15.7 MB of a local dev build the same day, when the release made a published image the thing a reader would pull.",
       "repo_dir": "typryx",
       "check": null
     },
