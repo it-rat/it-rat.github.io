@@ -24,8 +24,8 @@ Three question shapes are the whole contract: `choice`, `score`, `noul` (yes/no)
 
 | template | type | options | who would ask it | status |
 |---|---|---|---|---|
-| eval.outcome_met | noul (yes/no) | n/a | Verdryx's grading; the calibration run below used it | planned |
-| eval.answer_quality | score | 4 ordered levels | Verdryx grader | planned |
+| eval.outcome_met | noul (yes/no) | n/a | Verdryx's grading; the calibration run below used it | measured 2026-09-25 |
+| eval.answer_quality | score | 4 ordered levels | Verdryx grader | measured 2026-09-25 |
 | request.complexity | choice | cheap / default / hard / reasoning | TokenFuse router, shadow mode only | planned, shadow only |
 
 ## Three modes: where your data goes.
@@ -153,7 +153,7 @@ Click or focus a node above for what typryx gives it, which template, and what h
 | MCP clients (Claude Code and others) | a typed answer with a probability, per call, over MCP | measured |
 | TokenFuse, as broker | a named upstream; one tool_call recorded against the agent | measured |
 | TokenFuse, router shadow mode | the class it would have routed to, alongside cost, recorded only | planned |
-| Verdryx | a typed grader beside the existing LLM judge | planned |
+| Verdryx | a typed grader beside the existing LLM judge, opt-in per run with `--typed-url` | measured |
 | Wardryx | an optional signal that may become a hold, never a deny | planned |
 | CostCrew | a suggested class or priority at triage; a person still decides | planned |
 | Genaryx | a panel, live only when `GENARYX_TYPRYX_URL` resolves | planned |
@@ -188,7 +188,7 @@ The stub backend is deterministic and free, for tests and demos, and every answe
 
 ### Optional, and it changes nothing when it is absent.
 
-Typryx sits behind [TokenFuse](https://it-rat.com/tokenfuse.html)'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the `request.complexity` template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. A typed grader beside [Verdryx](https://it-rat.com/verdryx.html)'s existing LLM judge is on the planned list above, not built: a typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If [Wardryx](https://it-rat.com/wardryx.html) ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.
+Typryx sits behind [TokenFuse](https://it-rat.com/tokenfuse.html)'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the `request.complexity` template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. [Verdryx](https://it-rat.com/verdryx.html) can ask typryx for a typed verdict beside its existing LLM judge, opt-in per run, and post a person's label back as the truth; measured on 2026-09-25. A typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If [Wardryx](https://it-rat.com/wardryx.html) ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.
 
 Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.
 

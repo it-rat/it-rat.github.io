@@ -381,8 +381,8 @@
       <table class="tbl">
         <thead><tr><th>template</th><th>type</th><th>options</th><th>who would ask it</th><th>status</th></tr></thead>
         <tbody>
-          <tr><td>eval.outcome_met</td><td>noul (yes/no)</td><td>n/a</td><td>Verdryx's grading; the calibration run below used it</td><td><span class="chip chip-planned">planned</span></td></tr>
-          <tr><td>eval.answer_quality</td><td>score</td><td>4 ordered levels</td><td>Verdryx grader</td><td><span class="chip chip-planned">planned</span></td></tr>
+          <tr><td>eval.outcome_met</td><td>noul (yes/no)</td><td>n/a</td><td>Verdryx's grading; the calibration run below used it</td><td><span class="chip chip-measured">measured 2026-09-25</span></td></tr>
+          <tr><td>eval.answer_quality</td><td>score</td><td>4 ordered levels</td><td>Verdryx grader</td><td><span class="chip chip-measured">measured 2026-09-25</span></td></tr>
           <tr><td>request.complexity</td><td>choice</td><td>cheap / default / hard / reasoning</td><td>TokenFuse router, shadow mode only</td><td><span class="chip chip-planned">planned, shadow only</span></td></tr>
         </tbody>
       </table>
@@ -641,7 +641,7 @@
     </div>
     <div class="flight rv" id="hb-box">
       <div class="fl-head"><span class="dot"></span>typryx, and nine possible readers <span class="n">solid mint = measured, dashed = planned</span></div>
-      <div class="fl-scroll"><svg id="hb-svg" viewBox="0 0 960 440" role="img" aria-label="A hub diagram: typryx at the centre, with edges to MCP clients and the tokenfuse broker, both solid and measured, and to TokenFuse router shadow, Verdryx, Wardryx, CostCrew, Genaryx, Engram and the journal readers Trailryx and Idryx, all dashed and planned. Selecting a node shows what typryx would give it, which template, what happens when typryx is absent, and its status."></svg></div>
+      <div class="fl-scroll"><svg id="hb-svg" viewBox="0 0 960 440" role="img" aria-label="A hub diagram: typryx at the centre, with edges to MCP clients, the tokenfuse broker and Verdryx, solid and measured, and to TokenFuse router shadow, Wardryx, CostCrew, Genaryx, Engram and the journal readers Trailryx and Idryx, all dashed and planned. Selecting a node shows what typryx would give it, which template, what happens when typryx is absent, and its status."></svg></div>
       <div class="fl-out">
         <span class="u" id="hb-name">pick a node</span>
         <span class="e" id="hb-status"></span>
@@ -656,7 +656,7 @@
           <tr><td>MCP clients (Claude Code and others)</td><td>a typed answer with a probability, per call, over MCP</td><td class="yes">measured</td></tr>
           <tr><td>TokenFuse, as broker</td><td>a named upstream; one tool_call recorded against the agent</td><td class="yes">measured</td></tr>
           <tr><td>TokenFuse, router shadow mode</td><td>the class it would have routed to, alongside cost, recorded only</td><td class="warn">planned</td></tr>
-          <tr><td>Verdryx</td><td>a typed grader beside the existing LLM judge</td><td class="warn">planned</td></tr>
+          <tr><td>Verdryx</td><td>a typed grader beside the existing LLM judge, opt-in per run with <span class="mono" style="font-size:12.5px">--typed-url</span></td><td class="yes">measured</td></tr>
           <tr><td>Wardryx</td><td>an optional signal that may become a hold, never a deny</td><td class="warn">planned</td></tr>
           <tr><td>CostCrew</td><td>a suggested class or priority at triage; a person still decides</td><td class="warn">planned</td></tr>
           <tr><td>Genaryx</td><td>a panel, live only when <span class="mono" style="font-size:12.5px">GENARYX_TYPRYX_URL</span> resolves</td><td class="warn">planned</td></tr>
@@ -694,7 +694,7 @@
         <div class="kicker">in the stack</div>
         <h3 style="margin-top:12px">Optional, and it changes nothing when it is absent.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          Typryx sits behind <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the <span class="mono" style="font-size:12.5px">request.complexity</span> template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. A typed grader beside <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>'s existing LLM judge is on the planned list above, not built: a typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.</p>
+          Typryx sits behind <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the <span class="mono" style="font-size:12.5px">request.complexity</span> template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a> can ask typryx for a typed verdict beside its existing LLM judge, opt-in per run, and post a person's label back as the truth; measured on 2026-09-25. A typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.</p>
         <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.</p>
       </div>
       <div class="card b-4 rv d1" id="status">
@@ -1227,9 +1227,9 @@ const NODES=[
   {id:"mcp",col:"#34D399",label:"MCP clients",x:200,y:60,measured:true,gives:"a typed answer with a probability, per call, over MCP",template:"any",absent:"the agent gets no typed answer; it decides however it already does",status:"measured"},
   {id:"tf-broker",col:"#34D399",label:"TokenFuse broker",x:760,y:60,measured:true,gives:"a named upstream; one tool_call recorded against the agent",template:"any",absent:"typryx is simply not a configured upstream",status:"measured"},
   {id:"tf-router",col:"#F4B23E",label:"TokenFuse router (shadow)",x:840,y:150,measured:false,gives:"the class it would have routed to, recorded only, never used to route",template:"request.complexity",absent:"the router keeps deciding the way it does today",status:"planned, shadow only"},
-  {id:"verdryx",col:"#FF7AA2",label:"Verdryx",x:840,y:270,measured:false,gives:"a typed grader beside the existing LLM judge",template:"eval.outcome_met, eval.answer_quality",absent:"Verdryx keeps grading with its LLM judge alone",status:"planned"},
+  {id:"verdryx",col:"#FF7AA2",label:"Verdryx",x:840,y:270,measured:true,gives:"a typed grader beside the existing LLM judge, opt-in per run with --typed-url",template:"eval.outcome_met, eval.answer_quality",absent:"Verdryx keeps grading with its LLM judge alone",status:"measured"},
   {id:"wardryx",col:"#2DD4BF",label:"Wardryx",x:740,y:360,measured:false,gives:"an optional signal a policy may turn into a hold, never a deny",template:"any",absent:"Wardryx's policy plane is unchanged",status:"planned"},
-  {id:"costcrew",col:"#7DD3A0",label:"CostCrew",x:560,y:400,measured:false,gives:"a suggested class or priority shown at triage; a person still decides",template:"an anomaly-class template, not written yet",absent:"CostCrew's triage is unchanged",status:"planned"},
+  {id:"costcrew",col:"#7DD3A0",label:"CostCrew",x:560,y:400,measured:false,gives:"a suggested class or priority shown at triage; a person still decides",template:"triage.anomaly_class",absent:"CostCrew's triage is unchanged",status:"planned"},
   {id:"genaryx",col:"#B48CFF",label:"Genaryx",x:380,y:400,measured:false,gives:"a panel of calibration verdicts, live only when GENARYX_TYPRYX_URL resolves",template:"any",absent:"no typryx panel is shown",status:"planned"},
   {id:"engram",col:"#6C7BFF",label:"Engram",x:200,y:360,measured:false,gives:"an optional importance score",template:"any",absent:"Engram's importance scoring is unchanged",status:"planned"},
   {id:"journal",col:"#E4626F",label:"Trailryx / Idryx",x:100,y:270,measured:false,gives:"the same agent-event envelope the rest of the stack writes; Idryx would only ever read it, never call typryx",template:"n/a, journal only",absent:"nothing to read; Idryx's detection stays deterministic either way",status:"planned"}
