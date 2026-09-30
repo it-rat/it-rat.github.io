@@ -28,6 +28,66 @@ Three question shapes are the whole contract: `choice`, `score`, `noul` (yes/no)
 | eval.answer_quality | score | 4 ordered levels | Verdryx grader | planned |
 | request.complexity | choice | cheap / default / hard / reasoning | TokenFuse router, shadow mode only | planned, shadow only |
 
+## Three modes: where your data goes.
+
+You pick one when you install typryx, and you can change it later. With Jev, the fields a question names go to TypeSafe AI. With your own model, nothing leaves your hardware. With it off, the stack runs as it did before. All three were run on the same 434 questions, below.
+
+### Jev
+
+run live 2026-09-30
+
+A hosted service from TypeSafe AI. Only the fields a template names leave the box, to a third party that handles them under its own terms. Of the three modes it was the most accurate and the best calibrated on the test below.
+
+Whether that is worth sending those fields out is a decision for whoever answers for your data. It is never the default.
+
+### Your own model
+
+measured 2026-09-30
+
+Any OpenAI-compatible server you run yourself, such as Ollama or vLLM. Nothing leaves your hardware. You choose the model, and you can tune it on your own questions (next section).
+
+The one measured here is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.
+
+### Off
+
+the default
+
+typryx is not started. The rest of the stack runs exactly as it did before, and this is what every launcher does until you choose another mode.
+
+Without typryx, an agent that needs a typed answer gets one fixed default. That is the bottom row of the chart.
+
+ECE is expected calibration error: lower means the confidence a backend states matches how often it is right. The fixed answer states certainty every time, so its ECE is one minus its accuracy. The questions are synthetic and frozen, each label follows from how its question was built, and an independent re-label agreed on every one of the 434 questions. The benchmark and its runner are public: [github.com/TAIPANBOX/typryx-evalset](https://github.com/TAIPANBOX/typryx-evalset).
+
+| mode | where it ran | accuracy | 95% interval | ECE | median time |
+|---|---|---|---|---|---|
+| typryx + Jev | TypeSafe AI's hosted service (jev-1.13.0), called from a laptop | 87.1% | 83.6 to 89.9 | 0.042 | 229 ms |
+| typryx + your own model | qwen2.5:7b on Ollama, on an 8-vCPU machine with no GPU | 70.0% | 65.6 to 74.2 | 0.273 | 2,130 ms |
+| without typryx | a fixed default answer, which is today's behaviour | 25.1% | 21.3 to 29.4 | 0.749 | no model call |
+
+`TYPED_MODE=jev|own-model|off` for stack-single, and `--typed-mode jev|own-model|off` for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. on main since 2026-09-30, in no launcher release yet
+
+## Your own model, on your own questions.
+
+typryx does not train, fine-tune, host or ship a model. It keeps the two records a tune needs, the question as the template let it through and the truth a person posted, and it measures the result against the model it replaces. The tuning is yours, on your hardware.
+
+### What it keeps
+
+One line per answered, templated question, in a file on your own disk that only its owner can read: the template and its version, the answer's id, which backend and model answered, and the state as the template let it through. A field the template holds back is on your disk nowhere.
+
+### What it never keeps
+
+The backend's answer or its probabilities. The record has no field for them, and the package that writes it cannot reach the code that knows them. Nothing is written for a question that was refused, unanswered or free-form.
+
+It is off by default: with no directory set, nothing is written and no directory is created.
+
+### Why labels are human truths only
+
+The export labels a question with the truth a person posted and with nothing else. A hosted model's answer never becomes a training label, which matters because TypeSafe's agreement forbids using Jev's output to train another model.
+
+What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through, and the poster's own word is the only record of where it came from.
+
+Decided 2026-09-30: a customer picks one of three data modes for typed answers, typryx does not train or ship models, and a customer can tune their own model on their own questions and measure it with typryx.
+
 ### Toggle the extra fields. The egress never changes.
 
 Only `task` and `final_answer` are in the template's `fields`, so they are the only two that ever reach the backend, whatever else sits in the state. The type a backend receives is constructible only inside the template package, so a map or raw state cannot reach one even by an implementation mistake.
@@ -51,13 +111,12 @@ Same 60 items, seed 1, timed end to end from the caller (`go run ./examples/spee
 | reasoning judge | gpt-5.4-mini (current, reasoning) | 562 ms | 896 ms | 100% |
 | typed, one token, through typryx | qwen2.5:7b | 148 ms | 159 ms | 66.7% (3 of 60 unparsed, counted wrong) |
 | text judge, short verdict | qwen2.5:7b | 1,509 ms | 2,103 ms | 100% |
-| typed, through typryx | Jev | not measured | built, not run live |  |
 
-Against a gpt-4.1-miniPI the network dominates: on gpt-4.1-mini the shortcut was about 1.3× faster than a short text verdict and gave up about a third of the accuracy, and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10× faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page.
+Against a hosted API the network dominates: on gpt-4.1-mini the shortcut was about 1.3× faster than a short text verdict and gave up about a third of the accuracy, and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10× faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page. Jev is not on this chart: it was measured on a different set of questions, the 434 in [Three modes](https://it-rat.com/services/typryx.html#modes), and the two sets are never mixed.
 
 ## Stated confidence and actual accuracy are not the same number.
 
-Eight groups, 480 judgements, never pooled: `typryx calibration --min-n 30 --json` over durable ledgers, 60 arithmetic judgements per group, seed 1, template `eval.outcome_met`, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the gpt-4.1-miniPI (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.
+Eight groups, 480 judgements, never pooled: `typryx calibration --min-n 30 --json` over durable ledgers, 60 arithmetic judgements per group, seed 1, template `eval.outcome_met`, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the hosted API (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.
 
 Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (gpt-4.1-nano in both wordings, and qwen2.5:3b) said "correct" to every one of 60 items, right exactly half the time, the base rate. gpt-4.1-mini mostly passed a wrong answer as right; gpt-4o-mini erred both ways; qwen2.5:7b never passed a wrong answer but failed a third of the right ones. Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright (probed 2026-09-25: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.
 
@@ -133,9 +192,9 @@ Typryx sits behind [TokenFuse](https://it-rat.com/tokenfuse.html)'s MCP broker a
 
 Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.
 
-Released as v0.2.0 on 2026-09-26, after v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.
+Released as v0.3.0 on 2026-09-30, after a first tag, v0.1.0, on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub, openai-logprobs and jev backends, the journal and ledger, calibration, and the opt-in training log and export. Jev ran live on 2026-09-30, and all three data modes were measured on the same 434 questions.
 
-Not yet: any launcher wiring (stack-single, stack-up, stack-k8s), agent-passport registration of its four event types, and every consumer in the tables above.
+Not yet: a tagged launcher release carrying the data-mode choice (it is on main in stack-single, stack-k8s and stack-up), a model tuned from an export and measured against the one it replaces, and the deeper consumers in the tables above.
 
 ## A typed answer, and what it does and does not do
 
@@ -152,4 +211,7 @@ Not here, and not in a consumer. A probability is a signal a policy can threshol
 Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. `typryx calibration` groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to `/v1/outcome`, so calibration is measured rather than assumed.
 
 **Q: Does typryx need Jev to be useful?**
-No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25.
+No. Jev is one backend behind one interface, not the contract. The stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a model on your own hardware. Jev has run live (2026-09-30) and was the most accurate of the three data modes on the 434 questions, but it is a hosted service: choosing it sends the fields a question names to TypeSafe AI. With your own model nothing leaves your hardware, and with typryx off the stack runs as it did before.
+
+**Q: Can I use my own model instead of Jev?**
+Yes. Point typryx at any OpenAI-compatible server you run, such as Ollama or vLLM, and nothing leaves your hardware. On the same 434 questions a 7B model on a machine with no GPU was less accurate and less well calibrated than Jev, and slower. You can also tune a model on your own questions: typryx keeps an opt-in training log and exports the questions a person has judged, and it measures the new model against the old per template. It does not train or ship a model, and no tune has been run from an export yet.

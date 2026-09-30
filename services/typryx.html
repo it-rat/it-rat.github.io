@@ -48,6 +48,7 @@
   .chip-measured{color:var(--mint);border:1px solid rgba(52,211,153,.4)}
   .chip-planned{color:var(--faint);border:1px dashed var(--line-2)}
   .chip-builtnotlive{color:var(--amber);border:1px dashed rgba(244,178,62,.55)}
+  .chip-plain{color:var(--dim);border:1px solid var(--line-2)}
 
   /* the .flight pattern (scopyx): a boxed widget with an svg, tabs that
      drive it, an output line and a why-paragraph. Reused four times below
@@ -81,7 +82,7 @@
   .fl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
   @media(max-width:760px){
     .fl-scroll svg{min-width:720px}
-    .fl-scroll #sp-svg,.fl-scroll #cl-svg{min-width:0}
+    .fl-scroll #sp-svg,.fl-scroll #cl-svg,.fl-scroll #md-svg,.fl-scroll #lp-svg{min-width:0}
   }
 
   /* field chips (widget: what leaves the box) */
@@ -99,7 +100,7 @@
   .defs dd{color:var(--dim);font-size:13.5px;line-height:1.6;margin:4px 0 0}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Typryx","url":"https://it-rat.com/services/typryx.html","description":"A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/typryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Typryx","item":"https://it-rat.com/services/typryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is typryx required to run the rest of the stack?","acceptedAnswer":{"@type":"Answer","text":"No. It is an optional add-on, and every other service keeps its current path unchanged when it is absent. Nothing in this repository or a planned consumer is built to depend on it."}},{"@type":"Question","name":"What leaves the box when I send it a state?","acceptedAnswer":{"@type":"Answer","text":"Only the fields the template's own fields list names, held by the type system rather than a promise: internal/backend.Backend.Ask takes a template.Egress , a type constructible only inside the template package. Measured on a live run: a state carrying user_email and, separately, customer_iban , neither reached the backend or the record."}},{"@type":"Question","name":"Can a probability block anything?","acceptedAnswer":{"@type":"Answer","text":"Not here, and not in a consumer. A probability is a signal a policy can threshold; the planned Wardryx rule may turn one into a hold, which a person releases, never a deny."}},{"@type":"Question","name":"How do I know a probability is honest?","acceptedAnswer":{"@type":"Answer","text":"Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. typryx calibration groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to /v1/outcome , so calibration is measured rather than assumed."}},{"@type":"Question","name":"Does typryx need Jev to be useful?","acceptedAnswer":{"@type":"Answer","text":"No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Typryx","url":"https://it-rat.com/services/typryx.html","description":"A typed answer, choice, score or yes/no, with a probability, never a guess: capped, journaled, and calibrated against real outcomes.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/typryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Typryx","item":"https://it-rat.com/services/typryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is typryx required to run the rest of the stack?","acceptedAnswer":{"@type":"Answer","text":"No. It is an optional add-on, and every other service keeps its current path unchanged when it is absent. Nothing in this repository or a planned consumer is built to depend on it."}},{"@type":"Question","name":"What leaves the box when I send it a state?","acceptedAnswer":{"@type":"Answer","text":"Only the fields the template's own fields list names, held by the type system rather than a promise: internal/backend.Backend.Ask takes a template.Egress , a type constructible only inside the template package. Measured on a live run: a state carrying user_email and, separately, customer_iban , neither reached the backend or the record."}},{"@type":"Question","name":"Can a probability block anything?","acceptedAnswer":{"@type":"Answer","text":"Not here, and not in a consumer. A probability is a signal a policy can threshold; the planned Wardryx rule may turn one into a hold, which a person releases, never a deny."}},{"@type":"Question","name":"How do I know a probability is honest?","acceptedAnswer":{"@type":"Answer","text":"Not from the number alone, which is the finding of the calibration run below: every group was 96% to 100% confident on average and right 50% to 73% of the time. typryx calibration groups by template, version, backend and model, never pooled, and prints accuracy, mean confidence, ECE and Brier against a later truth posted to /v1/outcome , so calibration is measured rather than assumed."}},{"@type":"Question","name":"Does typryx need Jev to be useful?","acceptedAnswer":{"@type":"Answer","text":"No. Jev is one backend behind one interface, not the contract. The stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a model on your own hardware. Jev has run live (2026-09-30) and was the most accurate of the three data modes on the 434 questions, but it is a hosted service: choosing it sends the fields a question names to TypeSafe AI. With your own model nothing leaves your hardware, and with typryx off the stack runs as it did before."}},{"@type":"Question","name":"Can I use my own model instead of Jev?","acceptedAnswer":{"@type":"Answer","text":"Yes. Point typryx at any OpenAI-compatible server you run, such as Ollama or vLLM, and nothing leaves your hardware. On the same 434 questions a 7B model on a machine with no GPU was less accurate and less well calibrated than Jev, and slower. You can also tune a model on your own questions: typryx keeps an opt-in training log and exports the questions a person has judged, and it measures the new model against the old per template. It does not train or ship a model, and no tune has been run from an export yet."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="typryx" data-root="../">
@@ -127,12 +128,13 @@
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch the measured run <span class="mono">&#9654;</span></a>
           <a class="btn" href="#jev">Where Jev meets the stack</a>
+          <a class="btn" href="#modes">Three modes</a>
           <a class="btn" href="https://github.com/TAIPANBOX/typryx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
       <div class="hero-side rv d2">
-        <div class="row"><span class="k">release</span><span class="v">v0.2.0 &#183; Go 1.27</span></div>
-        <div class="row"><span class="k">tests</span><span class="v">897 tests &#183; httptest fakes, no live calls</span></div>
+        <div class="row"><span class="k">release</span><span class="v">v0.3.0 &#183; Go 1.27</span></div>
+        <div class="row"><span class="k">tests</span><span class="v">946 tests &#183; httptest fakes, no live calls</span></div>
         <div class="row"><span class="k">deps</span><span class="v">one direct dependency</span></div>
         <div class="row"><span class="k">spend cap</span><span class="v">1,000 calls an hour, by default</span></div>
         <div class="row"><span class="k">image</span><span class="v">16.6 MB &#183; ghcr.io, signed</span></div>
@@ -163,7 +165,7 @@
       <p class="lede">An agent reaches typryx over MCP, most often through tokenfuse's broker, both measured. Inside, a call crosses the door, the template lookup, the egress filter and the hourly cap before it reaches a swappable backend; the answer is read off the probability distribution, never taken as the backend's own claim. Everything is journaled. On the right: the calibration loop that scores a later truth, and the consumers, all still planned, that would read the journal.</p>
     </div>
     <div class="diagram rv">
-      <svg viewBox="0 0 960 660" role="img" aria-label="An agent over MCP, or through tokenfuse's broker, reaches typryx's door, template lookup, egress filter and hourly cap, then a swappable backend, stub, openai-logprobs or jev, jev marked built but not run live; the result is a typed answer and probability, or unanswered with a reason, either way journaled with a sha-384 of what left the box; a second, dashed path shows a call that is capped and turns ember before reaching a backend; on the right, the calibration loop scores a later truth, and journal readers Trailryx, Idryx and Genaryx are marked launcher wiring planned, along with six other planned consumers">
+      <svg viewBox="0 0 960 660" role="img" aria-label="An agent over MCP, or through tokenfuse's broker, reaches typryx's door, template lookup, egress filter and hourly cap, then a swappable backend, stub, openai-logprobs or jev; the result is a typed answer and probability, or unanswered with a reason, either way journaled with a sha-384 of what left the box; a second, dashed path shows a call that is capped and turns ember before reaching a backend; on the right, the calibration loop scores a later truth, and journal readers Trailryx, Idryx and Genaryx are marked launcher wiring planned, along with six other planned consumers">
         <defs>
           <marker id="txa1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
           <marker id="txa2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#8A97A6"/></marker>
@@ -190,7 +192,7 @@
           <text x="250" y="350" fill="#E9EFF6" font-size="12.5" font-weight="700">backend, swappable</text>
           <rect x="48" y="362" width="70" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="83" y="380" fill="#E9EFF6" font-size="10.5">stub</text>
           <rect x="126" y="362" width="144" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="198" y="380" fill="#E9EFF6" font-size="10.5">openai-logprobs</text>
-          <rect x="278" y="362" width="64" height="28" rx="7" fill="#141C27" stroke="#F4B23E" stroke-dasharray="3 3"/><text x="310" y="380" fill="#F4B23E" font-size="10.5">jev</text>
+          <rect x="278" y="362" width="64" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="310" y="380" fill="#E9EFF6" font-size="10.5">jev</text>
           <text x="250" y="410" fill="#5A6675" font-size="10.5">answer read from the distribution, never the backend&#8217;s claim</text>
 
           <rect x="30" y="450" width="440" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
@@ -388,6 +390,106 @@
   </div>
 </section>
 
+<!-- ================= THREE MODES: WHERE YOUR DATA GOES ================= -->
+<section class="sec" id="modes" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where your data goes &#183; measured 2026-09-30</div>
+      <h2>Three modes: where your data goes.</h2>
+      <p class="lede">You pick one when you install typryx, and you can change it later. With Jev, the fields a question names go to TypeSafe AI. With your own model, nothing leaves your hardware. With it off, the stack runs as it did before. All three were run on the same 434 questions, below.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-4 rv">
+        <h3>Jev</h3>
+        <p><span class="chip chip-measured">run live 2026-09-30</span></p>
+        <p>A hosted service from TypeSafe AI. Only the fields a template names leave the box, to a third party that handles them under its own terms. Of the three modes it was the most accurate and the best calibrated on the test below.</p>
+        <p style="margin-top:10px">Whether that is worth sending those fields out is a decision for whoever answers for your data. It is never the default.</p>
+      </div>
+      <div class="card hover feature b-4 rv d1">
+        <h3>Your own model</h3>
+        <p><span class="chip chip-measured">measured 2026-09-30</span></p>
+        <p>Any OpenAI-compatible server you run yourself, such as Ollama or vLLM. Nothing leaves your hardware. You choose the model, and you can tune it on your own questions (next section).</p>
+        <p style="margin-top:10px">The one measured here is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.</p>
+      </div>
+      <div class="card hover feature b-4 rv d2">
+        <h3>Off</h3>
+        <p><span class="chip chip-plain">the default</span></p>
+        <p>typryx is not started. The rest of the stack runs exactly as it did before, and this is what every launcher does until you choose another mode.</p>
+        <p style="margin-top:10px">Without typryx, an agent that needs a typed answer gets one fixed default. That is the bottom row of the chart.</p>
+      </div>
+    </div>
+
+    <div class="flight rv" id="md-box" style="margin-top:20px">
+      <div class="fl-head"><span class="dot"></span>accuracy on 434 questions, with its 95% interval <span class="n">2026-09-30</span></div>
+      <div class="fl-scroll"><svg id="md-svg" viewBox="0 0 960 284" role="img" aria-label="Three horizontal bars show accuracy on the same 434 frozen questions, each with a whisker for its 95% interval and its expected calibration error beside it: typryx with Jev, 87.1%, error 0.042; typryx with your own model, 70.0%, error 0.273; without typryx, a fixed default answer, 25.1%, error 0.749. The table below holds the same numbers."></svg></div>
+      <div class="fl-out">
+        <span class="u" id="md-name">pick a bar for its interval and where it ran</span>
+        <span class="e" id="md-detail"></span>
+      </div>
+      <p class="fl-why">ECE is expected calibration error: lower means the confidence a backend states matches how often it is right. The fixed answer states certainty every time, so its ECE is one minus its accuracy. The questions are synthetic and frozen, each label follows from how its question was built, and an independent re-label agreed on every one of the 434 questions. The benchmark and its runner are public: <a href="https://github.com/TAIPANBOX/typryx-evalset" target="_blank" rel="noopener" style="color:var(--accent)">github.com/TAIPANBOX/typryx-evalset</a>.</p>
+    </div>
+
+    <div class="tbl-scroll rv" style="margin-top:16px">
+      <table class="tbl" id="md-table">
+        <thead><tr><th>mode</th><th>where it ran</th><th>accuracy</th><th>95% interval</th><th>ECE</th><th>median time</th></tr></thead>
+        <tbody>
+          <tr data-col="#F4B23E" data-short="hosted, called from a laptop"><td>typryx + Jev</td><td>TypeSafe AI's hosted service (jev-1.13.0), called from a laptop</td><td>87.1%</td><td>83.6 to 89.9</td><td>0.042</td><td>229 ms</td></tr>
+          <tr data-col="#60A5FA" data-short="qwen2.5:7b on an 8-vCPU machine"><td>typryx + your own model</td><td>qwen2.5:7b on Ollama, on an 8-vCPU machine with no GPU</td><td>70.0%</td><td>65.6 to 74.2</td><td>0.273</td><td>2,130 ms</td></tr>
+          <tr data-col="#5A6675" data-short="a fixed default answer"><td>without typryx</td><td>a fixed default answer, which is today's behaviour</td><td>25.1%</td><td>21.3 to 29.4</td><td>0.749</td><td>no model call</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card rv" style="margin-top:16px">
+      <div class="kicker">how to choose it at install</div>
+      <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65"><span class="mono" style="font-size:12.5px">TYPED_MODE=jev|own-model|off</span> for stack-single, and <span class="mono" style="font-size:12.5px">--typed-mode jev|own-model|off</span> for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. <span class="chip chip-builtnotlive" style="margin-left:4px;white-space:normal">on main since 2026-09-30, in no launcher release yet</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= YOUR OWN MODEL, ON YOUR OWN QUESTIONS ================= -->
+<section class="sec" id="own-model" style="padding-top:22px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">your data, your model</div>
+      <h2>Your own model, on your own questions.</h2>
+      <p class="lede">typryx does not train, fine-tune, host or ship a model. It keeps the two records a tune needs, the question as the template let it through and the truth a person posted, and it measures the result against the model it replaces. The tuning is yours, on your hardware.</p>
+    </div>
+    <div class="flight rv" id="lp-box">
+      <div class="fl-head"><span class="dot"></span>from a question to a tuned model <span class="n" id="lp-label">step 1 of 9</span></div>
+      <div class="fl-scroll"><svg id="lp-svg" viewBox="0 0 960 344" role="img" aria-label="A loop of nine steps. Steps one to five are kept by typryx on your disk: an ask is answered, the answer is on the ledger, a person posts the truth, the training log holds the named fields, and an export pairs them as human truths only. Steps six to nine run on your side: you tune your own model, serve it through the openai-logprobs backend, typryx compares the new model with the old per template, never pooled, and you switch."></svg></div>
+      <div class="fl-tabs" role="group" aria-label="Choose a step" id="lp-tabs"></div>
+      <div class="fl-out">
+        <span class="u" id="lp-name">ask</span>
+        <span class="e" id="lp-who"></span>
+      </div>
+      <p class="fl-why" id="lp-why"></p>
+      <div class="fl-out">
+        <span class="chip chip-measured" style="white-space:normal">steps 1 to 5: built, tested, run on the stub backend</span>
+        <span class="chip chip-builtnotlive" style="white-space:normal">steps 6 to 9: not run end to end, no tuned model measured yet</span>
+      </div>
+    </div>
+
+    <div class="bento" style="margin-top:20px">
+      <div class="card hover feature b-4 rv">
+        <h3>What it keeps</h3>
+        <p>One line per answered, templated question, in a file on your own disk that only its owner can read: the template and its version, the answer's id, which backend and model answered, and the state as the template let it through. A field the template holds back is on your disk nowhere.</p>
+      </div>
+      <div class="card hover feature b-4 rv d1">
+        <h3>What it never keeps</h3>
+        <p>The backend's answer or its probabilities. The record has no field for them, and the package that writes it cannot reach the code that knows them. Nothing is written for a question that was refused, unanswered or free-form.</p>
+        <p style="margin-top:10px">It is off by default: with no directory set, nothing is written and no directory is created.</p>
+      </div>
+      <div class="card hover feature b-4 rv d2">
+        <h3>Why labels are human truths only</h3>
+        <p>The export labels a question with the truth a person posted and with nothing else. A hosted model's answer never becomes a training label, which matters because TypeSafe's agreement forbids using Jev's output to train another model.</p>
+        <p style="margin-top:10px">What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through, and the poster's own word is the only record of where it came from.</p>
+      </div>
+    </div>
+    <p class="dim rv" style="margin-top:14px;font-size:13px;line-height:1.6">Decided 2026-09-30: a customer picks one of three data modes for typed answers, typryx does not train or ship models, and a customer can tune their own model on their own questions and measure it with typryx.</p>
+  </div>
+</section>
+
 <!-- ================= WIDGET: WHAT LEAVES THE BOX ================= -->
 <section class="sec" style="padding-top:20px">
   <div class="wrap">
@@ -457,10 +559,10 @@
       <p class="lede">Same 60 items, seed 1, timed end to end from the caller (<span class="mono" style="font-size:12.5px">go run ./examples/speed</span>, typryx f4045e0, one run each, so read the medians as indicative rather than final).</p>
     </div>
     <div class="flight rv" id="sp-box">
-      <div class="fl-head"><span class="dot"></span>median, with a p95 whisker <span class="n" id="sp-label">gpt-4.1-miniPI</span></div>
-      <div class="fl-scroll"><svg id="sp-svg" viewBox="0 0 960 220" role="img" aria-label="Horizontal bars comparing median decision time with a p95 whisker, accuracy chip at the bar end, for a typed one-token judge through typryx, a text judge and a reasoning judge, against gpt-4.1-mini and gpt-5.4-mini over the gpt-4.1-miniPI and qwen2.5:7b run locally, plus an empty row for Jev, not measured yet"></svg></div>
+      <div class="fl-head"><span class="dot"></span>median, with a p95 whisker <span class="n" id="sp-label">hosted API</span></div>
+      <div class="fl-scroll"><svg id="sp-svg" viewBox="0 0 960 220" role="img" aria-label="Horizontal bars comparing median decision time with a p95 whisker, accuracy chip at the bar end, for a typed one-token judge through typryx, a text judge and a reasoning judge, against gpt-4.1-mini and gpt-5.4-mini over the hosted API and qwen2.5:7b run locally"></svg></div>
       <div class="fl-tabs" role="group" aria-label="Choose a comparison">
-        <button class="fl-tab" type="button" aria-pressed="true" data-k="hosted">gpt-4.1-miniPI</button>
+        <button class="fl-tab" type="button" aria-pressed="true" data-k="hosted">hosted API</button>
         <button class="fl-tab" type="button" aria-pressed="false" data-k="local">local qwen2.5:7b</button>
       </div>
     </div>
@@ -473,11 +575,10 @@
           <tr><td>reasoning judge</td><td>gpt-5.4-mini (current, reasoning)</td><td>562 ms</td><td>896 ms</td><td>100%</td></tr>
           <tr><td>typed, one token, through typryx</td><td>qwen2.5:7b</td><td>148 ms</td><td>159 ms</td><td>66.7% (3 of 60 unparsed, counted wrong)</td></tr>
           <tr><td>text judge, short verdict</td><td>qwen2.5:7b</td><td>1,509 ms</td><td>2,103 ms</td><td>100%</td></tr>
-          <tr><td>typed, through typryx</td><td>Jev</td><td colspan="2">not measured</td><td><span class="chip chip-builtnotlive">built, not run live</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="dim rv" style="margin-top:12px;font-size:13px;line-height:1.6">Against a gpt-4.1-miniPI the network dominates: on gpt-4.1-mini the shortcut was about 1.3&#215; faster than a short text verdict and gave up about a third of the accuracy, and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10&#215; faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page.</p>
+    <p class="dim rv" style="margin-top:12px;font-size:13px;line-height:1.6">Against a hosted API the network dominates: on gpt-4.1-mini the shortcut was about 1.3&#215; faster than a short text verdict and gave up about a third of the accuracy, and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10&#215; faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page. Jev is not on this chart: it was measured on a different set of questions, the 434 in <a href="https://it-rat.com/services/typryx.html#modes" style="color:var(--accent)">Three modes</a>, and the two sets are never mixed.</p>
   </div>
 </section>
 
@@ -487,7 +588,7 @@
     <div class="sec-head rv">
       <div class="kicker">calibration, measured 2026-09-25</div>
       <h2>Stated confidence and actual accuracy are not the same number.</h2>
-      <p class="lede">Eight groups, 480 judgements, never pooled: <span class="mono" style="font-size:12.5px">typryx calibration --min-n 30 --json</span> over durable ledgers, 60 arithmetic judgements per group, seed 1, template <span class="mono" style="font-size:12.5px">eval.outcome_met</span>, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the gpt-4.1-miniPI (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.</p>
+      <p class="lede">Eight groups, 480 judgements, never pooled: <span class="mono" style="font-size:12.5px">typryx calibration --min-n 30 --json</span> over durable ledgers, 60 arithmetic judgements per group, seed 1, template <span class="mono" style="font-size:12.5px">eval.outcome_met</span>, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the hosted API (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time. Click or focus a dot for its numbers.</p>
     </div>
     <div class="flight rv" id="cl-box">
       <div class="fl-head"><span class="dot"></span>reliability, 8 groups <span class="n" id="cl-label">all</span></div>
@@ -596,11 +697,11 @@
           Typryx sits behind <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a>'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the <span class="mono" style="font-size:12.5px">request.complexity</span> template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. A typed grader beside <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>'s existing LLM judge is on the planned list above, not built: a typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. If <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> ever reads a typed signal, the planned rule may turn it into a hold, which a person releases; nothing here or in a consumer turns a probability into a deny.</p>
         <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.</p>
       </div>
-      <div class="card b-4 rv d1">
+      <div class="card b-4 rv d1" id="status">
         <div class="kicker" style="--accent:var(--mint)">status</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <p class="dim" style="font-size:13.5px;line-height:1.7">Released as v0.2.0 on 2026-09-26, after v0.1.0 on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub and openai-logprobs backends, the journal and ledger, calibration. The jev backend is built and tested against the documented wire shape, not yet run live: TypeSafe AI paused new signups on 2026-09-25.</p>
-          <p class="dim" style="font-size:13.5px;line-height:1.7">Not yet: any launcher wiring (stack-single, stack-up, stack-k8s), agent-passport registration of its four event types, and every consumer in the tables above.</p>
+          <p class="dim" style="font-size:13.5px;line-height:1.7">Released as v0.3.0 on 2026-09-30, after a first tag, v0.1.0, on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, CI green. Built and tested: the HTTP and MCP surfaces, the stub, openai-logprobs and jev backends, the journal and ledger, calibration, and the opt-in training log and export. Jev ran live on 2026-09-30, and all three data modes were measured on the same 434 questions.</p>
+          <p class="dim" style="font-size:13.5px;line-height:1.7">Not yet: a tagged launcher release carrying the data-mode choice (it is on main in stack-single, stack-k8s and stack-up), a model tuned from an export and measured against the one it replaces, and the deeper consumers in the tables above.</p>
         </div>
       </div>
     </div>
@@ -634,7 +735,11 @@
       </details>
       <details>
         <summary>Does typryx need Jev to be useful?</summary>
-        <div class="a"><p>No. Jev is one backend behind one interface, not the contract; the stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a local model. Jev is built and tested against the documented wire shape but not yet run live, since TypeSafe AI paused new signups on 2026-09-25.</p></div>
+        <div class="a"><p>No. Jev is one backend behind one interface, not the contract. The stub backend answers deterministically for tests and demos, and openai-logprobs reaches any OpenAI-compatible server, including a model on your own hardware. Jev has run live (2026-09-30) and was the most accurate of the three data modes on the 434 questions, but it is a hosted service: choosing it sends the fields a question names to TypeSafe AI. With your own model nothing leaves your hardware, and with typryx off the stack runs as it did before.</p></div>
+      </details>
+      <details>
+        <summary>Can I use my own model instead of Jev?</summary>
+        <div class="a"><p>Yes. Point typryx at any OpenAI-compatible server you run, such as Ollama or vLLM, and nothing leaves your hardware. On the same 434 questions a 7B model on a machine with no GPU was less accurate and less well calibrated than Jev, and slower. You can also tune a model on your own questions: typryx keeps an opt-in training log and exports the questions a person has judged, and it measures the new model against the old per template. It does not train or ship a model, and no tune has been run from an export yet.</p></div>
       </details>
     </div>
   </div>
@@ -714,7 +819,7 @@ Sim.mount(document.getElementById("tx-sim"),{
   title:"measured replay &#183; 60 judgements, qwen2.5:7b, 2026-09-25",
   window:60, duration:19000,
   clock:t=>"ask "+Math.min(60,Math.floor(t)+1),
-  badges:[{label:"measured run",color:"#34D399"},{label:"897 tests",color:"#60A5FA"}],
+  badges:[{label:"measured run",color:"#34D399"},{label:"946 tests",color:"#60A5FA"}],
   stage:{mode:"typed", rows:ROWS},
   series:[{id:"noop",label:"",color:"#8A97A6",max:1,points:[[0,0],[60,0]]}],
   counters:[
@@ -837,11 +942,11 @@ const CASES={
   jev:{name:"jev",
     sent:["POST {base}/systemone","{state, model,","questions:{q:{type,",
           "instructions, criteria}}}"],
-    backStatus:"api.typesafe.ai &#183; not yet called",
+    backStatus:"api.typesafe.ai &#183; run live",
     ret:["answers.q.probabilities","or answers.q.noul, mapped to",
          "{true: n, false: 1-n}"],
-    chip:"built, not run live", chipCol:"#F4B23E",
-    why:"Built and tested against the documented wire shape from docs.typesafe.ai, replayed by an httptest fake. No key, no spend approval, and no call has been made: TypeSafe AI paused new signups on 2026-09-25."}
+    chip:"run live 2026-09-30", chipCol:"#34D399",
+    why:"Built against the documented wire shape from docs.typesafe.ai and tested with an httptest fake, then run live on 2026-09-30: a first round of hand-written asks, then the 434 questions in Three modes below. The key is only ever read from a file."}
 };
 
 function render(k){
@@ -901,20 +1006,18 @@ const DATA={
   hosted:[
     {label:"typed, one token (gpt-4.1-mini)",median:538,p95:795,acc:"71.7%",col:"#60A5FA"},
     {label:"text judge (gpt-4.1-mini)",median:723,p95:1012,acc:"100%",col:"#8A97A6"},
-    {label:"reasoning judge (gpt-5.4-mini)",median:562,p95:896,acc:"100%",col:"#34D399"},
-    {label:"typed, through typryx (Jev)",median:null,p95:null,acc:"built, not run live",col:"#F4B23E"}
+    {label:"reasoning judge (gpt-5.4-mini)",median:562,p95:896,acc:"100%",col:"#34D399"}
   ],
   local:[
     {label:"typed, one token (qwen2.5:7b)",median:148,p95:159,acc:"66.7%",col:"#60A5FA"},
-    {label:"text judge (qwen2.5:7b)",median:1509,p95:2103,acc:"100%",col:"#8A97A6"},
-    {label:"typed, through typryx (Jev)",median:null,p95:null,acc:"built, not run live",col:"#F4B23E"}
+    {label:"text judge (qwen2.5:7b)",median:1509,p95:2103,acc:"100%",col:"#8A97A6"}
   ]
 };
 
 function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
 
 function render(k){
-  label.textContent = k==="hosted"?"gpt-4.1-miniPI":"local qwen2.5:7b";
+  label.textContent = k==="hosted"?"hosted API":"local qwen2.5:7b";
   const rows=DATA[k];
   const maxMs=Math.max(...rows.map(r=>r.p95||0),200)*1.6;
   /* narrow screens get their own layout, labels above the bars, instead of
@@ -933,23 +1036,16 @@ function render(k){
     lbl.textContent=r.label; g.appendChild(lbl);
     const track=el("rect",{x:padL,y:y-9,width:w-padL-padR,height:18,rx:4,fill:"#141C27",stroke:"#2a3547"});
     g.appendChild(track);
-    if(r.median==null){
-      const dash=el("rect",{x:padL,y:y-9,width:w-padL-padR,height:18,rx:4,fill:"none",stroke:"#F4B23E","stroke-dasharray":"4 5"});
-      g.appendChild(dash);
-      const t=el("text",{x:padL+12,y:y+5,fill:"#F4B23E","font-size":fsS});
-      t.textContent=narrow?"not measured yet":"measured the day access opens"; g.appendChild(t);
-    }else{
-      const bw=(w-padL-padR)*(r.median/maxMs);
-      const bar=el("rect",{x:padL,y:y-8,width:Math.max(3,bw),height:16,rx:3,fill:r.col,opacity:"0.55"});
-      g.appendChild(bar);
-      const p95x=padL+(w-padL-padR)*(r.p95/maxMs);
-      const whisk=el("line",{x1:p95x,x2:p95x,y1:y-13,y2:y+13,stroke:"#E9EFF6","stroke-width":"1.6"});
-      g.appendChild(whisk);
-      const mt=el("text",{x:Math.max(padL+bw,p95x)+10,y:y+5,fill:"#8A97A6","font-size":fsS});
-      mt.textContent=narrow?r.median+" / "+r.p95+" ms":r.median+" ms median, "+r.p95+" ms p95"; g.appendChild(mt);
-    }
-    const chip=el("text",{x:w-padR+14,y:y+5,fill:r.median==null?"#F4B23E":"#34D399","font-size":fsS,"font-weight":"700"});
-    chip.textContent=narrow&&r.median==null?"not run live":r.acc; g.appendChild(chip);
+    const bw=(w-padL-padR)*(r.median/maxMs);
+    const bar=el("rect",{x:padL,y:y-8,width:Math.max(3,bw),height:16,rx:3,fill:r.col,opacity:"0.55"});
+    g.appendChild(bar);
+    const p95x=padL+(w-padL-padR)*(r.p95/maxMs);
+    const whisk=el("line",{x1:p95x,x2:p95x,y1:y-13,y2:y+13,stroke:"#E9EFF6","stroke-width":"1.6"});
+    g.appendChild(whisk);
+    const mt=el("text",{x:Math.max(padL+bw,p95x)+10,y:y+5,fill:"#8A97A6","font-size":fsS});
+    mt.textContent=narrow?r.median+" / "+r.p95+" ms":r.median+" ms median, "+r.p95+" ms p95"; g.appendChild(mt);
+    const chip=el("text",{x:w-padR+14,y:y+5,fill:"#34D399","font-size":fsS,"font-weight":"700"});
+    chip.textContent=r.acc; g.appendChild(chip);
   });
 }
 tabs.forEach(b=>b.addEventListener("click",()=>{
@@ -1172,6 +1268,268 @@ NODES.forEach(n=>{
 /* on a phone the hub scrolls sideways; start with typryx in the middle */
 const sc=svg.closest(".fl-scroll");
 if(sc&&sc.scrollWidth>sc.clientWidth+2) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)/2;
+})();
+</script>
+
+<!-- Widget: three modes (accuracy with its interval, read from the table above it) -->
+<script>
+(function(){
+"use strict";
+const svg=document.getElementById("md-svg"); if(!svg) return;
+const ns="http://www.w3.org/2000/svg";
+const nameEl=document.getElementById("md-name"), detailEl=document.getElementById("md-detail");
+function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+/* the table is the one copy of the numbers: the chart reads its cells, so
+   the two cannot disagree and the page still says everything without script */
+const ROWS=[...document.querySelectorAll("#md-table tbody tr")].map(tr=>{
+  const c=[...tr.children].map(td=>td.textContent.trim());
+  const iv=c[3].split(" to ").map(parseFloat);
+  return {label:c[0],where:c[1],short:tr.dataset.short,col:tr.dataset.col,acc:parseFloat(c[2]),lo:iv[0],hi:iv[1],accTxt:c[2],ivTxt:c[3],ece:c[4],time:c[5]};
+});
+let picked=-1;
+function pick(i){
+  picked=i; const r=ROWS[i];
+  nameEl.textContent=r.label+": "+r.accTxt;
+  detailEl.textContent="95% interval "+r.ivTxt+" · ECE "+r.ece+" · median "+r.time+" · "+r.where;
+  draw();
+}
+function draw(){
+  const cw=svg.parentElement.clientWidth;
+  const narrow=cw<600;
+  const w=narrow?Math.max(300,Math.min(560,Math.round(cw))):960;
+  const padL=narrow?14:270, padR=narrow?14:200, padT=narrow?12:34;
+  const rowH=narrow?128:72, axisH=34;
+  const h=padT+ROWS.length*rowH+axisH;
+  svg.setAttribute("viewBox","0 0 "+w+" "+h);
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const g=el("g",{"font-family":"ui-monospace,Menlo"}); svg.appendChild(g);
+  const pw=w-padL-padR, X=v=>padL+pw*v/100;
+  const fs=narrow?"12":"10.5", fb=narrow?"13":"12";
+  /* grid and axis */
+  [0,25,50,75,100].forEach(v=>{
+    if(!narrow) g.appendChild(el("line",{x1:X(v),y1:padT-8,x2:X(v),y2:padT+ROWS.length*rowH-6,stroke:"#1d2633","stroke-width":"1"}));
+    const t=el("text",{x:X(v),y:h-12,fill:"#5A6675","font-size":fs,"text-anchor":v===0?"start":v===100?"end":"middle"});
+    t.textContent=v+(narrow?"%":v===100?"% accuracy":""); g.appendChild(t);
+  });
+  if(!narrow){
+    const cap=el("text",{x:padL,y:16,fill:"#5A6675","font-size":fs});
+    cap.textContent="bar: accuracy · whisker: 95% interval"; g.appendChild(cap);
+  }
+  ROWS.forEach((r,i)=>{
+    const y0=padT+i*rowH;
+    const by=narrow?y0+52:y0+rowH/2-9;
+    const sel=(i===picked);
+    if(sel) g.appendChild(el("rect",{x:narrow?2:6,y:y0-6,width:w-(narrow?4:12),height:rowH-2,rx:10,fill:"none",stroke:r.col,"stroke-opacity":".5"}));
+    if(narrow){
+      const l=el("text",{x:padL,y:y0+14,fill:"#E9EFF6","font-size":fb,"font-weight":"700"}); l.textContent=r.label; g.appendChild(l);
+      const s=el("text",{x:padL,y:y0+32,fill:"#8A97A6","font-size":fs}); s.textContent=r.short; g.appendChild(s);
+    }else{
+      const l=el("text",{x:padL-16,y:y0+rowH/2-6,fill:"#E9EFF6","font-size":fb,"font-weight":"700","text-anchor":"end"}); l.textContent=r.label; g.appendChild(l);
+      const s=el("text",{x:padL-16,y:y0+rowH/2+11,fill:"#8A97A6","font-size":fs,"text-anchor":"end"}); s.textContent=r.short; g.appendChild(s);
+    }
+    g.appendChild(el("rect",{x:padL,y:by,width:pw,height:18,rx:4,fill:"#141C27",stroke:"#2a3547"}));
+    g.appendChild(el("rect",{x:padL,y:by+1,width:Math.max(3,pw*r.acc/100),height:16,rx:3,fill:r.col,opacity:"0.6"}));
+    const cy=by+9;
+    g.appendChild(el("line",{x1:X(r.lo),x2:X(r.hi),y1:cy,y2:cy,stroke:"#E9EFF6","stroke-width":"1.6"}));
+    [r.lo,r.hi].forEach(v=>g.appendChild(el("line",{x1:X(v),x2:X(v),y1:cy-7,y2:cy+7,stroke:"#E9EFF6","stroke-width":"1.6"})));
+    if(narrow){
+      const a=el("text",{x:padL,y:by+42,fill:r.col,"font-size":fb,"font-weight":"700"}); a.textContent=r.accTxt+"   interval "+r.ivTxt; g.appendChild(a);
+      const e=el("text",{x:padL,y:by+58,fill:"#8A97A6","font-size":fs}); e.textContent="ECE "+r.ece+" · median "+r.time; g.appendChild(e);
+    }else{
+      const x=w-padR+18;
+      const a=el("text",{x:x,y:y0+rowH/2-10,fill:r.col,"font-size":"14","font-weight":"700"}); a.textContent=r.accTxt; g.appendChild(a);
+      const b=el("text",{x:x,y:y0+rowH/2+6,fill:"#8A97A6","font-size":fs}); b.textContent="95%: "+r.ivTxt; g.appendChild(b);
+      const c=el("text",{x:x,y:y0+rowH/2+22,fill:"#8A97A6","font-size":fs}); c.textContent="ECE "+r.ece+" · "+r.time; g.appendChild(c);
+    }
+    const hit=el("rect",{x:0,y:y0-6,width:w,height:rowH-2,fill:"transparent",tabindex:"0",role:"button","aria-label":r.label+": accuracy "+r.accTxt+", 95% interval "+r.ivTxt+", ECE "+r.ece});
+    hit.style.cursor="pointer"; hit.style.outline="none";
+    hit.addEventListener("click",()=>pick(i)); hit.addEventListener("focus",()=>pick(i));
+    g.appendChild(hit);
+  });
+}
+addEventListener("resize",draw);
+draw();
+})();
+</script>
+
+<!-- Widget: your own model, on your own questions (the nine-step loop) -->
+<script>
+(function(){
+"use strict";
+const svg=document.getElementById("lp-svg"); if(!svg) return;
+const ns="http://www.w3.org/2000/svg";
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tabsEl=document.getElementById("lp-tabs");
+const labelEl=document.getElementById("lp-label"), nameEl=document.getElementById("lp-name"),
+      whoEl=document.getElementById("lp-who"), whyEl=document.getElementById("lp-why");
+function el(name,attrs){const e=document.createElementNS(ns,name);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+const TY="#60A5FA", YOU="#F4B23E";
+const STEPS=[
+  {t:"ask",who:"typryx",col:TY,lines:["a typed answer with","a probability, or a","refusal with a reason"],short:"a typed answer and a probability",
+   why:"An agent or your own code asks a typed question through a template. typryx returns a choice, a score or a yes or no with a probability, or refuses and says why."},
+  {t:"ledger",who:"typryx",col:TY,lines:["the answer is kept","under its answer id","(TYPRYX_LEDGER_DIR)"],short:"kept under its answer id",
+   why:"With TYPRYX_LEDGER_DIR set, every answered question is on the ledger under an answer id."},
+  {t:"a person judges",who:"a person",col:TY,lines:["posts the right answer","to POST /v1/outcome","once per answer"],short:"a person posts the right answer",
+   why:"A person decides what the right answer was and posts it to POST /v1/outcome, once per answer. Verdryx can do this, and so can curl."},
+  {t:"training log",who:"typryx",col:TY,lines:["named fields only,","never a backend's","answer; off by default"],short:"named fields, no backend answer",
+   why:"With TYPRYX_TRAINING_DIR set, each answered question adds a line to training.ndjson on your disk: the template and its version, the answer id, the backend and model, and the state as the template let it through. Never the backend's answer, never its probabilities, and nothing for a refused or unanswered question."},
+  {t:"export",who:"typryx",col:TY,lines:["typryx export","--training: a file of","human truths only"],short:"a file of human truths only",
+   why:"typryx export --training pairs each logged question with the truth a person posted and writes one JSONL file. Every label is a human truth. An answer with no truth is skipped and counted, however confident the backend was."},
+  {t:"you tune it",who:"you",col:YOU,lines:["your model, your","hardware, your tooling","typryx ships no trainer"],short:"your model, your hardware",
+   why:"Your own tooling on your own hardware. typryx ships no trainer, no base model and no recipe, and it makes no claim about how well a tune works. Nothing here has trained a model from an export yet."},
+  {t:"you serve it",who:"you",col:YOU,lines:["any OpenAI-compatible","server, through the","openai-logprobs backend"],short:"through openai-logprobs",
+   why:"Serve the tuned model behind an OpenAI-compatible server, such as Ollama or vLLM, and point TYPRYX_OPENAI_URL and TYPRYX_OPENAI_MODEL at it."},
+  {t:"typryx compares",who:"typryx",col:TY,lines:["new model against old,","per template, never","pooled (calibration)"],short:"new against old, per template",
+   why:"typryx calibration groups by template, template version, backend and model, and never pools them. The new model is scored beside the old one on the same template instead of being averaged into it. A drift verdict is reported and never acted on."},
+  {t:"you switch",who:"you",col:YOU,lines:["when the numbers say so","you change the model","name in the config"],short:"you change the model name",
+   why:"Changing TYPRYX_OPENAI_MODEL is yours to do, when the numbers say so. The switched model then answers the next asks, and the loop starts again."}
+];
+let cur=0, playing=!reduce, timer=null, narrowNow=null, pos=[], tokenEl=null, routes=[];
+let rectEls=[];
+
+/* tabs: a play/pause toggle, then one pill per step */
+const playBtn=document.createElement("button"); playBtn.type="button"; playBtn.className="fl-tab";
+playBtn.setAttribute("aria-pressed",String(playing)); playBtn.textContent=playing?"pause":"play";
+if(reduce){playBtn.disabled=true; playBtn.style.opacity=".4"; playBtn.textContent="static";}
+tabsEl.appendChild(playBtn);
+const pills=STEPS.map((s,i)=>{
+  const b=document.createElement("button"); b.type="button"; b.className="fl-tab"; b.textContent=String(i+1);
+  b.setAttribute("aria-label","step "+(i+1)+": "+s.t); b.setAttribute("aria-pressed",String(i===0));
+  b.addEventListener("click",()=>{ stop(); go(i,true); });
+  tabsEl.appendChild(b); return b;
+});
+playBtn.addEventListener("click",()=>{ if(reduce) return; playing?stop():start(); });
+function start(){ playing=true; playBtn.textContent="pause"; playBtn.setAttribute("aria-pressed","true"); clearInterval(timer); timer=setInterval(()=>go((cur+1)%STEPS.length,false),2600); }
+function stop(){ playing=false; playBtn.textContent="play"; playBtn.setAttribute("aria-pressed","false"); clearInterval(timer); timer=null; }
+
+function layout(){
+  const cw=svg.parentElement.clientWidth;
+  const narrow=cw<600;
+  const w=narrow?Math.max(300,Math.min(560,Math.round(cw))):960;
+  pos=[]; routes=[];
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  rectEls=[];
+  const defs=el("defs",{}); svg.appendChild(defs);
+  const mk=el("marker",{id:"lpArrow",viewBox:"0 0 8 8",refX:"7",refY:"4",markerWidth:"7",markerHeight:"7",orient:"auto"});
+  mk.appendChild(el("path",{d:"M0 0 L8 4 L0 8 z",fill:"#5A6675"})); defs.appendChild(mk);
+  const g=el("g",{"font-family":"ui-monospace,Menlo","text-anchor":"middle"}); svg.appendChild(g);
+  let h;
+  if(!narrow){
+    h=344; svg.setAttribute("viewBox","0 0 "+w+" "+h);
+    /* two frames: what typryx keeps, then what runs on your side */
+    g.appendChild(el("rect",{x:8,y:8,width:944,height:150,rx:14,fill:"none",stroke:"#2a3547","stroke-dasharray":"4 5"}));
+    const c1=el("text",{x:480,y:28,fill:"#8A97A6","font-size":"11","font-weight":"700"}); c1.textContent="kept by typryx, on your disk"; g.appendChild(c1);
+    g.appendChild(el("rect",{x:8,y:184,width:944,height:150,rx:14,fill:"none",stroke:"#2a3547","stroke-dasharray":"4 5"}));
+    const c2=el("text",{x:480,y:204,fill:"#8A97A6","font-size":"11","font-weight":"700"}); c2.textContent="on your side of the line, measured by typryx"; g.appendChild(c2);
+    const bw=160,bh=96;
+    STEPS.forEach((s,i)=>{
+      let x,y;
+      if(i<5){x=20+i*190; y=44;} else {x=115+(i-5)*190; y=222;}
+      pos.push({x,y,w:bw,h:bh,cx:x+bw/2,cy:y+bh/2});
+    });
+    /* arrows between neighbours in a row */
+    for(let i=0;i<STEPS.length-1;i++){
+      if(i===4) continue;
+      const a=pos[i], b=pos[i+1];
+      g.appendChild(el("line",{x1:a.x+a.w+2,y1:a.cy,x2:b.x-2,y2:b.cy,stroke:"#5A6675","stroke-width":"1.4","marker-end":"url(#lpArrow)"}));
+    }
+    /* the elbow from the end of the first row to the start of the second */
+    g.appendChild(el("path",{d:"M"+pos[4].cx+" "+(pos[4].y+bh+2)+" V170 H"+pos[5].cx+" V"+(pos[5].y-2),fill:"none",stroke:"#5A6675","stroke-width":"1.4","marker-end":"url(#lpArrow)"}));
+    STEPS.forEach((s,i)=>{
+      const p=pos[i];
+      const r=el("rect",{x:p.x,y:p.y,width:p.w,height:p.h,rx:10,fill:"#141C27",stroke:s.col,"stroke-width":"1.4","stroke-dasharray":s.col===YOU?"4 3":"",tabindex:"0",role:"button","aria-label":"step "+(i+1)+": "+s.t+", "+s.who});
+      r.style.cursor="pointer"; r.style.outline="none";
+      r.addEventListener("click",()=>{stop();go(i,true);}); r.addEventListener("focus",()=>{stop();go(i,true);});
+      g.appendChild(r); rectEls.push(r);
+      const t=el("text",{x:p.cx,y:p.y+22,fill:"#E9EFF6","font-size":"11.5","font-weight":"700","pointer-events":"none"}); t.textContent=(i+1)+"  "+s.t; g.appendChild(t);
+      s.lines.forEach((ln,k)=>{
+        const tx=el("text",{x:p.cx,y:p.y+44+k*16,fill:"#8A97A6","font-size":"10.5","pointer-events":"none"}); tx.textContent=ln; g.appendChild(tx);
+      });
+    });
+    /* token routes: straight between neighbours and around the elbow at 5 -> 6; the wrap from 9 to 1 just hops */
+    for(let i=0;i<STEPS.length;i++){
+      const a=pos[i], b=pos[(i+1)%STEPS.length];
+      if(i===4) routes.push([[a.cx,a.cy],[a.cx,170],[b.cx,170],[b.cx,b.cy]]);
+      else routes.push([[a.cx,a.cy],[b.cx,b.cy]]);
+    }
+  }else{
+    const bw=w-28, bh=70, gap=26;
+    h=12+STEPS.length*bh+(STEPS.length-1)*gap+12;
+    svg.setAttribute("viewBox","0 0 "+w+" "+h);
+    STEPS.forEach((s,i)=>{
+      const y=12+i*(bh+gap);
+      pos.push({x:14,y,w:bw,h:bh,cx:14+bw/2,cy:y+bh/2});
+      if(i>0){
+        const pv=pos[i-1];
+        g.appendChild(el("line",{x1:w/2,y1:pv.y+pv.h+2,x2:w/2,y2:y-2,stroke:"#5A6675","stroke-width":"1.4","marker-end":"url(#lpArrow)"}));
+      }
+    });
+    STEPS.forEach((s,i)=>{
+      const p=pos[i];
+      const r=el("rect",{x:p.x,y:p.y,width:p.w,height:p.h,rx:10,fill:"#141C27",stroke:s.col,"stroke-width":"1.4","stroke-dasharray":s.col===YOU?"4 3":"",tabindex:"0",role:"button","aria-label":"step "+(i+1)+": "+s.t+", "+s.who});
+      r.style.cursor="pointer"; r.style.outline="none";
+      r.addEventListener("click",()=>{stop();go(i,true);}); r.addEventListener("focus",()=>{stop();go(i,true);});
+      g.appendChild(r); rectEls.push(r);
+      const t=el("text",{x:p.cx,y:p.y+28,fill:"#E9EFF6","font-size":"13","font-weight":"700","pointer-events":"none"}); t.textContent=(i+1)+"  "+s.t+" · "+s.who; g.appendChild(t);
+      const tx=el("text",{x:p.cx,y:p.y+50,fill:"#8A97A6","font-size":"12","pointer-events":"none"}); tx.textContent=s.short; g.appendChild(tx);
+    });
+    for(let i=0;i<STEPS.length;i++){
+      const a=pos[i], b=pos[(i+1)%STEPS.length];
+      routes.push([[a.cx,a.cy],[b.cx,b.cy]]);
+    }
+  }
+  tokenEl=el("circle",{r:"6",fill:"#34D399",opacity:reduce?"0":"0.95","pointer-events":"none"});
+  svg.appendChild(tokenEl);
+  paint();
+}
+function paint(){
+  STEPS.forEach((s,i)=>{
+    const r=rectEls[i]; if(!r) return;
+    const on=(i===cur);
+    r.setAttribute("fill",on?"#1B2636":"#141C27");
+    r.setAttribute("stroke-width",on?"2.4":"1.4");
+    
+  });
+  const p=pos[cur]; if(p&&tokenEl){ tokenEl.setAttribute("cx",p.cx); tokenEl.setAttribute("cy",p.y+p.h-(narrowNow?9:8)); }
+  pills.forEach((b,i)=>b.setAttribute("aria-pressed",String(i===cur)));
+  const s=STEPS[cur];
+  labelEl.textContent="step "+(cur+1)+" of "+STEPS.length;
+  nameEl.textContent=(cur+1)+". "+s.t;
+  whoEl.textContent=s.who==="you"?"yours, not typryx's":s.who==="a person"?"a person, not typryx":"typryx";
+  whyEl.textContent=s.why;
+}
+let raf=0;
+function go(i,instant){
+  const from=cur; cur=i;
+  paint();
+  if(reduce||instant||!tokenEl||i===0) return;
+  /* slide the token along the route from the previous step */
+  const route=routes[from]; if(!route||from===i) return;
+  cancelAnimationFrame(raf);
+  const pts=route.slice(); pts[0]=[pts[0][0],pos[from].y+pos[from].h-(narrowNow?9:8)];
+  const last=pos[i]; pts[pts.length-1]=[last.cx,last.y+last.h-(narrowNow?9:8)];
+  let total=0; const seg=[]; for(let k=1;k<pts.length;k++){const d=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]); seg.push(d); total+=d;}
+  const dur=900, t0=performance.now();
+  (function tick(now){
+    const u=Math.min(1,(now-t0)/dur); let d=u*total, k=0;
+    while(k<seg.length-1&&d>seg[k]){d-=seg[k];k++;}
+    const f=seg[k]?d/seg[k]:1, a=pts[k], b=pts[k+1];
+    tokenEl.setAttribute("cx",a[0]+(b[0]-a[0])*f); tokenEl.setAttribute("cy",a[1]+(b[1]-a[1])*f);
+    if(u<1) raf=requestAnimationFrame(tick);
+  })(t0);
+}
+function build(){
+  const n=svg.parentElement.clientWidth<600;
+  if(n===narrowNow) return;
+  narrowNow=n; layout();
+}
+addEventListener("resize",build);
+build(); paint();
+if(!reduce){
+  /* play only while the widget is on screen */
+  const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ if(playing&&!timer) start(); } else { clearInterval(timer); timer=null; } }); },{threshold:.25});
+  io.observe(document.getElementById("lp-box"));
+}
 })();
 </script>
 
