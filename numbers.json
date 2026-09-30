@@ -1073,6 +1073,58 @@
       "note": "Measured by TAIPANBOX/typryx-evalset on 2026-09-30 on the frozen 434-question test split; one run per row, so a statement about that day. Re-computed the same day from the saved result files (~/Development/typryx-bench-2026-09-30/results/) with bench/metrics.py, which printed the same overall row; the result files stay outside the repository by design. The markdown twin of the modes table.",
       "repo_dir": "typryx-evalset",
       "check": "python3 bench/metrics.py ../typryx-bench-2026-09-30/results/constant.jsonl | awk '/^overall/{print $7}'"
+    },
+    {
+      "page": "services/typryx.html",
+      "claim": "v1.1.16",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-single",
+      "command": "gh api repos/TAIPANBOX/stack-single/tags --jq '.[0].name'",
+      "status": "measured",
+      "measured_on": "2026-10-01",
+      "note": "Tag v1.1.16 on 0ed5586, released 2026-10-01 with notes docs/releases/v1.1.16.md: the first stack-single release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install.",
+      "repo_dir": "stack-single",
+      "check": "gh api repos/TAIPANBOX/stack-single/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
+      "page": "services/typryx.html",
+      "claim": "v1.1.22",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-k8s",
+      "command": "gh api repos/TAIPANBOX/stack-k8s/tags --jq '.[0].name'",
+      "status": "measured",
+      "measured_on": "2026-10-01",
+      "note": "Tag v1.1.22 on cc22b99, released 2026-10-01 with notes docs/releases/v1.1.22.md: the first stack-k8s release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install.",
+      "repo_dir": "stack-k8s",
+      "check": "gh api repos/TAIPANBOX/stack-k8s/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
+      "page": "services/typryx.md",
+      "claim": "v1.1.16",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-single",
+      "command": "gh api repos/TAIPANBOX/stack-single/tags --jq '.[0].name'",
+      "status": "measured",
+      "measured_on": "2026-10-01",
+      "note": "Tag v1.1.16 on 0ed5586, released 2026-10-01 with notes docs/releases/v1.1.16.md: the first stack-single release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install.",
+      "repo_dir": "stack-single",
+      "check": "gh api repos/TAIPANBOX/stack-single/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
+      "page": "services/typryx.md",
+      "claim": "v1.1.22",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-k8s",
+      "command": "gh api repos/TAIPANBOX/stack-k8s/tags --jq '.[0].name'",
+      "status": "measured",
+      "measured_on": "2026-10-01",
+      "note": "Tag v1.1.22 on cc22b99, released 2026-10-01 with notes docs/releases/v1.1.22.md: the first stack-k8s release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install.",
+      "repo_dir": "stack-k8s",
+      "check": "gh api repos/TAIPANBOX/stack-k8s/tags --jq '.[0].name'",
+      "slow": false
     }
   ]
 }

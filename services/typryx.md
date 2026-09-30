@@ -64,7 +64,7 @@ ECE is expected calibration error: lower means the confidence a backend states m
 | typryx + your own model | qwen2.5:7b on Ollama, on an 8-vCPU machine with no GPU | 70.0% | 65.6 to 74.2 | 0.273 | 2,130 ms |
 | without typryx | a fixed default answer, which is today's behaviour | 25.1% | 21.3 to 29.4 | 0.749 | no model call |
 
-`TYPED_MODE=jev|own-model|off` for stack-single, and `--typed-mode jev|own-model|off` for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. on main since 2026-09-30, in no launcher release yet
+`TYPED_MODE=jev|own-model|off` for stack-single, and `--typed-mode jev|own-model|off` for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. released in stack-single v1.1.16 and stack-k8s v1.1.22; stack-up runs from main
 
 ## Your own model, on your own questions.
 
