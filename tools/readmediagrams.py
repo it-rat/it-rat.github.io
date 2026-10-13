@@ -40,28 +40,28 @@ ROOMS = {
                   "fd83459a2b8b"),
     "qryx":      ("services/qryx.html", "#B48CFF",
                   "Qryx: the estate is swept into a crypto inventory and scored for post-quantum risk",
-                  "190487967423"),
+                  "11ec58689354"),
     "verdryx":   ("services/verdryx.html", "#FF7AA2",
                   "Verdryx: outcomes judged and priced per resolved case, with drift watched over time",
                   "c61935fe07c8"),
     "mockryx":   ("services/mockryx.html", "#FF8A5B",
                   "Mockryx: hostile scenarios driven at the gateway, with the guardrails asserted",
-                  "ddbb636342e0"),
+                  "74a7940b101b"),
     "engram":    ("services/engram.html", "#6C7BFF",
                   "Engram: agent memory in one SQLite file, recalled with provenance",
-                  "0d71541037a9"),
+                  "2b486f69f82b"),
     "platform":  ("services/platform.html", "#93A8C4",
                   "Platform: fourteen registered sources write one envelope onto one NDJSON bus, "
                   "and five consumers read it back",
-                  "e155b3d82552"),
+                  "b79f2b5dca1b"),
     "genaryx":   ("genaryx.html", "#B48CFF",
                   "Genaryx: one browser control room over the stack, reached only over the tunnel",
                   "81bdf83f6f14"),
     "costcrew":  ("services/costcrew.html", "#7DD3A0",
                   "CostCrew: charges arrive from the connectors built so far (the TokenFuse FOCUS export, "
-                  "seats, recommendations; the cloud bills are specified and not yet read), a two-sided "
+                  "seats, recommendations; the AWS and GCP billing exports are read, the Azure one is specified), a two-sided "
                   "detector opens anomalies, and an agent analyst drafts a fix a person posts or returns",
-                  "0fdd1b68f53e"),
+                  "ca3540b4d4e2"),
     "vouchryx":  ("services/vouchryx.html", "#8B9DFF",
                   "Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a "
                   "short-lived delegation token, verified offline and revoked by a polled list",
@@ -77,8 +77,8 @@ ROOMS = {
     "typryx":    ("services/typryx.html", "#60A5FA",
                   "Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a "
                   "swappable backend, stub, openai-logprobs or jev, and every answer or refusal is "
-                  "journaled, with a calibration loop and journal readers on the side",
-                  "b8d11d7fc8cc"),
+                  "journaled, with a calibration loop and the journal on the shared events volume",
+                  "197af5861681"),
 }
 
 # Rooms whose README diagram is drawn by hand, and the reason for each. This

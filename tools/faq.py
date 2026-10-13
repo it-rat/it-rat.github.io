@@ -39,9 +39,9 @@ FAQ = {
   "<p>Three published conclusions. That throughput collapses past 64 concurrent callers, which turned out to be a shared-vCPU instance rather than the software. That one hyperscaler was 62% faster, which was a chip generation rather than a cloud. And a prediction that shared storage would be expensive on both, which was wrong on one by a factor of 108.</p>"
   "<p>All three retractions are published next to the claims they replace. A project with no retractions has either published nothing checkable or has not checked.</p>"),
  ("What has not been established yet?",
-  "<p>Power has been pulled from a running machine once, on one small box, so durability is still mainly a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Six of the nine shipped pre-production drills have never been fired at a real gateway. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p>"),
+  "<p>Power has been pulled from a running machine once, on one small box, so durability is still mainly a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Not every shipped pre-production drill has been fired at a real gateway; the ledger records the ones that have. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.</p>"),
  ("Why publish the things that went wrong?",
-  "<p>Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 119 entries and 52 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.</p>"),
+  "<p>Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 123 entries and 55 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.</p>"),
 ]),
 
 "first-alert.html": ("common questions", "What people ask before starting", [
@@ -49,7 +49,7 @@ FAQ = {
   "<p>A Debian or Ubuntu box you control, Docker on it, and somewhere to send mail: your own SMTP server or a corporate relay you already have. That is the whole list.</p>"
   "<p>There is no account to create, no licence key, no trial and no card. Nothing calls home, and there is no hosted plane, so there is nothing to sign up for.</p>"),
  ("Do I need an LLM provider key to try it?",
-  "<p>Only if you want real calls. The gateway sits in front of whichever provider you already use, so you need the key you were already using. If you just want to watch the machinery work, it can answer from a stub instead and no provider is called at all.</p>"),
+  "<p>Only if you want real calls. The gateway sits in front of whichever provider you already use, so you need the key you were already using.</p>"),
  ("How does an agent get pointed at the gateway?",
   "<p>By changing the base URL it already uses to reach its provider. That is the entire integration: one environment variable, no SDK to adopt and no framework to migrate to. From that moment every call it makes is priced, budgeted and policy-checked in the request path.</p>"),
  ("Is anything exposed to the internet after the install?",
@@ -57,7 +57,7 @@ FAQ = {
  ("Why does this guide not list the exact commands?",
   "<p>Because they live in the repository that owns them, and a copy here would be a second place to keep true. It would drift the first time an installer grew a flag, and you would follow the pretty page into an error the README already documents. What a guide can add instead is what each step is for and how it fails.</p>"),
  ("How do I check it works without waiting for a real incident?",
-  "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the second refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
+  "<p>Give a run a budget of a fraction of a cent and let an agent loop against it. The gateway answers 402 in the request path, the event lands in the log and the mail arrives, which exercises the whole chain in a minute at no cost. At the default floor the mail is the control plane's budget_exhausted after the third refusal, not the first 402, so loop at least three times. Do this before you rely on it: a guardrail nobody has fired is a claim rather than a control.</p>"),
 ]),
 
 "two-sites.html": ("common questions", "What people ask before connecting a second site", [
@@ -70,7 +70,7 @@ FAQ = {
  ("What happens at a site when the link to the hub drops?",
   "<p>What you configured. With the policy plane set to fail closed, the site's gateway refuses calls until the hub is back, which is what a governed fleet should do. Its telemetry is kept in a queue meanwhile and sent when the link returns; in our run nothing was lost.</p>"),
  ("How do I tell a quiet site from a dead one?",
-  "<p>By its heartbeat. A gateway with nothing to report still checks in every 30 seconds by default, so the hub shows when each site last reported whether or not it had traffic. Without the heartbeat, an idle site in our run looked nearly five minutes stale; with it, never more than 22 seconds.</p>"),
+  "<p>By its heartbeat. A gateway with nothing to report still checks in every 30 seconds by default, so the hub shows when each site last reported whether or not it had traffic. Without the heartbeat, an idle site in our run looked nearly five minutes stale; with it, the hub kept hearing from the idle site.</p>"),
  ("What does the public entry cost?",
   "<p>The software costs nothing. The entry is a load balancer, and your cloud bills it by the hour for as long as it exists, at that cloud's published rate. It is not part of the default install, so a cluster that never opens it pays nothing extra, and taking it down with the launcher's own script removes the billed part first.</p>"),
 ]),
@@ -80,7 +80,7 @@ FAQ = {
   "<p>No, and most teams should not start there. The same binaries, ports and wiring run as containers on one machine you own, with the gateway published to loopback by default so an install does not quietly create an internet-facing enforcement plane.</p>"
   "<p>A cluster buys node failure tolerance and matches an estate that already runs Kubernetes. It also costs you a shared-storage decision the single machine hides completely.</p>"),
  ("Why does the shared storage line differ so much between clouds?",
-  "<p>Because the planes couple through a shared NDJSON event log rather than through APIs, so on Kubernetes that directory needs a ReadWriteMany volume. For the same 5 GiB the published rates are EUR 0 in-cluster on Hetzner, USD 1.80 a month on EFS, and USD 194.56 a month on Filestore, which bills a whole TiB.</p>"
+  "<p>Because the planes couple through a shared NDJSON event log rather than through APIs, so on Kubernetes that directory needs a ReadWriteMany volume.</p>"
   "<p>Nothing about the software changes. One provider sells the capacity you use and the other sells a minimum you must buy, and a 5 GiB requirement lands inside a 1 TiB block.</p>"),
  ("Is one cloud faster than the other for this?",
   "<p>Not measurably. On matched silicon the policy plane reached 2,449 decisions per second on AWS and 2,479 on GCP, which is 1.2% apart, with p50 latencies of 3.21 ms and 3.22 ms.</p>"
@@ -101,11 +101,11 @@ FAQ = {
   "<p>Two: the money plane and the policy plane, because both sit in the request path. The gateway answers 402 before the provider is asked, and the policy decision point answers allow, deny or hold on every call.</p>"
   "<p>The other five read the shared event stream afterwards. That is a deliberate split, and it has a cost worth knowing: by the time the identity plane has an opinion about a run, the call it is reasoning about has already finished.</p>"),
  ("Why does a spend incident alone not raise a high-severity finding?",
-  "<p>Because on its own it is an agent having a bad afternoon. The detector wants at least two corroborating facts before it will call something high, and in this walk it gets three: the spend incident, an agent with no attestation on record, and a delegation chain two hops deep.</p>"
+  "<p>Because on its own it is an agent having a bad afternoon. The detector wants at least two corroborating facts before it will call something high, and in this walk it gets two on top of the spend event: an agent with no attestation on record, and a delegation chain two hops deep.</p>"
   "<p>None of the three services holds all three facts. The severity comes from the join, which is the argument for a separate identity plane rather than a rule inside the gateway.</p>"),
  ("Why does the alert email contain a link instead of a kill button?",
   "<p>Because a link that acts is an unauthenticated capability held by whoever can see or forward the message, and mail security gateways prefetch links, so the action would fire before a human read the sentence beside it.</p>"
-  "<p>The link is a coordinate: it opens the panel showing that incident in your own console. The action happens there, behind a sign-in, and anything destructive additionally needs a fresh passkey confirmation bound to that exact command.</p>"),
+  "<p>The link is a coordinate: it opens the panel showing that incident in your own console. The action happens there, behind a sign-in, and anything destructive additionally needs a fresh passkey confirmation bound to that exact command, once a passkey is enrolled or the operator requires one.</p>"),
  ("What does the notifier hold, and what can it reach?",
   "<p>It reads a file and sends mail. It holds no credential for any plane, opens no connection to one, has no API of its own, and can take no action on any agent. That narrowness is the design rather than an implementation detail: it is the one component allowed out of the box, so its blast radius has to stay small enough to state in a sentence.</p>"),
  ("Why does the mail carry identifiers and numbers but no content?",
@@ -116,8 +116,7 @@ FAQ = {
 
 "index.html": ("common questions", "The questions that come before the demo", [
  ("What is AI agent governance?",
-  "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"
-  "<p>Observability tells you what an agent did. Governance decides what it can do next. The two are not substitutes, and only one of them stops a runaway at 3am.</p>"),
+  "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"),
  ("Is the stack open source?",
   "<p>Yes, all of it. Apache-2.0, source on <a href=\"https://github.com/TAIPANBOX\" target=\"_blank\" rel=\"noopener\">GitHub</a>: TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, the shared <a href=\"services/platform.html\">contract</a> under them, and <a href=\"genaryx.html\">Genaryx</a>, the console over all of them.</p>"),
  ("Do you host any of this, or see our data?",
@@ -141,7 +140,7 @@ FAQ = {
 
 "services/vouchryx.html": ("common questions", "Proving and ending a delegation", [
  ("How is this different from just giving the agent an API key?",
-  "<p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class=\"mono\">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point on its next poll of the list, rather than waiting for an expiry.</p>"),
+  "<p>A key names nobody and ends nowhere. This mints a short-lived token that says which human the agent is acting for, in a nested <span class=\"mono\">act</span> claim, bound to the caller's own key so a copy of the token is useless. When the delegation should end, one revocation ends it at every enforcement point on its next poll of the list, rather than waiting for an expiry. Today only the TokenFuse gateway polls that list; no other enforcement point does yet.</p>"),
  ("What happens to a token that is already in flight when we revoke it?",
   "<p>Its next use is refused. Enforcement points poll the revocation list, every 12 seconds by default, and refuse anything on it, so the token's own expiry has no say; a call admitted before that poll is not pulled back, and a door that cannot reach the list keeps the last one it fetched and, past a minute, refuses by default. Measured on a live box: a proven chain answered 200, and after the revoke the same token answered 401.</p>"),
  ("Does this replace the delegation chain in the Passport?",
@@ -162,7 +161,7 @@ FAQ = {
  ("Can it catch a retry loop before the bill does?",
   "<p>That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice.</p>"),
  ("Does it still work with several gateways behind a load balancer?",
-  "<p>In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so five gateways on five machines admit exactly what one budget allows, and that was tested through a leader kill and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory and is read back from the Cloud when it starts, each run's spend over the last 31 days, so a restart does not hand a run its budget again. That read-back does not let two gateways share one budget; only the cluster build does.</p>"),
+  "<p>In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so four nodes on four machines admit exactly what one budget allows. The cluster record tests that with 30 concurrent reserves against a 5-unit budget, a kill of the leader and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory and is read back from the Cloud when it starts, each run's spend over the last 31 days, so a restart does not hand a run its budget again. That read-back does not let two gateways share one budget; only the cluster build does.</p>"),
 ]),
 
 "services/wardryx.html": ("common questions", "Putting a human in front of the expensive actions", [
@@ -192,8 +191,6 @@ FAQ = {
 ]),
 
 "services/engram.html": ("common questions", "What a memory has to do that similarity search cannot", [
- ("How is this different from a vector database?",
-  "<p>A vector store finds text that looks similar. It cannot tell you when a fact was true, where a belief came from, or that two beliefs disagree. Engram ships a vector index too, in-process, and adds the three answers similarity has no concept for: bitemporal validity, a <span class=\"mono\">why()</span> chain back to source episodes, and contradiction detection.</p>"),
  ("Does it need a server, a container or an API key?",
   "<p>None of the three to write a memory. It is one <span class=\"mono\">.engram</span> file on SQLite plus sqlite-vec, in-process, installed with pip. A model only enters the picture when you ask for <span class=\"mono\">reflect()</span>, and even that call can be pointed at a local model or routed through <a href=\"tokenfuse.html\">TokenFuse</a> so thinking has a budget too.</p>"),
  ("Can I delete everything about one person?",
@@ -255,7 +252,7 @@ FAQ = {
   "<p>Yes. Four Terraform resources cover run budgets, business-unit budgets, agent passports and policies, published on the public Terraform Registry, so governance gets pull requests, plans and diffs like the rest of your infrastructure. Where the API has no delete, the provider says so instead of pretending.</p>"),
  ("How do I check that my events actually conform?",
   "<p>Run <span class=\"mono\">agent-conform</span>. It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect.</p>"
-  "<p>On a box, <span class=\"mono\">agent-conform watch-dir</span> re-checks every stream's hash chain and writes a <span class=\"mono\">chain_broken</span> event to its own stream when one breaks; it exits 2 on a usage or I/O error. Both launchers run it by default.</p>"),
+  "<p>On a box, <span class=\"mono\">agent-conform watch-dir</span> re-checks every stream's hash chain and writes a <span class=\"mono\">chain_broken</span> event to its own stream when one breaks; it exits 2 on a usage or I/O error. stack-single runs it every five minutes and stack-k8s runs it as a CronJob every fifteen minutes. stack-up runs it once a day, at 06:52, as a routine.</p>"),
 ]),
 
 "ai-agent-governance.html": ("common questions", "What people ask about agent governance", [
@@ -305,7 +302,7 @@ FAQ = {
  ("How do the two connect technically?",
   "<p>On one run identifier. If the trace, the spend line, the policy verdict and the outcome tag all carry the same id, a refusal links to the exact chain of calls that led to it. If they do not, you own two dashboards and an argument.</p>"),
  ("Does adding governance mean replacing our tracing stack?",
-  "<p>No. The governance planes here export over OTLP into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself.</p>"),
+  "<p>No. The governance planes here export over OTLP when an endpoint is set, into whatever backend you already run, and the gateway writes its own traces, so governance data lands in your observability stack rather than competing with it. What does not belong in a dashboard is the enforcement decision itself.</p>"),
  ("How can I tell whether a tool actually enforces anything?",
   "<p>Four questions. Does it act in the path or after it? Is the answer binding, or can the agent proceed past a warning? What happens when it is unreachable, and is that choice documented? Can somebody who does not trust you verify its record?</p>"),
 ]),
@@ -313,19 +310,15 @@ FAQ = {
 "agent-tooling-compared.html": ("common questions", "What people ask when they have already bought one", [
  ("Do we have to drop our tracing to use this?",
   "<p>No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are.</p>"),
- ("Our observability tool already tracks cost. Is that not the same?",
-  "<p>Cost tracking and a cost control are different products. One tells you a run spent the money. The other answers 402 and the run does not spend it. One arrives with the invoice, the other instead of it.</p>"),
  ("Why describe products by shape instead of naming them?",
   "<p>Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes are also more useful: they say what a category of tool can and cannot do architecturally, which is the part that does not change with a release note.</p>"),
- ("Could one of them add enforcement later?",
-  "<p>They could, and the sensible assumption is that somebody will. It is a different architecture though: standing in the path means owning an availability decision, fail-open or fail-closed, on every call. That is a heavier commitment than receiving a copy of a trace, and it is why the categories have stayed separate so far.</p>"),
  ]),
 
 "mcp-security.html": ("common questions", "What people ask about MCP", [
  ("What are the main security risks of the Model Context Protocol?",
   "<p>Two structural ones and the rest follow. A tool definition is a description the model reads as instructions, so it is content, not just a signature. And clients re-fetch definitions on connect, so the tool you approved is not necessarily the tool in use later. From those come poisoned descriptions, rug pulls, unsanctioned servers, credentials passing through the model, and drift nobody tracks.</p>"),
  ("What is an MCP rug pull, and how do I catch one?",
-  "<p>A tool whose description or schema changes after you approved it, with no deployment on your side and no trace in your repository. Catch it the way you catch a changed dependency: pin a fingerprint of every approved tool and fail the build when the fingerprint moves. It ships as a CI action for that reason.</p>"),
+  "<p>A tool whose description or schema changes after you approved it, with no deployment on your side and no trace in your repository. Catch it the way you catch a changed dependency: pin a fingerprint of every approved tool and fail the build when the fingerprint moves. The TokenFuse repository carries a CI action file (action.yml) for that reason.</p>"),
  ("How do I find MCP servers nobody registered?",
   "<p>From the agent side, not the server side. Compare what your agents actually reach against the list of sanctioned servers and flag the difference; then join agents to servers on the tools they share, so an agent whose declared tools come from an unsanctioned server is a query rather than an incident.</p>"),
  ("Should an MCP server use stdio or HTTP?",
