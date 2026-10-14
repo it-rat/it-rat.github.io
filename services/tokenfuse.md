@@ -18,11 +18,13 @@ Your agent's SDK points at TokenFuse instead of the provider. In the hot path: b
 
 ### Per-run budgets
 
-Company, team, agent, run: budgets nest, and the run is the unit that pays. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am. Since v1.5.0 an operator can also cap the budget a caller declares for its own run: `TOKENFUSE_MAX_RUN_BUDGET_USD` lowers a larger one to the ceiling and the answer says so in `x-fuse-budget-clamped`. The launchers set it to USD 5.00. It bounds each run, not an agent's total: a new run id gets a new ceiling.
+The run is the unit that pays. A sub-agent's run rolls up into its parent run, so its spend has to fit inside every ancestor's budget. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am. Since v1.5.0 an operator can also cap the budget a caller declares for its own run: `TOKENFUSE_MAX_RUN_BUDGET_USD` lowers a larger one to the ceiling and the answer says so in `x-fuse-budget-clamped`. The launchers set it to USD 5.00. It bounds each run, not an agent's total: a new run id gets a new ceiling.
 
 **Q: How enforcement works**
 
-Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls up and is tested against every ancestor it belongs to, so a run cannot slip under its own cap while quietly breaking the team's. The run is the unit that pays, because a per-key limit cannot tell one agent's afternoon of honest work from the same key looping on itself.
+Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls up and is tested against every ancestor it belongs to, so a run cannot slip under its own cap while quietly breaking its parent's. The run is the unit that pays, because a per-key limit cannot tell one agent's afternoon of honest work from the same key looping on itself.
+
+A business unit can also carry a monthly cap, the first budget above the run. It is set in the gateway's identity map, or overridden from the Cloud, and counts the calendar month in UTC; in enforce mode a call that would cross it is refused with a 402. Each gateway counts its own calls on top of a tally it reads from the Cloud when it starts, so that cap is not yet shared across a fleet of gateways.
 
 Accounting is reserve then settle. Each call is priced before it happens, the reserve is taken, and the real cost settles afterwards; a call that would cross the cap is refused before the provider ever sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is exactly the failure mode this exists to remove.
 
@@ -38,7 +40,7 @@ Reserve-then-settle accounting prices each call before it happens, with a built-
 
 ### Model router
 
-Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend. Both ship switched off in the launchers (the router off, the cache in shadow), so that figure arrives when you turn them on, not by default.
+Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend. Both ship switched off: the router is off by default, and the cache is off in the gateway and in the launchers, so that figure arrives when you turn them on, not by default.
 
 ### Cluster build: a raft-replicated ledger
 
@@ -79,7 +81,7 @@ A breaker is the right answer to a runaway and the wrong one to a compromised de
 ## How teams put a ceiling on agent spend
 
 **Q: How do I cap what an AI agent can spend?**
-Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.
+Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest along the run tree, so a sub-agent's run also has to fit inside every ancestor run's budget. A business unit can also have a monthly cap, which the gateway enforces in enforce mode.
 
 **Q: What happens to my agent when it hits the budget?**
 It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.

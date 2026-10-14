@@ -153,7 +153,7 @@ FAQ = {
 
 "services/tokenfuse.html": ("common questions", "How teams put a ceiling on agent spend", [
  ("How do I cap what an AI agent can spend?",
-  "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.</p>"),
+  "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest along the run tree, so a sub-agent's run also has to fit inside every ancestor run's budget. A business unit can also have a monthly cap, which the gateway enforces in enforce mode.</p>"),
  ("What happens to my agent when it hits the budget?",
   "<p>It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.</p>"),
  ("Do I have to rewrite my agent to use it?",
