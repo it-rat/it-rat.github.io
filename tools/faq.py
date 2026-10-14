@@ -272,7 +272,7 @@ FAQ = {
  ("What is FinOps for AI?",
   "<p>FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate.</p>"),
  ("How do I control LLM costs in production?",
-  "<p>Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p>"),
+  "<p>Route calls through one gateway, give every run a budget that rolls up into its parent run, price each call before it happens, and refuse the call that would cross the cap. A business unit can also carry a monthly cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p>"),
  ("Why is a per-key rate limit not enough?",
   "<p>Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures.</p>"),
  ("How do I report AI spend to finance?",

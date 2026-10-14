@@ -44,7 +44,7 @@ An agent that arrives at admin-equivalent power through its delegation chain rat
 One unit of agent work: a task, with a budget, an identity and a trace. The useful unit for governance, because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a model total cannot be charged back to anyone.
 
 **Per-run budget**
-A spending cap attached to a run and checked against every ancestor it belongs to: agent, team, company. All-or-nothing, so a run cannot fit under its own cap while breaking its team's.
+A spending cap attached to a run and checked against every ancestor run it belongs to. All-or-nothing, so a run cannot fit under its own cap while breaking its parent run's.
 
 **Reserve then settle**
 Pricing a call before it happens, taking the reserve against the budget, and reconciling the real cost afterwards. It is what allows a call to be refused before the provider sees it, rather than discovered after the invoice.
