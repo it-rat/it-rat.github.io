@@ -28,7 +28,7 @@ Pick the run as the unit and make every plane key on it. That single decision is
 
 ### 2. Budgets that nest, enforced in the path
 
-A budget per run, rolling up to the agent, the team and the company, checked all-or-nothing so a run cannot fit under its own cap while breaking its team's. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove. The fallback is a conservative rate, so for a model the book does not yet carry, the figure a team sees is a ceiling rather than the bill. Keep the book current and read the flag on the response that says a fallback was used.
+A budget per run, rolling up into the parent run it was spawned by, checked all-or-nothing so a run cannot fit under its own cap while breaking its parent's. A business unit can also carry a monthly cap. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove. The fallback is a conservative rate, so for a model the book does not yet carry, the figure a team sees is a ceiling rather than the bill. Keep the book current and read the flag on the response that says a fallback was used.
 
 - **Start in shadow mode.** Price and record everything, refuse nothing, and look at what would have been blocked before anything is.
 
@@ -80,7 +80,7 @@ The tools behind each step are open source and run on your own infrastructure: [
 FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate.
 
 **Q: How do I control LLM costs in production?**
-Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.
+Route calls through one gateway, give every run a budget that rolls up into its parent run, price each call before it happens, and refuse the call that would cross the cap. A business unit can also carry a monthly cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.
 
 **Q: Why is a per-key rate limit not enough?**
 Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures.

@@ -153,7 +153,7 @@ FAQ = {
 
 "services/tokenfuse.html": ("common questions", "How teams put a ceiling on agent spend", [
  ("How do I cap what an AI agent can spend?",
-  "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest, so a run also has to fit inside its agent, team and company caps.</p>"),
+  "<p>Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest along the run tree, so a sub-agent's run also has to fit inside every ancestor run's budget. A business unit can also have a monthly cap, which the gateway enforces in enforce mode.</p>"),
  ("What happens to my agent when it hits the budget?",
   "<p>It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens.</p>"),
  ("Do I have to rewrite my agent to use it?",
@@ -272,7 +272,7 @@ FAQ = {
  ("What is FinOps for AI?",
   "<p>FinOps practice applied to spend that nobody provisions: LLM and agent usage created at machine speed by the decisions of an agent. It keeps the discipline of cloud FinOps, visibility, allocation and optimisation, but moves the unit of work to the run, the control into the request path, and the feedback loop from monthly to immediate.</p>"),
  ("How do I control LLM costs in production?",
-  "<p>Route calls through one gateway, give every run a budget that rolls up to its agent, team and company, price each call before it happens, and refuse the call that would cross the cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p>"),
+  "<p>Route calls through one gateway, give every run a budget that rolls up into its parent run, price each call before it happens, and refuse the call that would cross the cap. A business unit can also carry a monthly cap. Add a semantic cache and a model router to reduce spend without refusing work, and report what each mechanism saved separately.</p>"),
  ("Why is a per-key rate limit not enough?",
   "<p>Because a key cannot tell one agent's honest afternoon from the same key looping on itself, and a limit expressed in requests per minute has no opinion about money. A retry storm stays comfortably inside a rate limit while spending four figures.</p>"),
  ("How do I report AI spend to finance?",
