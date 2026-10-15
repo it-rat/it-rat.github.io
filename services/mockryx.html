@@ -240,6 +240,28 @@
   </div>
 </section>
 
+<!-- ================= ON MAIN ================= -->
+<section class="sec" id="drills-on-main" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">on main, not yet released</div>
+      <h2>Four drills on main, not yet in a release</h2>
+    </div>
+    <p class="lede rv" style="margin-bottom:18px">The last release is v0.2.1. These four drills are on main and are not in any release yet.</p>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th>drill</th><th>what it rehearses</th></tr></thead>
+        <tbody>
+          <tr><td>Token flood</td><td>One request asks for a very large completion on a one-cent run budget. The gateway must refuse it before it is forwarded.</td></tr>
+          <tr><td>PII in a prompt</td><td>A support prompt carries a customer's email address and phone number. With PII blocking on, the call must be refused before any model sees it.</td></tr>
+          <tr><td>Poisoned tool description</td><td>A request declares a tool whose description orders the model to call another tool first and not to mention it. The gateway must answer the request, then deny a dangerous action in the same run.</td></tr>
+          <tr><td>Respelled allow-listed tool</td><td>A policy allows a tool by its exact name. A request that declares the same tool under a respelled name must be refused by the allow-list.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- faq:auto -->
 <section class="sec" id="faq" style="padding-top:14px">
   <div class="wrap">

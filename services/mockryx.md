@@ -70,6 +70,17 @@ Add `--save out/report.json` to keep the evidence. Point it at pre-prod, never a
 
 Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where `mockryx version` reads it back.
 
+## Four drills on main, not yet in a release
+
+The last release is v0.2.1. These four drills are on main and are not in any release yet.
+
+| drill | what it rehearses |
+|---|---|
+| Token flood | One request asks for a very large completion on a one-cent run budget. The gateway must refuse it before it is forwarded. |
+| PII in a prompt | A support prompt carries a customer's email address and phone number. With PII blocking on, the call must be refused before any model sees it. |
+| Poisoned tool description | A request declares a tool whose description orders the model to call another tool first and not to mention it. The gateway must answer the request, then deny a dangerous action in the same run. |
+| Respelled allow-listed tool | A policy allows a tool by its exact name. A request that declares the same tool under a respelled name must be refused by the allow-list. |
+
 ## Rehearsing a defence before it is needed
 
 **Q: How do I test that my guardrails actually work?**

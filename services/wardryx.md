@@ -74,6 +74,16 @@ Boots on `:8090` with an in-memory store: allow-all until you load a policy, and
 
 This plane answers about an action. What it cannot answer is whether the caller really holds the delegation it claims, which is a different question with a different mechanism: [Vouchryx](https://it-rat.com/vouchryx.html) mints a short-lived token bound to the caller's own key and lets a person end it, and a hold resolved by a signed approval token is the same idea pointed at one action rather than at a delegation.
 
+## What the policy plane gained from 1 to 15 October
+
+| shipped in | what it does |
+|---|---|
+| v1.3.0 | A policy can name the only tools its agents may use. A requested tool the list does not name is denied, and no approval can lift that. |
+| v1.3.1 | Every document of a YAML policy file, and every value of a JSON policy file, is loaded. A file that does not load stops the service at start, and the error names the part that failed. |
+| v1.3.2 | A policy write with a field the policy does not declare is refused with a 400, and nothing is stored. Before, the field was dropped and the write still answered 200. |
+| v1.4.0 | A policy can hold a tool call whose risk signal never arrives (when_absent: hold), for a person to decide. |
+| v1.5.0 | A policy can name the only models its agents may use. A request for any other model is denied on that call. |
+
 ## Putting a human in front of the expensive actions
 
 **Q: How do I require human approval before an agent does something expensive?**

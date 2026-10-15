@@ -76,6 +76,15 @@ v0.6.0, released on 2026-10-13, lets a cost decision the crew recommends be anno
 
 The repository gates more than its suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.
 
+## What the crew gained from 1 to 15 October
+
+| shipped in | what it does |
+|---|---|
+| v0.4.0 | Provider usage is read from the vendors' own usage reports and reconciled against the gateway's rows, so the gap between the two is shown. |
+| v0.4.0 | Sign-in through the organisation's identity provider, over OpenID Connect with signed tokens and PKCE. Session tokens are stored hashed. |
+| v0.6.0 | A cost decision the crew recommends can be announced before it lands. Only the owner can confirm it, and a day that matches the announcement is not raised as an anomaly. |
+| not yet released | On main: a FOCUS 1.1 file of agent spend, by agent, unit, model and credential, for a FinOps platform's custom ingress. No file has been accepted by a live tenant yet. |
+
 ## What a crew of agents can and cannot do to your bill
 
 **Q: Do the agents change anything in my cloud account?**
