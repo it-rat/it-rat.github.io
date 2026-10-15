@@ -220,7 +220,7 @@
             <div class="sheet-in">
               <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/pkgs/container/tokenfuse">container image</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases">releases</a></div>
               <div class="dl-row" style="margin-top:10px"><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-x86_64-unknown-linux-musl">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-aarch64-unknown-linux-musl">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-x86_64-apple-darwin">macOS x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-aarch64-apple-darwin">macOS arm64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">The current release is v1.13.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, <span class="mono" style="font-size:12px">TOKENFUSE_UPSTREAM</span> set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.</p>
+              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">The current release is v1.14.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, <span class="mono" style="font-size:12px">TOKENFUSE_UPSTREAM</span> set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.</p>
             </div>
           </details>
         </div>
@@ -237,6 +237,38 @@
       <div class="kicker">the two planes either side of this one</div>
       <h2>It stops the spend. Two neighbours stop other things.</h2>
       <p class="lede">A breaker is the right answer to a runaway and the wrong one to a compromised delegation, where the money is affordable and the problem is that the agent may act for somebody at all. <a href="vouchryx.html">Vouchryx</a> ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: <a href="costcrew.html">CostCrew</a> is where a bill gets taken apart, allocated and closed, by a crew of agents whose work a person stamps.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 1 TO 15 OCTOBER 2026 ================= -->
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">1 to 15 October 2026</div>
+      <h2>What the gateway gained from 1 to 15 October</h2>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+        <tbody>
+          <tr><td>v1.7.0</td><td>The price book holds a row for every Claude model Anthropic lists, at its list rate. Before this, a call to a model the book did not know was charged at a fallback rate several times too high.</td></tr>
+          <tr><td>v1.9.0</td><td>A call whose outcome is unknown is kept as money owed. The reservation survives a restart, and a person closes it with evidence, using a short-lived token that the operator console mints after a passkey check.</td></tr>
+          <tr><td>v1.10.0</td><td>A retained call and its closure are written to the event bus, so a notifier can tell a person that money is waiting.</td></tr>
+          <tr><td>v1.11.0</td><td>Tool metadata is scanned for five warning signs: a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text.</td></tr>
+          <tr><td>v1.11.0</td><td>With the scan set to block, a tool whose definition changed after it was pinned is refused on the call.</td></tr>
+          <tr><td>v1.11.0</td><td>Tools a request declares are read for poisoning. A poisoned description marks the run as a suspected injection. The request itself is not refused.</td></tr>
+          <tr><td>v1.12.0</td><td>Text recalled from an agent's memory is untrusted context. Under the starter policy, a run that carries it cannot then run a command, write a file or reach the network.</td></tr>
+          <tr><td>v1.12.0</td><td>The compliance catalog cites the OWASP MCP Top 10, row by row, against the test that holds each control.</td></tr>
+          <tr><td>v1.13.0</td><td>Prices for the current OpenAI, Gemini, DeepSeek, Kimi and GLM models are at their vendors' rates. A model sold at two rates by prompt length is priced by the tier each call falls in. A model the book cannot price exactly keeps a fallback rate, and the call says so.</td></tr>
+          <tr><td>v1.13.1</td><td>Tool arguments up to 12 KiB reach the policy whole. Larger arguments are marked as truncated, so the policy still decides.</td></tr>
+          <tr><td>v1.14.0</td><td>A tool call inside a streamed answer is judged like one in a buffered answer, and a denied call is cut before it reaches the agent.</td></tr>
+          <tr><td>v1.14.0</td><td>Nothing a budget governs is admitted until the gateway has read its money state, so a restart cannot admit calls for a unit already over its cap.</td></tr>
+          <tr><td>v1.14.0</td><td>A refused client key reaches the event bus with its reason and a fingerprint of the key, never the key itself.</td></tr>
+          <tr><td>v1.14.0</td><td>IBANs are a kind of personal data the scanner finds, checked by country code, length and check digits.</td></tr>
+          <tr><td>v1.14.0</td><td>Every FOCUS export row says whether it was priced from the price book or from the fallback.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>

@@ -72,11 +72,31 @@ Want more than the gateway? [Run the live services locally](https://it-rat.com/p
 
 **Q: How this one ships**
 
-The current release is v1.13.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
+The current release is v1.14.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
 
 ## It stops the spend. Two neighbours stop other things.
 
 A breaker is the right answer to a runaway and the wrong one to a compromised delegation, where the money is affordable and the problem is that the agent may act for somebody at all. [Vouchryx](https://it-rat.com/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/costcrew.html) is where a bill gets taken apart, allocated and closed, by a crew of agents whose work a person stamps.
+
+## What the gateway gained from 1 to 15 October
+
+| shipped in | what it does |
+|---|---|
+| v1.7.0 | The price book holds a row for every Claude model Anthropic lists, at its list rate. Before this, a call to a model the book did not know was charged at a fallback rate several times too high. |
+| v1.9.0 | A call whose outcome is unknown is kept as money owed. The reservation survives a restart, and a person closes it with evidence, using a short-lived token that the operator console mints after a passkey check. |
+| v1.10.0 | A retained call and its closure are written to the event bus, so a notifier can tell a person that money is waiting. |
+| v1.11.0 | Tool metadata is scanned for five warning signs: a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text. |
+| v1.11.0 | With the scan set to block, a tool whose definition changed after it was pinned is refused on the call. |
+| v1.11.0 | Tools a request declares are read for poisoning. A poisoned description marks the run as a suspected injection. The request itself is not refused. |
+| v1.12.0 | Text recalled from an agent's memory is untrusted context. Under the starter policy, a run that carries it cannot then run a command, write a file or reach the network. |
+| v1.12.0 | The compliance catalog cites the OWASP MCP Top 10, row by row, against the test that holds each control. |
+| v1.13.0 | Prices for the current OpenAI, Gemini, DeepSeek, Kimi and GLM models are at their vendors' rates. A model sold at two rates by prompt length is priced by the tier each call falls in. A model the book cannot price exactly keeps a fallback rate, and the call says so. |
+| v1.13.1 | Tool arguments up to 12 KiB reach the policy whole. Larger arguments are marked as truncated, so the policy still decides. |
+| v1.14.0 | A tool call inside a streamed answer is judged like one in a buffered answer, and a denied call is cut before it reaches the agent. |
+| v1.14.0 | Nothing a budget governs is admitted until the gateway has read its money state, so a restart cannot admit calls for a unit already over its cap. |
+| v1.14.0 | A refused client key reaches the event bus with its reason and a fingerprint of the key, never the key itself. |
+| v1.14.0 | IBANs are a kind of personal data the scanner finds, checked by country code, length and check digits. |
+| v1.14.0 | Every FOCUS export row says whether it was priced from the price book or from the fallback. |
 
 ## How teams put a ceiling on agent spend
 

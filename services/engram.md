@@ -111,6 +111,10 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 
 No per-platform binaries here either: this one is a Python library you import, so the package index is the download. The install command lives in the repository, next to the version it resolves.
 
+## Where each memory came from
+
+Every observation now records its provenance: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. This is on main; the last release is v2.4.1.
+
 ## What a memory has to do that similarity search cannot
 
 **Q: Does it need a server, a container or an API key?**

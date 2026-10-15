@@ -12,7 +12,7 @@ This is a scripted scenario: `scripts/burst-demo.sh` in the repository feeds 120
 
 ## Four checks, in this order, and the order is the point.
 
-The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server. The last cell was redrawn after a run on 2026-09-17: the v0.2.3 image sent one notice at the ceiling and then nothing for 28 minutes of high and critical events. Since v0.2.4 a critical passes the ceiling and whatever is held is summarised every ten minutes until the hour turns; the launchers pin v0.4.0.
+The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server. The last cell was redrawn after a run on 2026-09-17: the v0.2.3 image sent one notice at the ceiling and then nothing for 28 minutes of high and critical events. Since v0.2.4 a critical passes the ceiling and whatever is held is summarised every ten minutes until the hour turns; the launchers pin v0.7.0 on their main branches.
 
 ## Four short paragraphs, and three links that are views.
 
@@ -78,3 +78,13 @@ A first run starts at the end of the log. A month of old incidents arriving at o
 This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding. CostCrew's events have their own sentences here. Vouchryx's delegation events have none yet, so a mail about one says the box has no description for the event until one is written.
 
 Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, `HERALDYX_STREAMS` declares anything else, and a line in the wrong file is refused, counted and raised once as `foreign_source`; a file nobody declared is raised once as `unknown_stream`. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+
+## What the notifier gained in v0.7.0
+
+| shipped in | what it does |
+|---|---|
+| v0.7.0 | A daily pulse mail says the notifier is running and gives the counts it saw, so a quiet box can no longer look like a dead one. |
+| v0.7.0 | Quiet hours hold alerts below critical every day, in a window the operator sets and in the time zone the operator names. |
+| v0.7.0 | A maintenance window, opened by hand for up to 24 hours, can hold alerts from one source while that source is being upgraded. |
+| v0.7.0 | An operator can acknowledge a known condition for four hours by default, seven days at most. Its repeats are counted instead of mailed, and one mail says how many alerts were held when it ends. |
+| v0.7.0 | A critical is never held, whether by quiet hours, a window or an acknowledgement. |
