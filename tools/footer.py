@@ -14,6 +14,8 @@ import pathlib
 import re
 import sys
 
+from stackguides import service_guides
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 BRAND_SVG = ('<svg class="glyph" viewBox="0 0 24 24" fill="none">'
@@ -47,6 +49,10 @@ PAGES = {
     "first-alert.html": ("", ""),
     "two-sites.html": ("", ""),
     "what-is-proven.html": ("", ""),
+    # Added 2026-10-16. The guide per room is not listed: main() adds one for
+    # every room in STACK, and stops if any is missing (tools/stackguides.py).
+    "security-by-design.html": ("", ""),
+    "changes-2026-10.html": ("", ""),
     "console.html": ("", ""),
     "404.html": ("/", ""),
     "services/engram.html": ("../", "Apache-2.0"),
@@ -309,7 +315,10 @@ def rail_cards():
 
 def main():
     written = 0
-    for path, (root, tail) in PAGES.items():
+    pages = dict(PAGES)
+    for path, _ in service_guides():
+        pages.setdefault(path, ("", ""))
+    for path, (root, tail) in pages.items():
         p = ROOT / path
         h = p.read_text(encoding="utf-8")
         new = footer(path, root, tail, service_id(path))
