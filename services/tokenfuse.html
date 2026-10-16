@@ -48,6 +48,11 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse","url":"https://it-rat.com/services/tokenfuse.html","description":"A drop-in gateway that gives every agent run a budget and answers 402 when it is crossed. Anthropic and OpenAI wires, proven on three clouds and on premises.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse","item":"https://it-rat.com/services/tokenfuse.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I cap what an AI agent can spend?","acceptedAnswer":{"@type":"Answer","text":"Give the run a budget. Every call is priced before it happens, the reserve is taken against that budget, and the call that would cross the cap is refused with an HTTP 402 before the provider ever sees it. Budgets nest along the run tree, so a sub-agent's run also has to fit inside every ancestor run's budget. A business unit can also have a monthly cap, which the gateway enforces in enforce mode."}},{"@type":"Question","name":"What happens to my agent when it hits the budget?","acceptedAnswer":{"@type":"Answer","text":"It gets a 402 with the reason, which is a status every framework already understands, and an incident is recorded against that run. Nothing else in the fleet is affected, and the spend that would have followed simply never happens."}},{"@type":"Question","name":"Do I have to rewrite my agent to use it?","acceptedAnswer":{"@type":"Answer","text":"No. It is a one-line base-URL change to a gateway that speaks the Anthropic Messages API and the OpenAI chat completions API. Run it in shadow mode first and it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open, so a lost event or an unreachable control plane never refuses a call; what happens when the policy plane is unreachable is the deployment's choice, and both launchers ship it closed."}},{"@type":"Question","name":"Can it catch a retry loop before the bill does?","acceptedAnswer":{"@type":"Answer","text":"That is the case it was built for. A sustained loop or a fan-out explosion looks the same as a compromised agent from the budget's side, and both trip the breaker. In the live campaign, the runaway that mattered was caught and killed on the day, not on the invoice."}},{"@type":"Question","name":"Does it still work with several gateways behind a load balancer?","acceptedAnswer":{"@type":"Answer","text":"In the cluster build, yes: the spend ledger is raft-replicated and the affordability check is linearized across the fleet, so four nodes on four machines admit exactly what one budget allows. The cluster record tests that with 30 concurrent reserves against a 5-unit budget, a kill of the leader and a real network partition. That build is optional and not what the shipped images run; the default profile is one gateway whose ledger lives in memory and is read back from the Cloud when it starts, each run's spend over the last 31 days, so a restart does not hand a run its budget again. That read-back does not let two gateways share one budget; only the cluster build does."}}]}]}</script>
@@ -74,9 +79,10 @@
       <div>
         <div class="kicker rv">money plane &#183; wave 1</div>
         <h1 class="rv d1"><span class="nm">TokenFuse</span>. The breaker between your agents and your invoice.</h1>
-        <p class="lede rv d2">A fire in next month's bill is too late to fight. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.</p>
+        <p class="lede rv d2">TokenFuse is a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch a runaway die <span class="mono">&#9654;</span></a>
+          <a class="btn" href="../tokenfuse-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/tokenfuse" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -98,7 +104,7 @@
     <div class="sec-head rv">
       <div class="kicker">sixty seconds, one runaway</div>
       <h2>Watch the breaker do its job.</h2>
-      <p class="lede">This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget. Four calls land. The reserve for the fifth would cross the cap, so the ledger refuses it.</p>
+      <p class="lede">This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget.</p>
     </div>
     <div class="rv" id="tf-sim"></div>
   </div>
@@ -110,7 +116,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>One gateway in the path. One ledger everyone trusts.</h2>
-      <p class="lede">Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook. Behind it: the spend ledger, in one process by default; the optional cluster build replicates it with raft, so the gateways of one cluster still admit exactly what one budget allows.</p>
+      <p class="lede">Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 330" role="img" aria-label="TokenFuse architecture">
@@ -162,38 +168,17 @@
 </section>
 
 <!-- ================= FEATURES ================= -->
-<section class="sec" style="padding-top:18px">
+<section class="sec" id="how" style="padding-top:18px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what it holds</div>
       <h2>Not a dashboard. A set of hands on the wheel.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Per-run budgets</h3><p>The run is the unit that pays. A sub-agent's run rolls up into its parent run, so its spend has to fit inside every ancestor's budget. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am. Since v1.5.0 an operator can also cap the budget a caller declares for its own run: <span class="mono" style="font-size:12.5px">TOKENFUSE_MAX_RUN_BUDGET_USD</span> lowers a larger one to the ceiling and the answer says so in <span class="mono" style="font-size:12.5px">x-fuse-budget-clamped</span>. The launchers set it to USD 5.00. It bounds each run, not an agent's total: a new run id gets a new ceiling.</p>
-        <details class="sheet" data-sheet-kicker="per-run budgets" data-sheet-title="How a cap is actually enforced, and what it costs you">
-          <summary>How enforcement works</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls up and is tested against every ancestor it belongs to, so a run cannot slip under its own cap while quietly breaking its parent's. The run is the unit that pays, because a per-key limit cannot tell one agent's afternoon of honest work from the same key looping on itself.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">A business unit can also carry a monthly cap, the first budget above the run. It is set in the gateway's identity map, or overridden from the Cloud, and counts the calendar month in UTC; in enforce mode a call that would cross it is refused with a 402. Each gateway counts its own calls on top of a tally it reads from the Cloud when it starts, so that cap is not yet shared across a fleet of gateways.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Accounting is reserve then settle. Each call is priced before it happens, the reserve is taken, and the real cost settles afterwards; a call that would cross the cap is refused before the provider ever sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is exactly the failure mode this exists to remove.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Adoption is a one-line base-URL swap, and the gateway runs in shadow mode first: it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open: a telemetry push, an event write or a control-plane call that fails never refuses a call. The one failure mode that is a choice is the policy hook, and the launchers make it for you: both ship it fail-closed, so a policy plane that cannot be reached refuses every governed call rather than waving it through. That is measured, not read off a config file: on 2026-09-17 the policy plane was stopped under a box governing two clouds and every call came back 403 in 0.3 s until it was started again. The enforcement decision itself is in-process Rust, about 0.4 microseconds at p99. The thing standing between an agent and a four-digit night should not be the slow part.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens, with a built-in price book of the vendors' rates as they read on 2026-10-13, long-prompt tiers included, and a deliberately high fallback rate for a model id it does not know, flagged on the response, so an unknown model is refused sooner rather than tracked never. The estimate is fast and honest about being an estimate.</p></div>
-      <div class="card hover feature b-4 rv"><h3>Model router</h3><p>Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend. Both ship switched off: the router is off by default, and the cache is off in the gateway and in the launchers, so that figure arrives when you turn them on, not by default.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Cluster build: a raft-replicated ledger</h3><p>An optional build, not what the shipped images run. Four nodes on four machines held one shared budget through a leader kill and a real network partition: the majority kept serving, the isolated node could not overspend, nothing split-brained.</p>
-        <details class="sheet" data-sheet-kicker="the shared ledger" data-sheet-title="What a budget survives: a crash, a restart, a partition">
-          <summary>What it survives</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">The images every launcher installs run one gateway with its ledger in memory, and a restart no longer starts every run at zero. Since v1.4.1 the gateway reads each run's spend back from the Cloud before it serves, for runs active in the last 31 days, and since v1.6.0 a gateway at a remote site does the same through a read scoped to its own site. With no Cloud configured there is nothing to read back, and a run starts from zero. The read-back is proven by tests, and the remote-site half on release binaries behind a stand-in for the hub entry, not yet on a live hub. A budget only means something if two gateways racing each other cannot both spend it, and that is what the cluster build is for, a separate build of the same binary: there the ledger is a raft state machine, and the affordability check is linearized across the whole fleet: four nodes on four machines admit exactly what one budget allows, not four copies of it.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">In that build, with durable storage on redb, a budget outlives more than a node crash: it survives a full process restart, because a cap that resets when a process dies is a cap an unlucky deploy can hand back to a runaway.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">That was tested rather than assumed. A four-node cluster across two datacenters took a leader kill and a real network partition: the majority side kept serving, the isolated node could not overspend, and nothing split-brained. Enforcement then held under a burst of 34 concurrent agents, and the cost accounting was run on the same protocol against Hetzner, AWS and GCP so the numbers could be compared honestly.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d2"><h3>FOCUS export</h3><p>Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Per-run budgets</h3><p>The run is the unit that pays. A sub-agent's run rolls up into its parent run, so its spend has to fit inside every ancestor's budget.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Loop detection</h3><p>A retrying agent looks exactly like a compromised one from the budget's side. Sustained loops and fan-out explosions trip the breaker before they become a four-digit night.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Burn forecast</h3><p>Reserve-then-settle accounting prices each call before it happens. The estimate is fast and honest about being an estimate.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>FOCUS export</h3><p>Agent spend lands in the same FinOps Foundation format as the rest of your cloud bill, so showback and chargeback reuse the pipes and dashboards finance already trusts.</p></div>
     </div>
   </div>
 </section>
@@ -206,27 +191,17 @@
         <div class="kicker">in the stack</div>
         <h3 style="margin-top:12px">The loud neighbor everyone listens to.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          TokenFuse asks <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a> prices outcomes from. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> attacks it on purpose in pre-prod. <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> correlates its events into the identity graph. Everything travels as one envelope, the agent-event, and <a href="../genaryx.html" style="color:var(--violet)">Genaryx</a> lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.</p>
-          <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Where this fits in the wider practice: <a href="../finops-for-ai.html" style="color:var(--accent)">FinOps for AI</a> on managing spend that creates itself, and <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a> on the rest of the runtime controls.</p>
+          TokenFuse asks <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> before letting a declared tool through, and stamps the verdict on the response. Everything travels as one envelope, the agent-event, and <a href="../genaryx.html" style="color:var(--violet)">Genaryx</a> lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.</p>
       </div>
-      <div class="card b-4 rv d1">
+      <div class="card b-4 rv d1" id="run">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
           <p class="dim" style="font-size:13.5px;line-height:1.6;margin:0">Run it from <a href="https://github.com/TAIPANBOX/tokenfuse#-get-started" target="_blank" rel="noopener" style="color:var(--mint)">the repository</a>, where the one-line command lives beside the image tag it pulls.</p>
-          <p class="dim" style="font-size:13px;line-height:1.6">Then point <span class="mono" style="font-size:12px">ANTHROPIC_BASE_URL</span> at <span class="mono" style="font-size:12px">localhost:4100</span> and give your next run a budget header. That's the whole migration. Behind a launcher, a header above USD 5.00 is lowered to the operator's ceiling unless the operator raises it.</p>
-          <p class="dim" style="font-size:13px;line-height:1.6">Want more than the gateway? <a href="platform.html#run" data-dir="fwd" style="color:var(--mint)">Run the live services locally</a> in one command.</p>
-          <details class="sheet" data-sheet-kicker="how it ships" data-sheet-title="TokenFuse ships as an image, and since v0.4.3 as binaries">
-            <summary>How this one ships</summary>
-            <div class="sheet-in">
-              <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/pkgs/container/tokenfuse">container image</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases">releases</a></div>
-              <div class="dl-row" style="margin-top:10px"><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-x86_64-unknown-linux-musl">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-aarch64-unknown-linux-musl">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-x86_64-apple-darwin">macOS x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/tokenfuse-aarch64-apple-darwin">macOS arm64</a><a class="pill" href="https://github.com/TAIPANBOX/tokenfuse/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">The current release is v1.14.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, <span class="mono" style="font-size:12px">TOKENFUSE_UPSTREAM</span> set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.</p>
-            </div>
-          </details>
+          <p class="dim" style="font-size:13px;line-height:1.6">Then point <span class="mono" style="font-size:12px">ANTHROPIC_BASE_URL</span> at <span class="mono" style="font-size:12px">localhost:4100</span> and give your next run a budget header. That's the whole migration.</p>
+          <a class="btn" href="../tokenfuse-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
         </div>
       </div>
     </div>
-    <div data-edge-nav></div>
   </div>
 </section>
 
@@ -236,39 +211,47 @@
     <div class="sec-head rv">
       <div class="kicker">the two planes either side of this one</div>
       <h2>It stops the spend. Two neighbours stop other things.</h2>
-      <p class="lede">A breaker is the right answer to a runaway and the wrong one to a compromised delegation, where the money is affordable and the problem is that the agent may act for somebody at all. <a href="vouchryx.html">Vouchryx</a> ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: <a href="costcrew.html">CostCrew</a> is where a bill gets taken apart, allocated and closed, by a crew of agents whose work a person stamps.</p>
+      <p class="lede">A breaker is the right answer to a runaway and the wrong one to a compromised delegation: <a href="vouchryx.html">Vouchryx</a> ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: <a href="costcrew.html">CostCrew</a> is where a bill gets taken apart, allocated and closed.</p>
     </div>
   </div>
 </section>
 
-<!-- ================= 1 TO 15 OCTOBER 2026 ================= -->
-<section class="sec" id="changes" style="padding-top:14px">
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">1 to 15 October 2026</div>
-      <h2>What the gateway gained from 1 to 15 October</h2>
+      <div class="kicker">limits</div>
+      <h2>What the default install does not do.</h2>
     </div>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
-        <tbody>
-          <tr><td>v1.7.0</td><td>The price book holds a row for every Claude model Anthropic lists, at its list rate. Before this, a call to a model the book did not know was charged at a fallback rate several times too high.</td></tr>
-          <tr><td>v1.9.0</td><td>A call whose outcome is unknown is kept as money owed. The reservation survives a restart, and a person closes it with evidence, using a short-lived token that the operator console mints after a passkey check.</td></tr>
-          <tr><td>v1.10.0</td><td>A retained call and its closure are written to the event bus, so a notifier can tell a person that money is waiting.</td></tr>
-          <tr><td>v1.11.0</td><td>Tool metadata is scanned for five warning signs: a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text.</td></tr>
-          <tr><td>v1.11.0</td><td>With the scan set to block, a tool whose definition changed after it was pinned is refused on the call.</td></tr>
-          <tr><td>v1.11.0</td><td>Tools a request declares are read for poisoning. A poisoned description marks the run as a suspected injection. The request itself is not refused.</td></tr>
-          <tr><td>v1.12.0</td><td>Text recalled from an agent's memory is untrusted context. Under the starter policy, a run that carries it cannot then run a command, write a file or reach the network.</td></tr>
-          <tr><td>v1.12.0</td><td>The compliance catalog cites the OWASP MCP Top 10, row by row, against the test that holds each control.</td></tr>
-          <tr><td>v1.13.0</td><td>Prices for the current OpenAI, Gemini, DeepSeek, Kimi and GLM models are at their vendors' rates. A model sold at two rates by prompt length is priced by the tier each call falls in. A model the book cannot price exactly keeps a fallback rate, and the call says so.</td></tr>
-          <tr><td>v1.13.1</td><td>Tool arguments up to 12 KiB reach the policy whole. Larger arguments are marked as truncated, so the policy still decides.</td></tr>
-          <tr><td>v1.14.0</td><td>A tool call inside a streamed answer is judged like one in a buffered answer, and a denied call is cut before it reaches the agent.</td></tr>
-          <tr><td>v1.14.0</td><td>Nothing a budget governs is admitted until the gateway has read its money state, so a restart cannot admit calls for a unit already over its cap.</td></tr>
-          <tr><td>v1.14.0</td><td>A refused client key reaches the event bus with its reason and a fingerprint of the key, never the key itself.</td></tr>
-          <tr><td>v1.14.0</td><td>IBANs are a kind of personal data the scanner finds, checked by country code, length and check digits.</td></tr>
-          <tr><td>v1.14.0</td><td>Every FOCUS export row says whether it was priced from the price book or from the fallback.</td></tr>
-        </tbody>
-      </table>
+    <div class="card limits rv">
+      <ul>
+        <li>The raft cluster build is an optional build, not what the shipped images run: those run one gateway with its ledger in memory.</li>
+        <li>A business unit's monthly cap is not yet shared across a fleet of gateways: each gateway counts its own calls on top of a tally it reads from the Cloud when it starts.</li>
+        <li>The model router and the cache ship switched off: the router is off by default, and the cache is off in the gateway and in the launchers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE CORRIDOR ================= -->
+<section class="sec" style="padding-top:6px;padding-bottom:10px">
+  <div class="wrap">
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The TokenFuse guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../tokenfuse-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../tokenfuse-guide.html#run">Running it</a>
+        <a class="btn" href="../tokenfuse-guide.html#changes">What changed</a>
+        <a class="btn" href="../tokenfuse-guide.html#limits">Limits</a>
+      </div>
     </div>
   </div>
 </section>
