@@ -52,6 +52,13 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Platform","url":"https://it-rat.com/services/platform.html","description":"One agent:// passport, one event envelope, one Go binding and a Terraform provider: the contract every service in the stack shares. Apache-2.0.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/agent-passport","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Platform","item":"https://it-rat.com/services/platform.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an Agent Passport?","acceptedAnswer":{"@type":"Answer","text":"One identifier and one document per agent: an agent:// URI of at most 255 bytes, aligned with SPIFFE without requiring it, and a document naming an owner, a runtime and one of six attestation methods. The delegation chain behind it is ordered root first, acyclic, and capped at 32 entries."}},{"@type":"Question","name":"Do I have to adopt the whole stack to use the contract?","acceptedAnswer":{"@type":"Answer","text":"No. There is no shared runtime and no shared database. Adopting it is a naming agreement plus a few optional fields on events you already emit, which is why a service can add an event type without asking any other service for permission."}},{"@type":"Question","name":"Can budgets and policies live in version control?","acceptedAnswer":{"@type":"Answer","text":"Yes. Four Terraform resources cover run budgets, business-unit budgets, agent passports and policies, published on the public Terraform Registry, so governance gets pull requests, plans and diffs like the rest of your infrastructure. Where the API has no delete, the provider says so instead of pretending."}},{"@type":"Question","name":"How do I check that my events actually conform?","acceptedAnswer":{"@type":"Answer","text":"Run agent-conform . It carries the canonical JSON Schemas, classifies each file by its own schema field, treats unrecognised content as a failure rather than skipping it quietly, and exits 0 or 1. It has already caught a real 63-versus-64 character hash defect. On a box, agent-conform watch-dir re-checks every stream's hash chain and writes a chain_broken event to its own stream when one breaks; it exits 2 on a usage or I/O error. stack-single runs it every five minutes and stack-k8s runs it as a CronJob every fifteen minutes. stack-up runs it once a day, at 06:52, as a routine."}}]}]}</script>
@@ -78,7 +85,7 @@
       <div>
         <div class="kicker rv">the contract &#183; under everything</div>
         <h1 class="rv d1"><span class="nm">The contract</span>. The boring layer that makes a dozen services one system.</h1>
-        <p class="lede rv d2">Under the services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code. No shared runtime, no shared database; adopting it is a naming agreement plus a few optional fields.</p>
+        <p class="lede rv d2">Under the services sits a three-repo platform. agent-passport is the spec: one agent:// identifier, one Passport document, one event envelope. agent-stack-go is the Go binding, with the agent-conform checker. terraform-provider-taipan turns budgets, passports and policies into PR-reviewed code.</p>
         <div class="cta-row rv d3">
           <!-- No "watch the simulation" button here, unlike every other service
                page, and the reason is this page's own layout: #sim is the first
@@ -89,6 +96,7 @@
                "Run the live stack locally" takes the primary style it left
                behind, so the row still has one action that stands out. -->
           <a class="btn primary" href="#run">Run the live stack locally</a>
+          <a class="btn" href="../platform-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/agent-passport" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -110,7 +118,7 @@
     <div class="sec-head rv">
       <div class="kicker">sixty seconds, one grammar</div>
       <h2>One envelope, end to end.</h2>
-      <p class="lede">This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, the planes emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end. Exit 0.</p>
+      <p class="lede">This is a simulation, labeled as one: a replay of the envelope's normal day. A passport is issued, the planes emit their own event types into one NDJSON stream, two schema versions ride side by side, and agent-conform validates the whole stream at the end.</p>
     </div>
     <div class="rv" id="pf-sim"></div>
   </div>
@@ -122,7 +130,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>Everything meets at the envelope.</h2>
-      <p class="lede">Fourteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas and, on the box, re-checks every stream's hash chain and writes what it finds to a stream of its own, which is how it is also the fourteenth source; Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.</p>
+      <p class="lede">Fourteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 400" role="img" aria-label="Platform contract: fourteen registered sources feed the agent-event bus, agent-conform among them writing its chain findings back, the envelope card lists its eleven fields, five consumers read the stream, and the Terraform loop manages budgets, passports and policies as code">
@@ -248,19 +256,17 @@
 </section>
 
 <!-- ================= FEATURES ================= -->
-<section class="sec" style="padding-top:18px">
+<section class="sec" id="how" style="padding-top:18px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what it pins down</div>
       <h2>Boring on purpose. Load-bearing anyway.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>The passport</h3><p>One agent, one URI: agent://trust-domain/path, at most 255 bytes, aligned with SPIFFE without requiring it. The document behind the ID names an owner, a runtime and one of six attestation methods. The delegation chain is ordered root first, acyclic, and capped at 32 entries.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>The envelope</h3><p>Five required fields: schema, ts, source, type, agent_id. Four versions stay live by design: v0.1 with a closed source enum, v0.2 with an open string, v0.3 adding a self-declared, claimed agent_id, and v1.0, which is v0.3's shape under the 1.0 compatibility promise. The passport document has two, v0.1 and v1.0. Event types live in a per-source registry, so tokenfuse can add a type without asking engram.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>The Go binding</h3><p>agent-stack-go ships passport.Parse, an append-only event.Writer and chain.Validate. passport and chain need only the standard library; event adds one dependency, gowebpki/jcs, for the RFC 8785 canonical JSON its hash chain is computed over. It is the same validation Idryx runs on ingest: a passport that parses in your pipeline parses in the graph.</p></div>
-      <div class="card hover feature b-4 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped. Exit 0 or exit 1; it has already caught a real 63-versus-64 hex character prev_hash defect. Since agent-stack-go v1.1.0 it also runs on the box as <span class="mono" style="font-size:12.5px">watch-dir</span>: it re-checks every stream's hash chain and writes <span class="mono" style="font-size:12.5px">chain_broken</span> (high) or <span class="mono" style="font-size:12.5px">chain_unchained</span> (low) to its own stream, exiting 2 on a usage or I/O error. It ships as a signed, distroless image, <span class="mono" style="font-size:12.5px">ghcr.io/taipanbox/agent-conform</span>, and runs by default every five minutes on the single box and every fifteen on a cluster.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Governance as code</h3><p>Four Terraform resources: taipan_budget, taipan_unit_budget, taipan_agent_passport, taipan_wardryx_policy. Run budgets, business-unit budgets, passports and policies get PRs, plans and diffs like everything else, and edits made out of band surface on the next plan. Where the API has no delete, the provider says so instead of pretending.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Honest scope</h3><p>The provider is published on the Terraform Registry as <span class="mono">TAIPANBOX/taipan</span>: a normal <span class="mono">required_providers</span> block and <span class="mono">terraform init</span> pull it, GPG-verified, no build-from-source needed. The passport is metadata, not a token, and the spec is not an authentication protocol. Small claims, kept.</p></div>
+      <div class="card hover feature b-6 rv"><h3>The passport</h3><p>One agent, one URI: agent://trust-domain/path, at most 255 bytes, aligned with SPIFFE without requiring it. The document behind the ID names an owner, a runtime and one of six attestation methods.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>The envelope</h3><p>Five required fields: schema, ts, source, type, agent_id. Event types live in a per-source registry, so tokenfuse can add a type without asking engram.</p></div>
+      <div class="card hover feature b-6 rv"><h3>agent-conform</h3><p>A standalone conformance CLI with the canonical JSON Schemas embedded. Files are classified by their own schema field, and unrecognized content is a FAIL, never silently skipped.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Governance as code</h3><p>Four Terraform resources: taipan_budget, taipan_unit_budget, taipan_agent_passport, taipan_wardryx_policy. Run budgets, business-unit budgets, passports and policies get PRs, plans and diffs like everything else.</p></div>
     </div>
   </div>
 </section>
@@ -271,45 +277,21 @@
     <div class="sec-head rv">
       <div class="kicker">try the whole thing</div>
       <h2>Run the live stack locally.</h2>
-      <p class="lede">Two ways in, and they are for different machines. On your own laptop the sandbox builds from source and binds loopback only. On a Linux box you own, one line pulls the published images and the whole governed stack is up in under two minutes.</p>
+      <p class="lede">Two ways in, and they are for different machines.</p>
     </div>
-    <div class="bento">
-      <div class="card b-8 rv">
-        <div class="kicker">on a box you own &#183; fastest</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-          <div class="install"><span class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/<b>stack-single</b>/main/install.sh | bash</span></div>
-        </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Nothing is compiled: every plane is pulled from the public registry at a pinned version. Measured on 2026-09-13 on a fresh 2-vCPU cloud machine, from that line to a console answering on loopback: <b>109 seconds</b>, with every one of the installer's own checks green; on 2026-09-17, on a mini PC that already had Docker, <b>61 seconds</b> for the first run (exit 1: 22 checks ok, and one that fails by construction, since it probed loopback whatever the bind address was; fixed by stack-single #59) and 36 seconds for the second, with the same 22 checks ok. It needs root on Debian or Ubuntu, and docker and git; it comes back after a reboot (measured once, on 2026-09-17, on a box whose gateway sat on a tailnet address: the first reboot lost the gateway until the installer learned to order Docker after the tunnel, the second brought it back on its own); and it is reachable by agents running anywhere else, which the same day proved from two clouds at once.</p>
-        <div class="kicker" style="margin-top:26px">on your laptop &#183; no Docker</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
-          <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></span></div>
-          <div class="install"><span class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></span></div>
-        </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">The sandbox, and it builds from source on purpose: nothing but your own compilers touches it. That is the cost as well as the point, so it wants Rust, Go, Node and Python already installed. Measured on 2026-09-01 from an empty build cache: <b>221 seconds</b> to a working dashboard. A cold run with both optional planes took <b>325 seconds</b> on 2026-09-13. Binds <span class="mono">127.0.0.1</span> only, stops on Ctrl-C, keeps nothing.</p>
-        <div class="sheet-row">
-          <details class="sheet" data-sheet-kicker="run the live stack locally" data-sheet-title="What the first run actually does">
-            <summary>What the first run does</summary>
-            <div class="sheet-in">
-              <p class="dim" style="font-size:13.5px;line-height:1.65">Open the link it prints and you are looking at your own local money plane, live, with a short demo dataset already in it. Point an agent's OpenAI base URL at the gateway to feed it your own.</p>
-              <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It builds and starts the stack's long-running services from source. Those are TokenFuse's gateway, cloud and dashboard, plus Wardryx, Idryx and Scopyx: six ports on loopback, as the stack-up README's port table lists them. Heraldyx is pinned to file mode there, writing what it would have mailed rather than mailing it. Trailryx is built and wired as a sealing routine rather than a port. Engram, Qryx, Verdryx and Mockryx are deliberately not servers: they are libraries and one-shot CLIs, installed into your home directory and started when you want them, each with its own try-it on its page. The delegation plane and the FinOps console stay behind a flag, <span class="mono">--with-delegation</span> and <span class="mono">--with-finops</span>, because one needs an issuer to trust and the other is a different product.</p>
-              <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">Press Ctrl-C and it stops clean, with no orphaned processes.</p>
-            </div>
-          </details>
-          <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
-          <a class="btn" href="https://github.com/TAIPANBOX/stack-up" target="_blank" rel="noopener">stack-up on GitHub &#183; Apache-2.0</a>
-        </div>
-      </div>
-      <div class="card b-4 rv d1">
-        <div class="kicker" style="--accent:var(--mint)">what comes up</div>
-        <div class="hero-side" style="margin-top:14px">
-          <div class="row"><span class="k">gateway</span><span class="v">:4100 &#183; budgets</span></div>
-          <div class="row"><span class="k">cloud + dashboard</span><span class="v">:8080 &#183; :3000</span></div>
-          <div class="row"><span class="k">wardryx</span><span class="v">:8090 &#183; policy</span></div>
-          <div class="row"><span class="k">idryx</span><span class="v">:8081 &#183; identity</span></div>
-          <div class="row"><span class="k">every bind</span><span class="v">127.0.0.1 only</span></div>
-        </div>
-        <p class="dim" style="font-size:12.5px;line-height:1.6;margin-top:14px">git, Rust, Node and Python; Go adds the policy and identity planes. macOS or Linux. A sandbox to try the stack, not a production deployment.</p>
-      </div>
+    <div class="install rv">
+      <code class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/<b>stack-single</b>/main/install.sh | bash</code>
+      <span class="note">on a box you own &#183; fastest</span>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <code class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-up</b></code>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <code class="cmd">cd stack-up &amp;&amp; <b>./up.sh</b></code>
+      <span class="note">on your laptop &#183; no Docker</span>
+    </div>
+    <div class="cta-row rv d2" style="margin-top:18px">
+      <a class="btn" href="../platform-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
     </div>
   </div>
 </section>
@@ -320,12 +302,11 @@
     <div class="sec-head rv">
       <div class="kicker">on your own infrastructure</div>
       <h2>The stack is a control plane. Your agents can be anywhere.</h2>
-      <p class="lede">Nothing here has to sit next to the agents it governs. An agent points its model endpoint at the gateway and asks the policy plane before it acts, so it can run in EKS, in GKE, in a CI job or on a laptop while the stack runs once, on infrastructure you own. That is the whole deployment question: where the control plane lives, not where the work does.</p>
+      <p class="lede">Nothing here has to sit next to the agents it governs. That is the whole deployment question: where the control plane lives, not where the work does.</p>
     </div>
     <div class="bento">
       <div class="card b-6 rv">
         <div class="kicker">one box</div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">The shape the stack is actually built for: the planes share a filesystem, which is how they talk. One script puts all of it on a box you own, and it comes up closed.</p>
         <div class="hero-side" style="margin-top:14px">
           <div class="row"><span class="k">install</span><span class="v">one script</span></div>
           <div class="row"><span class="k">gateway</span><span class="v">host loopback, published only on purpose</span></div>
@@ -333,28 +314,9 @@
           <div class="row"><span class="k">the console</span><span class="v">over WireGuard the box issues</span></div>
           <div class="row"><span class="k">images</span><span class="v">the same as the cluster path</span></div>
         </div>
-        <div class="sheet-row">
-        <details class="sheet" data-sheet-kicker="one box &#183; stack-single" data-sheet-title="The commands, and the checks that have to fail to pass">
-          <summary>Commands and what it verifies</summary>
-          <div class="sheet-in">
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-single</b></span></div>
-              <div class="install"><span class="cmd">cd stack-single &amp;&amp; <b>./install.sh</b></span></div>
-              <div class="install"><span class="cmd">GATEWAY_BIND=<b>0.0.0.0</b> ./install.sh</span></div>
-              <div class="install"><span class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:<b>4100</b></span></div>
-            </div>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves <span class="mono" style="font-size:12.5px">http://wardryx:8090</span> exactly the way a Kubernetes Service did.</p>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px"><a href="#run" style="color:var(--accent)">The sandbox above</a> is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.</p>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.</p>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">It ends by verifying itself, and three of its checks have to FAIL to pass: the money plane and the policy plane must not answer on the host, and a gateway bound to one address must not answer on loopback. Three more test the credential rather than the port, because a plane with a malformed key spec starts cleanly, stays reachable, and authenticates nobody. One more reads back the rule Docker actually wrote for port 4100 instead of trusting the variable meant to set it, because a default that says loopback while the port says otherwise is worse than no default at all.</p>
-          </div>
-        </details>
-        <a class="btn" href="https://github.com/TAIPANBOX/stack-single" target="_blank" rel="noopener">stack-single on GitHub &#183; Apache-2.0</a>
-        </div>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--violet)">or a Kubernetes cluster</div>
-        <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:10px">For teams whose answer to everything is a cluster. One script brings up k3s across your nodes with the CNI, storage and hardening the stack actually needs, then the workload applies from plain manifests.</p>
         <div class="hero-side" style="margin-top:14px">
           <div class="row"><span class="k">install</span><span class="v">one script</span></div>
           <div class="row"><span class="k">proven on</span><span class="v">Hetzner, AWS and GCP</span></div>
@@ -362,21 +324,10 @@
           <div class="row"><span class="k">what it costs</span><span class="v">a ReadWriteMany volume</span></div>
           <div class="row"><span class="k">traps</span><span class="v">132 documented, with whose fault each was</span></div>
         </div>
-        <div class="sheet-row">
-        <details class="sheet" data-sheet-kicker="a cluster &#183; stack-k8s" data-sheet-title="The commands, and the one thing a cluster costs you">
-          <summary>Commands and the trade</summary>
-          <div class="sheet-in">
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="install"><span class="cmd">git clone https://github.com/TAIPANBOX/<b>stack-k8s</b></span></div>
-              <div class="install"><span class="cmd">cd stack-k8s &amp;&amp; <b>./deploy.sh</b> --servers ... --hcloud-token ...</span></div>
-            </div>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:16px">Both paths are one command, and both ask what they need before the long part rather than failing on it afterwards. So the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.</p>
-            <p class="dim" style="font-size:13.5px;line-height:1.65;margin-top:12px">That trade, and every other thing that bites, are documented in the repositories rather than discovered by you. The same manifests came up on six clusters across Hetzner, AWS and GCP, and exactly one line of Kubernetes configuration differs between the three: Calico has to encapsulate unconditionally on GCP, because a GCE VPC routes every packet by destination and a pod address matches no route. Every trap we hit is written down and already fixed in the files.</p>
-          </div>
-        </details>
-        <a class="btn" href="https://github.com/TAIPANBOX/stack-k8s" target="_blank" rel="noopener">stack-k8s on GitHub &#183; Apache-2.0</a>
-        </div>
       </div>
+    </div>
+    <div class="cta-row rv d2" style="margin-top:18px">
+      <a class="btn" href="../platform-guide.html#deploy">The commands and what each path verifies, in the guide <span class="mono">&#8594;</span></a>
     </div>
   </div>
 </section>
@@ -387,7 +338,7 @@
     <div class="sec-head rv">
       <div class="kicker">the contract</div>
       <h2>One contract, shared by every service.</h2>
-      <p class="lede">Every event carries one agent_id and an explicit schema field. The canonical JSON Schemas ship with agent-conform, which checks a file against them. Anyone can implement the contract; it is Apache-2.0.</p>
+      <p class="lede">Every event carries one agent_id and an explicit schema field. Anyone can implement the contract; it is Apache-2.0.</p>
     </div>
     
   </div>
@@ -401,27 +352,59 @@
         <div class="kicker">in the stack</div>
         <h3 style="margin-top:12px">The layer every other page stands on.</h3>
         <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          Every other page on this site is a producer or a consumer of this contract. <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a> pushes its incident taxonomy through the envelope verbatim, zero renaming. <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a> answers policy_deny in schema v0.2. <a href="engram.html" data-dir="fwd" style="color:var(--iris)">Engram</a> writes memory_written and reflection_run into the same stream, and <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> reads everything back into one identity graph, checking passports with the same passport.Parse this platform ships. Different rooms, one grammar.</p>
-          <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">What the contract is for, in practice: <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a> and the controls it lets independent tools share.</p>
+          Every other page on this site is a producer or a consumer of this contract. <a href="engram.html" data-dir="fwd" style="color:var(--iris)">Engram</a> writes memory_written and reflection_run into the same stream, and <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> reads everything back into one identity graph, checking passports with the same passport.Parse this platform ships.</p>
       </div>
       <div class="card b-4 rv d1">
         <div class="kicker" style="--accent:var(--mint)">try it now</div>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v1.3.0</span></div>
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">go install github.com/TAIPANBOX/agent-stack-go/cmd/<b>agent-conform</b>@latest</span></div>
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd"><b>agent-conform</b> passport.json events.ndjson</span></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">This installs nothing of the stack: it is the contract itself, for an agent of your own. Exit 0 means every file and every NDJSON line conforms; exit 1 means at least one did not. That is the whole interface.</p>
-          <details class="sheet" data-sheet-kicker="download" data-sheet-title="agent-conform, every platform">
-            <summary>Download, any platform</summary>
-            <div class="sheet-in">
-              <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">agent-conform -version</span> reads it back.</p>
-            </div>
-          </details>
+          <div class="install" style="border:none;padding:0;background:transparent"><code class="cmd">go get github.com/TAIPANBOX/<b>agent-stack-go</b>@v1.3.0</code></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><code class="cmd">go install github.com/TAIPANBOX/agent-stack-go/cmd/<b>agent-conform</b>@latest</code></div>
+          <div class="install" style="border:none;padding:0;background:transparent"><code class="cmd"><b>agent-conform</b> passport.json events.ndjson</code></div>
+          <p class="dim" style="font-size:13px;line-height:1.6">This installs nothing of the stack: it is the contract itself, for an agent of your own.</p>
+          <a class="btn" href="../platform-guide.html#try-it">Downloads for every platform, in the guide <span class="mono">&#8594;</span></a>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>Small claims, kept.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>The passport is metadata, not a token, and the spec is not an authentication protocol.</li>
+        <li>The laptop sandbox is for trying the stack, not a production deployment: it binds loopback only, so nothing on it is reachable by an agent on another machine.</li>
+        <li>Where the API has no delete, the Terraform provider says so instead of pretending.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE CORRIDOR ================= -->
+<section class="sec" style="padding-top:6px;padding-bottom:10px">
+  <div class="wrap">
     <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Platform guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../platform-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../platform-guide.html#run">Running it</a>
+        <a class="btn" href="../platform-guide.html#changes">What changed</a>
+        <a class="btn" href="../platform-guide.html#limits">Limits</a>
+      </div>
+    </div>
   </div>
 </section>
 

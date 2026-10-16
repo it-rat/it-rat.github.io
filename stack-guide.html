@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The stack in depth: how the proof was produced · IT-RAT</title>
+<meta name="description" content="How the figures on the home page were produced: one budget on four machines, a policy burst, a five-node cluster on three clouds, and the bugs it caught.">
+<link rel="canonical" href="https://it-rat.com/stack-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/stack-guide.html">
+<meta property="og:title" content="The stack in depth: how the proof was produced · IT-RAT">
+<meta property="og:description" content="Everything the proof section of the home page leaves out: each of the eight figures in full, what the validation campaign ran on Hetzner, AWS and GCP, what the cluster runs cost per million decisions, the two bugs only a concurrent burst surfaced, and how to run it yourself.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The stack in depth: how the proof was produced · IT-RAT">
+<meta name="twitter:description" content="Everything the proof section of the home page leaves out: each of the eight figures in full, what the validation campaign ran on Hetzner, AWS and GCP, what the cluster runs cost per million decisions, the two bugs only a concurrent burst surfaced, and how to run it yourself.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"The stack in depth: how the proof was produced","name":"The stack in depth","url":"https://it-rat.com/stack-guide.html","description":"How the figures on the home page were produced: one budget on four machines, a policy burst, a five-node cluster on three clouds, and the bugs it caught.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/stack-guide.html","about":{"@type":"WebPage","name":"IT-RAT","url":"https://it-rat.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"The stack in depth","item":"https://it-rat.com/stack-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">the stack</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; the stack</div>
+    <h1 class="rv d1">The stack in depth.</h1>
+    <p class="lede rv d2">The <a href="index.html#proof">home page</a> keeps the eight figures from the validation campaign. This guide keeps the rest of what the home page used to say about them: each figure in full, what the campaign ran and what it caught, and how to run the stack yourself. <a href="what-is-proven.html">What is proven</a> sets out every claim with what it stops short of.</p>
+    <div class="back rv d3"><a class="btn" href="index.html#proof"><span class="mono">&#8592;</span> Back to the home page</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#proof">The eight figures</a></li><li><a href="#campaign">What the campaign ran</a></li><li><a href="#caught">What it caught</a></li><li><a href="#elsewhere">Where the rest is recorded</a></li><li><a href="#run">Run it yourself</a></li></ol></nav></div></section>
+
+<section class="sec" id="proof" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">proof, not promises</div>
+      <h2>Validated on real infrastructure. Then torn down.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend. Then the same stack came up again as a five-node Kubernetes cluster on each of those three clouds, which is where the cost of the governance itself finally got measured.</p>
+      <ul>
+        <li><span><b>8000/8000</b> &#183; <b>Money, under load.</b> Requests admitted against one budget by 100 to 500 concurrent agents, on a stub provider. None dropped, and none over the budget.</span></li>
+        <li><span><b>$0.00042</b> &#183; <b>Money, per unit of work.</b> The measured cost of one correctly resolved case, which is the number that changes a decision. Monthly spend is not.</span></li>
+        <li><span><b>2,449/s</b> &#183; <b>Policy, throughput.</b> Decisions a single pod makes each second, with no cliff out to 256 concurrent callers on dedicated cores.</span></li>
+        <li><span><b>34</b> &#183; <b>Policy, under concurrency.</b> Requests fired at once and sorted exactly right: 6/6 served, 6/6 oversteppers denied, differentiated rights holding.</span></li>
+        <li><span><b>426 B</b> &#183; <b>Evidence, per decision.</b> Hash-linked audit written for every decision rather than a sample. This is the line item that grows on its own.</span></li>
+        <li><span><b>12/12</b> &#183; <b>Portability.</b> Deliberate budget overruns blocked, identically on Hetzner, AWS and GCP. What differs between clouds is the price, not the behaviour.</span></li>
+        <li><span><b>25,586</b> &#183; <b>Crypto inventory.</b> Real Linux binaries scanned by Qryx, stripped, static and truncated among them, with zero crashes.</span></li>
+        <li><span><b>0</b> &#183; <b>Rehearsal.</b> Guardrail gaps across three hostile drills fired twice at a real gateway, with zero real spend behind it.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="campaign" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">proof, not promises</div>
+      <h2>What the campaign ran, and what it caught.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Every number above came from a run against real infrastructure, not a benchmark harness written to flatter us. The boxes were disposable, the model calls behind the cost and policy figures were real and paid for, and nothing from the campaign is still standing: the machines were deleted, the key revoked.</p>
+      <p><b>Money.</b> Four nodes across two datacenters held one budget through a leader kill and a real network partition: the majority kept serving, the isolated node could not overspend, and the state stayed byte-identical on every node. Under 500 concurrent agents against a fixed budget, the ledger admitted exactly what the budget allowed and no more.</p>
+      <p><b>Policy.</b> An enriched multi-agent campaign produced 176 real enforcement decisions with differentiated rights: an analyst agent refused a wire transfer that a treasury agent was allowed, an unattested agent refused until it attested, and shell execution refused for everyone regardless of identity. Fired as a 34-request concurrent burst, the decision point still sorted them exactly right.</p>
+      <p><b>The rest.</b> Qryx scanned 25,586 real Linux binaries, stripped, static and truncated among them, without a crash. Engram's reflection ran against real Claude output three times on three topologies with zero contradictions. Verdryx priced a correctly resolved case at $0.00042. Mockryx fired three hostile drills against a real gateway twice, with zero gaps and zero real spend, because the provider behind that gateway was fake while every guardrail in front of it was live.</p>
+      <p><b>At cluster scale.</b> The same manifests then came up as a five-node cluster on each of the three clouds, to answer the question the campaign above could not: what does the supervision itself cost. Several clusters went up in all: a quota ceiling capped the first GCP attempt at three nodes, and AWS was rebuilt twice, the last time a chip generation lower, once it turned out the first result had compared silicon rather than clouds. One policy pod peaks at about 2,449 decisions a second and answers in 3.2ms at p50 while the queue is short. On identical silicon the two hyperscalers land 1.2% apart, which makes choosing between them procurement rather than engineering. At full load the infrastructure under the control plane works out at EUR 0.024 per million governed decisions on Hetzner and about USD 0.21 to USD 0.23 on AWS and GCP. That is what the machines cost to run. What binds first is not the processor but the evidence: every decision is audited, not a sample of them, at 426 bytes each, which is 614 MB a day at a thousand calls a minute. Provability is measured in gigabytes and can be budgeted a year ahead from a single number.</p>
+      <p>The full ledger, every number and every bug, is public in each repository's <span class="mono" style="font-size:12.5px">VALIDATION.md</span>. A validation write-up with no bug list is marketing.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="caught" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it caught</div>
+      <h2>Live testing found real bugs.</h2>
+    </div>
+    <div class="prose rv">
+      <p><b>And what it caught.</b> Live testing found real bugs, which is the point of doing it. Two of them, both in the policy plane, were invisible to sequential test traffic: a request that merely declared a forbidden tool without calling it slipped past a deny rule, and a decision cache keyed without the attestation method let an unattested agent inherit a recently attested allow inside the cache window. Only the 34-agent concurrent burst surfaced the second one. Both were fixed, covered by regression tests, and re-verified live before any number here was taken as final.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="elsewhere" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">recorded elsewhere</div>
+      <h2>Where the rest of the record is.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>On premises.</b> The 2026-09-17 run on a small box behind a home router, governing agents in AWS and GCP and then taking sixteen injected failures, is in <a href="what-is-proven.html">what is proven</a>, under "Seven claims and what each one stops short of" and "Sixteen ways to break it, and what each one did".</span></li>
+        <li><span><b>What we withdrew.</b> The throughput cliff past 64 concurrent callers that turned out to be a shared-vCPU instance is in <a href="what-is-proven.html">what is proven</a>, under "Three things we published and had to withdraw", and in <a href="what-runs-where.html">what runs where</a>.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">run it yourself</div>
+      <h2>You do not have to take our word for it.</h2>
+    </div>
+    <div class="prose rv">
+      <p>You do not have to take our word for it: <a href="services/platform.html#run">run the stack's live services locally</a> in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the home page.</h2>
+      <p class="lede">The <a href="index.html">home page</a> has the eight figures, the stack's corridor and the wiring, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="index.html#proof"><span class="mono">&#8592;</span> Back to the home page</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

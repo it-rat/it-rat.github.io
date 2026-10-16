@@ -74,12 +74,25 @@
     {
       "page": "services/platform.html",
       "claim": "32 entries",
-      "occurrences": 3,
+      "occurrences": 2,
       "repo": "TAIPANBOX/agent-stack-go",
       "command": "grep -n 'MaxDepth = ' chain/chain.go",
       "status": "measured",
       "measured_on": "2026-08-05",
-      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite.",
+      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite. Count 2026-10-16: the passport card on the room no longer states it; the FAQ and its JSON-LD still do.",
+      "repo_dir": "agent-stack-go",
+      "check": "grep -h 'MaxDepth = ' chain/chain.go | grep -oE '[0-9]+'",
+      "slow": false
+    },
+    {
+      "page": "platform-guide.html",
+      "claim": "32 entries",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/agent-stack-go",
+      "command": "grep -n 'MaxDepth = ' chain/chain.go",
+      "status": "measured",
+      "measured_on": "2026-08-05",
+      "note": "Not a test count at all, which is why nothing could verify it while it sat in a list of test counts. It is a specification constant: the delegation chain in an Agent Passport is capped at 32 entries, `const MaxDepth = 32` in agent-stack-go/chain/chain.go:19, and SPEC.md 5.1 says the same. Recorded here so the next reader does not go looking for a suite. Copied 2026-10-16: the passport card's full text is in platform-guide.html; the room keeps the figure in its FAQ and JSON-LD.",
       "repo_dir": "agent-stack-go",
       "check": "grep -h 'MaxDepth = ' chain/chain.go | grep -oE '[0-9]+'",
       "slow": false
@@ -98,7 +111,20 @@
       "slow": false
     },
     {
-      "page": "services/platform.html",
+      "page": "platform-guide.html",
+      "claim": "132 documented, with whose fault each was",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-k8s",
+      "command": "./scripts/gotchas-classified.sh, which prints the total and the four-way split",
+      "status": "measured",
+      "measured_on": "2026-10-15",
+      "note": "Updated 2026-10-15 from 123: stack-k8s origin/main GOTCHAS.md has 132 numbered entries (last heading \"## 132.\"); the same split puts 61 under ours. Measured with the GitHub contents API on origin/main. Copied 2026-10-16: the deploy block's full text is in platform-guide.html#deploy; the room keeps the short fact table.",
+      "repo_dir": "stack-k8s",
+      "check": "./scripts/gotchas-classified.sh | grep -oE '[0-9]+ gotchas' | grep -oE '[0-9]+'",
+      "slow": false
+    },
+    {
+      "page": "platform-guide.html",
       "claim": "v1.1.0",
       "occurrences": 1,
       "status": "measured",
@@ -108,7 +134,7 @@
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/agent-stack-go/releases/tags/v1.1.0 --jq .tag_name",
       "slow": false,
-      "note": "Re-pointed 2026-10-15: v1.1.0 is cited as the release that added watch-dir, not as the current one."
+      "note": "Re-pointed 2026-10-15: v1.1.0 is cited as the release that added watch-dir, not as the current one. Moved 2026-10-16 with the agent-conform card's full text: the Platform room no longer carries it, platform-guide.html does."
     },
     {
       "page": "services/scopyx.html",
@@ -377,56 +403,96 @@
       "note": "Money, under load. 8,000 of 8,000 requests admitted against one budget by 100 to 500 concurrent agents, none dropped and none over it. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
     },
     {
+      "page": "stack-guide.html",
+      "claim": "8000",
+      "occurrences": 2,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Money, under load. 8,000 of 8,000 requests admitted against one budget by 100 to 500 concurrent agents, none dropped and none over it. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Copied 2026-10-16: the home page keeps the tile; stack-guide.html carries the full proof text, the tile's figure and label included."
+    },
+    {
       "page": "index.html",
+      "claim": "$0.00042",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Money, per unit of work. The measured cost of one correctly resolved case, from the Verdryx run in the validation campaign. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Count 2026-10-16: the proof sheet left the home page for stack-guide.html; the tile stays."
+    },
+    {
+      "page": "stack-guide.html",
       "claim": "$0.00042",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
       "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
       "status": "measured",
       "measured_on": "2026-07-20",
-      "note": "Money, per unit of work. The measured cost of one correctly resolved case, from the Verdryx run in the validation campaign. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+      "note": "Money, per unit of work. The measured cost of one correctly resolved case, from the Verdryx run in the validation campaign. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Copied 2026-10-16 with the proof sheet: stack-guide.html carries the tile and the paragraph that names the Verdryx run."
     },
     {
       "page": "index.html",
+      "claim": "2,449",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Policy, throughput. Decisions one pod makes each second on dedicated cores, with no cliff out to 256 concurrent callers. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Count 2026-10-16: the proof sheet left the home page for stack-guide.html; the tile stays."
+    },
+    {
+      "page": "stack-guide.html",
       "claim": "2,449",
       "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
       "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
       "status": "measured",
       "measured_on": "2026-07-20",
-      "note": "Policy, throughput. Decisions one pod makes each second on dedicated cores, with no cliff out to 256 concurrent callers. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+      "note": "Policy, throughput. Decisions one pod makes each second on dedicated cores, with no cliff out to 256 concurrent callers. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Copied 2026-10-16 with the proof sheet: stack-guide.html carries the tile and the cluster-scale paragraph."
     },
     {
       "page": "index.html",
       "claim": "426",
-      "occurrences": 3,
+      "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
       "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
       "status": "measured",
       "measured_on": "2026-07-20",
-      "note": "Evidence, per decision. Bytes of hash-linked audit written for every decision rather than a sample, which is the line that turns provability into a capacity plan. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above."
+      "note": "Evidence, per decision. Bytes of hash-linked audit written for every decision rather than a sample, which is the line that turns provability into a capacity plan. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Count 2026-10-16: the proof sheet left the home page for stack-guide.html; the tile stays."
     },
     {
-      "page": "services/platform.html",
+      "page": "stack-guide.html",
+      "claim": "426",
+      "occurrences": 2,
+      "repo": "TAIPANBOX/tokenfuse, wardryx, verdryx",
+      "command": "the 2026-07 validation campaign and the five-node cluster runs; the full ledger is each repository's VALIDATION.md",
+      "status": "measured",
+      "measured_on": "2026-07-20",
+      "note": "Evidence, per decision. Bytes of hash-linked audit written for every decision rather than a sample, which is the line that turns provability into a capacity plan. Added 2026-08-29. The hero carried a ticker of four figures nothing here owned, one of which (176 'real Claude calls') contradicted this same page. It was removed and the proof section moved up into its place, so the site states these once and explains them where it states them. This entry does NOT gate the hero by itself: the FIGURE sweep reads services/* only, so what holds here is the claim-and-count check above. Copied 2026-10-16 with the proof sheet: stack-guide.html carries the tile and the cluster-scale paragraph."
+    },
+    {
+      "page": "platform-guide.html",
       "claim": "109 seconds",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-single",
       "command": "estate-gates/PROVEN.md, the stack-single 1.0 row of 2026-09-13: the README one-liner on a fresh GCP e2-standard-2, 109 s, exit 0, 22 ok, 0 fail",
       "status": "measured",
       "measured_on": "2026-09-13",
-      "note": "One of three installs of the same box that day, on identical machines, and the other two are why this figure is worth stating rather than rounding. Before the launcher pulled published images it compiled all ten on the operator's machine: that run was stopped at 51 minutes, unfinished, still building the console. Pulling the planes but building the two tunnel images gave 442 s. Pulling everything gave 111 s, exit 0, nineteen of the installer's own checks green and the console answering 200. It cannot be re-run by a script from this repository, because it needs a cloud machine and a teardown; the evidence is go-to-market-2026-09/evidence/stack-single-three-installs-2026-09-01.md, which also records that the full install logs died with the instances. Replaced 111 seconds (2026-09-01, an unowned figure) with the PROVEN.md row of 2026-09-13 on 2026-09-18.",
+      "note": "One of three installs of the same box that day, on identical machines, and the other two are why this figure is worth stating rather than rounding. Before the launcher pulled published images it compiled all ten on the operator's machine: that run was stopped at 51 minutes, unfinished, still building the console. Pulling the planes but building the two tunnel images gave 442 s. Pulling everything gave 111 s, exit 0, nineteen of the installer's own checks green and the console answering 200. It cannot be re-run by a script from this repository, because it needs a cloud machine and a teardown; the evidence is go-to-market-2026-09/evidence/stack-single-three-installs-2026-09-01.md, which also records that the full install logs died with the instances. Replaced 111 seconds (2026-09-01, an unowned figure) with the PROVEN.md row of 2026-09-13 on 2026-09-18. Moved 2026-10-16 with the run paragraphs: the Platform room no longer carries them, platform-guide.html#run does.",
       "repo_dir": "estate-gates",
       "check": "grep -oE '109 s, exit 0' PROVEN.md | head -1 | grep -oE '^[0-9]+'"
     },
     {
-      "page": "services/platform.html",
+      "page": "platform-guide.html",
       "claim": "221 seconds",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-up",
       "command": "git clone --depth 1 stack-up && ./up.sh --no-tools, with CARGO_HOME, GOMODCACHE, GOCACHE and the npm cache all empty and fresh STACK_UP_HOME and TAIPAN_HOME",
       "status": "measured",
       "measured_on": "2026-09-01",
-      "note": "Cold on purpose, and the emptied caches are the whole measurement: a first attempt reported 86 s and was false, because the machine already carried binaries from earlier work and the log said 'up to date, skipping build' on almost everything. The honest run downloaded 399 crates and compiled 353, reusing nothing, and reached a working dashboard in 221 s on an Apple Silicon Mac that already had Rust, Go and Node installed. A machine without those toolchains is slower by however long installing them takes, which is why the page states the requirement beside the figure. Run with --no-tools, so four installed-not-started tools sat outside it. Log: go-to-market-2026-09/evidence/stack-up-cold-run-2026-09-01.log.",
+      "note": "Cold on purpose, and the emptied caches are the whole measurement: a first attempt reported 86 s and was false, because the machine already carried binaries from earlier work and the log said 'up to date, skipping build' on almost everything. The honest run downloaded 399 crates and compiled 353, reusing nothing, and reached a working dashboard in 221 s on an Apple Silicon Mac that already had Rust, Go and Node installed. A machine without those toolchains is slower by however long installing them takes, which is why the page states the requirement beside the figure. Run with --no-tools, so four installed-not-started tools sat outside it. Log: go-to-market-2026-09/evidence/stack-up-cold-run-2026-09-01.log. Moved 2026-10-16 with the run paragraphs: the Platform room no longer carries them, platform-guide.html#run does.",
       "repo_dir": "stack-up"
     },
     {
@@ -508,14 +574,14 @@
       "slow": false
     },
     {
-      "page": "services/platform.html",
+      "page": "platform-guide.html",
       "claim": "61 seconds",
       "occurrences": 1,
       "repo": "TAIPANBOX/estate-gates",
       "command": "estate-gates/PROVEN.md, the stack-single appliance row of 2026-09-17: phase A on forge, Debian 13 with Docker CE present, 61 s",
       "status": "measured",
       "measured_on": "2026-09-17",
-      "note": "Added 2026-09-18 with the appliance run.",
+      "note": "Added 2026-09-18 with the appliance run. Moved 2026-10-16 with the run paragraphs: the Platform room no longer carries them, platform-guide.html#run does.",
       "repo_dir": "estate-gates",
       "check": "grep -oE '61 s, exit 1' PROVEN.md | head -1 | grep -oE '^[0-9]+'",
       "slow": false
@@ -1411,6 +1477,19 @@
       "slow": false
     },
     {
+      "page": "platform-guide.html",
+      "claim": "Fourteen registered sources",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/agent-passport",
+      "command": "count the rows under 'Registered sources today:' in agent-passport README.md; runnable form, prints the digit the word on the page spells: awk '/^Registered sources today:/{f=1;next} f&&/^\\|---/{r=1;next} r&&/^\\| `/{n++} r&&/^$/{exit} END{print n}' README.md",
+      "status": "measured",
+      "measured_on": "2026-10-05",
+      "note": "Added 2026-10-05: 14 rows at agent-passport main a87e461 (tokenfuse, engram, idryx, qryx, wardryx, verdryx, mockryx, console, heraldyx, scopyx, vouchryx, costcrew, typryx, agent-conform). The diagram draws thirteen boxes and agent-conform as the consumer that writes back. Spelled out on the page, so like the idryx entries it carries no `check` (numbers-drift.sh compares digits); the runnable form is in `command`. Copied 2026-10-16: the architecture lede's full text is in platform-guide.html; the room keeps its first sentence.",
+      "repo_dir": "agent-passport",
+      "check": null,
+      "slow": false
+    },
+    {
       "page": "services/heraldyx.html",
       "claim": "twenty-two named keys",
       "occurrences": 1,
@@ -1499,19 +1578,6 @@
       "note": "Updated 2026-10-15 from '55 of them': the count moved with the stack-k8s GOTCHAS.md on origin/main (132 numbered entries; 61 are labelled ours by the rule gotchas-classified.sh applies). Measured on origin/main with: gh api repos/TAIPANBOX/stack-k8s/contents/GOTCHAS.md?ref=main, then grep -c '^## [0-9]' (132) and the four-way label split (61 ours).",
       "repo_dir": "stack-k8s",
       "check": "./scripts/gotchas-classified.sh | grep -oE '[0-9]+ ours' | grep -oE '[0-9]+'",
-      "slow": false
-    },
-    {
-      "page": "index.html",
-      "claim": "v1.1.6",
-      "occurrences": 1,
-      "repo": "TAIPANBOX/stack-single",
-      "command": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.6 --jq .tag_name",
-      "status": "measured",
-      "measured_on": "2026-10-05",
-      "note": "Added 2026-10-05: the first stack-single release whose pinned set carries every fix the 2026-09-17 appliance run produced: tokenfuse 1.0.3 (stalled-run detector, bounded telemetry queue, monthly seed, overlong chain refused; pinned since v1.1.5), heraldyx 0.2.5 and wardryx 1.0.3 (docs/releases/v1.1.6.md), and the installer's bind and tunnel ordering (#59, merged 2026-09-18 before v1.1.5).",
-      "repo_dir": null,
-      "check": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.6 --jq .tag_name",
       "slow": false
     },
     {
@@ -1606,27 +1672,27 @@
       "slow": false
     },
     {
-      "page": "services/platform.html",
+      "page": "platform-guide.html",
       "claim": "22 checks",
       "occurrences": 2,
       "repo": "TAIPANBOX/stack-single",
       "command": "stack-single origin/main README, the 61 s run of 2026-09-17: 22 checks ok, and one that fails by construction; the 36 s second run had the same 22 ok",
       "status": "measured",
       "measured_on": "2026-10-13",
-      "note": "Added 2026-10-13 for the platform page: the install record of 2026-09-17 has 22 checks ok on both runs.",
+      "note": "Added 2026-10-13 for the platform page: the install record of 2026-09-17 has 22 checks ok on both runs. Moved 2026-10-16 with the run paragraphs: the Platform room no longer carries them, platform-guide.html#run does.",
       "repo_dir": "stack-single",
       "check": "git show origin/main:README.md | grep -oE '[0-9]+ checks ok' | head -1 | grep -oE '^[0-9]+'",
       "slow": false
     },
     {
-      "page": "services/platform.html",
+      "page": "platform-guide.html",
       "claim": "325 seconds",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-up",
       "command": "estate-gates origin/main PROVEN.md, row INS-4 cold (stack-up --with-delegation --with-finops from an empty workspace, 2026-09-13): 325 s to every plane answering",
       "status": "measured",
       "measured_on": "2026-10-13",
-      "note": "Added 2026-10-13 for the platform page: the cold run with both optional planes.",
+      "note": "Added 2026-10-13 for the platform page: the cold run with both optional planes. Moved 2026-10-16 with the run paragraphs: the Platform room no longer carries them, platform-guide.html#run does.",
       "repo_dir": "estate-gates",
       "check": "git show origin/main:PROVEN.md | grep -oE '[*][*][0-9]+ s[*][*] to every plane' | head -1 | grep -oE '[0-9]+'",
       "slow": false
@@ -2061,6 +2127,19 @@
       "slow": false
     },
     {
+      "page": "engram-guide.html",
+      "claim": "v2.4.1",
+      "occurrences": 1,
+      "status": "measured",
+      "repo": "TAIPANBOX/engram",
+      "command": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name; the provenance work named on the page is in CHANGELOG.md [Unreleased] on main",
+      "measured_on": "2026-10-15",
+      "note": "Added 2026-10-15: v2.4.1 is the last release; provenance is on main and in no release. Copied 2026-10-16 with the provenance paragraph: the Engram room keeps v2.4.1 in its limits, engram-guide.html carries the paragraph verbatim in What changed.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
+      "slow": false
+    },
+    {
       "page": "services/engram.md",
       "claim": "v2.4.1",
       "occurrences": 1,
@@ -2082,6 +2161,19 @@
       "command": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName; the go get line on the page installs this tag",
       "measured_on": "2026-10-15",
       "note": "Added 2026-10-15: the go get line on the platform page moves from v1.1.0 to the latest release.",
+      "repo_dir": null,
+      "check": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName",
+      "slow": false
+    },
+    {
+      "page": "platform-guide.html",
+      "claim": "v1.3.0",
+      "occurrences": 1,
+      "status": "measured",
+      "repo": "TAIPANBOX/agent-stack-go",
+      "command": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName; the go get line on the page installs this tag",
+      "measured_on": "2026-10-15",
+      "note": "Added 2026-10-15: the go get line on the platform page moves from v1.1.0 to the latest release. Copied 2026-10-16: the try-it card's full text is in platform-guide.html#try-it; the room keeps the go get line.",
       "repo_dir": null,
       "check": "gh release view -R TAIPANBOX/agent-stack-go --json tagName --jq .tagName",
       "slow": false
