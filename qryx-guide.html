@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qryx guide: how it works, running it, what changed · IT-RAT</title>
+<meta name="description" content="How Qryx finds every key and grades its post-quantum risk, the risk model, how to run it, what changed in October 2026, and what it leaves out.">
+<link rel="canonical" href="https://it-rat.com/qryx-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/qryx-guide.html">
+<meta property="og:title" content="Qryx guide: how it works, running it, what changed · IT-RAT">
+<meta property="og:description" content="Everything the Qryx room leaves out: the one graph every report reads, what it holds, the six risk classes and the NCSC clock, how it counts test crypto, where it sits in the stack, downloads for every platform, what changed from 1 to 15 October 2026, and what it leaves out on purpose.">
+<meta property="og:image" content="https://it-rat.com/assets/og/qryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qryx guide: how it works, running it, what changed · IT-RAT">
+<meta name="twitter:description" content="Everything the Qryx room leaves out: the one graph every report reads, what it holds, the six risk classes and the NCSC clock, how it counts test crypto, where it sits in the stack, downloads for every platform, what changed from 1 to 15 October 2026, and what it leaves out on purpose.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/qryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#B48CFF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .diagram,.diagram + .prose{margin-top:22px}
+  .tbl-scroll{max-width:96ch}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Qryx guide: how it works, running it, what changed","name":"Qryx guide","url":"https://it-rat.com/qryx-guide.html","description":"How Qryx finds every key and grades its post-quantum risk, the risk model, how to run it, what changed in October 2026, and what it leaves out.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/qryx-guide.html","about":{"@type":"SoftwareApplication","name":"Qryx","url":"https://it-rat.com/services/qryx.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Qryx guide","item":"https://it-rat.com/qryx-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">qryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; qryx</div>
+    <h1 class="rv d1">How Qryx works, how to run it, what changed.</h1>
+    <p class="lede rv d2">The <a href="services/qryx.html">Qryx room</a> keeps the sixty-second sweep, the drawing of the one graph, how to start it, and the common questions. This guide keeps the rest of what the room used to say: what it holds in full, the risk model, how it counts honestly, where it sits in the stack, downloads for every platform, what changed from 1 to 15 October 2026, and what it leaves out.</p>
+    <div class="back rv d3"><a class="btn" href="services/qryx.html"><span class="mono">&#8592;</span> Back to the Qryx room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#holds">What it holds</a></li><li><a href="#risk-model">The risk model</a></li><li><a href="#counting">Counting honestly</a></li><li><a href="#reads">What it reads</a></li><li><a href="#in-the-stack">In the stack</a></li><li><a href="#run">Running it</a></li><li><a href="#changes">What changed</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Qryx at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>Release:</b> latest &#183; prebuilt binaries.</span></li>
+        <li><span><b>Core:</b> Go 1.27 &#183; ML-DSA (FIPS 204).</span></li>
+        <li><span><b>Scans:</b> binaries &#183; containers &#183; TLS &#183; cloud KMS &#183; source &#183; certs.</span></li>
+        <li><span><b>Output:</b> CBOM &#183; NCSC report &#183; signed evidence.</span></li>
+        <li><span><b>Milestones:</b> NCSC 2028 &#183; 2031 &#183; 2035.</span></li>
+        <li><span><b>Licence:</b> Apache-2.0.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>A crypto audit tells you what your architecture documents say you run. Qryx tells you what is actually running: it scans binaries, containers, live TLS, certificates, dependencies and cloud KMS, and comes back with a cryptographic asset graph instead of a slide deck. Every asset gets a post-quantum grade against the NCSC's 2028, 2031 and 2035 milestones, and CI fails the day a new weak key ships, not at the next audit cycle.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One graph. Every report reads the same one.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Five kinds of sources feed one scan engine: binaries, containers, live TLS, cloud KMS, and source plus Terraform. Findings dedupe into an asset graph keyed on algorithm, key size and risk class, so a certificate that is both expired and quantum-vulnerable gets two nodes, not one silently overwriting the other. CBOM, the CNSA audit, the NCSC readiness report and the migration plan all read that same graph, so they cannot disagree with each other.</p>
+      <p>The <a href="services/qryx.html#sim">room</a> replays a live run against 25,586 ELF binaries, a container image and a live TLS endpoint. A quantum-vulnerable cert turns up mid-sweep.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="holds" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a PDF audit. A graph that grades itself.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>CBOM</h3>
+      <p>CycloneDX 1.6, one component per unique asset and risk class, every occurrence attached. It plugs into the same supply-chain tooling that already tracks your SBOMs, so cryptography stops living in its own isolated report.</p>
+      <h3>Harvest now, decrypt later</h3>
+      <p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. The migration clock is already running.</p>
+      <h3>Post-quantum signing</h3>
+      <p>Evidence attestations sign with ML-DSA (FIPS 204) straight from Go's stdlib, crypto/mldsa, no cosign dependency. All three security levels, ML-DSA-44/65/87, live-verified end to end against real openssl-generated keys.</p>
+      <h3>Context beats compliance</h3>
+      <p>The asset graph keys on risk class as well as algorithm and key size, so a certificate that is both expired and quantum-vulnerable gets two findings instead of one silently overwriting the other.</p>
+      <h3>CI drift gate</h3>
+      <p>Snapshot the graph, then fail the build the moment a new weak or quantum-vulnerable asset appears: a baseline diff exits 2 on new high-risk findings. The policy engine exits 3 on a standards violation; a regressed compliance trend exits 3 too.</p>
+      <h3>Agent-aware</h3>
+      <p>The agents connector inventories the governance stack's own trust surface: Agent Passport attestation crypto and the agent-event hash chain's prev_hash integrity. Identity stays Idryx's job; this connector stays strictly on the crypto axis.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="risk-model" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the risk model</div>
+      <h2>Six risk classes, and a clock that started without you</h2>
+    </div>
+    <div class="prose rv">
+      <h3>How an asset is scored</h3>
+      <p>Every asset Qryx finds is scored against a post-quantum and hygiene model, not a single pass-or-fail line.</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:16px">
+      <table class="tbl">
+        <thead><tr><th>Class</th><th>Examples</th><th>Why it is called that</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">quantum-vulnerable</td><td>RSA, ECC, DSA, DH</td><td>breakable by Shor's algorithm on a capable quantum computer</td></tr>
+          <tr><td class="mono">weak</td><td>MD5, SHA-1, DES, RC4, RSA under 2048</td><td>broken or deprecated already, no quantum computer required</td></tr>
+          <tr><td class="mono">misconfig</td><td>TLS 1.0 and 1.1, unsafe cipher suites</td><td>a sound primitive used unsoundly</td></tr>
+          <tr><td class="mono">expired</td><td>past-due certificates</td><td>the validity window has elapsed</td></tr>
+          <tr><td class="mono">hardcoded</td><td>private keys in source or config</td><td>a secret committed into the tree</td></tr>
+          <tr><td class="yes mono">safe</td><td>ML-KEM, ML-DSA, SLH-DSA</td><td>the post-quantum standards, FIPS 203, 204 and 205</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <p>The timeline is not ours to argue with. NIST standardised the replacements in 2024, and the NCSC clock runs discovery by 2028, the highest-priority systems by 2031, and everything by 2035. The first of those dates is about knowing what you have, which is the part that takes longest and cannot be bought late.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="counting" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">counting honestly</div>
+      <h2>Two findings, not one, and why test crypto is not debt</h2>
+    </div>
+    <div class="prose rv">
+      <h3>What the count leaves out</h3>
+      <p>Keying the graph on risk class as well as algorithm and key size sounds like a detail until a certificate is both expired and quantum-vulnerable and you only hear about one of them. That exact bug turned up scanning a real endpoint, and it is fixed: an asset in two risk classes produces two findings, because they need two different fixes on two different clocks.</p>
+      <p>The opposite failure is inflation. Cryptography in test code is scanned and counted, then kept out of the production inventory: out of the asset graph, the compliance verdict, the policy gate, the saved baseline and every export. One line on stderr says how much was set aside and how much of it exists nowhere else, and a flag counts it as production if that is what you want.</p>
+      <p>This is not cosmetic. Scanning Qryx's own repository, 8 of 13 assets existed only in test fixtures, and 21 of 40 occurrences were test code. In a sibling repository a hardcoded-key finding reported three occurrences, two of them fixtures. Counting those inflates the number an operator is trying to drive to zero, and buries the findings they actually have to migrate.</p>
+      <p>The classification is not merely path-based either: Rust's in-file test modules are recognised, so an inline test block inside a production file is set aside while the production code around it still counts.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reads" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it reads</div>
+      <h2>You cannot migrate what you cannot see.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Qryx reads binaries, container images, live TLS endpoints, certificates, dependencies, cloud KMS and source code, and puts them into one graph graded against the CNSA 2.0 and NCSC milestones.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="in-the-stack" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>The inventory the rest of the stack borrows from.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Qryx emits every finding as an agent-event onto the shared bus that <a href="services/platform.html">Platform</a> defines and every service writes to. It watches the same estate <a href="services/tokenfuse.html">TokenFuse</a> spends against, the binaries, endpoints and keys underneath the calls TokenFuse meters. <a href="services/mockryx.html">Mockryx</a> can demand a crypto reaction in its drills too: an expect.event assertion that a fire drill actually produced a crypto_finding, not silence.</p>
+      <p>Crypto posture is one plane of a wider practice: <a href="ai-agent-governance.html">AI agent governance</a>, and the defensive picture in <a href="ai-agent-security.html">AI agent security</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>One binary, any platform.</h2>
+    </div>
+    <div class="prose rv">
+      <div class="cmd">qryx scan .</div>
+      <div class="cmd">qryx tls api.anthropic.com:443</div>
+      <p>Grab the latest binary from the <a href="https://github.com/TAIPANBOX/qryx/releases">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source with Go 1.27; the pinned go1.27.2 toolchain downloads itself on the first build.</p>
+      <h3>Download, any platform</h3>
+      <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
+      <p>Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono">qryx version</span> reads it back.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">1 to 15 October 2026</div>
+      <h2>What changed from 1 to 15 October</h2>
+      <p class="lede">No release in the window, still 1.0.0. The same entry, beside every other service's, is in <a href="changes-2026-10.html#qryx">what changed in the stack</a>.</p>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>Documentation, tests and toolchain only: the Go toolchain moved to 1.27.2, the shared library pin moved to 1.3.0, the secret scan runs on every pull request, and a test now checks every environment read against the component manifest.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What it leaves out, on purpose.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>Identity stays Idryx's job; the agents connector stays strictly on the crypto axis.</span></li>
+        <li><span>Cryptography in test code is scanned and counted, then kept out of the production inventory: out of the asset graph, the compliance verdict, the policy gate, the saved baseline and every export. A flag counts it as production if that is what you want.</span></li>
+        <li><span>The sixty seconds on the room are a simulation, but the shape is real: they replay a live run against 25,586 ELF binaries, a container image and a live TLS endpoint.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/qryx.html">Qryx room</a> has the sweep, the drawing and the common questions, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/qryx.html"><span class="mono">&#8592;</span> Back to the Qryx room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

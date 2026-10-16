@@ -367,6 +367,19 @@
       "slow": false
     },
     {
+      "page": "qryx-guide.html",
+      "claim": "Go 1.27",
+      "occurrences": 2,
+      "repo": "TAIPANBOX/qryx",
+      "command": "grep -m1 '^go ' go.mod, the toolchain line the repository actually builds with",
+      "status": "measured",
+      "measured_on": "2026-08-29",
+      "note": "Added 2026-10-16: the guide repeats both room lines that name the toolchain, the at-a-glance fact and the install line.",
+      "repo_dir": "qryx",
+      "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
+      "slow": false
+    },
+    {
       "page": "index.html",
       "claim": "8000",
       "occurrences": 3,
