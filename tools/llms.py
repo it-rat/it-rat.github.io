@@ -20,6 +20,9 @@ import html as htmlmod
 import json
 import pathlib
 import re
+import sys
+
+from stackguides import service_guides
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://it-rat.com"
@@ -43,7 +46,14 @@ GUIDES = [
     # so it went on serving the comparison table and the section of
     # competitors' strengths for a day after both came off the page itself.
     ("agent-tooling-compared.html", "Three shapes of agent tooling"),
+    # Added 2026-10-16 with the guide per room.
+    ("security-by-design.html", "Security by design"),
+    ("changes-2026-10.html", "What changed in the stack, 1 to 15 October 2026"),
 ]
+# Then one guide per room in STACK, derived rather than listed (see
+# tools/stackguides.py). They are guides like the rest: listed under Guides in
+# llms.txt, concatenated into llms-full.txt, kind "guide" in mcp-index.json.
+GUIDES += [(path, f"{s['name']} guide") for path, s in service_guides()]
 SERVICES = [
     ("services/tokenfuse.html", "TokenFuse, the money plane"),
     ("services/costcrew.html", "CostCrew, the finops plane"),
@@ -115,10 +125,38 @@ def table(block):
     return "\n".join(out)
 
 
+def card_links(body):
+    """Keep the link on a card that IS a link.
+
+    The hub's cards are an <a> wrapped round a heading and a paragraph, and its
+    service rows an <a> round a name and a plane. The element pass below reads
+    the heading and the paragraph and never sees the <a> around them, so until
+    2026-10-16 guides.md named every guide and linked to none of them, and the
+    rows did not appear in it at all. A card's link moves onto its heading; a
+    row becomes a list item that links.
+    """
+    def card(m):
+        href, inner = m.group(1), m.group(2)
+        return re.sub(r"<h3\b[^>]*>(.*?)</h3>",
+                      lambda h: f'<h3><a href="{href}">{h.group(1)}</a></h3>',
+                      inner, count=1, flags=re.S)
+
+    def row(m):
+        href, inner = m.group(1), m.group(2)
+        name = re.search(r"<b>(.*?)</b>", inner, re.S)
+        plane = re.search(r'<span class="pl">(.*?)</span>', inner, re.S)
+        label = name.group(1) if name else href
+        return (f'<li><a href="{href}">{label}</a>'
+                + (f", {plane.group(1)}" if plane else "") + "</li>")
+
+    body = re.sub(r'<a class="gcard"[^>]*?href="([^"]+)"[^>]*>(.*?)</a>', card, body, flags=re.S)
+    return re.sub(r'<a class="svc-row"[^>]*?href="([^"]+)"[^>]*>(.*?)</a>', row, body, flags=re.S)
+
+
 def to_markdown(path, title):
     raw = (ROOT / path).read_text(encoding="utf-8")
     desc = re.search(r'<meta name="description" content="([^"]*)"', raw)
-    body = strip_chrome(raw.split("<body", 1)[1])
+    body = card_links(strip_chrome(raw.split("<body", 1)[1]))
 
     out = []
     # one pass over the elements we care about, in document order
@@ -203,6 +241,16 @@ def main():
         out.write_text(md, encoding="utf-8")
         written[path] = md
         print(f"{path.replace('.html', '.md'):40} {len(md.split()):5} words")
+
+    # The hub's twin is how a machine reader finds the guides, so it has to
+    # reach every one of them. A guide the hub does not link is a guide only a
+    # search engine can find.
+    unlinked = [p for p, _ in GUIDES
+                if p != "guides.html" and f"({SITE}/{p})" not in written["guides.html"]
+                and f"({SITE}/{p}#" not in written["guides.html"]]
+    if unlinked:
+        sys.exit(f"guides.md links to none of: {', '.join(unlinked)}. Link each from "
+                 f"guides.html (tools/guidehub.py writes the service rows), then run this again.")
 
     def line(path, title):
         raw = (ROOT / path).read_text(encoding="utf-8")

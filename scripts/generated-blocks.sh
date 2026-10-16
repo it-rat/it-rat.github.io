@@ -33,8 +33,8 @@
 #      carries a markdown twin.
 #
 #   B. Freshness, which is about pages they know and have not written since.
-#      Copies every tracked file to a temporary directory, runs all five
-#      generators there, and requires that they change nothing. A generator is
+#      Copies every tracked file to a temporary directory, runs every
+#      generator in GENERATORS there, and requires that they change nothing. A generator is
 #      idempotent by design, so anything it would rewrite is drift.
 #
 # WHY B COPIES THE TREE
@@ -107,6 +107,11 @@ for p in pages:
 # B. Freshness
 # ---------------------------------------------------------------------------
 GENERATORS = ["tools/footer.py", "tools/topbar.py", "tools/faq.py",
+              # Added 2026-10-16: the hub's service rows and its guide counts.
+              # Before seo.py and llms.py, which read what it writes; the order
+              # only matters when the tree is stale, since on a current one
+              # every generator is a no-op whatever runs first.
+              "tools/guidehub.py",
               "tools/seo.py", "tools/llms.py", "tools/sitemap.py",
               # Writes the README diagrams rather than anything on a page, and
               # it belongs here for the same reason as the rest: it refused to
@@ -160,7 +165,7 @@ if problems:
     for line in problems:
         print("FAIL " + line)
     print(f"\n{len(problems)} problem(s). Run the generators and commit what they write:")
-    print("  for t in footer topbar faq seo llms sitemap readmediagrams; do python3 tools/$t.py; done")
+    print("  for t in footer topbar faq guidehub seo llms sitemap readmediagrams; do python3 tools/$t.py; done")
     print("A page no generator knows about keeps whatever it was born with, and the")
     print("markdown twin of one went on serving deleted copy for a day.")
     sys.exit(1)

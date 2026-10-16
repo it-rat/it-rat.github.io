@@ -25,6 +25,7 @@ committed is published.
 ./scripts/service-numbers.sh
 ./scripts/footer-shelves.sh       # invariant 10
 ./scripts/generated-blocks.sh     # invariant 11
+./scripts/room-budget.sh          # invariant 12
 ./scripts/demo-bundle-current.sh
 ./scripts/deploy-target-current.sh  # invariant 9; needs network
 # demo-bundle-current.sh also runs daily on its own schedule; see invariant 7
@@ -193,13 +194,15 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 23 cases: fifteen real faults, four
-   non-faults, and four subjects taken away entirely. The non-faults are the
+   *(gate: `scripts/gates-have-teeth.sh`, 30 cases: twenty real faults, five
+   non-faults, and five subjects taken away entirely, counted from the
+   harness's own "OK: 30 cases" on 2026-10-16. The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
-   a paragraph arriving on a page is not a change of footer shape, and a
-   comment added to the stylesheet is not a generator that stopped running. A
-   gate flagging any of them would be switched off inside a week. This line said
+   a paragraph arriving on a page is not a change of footer shape, a
+   comment added to the stylesheet is not a generator that stopped running,
+   and a sentence added to a room under its ceiling is not a room outgrowing
+   its guide. A gate flagging any of them would be switched off inside a week. This line said
    nine until 2026-08-29 while eleven cases ran, which is the same class of
    drift the site's own figures have: a count restated by hand and never
    measured.)*
@@ -281,7 +284,7 @@ true.
    *(gate: `scripts/generated-blocks.sh`, two halves. Coverage: every page that
    is not `noindex` carries a canonical, a JSON-LD block and a sitemap entry,
    and every page in the STACK registry carries a markdown twin. Freshness: all
-   seven generators run against a copy of the tracked tree and must change
+   eight generators run against a copy of the tracked tree and must change
    nothing, since a generator is idempotent by design and anything it would
    rewrite is drift. It copies rather than runs in place, because a gate that
    fixes what it is judging is green the next run with nobody the wiser. In the
@@ -367,6 +370,55 @@ true.
    four false positives ("one graph", "one SQLite file", "one browser control
    room", "three connectors") against the one real fault, which is a gate that
    gets switched off inside a week.
+
+   **`tools/guidehub.py` is the eighth, added 2026-10-16.** It writes the
+   guides hub's "Each service in depth" rows from STACK, between
+   `guidehub:auto` markers, and the guide count the hub spells out in its
+   description, both social cards and its lede. Both had been typed by hand:
+   the rows copied out of the registry, and the count restated in four places
+   and due to go from fifteen to thirty in a single rollout. The count is read
+   off the links the hub itself carries rather than off a list, and the one
+   hand-kept list the tool has, which guides explain the field rather than this
+   stack, is checked against those links. It runs before `seo.py` and
+   `llms.py`, which read what it writes.
+
+12. **A room explains; its guide holds the rest.** A room is a page in the
+   STACK registry: the hero, the picture of how the thing works, how to start
+   it, its limits and its common questions. Everything deeper, the full
+   mechanics, the configuration and the history, lives in the room's guide,
+   `<id>-guide.html` at the repository root (Genaryx's is
+   `genaryx-guide.html`; Sphere is not in STACK and owes none). What changed in
+   a period lives in `changes-2026-10.html` and in the guide, never in a dated
+   block on the room. `@decided 2026-10-16`: service pages stay short and
+   visual, and everything deeper moves to one guide per service.
+
+   Rooms grew by accretion and nothing measured it. Each release added a
+   paragraph, the first half of October added a dated "what changed" block to
+   four rooms, and `services/typryx.html` reached 1,540 lines. Measured with
+   `scripts/room-budget.sh` on 2026-10-16 against the tree before any room but
+   CostCrew was shortened (4f828e6): fourteen of sixteen rooms were over a
+   thousand words of prose, from Trailryx at 1,049 to Typryx at 3,065, and only
+   CostCrew (641) and Vouchryx (977) were under. "Short" cannot be checked until
+   it is a number, so it is one: **at most 1000 words of prose**, counted
+   without the FAQ, svg, code, scripts, styles and the header, nav and footer
+   chrome. Figure captions and the hero's fact table count, because a reader
+   reads them.
+
+   The generators hold the other half by construction. `seo.py`, `llms.py`,
+   `footer.py`, `topbar.py` and `guidehub.py` derive the guides from STACK
+   through `tools/stackguides.py` instead of listing sixteen names five times,
+   and a room whose guide is missing STOPS them rather than being skipped,
+   which is the shape of the two pages invariant 11 found outside every list.
+   *(gate: `scripts/room-budget.sh`, in the Pages workflow before the upload.
+   It finds the rooms from STACK and refuses with "measured nothing" when it
+   finds none. Per room it prints the prose words, the ceiling and the slack,
+   and it fails on a missing guide, a room with no link to its guide, an
+   element with `id="changes"`, a kicker or `<h2>` naming a date range or a
+   release date ("1 to 15 October 2026", "released 15 October 2026"), and a
+   room over the ceiling. A kicker such as "measured 2026-09-25" is a
+   measurement with a date and passes. It does not judge whether the prose is
+   good, whether a guide holds what left its room, or whether 1000 is the right
+   number.)*
 
 ## Decisions that have no gate yet
 
