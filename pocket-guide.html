@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket guide: how it works, where it sits, what it lacks · IT-RAT</title>
+<meta name="description" content="How TokenFuse Pocket is designed to work, how it differs from Heraldyx, where it sits in the stack, and why it is not wired into a running stack yet.">
+<link rel="canonical" href="https://it-rat.com/pocket-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/pocket-guide.html">
+<meta property="og:title" content="Pocket guide: how it works, where it sits, what it lacks · IT-RAT">
+<meta property="og:description" content="Everything the Pocket room leaves out: the seven mock screens in full, the out-of-band kill path, Pocket beside Heraldyx, what it pairs with, and the full account of what is not wired in, built or reviewed yet.">
+<meta property="og:image" content="https://it-rat.com/assets/og/pocket.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pocket guide: how it works, where it sits, what it lacks · IT-RAT">
+<meta name="twitter:description" content="Everything the Pocket room leaves out: the seven mock screens in full, the out-of-band kill path, Pocket beside Heraldyx, what it pairs with, and the full account of what is not wired in, built or reviewed yet.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/pocket.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#22D3EE}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .diagram,.diagram + .prose{margin-top:22px}
+  .tbl-scroll{max-width:96ch}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Pocket guide: how it works, where it sits, what it lacks","name":"TokenFuse Pocket guide","url":"https://it-rat.com/pocket-guide.html","description":"How TokenFuse Pocket is designed to work, how it differs from Heraldyx, where it sits in the stack, and why it is not wired into a running stack yet.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/pocket-guide.html","about":{"@type":"SoftwareApplication","name":"TokenFuse Pocket","url":"https://it-rat.com/services/pocket.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"TokenFuse Pocket guide","item":"https://it-rat.com/pocket-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">pocket</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; pocket &#183; not wired in yet</div>
+    <h1 class="rv d1">How Pocket is meant to work, and what it lacks today.</h1>
+    <p class="lede rv d2">The <a href="services/pocket.html">Pocket room</a> keeps the simulation, the live design mock and the drawing. This guide keeps the rest of what the room used to say: the screens in full, Pocket beside Heraldyx, where it sits, and the full account of why it is in the stack and not wired into one yet.</p>
+    <div class="back rv d3"><a class="btn" href="services/pocket.html"><span class="mono">&#8592;</span> Back to the Pocket room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#heraldyx">Pocket and Heraldyx</a></li><li><a href="#where-it-sits">Where it sits</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Pocket at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>In the stack, and not wired into one yet.</b></span></li>
+        <li><span><b>Watch the fleet burn live, and cut it from a device no attacker touched.</b></span></li>
+        <li><span><b>Platform:</b> iOS &#183; watchOS &#183; SwiftUI. <b>Surfaces:</b> Dynamic Island &#183; Live Activity &#183; Watch complication.</span></li>
+        <li><span><b>Signing:</b> Secure Enclave, keys never leave the device.</span></li>
+        <li><span><b>Pairs with:</b> nothing today; genaryx-relay was removed.</span></li>
+        <li><span><b>Status:</b> no hardening pass, no whole-app security review. <b>Licence:</b> Apache-2.0.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>TokenFuse's gateway enforces the budget in the request path your agent runs on. Pocket asks what a control OUTSIDE that path should look like on a device you already carry: the fleet's burn rate live, and a kill signed by hardware the agent's host never touches. Both apps are built. The iPhone app's README says every screen was driven live against a real control plane on the simulator, and no run of ours is recorded for it yet. That is a long way from shipped: no production hardening pass, no security review, no App Store. The effort goes to the web console, and this moves when there is time for it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a bigger dashboard. A switch you can actually reach.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Sixty seconds, one kill</h3>
+      <p>This is a simulation, but it replays a shape the app is built for: a run drifts from baseline to 2.4x its burn rate, crosses a budget, and gets killed from an Apple Watch before anyone opens a laptop. The signature that authorizes the kill never leaves the Secure Enclave; the gateway only has to trust the result. <a href="services/pocket.html#sim">Watch it in the room</a>.</p>
+      <h3>Do not watch it. Drive it.</h3>
+      <p>An interactive design mock of the iPhone and Watch apps, running here as a web page. Seven iPhone screens, a Live Activity surface and five Watch screens, all live: the burn ticks and every screen is driveable. The ceremony the app implements is stricter than this mock: a kill is confirmed by name and signed on the device, and a killed run then leaves the pager, staying in the console and the audit trail. Drive it with the steps, the tab bar, or the Watch switch.</p>
+      <p>The mock runs <a href="services/pocket.html">in the room</a>. Its seven steps, in full:</p>
+      <ul>
+        <li><span><b>01 Runs, the deck.</b> Fleet burn up top, then the exception queue: the runs at or over their cap, worst first. The healthy fleet stays quiet.</span></li>
+        <li><span><b>02 Run detail, pull the breaker.</b> Spend against cap, model and steps. The kill wants you to mean it: slide to arm, then Face ID.</span></li>
+        <li><span><b>03 Budgets, the ladder above a run.</b> A cap on each run, and a monthly cap for each business unit, both enforced by the gateways. The org, team and agent ladder on this screen is a drawn design.</span></li>
+        <li><span><b>04 Agents, sorted by behaviour.</b> Not spend, conduct: a runaway agent, one reaching tools it never used, an orphaned key. Tap for why it fired and its blast radius.</span></li>
+        <li><span><b>05 Pairing, one scan and a key that stays.</b> As designed, your console would issue a one-time code, and scanning it would mint a signing key in the Secure Enclave that never leaves the phone. No console code issues one today.</span></li>
+        <li><span><b>06 Device, and how far it reaches.</b> The paired iPhone and the last action it signed. The mock draws a Default and a Strict peer mode for the Device screen. Neither is built.</span></li>
+        <li><span><b>07 Alerts that mean act.</b> Built for a relay that pushes the moment a cap breaks. Tap a banner to land on the run, or arm the kill from the wrist.</span></li>
+      </ul>
+      <h3>One phone. One key. A path the gateway never sees.</h3>
+      <p>As designed, the app pairs to a relay beside TokenFuse Cloud, never to the gateway your agent talks to, and no such relay runs today. A kill or a budget change is signed on-device by the Secure Enclave, forwarded byte for byte by the relay to Cloud, and pushed out to every gateway in the fleet from there. The request path and the kill path never share a wire.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 980 340" role="img" aria-label="Pocket architecture: the phone signs a kill, the relay beside TokenFuse Cloud forwards it, and the whole path stays out of band from the agent's request path">
+        <defs>
+          <marker id="pkarrGrey" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="pkarrRed" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#FF574B"/></marker>
+          <marker id="pkarrCyan" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#22D3EE"/></marker>
+        </defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="20" y="34" width="130" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="85" y="64" fill="#E9EFF6" font-size="12.5" font-weight="700">agent</text>
+          <text x="85" y="81" fill="#8A97A6" font-size="10.5">the host it runs on</text>
+
+          <rect x="580" y="104" width="190" height="88" rx="14" fill="#141C27" stroke="#2a3547"/>
+          <text x="675" y="136" fill="#E9EFF6" font-size="13" font-weight="700">gateways / runs</text>
+          <text x="675" y="154" fill="#8A97A6" font-size="10.5">breaker still lives here</text>
+
+          <rect x="810" y="120" width="150" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="885" y="148" fill="#E9EFF6" font-size="12.5" font-weight="700">provider</text>
+          <text x="885" y="165" fill="#8A97A6" font-size="10.5">the model API</text>
+
+          <rect x="20" y="228" width="120" height="84" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="80" y="258" fill="#22D3EE" font-size="12.5" font-weight="700">iPhone + Watch</text>
+          <text x="80" y="276" fill="#8A97A6" font-size="10">SwiftUI</text>
+          <text x="80" y="292" fill="#8A97A6" font-size="10">Secure Enclave key</text>
+
+          <rect x="170" y="232" width="130" height="76" rx="14" fill="#10161F" stroke="#22D3EE" stroke-width="1.4"/>
+          <text x="235" y="260" fill="#22D3EE" font-size="12.5" font-weight="700">genaryx-relay</text>
+          <text x="235" y="278" fill="#8A97A6" font-size="10">pairing &#183; read proxy</text>
+          <text x="235" y="294" fill="#8A97A6" font-size="10">never mints a kill</text>
+
+          <rect x="328" y="204" width="172" height="120" rx="16" fill="#10161F" stroke="#22D3EE" stroke-width="1.6"/>
+          <text x="414" y="236" fill="#22D3EE" font-size="14" font-weight="700">TokenFuse Cloud</text>
+          <text x="414" y="258" fill="#8A97A6" font-size="10">fleet API &#183; incidents</text>
+
+          <text x="365" y="146" fill="#FF574B" font-size="11" font-weight="700">compromised path?</text>
+          <text x="365" y="162" fill="#5A6675" font-size="10.5">the kill path does not share it</text>
+          <text x="620" y="238" fill="#22D3EE" font-size="10.5">signed commands, out of band</text>
+        </g>
+        <line x1="150" y1="80" x2="580" y2="138" stroke="#FF574B" stroke-width="1.6" class="flow"/><line x1="565.1" y1="136.0" x2="580" y2="138" stroke="#FF574B" stroke-width="1.6" marker-end="url(#pkarrRed)"/>
+        <g stroke="#22D3EE" stroke-width="1.6" class="flow">
+          <line x1="140" y1="270" x2="170" y2="270" marker-end="url(#pkarrCyan)"/>
+          <line x1="300" y1="270" x2="328" y2="270" marker-end="url(#pkarrCyan)"/>
+          <line x1="500" y1="224" x2="580" y2="176" marker-end="url(#pkarrCyan)"/>
+        </g>
+        <line x1="770" y1="148" x2="810" y2="148" stroke="#5A6675" stroke-width="1.5" class="flow"/><line x1="795.0" y1="148.0" x2="810" y2="148" stroke="#5A6675" stroke-width="1.5" marker-end="url(#pkarrGrey)"/>
+      </svg>
+    </div>
+    <div class="prose rv">
+      <h3>The fuse, everywhere</h3>
+      <p>Mint under budget, amber warming, ember at the cap. The run list, the Dynamic Island, and the watch face all read the fuse the same way, so nothing needs translating between screens.</p>
+      <h3>Hardware-signed kill</h3>
+      <p>The design signs every kill on-device, so a fully compromised server can neither forge that order nor change it. It can still refuse to pass the order on. The same property is what the web console reaches for with a passkey, which is why this became the direction we are building first.</p>
+      <h3>The fleet at a glance</h3>
+      <p>Every run with its spend, its burn rate in dollars per minute, and how close it sits to a budget break, sorted hottest first, red once it's over.</p>
+      <h3>Pairing in seconds</h3>
+      <p>Scan the QR code a Genaryx relay issues. No relay runs today, so nothing can be paired yet. The key is generated inside the Secure Enclave and never leaves it, not even to the app.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="heraldyx" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">two ways the same night reaches you</div>
+      <h2>Heraldyx mails you. Pocket buzzes. They are not the same control.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Both answer one question, how a human finds out, and they answer it from the same events. The difference is what each one is allowed to do about it, and that difference is the reason both exist rather than one replacing the other.</p>
+      <h3>The same four signals</h3>
+      <p>Pocket surfaces <span class="mono">budget_exhausted</span>, <span class="mono">sustained_loop</span>, <span class="mono">fanout_explosion</span> and <span class="mono">spend_spike</span>. All four are in <a href="services/heraldyx.html">Heraldyx</a>'s catalogue too, with a sentence each for what happened, what the box already did, and what happens if nobody acts.</p>
+      <h3>One arrives here and never there</h3>
+      <p><span class="mono">spend_spike</span> is about a whole organisation, and the shared envelope requires an agent id, so its producer skips it rather than inventing a subject. It was built to reach this phone through the relay's own read slice, and it never reaches the mail. An operator who only reads mail does not learn about it.</p>
+      <h3>Mail cannot act. This can</h3>
+      <p>Heraldyx reads a file and speaks SMTP, holds no credential for any plane, and its link is a view with no action in it, because mail gateways prefetch links. Pocket is the opposite by design: it pairs to a relay and the kill is signed on the device. That is a bigger blast radius, and it is why it needs a Secure Enclave and a per-device pairing rather than an address.</p>
+      <h3>Different routes, on purpose</h3>
+      <p>Heraldyx reads the planes' shared event log directly, on the box, and needs nothing else running. Pocket reads <span class="mono">relay/v1/exceptions</span>, so it needs a relay up and the phone paired. Two paths that fail apart: the night the relay is down, the mail still goes out, and while no relay runs at all, the mail is the only one of the two that does.</p>
+      <h3>And Trailryx?</h3>
+      <p>Nothing connects them. Pocket reads the control plane's own replay, not the record store, and neither knows the other exists.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="where-it-sits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where it sits</div>
+      <h2>The human end of a machine decision.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Pocket is the human end of <a href="services/tokenfuse.html">TokenFuse</a>: the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. A kill is written as a run_killed event on the same agent-event bus the rest of the <a href="services/platform.html">Platform</a> reads. What actually gets enforced was decided upstream, by <a href="services/wardryx.html">Wardryx</a> and the budgets you set. Pocket doesn't make that call; it gives you a fast, honest way to see it and override it.</p>
+      <h3>What it pairs with</h3>
+      <p>Pocket was designed to pair through <a href="genaryx.html">Genaryx</a> to a TokenFuse plane you host yourself. That relay was removed from Genaryx on 2026-07-28, so nothing pairs today. Both apps are built and open, and neither is connected to a running stack: the console is what an operator uses today.</p>
+      <p>The plane it reads is open today: <a href="services/platform.html#run">stand up the stack's live services locally in one command</a> and see the same money plane on your own machine.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>In the stack, and not wired into one yet.</h2>
+    </div>
+    <div class="prose rv">
+      <p><b>Where this sits today, stated rather than implied.</b> Pocket is listed in the stack registry as not wired into a running stack yet. It is designed as the out-of-band control for TokenFuse, the way to pull the Breaker when the machine running the gateway, or the machine running your console, is itself the thing that has gone wrong. That is why the signature comes from the Secure Enclave on a device the agent's host never touches.</p>
+      <p><b>How it is meant to work, and what it lacks today.</b> The phone pairs once, by QR, to a relay beside the stack. The one it was built against, genaryx-relay, was removed from genaryx on 2026-07-28, so today there is nothing to pair with and none of this runs end to end. The relay pushes only what needs a human, an over-cap run, straight into the signed-kill flow; the kill is signed on the device and the gateway has only to check the signature. The watch pairs on its own and carries the same flow, so a deauthorized device says it was deauthorized rather than pretending.</p>
+      <p><b>What is actually true today.</b> The interface is finished. The iPhone app's repository records every screen as driven against a real control plane on a simulator, and no run of ours is recorded for it yet. It is not connected to anything you are running: there is no App Store build, no real push delivery, and no hardening pass or whole-app security review; a narrower review on 2026-09-06 led to one transport-security fix. Treat it as the shape of the control rather than a control you have. The console you run today is the <a href="genaryx.html">Genaryx</a> web app.</p>
+      <h3>Everything the room says is not done</h3>
+      <ul>
+        <li><span>That is a long way from shipped: no production hardening pass, no security review, no App Store. The effort goes to the web console, and this moves when there is time for it.</span></li>
+        <li><span>The relay it was built against, genaryx-relay, was removed from genaryx on 2026-07-28, so today there is nothing to pair with and none of this runs end to end. No relay runs today, so nothing can be paired yet.</span></li>
+        <li><span>The live screens on the room are an interactive design mock of the iPhone and Watch apps, running as a web page. The ceremony the app implements is stricter than this mock.</span></li>
+        <li><span>The org, team and agent ladder on the Budgets screen is a drawn design.</span></li>
+        <li><span>No console code issues a pairing code today.</span></li>
+        <li><span>The mock draws a Default and a Strict peer mode for the Device screen. Neither is built.</span></li>
+        <li><span><span class="mono">spend_spike</span> never reaches the mail. An operator who only reads mail does not learn about it.</span></li>
+        <li><span>The kill from the wrist on the room is a simulation, but it replays a shape the app is built for.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/pocket.html">Pocket room</a> has the simulation, the live design mock and the drawing, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/pocket.html"><span class="mono">&#8592;</span> Back to the Pocket room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>
