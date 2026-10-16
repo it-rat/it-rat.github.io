@@ -198,14 +198,14 @@
       "slow": false
     },
     {
-      "page": "services/vouchryx.html",
+      "page": "vouchryx-guide.html",
       "claim": "218 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/vouchryx",
       "command": "go test ./... -v | grep -c '^=== RUN', which counts subtests too; this is the figure the repository's own scripts/readme-numbers.sh gates its badge against",
       "status": "measured",
       "measured_on": "2026-10-05",
-      "note": "Reproduced by running that gate: it printed '44 tests, and the README says so'. The strongest kind of entry here, like trailryx: the repository refuses its own push when the number drifts, so the site only has to keep up with a figure that is already true there. Re-measured 2026-09-18 by numbers-drift.sh: 44 -> 84. Swept 2026-09-27. Moved to 218 on 2026-10-05 from the README badge on vouchryx main (ff6db1d), which the repository's readme-numbers.sh gates. Reproduced 2026-10-05: numbers-drift.sh ran readme-numbers.sh in a clone of vouchryx main ff6db1d and it printed 218.",
+      "note": "Reproduced by running that gate: it printed '44 tests, and the README says so'. The strongest kind of entry here, like trailryx: the repository refuses its own push when the number drifts, so the site only has to keep up with a figure that is already true there. Re-measured 2026-09-18 by numbers-drift.sh: 44 -> 84. Swept 2026-09-27. Moved to 218 on 2026-10-05 from the README badge on vouchryx main (ff6db1d), which the repository's readme-numbers.sh gates. Reproduced 2026-10-05: numbers-drift.sh ran readme-numbers.sh in a clone of vouchryx main ff6db1d and it printed 218. Moved 2026-10-16 with the measured-run paragraph: the Vouchryx room no longer carries it, vouchryx-guide.html does.",
       "repo_dir": "vouchryx",
       "check": "./scripts/readme-numbers.sh | grep -oE '^[0-9]+' | head -1",
       "slow": false
@@ -312,6 +312,32 @@
       "note": "A language version in prose is the shape that rots quietly: the site said Go 1.26 for heraldyx while every repository had been on 1.27. It has an owner now, and numbers-drift.sh can re-measure it.",
       "repo_dir": "vouchryx",
       "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
+      "slow": false
+    },
+    {
+      "page": "vouchryx-guide.html",
+      "claim": "Go 1.27",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/vouchryx",
+      "command": "grep -m1 '^go ' go.mod, the toolchain line the repository actually builds with",
+      "status": "measured",
+      "measured_on": "2026-08-29",
+      "note": "Added 2026-10-16: the guide at-a-glance list repeats the room fact table line.",
+      "repo_dir": "vouchryx",
+      "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
+      "slow": false
+    },
+    {
+      "page": "vouchryx-guide.html",
+      "claim": "v0.2.0",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/vouchryx",
+      "command": "gh api repos/TAIPANBOX/vouchryx/releases/tags/v0.2.0 --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-10-16",
+      "note": "Added 2026-10-16: the guide copies the October changes row from changes-2026-10.html#vouchryx. A named release, checked by its own tag so it does not drift when a newer tag lands. On 2026-10-16 the tag existed and releases/latest was v0.2.0.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/vouchryx/releases/tags/v0.2.0 --jq .tag_name",
       "slow": false
     },
     {
