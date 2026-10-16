@@ -569,6 +569,18 @@
       "check": null
     },
     {
+      "page": "typryx-guide.html",
+      "claim": "480 judgements",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/typryx",
+      "command": "typryx calibration --ledger <dir> --min-n 30 --json, over the durable ledgers in ~/Development/typryx-measurements-2026-09-25/calibration-ledgers/, summed across 8 groups of 60",
+      "status": "measured",
+      "measured_on": "2026-09-25",
+      "note": "Re-run 2026-09-25: 'typryx calibration --min-n 30 --json' over each model's ledger directory printed 8 groups (3 hosted models x 2 template versions, 2 local models x 1), each n=60, all 'ok' verdicts, zero malformed or torn lines. 8 x 60 = 480. Copied 2026-10-16: the same figure also stands in typryx-guide.html, which holds the text the room no longer carries; same check.",
+      "repo_dir": "typryx",
+      "check": null
+    },
+    {
       "page": "services/typryx.html",
       "claim": "60 judgements",
       "occurrences": 1,
@@ -581,14 +593,14 @@
       "check": null
     },
     {
-      "page": "services/typryx.html",
+      "page": "typryx-guide.html",
       "claim": "v0.3.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/typryx",
       "command": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.3.0 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-05",
-      "note": "Tag v0.3.0 on 4c75e45, released 2026-09-30 (gh release view v0.3.0 --repo TAIPANBOX/typryx: published 2026-09-30, assets provenance.intoto.jsonl, sbom.cyclonedx.json, sbom.spdx.json; the release workflow and ci both concluded success). Stated twice: the hero rail and the status card. On 2026-10-05 the current release moved to v0.4.0 (its own entry); v0.3.0 stays once, in the status card's history, so this entry now checks that release by its own tag.",
+      "note": "Tag v0.3.0 on 4c75e45, released 2026-09-30 (gh release view v0.3.0 --repo TAIPANBOX/typryx: published 2026-09-30, assets provenance.intoto.jsonl, sbom.cyclonedx.json, sbom.spdx.json; the release workflow and ci both concluded success). Stated twice: the hero rail and the status card. On 2026-10-05 the current release moved to v0.4.0 (its own entry); v0.3.0 stays once, in the status card's history, so this entry now checks that release by its own tag. Moved 2026-10-16 with the status card, the tables and the long paragraphs: the Typryx room no longer carries them, typryx-guide.html does.",
       "repo_dir": "typryx",
       "check": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.3.0 --jq .tag_name",
       "slow": false
@@ -685,14 +697,14 @@
       "slow": false
     },
     {
-      "page": "services/typryx.html",
+      "page": "typryx-guide.html",
       "claim": "v0.1.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/typryx",
       "command": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.1.0 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The first release, named beside v0.2.0 as history.",
+      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The first release, named beside v0.2.0 as history. Moved 2026-10-16 with the status card, the tables and the long paragraphs: the Typryx room no longer carries them, typryx-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.1.0 --jq .tag_name",
       "slow": false
@@ -713,12 +725,24 @@
     {
       "page": "services/typryx.html",
       "claim": "434 questions",
-      "occurrences": 9,
+      "occurrences": 6,
       "repo": "TAIPANBOX/typryx-evalset",
       "command": "wc -l data/test.jsonl in typryx-evalset (the frozen test split, sha256 bd5f3cf4...)",
       "status": "measured",
       "measured_on": "2026-09-30",
-      "note": "Counted 2026-09-30: data/test.jsonl has 434 lines; scripts/test-frozen.sh holds its sha256. Stated in prose, the chart heading, the chart label and the FAQ.",
+      "note": "Counted 2026-09-30: data/test.jsonl has 434 lines; scripts/test-frozen.sh holds its sha256. Stated in prose, the chart heading, the chart label and the FAQ. On 2026-10-16 three of the nine moved to typryx-guide.html with the modes text and the status card; the room keeps six.",
+      "repo_dir": "typryx-evalset",
+      "check": "wc -l < data/test.jsonl | tr -d ' '"
+    },
+    {
+      "page": "typryx-guide.html",
+      "claim": "434 questions",
+      "occurrences": 3,
+      "repo": "TAIPANBOX/typryx-evalset",
+      "command": "wc -l data/test.jsonl in typryx-evalset (the frozen test split, sha256 bd5f3cf4...)",
+      "status": "measured",
+      "measured_on": "2026-09-30",
+      "note": "Counted 2026-09-30: data/test.jsonl has 434 lines; scripts/test-frozen.sh holds its sha256. Stated in prose, the chart heading, the chart label and the FAQ. On 2026-10-16 three of the nine moved to typryx-guide.html with the modes text and the status card; the room keeps six. Copied 2026-10-16: the same figure also stands in typryx-guide.html, which holds the text the room no longer carries; same check. Three there: the modes paragraph, the chart's note and the status paragraph.",
       "repo_dir": "typryx-evalset",
       "check": "wc -l < data/test.jsonl | tr -d ' '"
     },
@@ -1036,6 +1060,19 @@
       "slow": false
     },
     {
+      "page": "typryx-guide.html",
+      "claim": "v1.1.16",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-single",
+      "command": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.16 --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-10-05",
+      "note": "Tag v1.1.16 on 0ed5586, released 2026-10-01 with notes docs/releases/v1.1.16.md: the first stack-single release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install. On 2026-10-05 numbers-drift.sh reported it drifted against the newest tag, but the sentence names the FIRST release carrying the mode choice, so the check now reads that release by its own tag, as the other named past releases here do. Copied 2026-10-16: the same figure also stands in typryx-guide.html, which holds the text the room no longer carries; same check.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.16 --jq .tag_name",
+      "slow": false
+    },
+    {
       "page": "services/typryx.html",
       "claim": "v1.1.22",
       "occurrences": 1,
@@ -1044,6 +1081,19 @@
       "status": "measured",
       "measured_on": "2026-10-05",
       "note": "Tag v1.1.22 on cc22b99, released 2026-10-01 with notes docs/releases/v1.1.22.md: the first stack-k8s release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install. On 2026-10-05 numbers-drift.sh reported it drifted against the newest tag, but the sentence names the FIRST release carrying the mode choice, so the check now reads that release by its own tag, as the other named past releases here do.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/stack-k8s/releases/tags/v1.1.22 --jq .tag_name",
+      "slow": false
+    },
+    {
+      "page": "typryx-guide.html",
+      "claim": "v1.1.22",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/stack-k8s",
+      "command": "gh api repos/TAIPANBOX/stack-k8s/releases/tags/v1.1.22 --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-10-05",
+      "note": "Tag v1.1.22 on cc22b99, released 2026-10-01 with notes docs/releases/v1.1.22.md: the first stack-k8s release carrying the typed-answers data mode, typryx v0.3.0 and the opt-in training log. Stated once, where the page says how to choose the mode at install. On 2026-10-05 numbers-drift.sh reported it drifted against the newest tag, but the sentence names the FIRST release carrying the mode choice, so the check now reads that release by its own tag, as the other named past releases here do. Copied 2026-10-16: the same figure also stands in typryx-guide.html, which holds the text the room no longer carries; same check.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/stack-k8s/releases/tags/v1.1.22 --jq .tag_name",
       "slow": false
@@ -1155,38 +1205,51 @@
     {
       "page": "services/typryx.html",
       "claim": "v0.4.0",
-      "occurrences": 7,
+      "occurrences": 2,
       "repo": "TAIPANBOX/typryx",
       "command": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.4.0 --jq .tag_name; cited as history, not as the current release",
       "status": "measured",
       "measured_on": "2026-10-15",
-      "note": "Added 2026-10-05: released 2026-10-04 with SBOMs and provenance attached (gh release view v0.4.0 --repo TAIPANBOX/typryx); it adds the action.risk_class template and wardryx-proxy (docs/releases/v0.4.0.md). Measured on the stub only: the proxy ran against a loopback stand-in for wardryx.",
+      "note": "Added 2026-10-05: released 2026-10-04 with SBOMs and provenance attached (gh release view v0.4.0 --repo TAIPANBOX/typryx); it adds the action.risk_class template and wardryx-proxy (docs/releases/v0.4.0.md). Measured on the stub only: the proxy ran against a loopback stand-in for wardryx. On 2026-10-16 the template table, the plugs table and the status card moved to typryx-guide.html; the room keeps the two in the hub widget's script.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.4.0 --jq .tag_name",
       "slow": false
     },
     {
-      "page": "services/typryx.html",
+      "page": "typryx-guide.html",
+      "claim": "v0.4.0",
+      "occurrences": 6,
+      "repo": "TAIPANBOX/typryx",
+      "command": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.4.0 --jq .tag_name; cited as history, not as the current release",
+      "status": "measured",
+      "measured_on": "2026-10-15",
+      "note": "Added 2026-10-05: released 2026-10-04 with SBOMs and provenance attached (gh release view v0.4.0 --repo TAIPANBOX/typryx); it adds the action.risk_class template and wardryx-proxy (docs/releases/v0.4.0.md). Measured on the stub only: the proxy ran against a loopback stand-in for wardryx. On 2026-10-16 the template table, the plugs table and the status card moved to typryx-guide.html; the room keeps the two in the hub widget's script. Copied 2026-10-16: the same figure also stands in typryx-guide.html, which holds the text the room no longer carries; same check. Six there: the template table, the plugs table (two), the status paragraph (two) and the limits list.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.4.0 --jq .tag_name",
+      "slow": false
+    },
+    {
+      "page": "typryx-guide.html",
       "claim": "v1.1.17",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-single",
       "command": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.17 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-05",
-      "note": "Added 2026-10-05: the stack-single release that carries TYPED_RISK_SIGNAL, off by default (docs/releases/v1.1.17.md, which says the signal was measured on the stub only). A named past release, checked by its own tag.",
+      "note": "Added 2026-10-05: the stack-single release that carries TYPED_RISK_SIGNAL, off by default (docs/releases/v1.1.17.md, which says the signal was measured on the stub only). A named past release, checked by its own tag. Moved 2026-10-16 with the status card, the tables and the long paragraphs: the Typryx room no longer carries them, typryx-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/stack-single/releases/tags/v1.1.17 --jq .tag_name",
       "slow": false
     },
     {
-      "page": "services/typryx.html",
+      "page": "typryx-guide.html",
       "claim": "v1.1.23",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-k8s",
       "command": "gh api repos/TAIPANBOX/stack-k8s/releases/tags/v1.1.23 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-05",
-      "note": "Added 2026-10-05: the stack-k8s release that carries --typed-risk-signal, off by default (docs/releases/v1.1.23.md, which says no hold was made from a real signal). A named past release, checked by its own tag.",
+      "note": "Added 2026-10-05: the stack-k8s release that carries --typed-risk-signal, off by default (docs/releases/v1.1.23.md, which says no hold was made from a real signal). A named past release, checked by its own tag. Moved 2026-10-16 with the status card, the tables and the long paragraphs: the Typryx room no longer carries them, typryx-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/stack-k8s/releases/tags/v1.1.23 --jq .tag_name",
       "slow": false
