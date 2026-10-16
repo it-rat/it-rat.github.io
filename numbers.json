@@ -1868,6 +1868,19 @@
       "slow": false
     },
     {
+      "page": "engram-guide.html",
+      "claim": "v2.4.1",
+      "occurrences": 1,
+      "status": "measured",
+      "repo": "TAIPANBOX/engram",
+      "command": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name; the provenance work named on the page is in CHANGELOG.md [Unreleased] on main",
+      "measured_on": "2026-10-15",
+      "note": "Added 2026-10-15: v2.4.1 is the last release; provenance is on main and in no release. Copied 2026-10-16 with the provenance paragraph: the Engram room keeps v2.4.1 in its limits, engram-guide.html carries the paragraph verbatim in What changed.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
+      "slow": false
+    },
+    {
       "page": "services/engram.md",
       "claim": "v2.4.1",
       "occurrences": 1,

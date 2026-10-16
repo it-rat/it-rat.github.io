@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engram guide: how it works, running it, what changed · IT-RAT</title>
+<meta name="description" content="How Engram works, the live runs against real Claude, how to install it, what changed on main, and what it does not do yet, in full.">
+<link rel="canonical" href="https://it-rat.com/engram-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/engram-guide.html">
+<meta property="og:title" content="Engram guide: how it works, running it, what changed · IT-RAT">
+<meta property="og:description" content="Everything the Engram room leaves out: the six things a memory holds, two timelines per fact, three recall modes, what forget() removes, the three live runs against real Claude, how it ships, what changed on main, and what it does not do yet.">
+<meta property="og:image" content="https://it-rat.com/assets/og/engram.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Engram guide: how it works, running it, what changed · IT-RAT">
+<meta name="twitter:description" content="Everything the Engram room leaves out: the six things a memory holds, two timelines per fact, three recall modes, what forget() removes, the three live runs against real Claude, how it ships, what changed on main, and what it does not do yet.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/engram.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#6C7BFF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .diagram,.diagram + .prose{margin-top:22px}
+  .prose + .tbl-scroll,.tbl-scroll + .prose{margin-top:18px}
+  .tbl-scroll{max-width:96ch}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Engram guide: how it works, running it, what changed","name":"Engram guide","url":"https://it-rat.com/engram-guide.html","description":"How Engram works, the live runs against real Claude, how to install it, what changed on main, and what it does not do yet, in full.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/engram-guide.html","about":{"@type":"SoftwareApplication","name":"Engram","url":"https://it-rat.com/services/engram.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Engram guide","item":"https://it-rat.com/engram-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">engram</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; engram</div>
+    <h1 class="rv d1">How Engram works, how to run it, what changed.</h1>
+    <p class="lede rv d2">The <a href="services/engram.html">Engram room</a> keeps the simulation, the drawing of one file on disk and the common questions. This guide keeps the rest of what the room used to say: what a memory holds and how each part works, the three live runs against real Claude, how it ships, what changed on main, and what it does not do yet.</p>
+    <div class="back rv d3"><a class="btn" href="services/engram.html"><span class="mono">&#8592;</span> Back to the Engram room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#recall">Recall is one part of a memory</a></li><li><a href="#live-run">The live runs</a></li><li><a href="#where-it-sits">Where it sits</a></li><li><a href="#run">Running it</a></li><li><a href="#changes">What changed</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Engram at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>The memory that remembers why:</b> an embeddable memory in one SQLite file.</span></li>
+        <li><span><b>Release:</b> latest, on PyPI as engdbram. <b>Core:</b> Python 3.11+.</span></li>
+        <li><span><b>Storage:</b> a single SQLite file plus sqlite-vec.</span></li>
+        <li><span><b>Recall:</b> hybrid BM25 and vector.</span></li>
+        <li><span><b>Integrations:</b> MCP, LangChain, LlamaIndex.</span></li>
+        <li><span><b>Licence:</b> Apache-2.0.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>Engram is an embeddable memory in one SQLite file. It stores raw episodes, distills them into facts with confidence scores, records when each fact was true, and answers why() for every belief it holds, with the episodes it came from. Two beliefs that disagree are recorded as a contradiction. No server, no Docker, and writing the first memory needs zero API keys.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Not a log of text. Beliefs with receipts.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>One file on disk. One optional network call.</h3>
+      <p>Your agent calls observe() and recall() against one .engram file: SQLite plus sqlite-vec, in-process, nothing between the agent and its memory. Inside: three kinds of memory, bitemporal facts, spreading activation and Ebbinghaus decay. The only part that ever touches a network is reflect(), through a pluggable LLM adapter, and even that can route through TokenFuse.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 330" role="img" aria-label="Engram architecture">
+        <defs><marker id="a3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="16" y="120" width="120" height="58" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="76" y="146" fill="#E9EFF6" font-size="12.5" font-weight="700">agent</text>
+          <text x="76" y="163" fill="#8A97A6" font-size="10.5">observe &#183; recall</text>
+
+          <rect x="196" y="52" width="300" height="196" rx="16" fill="#10161F" stroke="#6C7BFF" stroke-width="1.4"/>
+          <text x="346" y="80" fill="#6C7BFF" font-size="14" font-weight="700">engram.db &#183; SQLite + sqlite-vec</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <rect x="216" y="96" width="261" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="346" y="115" fill="#E9EFF6">episodic &#183; semantic</text>
+            <rect x="216" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="153" fill="#E9EFF6">bitemporal facts</text>
+            <rect x="352" y="134" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="153" fill="#E9EFF6" font-size="10">spreading activation</text>
+            <rect x="216" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="278" y="191" fill="#E9EFF6">Ebbinghaus decay</text>
+            <rect x="352" y="172" width="125" height="30" rx="8" fill="#141C27" stroke="#2a3547"/><text x="414" y="191" fill="#E9EFF6">working memory</text>
+            <text x="346" y="228" fill="#5A6675" font-size="10.5">writes in ~4 ms &#183; no LLM in the write path</text>
+          </g>
+
+          <rect x="544" y="106" width="158" height="86" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="623" y="130" fill="#E9EFF6" font-size="12.5" font-weight="700">LLM adapter</text>
+          <text x="623" y="149" fill="#8A97A6" font-size="10.5">Anthropic/OpenAI/Ollama</text>
+          <text x="623" y="168" font-size="10.5"><tspan fill="#8A97A6">via </tspan><tspan fill="#F4B23E">TokenFuse</tspan><tspan fill="#8A97A6"> base_url</tspan></text>
+          <text x="520" y="116" fill="#5A6675" font-size="9.5">reflect</text>
+          <text x="520" y="188" fill="#5A6675" font-size="10.5">facts</text>
+
+          <rect x="742" y="34" width="200" height="104" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="60" fill="#E9EFF6" font-size="12.5" font-weight="700">MCP server &#183; stdio</text>
+          <text x="842" y="79" fill="#8A97A6" font-size="10.5">Claude Desktop &#183; Cursor</text>
+          <text x="842" y="96" fill="#8A97A6" font-size="10.5">remember/recall/why/forget</text>
+          <text x="842" y="115" fill="#5A6675" font-size="10.5">no network listener</text>
+
+          <rect x="742" y="196" width="200" height="100" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="222" fill="#E9EFF6" font-size="12.5" font-weight="700">agent-event NDJSON</text>
+          <text x="842" y="241" fill="#8A97A6" font-size="10.5">memory_written&#183;reflection_run</text>
+          <text x="842" y="256" fill="#8A97A6" font-size="10.5">contradiction&#183;memory_forgotten</text>
+          <text x="842" y="276" fill="#5A6675" font-size="10.5">opt-in &#183; off by default</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="136" y1="149" x2="188" y2="149" marker-end="url(#a3)"/>
+          <line x1="496" y1="126" x2="536" y2="126" marker-end="url(#a3)"/>
+          <line x1="544" y1="172" x2="504" y2="172" marker-end="url(#a3)"/>
+          <line x1="734" y1="88" x2="504" y2="102" marker-end="url(#a3)"/>
+          <line x1="496" y1="212" x2="734" y2="232" marker-end="url(#a3)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="prose rv">
+      <h3>Single file, embeddable</h3>
+      <p>One .engram file on SQLite plus sqlite-vec: no server, no Docker, no config file. pip install, two lines of Python, and the first memory is on disk. Writes land in about 4 ms because no LLM sits in the write path.</p>
+      <h3>reflect() distills facts</h3>
+      <p>A background reflection loop groups recent episodes and asks an LLM to extract subject-predicate-object facts, each with a confidence score. Every fact keeps a why() chain: which episodes produced it, which run extracted it, which model, at what confidence.</p>
+      <h3>Facts that know their dates</h3>
+      <p>Every fact carries two timelines: when it was true in reality, and when the system learned it. When Ivan changes jobs the old fact is closed with an end date, never deleted.</p>
+      <p><b>Two timelines, and the questions only two can answer.</b> A fact in Engram carries <span class="mono" style="font-size:12.5px">valid_from</span> and <span class="mono" style="font-size:12.5px">valid_to</span>, which say when it was true in reality, and <span class="mono" style="font-size:12.5px">recorded_at</span> and <span class="mono" style="font-size:12.5px">superseded_at</span>, which say when the system learned it and when it stopped believing it. Those are different clocks, and collapsing them into one is how a memory quietly starts lying.</p>
+      <p>With both, you can ask what the agent believed as of March and get March's answer rather than today's. That is the difference between an audit you can defend and a database that only ever shows the present. A support agent that promised a refund policy in March should be judged against the policy it knew in March.</p>
+      <p>It also makes correction safe. When Ivan moves from Acme to Globex, the old fact is closed with an end date and the new one opens; nothing is overwritten, so the reason the agent said what it said in March survives the correction.</p>
+      <h3>Three ways to recall</h3>
+      <p>Cosine vectors for meaning, BM25 blended with vectors when exact terms matter, and spreading activation that walks the entity graph.</p>
+      <p><b>Three retrieval modes, one call.</b> One API, three modes, because one retrieval strategy does not fit every question.</p>
+      <p><b>cosine</b> is pure vector similarity: good when the query means the same thing as the memory but says it with different words.</p>
+      <p><b>hybrid</b> blends SQLite's FTS5 BM25 with cosine, normalised, for when exact terms carry the meaning. Identifiers, error codes and product names are precisely the tokens an embedding smooths away.</p>
+      <p><b>spreading</b> starts from cosine nearest neighbours as seeds, then walks the entity graph along Hebbian edges that co-access reinforces, with activation decaying per hop. Results rank on similarity, activation and importance together. This is the mode that surfaces Project X for a question about Ivan when the two texts share no words at all, because the graph, not the wording, connects them.</p>
+      <h3>GDPR forget, scoped</h3>
+      <p>Erasure is real and targeted: one episode, one fact, or everything about a person. Since 2.2.1 an agent can forget only its own episodes; erasing a person reaches every agent in the file, on purpose.</p>
+      <p><b>What erasure actually removes.</b> <span class="mono" style="font-size:12.5px">forget()</span> erases a single episode. <span class="mono" style="font-size:12.5px">forget_fact()</span> erases one semantic fact. <span class="mono" style="font-size:12.5px">forget_entity()</span> cascades: the episodes about that person, the facts derived from them, and the graph edges that made them findable, and it reports how many of each it deleted.</p>
+      <p>That cascade is the part most stores get wrong. Deleting the raw text while leaving a derived fact and a graph edge behind means the person is still reachable by association, which is exactly what an erasure request was about.</p>
+      <p>Since 2.2.1 <span class="mono" style="font-size:12.5px">forget()</span> is agent-scoped: in a shared store, one agent cannot reach into another agent's episodes by id. A delete that crosses that line is not a convenience, it is a way for one tenant to destroy another's evidence.</p>
+      <p>Two erasures cross it on purpose. Facts and entities are shared by every agent in the file, so <span class="mono" style="font-size:12.5px">forget_fact()</span> removes a fact for all of them. And <span class="mono" style="font-size:12.5px">forget_entity()</span> reaches every agent's episodes about that person, because a request to be forgotten is about the person, not about one agent's copy.</p>
+      <h3>MCP server, stdio only</h3>
+      <p>engram-mcp speaks stdio: no network listener, no port to guard. Claude Desktop, Claude Code and Cursor get remember, recall, why and forget against the same store with zero integration code. reflect() is deliberately not exposed to clients.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="recall" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it holds</div>
+      <h2>Recall is one part of a memory.</h2>
+      <p class="lede">Engram keeps a vector index in-process. It also keeps when each fact was true, where it came from, and whether two beliefs disagree.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th>Question an agent asks</th><th>What answers it</th></tr></thead>
+        <tbody>
+          <tr><td>Find what I mean, not only what I typed</td><td class="yes">Hybrid recall: BM25 and cosine, blended</td></tr>
+          <tr><td>What was true in March, before we knew better</td><td class="yes">Bitemporal facts: valid time and recorded time</td></tr>
+          <tr><td>Why do you believe that</td><td class="yes">why(), a chain back to the source episodes</td></tr>
+          <tr><td>These two things disagree</td><td class="yes">Contradictions detected and recorded as events</td></tr>
+          <tr><td>Reach what the match is connected to</td><td class="yes">Spreading activation over Hebbian edges</td></tr>
+          <tr><td>Stay useful instead of growing</td><td class="yes">Importance decay, and reflection prunes the bottom</td></tr>
+          <tr><td>Forget a person</td><td class="yes">Targeted erase by episode, entity or fact</td></tr>
+          <tr><td>Run it anywhere</td><td class="yes">In-process, one file, no server and no key to write</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="live-run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">live validation</div>
+      <h2>Three runs against real Claude, and what they settled.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Before any of this was published, Engram's Anthropic adapter was run against a real Claude model on real infrastructure, three times, on three different box topologies. Until then the reflection pipeline had only ever seen fixtures and a deterministic stub, which is a comfortable thing to test against and proves very little.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th>Run</th><th>Episodes in</th><th>Facts out</th><th>Contradictions</th></tr></thead>
+        <tbody>
+          <tr><td>Three-node loopback cluster</td><td>5</td><td class="yes">10</td><td class="yes">0</td></tr>
+          <tr><td>Cross-machine, four separate hosts</td><td>5</td><td class="yes">10, identical to the first run</td><td class="yes">0</td></tr>
+          <tr><td>Enriched multi-agent campaign</td><td>8</td><td class="yes">17, confidence 0.80 to 0.95</td><td class="yes">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <p>What that settles: the reflection prompt and its parsing hold up against real model variance, not just the tidy stub output CI uses; confidence scoring is stable across three independent runs on different infrastructure; and <span class="mono" style="font-size:12.5px">why()</span> traces a belief back to the exact observations it came from on real-model output, not only in unit tests. No contradiction was missed in any run.</p>
+      <p>The method mattered as much as the result. The boxes were disposable and deleted after each run, the code arrived as a git archive with no repository history and no secrets in it, the API key lived in a root-only file and was revoked afterwards, and the service bound to <span class="mono" style="font-size:12.5px">127.0.0.1</span> only. Nothing from those runs is still standing.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="where-it-sits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>The plane that remembers.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Engram is the knowledge plane of the stack. Its own reflect() calls can point base_url at <a href="services/tokenfuse.html">TokenFuse</a>, so even thinking has a budget. Every memory_written, reflection_run, contradiction_found and memory_forgotten goes out as an agent-event on the same NDJSON bus <a href="services/idryx.html">Idryx</a> correlates into the identity graph. The envelope they travel in is the <a href="services/platform.html">Agent Passport contract</a>: one spec, every service, including this one.</p>
+      <p>Provenance is one of the questions a governed fleet has to answer; the others are in <a href="ai-agent-governance.html">AI agent governance</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>Engram ships as a package.</h2>
+    </div>
+    <div class="prose rv">
+      <div class="cmd">pip install engdbram</div>
+      <p>Install it from <a href="https://github.com/TAIPANBOX/engram#readme" target="_blank" rel="noopener">the repository</a>, where the command lives beside the version it belongs to.</p>
+      <p>The PyPI name is engdbram (the plain name was taken); the import stays <span class="mono" style="font-size:12px">from engram import Engram</span>. Your first memory needs zero API keys: an LLM enters the picture only when you ask for reflect().</p>
+      <h3>How this one ships</h3>
+      <div class="dl-row"><a class="pill" href="https://pypi.org/project/engdbram/">PyPI &#183; engdbram</a><a class="pill" href="https://github.com/TAIPANBOX/engram/releases">releases</a></div>
+      <p>No per-platform binaries here either: this one is a Python library you import, so the package index is the download. The install command lives in the repository, next to the version it resolves.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what changed</div>
+      <h2>What changed, and what is on main.</h2>
+      <p class="lede">Engram's own list for 1 to 15 October 2026 is in <a href="changes-2026-10.html#engram">the stack's changes</a>.</p>
+    </div>
+    <div class="prose rv">
+      <h3>Where each memory came from</h3>
+      <p>On main, not yet released. Every observation now records its provenance: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. This is on main; the last release is v2.4.1.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What it does not do, and what is not released yet.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>Provenance on every observation, returned by recall and reported by why(), is on main and not yet released.</span></li>
+        <li><span>reflect() is deliberately not exposed to MCP clients.</span></li>
+        <li><span>Agent events (memory_written, reflection_run, contradiction_found, memory_forgotten) are opt-in and off by default.</span></li>
+        <li><span>The only part that ever touches a network is reflect(), through a pluggable LLM adapter.</span></li>
+        <li><span>No per-platform binaries: this one is a Python library you import, so the package index is the download.</span></li>
+        <li><span>Nothing from the three live runs is still standing: the boxes were disposable and deleted after each run.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/engram.html">Engram room</a> has the simulation, the drawing and the common questions, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/engram.html"><span class="mono">&#8592;</span> Back to the Engram room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>
