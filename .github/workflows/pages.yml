@@ -111,6 +111,14 @@ jobs:
         ## drift it is meant to report.
         run: ./scripts/generated-blocks.sh
 
+      - name: Fail on a room that outgrew its guide
+        ## Invariant 12: a room explains and its guide holds the rest. Every
+        ## room in STACK has a guide, links to it, carries no dated release
+        ## list, and keeps its prose under the ceiling. It prints each room's
+        ## word count and slack, so a room near the line is visible before it
+        ## crosses it. Rooms are read from the registry, not from a list.
+        run: ./scripts/room-budget.sh
+
       # Last, because it mutates tracked files and restores them. It needs a
       # clean tree and says so plainly, so it also reports any earlier step
       # that starts writing into the checkout.
