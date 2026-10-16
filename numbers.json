@@ -1372,6 +1372,19 @@
       "slow": false
     },
     {
+      "page": "trailryx-guide.html",
+      "claim": "twenty-three event types",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/agent-passport",
+      "command": "count the costcrew type values in agent-passport README.md's registered-sources table; trailryx-agentevent maps two of them (spend_spike, budget_threshold) and refuses the rest by name; runnable form, prints the digit the word on the page spells: grep '^| `costcrew`' README.md | grep -oE '`[a-z_]+`' | grep -vc '`costcrew`'",
+      "status": "measured",
+      "measured_on": "2026-10-13",
+      "note": "Updated 2026-10-13: 23 costcrew types at agent-passport origin/main 8eae526 (anomaly_hinted added 2026-10-08). Copied 2026-10-16: the same count also stands in trailryx-guide.html, in the full paragraph the room now carries in two sentences; same check.",
+      "repo_dir": "agent-passport",
+      "check": null,
+      "slow": false
+    },
+    {
       "page": "two-sites.html",
       "claim": "eight paths",
       "occurrences": 1,
