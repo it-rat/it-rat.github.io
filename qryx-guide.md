@@ -6,25 +6,25 @@
 
 The [Qryx room](https://it-rat.com/services/qryx.html) keeps the sixty-second sweep, the drawing of the one graph, how to start it, and the common questions. This guide keeps the rest of what the room used to say: what it holds in full, the risk model, how it counts honestly, where it sits in the stack, downloads for every platform, what changed from 1 to 15 October 2026, and what it leaves out.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/qryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/qryx-guide.html#how-it-works)
 
-- [What it holds](https://it-rat.com/#holds)
+- [What it holds](https://it-rat.com/qryx-guide.html#holds)
 
-- [The risk model](https://it-rat.com/#risk-model)
+- [The risk model](https://it-rat.com/qryx-guide.html#risk-model)
 
-- [Counting honestly](https://it-rat.com/#counting)
+- [Counting honestly](https://it-rat.com/qryx-guide.html#counting)
 
-- [What it reads](https://it-rat.com/#reads)
+- [What it reads](https://it-rat.com/qryx-guide.html#reads)
 
-- [In the stack](https://it-rat.com/#in-the-stack)
+- [In the stack](https://it-rat.com/qryx-guide.html#in-the-stack)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/qryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/qryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/qryx-guide.html#limits)
 
 ## Qryx at a glance.
 

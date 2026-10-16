@@ -34,13 +34,13 @@ What does this key reach, transitively? Idryx computes the union of every permis
 
 ### The one that reads everything and touches nothing.
 
-Idryx consumes the same envelope [TokenFuse](https://it-rat.com/tokenfuse.html), [Wardryx](https://it-rat.com/wardryx.html), [Mockryx](https://it-rat.com/mockryx.html) and [Verdryx](https://it-rat.com/verdryx.html) write: the agent-event. It validates Agent Passports against the [platform contract](https://it-rat.com/platform.html).
+Idryx consumes the same envelope [TokenFuse](https://it-rat.com/services/tokenfuse.html), [Wardryx](https://it-rat.com/services/wardryx.html), [Mockryx](https://it-rat.com/services/mockryx.html) and [Verdryx](https://it-rat.com/services/verdryx.html) write: the agent-event. It validates Agent Passports against the [platform contract](https://it-rat.com/services/platform.html).
 
 Download [the latest release binary](https://github.com/TAIPANBOX/idryx/releases) (SHA256SUMS ships next to it), run detect against a log, then serve for the read-only dashboard on `:8080`.
 
 ## It records who acts for whom. It does not prove it.
 
-The delegation chain here is a record: each identity lists the on_behalf_of chain it acts under, root first, and the graph walks that chain to show what the identity can reach. [Vouchryx](https://it-rat.com/vouchryx.html) is the other half, proof of possession per request and a revocation an incident can actually use.
+The delegation chain here is a record: each identity lists the on_behalf_of chain it acts under, root first, and the graph walks that chain to show what the identity can reach. [Vouchryx](https://it-rat.com/services/vouchryx.html) is the other half, proof of possession per request and a revocation an incident can actually use.
 
 ## What it does not do, and what is not proven yet.
 

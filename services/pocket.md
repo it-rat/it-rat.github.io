@@ -49,7 +49,7 @@ Both answer one question, how a human finds out, and they answer it from the sam
 
 ## The human end of a machine decision.
 
-Pocket is the human end of [TokenFuse](https://it-rat.com/tokenfuse.html): the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. What actually gets enforced was decided upstream, by [Wardryx](https://it-rat.com/wardryx.html) and the budgets you set.
+Pocket is the human end of [TokenFuse](https://it-rat.com/services/tokenfuse.html): the gateway enforces the budget in the request path, Pocket lets you watch it happen and pull the kill switch from somewhere else entirely. What actually gets enforced was decided upstream, by [Wardryx](https://it-rat.com/services/wardryx.html) and the budgets you set.
 
 ## What is not proven yet.
 

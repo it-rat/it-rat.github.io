@@ -6,25 +6,25 @@
 
 The [Scopyx room](https://it-rat.com/services/scopyx.html) keeps the request in flight, the two mechanisms you can switch off, what the record keeps, and how to start it. This guide keeps the rest of what the room used to say: the measured run behind the gates, redirects, the backends it decides over, what a result admits, how to run and configure it, what changed from 1 to 15 October 2026, and what it will not do.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/scopyx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/scopyx-guide.html#how-it-works)
 
-- [Redirects](https://it-rat.com/#redirects)
+- [Redirects](https://it-rat.com/scopyx-guide.html#redirects)
 
-- [What it decides over](https://it-rat.com/#backends)
+- [What it decides over](https://it-rat.com/scopyx-guide.html#backends)
 
-- [Two mechanisms in a browser](https://it-rat.com/#mechanisms)
+- [Two mechanisms in a browser](https://it-rat.com/scopyx-guide.html#mechanisms)
 
-- [What the answer admits](https://it-rat.com/#fidelity)
+- [What the answer admits](https://it-rat.com/scopyx-guide.html#fidelity)
 
-- [What is kept](https://it-rat.com/#record)
+- [What is kept](https://it-rat.com/scopyx-guide.html#record)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/scopyx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/scopyx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/scopyx-guide.html#limits)
 
 ## Scopyx at a glance.
 

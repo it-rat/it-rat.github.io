@@ -6,21 +6,21 @@
 
 The [Trailryx room](https://it-rat.com/services/trailryx.html) keeps the replay of two questions and one erasure, the drawing of how a query is classified, and the short version of each part. This guide keeps the rest of what the room used to say: where it sits today, how erasure leaves the trail intact, the durability runs and what a sealed pack does and does not prove, the verifier and its downloads, what it seals lately, and the limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/trailryx-guide.html#overview)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/trailryx-guide.html#where-it-sits)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/trailryx-guide.html#how-it-works)
 
-- [Measured, not asserted](https://it-rat.com/#proof)
+- [Measured, not asserted](https://it-rat.com/trailryx-guide.html#proof)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/trailryx-guide.html#run)
 
-- [What it seals lately](https://it-rat.com/#sealing-lately)
+- [What it seals lately](https://it-rat.com/trailryx-guide.html#sealing-lately)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/trailryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/trailryx-guide.html#limits)
 
 ## Trailryx at a glance.
 

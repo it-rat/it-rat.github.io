@@ -30,7 +30,7 @@ Two signed tokens and a proof go in, a short-lived one comes out, and the enforc
 
 ## One stops the money. This one stops the authority.
 
-[TokenFuse](https://it-rat.com/tokenfuse.html) refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all.
+[TokenFuse](https://it-rat.com/services/tokenfuse.html) refuses a call with a 402 before the provider bills, which is the right answer to a runaway. It is the wrong answer to a compromised delegation, where the spend is affordable and the problem is that the agent may act for somebody at all.
 
 ## Mint it, prove it, then end it.
 

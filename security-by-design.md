@@ -6,51 +6,51 @@
 
 An AI agent can be talked into anything, so everything that keeps it safe has to sit where persuasion cannot reach. Security in a stack for agents is decided by three things: where each decision sits, what happens when a part of the stack fails, and whether its record can prove itself. **These are the eight decisions we made, why we made them, and what happened when we broke each one on purpose.**
 
-- [At a glance: the eight decisions](https://it-rat.com/#at-a-glance)
+- [At a glance: the eight decisions](https://it-rat.com/security-by-design.html#at-a-glance)
 
-- [A refusal we did not count](https://it-rat.com/#intro)
+- [A refusal we did not count](https://it-rat.com/security-by-design.html#intro)
 
-- [Why security comes first](https://it-rat.com/#why-security-first)
+- [Why security comes first](https://it-rat.com/security-by-design.html#why-security-first)
 
-- [The shortcuts agents usually run on](https://it-rat.com/#shortcuts)
+- [The shortcuts agents usually run on](https://it-rat.com/security-by-design.html#shortcuts)
 
-- [1. The decision sits in the path](https://it-rat.com/#in-the-path)
+- [1. The decision sits in the path](https://it-rat.com/security-by-design.html#in-the-path)
 
-- [2. No model in the decision](https://it-rat.com/#no-model-in-the-decision)
+- [2. No model in the decision](https://it-rat.com/security-by-design.html#no-model-in-the-decision)
 
-- [3. Every failure has a stated answer](https://it-rat.com/#stated-failure-answer)
+- [3. Every failure has a stated answer](https://it-rat.com/security-by-design.html#stated-failure-answer)
 
-- [4. An identity, not a key](https://it-rat.com/#identity-not-key)
+- [4. An identity, not a key](https://it-rat.com/security-by-design.html#identity-not-key)
 
-- [5. Each part holds only what it needs](https://it-rat.com/#least-held)
+- [5. Each part holds only what it needs](https://it-rat.com/security-by-design.html#least-held)
 
-- [6. A record that proves itself](https://it-rat.com/#self-proving-record)
+- [6. A record that proves itself](https://it-rat.com/security-by-design.html#self-proving-record)
 
-- [7. It stays in your building](https://it-rat.com/#stays-in-your-building)
+- [7. It stays in your building](https://it-rat.com/security-by-design.html#stays-in-your-building)
 
-- [8. Every control is proven by breaking it](https://it-rat.com/#proven-by-breaking)
+- [8. Every control is proven by breaking it](https://it-rat.com/security-by-design.html#proven-by-breaking)
 
-- [What we built](https://it-rat.com/#what-we-built)
+- [What we built](https://it-rat.com/security-by-design.html#what-we-built)
 
-- [Three things to try on Monday](https://it-rat.com/#monday)
+- [Three things to try on Monday](https://it-rat.com/security-by-design.html#monday)
 
 ## Eight decisions, one line each.
 
-- [The decision sits in the path, before the action.](https://it-rat.com/#in-the-path) Identity, policy and budget are decided before the model provider hears a call, and a tool call the model asks for is judged before the agent can run it.
+- [The decision sits in the path, before the action.](https://it-rat.com/security-by-design.html#in-the-path) Identity, policy and budget are decided before the model provider hears a call, and a tool call the model asks for is judged before the agent can run it.
 
-- [No model in the decision.](https://it-rat.com/#no-model-in-the-decision) Plain rules give the same answer to the same request every time; a model may add a risk signal that can hold a call, never allow or deny one.
+- [No model in the decision.](https://it-rat.com/security-by-design.html#no-model-in-the-decision) Plain rules give the same answer to the same request every time; a model may add a risk signal that can hold a call, never allow or deny one.
 
-- [Every failure has a stated answer.](https://it-rat.com/#stated-failure-answer) For every dependency we wrote down what happens next, and the installers ship the policy service's answer set to closed.
+- [Every failure has a stated answer.](https://it-rat.com/security-by-design.html#stated-failure-answer) For every dependency we wrote down what happens next, and the installers ship the policy service's answer set to closed.
 
-- [An identity, not a key.](https://it-rat.com/#identity-not-key) Each agent has its own identifier, a key speaks only for the identities bound to it, and a revocation wins.
+- [An identity, not a key.](https://it-rat.com/security-by-design.html#identity-not-key) Each agent has its own identifier, a key speaks only for the identities bound to it, and a revocation wins.
 
-- [Each part holds only what it needs.](https://it-rat.com/#least-held) The part that decides is not the part that enforces, the part that alerts can act on nothing, and the stop is a person behind a passkey.
+- [Each part holds only what it needs.](https://it-rat.com/security-by-design.html#least-held) The part that decides is not the part that enforces, the part that alerts can act on nothing, and the stop is a person behind a passkey.
 
-- [A record that proves itself.](https://it-rat.com/#self-proving-record) Hash-chained, sealed, and checkable offline by somebody who has no reason to trust us.
+- [A record that proves itself.](https://it-rat.com/security-by-design.html#self-proving-record) Hash-chained, sealed, and checkable offline by somebody who has no reason to trust us.
 
-- [It stays in your building.](https://it-rat.com/#stays-in-your-building) Self-hosted and Apache-2.0, with no account and no telemetry; what leaves through the stack is decided first.
+- [It stays in your building.](https://it-rat.com/security-by-design.html#stays-in-your-building) Self-hosted and Apache-2.0, with no account and no telemetry; what leaves through the stack is decided first.
 
-- [Every control is proven by breaking it.](https://it-rat.com/#proven-by-breaking) A check counts only after it has failed on a planted fault, and then we break the running system.
+- [Every control is proven by breaking it.](https://it-rat.com/security-by-design.html#proven-by-breaking) A check counts only after it has failed on a planted fault, and then we break the running system.
 
 ## A refusal we did not count.
 

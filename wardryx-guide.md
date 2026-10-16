@@ -6,17 +6,17 @@
 
 The [Wardryx room](https://it-rat.com/services/wardryx.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: how a hold is resolved, the modes and the outage choice, where it sits, how to run it, what changed from 1 to 15 October 2026, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/wardryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/wardryx-guide.html#how-it-works)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/wardryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/wardryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/wardryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/wardryx-guide.html#limits)
 
 ## Wardryx at a glance.
 

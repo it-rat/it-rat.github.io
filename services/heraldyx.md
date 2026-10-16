@@ -53,6 +53,6 @@ Not from the event, which carries the agent and who it acted for, and neither of
 
 ## Two more sources arrived on the bus.
 
-This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding.
+This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/services/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/services/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding.
 
 ### The Heraldyx guide

@@ -6,21 +6,21 @@
 
 The [Genaryx room](https://it-rat.com/genaryx.html) keeps the fifteen frames, the live demo, the drawing of the plane and the common questions. This guide keeps the rest of what the room used to say: the core, the passkey ceremony and the tunnel in detail, how Felyx is held, what each frame shows, the console beside the stack by hand, taking it, and what is reported but not yet in the record.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/genaryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/genaryx-guide.html#how-it-works)
 
-- [Felyx, the copilot](https://it-rat.com/#felyx)
+- [Felyx, the copilot](https://it-rat.com/genaryx-guide.html#felyx)
 
-- [Every frame](https://it-rat.com/#frames)
+- [Every frame](https://it-rat.com/genaryx-guide.html#frames)
 
-- [Beside the stack by hand](https://it-rat.com/#why)
+- [Beside the stack by hand](https://it-rat.com/genaryx-guide.html#why)
 
-- [Taking it](https://it-rat.com/#run)
+- [Taking it](https://it-rat.com/genaryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/genaryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/genaryx-guide.html#limits)
 
 ## Genaryx at a glance.
 

@@ -34,7 +34,7 @@ The graders and drift maths use only the standard library. The one runtime depen
 
 ## The line that turns spend into a verdict.
 
-Verdryx prices the traces [TokenFuse](https://it-rat.com/tokenfuse.html) writes: outcome tags and spend data share the same request path, so cost and quality can never quietly drift apart. Cost per resolved case sits inside a wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html), and the controls around it in [AI agent governance](https://it-rat.com/ai-agent-governance.html).
+Verdryx prices the traces [TokenFuse](https://it-rat.com/services/tokenfuse.html) writes: outcome tags and spend data share the same request path, so cost and quality can never quietly drift apart. Cost per resolved case sits inside a wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html), and the controls around it in [AI agent governance](https://it-rat.com/ai-agent-governance.html).
 
 ## Grade with a stub, then price the traces.
 
@@ -44,7 +44,7 @@ There is no PyPI package, so the version you run is the commit you can read.
 
 - Only the judge and the typed grader can spend money, and neither runs by default.
 
-- The typed grader from [Typryx](https://it-rat.com/typryx.html) is opt-in per run with `--typed-url`.
+- The typed grader from [Typryx](https://it-rat.com/services/typryx.html) is opt-in per run with `--typed-url`.
 
 ### The Verdryx guide
 

@@ -56,7 +56,7 @@ First account created at /signup becomes the admin of that installation, so make
 No. This console reads exports that land in a folder and, where a connector is built, a vendor's usage API, and it writes only its own database. Twelve of its eighteen connectors read today, the AWS and GCP billing exports among them; the Azure billing export is specified and not yet written, and the catalogue says so per entry. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it.
 
 **Q: How is this different from the console that kills runs?**
-Different question, different clock. [Genaryx](https://it-rat.com/genaryx.html) and [TokenFuse](https://it-rat.com/tokenfuse.html) work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.
+Different question, different clock. [Genaryx](https://it-rat.com/genaryx.html) and [TokenFuse](https://it-rat.com/services/tokenfuse.html) work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too.
 
 **Q: What does it do about anomalies nobody has time for?**
 It ranks them by money rather than by how far out they sit, and it looks both ways: a fall matters as much as a rise, because a feed that stopped delivering looks exactly like a drop. A four sigma move worth three dollars is real, true, and not worth anybody's morning.

@@ -44,7 +44,7 @@ The same harness, the honest-disk assumption removed (as recorded, undated, in V
 
 ## The newest thing on the bus is a crew of agents.
 
-[CostCrew](https://it-rat.com/costcrew.html) writes twenty-three event types about money and about its own analysts. This plane seals the two about money with everything else and refuses the other twenty-one by name, because they record a practice rather than an agent's run.
+[CostCrew](https://it-rat.com/services/costcrew.html) writes twenty-three event types about money and about its own analysts. This plane seals the two about money with everything else and refuses the other twenty-one by name, because they record a practice rather than an agent's run.
 
 ## What is not proven yet.
 

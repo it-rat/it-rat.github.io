@@ -6,19 +6,19 @@
 
 The [CostCrew room](https://it-rat.com/services/costcrew.html) keeps the console, the drawing of one finding end to end, and the common questions. This guide keeps the rest of what the room used to say: how the work moves, how to run and configure it, what changed from 1 to 15 October 2026, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/costcrew-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/costcrew-guide.html#how-it-works)
 
-- [Found, never saved](https://it-rat.com/#found-not-saved)
+- [Found, never saved](https://it-rat.com/costcrew-guide.html#found-not-saved)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/costcrew-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/costcrew-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/costcrew-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/costcrew-guide.html#limits)
 
 ## CostCrew at a glance.
 

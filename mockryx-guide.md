@@ -6,19 +6,19 @@
 
 The [Mockryx room](https://it-rat.com/services/mockryx.html) keeps the fire drill, the drawing of one target URL and three exit codes, and the common questions. This guide keeps the rest of what the room used to say: what a scenario names, how a reaction is proven, how a skipped guardrail is told from a gap, where it sits in the stack, how to run and download it, the drills on main, and the limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/mockryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/mockryx-guide.html#how-it-works)
 
-- [What it proves](https://it-rat.com/#what-it-proves)
+- [What it proves](https://it-rat.com/mockryx-guide.html#what-it-proves)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/mockryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/mockryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/mockryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/mockryx-guide.html#limits)
 
 ## Mockryx at a glance.
 

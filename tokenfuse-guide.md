@@ -6,17 +6,17 @@
 
 The [TokenFuse room](https://it-rat.com/services/tokenfuse.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: how a cap is enforced, where it sits, how to run it, what changed from 1 to 15 October 2026, and what the default install does not do.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/tokenfuse-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/tokenfuse-guide.html#how-it-works)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/tokenfuse-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/tokenfuse-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/tokenfuse-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/tokenfuse-guide.html#limits)
 
 ## TokenFuse at a glance.
 

@@ -6,23 +6,23 @@
 
 The [Verdryx room](https://it-rat.com/services/verdryx.html) keeps the sixty-second shift, the drawing of the graders, how to start it, and the common questions. This guide keeps the rest of what the room used to say: what it grades in full, how a case gets a price, the six graders, where it sits in the stack, how to run it, what changed from 1 to 15 October 2026, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/verdryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/verdryx-guide.html#how-it-works)
 
-- [What it grades](https://it-rat.com/#grades)
+- [What it grades](https://it-rat.com/verdryx-guide.html#grades)
 
-- [Cost per outcome](https://it-rat.com/#cost-per-outcome)
+- [Cost per outcome](https://it-rat.com/verdryx-guide.html#cost-per-outcome)
 
-- [The six graders](https://it-rat.com/#graders)
+- [The six graders](https://it-rat.com/verdryx-guide.html#graders)
 
-- [In the stack](https://it-rat.com/#in-the-stack)
+- [In the stack](https://it-rat.com/verdryx-guide.html#in-the-stack)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/verdryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/verdryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/verdryx-guide.html#limits)
 
 ## Verdryx at a glance.
 

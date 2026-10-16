@@ -6,15 +6,15 @@
 
 The [Pocket room](https://it-rat.com/services/pocket.html) keeps the simulation, the live design mock and the drawing. This guide keeps the rest of what the room used to say: the screens in full, Pocket beside Heraldyx, where it sits, and the full account of why it is in the stack and not wired into one yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/pocket-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/pocket-guide.html#how-it-works)
 
-- [Pocket and Heraldyx](https://it-rat.com/#heraldyx)
+- [Pocket and Heraldyx](https://it-rat.com/pocket-guide.html#heraldyx)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/pocket-guide.html#where-it-sits)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/pocket-guide.html#limits)
 
 ## Pocket at a glance.
 
