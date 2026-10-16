@@ -35,12 +35,25 @@
     {
       "page": "services/idryx.html",
       "claim": "27 detectors",
-      "occurrences": 5,
+      "occurrences": 3,
       "repo": "TAIPANBOX/idryx",
       "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
       "status": "measured",
       "measured_on": "2026-08-20",
       "note": "Two detectors were added since 2026-08-10 and the page did not move. The command counts DISTINCT detector names, not files: there are 25 non-test .go files and 27 names, so counting files would give the old figure and look right.",
+      "repo_dir": "Idryx",
+      "check": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l | tr -d ' '",
+      "slow": false
+    },
+    {
+      "page": "idryx-guide.html",
+      "claim": "27 detectors",
+      "occurrences": 6,
+      "repo": "TAIPANBOX/idryx",
+      "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
+      "status": "measured",
+      "measured_on": "2026-08-20",
+      "note": "Two detectors were added since 2026-08-10 and the page did not move. The command counts DISTINCT detector names, not files: there are 25 non-test .go files and 27 names, so counting files would give the old figure and look right. Copied 2026-10-16: the figure is on both the room and its guide.",
       "repo_dir": "Idryx",
       "check": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l | tr -d ' '",
       "slow": false
@@ -113,12 +126,25 @@
     {
       "page": "services/idryx.html",
       "claim": "27 deterministic detectors",
-      "occurrences": 7,
+      "occurrences": 6,
       "repo": "TAIPANBOX/idryx",
       "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
       "status": "measured",
       "measured_on": "2026-08-28",
       "note": "The page carried 22 for this same figure while saying 27 five times elsewhere on itself, so the published page contradicted itself. Registered because the sweep that finds unowned figures reads services/*.html only and matches digits only: neither the .md twin, which is published and linked from llms.txt, nor a number written out in words was reachable by it.",
+      "repo_dir": "Idryx",
+      "check": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l | tr -d ' '",
+      "slow": false
+    },
+    {
+      "page": "idryx-guide.html",
+      "claim": "27 deterministic detectors",
+      "occurrences": 3,
+      "repo": "TAIPANBOX/idryx",
+      "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
+      "status": "measured",
+      "measured_on": "2026-08-28",
+      "note": "The page carried 22 for this same figure while saying 27 five times elsewhere on itself, so the published page contradicted itself. Registered because the sweep that finds unowned figures reads services/*.html only and matches digits only: neither the .md twin, which is published and linked from llms.txt, nor a number written out in words was reachable by it. Copied 2026-10-16: the figure is on both the room and its guide.",
       "repo_dir": "Idryx",
       "check": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l | tr -d ' '",
       "slow": false
@@ -232,6 +258,19 @@
       "status": "measured",
       "measured_on": "2026-08-29",
       "note": "A language version in prose is the shape that rots quietly: the site said Go 1.26 for heraldyx while every repository had been on 1.27. It has an owner now, and numbers-drift.sh can re-measure it.",
+      "repo_dir": "idryx",
+      "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
+      "slow": false
+    },
+    {
+      "page": "idryx-guide.html",
+      "claim": "Go 1.27",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/idryx",
+      "command": "grep -m1 '^go ' go.mod, the toolchain line the repository actually builds with",
+      "status": "measured",
+      "measured_on": "2026-08-29",
+      "note": "A language version in prose is the shape that rots quietly: the site said Go 1.26 for heraldyx while every repository had been on 1.27. It has an owner now, and numbers-drift.sh can re-measure it. Copied 2026-10-16: the figure is on both the room and its guide.",
       "repo_dir": "idryx",
       "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
       "slow": false
