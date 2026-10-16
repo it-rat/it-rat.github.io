@@ -21,6 +21,7 @@ import json
 import pathlib
 import re
 import sys
+from urllib.parse import urljoin
 
 from stackguides import service_guides
 
@@ -93,28 +94,36 @@ def strip_chrome(body):
     return body
 
 
-def text(s):
+def text(s, page):
     s = re.sub(r"<(?:span|b|strong|em|i)\b[^>]*class=\"[^\"]*mono[^\"]*\"[^>]*>(.*?)</\w+>", r"`\1`", s, flags=re.S)
     s = re.sub(r"<code\b[^>]*>(.*?)</code>", r"`\1`", s, flags=re.S)
     s = re.sub(r"<(?:b|strong)\b[^>]*>(.*?)</(?:b|strong)>", r"**\1**", s, flags=re.S)
-    s = re.sub(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', lambda m: link(m.group(1), m.group(2)), s, flags=re.S)
+    s = re.sub(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', lambda m: link(m.group(1), m.group(2), page), s, flags=re.S)
     s = re.sub(r"<[^>]+>", " ", s)
     s = htmlmod.unescape(s)
     return re.sub(r"[ \t ]+", " ", s).strip()
 
 
-def link(href, label):
+def link(href, label, page):
+    """Turn an href into the absolute URL a reader of the twin can follow.
+
+    The twin is read on its own, away from its page, so a relative href is
+    resolved against the page's own URL the way a browser resolves it. `page`
+    is the page's repo-relative path: "tokenfuse.html" from services/engram.html
+    is services/tokenfuse.html, "../guides.html" is guides.html, and "#run" from
+    costcrew-guide.html is that guide's URL with the fragment. Absolute http(s)
+    and mailto links are kept as they are.
+    """
     label = re.sub(r"<[^>]+>", "", label).strip()
     if href.startswith("http") or href.startswith("mailto"):
         return f"[{label}]({href})"
-    href = re.sub(r"^\.\./", "", href).lstrip("/")
-    return f"[{label}]({SITE}/{href})"
+    return f"[{label}]({urljoin(SITE + '/' + page, href)})"
 
 
-def table(block):
+def table(block, page):
     rows = []
     for tr in re.findall(r"<tr\b[^>]*>(.*?)</tr>", block, re.S):
-        cells = [text(c) for c in re.findall(r"<t[hd]\b[^>]*>(.*?)</t[hd]>", tr, re.S)]
+        cells = [text(c, page) for c in re.findall(r"<t[hd]\b[^>]*>(.*?)</t[hd]>", tr, re.S)]
         if cells:
             rows.append(cells)
     if not rows:
@@ -178,11 +187,11 @@ def to_markdown(path, title):
         kind = m.lastgroup
         val = m.group(kind)
         if kind == "table":
-            t = table(val)
+            t = table(val, path)
             if t:
                 out.append(t)
             continue
-        t = text(val)
+        t = text(val, path)
         if not t or len(t) < 2:
             continue
         if kind == "h1":

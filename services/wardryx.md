@@ -34,13 +34,13 @@ deny_if_unattested demands a live attestation before an agent touches the sensit
 
 ### The desk every expensive idea stops at.
 
-[TokenFuse](https://it-rat.com/tokenfuse.html)'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which [Idryx](https://it-rat.com/idryx.html) correlates into the identity graph.
+[TokenFuse](https://it-rat.com/services/tokenfuse.html)'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which [Idryx](https://it-rat.com/services/idryx.html) correlates into the identity graph.
 
 Boots on `:8090` with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
 
 ## A decision is only as good as the identity under it.
 
-This plane answers about an action. What it cannot answer is whether the caller really holds the delegation it claims, which is a different question with a different mechanism: [Vouchryx](https://it-rat.com/vouchryx.html) mints a short-lived token bound to the caller's own key and lets a person end it.
+This plane answers about an action. What it cannot answer is whether the caller really holds the delegation it claims, which is a different question with a different mechanism: [Vouchryx](https://it-rat.com/services/vouchryx.html) mints a short-lived token bound to the caller's own key and lets a person end it.
 
 ## What is open by default, and what is not proven yet.
 

@@ -6,25 +6,25 @@
 
 The [Typryx room](https://it-rat.com/services/typryx.html) keeps the measured replay, the drawings and the widgets, and the common questions. This guide keeps the rest of what the room used to say: how an ask moves and what it holds to, the three data modes, your own model, the speed and calibration runs with their tables, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/typryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/typryx-guide.html#how-it-works)
 
-- [Three modes](https://it-rat.com/#modes)
+- [Three modes](https://it-rat.com/typryx-guide.html#modes)
 
-- [Your own model](https://it-rat.com/#own-model)
+- [Your own model](https://it-rat.com/typryx-guide.html#own-model)
 
-- [The measurements](https://it-rat.com/#measured)
+- [The measurements](https://it-rat.com/typryx-guide.html#measured)
 
-- [Where it plugs in](https://it-rat.com/#plugs)
+- [Where it plugs in](https://it-rat.com/typryx-guide.html#plugs)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/typryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/typryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/typryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/typryx-guide.html#limits)
 
 ## Typryx at a glance.
 

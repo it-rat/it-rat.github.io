@@ -34,7 +34,7 @@ Snapshot the graph, then fail the build the moment a new weak or quantum-vulnera
 
 ## The inventory the rest of the stack borrows from.
 
-Qryx emits every finding as an agent-event onto the shared bus that [Platform](https://it-rat.com/platform.html) defines and every service writes to. Crypto posture is one plane of a wider practice: [AI agent governance](https://it-rat.com/ai-agent-governance.html), and the defensive picture in [AI agent security](https://it-rat.com/ai-agent-security.html).
+Qryx emits every finding as an agent-event onto the shared bus that [Platform](https://it-rat.com/services/platform.html) defines and every service writes to. Crypto posture is one plane of a wider practice: [AI agent governance](https://it-rat.com/ai-agent-governance.html), and the defensive picture in [AI agent security](https://it-rat.com/ai-agent-security.html).
 
 ## One binary, any platform.
 

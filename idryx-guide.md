@@ -6,19 +6,19 @@
 
 The [Idryx room](https://it-rat.com/services/idryx.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: what the graph is made of, what the detectors look for, what it answers, where it sits, how to run it, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/idryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/idryx-guide.html#how-it-works)
 
-- [What it answers](https://it-rat.com/#what-it-answers)
+- [What it answers](https://it-rat.com/idryx-guide.html#what-it-answers)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/idryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/idryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/idryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/idryx-guide.html#limits)
 
 ## Idryx at a glance.
 

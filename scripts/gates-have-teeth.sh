@@ -348,6 +348,15 @@ run_case "generated-blocks: a diagram redrawn without re-reading its title" fail
 	"$(py 'edit("services/platform.html", ">heraldyx</text>", ">heraldyx-renamed</text>")')" \
 	"read the drawing"
 
+# invariant 11, twins: a markdown link resolved against the hub instead of the
+# page it sits on is a 404 for every sibling room, and nobody reads the twin
+# by eye. The generator has to write the page's folder back in, so a link()
+# that forgets it rewrites the twins and the freshness half goes red.
+run_case "generated-blocks: a twin link drops the folder its page lives in" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("tools/llms.py", "def link(href, label, page):", "def link(href, label, page):\n    page = \"\"")')" \
+	"a generator would rewrite it"
+
 # invariant 12: a room explains, and its guide holds the rest. Every case here
 # mutates the CostCrew room, the first one shortened, and the planted text sits
 # just above its FAQ, which is where an appended section would land.

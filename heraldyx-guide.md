@@ -6,21 +6,21 @@
 
 The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0, and the boundaries in full.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/heraldyx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/heraldyx-guide.html#how-it-works)
 
-- [What actually arrives](https://it-rat.com/#the-mail)
+- [What actually arrives](https://it-rat.com/heraldyx-guide.html#the-mail)
 
-- [The dispatch record](https://it-rat.com/#the-record)
+- [The dispatch record](https://it-rat.com/heraldyx-guide.html#the-record)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/heraldyx-guide.html#run)
 
-- [Who else writes to the log](https://it-rat.com/#sources)
+- [Who else writes to the log](https://it-rat.com/heraldyx-guide.html#sources)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/heraldyx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/heraldyx-guide.html#limits)
 
 ## Heraldyx at a glance.
 

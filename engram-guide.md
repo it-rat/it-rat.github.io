@@ -6,21 +6,21 @@
 
 The [Engram room](https://it-rat.com/services/engram.html) keeps the simulation, the drawing of one file on disk and the common questions. This guide keeps the rest of what the room used to say: what a memory holds and how each part works, the three live runs against real Claude, how it ships, what changed on main, and what it does not do yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/engram-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/engram-guide.html#how-it-works)
 
-- [Recall is one part of a memory](https://it-rat.com/#recall)
+- [Recall is one part of a memory](https://it-rat.com/engram-guide.html#recall)
 
-- [The live runs](https://it-rat.com/#live-run)
+- [The live runs](https://it-rat.com/engram-guide.html#live-run)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/engram-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/engram-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/engram-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/engram-guide.html#limits)
 
 ## Engram at a glance.
 

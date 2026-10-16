@@ -46,7 +46,7 @@ Every event carries one agent_id and an explicit schema field. Anyone can implem
 
 ### The layer every other page stands on.
 
-Every other page on this site is a producer or a consumer of this contract. [Engram](https://it-rat.com/engram.html) writes memory_written and reflection_run into the same stream, and [Idryx](https://it-rat.com/idryx.html) reads everything back into one identity graph, checking passports with the same passport.Parse this platform ships.
+Every other page on this site is a producer or a consumer of this contract. [Engram](https://it-rat.com/services/engram.html) writes memory_written and reflection_run into the same stream, and [Idryx](https://it-rat.com/services/idryx.html) reads everything back into one identity graph, checking passports with the same passport.Parse this platform ships.
 
 This installs nothing of the stack: it is the contract itself, for an agent of your own.
 

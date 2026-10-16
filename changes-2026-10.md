@@ -6,35 +6,35 @@
 
 What changed in the services in the first half of October, why each change matters, and what it improves for the people who run AI agents and pay for them. It is grouped by the problem each change solves, not by repository, because most problems were solved by several services moving together. **Each service's own list is at the end, under its name.**
 
-- [At a glance](https://it-rat.com/#at-a-glance)
+- [At a glance](https://it-rat.com/changes-2026-10.html#at-a-glance)
 
-- [Releases, day by day](https://it-rat.com/#releases)
+- [Releases, day by day](https://it-rat.com/changes-2026-10.html#releases)
 
-- [How the work is done](https://it-rat.com/#method)
+- [How the work is done](https://it-rat.com/changes-2026-10.html#method)
 
-- [1. Prices that match the vendor's bill](https://it-rat.com/#prices)
+- [1. Prices that match the vendor's bill](https://it-rat.com/changes-2026-10.html#prices)
 
-- [2. Money that is never forgotten](https://it-rat.com/#retained-money)
+- [2. Money that is never forgotten](https://it-rat.com/changes-2026-10.html#retained-money)
 
-- [3. Tool calls judged before they run](https://it-rat.com/#tool-calls)
+- [3. Tool calls judged before they run](https://it-rat.com/changes-2026-10.html#tool-calls)
 
-- [4. A typo can no longer switch a control off](https://it-rat.com/#safe-defaults)
+- [4. A typo can no longer switch a control off](https://it-rat.com/changes-2026-10.html#safe-defaults)
 
-- [5. Every refusal filed under the right name](https://it-rat.com/#identity-evidence)
+- [5. Every refusal filed under the right name](https://it-rat.com/changes-2026-10.html#identity-evidence)
 
-- [6. FinOps that knows what was decided](https://it-rat.com/#finops)
+- [6. FinOps that knows what was decided](https://it-rat.com/changes-2026-10.html#finops)
 
-- [7. Running it day to day](https://it-rat.com/#operations)
+- [7. Running it day to day](https://it-rat.com/changes-2026-10.html#operations)
 
-- [14 October: breaking it on purpose](https://it-rat.com/#failure-day)
+- [14 October: breaking it on purpose](https://it-rat.com/changes-2026-10.html#failure-day)
 
-- [What this means for a FinOps practice](https://it-rat.com/#finops-practice)
+- [What this means for a FinOps practice](https://it-rat.com/changes-2026-10.html#finops-practice)
 
-- [By service](https://it-rat.com/#by-service)
+- [By service](https://it-rat.com/changes-2026-10.html#by-service)
 
-- [Every service, before and after](https://it-rat.com/#before-after)
+- [Every service, before and after](https://it-rat.com/changes-2026-10.html#before-after)
 
-- [A few terms](https://it-rat.com/#terms)
+- [A few terms](https://it-rat.com/changes-2026-10.html#terms)
 
 ## Two weeks, in five numbers.
 
@@ -64,19 +64,19 @@ Across 24 repositories we merged 532 pull requests (794 commits without merges) 
 
 Each theme opens with the problem in plain words, then lists what changed, then says why it matters for someone who runs agents and owns their cost. A short line at the end names the versions.
 
-- [Prices that match the vendor's bill.](https://it-rat.com/#prices) The gateway's price book now holds every listed model at its list rate, prices long prompts by the vendor's own tiers, and says when a call was priced from a fallback.
+- [Prices that match the vendor's bill.](https://it-rat.com/changes-2026-10.html#prices) The gateway's price book now holds every listed model at its list rate, prices long prompts by the vendor's own tiers, and says when a call was priced from a fallback.
 
-- [Money that is never forgotten.](https://it-rat.com/#retained-money) A call that may have been billed but never answered is kept as money owed, survives a restart, and is closed by a named person with evidence.
+- [Money that is never forgotten.](https://it-rat.com/changes-2026-10.html#retained-money) A call that may have been billed but never answered is kept as money owed, survives a restart, and is closed by a named person with evidence.
 
-- [Tool calls judged before they run.](https://it-rat.com/#tool-calls) Tool descriptions are read for poisoning, a tool that changes after approval is refused, memory counts as untrusted text, and streamed answers are judged like any other.
+- [Tool calls judged before they run.](https://it-rat.com/changes-2026-10.html#tool-calls) Tool descriptions are read for poisoning, a tool that changes after approval is refused, memory counts as untrusted text, and streamed answers are judged like any other.
 
-- [A typo can no longer switch a control off.](https://it-rat.com/#safe-defaults) A setting the service cannot read now stops it at start, and a policy with a misspelled rule is refused instead of stored without the rule.
+- [A typo can no longer switch a control off.](https://it-rat.com/changes-2026-10.html#safe-defaults) A setting the service cannot read now stops it at start, and a policy with a misspelled rule is refused instead of stored without the rule.
 
-- [Every refusal is filed under the right name and reaches the record.](https://it-rat.com/#identity-evidence) Refusals are filed under the credential that made the call, and the record keeps a single writer per file.
+- [Every refusal is filed under the right name and reaches the record.](https://it-rat.com/changes-2026-10.html#identity-evidence) Refusals are filed under the credential that made the call, and the record keeps a single writer per file.
 
-- [FinOps that knows what was decided.](https://it-rat.com/#finops) CostCrew can announce a saving before it lands, so a planned change is judged as a step rather than raised as an anomaly.
+- [FinOps that knows what was decided.](https://it-rat.com/changes-2026-10.html#finops) CostCrew can announce a saving before it lands, so a planned change is judged as a step rather than raised as an anomaly.
 
-- [Running it day to day.](https://it-rat.com/#operations) Alerts with quiet hours and acknowledgements, a console that shows silence and refusals, and launchers with safer defaults.
+- [Running it day to day.](https://it-rat.com/changes-2026-10.html#operations) Alerts with quiet hours and acknowledgements, a console that shows silence and refusals, and launchers with safer defaults.
 
 ## Releases, day by day.
 
@@ -473,26 +473,26 @@ The same changes, filed under the service that shipped them. "Shipped in" names 
 
 | service | what it does | before 1 Oct | 15 Oct | releases | PRs merged |
 |---|---|---|---|---|---|
-| [TokenFuse](https://it-rat.com/#tokenfuse) | Gateway, prices and budgets, MCP broker | 1.4.1 | 1.14.0 | 14 | 97 |
-| [Wardryx](https://it-rat.com/#wardryx) | Policy decisions: allow, deny, hold | 1.1.3 | 1.5.0 | 6 | 31 |
-| [CostCrew](https://it-rat.com/#costcrew) | FinOps crew and console | 0.2.2 | 0.6.0 | 4 | 60 |
-| [Heraldyx](https://it-rat.com/#heraldyx) | Notifier | 0.2.5 | 0.7.0 | 5 | 31 |
-| [Idryx](https://it-rat.com/#idryx) | Agent identity graph and detectors | 1.0.0 | 1.2.1 | 3 | 16 |
-| [Trailryx](https://it-rat.com/#trailryx) | Tamper-evident record | 1.0.0 | 1.2.1 | 3 | 19 |
-| [agent-stack-go](https://it-rat.com/#platform) | Shared library, event writer, chain verifier | 1.0.2 | 1.3.0 | 3 | 16 |
-| [Typryx](https://it-rat.com/#typryx) | Typed answers and risk signals | 0.3.0 | 0.4.1 | 2 | 16 |
-| [Vouchryx](https://it-rat.com/#vouchryx) | Delegation tokens | 0.1.0 | 0.2.0 | 1 | 10 |
-| [Console (Genaryx)](https://it-rat.com/#genaryx) | Operator console and Felyx | image 1.1.19 | image 1.1.46 | - | 40 |
-| [Engram](https://it-rat.com/#engram) | Agent memory | 2.4.1 | 2.4.1, provenance on main | 0 | 5 |
-| [Mockryx](https://it-rat.com/#mockryx) | Drills | 0.2.1 | 0.2.1, four drills on main | 0 | 13 |
-| [Verdryx](https://it-rat.com/#verdryx) | Answer quality per dollar | - | price mirrors on main | 0 | 9 |
-| [Qryx](https://it-rat.com/#qryx), [Scopyx](https://it-rat.com/#scopyx) | Crypto inventory, egress gate | 1.0.0, 1.0.1 | unchanged, docs and toolchain | 0 | 22 |
-| [agent-passport](https://it-rat.com/#platform) | Event and identity specification | 1.0.0 | six event types registered | 0 | 9 |
-| [Terraform provider](https://it-rat.com/#platform) | Infrastructure as code | 0.2.0 | 0.2.0, fixes on main | 0 | 11 |
-| [Template catalog](https://it-rat.com/#catalog) | Policies and drills | - | shop guardrail and drills | 0 | 6 |
-| [stack-single](https://it-rat.com/#stack-single) | Launcher for one machine | 1.1.15 | 1.1.35 | 20 | 46 |
-| [stack-k8s](https://it-rat.com/#stack-k8s) | Launcher for a cluster | 1.1.21 | 1.1.46 | 25 | 55 |
-| [stack-up](https://it-rat.com/#stack-up) | Developer launcher | - | safer defaults on main | 0 | 12 |
+| [TokenFuse](https://it-rat.com/changes-2026-10.html#tokenfuse) | Gateway, prices and budgets, MCP broker | 1.4.1 | 1.14.0 | 14 | 97 |
+| [Wardryx](https://it-rat.com/changes-2026-10.html#wardryx) | Policy decisions: allow, deny, hold | 1.1.3 | 1.5.0 | 6 | 31 |
+| [CostCrew](https://it-rat.com/changes-2026-10.html#costcrew) | FinOps crew and console | 0.2.2 | 0.6.0 | 4 | 60 |
+| [Heraldyx](https://it-rat.com/changes-2026-10.html#heraldyx) | Notifier | 0.2.5 | 0.7.0 | 5 | 31 |
+| [Idryx](https://it-rat.com/changes-2026-10.html#idryx) | Agent identity graph and detectors | 1.0.0 | 1.2.1 | 3 | 16 |
+| [Trailryx](https://it-rat.com/changes-2026-10.html#trailryx) | Tamper-evident record | 1.0.0 | 1.2.1 | 3 | 19 |
+| [agent-stack-go](https://it-rat.com/changes-2026-10.html#platform) | Shared library, event writer, chain verifier | 1.0.2 | 1.3.0 | 3 | 16 |
+| [Typryx](https://it-rat.com/changes-2026-10.html#typryx) | Typed answers and risk signals | 0.3.0 | 0.4.1 | 2 | 16 |
+| [Vouchryx](https://it-rat.com/changes-2026-10.html#vouchryx) | Delegation tokens | 0.1.0 | 0.2.0 | 1 | 10 |
+| [Console (Genaryx)](https://it-rat.com/changes-2026-10.html#genaryx) | Operator console and Felyx | image 1.1.19 | image 1.1.46 | - | 40 |
+| [Engram](https://it-rat.com/changes-2026-10.html#engram) | Agent memory | 2.4.1 | 2.4.1, provenance on main | 0 | 5 |
+| [Mockryx](https://it-rat.com/changes-2026-10.html#mockryx) | Drills | 0.2.1 | 0.2.1, four drills on main | 0 | 13 |
+| [Verdryx](https://it-rat.com/changes-2026-10.html#verdryx) | Answer quality per dollar | - | price mirrors on main | 0 | 9 |
+| [Qryx](https://it-rat.com/changes-2026-10.html#qryx), [Scopyx](https://it-rat.com/changes-2026-10.html#scopyx) | Crypto inventory, egress gate | 1.0.0, 1.0.1 | unchanged, docs and toolchain | 0 | 22 |
+| [agent-passport](https://it-rat.com/changes-2026-10.html#platform) | Event and identity specification | 1.0.0 | six event types registered | 0 | 9 |
+| [Terraform provider](https://it-rat.com/changes-2026-10.html#platform) | Infrastructure as code | 0.2.0 | 0.2.0, fixes on main | 0 | 11 |
+| [Template catalog](https://it-rat.com/changes-2026-10.html#catalog) | Policies and drills | - | shop guardrail and drills | 0 | 6 |
+| [stack-single](https://it-rat.com/changes-2026-10.html#stack-single) | Launcher for one machine | 1.1.15 | 1.1.35 | 20 | 46 |
+| [stack-k8s](https://it-rat.com/changes-2026-10.html#stack-k8s) | Launcher for a cluster | 1.1.21 | 1.1.46 | 25 | 55 |
+| [stack-up](https://it-rat.com/changes-2026-10.html#stack-up) | Developer launcher | - | safer defaults on main | 0 | 12 |
 
 ## A few terms.
 

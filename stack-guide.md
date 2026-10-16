@@ -6,23 +6,23 @@
 
 The [home page](https://it-rat.com/index.html) keeps the short version: the opening, the eight figures from the validation campaign, the corridor of rooms and the wiring drawing. This guide keeps the rest of what it used to say: the opening in full, each figure in full, what the campaign ran and what it caught, how the stack wires, why all of it is open, and how to run the stack yourself. [What is proven](https://it-rat.com/what-is-proven.html) sets out every claim with what it stops short of.
 
-- [The opening, in full](https://it-rat.com/#overview)
+- [The opening, in full](https://it-rat.com/stack-guide.html#overview)
 
-- [The eight figures](https://it-rat.com/#proof)
+- [The eight figures](https://it-rat.com/stack-guide.html#proof)
 
-- [What the campaign ran](https://it-rat.com/#campaign)
+- [What the campaign ran](https://it-rat.com/stack-guide.html#campaign)
 
-- [What it caught](https://it-rat.com/#caught)
+- [What it caught](https://it-rat.com/stack-guide.html#caught)
 
-- [Where the rest is recorded](https://it-rat.com/#elsewhere)
+- [Where the rest is recorded](https://it-rat.com/stack-guide.html#elsewhere)
 
-- [The corridor](https://it-rat.com/#corridor)
+- [The corridor](https://it-rat.com/stack-guide.html#corridor)
 
-- [How it wires](https://it-rat.com/#wiring)
+- [How it wires](https://it-rat.com/stack-guide.html#wiring)
 
-- [Why all of it is open](https://it-rat.com/#open)
+- [Why all of it is open](https://it-rat.com/stack-guide.html#open)
 
-- [Run it yourself](https://it-rat.com/#run)
+- [Run it yourself](https://it-rat.com/stack-guide.html#run)
 
 ## Run AI agents like a workforce, not a wildfire.
 

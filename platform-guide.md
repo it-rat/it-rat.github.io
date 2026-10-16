@@ -6,21 +6,21 @@
 
 The [Platform room](https://it-rat.com/services/platform.html) keeps the simulation, the drawing of the envelope and the common questions. This guide keeps the rest of what the room used to say: what the contract pins down, the full text for running the stack on a laptop, on one box or on a cluster, the downloads, and what the contract does not claim.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/platform-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/platform-guide.html#how-it-works)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/platform-guide.html#run)
 
-- [On your own infrastructure](https://it-rat.com/#deploy)
+- [On your own infrastructure](https://it-rat.com/platform-guide.html#deploy)
 
-- [The contract for your own agent](https://it-rat.com/#try-it)
+- [The contract for your own agent](https://it-rat.com/platform-guide.html#try-it)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/platform-guide.html#where-it-sits)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/platform-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/platform-guide.html#limits)
 
 ## The contract at a glance.
 
@@ -128,7 +128,7 @@ The shape the stack is actually built for: the planes share a filesystem, which 
 
 It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves `http://wardryx:8090` exactly the way a Kubernetes Service did.
 
-[The sandbox above](https://it-rat.com/#run) is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.
+[The sandbox above](https://it-rat.com/platform-guide.html#run) is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.
 
 It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.
 

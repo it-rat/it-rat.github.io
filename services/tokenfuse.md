@@ -34,7 +34,7 @@ Agent spend lands in the same FinOps Foundation format as the rest of your cloud
 
 ### The loud neighbor everyone listens to.
 
-TokenFuse asks [Wardryx](https://it-rat.com/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
+TokenFuse asks [Wardryx](https://it-rat.com/services/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
 
 Run it from [the repository](https://github.com/TAIPANBOX/tokenfuse#-get-started), where the one-line command lives beside the image tag it pulls.
 
@@ -42,7 +42,7 @@ Then point `ANTHROPIC_BASE_URL` at `localhost:4100` and give your next run a bud
 
 ## It stops the spend. Two neighbours stop other things.
 
-A breaker is the right answer to a runaway and the wrong one to a compromised delegation: [Vouchryx](https://it-rat.com/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/costcrew.html) is where a bill gets taken apart, allocated and closed.
+A breaker is the right answer to a runaway and the wrong one to a compromised delegation: [Vouchryx](https://it-rat.com/services/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/services/costcrew.html) is where a bill gets taken apart, allocated and closed.
 
 ## What the default install does not do.
 

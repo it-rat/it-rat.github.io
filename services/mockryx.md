@@ -34,7 +34,7 @@ A guardrail that is off looks exactly like one that is broken. The runner insist
 
 ## It picks fights with the rest of the stack. On purpose, in pre-prod.
 
-In the request path, Mockryx rehearses [TokenFuse](https://it-rat.com/tokenfuse.html): the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to [Wardryx](https://it-rat.com/wardryx.html), asserting that deny and hold verdicts land in the x-fuse-wardryx header.
+In the request path, Mockryx rehearses [TokenFuse](https://it-rat.com/services/tokenfuse.html): the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to [Wardryx](https://it-rat.com/services/wardryx.html), asserting that deny and hold verdicts land in the x-fuse-wardryx header.
 
 ## Point it at pre-prod, never at prod.
 

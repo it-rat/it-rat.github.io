@@ -1816,51 +1816,51 @@ Because a named comparison is wrong the week after a vendor ships a feature, and
 
 An AI agent can be talked into anything, so everything that keeps it safe has to sit where persuasion cannot reach. Security in a stack for agents is decided by three things: where each decision sits, what happens when a part of the stack fails, and whether its record can prove itself. **These are the eight decisions we made, why we made them, and what happened when we broke each one on purpose.**
 
-- [At a glance: the eight decisions](https://it-rat.com/#at-a-glance)
+- [At a glance: the eight decisions](https://it-rat.com/security-by-design.html#at-a-glance)
 
-- [A refusal we did not count](https://it-rat.com/#intro)
+- [A refusal we did not count](https://it-rat.com/security-by-design.html#intro)
 
-- [Why security comes first](https://it-rat.com/#why-security-first)
+- [Why security comes first](https://it-rat.com/security-by-design.html#why-security-first)
 
-- [The shortcuts agents usually run on](https://it-rat.com/#shortcuts)
+- [The shortcuts agents usually run on](https://it-rat.com/security-by-design.html#shortcuts)
 
-- [1. The decision sits in the path](https://it-rat.com/#in-the-path)
+- [1. The decision sits in the path](https://it-rat.com/security-by-design.html#in-the-path)
 
-- [2. No model in the decision](https://it-rat.com/#no-model-in-the-decision)
+- [2. No model in the decision](https://it-rat.com/security-by-design.html#no-model-in-the-decision)
 
-- [3. Every failure has a stated answer](https://it-rat.com/#stated-failure-answer)
+- [3. Every failure has a stated answer](https://it-rat.com/security-by-design.html#stated-failure-answer)
 
-- [4. An identity, not a key](https://it-rat.com/#identity-not-key)
+- [4. An identity, not a key](https://it-rat.com/security-by-design.html#identity-not-key)
 
-- [5. Each part holds only what it needs](https://it-rat.com/#least-held)
+- [5. Each part holds only what it needs](https://it-rat.com/security-by-design.html#least-held)
 
-- [6. A record that proves itself](https://it-rat.com/#self-proving-record)
+- [6. A record that proves itself](https://it-rat.com/security-by-design.html#self-proving-record)
 
-- [7. It stays in your building](https://it-rat.com/#stays-in-your-building)
+- [7. It stays in your building](https://it-rat.com/security-by-design.html#stays-in-your-building)
 
-- [8. Every control is proven by breaking it](https://it-rat.com/#proven-by-breaking)
+- [8. Every control is proven by breaking it](https://it-rat.com/security-by-design.html#proven-by-breaking)
 
-- [What we built](https://it-rat.com/#what-we-built)
+- [What we built](https://it-rat.com/security-by-design.html#what-we-built)
 
-- [Three things to try on Monday](https://it-rat.com/#monday)
+- [Three things to try on Monday](https://it-rat.com/security-by-design.html#monday)
 
 ## Eight decisions, one line each.
 
-- [The decision sits in the path, before the action.](https://it-rat.com/#in-the-path) Identity, policy and budget are decided before the model provider hears a call, and a tool call the model asks for is judged before the agent can run it.
+- [The decision sits in the path, before the action.](https://it-rat.com/security-by-design.html#in-the-path) Identity, policy and budget are decided before the model provider hears a call, and a tool call the model asks for is judged before the agent can run it.
 
-- [No model in the decision.](https://it-rat.com/#no-model-in-the-decision) Plain rules give the same answer to the same request every time; a model may add a risk signal that can hold a call, never allow or deny one.
+- [No model in the decision.](https://it-rat.com/security-by-design.html#no-model-in-the-decision) Plain rules give the same answer to the same request every time; a model may add a risk signal that can hold a call, never allow or deny one.
 
-- [Every failure has a stated answer.](https://it-rat.com/#stated-failure-answer) For every dependency we wrote down what happens next, and the installers ship the policy service's answer set to closed.
+- [Every failure has a stated answer.](https://it-rat.com/security-by-design.html#stated-failure-answer) For every dependency we wrote down what happens next, and the installers ship the policy service's answer set to closed.
 
-- [An identity, not a key.](https://it-rat.com/#identity-not-key) Each agent has its own identifier, a key speaks only for the identities bound to it, and a revocation wins.
+- [An identity, not a key.](https://it-rat.com/security-by-design.html#identity-not-key) Each agent has its own identifier, a key speaks only for the identities bound to it, and a revocation wins.
 
-- [Each part holds only what it needs.](https://it-rat.com/#least-held) The part that decides is not the part that enforces, the part that alerts can act on nothing, and the stop is a person behind a passkey.
+- [Each part holds only what it needs.](https://it-rat.com/security-by-design.html#least-held) The part that decides is not the part that enforces, the part that alerts can act on nothing, and the stop is a person behind a passkey.
 
-- [A record that proves itself.](https://it-rat.com/#self-proving-record) Hash-chained, sealed, and checkable offline by somebody who has no reason to trust us.
+- [A record that proves itself.](https://it-rat.com/security-by-design.html#self-proving-record) Hash-chained, sealed, and checkable offline by somebody who has no reason to trust us.
 
-- [It stays in your building.](https://it-rat.com/#stays-in-your-building) Self-hosted and Apache-2.0, with no account and no telemetry; what leaves through the stack is decided first.
+- [It stays in your building.](https://it-rat.com/security-by-design.html#stays-in-your-building) Self-hosted and Apache-2.0, with no account and no telemetry; what leaves through the stack is decided first.
 
-- [Every control is proven by breaking it.](https://it-rat.com/#proven-by-breaking) A check counts only after it has failed on a planted fault, and then we break the running system.
+- [Every control is proven by breaking it.](https://it-rat.com/security-by-design.html#proven-by-breaking) A check counts only after it has failed on a planted fault, and then we break the running system.
 
 ## A refusal we did not count.
 
@@ -2061,23 +2061,23 @@ All of it is Apache-2.0 and self-hosted, with no seats, licence key or telemetry
 
 The [home page](https://it-rat.com/index.html) keeps the short version: the opening, the eight figures from the validation campaign, the corridor of rooms and the wiring drawing. This guide keeps the rest of what it used to say: the opening in full, each figure in full, what the campaign ran and what it caught, how the stack wires, why all of it is open, and how to run the stack yourself. [What is proven](https://it-rat.com/what-is-proven.html) sets out every claim with what it stops short of.
 
-- [The opening, in full](https://it-rat.com/#overview)
+- [The opening, in full](https://it-rat.com/stack-guide.html#overview)
 
-- [The eight figures](https://it-rat.com/#proof)
+- [The eight figures](https://it-rat.com/stack-guide.html#proof)
 
-- [What the campaign ran](https://it-rat.com/#campaign)
+- [What the campaign ran](https://it-rat.com/stack-guide.html#campaign)
 
-- [What it caught](https://it-rat.com/#caught)
+- [What it caught](https://it-rat.com/stack-guide.html#caught)
 
-- [Where the rest is recorded](https://it-rat.com/#elsewhere)
+- [Where the rest is recorded](https://it-rat.com/stack-guide.html#elsewhere)
 
-- [The corridor](https://it-rat.com/#corridor)
+- [The corridor](https://it-rat.com/stack-guide.html#corridor)
 
-- [How it wires](https://it-rat.com/#wiring)
+- [How it wires](https://it-rat.com/stack-guide.html#wiring)
 
-- [Why all of it is open](https://it-rat.com/#open)
+- [Why all of it is open](https://it-rat.com/stack-guide.html#open)
 
-- [Run it yourself](https://it-rat.com/#run)
+- [Run it yourself](https://it-rat.com/stack-guide.html#run)
 
 ## Run AI agents like a workforce, not a wildfire.
 
@@ -2168,35 +2168,35 @@ The [home page](https://it-rat.com/index.html) has the eight figures, the stack'
 
 What changed in the services in the first half of October, why each change matters, and what it improves for the people who run AI agents and pay for them. It is grouped by the problem each change solves, not by repository, because most problems were solved by several services moving together. **Each service's own list is at the end, under its name.**
 
-- [At a glance](https://it-rat.com/#at-a-glance)
+- [At a glance](https://it-rat.com/changes-2026-10.html#at-a-glance)
 
-- [Releases, day by day](https://it-rat.com/#releases)
+- [Releases, day by day](https://it-rat.com/changes-2026-10.html#releases)
 
-- [How the work is done](https://it-rat.com/#method)
+- [How the work is done](https://it-rat.com/changes-2026-10.html#method)
 
-- [1. Prices that match the vendor's bill](https://it-rat.com/#prices)
+- [1. Prices that match the vendor's bill](https://it-rat.com/changes-2026-10.html#prices)
 
-- [2. Money that is never forgotten](https://it-rat.com/#retained-money)
+- [2. Money that is never forgotten](https://it-rat.com/changes-2026-10.html#retained-money)
 
-- [3. Tool calls judged before they run](https://it-rat.com/#tool-calls)
+- [3. Tool calls judged before they run](https://it-rat.com/changes-2026-10.html#tool-calls)
 
-- [4. A typo can no longer switch a control off](https://it-rat.com/#safe-defaults)
+- [4. A typo can no longer switch a control off](https://it-rat.com/changes-2026-10.html#safe-defaults)
 
-- [5. Every refusal filed under the right name](https://it-rat.com/#identity-evidence)
+- [5. Every refusal filed under the right name](https://it-rat.com/changes-2026-10.html#identity-evidence)
 
-- [6. FinOps that knows what was decided](https://it-rat.com/#finops)
+- [6. FinOps that knows what was decided](https://it-rat.com/changes-2026-10.html#finops)
 
-- [7. Running it day to day](https://it-rat.com/#operations)
+- [7. Running it day to day](https://it-rat.com/changes-2026-10.html#operations)
 
-- [14 October: breaking it on purpose](https://it-rat.com/#failure-day)
+- [14 October: breaking it on purpose](https://it-rat.com/changes-2026-10.html#failure-day)
 
-- [What this means for a FinOps practice](https://it-rat.com/#finops-practice)
+- [What this means for a FinOps practice](https://it-rat.com/changes-2026-10.html#finops-practice)
 
-- [By service](https://it-rat.com/#by-service)
+- [By service](https://it-rat.com/changes-2026-10.html#by-service)
 
-- [Every service, before and after](https://it-rat.com/#before-after)
+- [Every service, before and after](https://it-rat.com/changes-2026-10.html#before-after)
 
-- [A few terms](https://it-rat.com/#terms)
+- [A few terms](https://it-rat.com/changes-2026-10.html#terms)
 
 ## Two weeks, in five numbers.
 
@@ -2226,19 +2226,19 @@ Across 24 repositories we merged 532 pull requests (794 commits without merges) 
 
 Each theme opens with the problem in plain words, then lists what changed, then says why it matters for someone who runs agents and owns their cost. A short line at the end names the versions.
 
-- [Prices that match the vendor's bill.](https://it-rat.com/#prices) The gateway's price book now holds every listed model at its list rate, prices long prompts by the vendor's own tiers, and says when a call was priced from a fallback.
+- [Prices that match the vendor's bill.](https://it-rat.com/changes-2026-10.html#prices) The gateway's price book now holds every listed model at its list rate, prices long prompts by the vendor's own tiers, and says when a call was priced from a fallback.
 
-- [Money that is never forgotten.](https://it-rat.com/#retained-money) A call that may have been billed but never answered is kept as money owed, survives a restart, and is closed by a named person with evidence.
+- [Money that is never forgotten.](https://it-rat.com/changes-2026-10.html#retained-money) A call that may have been billed but never answered is kept as money owed, survives a restart, and is closed by a named person with evidence.
 
-- [Tool calls judged before they run.](https://it-rat.com/#tool-calls) Tool descriptions are read for poisoning, a tool that changes after approval is refused, memory counts as untrusted text, and streamed answers are judged like any other.
+- [Tool calls judged before they run.](https://it-rat.com/changes-2026-10.html#tool-calls) Tool descriptions are read for poisoning, a tool that changes after approval is refused, memory counts as untrusted text, and streamed answers are judged like any other.
 
-- [A typo can no longer switch a control off.](https://it-rat.com/#safe-defaults) A setting the service cannot read now stops it at start, and a policy with a misspelled rule is refused instead of stored without the rule.
+- [A typo can no longer switch a control off.](https://it-rat.com/changes-2026-10.html#safe-defaults) A setting the service cannot read now stops it at start, and a policy with a misspelled rule is refused instead of stored without the rule.
 
-- [Every refusal is filed under the right name and reaches the record.](https://it-rat.com/#identity-evidence) Refusals are filed under the credential that made the call, and the record keeps a single writer per file.
+- [Every refusal is filed under the right name and reaches the record.](https://it-rat.com/changes-2026-10.html#identity-evidence) Refusals are filed under the credential that made the call, and the record keeps a single writer per file.
 
-- [FinOps that knows what was decided.](https://it-rat.com/#finops) CostCrew can announce a saving before it lands, so a planned change is judged as a step rather than raised as an anomaly.
+- [FinOps that knows what was decided.](https://it-rat.com/changes-2026-10.html#finops) CostCrew can announce a saving before it lands, so a planned change is judged as a step rather than raised as an anomaly.
 
-- [Running it day to day.](https://it-rat.com/#operations) Alerts with quiet hours and acknowledgements, a console that shows silence and refusals, and launchers with safer defaults.
+- [Running it day to day.](https://it-rat.com/changes-2026-10.html#operations) Alerts with quiet hours and acknowledgements, a console that shows silence and refusals, and launchers with safer defaults.
 
 ## Releases, day by day.
 
@@ -2635,26 +2635,26 @@ The same changes, filed under the service that shipped them. "Shipped in" names 
 
 | service | what it does | before 1 Oct | 15 Oct | releases | PRs merged |
 |---|---|---|---|---|---|
-| [TokenFuse](https://it-rat.com/#tokenfuse) | Gateway, prices and budgets, MCP broker | 1.4.1 | 1.14.0 | 14 | 97 |
-| [Wardryx](https://it-rat.com/#wardryx) | Policy decisions: allow, deny, hold | 1.1.3 | 1.5.0 | 6 | 31 |
-| [CostCrew](https://it-rat.com/#costcrew) | FinOps crew and console | 0.2.2 | 0.6.0 | 4 | 60 |
-| [Heraldyx](https://it-rat.com/#heraldyx) | Notifier | 0.2.5 | 0.7.0 | 5 | 31 |
-| [Idryx](https://it-rat.com/#idryx) | Agent identity graph and detectors | 1.0.0 | 1.2.1 | 3 | 16 |
-| [Trailryx](https://it-rat.com/#trailryx) | Tamper-evident record | 1.0.0 | 1.2.1 | 3 | 19 |
-| [agent-stack-go](https://it-rat.com/#platform) | Shared library, event writer, chain verifier | 1.0.2 | 1.3.0 | 3 | 16 |
-| [Typryx](https://it-rat.com/#typryx) | Typed answers and risk signals | 0.3.0 | 0.4.1 | 2 | 16 |
-| [Vouchryx](https://it-rat.com/#vouchryx) | Delegation tokens | 0.1.0 | 0.2.0 | 1 | 10 |
-| [Console (Genaryx)](https://it-rat.com/#genaryx) | Operator console and Felyx | image 1.1.19 | image 1.1.46 | - | 40 |
-| [Engram](https://it-rat.com/#engram) | Agent memory | 2.4.1 | 2.4.1, provenance on main | 0 | 5 |
-| [Mockryx](https://it-rat.com/#mockryx) | Drills | 0.2.1 | 0.2.1, four drills on main | 0 | 13 |
-| [Verdryx](https://it-rat.com/#verdryx) | Answer quality per dollar | - | price mirrors on main | 0 | 9 |
-| [Qryx](https://it-rat.com/#qryx), [Scopyx](https://it-rat.com/#scopyx) | Crypto inventory, egress gate | 1.0.0, 1.0.1 | unchanged, docs and toolchain | 0 | 22 |
-| [agent-passport](https://it-rat.com/#platform) | Event and identity specification | 1.0.0 | six event types registered | 0 | 9 |
-| [Terraform provider](https://it-rat.com/#platform) | Infrastructure as code | 0.2.0 | 0.2.0, fixes on main | 0 | 11 |
-| [Template catalog](https://it-rat.com/#catalog) | Policies and drills | - | shop guardrail and drills | 0 | 6 |
-| [stack-single](https://it-rat.com/#stack-single) | Launcher for one machine | 1.1.15 | 1.1.35 | 20 | 46 |
-| [stack-k8s](https://it-rat.com/#stack-k8s) | Launcher for a cluster | 1.1.21 | 1.1.46 | 25 | 55 |
-| [stack-up](https://it-rat.com/#stack-up) | Developer launcher | - | safer defaults on main | 0 | 12 |
+| [TokenFuse](https://it-rat.com/changes-2026-10.html#tokenfuse) | Gateway, prices and budgets, MCP broker | 1.4.1 | 1.14.0 | 14 | 97 |
+| [Wardryx](https://it-rat.com/changes-2026-10.html#wardryx) | Policy decisions: allow, deny, hold | 1.1.3 | 1.5.0 | 6 | 31 |
+| [CostCrew](https://it-rat.com/changes-2026-10.html#costcrew) | FinOps crew and console | 0.2.2 | 0.6.0 | 4 | 60 |
+| [Heraldyx](https://it-rat.com/changes-2026-10.html#heraldyx) | Notifier | 0.2.5 | 0.7.0 | 5 | 31 |
+| [Idryx](https://it-rat.com/changes-2026-10.html#idryx) | Agent identity graph and detectors | 1.0.0 | 1.2.1 | 3 | 16 |
+| [Trailryx](https://it-rat.com/changes-2026-10.html#trailryx) | Tamper-evident record | 1.0.0 | 1.2.1 | 3 | 19 |
+| [agent-stack-go](https://it-rat.com/changes-2026-10.html#platform) | Shared library, event writer, chain verifier | 1.0.2 | 1.3.0 | 3 | 16 |
+| [Typryx](https://it-rat.com/changes-2026-10.html#typryx) | Typed answers and risk signals | 0.3.0 | 0.4.1 | 2 | 16 |
+| [Vouchryx](https://it-rat.com/changes-2026-10.html#vouchryx) | Delegation tokens | 0.1.0 | 0.2.0 | 1 | 10 |
+| [Console (Genaryx)](https://it-rat.com/changes-2026-10.html#genaryx) | Operator console and Felyx | image 1.1.19 | image 1.1.46 | - | 40 |
+| [Engram](https://it-rat.com/changes-2026-10.html#engram) | Agent memory | 2.4.1 | 2.4.1, provenance on main | 0 | 5 |
+| [Mockryx](https://it-rat.com/changes-2026-10.html#mockryx) | Drills | 0.2.1 | 0.2.1, four drills on main | 0 | 13 |
+| [Verdryx](https://it-rat.com/changes-2026-10.html#verdryx) | Answer quality per dollar | - | price mirrors on main | 0 | 9 |
+| [Qryx](https://it-rat.com/changes-2026-10.html#qryx), [Scopyx](https://it-rat.com/changes-2026-10.html#scopyx) | Crypto inventory, egress gate | 1.0.0, 1.0.1 | unchanged, docs and toolchain | 0 | 22 |
+| [agent-passport](https://it-rat.com/changes-2026-10.html#platform) | Event and identity specification | 1.0.0 | six event types registered | 0 | 9 |
+| [Terraform provider](https://it-rat.com/changes-2026-10.html#platform) | Infrastructure as code | 0.2.0 | 0.2.0, fixes on main | 0 | 11 |
+| [Template catalog](https://it-rat.com/changes-2026-10.html#catalog) | Policies and drills | - | shop guardrail and drills | 0 | 6 |
+| [stack-single](https://it-rat.com/changes-2026-10.html#stack-single) | Launcher for one machine | 1.1.15 | 1.1.35 | 20 | 46 |
+| [stack-k8s](https://it-rat.com/changes-2026-10.html#stack-k8s) | Launcher for a cluster | 1.1.21 | 1.1.46 | 25 | 55 |
+| [stack-up](https://it-rat.com/changes-2026-10.html#stack-up) | Developer launcher | - | safer defaults on main | 0 | 12 |
 
 ## A few terms.
 
@@ -2689,21 +2689,21 @@ The FinOps Foundation's open format for cost and usage data, which the gateway a
 
 The [Genaryx room](https://it-rat.com/genaryx.html) keeps the fifteen frames, the live demo, the drawing of the plane and the common questions. This guide keeps the rest of what the room used to say: the core, the passkey ceremony and the tunnel in detail, how Felyx is held, what each frame shows, the console beside the stack by hand, taking it, and what is reported but not yet in the record.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/genaryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/genaryx-guide.html#how-it-works)
 
-- [Felyx, the copilot](https://it-rat.com/#felyx)
+- [Felyx, the copilot](https://it-rat.com/genaryx-guide.html#felyx)
 
-- [Every frame](https://it-rat.com/#frames)
+- [Every frame](https://it-rat.com/genaryx-guide.html#frames)
 
-- [Beside the stack by hand](https://it-rat.com/#why)
+- [Beside the stack by hand](https://it-rat.com/genaryx-guide.html#why)
 
-- [Taking it](https://it-rat.com/#run)
+- [Taking it](https://it-rat.com/genaryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/genaryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/genaryx-guide.html#limits)
 
 ## Genaryx at a glance.
 
@@ -2924,17 +2924,17 @@ The [Genaryx room](https://it-rat.com/genaryx.html) has the fifteen frames, the 
 
 The [TokenFuse room](https://it-rat.com/services/tokenfuse.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: how a cap is enforced, where it sits, how to run it, what changed from 1 to 15 October 2026, and what the default install does not do.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/tokenfuse-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/tokenfuse-guide.html#how-it-works)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/tokenfuse-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/tokenfuse-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/tokenfuse-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/tokenfuse-guide.html#limits)
 
 ## TokenFuse at a glance.
 
@@ -3085,19 +3085,19 @@ The [TokenFuse room](https://it-rat.com/services/tokenfuse.html) has the simulat
 
 The [CostCrew room](https://it-rat.com/services/costcrew.html) keeps the console, the drawing of one finding end to end, and the common questions. This guide keeps the rest of what the room used to say: how the work moves, how to run and configure it, what changed from 1 to 15 October 2026, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/costcrew-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/costcrew-guide.html#how-it-works)
 
-- [Found, never saved](https://it-rat.com/#found-not-saved)
+- [Found, never saved](https://it-rat.com/costcrew-guide.html#found-not-saved)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/costcrew-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/costcrew-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/costcrew-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/costcrew-guide.html#limits)
 
 ## CostCrew at a glance.
 
@@ -3275,15 +3275,15 @@ The [CostCrew room](https://it-rat.com/services/costcrew.html) has the seventeen
 
 The [Pocket room](https://it-rat.com/services/pocket.html) keeps the simulation, the live design mock and the drawing. This guide keeps the rest of what the room used to say: the screens in full, Pocket beside Heraldyx, where it sits, and the full account of why it is in the stack and not wired into one yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/pocket-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/pocket-guide.html#how-it-works)
 
-- [Pocket and Heraldyx](https://it-rat.com/#heraldyx)
+- [Pocket and Heraldyx](https://it-rat.com/pocket-guide.html#heraldyx)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/pocket-guide.html#where-it-sits)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/pocket-guide.html#limits)
 
 ## Pocket at a glance.
 
@@ -3424,17 +3424,17 @@ The [Pocket room](https://it-rat.com/services/pocket.html) has the simulation, t
 
 The [Wardryx room](https://it-rat.com/services/wardryx.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: how a hold is resolved, the modes and the outage choice, where it sits, how to run it, what changed from 1 to 15 October 2026, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/wardryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/wardryx-guide.html#how-it-works)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/wardryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/wardryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/wardryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/wardryx-guide.html#limits)
 
 ## Wardryx at a glance.
 
@@ -3565,19 +3565,19 @@ The [Wardryx room](https://it-rat.com/services/wardryx.html) has the simulation,
 
 The [Idryx room](https://it-rat.com/services/idryx.html) keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: what the graph is made of, what the detectors look for, what it answers, where it sits, how to run it, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/idryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/idryx-guide.html#how-it-works)
 
-- [What it answers](https://it-rat.com/#what-it-answers)
+- [What it answers](https://it-rat.com/idryx-guide.html#what-it-answers)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/idryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/idryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/idryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/idryx-guide.html#limits)
 
 ## Idryx at a glance.
 
@@ -3719,25 +3719,25 @@ The [Idryx room](https://it-rat.com/services/idryx.html) has the simulation, the
 
 The [Scopyx room](https://it-rat.com/services/scopyx.html) keeps the request in flight, the two mechanisms you can switch off, what the record keeps, and how to start it. This guide keeps the rest of what the room used to say: the measured run behind the gates, redirects, the backends it decides over, what a result admits, how to run and configure it, what changed from 1 to 15 October 2026, and what it will not do.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/scopyx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/scopyx-guide.html#how-it-works)
 
-- [Redirects](https://it-rat.com/#redirects)
+- [Redirects](https://it-rat.com/scopyx-guide.html#redirects)
 
-- [What it decides over](https://it-rat.com/#backends)
+- [What it decides over](https://it-rat.com/scopyx-guide.html#backends)
 
-- [Two mechanisms in a browser](https://it-rat.com/#mechanisms)
+- [Two mechanisms in a browser](https://it-rat.com/scopyx-guide.html#mechanisms)
 
-- [What the answer admits](https://it-rat.com/#fidelity)
+- [What the answer admits](https://it-rat.com/scopyx-guide.html#fidelity)
 
-- [What is kept](https://it-rat.com/#record)
+- [What is kept](https://it-rat.com/scopyx-guide.html#record)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/scopyx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/scopyx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/scopyx-guide.html#limits)
 
 ## Scopyx at a glance.
 
@@ -3894,21 +3894,21 @@ The [Scopyx room](https://it-rat.com/services/scopyx.html) has the request in fl
 
 The [Vouchryx room](https://it-rat.com/services/vouchryx.html) keeps the loop drawn end to end, the two kill switches, how to start it, and the common questions. This guide keeps the rest of what the room used to say: the gap it closes in full, the six endpoints, the configuration it will not start without, a measured revocation run, what changed from 1 to 15 October 2026, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/vouchryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/vouchryx-guide.html#how-it-works)
 
-- [The endpoints](https://it-rat.com/#surface)
+- [The endpoints](https://it-rat.com/vouchryx-guide.html#surface)
 
-- [Two kill switches](https://it-rat.com/#two-switches)
+- [Two kill switches](https://it-rat.com/vouchryx-guide.html#two-switches)
 
-- [Configuration](https://it-rat.com/#configuration)
+- [Configuration](https://it-rat.com/vouchryx-guide.html#configuration)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/vouchryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/vouchryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/vouchryx-guide.html#limits)
 
 ## Vouchryx at a glance.
 
@@ -4008,25 +4008,25 @@ The [Vouchryx room](https://it-rat.com/services/vouchryx.html) has the loop draw
 
 The [Qryx room](https://it-rat.com/services/qryx.html) keeps the sixty-second sweep, the drawing of the one graph, how to start it, and the common questions. This guide keeps the rest of what the room used to say: what it holds in full, the risk model, how it counts honestly, where it sits in the stack, downloads for every platform, what changed from 1 to 15 October 2026, and what it leaves out.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/qryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/qryx-guide.html#how-it-works)
 
-- [What it holds](https://it-rat.com/#holds)
+- [What it holds](https://it-rat.com/qryx-guide.html#holds)
 
-- [The risk model](https://it-rat.com/#risk-model)
+- [The risk model](https://it-rat.com/qryx-guide.html#risk-model)
 
-- [Counting honestly](https://it-rat.com/#counting)
+- [Counting honestly](https://it-rat.com/qryx-guide.html#counting)
 
-- [What it reads](https://it-rat.com/#reads)
+- [What it reads](https://it-rat.com/qryx-guide.html#reads)
 
-- [In the stack](https://it-rat.com/#in-the-stack)
+- [In the stack](https://it-rat.com/qryx-guide.html#in-the-stack)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/qryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/qryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/qryx-guide.html#limits)
 
 ## Qryx at a glance.
 
@@ -4154,23 +4154,23 @@ The [Qryx room](https://it-rat.com/services/qryx.html) has the sweep, the drawin
 
 The [Verdryx room](https://it-rat.com/services/verdryx.html) keeps the sixty-second shift, the drawing of the graders, how to start it, and the common questions. This guide keeps the rest of what the room used to say: what it grades in full, how a case gets a price, the six graders, where it sits in the stack, how to run it, what changed from 1 to 15 October 2026, and its limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/verdryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/verdryx-guide.html#how-it-works)
 
-- [What it grades](https://it-rat.com/#grades)
+- [What it grades](https://it-rat.com/verdryx-guide.html#grades)
 
-- [Cost per outcome](https://it-rat.com/#cost-per-outcome)
+- [Cost per outcome](https://it-rat.com/verdryx-guide.html#cost-per-outcome)
 
-- [The six graders](https://it-rat.com/#graders)
+- [The six graders](https://it-rat.com/verdryx-guide.html#graders)
 
-- [In the stack](https://it-rat.com/#in-the-stack)
+- [In the stack](https://it-rat.com/verdryx-guide.html#in-the-stack)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/verdryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/verdryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/verdryx-guide.html#limits)
 
 ## Verdryx at a glance.
 
@@ -4291,25 +4291,25 @@ The [Verdryx room](https://it-rat.com/services/verdryx.html) has the shift, the 
 
 The [Typryx room](https://it-rat.com/services/typryx.html) keeps the measured replay, the drawings and the widgets, and the common questions. This guide keeps the rest of what the room used to say: how an ask moves and what it holds to, the three data modes, your own model, the speed and calibration runs with their tables, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/typryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/typryx-guide.html#how-it-works)
 
-- [Three modes](https://it-rat.com/#modes)
+- [Three modes](https://it-rat.com/typryx-guide.html#modes)
 
-- [Your own model](https://it-rat.com/#own-model)
+- [Your own model](https://it-rat.com/typryx-guide.html#own-model)
 
-- [The measurements](https://it-rat.com/#measured)
+- [The measurements](https://it-rat.com/typryx-guide.html#measured)
 
-- [Where it plugs in](https://it-rat.com/#plugs)
+- [Where it plugs in](https://it-rat.com/typryx-guide.html#plugs)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/typryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/typryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/typryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/typryx-guide.html#limits)
 
 ## Typryx at a glance.
 
@@ -4535,19 +4535,19 @@ The [Typryx room](https://it-rat.com/services/typryx.html) has the measured repl
 
 The [Mockryx room](https://it-rat.com/services/mockryx.html) keeps the fire drill, the drawing of one target URL and three exit codes, and the common questions. This guide keeps the rest of what the room used to say: what a scenario names, how a reaction is proven, how a skipped guardrail is told from a gap, where it sits in the stack, how to run and download it, the drills on main, and the limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/mockryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/mockryx-guide.html#how-it-works)
 
-- [What it proves](https://it-rat.com/#what-it-proves)
+- [What it proves](https://it-rat.com/mockryx-guide.html#what-it-proves)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/mockryx-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/mockryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/mockryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/mockryx-guide.html#limits)
 
 ## Mockryx at a glance.
 
@@ -4671,21 +4671,21 @@ The [Mockryx room](https://it-rat.com/services/mockryx.html) has the fire drill,
 
 The [Trailryx room](https://it-rat.com/services/trailryx.html) keeps the replay of two questions and one erasure, the drawing of how a query is classified, and the short version of each part. This guide keeps the rest of what the room used to say: where it sits today, how erasure leaves the trail intact, the durability runs and what a sealed pack does and does not prove, the verifier and its downloads, what it seals lately, and the limits.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/trailryx-guide.html#overview)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/trailryx-guide.html#where-it-sits)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/trailryx-guide.html#how-it-works)
 
-- [Measured, not asserted](https://it-rat.com/#proof)
+- [Measured, not asserted](https://it-rat.com/trailryx-guide.html#proof)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/trailryx-guide.html#run)
 
-- [What it seals lately](https://it-rat.com/#sealing-lately)
+- [What it seals lately](https://it-rat.com/trailryx-guide.html#sealing-lately)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/trailryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/trailryx-guide.html#limits)
 
 ## Trailryx at a glance.
 
@@ -4782,21 +4782,21 @@ The [Trailryx room](https://it-rat.com/services/trailryx.html) has the replay, t
 
 The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0, and the boundaries in full.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/heraldyx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/heraldyx-guide.html#how-it-works)
 
-- [What actually arrives](https://it-rat.com/#the-mail)
+- [What actually arrives](https://it-rat.com/heraldyx-guide.html#the-mail)
 
-- [The dispatch record](https://it-rat.com/#the-record)
+- [The dispatch record](https://it-rat.com/heraldyx-guide.html#the-record)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/heraldyx-guide.html#run)
 
-- [Who else writes to the log](https://it-rat.com/#sources)
+- [Who else writes to the log](https://it-rat.com/heraldyx-guide.html#sources)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/heraldyx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/heraldyx-guide.html#limits)
 
 ## Heraldyx at a glance.
 
@@ -4921,21 +4921,21 @@ The [Heraldyx room](https://it-rat.com/services/heraldyx.html) has the burst rep
 
 The [Engram room](https://it-rat.com/services/engram.html) keeps the simulation, the drawing of one file on disk and the common questions. This guide keeps the rest of what the room used to say: what a memory holds and how each part works, the three live runs against real Claude, how it ships, what changed on main, and what it does not do yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/engram-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/engram-guide.html#how-it-works)
 
-- [Recall is one part of a memory](https://it-rat.com/#recall)
+- [Recall is one part of a memory](https://it-rat.com/engram-guide.html#recall)
 
-- [The live runs](https://it-rat.com/#live-run)
+- [The live runs](https://it-rat.com/engram-guide.html#live-run)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/engram-guide.html#where-it-sits)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/engram-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/engram-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/engram-guide.html#limits)
 
 ## Engram at a glance.
 
@@ -5089,21 +5089,21 @@ The [Engram room](https://it-rat.com/services/engram.html) has the simulation, t
 
 The [Platform room](https://it-rat.com/services/platform.html) keeps the simulation, the drawing of the envelope and the common questions. This guide keeps the rest of what the room used to say: what the contract pins down, the full text for running the stack on a laptop, on one box or on a cluster, the downloads, and what the contract does not claim.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/platform-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/platform-guide.html#how-it-works)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/platform-guide.html#run)
 
-- [On your own infrastructure](https://it-rat.com/#deploy)
+- [On your own infrastructure](https://it-rat.com/platform-guide.html#deploy)
 
-- [The contract for your own agent](https://it-rat.com/#try-it)
+- [The contract for your own agent](https://it-rat.com/platform-guide.html#try-it)
 
-- [Where it sits](https://it-rat.com/#where-it-sits)
+- [Where it sits](https://it-rat.com/platform-guide.html#where-it-sits)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/platform-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/platform-guide.html#limits)
 
 ## The contract at a glance.
 
@@ -5211,7 +5211,7 @@ The shape the stack is actually built for: the planes share a filesystem, which 
 
 It comes up closed: the gateway lands on the host's loopback and everything else has no host port at all, so a box that just ran an install script is not serving an enforcement plane to the internet because nobody typed anything. One variable publishes the gateway when you mean to. Same images and same service names as the cluster deployment, because Docker resolves `http://wardryx:8090` exactly the way a Kubernetes Service did.
 
-[The sandbox above](https://it-rat.com/#run) is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.
+[The sandbox above](https://it-rat.com/platform-guide.html#run) is this shape already, with one deliberate difference: it binds loopback only, so nothing on it is reachable by an agent on another machine. That is correct for trying it and wrong for serving a fleet.
 
 It also brings up a WireGuard server for the people who run the box, so the console is reached over a tunnel it issues rather than an SSH forward you keep alive by hand. That is the one port here published on purpose: WireGuard answers nothing at all without a valid key, unlike an HTTP plane.
 

@@ -6,21 +6,21 @@
 
 The [Vouchryx room](https://it-rat.com/services/vouchryx.html) keeps the loop drawn end to end, the two kill switches, how to start it, and the common questions. This guide keeps the rest of what the room used to say: the gap it closes in full, the six endpoints, the configuration it will not start without, a measured revocation run, what changed from 1 to 15 October 2026, and what is not proven yet.
 
-- [At a glance](https://it-rat.com/#overview)
+- [At a glance](https://it-rat.com/vouchryx-guide.html#overview)
 
-- [How it works](https://it-rat.com/#how-it-works)
+- [How it works](https://it-rat.com/vouchryx-guide.html#how-it-works)
 
-- [The endpoints](https://it-rat.com/#surface)
+- [The endpoints](https://it-rat.com/vouchryx-guide.html#surface)
 
-- [Two kill switches](https://it-rat.com/#two-switches)
+- [Two kill switches](https://it-rat.com/vouchryx-guide.html#two-switches)
 
-- [Configuration](https://it-rat.com/#configuration)
+- [Configuration](https://it-rat.com/vouchryx-guide.html#configuration)
 
-- [Running it](https://it-rat.com/#run)
+- [Running it](https://it-rat.com/vouchryx-guide.html#run)
 
-- [What changed](https://it-rat.com/#changes)
+- [What changed](https://it-rat.com/vouchryx-guide.html#changes)
 
-- [Limits](https://it-rat.com/#limits)
+- [Limits](https://it-rat.com/vouchryx-guide.html#limits)
 
 ## Vouchryx at a glance.
 

@@ -34,7 +34,7 @@ Cosine vectors for meaning, BM25 blended with vectors when exact terms matter, a
 
 ### The plane that remembers.
 
-Engram is the knowledge plane of the stack. Every memory_written, reflection_run, contradiction_found and memory_forgotten goes out as an agent-event on the same NDJSON bus [Idryx](https://it-rat.com/idryx.html) correlates into the identity graph.
+Engram is the knowledge plane of the stack. Every memory_written, reflection_run, contradiction_found and memory_forgotten goes out as an agent-event on the same NDJSON bus [Idryx](https://it-rat.com/services/idryx.html) correlates into the identity graph.
 
 The PyPI name is engdbram (the plain name was taken); the import stays `from engram import Engram`.
 
@@ -51,7 +51,7 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 ## What a memory has to do that similarity search cannot
 
 **Q: Does it need a server, a container or an API key?**
-None of the three to write a memory. It is one `.engram` file on SQLite plus sqlite-vec, in-process, installed with pip. A model only enters the picture when you ask for `reflect()`, and even that call can be pointed at a local model or routed through [TokenFuse](https://it-rat.com/tokenfuse.html) so thinking has a budget too.
+None of the three to write a memory. It is one `.engram` file on SQLite plus sqlite-vec, in-process, installed with pip. A model only enters the picture when you ask for `reflect()`, and even that call can be pointed at a local model or routed through [TokenFuse](https://it-rat.com/services/tokenfuse.html) so thinking has a budget too.
 
 **Q: Can I delete everything about one person?**
 Yes, and the cascade is the point. Erasing an entity removes the episodes about them, the facts derived from those episodes, and the graph edges that made them findable, and reports how many of each it deleted. That erasure reaches every agent in a shared store on purpose, because the request is about the person. What one agent cannot do is erase another agent's episodes by id: `forget()` is agent-scoped.
