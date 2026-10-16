@@ -30,7 +30,7 @@ One machine, a five-node cluster, or a hyperscaler. Six clusters measured across
 
 ### [The stack in depth](https://it-rat.com/stack-guide.html)
 
-How the figures on the home page were produced: one budget on four machines, a policy burst, a five-node cluster on three clouds, and the bugs it caught.
+Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
 
 ## Security
 

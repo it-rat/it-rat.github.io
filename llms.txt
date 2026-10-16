@@ -25,7 +25,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [What is proven and what is not](https://it-rat.com/what-is-proven.md): How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.
 - [Three shapes of agent tooling](https://it-rat.com/agent-tooling-compared.md): The controls that answer before a call: what each one does, what it does not do yet, and how to check it.
 - [Security by design](https://it-rat.com/security-by-design.md): An agent can be persuaded, so its controls sit where persuasion cannot reach. Eight design decisions in the stack, and what happened when we broke each one.
-- [The stack in depth](https://it-rat.com/stack-guide.md): How the figures on the home page were produced: one budget on four machines, a policy burst, a five-node cluster on three clouds, and the bugs it caught.
+- [The stack in depth](https://it-rat.com/stack-guide.md): Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
 - [What changed in the stack, 1 to 15 October 2026](https://it-rat.com/changes-2026-10.md): Prices that match the bill, money that is never forgotten, tool calls judged before they run: what changed in the stack from 1 to 15 October 2026.
 - [Genaryx guide](https://it-rat.com/genaryx-guide.md): How the Genaryx console works, how Felyx is held, what every frame shows, how to take it, and what is not yet in the record, in full.
 - [TokenFuse guide](https://it-rat.com/tokenfuse-guide.md): How TokenFuse works, how to install and configure it, what changed from 1 to 15 October 2026, and what the default install does not do, in full.

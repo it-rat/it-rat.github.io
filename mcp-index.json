@@ -128,7 +128,7 @@
       "markdown": "https://it-rat.com/stack-guide.md",
       "title": "The stack in depth",
       "kind": "guide",
-      "description": "How the figures on the home page were produced: one budget on four machines, a policy burst, a five-node cluster on three clouds, and the bugs it caught."
+      "description": "Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open."
     },
     {
       "url": "https://it-rat.com/changes-2026-10.html",
