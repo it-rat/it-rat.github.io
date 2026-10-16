@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wardryx guide: how it works, running it, what changed · IT-RAT</title>
+<meta name="description" content="How Wardryx decides allow, deny or hold, how to run it, what changed from 1 to 15 October 2026, and what is open by default or not proven yet.">
+<link rel="canonical" href="https://it-rat.com/wardryx-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/wardryx-guide.html">
+<meta property="og:title" content="Wardryx guide: how it works, running it, what changed · IT-RAT">
+<meta property="og:description" content="Everything the Wardryx room leaves out: how a hold is resolved with a signed token, the three modes and the outage choice, the policy API, where it sits in the stack, how to run it, what changed from 1 to 15 October 2026, and its limits.">
+<meta property="og:image" content="https://it-rat.com/assets/og/wardryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wardryx guide: how it works, running it, what changed · IT-RAT">
+<meta name="twitter:description" content="Everything the Wardryx room leaves out: how a hold is resolved with a signed token, the three modes and the outage choice, the policy API, where it sits in the stack, how to run it, what changed from 1 to 15 October 2026, and its limits.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/wardryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#2DD4BF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .diagram,.diagram + .prose{margin-top:22px}
+  .tbl-scroll{max-width:96ch}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Wardryx guide: how it works, running it, what changed","name":"Wardryx guide","url":"https://it-rat.com/wardryx-guide.html","description":"How Wardryx decides allow, deny or hold, how to run it, what changed from 1 to 15 October 2026, and what is open by default or not proven yet.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/wardryx-guide.html","about":{"@type":"SoftwareApplication","name":"Wardryx","url":"https://it-rat.com/services/wardryx.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Wardryx guide","item":"https://it-rat.com/wardryx-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">wardryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; wardryx</div>
+    <h1 class="rv d1">How Wardryx works, how to run it, what changed.</h1>
+    <p class="lede rv d2">The <a href="services/wardryx.html">Wardryx room</a> keeps the simulation, the drawing and the common questions. This guide keeps the rest of what the room used to say: how a hold is resolved, the modes and the outage choice, where it sits, how to run it, what changed from 1 to 15 October 2026, and its limits.</p>
+    <div class="back rv d3"><a class="btn" href="services/wardryx.html"><span class="mono">&#8592;</span> Back to the Wardryx room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#where-it-sits">Where it sits</a></li><li><a href="#run">Running it</a></li><li><a href="#changes">What changed</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Wardryx at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>Deterministic allow, deny or hold, with a human on the expensive actions.</b></span></li>
+        <li><span><b>Status:</b> v1.3.2, surface frozen at 1.0 &#183; main is supported.</span></li>
+        <li><span><b>Core:</b> Go 1.27 &#183; deterministic PDP. <b>API:</b> POST /v1/decide on :8090.</span></li>
+        <li><span><b>Rules:</b> deny_tool &#183; allow_tool &#183; deny_if_unattested &#183; deny_if_chain_unproven &#183; max_steps &#183; allow_domains &#183; deny_above_usd &#183; require_human_above_usd &#183; hold_if_signal.</span></li>
+        <li><span><b>Lineage:</b> PDP/PEP &#183; XACML's good ideas.</span></li>
+        <li><span><b>Licence:</b> Apache-2.0.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>Your gateway asks one question before an agent acts: POST /v1/decide. Wardryx answers allow, deny or hold in one deterministic pass. No LLM sits in the decision path, so the same policy and the same request always return the same verdict, and a big spend waits for a human who signs off with a short-lived token. The pattern is old and good: PDP/PEP, XACML's good ideas, pointed at what agents do.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it decides</div>
+      <h2>Rules in one fixed order. No moods.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Sixty seconds, thirty-four requests</h3>
+      <p>This is a simulation, and it says so. It replays the shape of the live validation record: a 34-request concurrent burst, different agents, budgets and policies, all hitting /v1/decide at once. In the real run the filtering came back exact: 6/6 permission oversteppers denied with 403, unattested calls denied until attested, 176 decisions across the full campaign. <a href="services/wardryx.html#sim">Watch it in the room</a>.</p>
+      <h3>One question in. One of three answers out.</h3>
+      <p>The PEP posts the proposed action: agent, tools, declared domains, step count, estimated cost, attestation. Wardryx matches policies by agent:// glob and applies the rules in a fixed order, where deny_above_usd outranks every approval and the hold check comes after it. The verdict returns with a cacheable flag, the caller's cache keys on agent, tool set and attestation, and every decision leaves as an event.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 340" role="img" aria-label="Wardryx architecture: Two enforcement points, TokenFuse on the money path and Scopyx on the web path, both post /v1/decide; the Wardryx PDP returns allow, deny or hold with a cacheable flag; holds resolve via signed approval tokens; events and OTLP spans flow out; Terraform manages policies as code">
+        <defs><marker id="a2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker></defs>
+        <g font-family="ui-monospace,Menlo" text-anchor="middle">
+          <rect x="10" y="92" width="118" height="52" rx="12" fill="#141C27" stroke="#F4B23E" stroke-width="1.4"/>
+          <text x="69" y="114" fill="#F4B23E" font-size="12" font-weight="700">TokenFuse PEP</text>
+          <text x="69" y="130" fill="#8A97A6" font-size="10">the money path</text>
+
+          <rect x="10" y="156" width="118" height="52" rx="12" fill="#141C27" stroke="#F0ABFC" stroke-width="1.4"/>
+          <text x="69" y="178" fill="#F0ABFC" font-size="12" font-weight="700">Scopyx PEP</text>
+          <text x="69" y="194" fill="#8A97A6" font-size="10">the web path</text>
+
+          <text x="168" y="134" fill="#5A6675" font-size="10">/v1/decide</text>
+          <text x="168" y="147" fill="#5A6675" font-size="9.5">from both</text>
+
+          <rect x="210" y="46" width="300" height="200" rx="16" fill="#10161F" stroke="#2DD4BF" stroke-width="1.4"/>
+          <text x="360" y="74" fill="#2DD4BF" font-size="14" font-weight="700">wardryx PDP :8090</text>
+          <g font-size="10.5" fill="#8A97A6">
+            <rect x="228" y="90" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="292" y="108" fill="#E9EFF6">policy set</text>
+            <text x="292" y="123" font-size="9.5">YAML &#183; agent globs</text>
+            <rect x="364" y="90" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="428" y="108" fill="#E9EFF6">rule order</text>
+            <text x="428" y="123" font-size="9.5">deny_above_usd wins</text>
+            <rect x="228" y="140" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="292" y="158" fill="#E9EFF6">attestation</text>
+            <text x="292" y="173" font-size="9.5">&#8220;None&#8221; never passes</text>
+            <rect x="364" y="140" width="128" height="42" rx="8" fill="#141C27" stroke="#2a3547"/>
+            <text x="428" y="158" fill="#E9EFF6">decision cache</text>
+            <text x="428" y="173" font-size="9.5">agent+tools+attest</text>
+            <text x="360" y="208" fill="#5A6675" font-size="10.5">deterministic: same request, same verdict</text>
+            <text x="360" y="224" fill="#5A6675" font-size="10.5">no LLM anywhere in the decision path</text>
+          </g>
+
+          <rect x="570" y="118" width="140" height="62" rx="12" fill="#141C27" stroke="#2a3547"/>
+          <text x="640" y="140" fill="#E9EFF6" font-size="12.5" font-weight="700">verdict</text>
+          <text x="640" y="156" fill="#2DD4BF" font-size="10.5">allow &#183; deny &#183; hold</text>
+          <text x="640" y="170" fill="#8A97A6" font-size="10.5">+ cacheable flag</text>
+
+          <rect x="742" y="28" width="200" height="112" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="54" fill="#E9EFF6" font-size="12.5" font-weight="700">approval tokens</text>
+          <text x="842" y="76" fill="#8A97A6" font-size="10.5">HMAC-signed &#183; short-lived</text>
+          <text x="842" y="92" fill="#8A97A6" font-size="10.5">cost-bound &#183; single-use</text>
+          <text x="842" y="108" fill="#F4B23E" font-size="10.5">a hold resolves out of band</text>
+
+          <rect x="742" y="196" width="200" height="96" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="842" y="222" fill="#E9EFF6" font-size="12.5" font-weight="700">agent-event bus</text>
+          <text x="842" y="240" fill="#2DD4BF" font-size="10.5">source: wardryx</text>
+          <text x="842" y="256" fill="#8A97A6" font-size="10">policy_allow &#183; policy_deny</text>
+          <text x="842" y="272" fill="#8A97A6" font-size="10.5">+ one OTLP span per decision</text>
+
+          <rect x="210" y="286" width="300" height="40" rx="10" fill="#141C27" stroke="#93A8C4"/>
+          <text x="360" y="304" fill="#93A8C4" font-size="10.5" font-weight="700">policies as code &#183; terraform-provider-taipan</text>
+          <text x="360" y="318" fill="#8A97A6" font-size="10">PUT /v1/policies/{id}</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" class="flow">
+          <line x1="128" y1="149" x2="202" y2="149" marker-end="url(#a2)"/>
+          <line x1="510" y1="149" x2="562" y2="149" marker-end="url(#a2)"/>
+          <line x1="710" y1="132" x2="734" y2="92" marker-end="url(#a2)"/>
+          <line x1="710" y1="166" x2="734" y2="230" marker-end="url(#a2)"/>
+          <line x1="360" y1="284" x2="360" y2="254" marker-end="url(#a2)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="prose rv">
+      <h3>Three verdicts, zero improvisation</h3>
+      <p>Every answer is allow, deny or hold. No LLM sits in the decision path, so the same policy set and the same request return the same verdict, every time. A decision you can replay in a test is a decision you can defend in an audit.</p>
+      <h3>Hold means a human</h3>
+      <p>A big spend becomes a hold, not a guess. A human grants it out of band and the agent resubmits with a signed token; nothing parks a connection waiting for a signature.</p>
+      <h3>A hold that holds nothing open</h3>
+      <p>The agent asks, Wardryx answers <span class="mono">hold</span> with an approval id, and the call ends there. A human decides out of band, Wardryx mints an approval token, and the agent asks again with the token in hand; that second answer is <span class="mono">allow</span>. No connection is parked waiting for a signature, and Wardryx does not have to remember an open request: the grant is proven by the token, not by anyone's memory of it.</p>
+      <p>The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification recomputes the HMAC over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.</p>
+      <p>Since v1.2.0 an approval is also bound to the tool call a person read, when the held request carried one. The person is shown the tool and its target, and the token carries a digest of the name, the target and the exact arguments, so it is refused for any other call, the same JSON re-spaced included. A call whose arguments were too large to send binds only its name and target.</p>
+      <p>The signing secret is fail-closed. With it unset, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting <span class="mono">WARDRYX_APPROVAL_SINGLE_USE=false</span> makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.</p>
+      <h3>A hard ceiling that outranks approvals</h3>
+      <p>deny_above_usd is the rule no token can talk past. It is checked before the hold logic ever runs, so even a granted approval cannot authorize a spend over the ceiling. Some numbers should end the conversation, and this one does.</p>
+      <h3>Attestation as a first-class gate</h3>
+      <p>deny_if_unattested demands a live attestation before an agent touches the sensitive rules. Methods are trimmed and lowercased on the way in, so a literal &#8220;None&#8221; string reads as no attestation instead of sneaking past as a value.</p>
+      <h3>Fail-open or fail-closed, your call</h3>
+      <p>When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override. Every default is documented, and so is the tradeoff.</p>
+      <h3>Three modes at the call site, and one honest choice about outages</h3>
+      <p>Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.</p>
+      <p>Two enforcement points ask this plane, and the answer lives at the call site rather than here. <b>TokenFuse</b>'s binary defaults to open, because a money plane that refused every call whenever the policy plane blinked would cost an operator production traffic over a network partition; both launchers override that to closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back <span class="mono">403 wardryx unreachable</span> in 0.3 s, none reaching the provider, until it was started again. <b>Scopyx</b> fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.</p>
+      <p><b>off</b> never calls the decision point at all: local development, or an environment with no policy loaded. <b>shadow</b> asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. <b>enforce</b> makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.</p>
+      <p>Then the question everyone postpones: what happens when the decision point cannot be reached. Fail-open treats it as allow, so availability wins and an outage silently disables policy. Fail-closed treats it as deny, so policy wins and an outage blocks every governed action until it recovers. There is no clever third answer; there is only choosing on purpose and writing the choice down.</p>
+      <p>Wardryx applies the same rule to itself. Started with no policy configured, it starts anyway and allows, and it says so in the log rather than pretending to enforce something it was never given.</p>
+      <h3>Policy admin API + Terraform</h3>
+      <p>PUT, GET and DELETE /v1/policies/{id} manage a runtime policy layer with validate-then-apply semantics; the file-loaded set stays a permanent floor no API write can erase. A PUT whose body holds a key the policy does not declare is refused with 400 and stores nothing (since 1.3.2). The taipan_wardryx_policy resource drives the same API from Terraform.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="where-it-sits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>The desk every expensive idea stops at.</h2>
+    </div>
+    <div class="prose rv">
+      <p><a href="services/tokenfuse.html">TokenFuse</a>'s PEP hook asks Wardryx on every request and stamps the verdict on the response. Each decision lands on the bus as a source: wardryx event, which <a href="services/idryx.html">Idryx</a> correlates into the identity graph. <a href="services/mockryx.html">Mockryx</a> rehearses the denials in pre-prod, so the first real no is never the first no ever. And the policies themselves are code: the <a href="services/platform.html">Platform</a> page's Terraform provider creates, changes and destroys them like any other resource. A typed risk signal from <a href="services/typryx.html">Typryx</a> can turn an allow into a hold for a person and never into a deny: since v1.2.0 a decision reads <span class="mono">signals</span> and the pending <span class="mono">tool_call</span>, a <span class="mono">hold_if_signal</span> rule can only hold, and Typryx's <span class="mono">wardryx-proxy</span> adds the signal on the way in. The launchers offer it as an opt-in, off by default, and it was measured on the stub backend only.</p>
+      <p>The policy point is one control among several: see <a href="ai-agent-security.html">AI agent security</a> for the failure modes it answers, and <a href="ai-agent-governance.html">AI agent governance</a> for how the planes fit together.</p>
+      <h3>A decision is only as good as the identity under it.</h3>
+      <p>This plane answers about an action. What it cannot answer is whether the caller really holds the delegation it claims, which is a different question with a different mechanism: <a href="services/vouchryx.html">Vouchryx</a> mints a short-lived token bound to the caller's own key and lets a person end it, and a hold resolved by a signed approval token is the same idea pointed at one action rather than at a delegation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>Running it.</h2>
+    </div>
+    <div class="prose rv">
+      <div class="cmd">make build &amp;&amp; ./bin/wardryx serve</div>
+      <p>Boots on <span class="mono">:8090</span> with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:</p>
+      <div class="cmd">./bin/wardryx check ./passports ./policies/finance.yaml</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">1 to 15 October 2026</div>
+      <h2>What the policy plane gained from 1 to 15 October</h2>
+      <p class="lede">The whole stack's fortnight, Wardryx among it, is in <a href="changes-2026-10.html#wardryx">the October changelog</a>.</p>
+    </div>
+    <div class="tbl-scroll rv">
+      <table class="tbl">
+        <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+        <tbody>
+          <tr><td>v1.3.0</td><td>A policy can name the only tools its agents may use. A requested tool the list does not name is denied, and no approval can lift that.</td></tr>
+          <tr><td>v1.3.1</td><td>Every document of a YAML policy file, and every value of a JSON policy file, is loaded. A file that does not load stops the service at start, and the error names the part that failed.</td></tr>
+          <tr><td>v1.3.2</td><td>A policy write with a field the policy does not declare is refused with a 400, and nothing is stored. Before, the field was dropped and the write still answered 200.</td></tr>
+          <tr><td>v1.4.0</td><td>A policy can hold a tool call whose risk signal never arrives (when_absent: hold), for a person to decide.</td></tr>
+          <tr><td>v1.5.0</td><td>A policy can name the only models its agents may use. A request for any other model is denied on that call.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What is open by default, and what is not proven yet.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override.</span></li>
+        <li><span>Started with no policy configured, it starts anyway and allows, and it says so in the log rather than pretending to enforce something it was never given.</span></li>
+        <li><span>With no shared database the single-use guarantee of an approval token is per process, and the server says so at startup rather than letting you assume otherwise. Setting <span class="mono">WARDRYX_APPROVAL_SINGLE_USE=false</span> makes a token reusable within its window.</span></li>
+        <li><span>A call whose arguments were too large to send binds only its name and target.</span></li>
+        <li><span>The typed risk signal from Typryx: the launchers offer it as an opt-in, off by default, and it was measured on the stub backend only.</span></li>
+        <li><span>The room's stampede is a simulation, and it says so: it replays the shape of the live validation record.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/wardryx.html">Wardryx room</a> has the simulation, the drawing and the common questions, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/wardryx.html"><span class="mono">&#8592;</span> Back to the Wardryx room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>
