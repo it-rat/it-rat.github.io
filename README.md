@@ -75,7 +75,7 @@ modules, and everything works from any static file server.
 - `assets/ambient.js` gives each service hero a quiet canvas motif from its own domain: gradient descent, a learned decision boundary, a memory graph with spreading activation, an identity graph, a rotating point lattice, training curves, adversarial bursts against a guardrail.
 - `assets/diagram.js` handles the architecture schematics: staggered draw-in on reveal, plus a full-screen lightbox with wheel and pinch zoom, drag pan, and double-click reset, so every label stays readable.
 - `assets/shotbox.js` frames and enlarges the product screenshots on the Genaryx page.
-- `tools/` renders what is generated rather than hand-kept: `footer.py` (the footer and the corridor rail on every page), `ogimages.py` (one Open Graph card per room), `seo.py` (JSON-LD), `llms.py` (the markdown mirrors and `llms.txt`), `faq.py`, `readmehero.py` and `readmediagrams.py`. They read the service registry out of `assets/site.js`, so a room that leaves the registry leaves the footer, the rail and the images with it.
+- `tools/` renders what is generated rather than hand-kept: `footer.py` (the footer and the corridor rail on every page), `ogimages.py` (one Open Graph card per room), `seo.py` (JSON-LD), `llms.py` (the markdown mirrors and `llms.txt`), `faq.py`, `guidehub.py` (the service rows and the guide counts on the guides hub), `readmehero.py` and `readmediagrams.py`. They read the service registry out of `assets/site.js`, so a room that leaves the registry leaves the footer, the rail and the images with it, and a room that joins it owes a guide at `<id>-guide.html`, without which the generators that write the guides stop.
 
 ## House rules for edits
 
