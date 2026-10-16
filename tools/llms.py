@@ -48,6 +48,7 @@ GUIDES = [
     ("agent-tooling-compared.html", "Three shapes of agent tooling"),
     # Added 2026-10-16 with the guide per room.
     ("security-by-design.html", "Security by design"),
+    ("stack-guide.html", "The stack in depth"),
     ("changes-2026-10.html", "What changed in the stack, 1 to 15 October 2026"),
 ]
 # Then one guide per room in STACK, derived rather than listed (see

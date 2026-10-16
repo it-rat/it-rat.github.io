@@ -40,6 +40,7 @@ GUIDES = {
     # heads by the preview commit and in no generator, the same shape as the
     # entry above.
     "security-by-design.html": "Security by design",
+    "stack-guide.html": "The stack in depth",
     "changes-2026-10.html": "What changed in the stack, 1 to 15 October 2026",
 }
 # The sixteen service guides are NOT listed here. They are <id>-guide.html for
@@ -198,6 +199,7 @@ PUBLISHED = {
     "what-runs-where.html": "2026-08-04",
     "what-is-proven.html": "2026-08-04",
     "security-by-design.html": "2026-10-16",
+    "stack-guide.html": "2026-10-16",
     "changes-2026-10.html": "2026-10-16",
 }
 

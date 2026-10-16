@@ -202,7 +202,7 @@
     {
       "page": "services/idryx.md",
       "claim": "27 deterministic detectors",
-      "occurrences": 4,
+      "occurrences": 3,
       "repo": "TAIPANBOX/idryx",
       "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
       "status": "measured",
@@ -224,9 +224,9 @@
       "slow": false
     },
     {
-      "page": "services/idryx.md",
+      "page": "idryx-guide.md",
       "claim": "27 detectors",
-      "occurrences": 1,
+      "occurrences": 3,
       "repo": "TAIPANBOX/idryx",
       "command": "grep -rhA1 'func (.*) Name() string' internal/detect/detectors/*.go | grep -oE 'return \"[a-z_]+\"' | sort -u | wc -l",
       "status": "measured",
@@ -239,7 +239,7 @@
     {
       "page": "services/platform.md",
       "claim": "32 entries",
-      "occurrences": 2,
+      "occurrences": 1,
       "repo": "TAIPANBOX/agent-stack-go",
       "command": "grep -n 'MaxDepth = ' chain/chain.go",
       "status": "measured",
@@ -263,7 +263,7 @@
       "slow": false
     },
     {
-      "page": "services/vouchryx.md",
+      "page": "vouchryx-guide.md",
       "claim": "218 tests",
       "occurrences": 1,
       "repo": "TAIPANBOX/vouchryx",
@@ -574,9 +574,9 @@
       "note": "Stated twice on the page: in the sheet's title and in the sentence under the download pills. Both mean the same release. Until 2026-09-18 this entry checked the LATEST release, which is a different claim; numbers-drift.sh reported it drifted to v1.0.2 while the sentence (\"since v0.4.3\") was still true. Moved 2026-10-16 with the feature sheets, the how-it-ships note and the October changes table: the TokenFuse room no longer carries them, tokenfuse-guide.html does."
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v0.4.3",
-      "occurrences": 1,
+      "occurrences": 2,
       "repo": "TAIPANBOX/tokenfuse",
       "command": "gh api repos/TAIPANBOX/tokenfuse/releases/tags/v0.4.3 --jq .tag_name; the page says binaries exist SINCE this release, so the claim is that the release exists and carries them: v0.4.1 and v0.4.2 published images and no assets, and v0.4.3 is the first with SHA256SUMS and eight binaries (run 33648540190). The current release is a separate claim on the same page.",
       "status": "measured",
@@ -652,7 +652,7 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.md",
+      "page": "costcrew-guide.md",
       "claim": "v0.5.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
@@ -665,7 +665,7 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.md",
+      "page": "costcrew-guide.md",
       "claim": "v0.3.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
@@ -678,7 +678,7 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.md",
+      "page": "costcrew-guide.md",
       "claim": "v0.4.0",
       "occurrences": 3,
       "repo": "TAIPANBOX/costcrew",
@@ -691,7 +691,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.4.1",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
@@ -789,7 +789,7 @@
       "slow": false
     },
     {
-      "page": "services/typryx.md",
+      "page": "typryx-guide.md",
       "claim": "v0.3.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/typryx",
@@ -815,7 +815,7 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.md",
+      "page": "costcrew-guide.md",
       "claim": "v0.2.1",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
@@ -854,7 +854,7 @@
       "slow": false
     },
     {
-      "page": "services/heraldyx.md",
+      "page": "heraldyx-guide.md",
       "claim": "v0.2.3",
       "occurrences": 1,
       "repo": "TAIPANBOX/heraldyx",
@@ -880,7 +880,7 @@
       "slow": false
     },
     {
-      "page": "services/heraldyx.md",
+      "page": "heraldyx-guide.md",
       "claim": "v0.2.4",
       "occurrences": 1,
       "repo": "TAIPANBOX/heraldyx",
@@ -906,7 +906,7 @@
       "slow": false
     },
     {
-      "page": "services/typryx.md",
+      "page": "typryx-guide.md",
       "claim": "v0.1.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/typryx",
@@ -1089,7 +1089,7 @@
     {
       "page": "services/typryx.md",
       "claim": "434 questions",
-      "occurrences": 5,
+      "occurrences": 2,
       "repo": "TAIPANBOX/typryx-evalset",
       "command": "wc -l data/test.jsonl in typryx-evalset (the frozen test split, sha256 bd5f3cf4...)",
       "status": "measured",
@@ -1360,7 +1360,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.6.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
@@ -1373,7 +1373,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.13.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
@@ -1386,7 +1386,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.5.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/tokenfuse",
@@ -1451,9 +1451,9 @@
       "slow": false
     },
     {
-      "page": "services/typryx.md",
+      "page": "typryx-guide.md",
       "claim": "v0.4.0",
-      "occurrences": 5,
+      "occurrences": 6,
       "repo": "TAIPANBOX/typryx",
       "command": "gh api repos/TAIPANBOX/typryx/releases/tags/v0.4.0 --jq .tag_name; cited as history, not as the current release",
       "status": "measured",
@@ -1464,7 +1464,7 @@
       "slow": false
     },
     {
-      "page": "services/typryx.md",
+      "page": "typryx-guide.md",
       "claim": "v1.1.17",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-single",
@@ -1477,7 +1477,7 @@
       "slow": false
     },
     {
-      "page": "services/typryx.md",
+      "page": "typryx-guide.md",
       "claim": "v1.1.23",
       "occurrences": 1,
       "repo": "TAIPANBOX/stack-k8s",
@@ -1503,7 +1503,7 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.2.0",
       "occurrences": 2,
       "repo": "TAIPANBOX/wardryx",
@@ -1516,7 +1516,7 @@
       "slow": false
     },
     {
-      "page": "services/platform.md",
+      "page": "platform-guide.md",
       "claim": "v1.1.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/agent-stack-go",
@@ -1672,7 +1672,7 @@
       "note": "Added 2026-10-13: the \"Since v0.3.0\" sentence is history, so this entry only shows the release exists. Moved 2026-10-16 with the decision paragraph, the sources paragraph and the October changes table: the Heraldyx room no longer carries them, heraldyx-guide.html does."
     },
     {
-      "page": "services/heraldyx.md",
+      "page": "heraldyx-guide.md",
       "claim": "v0.3.0",
       "occurrences": 1,
       "status": "measured",
@@ -1739,7 +1739,7 @@
     {
       "page": "services/costcrew.md",
       "claim": "v0.6.0",
-      "occurrences": 3,
+      "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/latest --jq .tag_name",
       "status": "measured",
@@ -1776,7 +1776,7 @@
       "slow": false
     },
     {
-      "page": "services/platform.md",
+      "page": "platform-guide.md",
       "claim": "22 checks",
       "occurrences": 2,
       "repo": "TAIPANBOX/stack-single",
@@ -1828,7 +1828,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.14.0",
       "occurrences": 6,
       "status": "measured",
@@ -1919,7 +1919,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.7.0",
       "occurrences": 1,
       "status": "measured",
@@ -1932,7 +1932,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.9.0",
       "occurrences": 1,
       "status": "measured",
@@ -1945,7 +1945,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.10.0",
       "occurrences": 1,
       "status": "measured",
@@ -1958,7 +1958,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.11.0",
       "occurrences": 3,
       "status": "measured",
@@ -1971,7 +1971,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.12.0",
       "occurrences": 2,
       "status": "measured",
@@ -1984,7 +1984,7 @@
       "slow": false
     },
     {
-      "page": "services/tokenfuse.md",
+      "page": "tokenfuse-guide.md",
       "claim": "v1.13.1",
       "occurrences": 1,
       "status": "measured",
@@ -2049,7 +2049,7 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.3.0",
       "occurrences": 1,
       "status": "measured",
@@ -2062,7 +2062,7 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.3.1",
       "occurrences": 1,
       "status": "measured",
@@ -2075,7 +2075,7 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.4.0",
       "occurrences": 1,
       "status": "measured",
@@ -2088,7 +2088,7 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.5.0",
       "occurrences": 1,
       "status": "measured",
@@ -2101,9 +2101,9 @@
       "slow": false
     },
     {
-      "page": "services/wardryx.md",
+      "page": "wardryx-guide.md",
       "claim": "v1.3.2",
-      "occurrences": 1,
+      "occurrences": 2,
       "status": "measured",
       "repo": "TAIPANBOX/wardryx",
       "command": "gh api repos/TAIPANBOX/wardryx/releases/tags/v1.3.2 --jq .tag_name; the release note of v1.3.2 is docs/releases/v1.3.2.md on origin/main",
@@ -2140,9 +2140,9 @@
       "slow": false
     },
     {
-      "page": "services/heraldyx.md",
+      "page": "heraldyx-guide.md",
       "claim": "v0.7.0",
-      "occurrences": 7,
+      "occurrences": 9,
       "status": "measured",
       "repo": "TAIPANBOX/heraldyx",
       "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; the tag is the shipped thing (no GitHub release is cut)",

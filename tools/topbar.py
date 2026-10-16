@@ -67,6 +67,7 @@ PAGES = {
     # Added 2026-10-16. The guide per room is not listed here; it is added
     # below for every room in STACK, and a missing one stops this tool.
     "security-by-design.html": "",
+    "stack-guide.html": "",
     "changes-2026-10.html": "",
     "console.html": None,
     "404.html": "/",

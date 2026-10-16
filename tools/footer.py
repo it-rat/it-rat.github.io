@@ -52,6 +52,7 @@ PAGES = {
     # Added 2026-10-16. The guide per room is not listed: main() adds one for
     # every room in STACK, and stops if any is missing (tools/stackguides.py).
     "security-by-design.html": ("", ""),
+    "stack-guide.html": ("", ""),
     "changes-2026-10.html": ("", ""),
     "console.html": ("", ""),
     "404.html": ("/", ""),

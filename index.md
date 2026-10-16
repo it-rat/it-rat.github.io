@@ -8,29 +8,7 @@ A new hire gets a contract, a budget, a badge and a manager. An AI agent usually
 
 ## Validated on real infrastructure. Then torn down.
 
-Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend. Then the same stack came up again as a five-node Kubernetes cluster on each of those three clouds, which is where the cost of the governance itself finally got measured.
-
-**Q: How these numbers were produced**
-
-Every number above came from a run against real infrastructure, not a benchmark harness written to flatter us. The boxes were disposable, the model calls behind the cost and policy figures were real and paid for, and nothing from the campaign is still standing: the machines were deleted, the key revoked.
-
-**Money.** Four nodes across two datacenters held one budget through a leader kill and a real network partition: the majority kept serving, the isolated node could not overspend, and the state stayed byte-identical on every node. Under 500 concurrent agents against a fixed budget, the ledger admitted exactly what the budget allowed and no more.
-
-**Policy.** An enriched multi-agent campaign produced 176 real enforcement decisions with differentiated rights: an analyst agent refused a wire transfer that a treasury agent was allowed, an unattested agent refused until it attested, and shell execution refused for everyone regardless of identity. Fired as a 34-request concurrent burst, the decision point still sorted them exactly right.
-
-**The rest.** Qryx scanned 25,586 real Linux binaries, stripped, static and truncated among them, without a crash. Engram's reflection ran against real Claude output three times on three topologies with zero contradictions. Verdryx priced a correctly resolved case at $0.00042. Mockryx fired three hostile drills against a real gateway twice, with zero gaps and zero real spend, because the provider behind that gateway was fake while every guardrail in front of it was live.
-
-**At cluster scale.** The same manifests then came up as a five-node cluster on each of the three clouds, to answer the question the campaign above could not: what does the supervision itself cost. Several clusters went up in all: a quota ceiling capped the first GCP attempt at three nodes, and AWS was rebuilt twice, the last time a chip generation lower, once it turned out the first result had compared silicon rather than clouds. One policy pod peaks at about 2,449 decisions a second and answers in 3.2ms at p50 while the queue is short. On identical silicon the two hyperscalers land 1.2% apart, which makes choosing between them procurement rather than engineering. At full load the infrastructure under the control plane works out at EUR 0.024 per million governed decisions on Hetzner and about USD 0.21 to USD 0.23 on AWS and GCP. That is what the machines cost to run. What binds first is not the processor but the evidence: every decision is audited, not a sample of them, at 426 bytes each, which is 614 MB a day at a thousand calls a minute. Provability is measured in gigabytes and can be budgeted a year ahead from a single number.
-
-**On premises.** On 2026-09-17 the whole stack went onto a small Debian box behind a home router, carrier-grade NAT and all, with its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, a 402 on the eighteenth, both inside one minute on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and then took sixteen injected failures: a killed node, a cut path, a stopped policy plane, a stopped store, a blocked provider, a loop, a storm, a reboot under load, a tampered evidence pack. Sixteen injected failures ran, and the run wrote up what each one showed: some held as designed, others found something to fix. The fixes have shipped in released images since stack-single v1.1.6, which [what is proven](https://it-rat.com/what-is-proven.html) sets out tile by tile. Both cloud accounts read back empty afterwards. The day cost about USD 0.18.
-
-**And what it caught.** Live testing found real bugs, which is the point of doing it. Two of them, both in the policy plane, were invisible to sequential test traffic: a request that merely declared a forbidden tool without calling it slipped past a deny rule, and a decision cache keyed without the attestation method let an unattested agent inherit a recently attested allow inside the cache window. Only the 34-agent concurrent burst surfaced the second one. Both were fixed, covered by regression tests, and re-verified live before any number here was taken as final.
-
-**And what we withdrew.** After the first cluster we wrote down that throughput collapses past 64 concurrent callers and that a fleet should be designed to that line. It does not. On both dedicated-core clouds there is no cliff at all out to 256 concurrent, on two chip generations; only latency rises, the way a queue should. The collapse was a property of a shared-vCPU instance whose hypervisor gives the tick to a neighbour under load, not of anything we built. The retraction is in the repositories next to the claim it replaces.
-
-The full ledger, every number and every bug, is public in each repository's `VALIDATION.md`. A validation write-up with no bug list is marketing.
-
-You do not have to take our word for it: [run the stack's live services locally](https://it-rat.com/services/platform.html#run) in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
+Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key.
 
 ## One corridor, every door on it.
 
