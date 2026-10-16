@@ -89,6 +89,13 @@
     font-size:18px;line-height:1.25;font-weight:650;letter-spacing:-.01em}
   .gxc-teaser .dg-btn{top:8px;right:8px}
   .gxc-note{margin-top:12px;font-family:var(--font-m);font-size:11px;color:var(--faint)}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"CostCrew","url":"https://it-rat.com/services/costcrew.html","description":"A crew of agents takes your cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies. Nothing is published until a person stamps it.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/costcrew","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"CostCrew","item":"https://it-rat.com/services/costcrew.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do the agents change anything in my cloud account?","acceptedAnswer":{"@type":"Answer","text":"No. This console reads exports that land in a folder and, where a connector is built, a vendor's usage API, and it writes only its own database. Twelve of its eighteen connectors read today, the AWS and GCP billing exports among them; the Azure billing export is specified and not yet written, and the catalogue says so per entry. It has no credentials that can act, it makes no outbound call while serving a page, and it enforces nothing: every deliverable is a draft until a person stamps it."}},{"@type":"Question","name":"How is this different from the console that kills runs?","acceptedAnswer":{"@type":"Answer","text":"Different question, different clock. Genaryx and TokenFuse work in micro-dollars while a run is happening and can stop it. CostCrew works in cents on last month's invoice and allocates it. The crew here are agents like any other, so Genaryx governs them too."}},{"@type":"Question","name":"What does it do about anomalies nobody has time for?","acceptedAnswer":{"@type":"Answer","text":"It ranks them by money rather than by how far out they sit, and it looks both ways: a fall matters as much as a rise, because a feed that stopped delivering looks exactly like a drop. A four sigma move worth three dollars is real, true, and not worth anybody's morning."}},{"@type":"Question","name":"Can it tell me what each AI agent cost?","acceptedAnswer":{"@type":"Answer","text":"Not from an invoice. A charge carries a model and a workload, not an agent, and the console says so rather than inventing an attribution. Route the calls through TokenFuse with an agent id and the same page answers per agent."}},{"@type":"Question","name":"What does it cost to run?","acceptedAnswer":{"@type":"Answer","text":"Nothing to us and nothing to a vendor: one Apache-2.0 binary on a box you already have. What can cost money is a connector, so every entry says whether running it is metered per call, because that is the fact that decides whether an integration is a good idea."}}]}]}</script>
@@ -115,9 +122,10 @@
       <div>
         <div class="kicker rv">finops plane &#183; the crew</div>
         <h1 class="rv d1"><span class="nm">CostCrew</span>. A crew of agents works your bill, and a person signs off every line.</h1>
-        <p class="lede rv d2">Analysts with named missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. Each one is hired into a desk, given a mandate and a monthly guard, and the work it does arrives as a draft. Nothing is published until a person stamps it. On your bill it enforces nothing at all: it watches spend, it does not spend, and it stops nothing out there. On its own crew it does enforce, because a mandate you cannot withdraw is not a mandate: suspend an analyst and it gets no rights, and no new work can be handed to it.</p>
+        <p class="lede rv d2">Analysts with named missions, budgets and owners take the cloud, SaaS and AI bill apart: allocation, chargeback, unit economics, anomalies and forecasts. The work each one does arrives as a draft. Nothing is published until a person stamps it.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#shots">See the console <span class="mono">&#8595;</span></a>
+          <a class="btn" href="../costcrew-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/costcrew" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
@@ -139,7 +147,7 @@
     <div class="sec-head rv">
       <div class="kicker">the console, seventeen frames</div>
       <h2>A FinOps practice, staffed.</h2>
-      <p class="lede">Every frame below is a fresh installation of the binary on its own seeded estate, with thirty-nine analysts. Click any still to open it full screen. The figures are the fixture's, and the console says on each page which of its numbers are real money and which the estate generated.</p>
+      <p class="lede">Every frame below is a fresh installation on its own seeded estate. The figures are the fixture's, and the console says on each page which of its numbers are real money and which the estate generated.</p>
     </div>
     <div class="gxc-gal rv" id="gxc-gal">
       <div class="gxc-galhead">
@@ -152,90 +160,90 @@
       <div class="gxc-track" id="gxc-track" tabindex="0" role="region" aria-label="Frames from a fresh installation, use the arrow keys to move">
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-board.webp?v=e05" alt="CostCrew board" width="1760" height="1138">
-            <figcaption><b>The board</b>Blocked and returned work sits first on purpose: it is the work that has stopped, and a board that buries it hides its own problems.</figcaption>
+            <figcaption><b>The board</b>Blocked and returned work sits first on purpose.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-staff.webp?v=e05" alt="CostCrew crew roster" width="1760" height="1138">
-            <figcaption><b>The crew</b>Thirty-nine analysts, 3,871.35 of work across 310 tasks, and a first-pass rate left blank where nothing has been reviewed yet, because a rate over no reviews is not a rate.</figcaption>
+            <figcaption><b>The crew</b>Thirty-nine analysts, 3,871.35 of work across 310 tasks.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-analyst.webp?v=e05" alt="CostCrew analyst card" width="1760" height="1138" loading="lazy">
-            <figcaption><b>One analyst</b>Its desk and mission, three open tasks of the thirteen it has ever been given, and 173.97 of work against a 60.00 monthly guard.</figcaption>
+            <figcaption><b>One analyst</b>173.97 of work against a 60.00 monthly guard.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-hire.webp?v=e05" alt="CostCrew hire form" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Hiring</b>Everything the form asks is a governance fact, asked once. The name becomes part of an agent:// identity that other services parse.</figcaption>
+            <figcaption><b>Hiring</b>Everything the form asks is a governance fact, asked once.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-anomalies.webp?v=e05" alt="CostCrew anomalies queue" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Anomalies</b>Every irregularity ranked by money rather than by how far out it sits, 2,475.10 of it still unexplained. A four sigma move worth three dollars is real and is not worth your morning.</figcaption>
+            <figcaption><b>Anomalies</b>Every irregularity ranked by money.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-anomaly.webp?v=e05" alt="CostCrew one anomaly" width="1760" height="1138" loading="lazy">
-            <figcaption><b>One finding</b>2,054.10 above baseline on Amazon EC2, the day marked on its own series, and the rule that judged it: 3.5 robust deviations from the median of the last 28 comparable days.</figcaption>
+            <figcaption><b>One finding</b>2,054.10 above baseline on Amazon EC2.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-allocation.webp?v=e05" alt="CostCrew allocation" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Allocation</b>The part of the bill that arrived with nobody's name on it: 136,848.58 direct against 14,540.00 shared, placed by rules a team can argue with rather than by a number it must accept.</figcaption>
+            <figcaption><b>Allocation</b>14,540.00 shared, placed by rules a team can argue with.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-chargeback.webp?v=e05" alt="CostCrew chargeback" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Chargeback</b>Closing a period is what stops the numbers moving, because an allocation recomputed every time somebody opens the page cannot be charged to anybody. Out as a general ledger CSV.</figcaption>
+            <figcaption><b>Chargeback</b>Closing a period is what stops the numbers moving.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-results.webp?v=e05" alt="CostCrew results" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Results</b>Found, never saved. 1,254.35 found since the board opened against 3,871.35 the crew cost, and the word is load-bearing: nothing is saved until somebody acts.</figcaption>
+            <figcaption><b>Results</b>1,254.35 found against 3,871.35 the crew cost.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-kpis.webp?v=e05" alt="CostCrew KPI library" width="1760" height="1138" loading="lazy">
-            <figcaption><b>KPIs</b>Nine report a number, three refuse and four meet their target. The refusals are the important part: a library where everything reports is one where several of the figures are invented.</figcaption>
+            <figcaption><b>KPIs</b>Nine report a number, three refuse and four meet their target.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-connectors.webp?v=e05" alt="CostCrew connectors" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Connectors</b>Every entry says which table it fills, what it needs, and whether running it costs money, because that last one is what decides whether an integration is a good idea.</figcaption>
+            <figcaption><b>Connectors</b>Every entry says whether running it costs money.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-audit.webp?v=e05" alt="CostCrew audit chain" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Audit</b>Everything the console did, in order, each entry hashed against the one before it. Tamper-evidence rather than tamper-proofing, and the page says which one it is.</figcaption>
+            <figcaption><b>Audit</b>Tamper-evidence rather than tamper-proofing.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-rightsizing.webp?v=e05" alt="CostCrew rightsizing recommendations" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Rightsizing</b>What the providers' own exports say is paid for at a size nobody uses, ranked by the saving rather than by the instance name, and flagged where a fourteen day window would call a monthly job idle. A list, never something the console applies.</figcaption>
+            <figcaption><b>Rightsizing</b>A list, never something the console applies.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-saas-imported.webp?v=e05" alt="CostCrew SaaS seats imported" width="1760" height="1138" loading="lazy">
-            <figcaption><b>SaaS seats</b>Sixty of 315 seats issued and not signed into in thirty days, 4,047.00 a month at what is actually paid, and one renewal inside ninety days whose notice deadline falls before it.</figcaption>
+            <figcaption><b>SaaS seats</b>Sixty of 315 seats not signed into in thirty days.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-cadence.webp?v=e05" alt="CostCrew cadence switch" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Cadence</b>Thirty-one tasks are due today at a worst case of 2.3050, and not one of them runs: the switch is off and the ceiling is 0.00, and both of those are a person's own act.</figcaption>
+            <figcaption><b>Cadence</b>Thirty-one tasks are due today, and not one of them runs.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-plan.webp?v=e05" alt="CostCrew sprint plan" width="1760" height="1138" loading="lazy">
-            <figcaption><b>The plan</b>Sixty-seven items proposed under a 1,043.00 ceiling, and nothing exists until somebody approves it. A planner that writes straight to the board has spent the budget before anybody agreed to the work.</figcaption>
+            <figcaption><b>The plan</b>Nothing exists until somebody approves it.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="../assets/shots/costcrew/cc-anomalies-owner.webp?v=e05" alt="CostCrew anomalies with owner" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Owner and told</b>Every finding carries the owner it belongs to, read from the team that pays for it or from the analyst that opened it. Telling that owner is its own logged step, so on a fresh install every row still reads not yet.</figcaption>
+            <figcaption><b>Owner and told</b>Every finding carries the owner it belongs to.</figcaption>
           </figure>
       </div>
-      <div class="gxc-note">seventeen frames, one fresh installation, click any still to open it full screen</div>
+      <div class="gxc-note">click any still to open it full screen</div>
     </div>
   </div>
 </section>
 
 <!-- ================= HOW THE WORK MOVES ================= -->
-<section class="sec" style="padding-top:18px">
+<section class="sec" id="how" style="padding-top:18px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">how the work moves</div>
       <h2>A finding becomes a task, a task becomes a draft, a person stamps it.</h2>
-      <p class="lede">The detector is two-sided and ranks by money: a fall matters as much as a rise, because a feed that stopped delivering and a workload switched off unnoticed both look like a drop. A Sunday is judged against Sundays, and the baseline is a median with a robust deviation, so last month's spike does not raise the bar for this month's.</p>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>The finding names its rule</h3><p>Every anomaly carries the rule that judged it, the baseline it was judged against and the day marked on its own series. A queue whose entries cannot be argued with is a queue nobody works.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>The task carries a guard</h3><p>An analyst gets the task with a mandate, the rights that come with its skills and a spend guard on the row. What it may read follows from what it was hired to do, not from what is convenient.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Only a person publishes</h3><p>Work comes back as a draft. A person posts it or returns it, and the return is on the analyst's own card next to its first-pass rate, so a crew that produces confident noise is visible rather than merely busy.</p></div>
+      <div class="card hover feature b-6 rv"><h3>The finding names its rule</h3><p>The detector is two-sided and ranks by money. Every anomaly carries the rule that judged it.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>The task carries a guard</h3><p>An analyst gets the task with a mandate and a spend guard on the row.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Only a person publishes</h3><p>Work comes back as a draft. A person posts it or returns it, and the return shows on the analyst's card.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Found, never saved</h3><p>Nothing is saved until somebody acts. A closed period freezes, and leaves as a general ledger CSV.</p></div>
     </div>
   </div>
 </section>
@@ -246,7 +254,7 @@
     <div class="sec-head rv">
       <div class="kicker">one finding, end to end</div>
       <h2>The path a number takes before anybody is charged for it.</h2>
-      <p class="lede">Every screen above shows one station on this line. What no screenshot shows is the line itself, and the gate in the middle of it: an agent can carry a finding all the way to the stamp and no further. Returned work goes back up the dashed path and lands on that analyst's own card, next to its first-pass rate.</p>
+      <p class="lede">What no screenshot shows is the line itself, and the gate in the middle of it: an agent can carry a finding all the way to the stamp and no further.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 392" role="img" aria-label="CostCrew end to end: charges arrive from cloud, SaaS and AI connectors; a two-sided detector using a median and a robust deviation marks a day and ranks it by money; the finding becomes a task with a spend guard for a named analyst; the analyst returns a draft; a person stamps it, posting it onward or returning it to the analyst; posted work feeds allocation, a closed chargeback period and a general ledger export">
@@ -350,59 +358,53 @@
   </div>
 </section>
 
-<!-- ================= THE MONEY ================= -->
-<section class="sec" style="padding-top:14px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">the part finance argues about</div>
-      <h2>Found, never saved.</h2>
-      <p class="lede">One word is load-bearing throughout this console: money is found, never saved, because nothing is saved until somebody acts. A console that reports found money as saved is one whose numbers stop being believed the first time finance checks them against the invoice.</p>
-    </div>
-    <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Shared cost gets a defensible owner</h3><p>Direct cost needs no product. This is about the part of the bill that arrived with nobody's name on it, placed by a rule a team can read and dispute rather than a figure it must accept.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Closing a period stops the numbers</h3><p>An allocation recomputed every time somebody opens the page cannot be charged to anybody: March's number is not April's, and the team is right to refuse it. A closed period freezes, and leaves as a general ledger CSV.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>A measure that cannot be computed refuses</h3><p>The KPI library reports a number or says by name why it cannot. A practice that measures itself with invented figures is worse off than one that measures nothing.</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= IN THE STACK ================= -->
 <section class="sec" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">where it sits</div>
       <h2>Genaryx governs agents. This is a crew of agents that works your bill.</h2>
-      <p class="lede">They are floors, not alternatives. <a href="../genaryx.html">Genaryx</a> is the control room over a fleet: it watches what is running now, demands a signature for anything destructive, and stops things. CostCrew's analysts are agents like any other, so Genaryx governs them too. This console runs the other way round: it reads last month's invoices, hands you drafts, and stops nothing. It emits its own work onto the same agent-event bus, so <a href="trailryx.html">Trailryx</a> can seal it and <a href="heraldyx.html">Heraldyx</a> can mail you about it.</p>
-    </div>
-    <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Runtime is not the ledger</h3><p><a href="tokenfuse.html">TokenFuse</a> counts a run in micro-dollars while it happens and can kill it. CostCrew counts an invoice line in cents a month later and allocates it. Same money, two questions, and only one of them has a kill switch.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hiring is registration</h3><p>The hire form collects what a Passport needs, so an analyst joins the crew and the estate in one act. In the original, those were two unrelated steps and the second one mostly did not happen.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>It says what it cannot do</h3><p>Per-agent attribution of AI spend is not possible from an invoice: the charge carries a model and a workload, not an agent. It becomes possible when the calls go through TokenFuse, and until then the console does not pretend. It now reads a cloud bill too: of the eighteen connectors in its catalogue, twelve are built (the AWS and GCP billing exports as FOCUS folders, the TokenFuse FOCUS export, the Anthropic and OpenAI usage reports, SaaS seats, three rightsizing and three budget-recommendation readers) and six, the Azure billing export among them, are specified with their endpoint and not written. The catalogue says which is which, per entry, and so does this page.</p></div>
+      <p class="lede">CostCrew's analysts are agents like any other, so <a href="../genaryx.html">Genaryx</a> governs them too. This console runs the other way round: it reads last month's invoices, hands you drafts, and stops nothing.</p>
     </div>
   </div>
 </section>
 
 <!-- ================= RUN IT ================= -->
-<section class="sec" style="padding-top:14px">
+<section class="sec" id="run" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">run it</div>
       <h2>One binary, one directory.</h2>
-      <p class="lede">No interpreter, no virtual environment, no second database engine in the process. It listens on loopback by default and expects a proxy in front of it for TLS. First account created at /signup becomes the admin of that installation, so make one before you hand anybody the address.</p>
+      <p class="lede">First account created at /signup becomes the admin of that installation, so make one before you hand anybody the address.</p>
     </div>
     <div class="install rv">
-      <span class="cmd"><b>go install</b> github.com/TAIPANBOX/costcrew/cmd/costcrew@latest</span>
-      <span class="note">then: costcrew -data ./local</span>
+      <code class="cmd"><b>go install</b> github.com/TAIPANBOX/costcrew/cmd/costcrew@latest</code>
+      <span class="note">then: <code>costcrew -data ./local</code></span>
     </div>
     <div class="install rv d1" style="margin-top:12px">
-      <span class="cmd"><b>./up.sh</b> --with-finops</span>
+      <code class="cmd"><b>./up.sh</b> --with-finops</code>
       <span class="note">the whole local stack with the console on :8321, from TAIPANBOX/stack-up</span>
     </div>
-    <p class="lede rv d2" style="margin-top:18px">Measured on a box behind a home router on 2026-09-17: the crew ran beside the single-machine stack through a gateway door of its own, one real model call was settled at USD 0.05811 and the next was refused by a monthly cap set centrally, and the notifier mailed the crew's findings with the owner taken from a passport. The same run found the runner reporting its own estimate as spent, five times under the gateway's settlement, and an import of the box's real AI spend refused by an empty severity field; both were fixed in v0.2.1. No reader for a cloud bill existed then, so the crew worked the generated estate; the current release is v0.6.0, and it has one.</p>
-    <p class="lede rv d2" style="margin-top:14px">v0.3.0 lets the crew's supervisor settle what its job description already said it could. It now applies an analyst's own option by itself when the amount is at or under the anomaly threshold, and still sends anything larger, anything that is the owner's call and any disagreement between two analysts to the owner. That threshold, T.anomaly, is now USD 2,500, and the urgent one, T.urgent, USD 12,500: half the earlier figures, and recorded as decisions rather than defaults, so more requests reach the owner for the same work. An admin who answers for an owner has to give a reason, and it is recorded on the option, in the journal and on the bus. A task stopped partway keeps the charge the gateway already settled instead of showing zero. The supervisor pass is tested; the console buttons were not run end to end.</p>
-    <p class="lede rv d2" style="margin-top:14px">v0.4.0 and v0.5.0 bring real money in and keep it honest. The console reads the AWS and GCP billing exports from a synced folder, exact to the micro-dollar, and reconciles the vendors' own usage reports against the gateway's rows. It can sign people in through the organisation's identity provider, run the whole crew on a model the organisation hosts itself, and decide how much of the bill a model is ever shown: everything, the names masked, or totals only. A re-exported gateway trace is counted once, and a call refused for identity is filed under the credential that made it, never under the agent it claimed. The AWS reader was proven on a real export, the GCP one only against a hand-written file, and sign-in only against an identity provider run inside the tests.</p>
-    <p class="lede rv d2" style="margin-top:14px">v0.6.0, released on 2026-10-13, lets a cost decision the crew recommends be announced before it lands. Only the owner can confirm an announcement. From its first day the anomaly queue and the forecast read it: a day that lands as announced is not raised, and one that lands short, late or in the wrong direction is, with the decision's name on it. A saving cannot be larger than the median daily spend it saves on, and the forecast carries an announced step before it lands. The Anthropic price rows are the vendor's list rates, as read on 2026-10-13. The release is plain about what it does not prove yet: every run in it used the generated estate, so detection quality and forecast accuracy on real spend are still open.</p>
-    <p class="lede rv d2" style="margin-top:14px">The repository gates more than its suite: every scenario written in the language of the request is bound to a named test in both directions, and each gate has a case that plants its own fault and requires the gate to go red.</p>
+    <div class="cta-row rv d2" style="margin-top:18px">
+      <a class="btn" href="../costcrew-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What is not proven yet.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>Every run in v0.6.0 used the generated estate, so detection quality and forecast accuracy on real spend are still open.</li>
+        <li>The AWS reader was proven on a real export, the GCP one only against a hand-written file.</li>
+        <li>Six of the eighteen connectors, the Azure billing export among them, are specified and not written.</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -413,23 +415,18 @@
   </div>
 </section>
 
-<!-- ================= 1 TO 15 OCTOBER 2026 ================= -->
-<section class="sec" id="changes" style="padding-top:14px">
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
   <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">1 to 15 October 2026</div>
-      <h2>What the crew gained from 1 to 15 October</h2>
-    </div>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
-        <tbody>
-          <tr><td>v0.4.0</td><td>Provider usage is read from the vendors' own usage reports and reconciled against the gateway's rows, so the gap between the two is shown.</td></tr>
-          <tr><td>v0.4.0</td><td>Sign-in through the organisation's identity provider, over OpenID Connect with signed tokens and PKCE. Session tokens are stored hashed.</td></tr>
-          <tr><td>v0.6.0</td><td>A cost decision the crew recommends can be announced before it lands. Only the owner can confirm it, and a day that matches the announcement is not raised as an anomaly.</td></tr>
-          <tr><td>not yet released</td><td>On main: a FOCUS 1.1 file of agent spend, by agent, unit, model and credential, for a FinOps platform's custom ingress. No file has been accepted by a live tenant yet.</td></tr>
-        </tbody>
-      </table>
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The CostCrew guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../costcrew-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../costcrew-guide.html#run">Running it</a>
+        <a class="btn" href="../costcrew-guide.html#changes">What changed</a>
+        <a class="btn" href="../costcrew-guide.html#limits">Limits</a>
+      </div>
     </div>
   </div>
 </section>

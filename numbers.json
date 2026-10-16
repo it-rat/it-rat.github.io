@@ -417,40 +417,40 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.html",
+      "page": "costcrew-guide.html",
       "claim": "v0.5.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.5.0 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-13",
-      "note": "Updated 2026-10-13: the v0.5.0 mention is history; the current image is v0.6.0.",
+      "note": "Updated 2026-10-13: the v0.5.0 mention is history; the current image is v0.6.0. Moved 2026-10-16 with the run-it paragraphs and the October changes table: the CostCrew room no longer carries them, costcrew-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.5.0 --jq .tag_name",
       "slow": false
     },
     {
-      "page": "services/costcrew.html",
+      "page": "costcrew-guide.html",
       "claim": "v0.3.0",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.3.0 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-08",
-      "note": "Added 2026-10-08: a named past release, checked by its own tag so it does not drift when a newer tag lands. The paragraph on the supervisor settling its own options and the halved thresholds.",
+      "note": "Added 2026-10-08: a named past release, checked by its own tag so it does not drift when a newer tag lands. The paragraph on the supervisor settling its own options and the halved thresholds. Moved 2026-10-16 with the run-it paragraphs and the October changes table: the CostCrew room no longer carries them, costcrew-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.3.0 --jq .tag_name",
       "slow": false
     },
     {
-      "page": "services/costcrew.html",
+      "page": "costcrew-guide.html",
       "claim": "v0.4.0",
       "occurrences": 3,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.4.0 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-08",
-      "note": "Added 2026-10-08: a named past release, checked by its own tag so it does not drift when a newer tag lands. The paragraph on reading AWS and GCP bills, provider-usage reconciliation, sign-in through an identity provider, the local engine and -prompt-data.",
+      "note": "Added 2026-10-08: a named past release, checked by its own tag so it does not drift when a newer tag lands. The paragraph on reading AWS and GCP bills, provider-usage reconciliation, sign-in through an identity provider, the local engine and -prompt-data. Moved 2026-10-16 with the run-it paragraphs and the October changes table: the CostCrew room no longer carries them, costcrew-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.4.0 --jq .tag_name",
       "slow": false
@@ -607,14 +607,14 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.html",
+      "page": "costcrew-guide.html",
       "claim": "v0.2.1",
       "occurrences": 1,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.2.1 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The release that carries both fixes the sentence names (#67, #70).",
+      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The release that carries both fixes the sentence names (#67, #70). Moved 2026-10-16 with the run-it paragraphs and the October changes table: the CostCrew room no longer carries them, costcrew-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.2.1 --jq .tag_name",
       "slow": false
@@ -1413,16 +1413,29 @@
       "slow": false
     },
     {
-      "page": "services/costcrew.html",
+      "page": "costcrew-guide.html",
       "claim": "v0.6.0",
-      "occurrences": 3,
+      "occurrences": 4,
       "repo": "TAIPANBOX/costcrew",
       "command": "gh api repos/TAIPANBOX/costcrew/releases/latest --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-13",
-      "note": "Added 2026-10-13: v0.6.0 is the latest costcrew release and the current image.",
+      "note": "Added 2026-10-13: v0.6.0 is the latest costcrew release and the current image. Moved 2026-10-16 with the run-it paragraphs and the October changes table: the CostCrew room no longer carries them, costcrew-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/costcrew/releases/latest --jq .tag_name",
+      "slow": false
+    },
+    {
+      "page": "services/costcrew.html",
+      "claim": "v0.6.0",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/costcrew",
+      "command": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.6.0 --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-10-16",
+      "note": "Added 2026-10-16: the room's limits name the release whose runs all used the generated estate. A named release, checked by its own tag so it does not drift when a newer tag lands. On 2026-10-16 releases/latest was still v0.6.0.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/costcrew/releases/tags/v0.6.0 --jq .tag_name",
       "slow": false
     },
     {
