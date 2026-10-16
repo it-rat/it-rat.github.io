@@ -647,12 +647,25 @@
     {
       "page": "services/heraldyx.html",
       "claim": "v0.2.3",
-      "occurrences": 2,
+      "occurrences": 1,
       "repo": "TAIPANBOX/heraldyx",
       "command": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.3 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The image the 2026-09-17 run used; a historical fact, not the current pin.",
+      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The image the 2026-09-17 run used; a historical fact, not the current pin. On 2026-10-16 the decision paragraph moved to heraldyx-guide.html; the room keeps the one in the mailbox script's comment.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.3 --jq .tag_name",
+      "slow": false
+    },
+    {
+      "page": "heraldyx-guide.html",
+      "claim": "v0.2.3",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/heraldyx",
+      "command": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.3 --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-09-27",
+      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The image the 2026-09-17 run used; a historical fact, not the current pin. On 2026-10-16 the decision paragraph moved to heraldyx-guide.html; the room keeps the one in the mailbox script's comment. Copied 2026-10-16: the same figure also stands in heraldyx-guide.html, which holds the text the room no longer carries; same check.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.3 --jq .tag_name",
       "slow": false
@@ -671,14 +684,14 @@
       "slow": false
     },
     {
-      "page": "services/heraldyx.html",
+      "page": "heraldyx-guide.html",
       "claim": "v0.2.4",
       "occurrences": 1,
       "repo": "TAIPANBOX/heraldyx",
       "command": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.4 --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-09-27",
-      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The release that carries the ceiling summary and critical bypass (#72).",
+      "note": "Added 2026-09-27: a named past release, checked by its own tag rather than the latest one, so it does not drift when a newer tag lands. The release that carries the ceiling summary and critical bypass (#72). Moved 2026-10-16 with the decision paragraph, the sources paragraph and the October changes table: the Heraldyx room no longer carries them, heraldyx-guide.html does.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/heraldyx/releases/tags/v0.2.4 --jq .tag_name",
       "slow": false
@@ -1359,6 +1372,19 @@
       "slow": false
     },
     {
+      "page": "heraldyx-guide.html",
+      "claim": "twenty-two named keys",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/heraldyx",
+      "command": "awk '/^var dataAllowlist/,/^}/' over git show origin/main:internal/render/render.go, counting lines that match the allow-list key form: 22 (19 before #95, plus reservation_id, amount_microusd and settled_microusd)",
+      "status": "measured",
+      "measured_on": "2026-10-13",
+      "note": "Updated 2026-10-13 from nineteen: origin/main has 22 keys in dataAllowlist. No runnable check here: the count reads origin/main with git show, not the local checkout, which is on another branch. Copied 2026-10-16: the same figure also stands in heraldyx-guide.html, which holds the text the room no longer carries; same check.",
+      "repo_dir": "heraldyx",
+      "check": null,
+      "slow": false
+    },
+    {
       "page": "services/trailryx.html",
       "claim": "twenty-three event types",
       "occurrences": 1,
@@ -1450,7 +1476,7 @@
       "slow": false
     },
     {
-      "page": "services/heraldyx.html",
+      "page": "heraldyx-guide.html",
       "claim": "v0.3.0",
       "occurrences": 1,
       "status": "measured",
@@ -1460,7 +1486,7 @@
       "repo_dir": "heraldyx",
       "check": "git tag -l v0.3.0",
       "slow": false,
-      "note": "Added 2026-10-13: the \"Since v0.3.0\" sentence is history, so this entry only shows the release exists."
+      "note": "Added 2026-10-13: the \"Since v0.3.0\" sentence is history, so this entry only shows the release exists. Moved 2026-10-16 with the decision paragraph, the sources paragraph and the October changes table: the Heraldyx room no longer carries them, heraldyx-guide.html does."
     },
     {
       "page": "services/heraldyx.md",
@@ -1881,12 +1907,25 @@
     {
       "page": "services/heraldyx.html",
       "claim": "v0.7.0",
-      "occurrences": 8,
+      "occurrences": 1,
       "status": "measured",
       "repo": "TAIPANBOX/heraldyx",
       "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; the tag is the shipped thing (no GitHub release is cut). stack-single main compose.yaml and stack-k8s main manifests/45-heraldyx.yaml both pin v0.7.0, checked 2026-10-15",
       "measured_on": "2026-10-15",
-      "note": "Updated 2026-10-15 from v0.4.0: v0.7.0 is the latest tag. The hero row and the sentence on the launchers say what main pins; the changes table cites the same release. stack-k8s release v1.1.46 still pins v0.6.0.",
+      "note": "Updated 2026-10-15 from v0.4.0: v0.7.0 is the latest tag. The hero row and the sentence on the launchers say what main pins; the changes table cites the same release. stack-k8s release v1.1.46 still pins v0.6.0. On 2026-10-16 the decision paragraph and the changes table moved to heraldyx-guide.html; the room keeps the fact table's shipped row.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
+      "page": "heraldyx-guide.html",
+      "claim": "v0.7.0",
+      "occurrences": 12,
+      "status": "measured",
+      "repo": "TAIPANBOX/heraldyx",
+      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; the tag is the shipped thing (no GitHub release is cut). stack-single main compose.yaml and stack-k8s main manifests/45-heraldyx.yaml both pin v0.7.0, checked 2026-10-15",
+      "measured_on": "2026-10-15",
+      "note": "Updated 2026-10-15 from v0.4.0: v0.7.0 is the latest tag. The hero row and the sentence on the launchers say what main pins; the changes table cites the same release. stack-k8s release v1.1.46 still pins v0.6.0. On 2026-10-16 the decision paragraph and the changes table moved to heraldyx-guide.html; the room keeps the fact table's shipped row. Copied 2026-10-16: the same figure also stands in heraldyx-guide.html, which holds the text the room no longer carries; same check. Twelve there: the decision paragraph, the changes heading and its five rows, the guide's own lede, and its four descriptions (meta, og, twitter, JSON-LD).",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
       "slow": false
