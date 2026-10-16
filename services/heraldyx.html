@@ -48,6 +48,13 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
   /* A mail client, not a code block. The point of this section is what an
      operator actually receives, and a wall of monospace does not read like a
      thing that lands in an inbox. */
@@ -163,9 +170,10 @@
       <div>
         <div class="kicker rv">alerts plane</div>
         <h1 class="rv d1"><span class="nm">Heraldyx</span>. Your agents run on your infrastructure. This is the part that writes to you.</h1>
-        <p class="lede rv d2">Every other plane in the stack records what happened. None of them wakes anybody. Heraldyx reads the shared event log the others already write, decides which of those events a human should hear about tonight rather than tomorrow, and sends one mail. It comes from your own box, and it carries links into your own console. It reads a file and sends mail: that narrowness is the design, because this is the one component of the box allowed to open a connection to anything outside it.</p>
+        <p class="lede rv d2">Heraldyx reads the shared event log the others already write, decides which of those events a human should hear about tonight rather than tomorrow, and sends one mail. It comes from your own box, and it carries links into your own console.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch a burst arrive <span class="mono">&#9654;</span></a>
+          <a class="btn" href="../heraldyx-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/heraldyx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -187,7 +195,7 @@
     <div class="sec-head rv">
       <div class="kicker">one burst, scripted</div>
       <h2>A hundred and twenty events arrive. Twenty-one messages leave.</h2>
-      <p class="lede">This is a scripted scenario: <span class="mono">scripts/burst-demo.sh</span> in the repository feeds 120 events to the real binary with the default limits and counts what comes out. Watch where the other hundred stop. An alerting system that forwards everything teaches its operator to filter the sender to trash, and then the one that mattered is in trash too.</p>
+      <p class="lede">This is a scripted scenario: <span class="mono">scripts/burst-demo.sh</span> in the repository feeds 120 events to the real binary with the default limits and counts what comes out. Watch where the other hundred stop.</p>
     </div>
     <div class="rv" id="hx-sim"></div>
   </div>
@@ -199,7 +207,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>Four checks, in this order, and the order is the point.</h2>
-      <p class="lede">The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server. The last cell was redrawn after a run on 2026-09-17: the v0.2.3 image sent one notice at the ceiling and then nothing for 28 minutes of high and critical events. Since v0.2.4 a critical passes the ceiling and whatever is held is summarised every ten minutes until the hour turns; the launchers pin v0.7.0 on their main branches.</p>
+      <p class="lede">The decision layer is a pure function over an event and a few counters. It performs no I/O at all, which is what makes the awkward cases (a burst, a restart, a clock that moved) testable without a mail server.</p>
     </div>
 
     <div class="diagram rv">
@@ -340,15 +348,15 @@
     <div class="bento" style="gap:22px;margin-top:30px">
       <div class="b-4">
         <div class="feature rv"><h3>The links are views, never actions</h3>
-        <p>A link that acts is an unauthenticated capability held by anyone who sees or forwards the message. Mail gateways also prefetch links, which would fire the action before a human read the sentence next to it. You sign in at the console, and a destructive action asks for your passkey there.</p></div>
+        <p>A link that acts is an unauthenticated capability held by anyone who sees or forwards the message. You sign in at the console, and a destructive action asks for your passkey there.</p></div>
       </div>
       <div class="b-4">
         <div class="feature rv"><h3>Identifiers and numbers, never content</h3>
-        <p>An event's data can hold anything a producer put there, and some producers sit next to prompts, model output and matched secrets. Mail leaves your perimeter through a server nobody here controls, so the renderer allows twenty-two named keys and then checks the shape of every value on top. A live secret is perfectly identifier-shaped, so the key list is what stands between it and your inbox.</p></div>
+        <p>Mail leaves your perimeter through a server nobody here controls, so the renderer allows twenty-two named keys and then checks the shape of every value on top.</p></div>
       </div>
       <div class="b-4">
         <div class="feature rv"><h3>Who is answerable comes from a passport</h3>
-        <p>Not from the event, which carries the agent and who it acted for, and neither of those is the owner. No passport means no owner line rather than a guess: naming the wrong team at three in the morning is worse than naming nobody at all.</p></div>
+        <p>Not from the event, which carries the agent and who it acted for, and neither of those is the owner. No passport means no owner line rather than a guess.</p></div>
       </div>
     </div>
   </div>
@@ -362,71 +370,56 @@
       <h2>Every message it sent, sealed, on a volume the planes cannot reach.</h2>
       <p class="lede">"We wrote to you at 03:14, and your mail server took it at 03:14:02" is a claim somebody eventually has to prove, in an argument they did not choose. So every message leaves one hash-chained record behind it, in the same envelope the rest of the stack speaks.</p>
     </div>
-    <div class="bento" style="gap:22px">
-      <div class="b-4"><div class="feature rv"><h3>"Accepted", never "delivered"</h3>
-        <p>What the process observes is a mail server taking the message. Whether it reached a mailbox, a spam folder, or a filter that drops it silently is not knowable from here, so the record does not say it.</p></div></div>
-      <div class="b-4"><div class="feature rv"><h3>A chain of one is not "verified"</h3>
-        <p>The first record has no predecessor to hash, so editing it is undetectable. The tool says so instead of reporting a good chain. A check that cannot fail is worse than no check, because it is louder.</p></div></div>
-      <div class="b-4"><div class="feature rv"><h3>It reports, and never repairs</h3>
-        <p>A tool that could mend the chain would be a tool that could forge it. It exits non-zero on a break, so a deployment check can use it directly.</p></div></div>
-    </div>
     <div class="rv" style="margin-top:22px">
-      <div class="install"><span class="cmd">heraldyx <b>--journal</b></span><span class="note">the image is distroless: there is no shell in it to read the file with</span></div>
+      <div class="install" id="run"><code class="cmd">heraldyx <b>--journal</b></code><span class="note">the image is distroless: there is no shell in it to read the file with</span></div>
+    </div>
+    <div class="cta-row rv d1" style="margin-top:18px">
+      <a class="btn" href="../heraldyx-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
     </div>
   </div>
 </section>
 
 <!-- ================= BOUNDARIES ================= -->
-<section class="sec" style="padding-top:14px">
+<section class="sec" id="limits" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what it does not do</div>
       <h2>The boundaries, stated rather than discovered at three in the morning.</h2>
     </div>
-    <div class="bento" style="gap:22px">
-      <div class="b-6"><div class="feature rv"><h3>It does not queue</h3>
-        <p>A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process.</p></div>
-        <div class="feature rv" style="margin-top:18px"><h3>It does not talk to any plane</h3>
-        <p>No API, no credential, no client. It holds nothing that could act on an agent. If a fact is not in the event log, heraldyx does not know it.</p></div></div>
-      <div class="b-6"><div class="feature rv"><h3>It does not report anything about a whole organisation</h3>
-        <p>The shared envelope requires an agent id, so a fact about an org has no subject to travel under, and no producer is allowed to invent one to make it fit. Those facts live in the console and in each plane's own API. A mail whose subject line named an agent that had not done the thing would be worse than silence.</p></div>
-        <div class="feature rv" style="margin-top:18px"><h3>It does not carry history</h3>
-        <p>A first run starts at the end of the log. A month of old incidents arriving at once is how an operator learns to filter this sender to trash.</p></div></div>
+    <div class="card limits rv">
+      <ul>
+        <li>It does not queue: a message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped.</li>
+        <li>Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.</li>
+        <li>The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEXT TO IT ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">who else writes to the log it reads</div>
+      <h2>Two more sources arrived on the bus.</h2>
+      <p class="lede">This plane mails about what other planes wrote, so its reach grows when theirs does. <a href="vouchryx.html">Vouchryx</a> reports a delegation issued, denied or revoked, and <a href="costcrew.html">CostCrew</a> reports spend spikes, budget thresholds and every move its crew makes on a finding.</p>
     </div>
     <div data-edge-nav></div>
   </div>
 </section>
 
-<!-- ================= NEXT TO IT ================= -->
-<section class="sec" style="padding-top:14px;padding-bottom:26px">
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px;padding-bottom:26px">
   <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">who else writes to the log it reads</div>
-      <h2>Two more sources arrived on the bus.</h2>
-      <p class="lede">This plane mails about what other planes wrote, so its reach grows when theirs does. <a href="vouchryx.html">Vouchryx</a> reports a delegation issued, denied or revoked, and <a href="costcrew.html">CostCrew</a> reports spend spikes, budget thresholds and every move its crew makes on a finding. CostCrew's events have their own sentences here. Vouchryx's delegation events have none yet, so a mail about one says the box has no description for the event until one is written.</p>
-      <p class="lede" style="margin-top:12px">Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, <span class="mono">HERALDYX_STREAMS</span> declares anything else, and a line in the wrong file is refused, counted and raised once as <span class="mono">foreign_source</span>; a file nobody declared is raised once as <span class="mono">unknown_stream</span>. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= RELEASED 15 OCTOBER 2026 ================= -->
-<section class="sec" id="changes" style="padding-top:14px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">released 15 October 2026</div>
-      <h2>What the notifier gained in v0.7.0</h2>
-    </div>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
-        <tbody>
-          <tr><td>v0.7.0</td><td>A daily pulse mail says the notifier is running and gives the counts it saw, so a quiet box can no longer look like a dead one.</td></tr>
-          <tr><td>v0.7.0</td><td>Quiet hours hold alerts below critical every day, in a window the operator sets and in the time zone the operator names.</td></tr>
-          <tr><td>v0.7.0</td><td>A maintenance window, opened by hand for up to 24 hours, can hold alerts from one source while that source is being upgraded.</td></tr>
-          <tr><td>v0.7.0</td><td>An operator can acknowledge a known condition for four hours by default, seven days at most. Its repeats are counted instead of mailed, and one mail says how many alerts were held when it ends.</td></tr>
-          <tr><td>v0.7.0</td><td>A critical is never held, whether by quiet hours, a window or an acknowledgement.</td></tr>
-        </tbody>
-      </table>
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Heraldyx guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../heraldyx-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../heraldyx-guide.html#run">Running it</a>
+        <a class="btn" href="../heraldyx-guide.html#changes">What changed</a>
+        <a class="btn" href="../heraldyx-guide.html#limits">Limits</a>
+      </div>
     </div>
   </div>
 </section>
