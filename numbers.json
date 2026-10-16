@@ -111,6 +111,19 @@
       "slow": false
     },
     {
+      "page": "scopyx-guide.html",
+      "claim": "v1.0.1",
+      "occurrences": 3,
+      "repo": "TAIPANBOX/scopyx",
+      "command": "gh api repos/TAIPANBOX/scopyx/tags --jq '.[0].name'; scopyx publishes a tag and TWO multi-arch GHCR images, the service and a `-chromium` variant, and the page states the version four times: the spec rail, the header of the measured run, and both docker run lines. The last two are instructions somebody follows, so all four must agree",
+      "status": "measured",
+      "measured_on": "2026-09-18",
+      "note": "Added 2026-10-16: the guide repeats the room fact table line and both docker run lines, so it states the version three times, like the room.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/scopyx/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
       "page": "services/idryx.html",
       "claim": "27 deterministic detectors",
       "occurrences": 7,
@@ -258,6 +271,19 @@
       "status": "measured",
       "measured_on": "2026-08-29",
       "note": "A language version in prose is the shape that rots quietly: the site said Go 1.26 for heraldyx while every repository had been on 1.27. It has an owner now, and numbers-drift.sh can re-measure it.",
+      "repo_dir": "scopyx",
+      "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
+      "slow": false
+    },
+    {
+      "page": "scopyx-guide.html",
+      "claim": "Go 1.27",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/scopyx",
+      "command": "grep -m1 '^go ' go.mod, the toolchain line the repository actually builds with",
+      "status": "measured",
+      "measured_on": "2026-08-29",
+      "note": "Added 2026-10-16: the guide at-a-glance list repeats the room fact table line.",
       "repo_dir": "scopyx",
       "check": "grep -m1 '^go ' go.mod | awk '{print $2}'",
       "slow": false
@@ -1402,12 +1428,25 @@
     {
       "page": "services/scopyx.html",
       "claim": "v0.1.2",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/scopyx",
+      "command": "git tag -l v0.1.2 in the scopyx checkout: the release the gate panel and the sample sizes were measured on (2026-08-10)",
+      "status": "measured",
+      "measured_on": "2026-10-13",
+      "note": "Added 2026-10-13: the scopyx gate panel and the 267 MB / 3.5 MB sample sizes were measured on v0.1.2, not v1.0.1. Moved 2026-10-16: the measured gate panel left the Scopyx room for scopyx-guide.html, so the room says it once, in the -chromium run note.",
+      "repo_dir": "scopyx",
+      "check": "git tag -l v0.1.2",
+      "slow": false
+    },
+    {
+      "page": "scopyx-guide.html",
+      "claim": "v0.1.2",
       "occurrences": 2,
       "repo": "TAIPANBOX/scopyx",
       "command": "git tag -l v0.1.2 in the scopyx checkout: the release the gate panel and the sample sizes were measured on (2026-08-10)",
       "status": "measured",
       "measured_on": "2026-10-13",
-      "note": "Added 2026-10-13: the scopyx gate panel and the 267 MB / 3.5 MB sample sizes were measured on v0.1.2, not v1.0.1.",
+      "note": "Added 2026-10-16: the measured gate panel moved here from the Scopyx room, and the guide repeats the -chromium run note. Both were measured on v0.1.2, not v1.0.1.",
       "repo_dir": "scopyx",
       "check": "git tag -l v0.1.2",
       "slow": false
