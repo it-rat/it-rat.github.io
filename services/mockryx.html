@@ -48,6 +48,13 @@
   .install .cmd{color:var(--fg)}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mockryx","url":"https://it-rat.com/services/mockryx.html","description":"Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/mockryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Mockryx","item":"https://it-rat.com/services/mockryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I test that my guardrails actually work?","acceptedAnswer":{"@type":"Answer","text":"Fire drills. Each scenario is a YAML file describing the request to send and the answer the guardrail must give, aimed at a real gateway with the guardrails live: the breaker's 402, DLP's 403, the deny or hold from the policy plane. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets."}},{"@type":"Question","name":"Does running the drills spend real money?","acceptedAnswer":{"@type":"Answer","text":"No. The provider behind the gateway is fake, so a runaway scenario can burn as much as it likes: the meter it trips is real, the invoice is not. Every hostile input also stays inside your perimeter, because the harness only ever talks to the one gateway URL you hand it."}},{"@type":"Question","name":"What if a guardrail simply is not configured?","acceptedAnswer":{"@type":"Answer","text":"Then a miss is reported as not configured rather than as a gap, and only when there is no evidence anywhere in the run that the feature is live. A core guardrail with no optional declaration is always a finding, and so is a gateway that could not be reached at all. One flag turns even a skip into a failure when you know the guardrail must be there."}},{"@type":"Question","name":"Can it gate CI?","acceptedAnswer":{"@type":"Answer","text":"That is the intended home. Exit 0 means every drill held, exit 1 is a real defensive gap and should fail the build, exit 2 means the harness itself is broken so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur."}}]}]}</script>
@@ -74,9 +81,10 @@
       <div>
         <div class="kicker rv">pre-prod plane &#183; wave 2</div>
         <h1 class="rv d1"><span class="nm">Mockryx</span>. Prove every guardrail holds, against your own gateway, before real traffic.</h1>
-        <p class="lede rv d2">A guardrail nobody has ever fired is a guess. Mockryx replays hostile scenarios (a fake secret in a prompt, a budget burn, a denied tool, a forged delegation chain, an unapproved action, an injected page, a quality drift, a reaction chain that has to reach the mail, and a provider outage) against the one URL you hand it: your own pre-production gateway, with a fake provider behind it. The enforcement path is the real one; the spend is not. CI reads the verdict as an exit code.</p>
+        <p class="lede rv d2">A guardrail nobody has ever fired is a guess. Mockryx replays hostile scenarios against the one URL you hand it: your own pre-production gateway, with a fake provider behind it. The enforcement path is the real one; the spend is not. CI reads the verdict as an exit code.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch the fire drill <span class="mono">&#9654;</span></a>
+          <a class="btn" href="../mockryx-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/mockryx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -98,7 +106,7 @@
     <div class="sec-head rv">
       <div class="kicker">sixty seconds, five of the drills</div>
       <h2>Watch every guardrail answer for itself.</h2>
-      <p class="lede">This is a simulation replaying five of the drills, and the shape is the real record: three of those five ran live against a real gateway on disposable boxes, twice, and held both times, 0 gaps, $0 real spend. The other two are the Wardryx scenarios that ship in the same set. The provider behind the gateway is fake, so the burn the runaway drill attempts never reaches an invoice.</p>
+      <p class="lede">This is a simulation replaying five of the drills, and the shape is the real record: three of those five ran live against a real gateway on disposable boxes, twice, and held both times, 0 gaps, $0 real spend. The other two are the Wardryx scenarios that ship in the same set.</p>
     </div>
     <div class="rv" id="mx-sim"></div>
   </div>
@@ -110,7 +118,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>One target URL. One report. Three exit codes.</h2>
-      <p class="lede">A scenario file names a request in the Anthropic Messages shape, the status it must be answered with, the headers that must ride the response and, optionally, the off-path event that must follow. The runner sends it at your gateway's /v1/messages, reads the gateway's own answer, polls the NDJSON event logs the off-path services write, and folds everything into a report and an exit code a CI gate can act on. It never talks to anything but the gateway you name.</p>
+      <p class="lede">The runner sends a scenario at your gateway's /v1/messages, reads the gateway's own answer, polls the NDJSON event logs the off-path services write, and folds everything into a report and an exit code a CI gate can act on. It never talks to anything but the gateway you name.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 336" role="img" aria-label="Mockryx architecture">
@@ -172,39 +180,18 @@
   </div>
 </section>
 
-<!-- ================= FEATURES ================= -->
-<section class="sec" style="padding-top:18px">
+<!-- ================= HOW IT WORKS ================= -->
+<section class="sec" id="how" style="padding-top:18px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what it proves</div>
       <h2>Not a mock of your gateway. Your gateway.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Scenarios are YAML, not code</h3><p>One drill is one file: the request to send, the status the guardrail must answer, the headers it must stamp. It reads like the real call it imitates. A malformed file fails the whole load, because a safety check that vanishes silently is worse than one that fails loudly.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>In-path checks, on the real path</h3><p>Assertions read the gateway's own answers: the breaker's 402, DLP's 403, the deny or hold riding the x-fuse-wardryx header. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Async reaction checks</h3><p>A drill can demand that the off-path services actually react, not only that the gateway answered. A gateway that blocks while nobody downstream notices is half a defence.</p>
-        <details class="sheet" data-sheet-kicker="off the request path" data-sheet-title="Proving the services that answer later answered at all">
-          <summary>How a reaction is proven</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">The gateway's own status and headers can only speak for the guardrails standing in the request path. Verdryx, Idryx and Qryx never touch that response: they react off path, on their own schedule, and record what they did as an agent-event envelope in the same NDJSON format everything else in the stack writes.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">So a scenario can assert on that too. Name the source and the event type it expects, optionally how long to wait, and after the synchronous check passes the runner polls those event logs for a matching event correlated by the exact run id it put on the wire. Not "an event appeared", but "the event this request should have caused appeared".</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Order matters here. A synchronous mismatch is never followed by an event check: chasing a downstream reaction to a request that did not even trigger the guardrail would turn one clear failure into two confusing ones. The drill reports the thing that actually broke.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv"><h3>A skip cannot hide a gap</h3><p>A guardrail that is off looks exactly like one that is broken. The runner insists on evidence before it calls a miss either one.</p>
-        <details class="sheet" data-sheet-kicker="findings vs not configured" data-sheet-title="The difference between a gap and a feature you never turned on">
-          <summary>How the two are told apart</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">A finding means the guardrail was supposed to hold and did not: something to fix today. A scenario that declares an optional guardrail is telling the runner something narrower, that a miss counts as a real gap only if there is other evidence the feature is actually wired in.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The evidence is the gateway's own response headers. If the header for that feature appears even once anywhere in the run, whatever its value, the feature is clearly live and a mismatch is a genuine finding. If it never appears across every attempt, the gateway plainly does not have it configured, and the scenario reports itself as not configured, with its raw mismatches dropped: they describe an absent feature, not a broken defence.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Two things can never be excused this way. A scenario with no optional guardrail declared, the budget breaker, is core and always on, so a miss there is always a finding. And a transport error, where the gateway could not be reached at all, is always a finding too: being unreachable is never evidence that a feature is merely switched off.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">When you know a guardrail must be there, one flag turns even a skip into a failure. That is the honest way round: the tool refuses to claim a pass it cannot prove, and it refuses to cry gap it cannot prove either.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d1"><h3>CI-native exit codes</h3><p>Exit 0: every drill held. Exit 1: a real defensive gap, fail the build. Exit 2: the harness itself is broken (bad flag, unreadable scenarios), so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Zero real spend by design</h3><p>The provider behind the gateway is fake, so the runaway scenario can burn all it wants: the meter it trips is real, the invoice is not. And every hostile input stays inside your perimeter; Mockryx only ever talks to the one gateway URL you hand it.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Scenarios are YAML, not code</h3><p>One drill is one file: the request to send, the status the guardrail must answer, the headers it must stamp.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>In-path checks, on the real path</h3><p>Assertions read the gateway's own answers: the breaker's 402, DLP's 403, the deny or hold riding the x-fuse-wardryx header.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Async reaction checks</h3><p>A drill can demand that the off-path services actually react, not only that the gateway answered.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>A skip cannot hide a gap</h3><p>A guardrail that is off looks exactly like one that is broken. The runner insists on evidence before it calls a miss either one.</p></div>
     </div>
   </div>
 </section>
@@ -212,52 +199,62 @@
 <!-- ================= IN THE STACK ================= -->
 <section class="sec" style="padding-top:14px">
   <div class="wrap">
-    <div class="bento">
-      <div class="card b-8 rv">
-        <div class="kicker">in the stack</div>
-        <h3 style="margin-top:12px">It picks fights with the rest of the stack. On purpose, in pre-prod.</h3>
-        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          In the request path, Mockryx rehearses <a href="tokenfuse.html" data-dir="back" style="color:var(--amber)">TokenFuse</a>: the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a>, asserting that deny and hold verdicts land in the x-fuse-wardryx header. Off path, expect.event demands that <a href="verdryx.html" data-dir="fwd" style="color:var(--rose)">Verdryx</a>, <a href="idryx.html" data-dir="fwd" style="color:var(--mint)">Idryx</a> and <a href="qryx.html" data-dir="fwd" style="color:var(--violet)">Qryx</a> visibly react to what just happened. And every finding it makes travels as sim_run and sim_finding events on the same bus as everything else: <a href="platform.html" data-dir="fwd" style="color:var(--steel)">the shared contract</a>.</p>
-          <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Why rehearsal belongs in CI, and what else it sits beside: <a href="../ai-agent-security.html" style="color:var(--accent)">AI agent security</a> and <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a>.</p>
-      </div>
-      <div class="card b-4 rv d1">
-        <div class="kicker" style="--accent:var(--mint)">try it now</div>
-        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx run</b> --gateway http://127.0.0.1:8080 ./scenarios</span></div>
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">./bin/<b>mockryx report</b> out/report.json</span></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">Add <span class="mono" style="font-size:12px">--save out/report.json</span> to keep the evidence. Point it at pre-prod, never at prod: the URL you pass is the only place it will ever send traffic.</p>
-          <details class="sheet" data-sheet-kicker="download" data-sheet-title="mockryx, every platform">
-            <summary>Download, any platform</summary>
-            <div class="sheet-in">
-              <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">mockryx version</span> reads it back.</p>
-            </div>
-          </details>
-        </div>
-      </div>
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>It picks fights with the rest of the stack. On purpose, in pre-prod.</h2>
+      <p class="lede">In the request path, Mockryx rehearses <a href="tokenfuse.html" data-dir="back" style="color:var(--amber)">TokenFuse</a>: the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to <a href="wardryx.html" data-dir="fwd" style="color:var(--teal)">Wardryx</a>, asserting that deny and hold verdicts land in the x-fuse-wardryx header.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RUN IT ================= -->
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>Point it at pre-prod, never at prod.</h2>
+      <p class="lede">The URL you pass is the only place it will ever send traffic.</p>
+    </div>
+    <div class="install rv">
+      <code class="cmd">./bin/<b>mockryx run</b> --gateway http://127.0.0.1:8080 ./scenarios</code>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <code class="cmd">./bin/<b>mockryx report</b> out/report.json</code>
+    </div>
+    <div class="cta-row rv d2" style="margin-top:18px">
+      <a class="btn" href="../mockryx-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
     </div>
     <div data-edge-nav></div>
   </div>
 </section>
 
-<!-- ================= ON MAIN ================= -->
-<section class="sec" id="drills-on-main" style="padding-top:14px">
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
-      <div class="kicker">on main, not yet released</div>
-      <h2>Four drills on main, not yet in a release</h2>
+      <div class="kicker">limits</div>
+      <h2>Not yet in a release.</h2>
     </div>
-    <p class="lede rv" style="margin-bottom:18px">The last release is v0.2.1. These four drills are on main and are not in any release yet.</p>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th>drill</th><th>what it rehearses</th></tr></thead>
-        <tbody>
-          <tr><td>Token flood</td><td>One request asks for a very large completion on a one-cent run budget. The gateway must refuse it before it is forwarded.</td></tr>
-          <tr><td>PII in a prompt</td><td>A support prompt carries a customer's email address and phone number. With PII blocking on, the call must be refused before any model sees it.</td></tr>
-          <tr><td>Poisoned tool description</td><td>A request declares a tool whose description orders the model to call another tool first and not to mention it. The gateway must answer the request, then deny a dangerous action in the same run.</td></tr>
-          <tr><td>Respelled allow-listed tool</td><td>A policy allows a tool by its exact name. A request that declares the same tool under a respelled name must be refused by the allow-list.</td></tr>
-        </tbody>
-      </table>
+    <div class="card limits rv">
+      <ul>
+        <li>The last release is v0.2.1. Four drills are on main and are not in any release yet: a token flood, PII in a prompt, a poisoned tool description and a respelled allow-listed tool.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Mockryx guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../mockryx-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../mockryx-guide.html#run">Running it</a>
+        <a class="btn" href="../mockryx-guide.html#changes">What changed</a>
+        <a class="btn" href="../mockryx-guide.html#limits">Limits</a>
+      </div>
     </div>
   </div>
 </section>

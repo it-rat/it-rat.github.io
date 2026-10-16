@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockryx guide: how it works, running it, what changed · IT-RAT</title>
+<meta name="description" content="How Mockryx fire drills work, how to run and download it, the drills on main not yet released, and what it does not prove yet.">
+<link rel="canonical" href="https://it-rat.com/mockryx-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/mockryx-guide.html">
+<meta property="og:title" content="Mockryx guide: how it works, running it, what changed · IT-RAT">
+<meta property="og:description" content="Everything the Mockryx room leaves out: what a scenario names, how a reaction is proven, how a skipped guardrail is told from a gap, the exit codes, where it sits in the stack, the install and download text, the drills on main, and the limits.">
+<meta property="og:image" content="https://it-rat.com/assets/og/mockryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mockryx guide: how it works, running it, what changed · IT-RAT">
+<meta name="twitter:description" content="Everything the Mockryx room leaves out: what a scenario names, how a reaction is proven, how a skipped guardrail is told from a gap, the exit codes, where it sits in the stack, the install and download text, the drills on main, and the limits.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/mockryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#FF8A5B}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .tbl-scroll,.tbl-scroll + .prose{margin-top:22px}
+  .tbl-scroll{max-width:96ch}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Mockryx guide: how it works, running it, what changed","name":"Mockryx guide","url":"https://it-rat.com/mockryx-guide.html","description":"How Mockryx fire drills work, how to run and download it, the drills on main not yet released, and what it does not prove yet.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/mockryx-guide.html","about":{"@type":"SoftwareApplication","name":"Mockryx","url":"https://it-rat.com/services/mockryx.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Mockryx guide","item":"https://it-rat.com/mockryx-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">mockryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; mockryx</div>
+    <h1 class="rv d1">How Mockryx works, how to run it, what changed.</h1>
+    <p class="lede rv d2">The <a href="services/mockryx.html">Mockryx room</a> keeps the fire drill, the drawing of one target URL and three exit codes, and the common questions. This guide keeps the rest of what the room used to say: what a scenario names, how a reaction is proven, how a skipped guardrail is told from a gap, where it sits in the stack, how to run and download it, the drills on main, and the limits.</p>
+    <div class="back rv d3"><a class="btn" href="services/mockryx.html"><span class="mono">&#8592;</span> Back to the Mockryx room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#what-it-proves">What it proves</a></li><li><a href="#where-it-sits">Where it sits</a></li><li><a href="#run">Running it</a></li><li><a href="#changes">What changed</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Mockryx at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>Prove every guardrail holds</b>, against your own gateway, before real traffic.</span></li>
+        <li><span><b>Status:</b> pre-1.0, and main is supported.</span></li>
+        <li><span><b>Core:</b> Go, an outbound-only CLI. <b>Scenarios:</b> YAML, one file each.</span></li>
+        <li><span><b>Target:</b> your own gateway, at /v1/messages.</span></li>
+        <li><span><b>Verdicts:</b> exit 0 held, 1 a real gap, 2 broken.</span></li>
+        <li><span><b>Licence:</b> Apache-2.0.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>A guardrail nobody has ever fired is a guess. Mockryx replays hostile scenarios (a fake secret in a prompt, a budget burn, a denied tool, a forged delegation chain, an unapproved action, an injected page, a quality drift, a reaction chain that has to reach the mail, and a provider outage) against the one URL you hand it: your own pre-production gateway, with a fake provider behind it. The enforcement path is the real one; the spend is not. CI reads the verdict as an exit code.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>One target URL. One report. Three exit codes.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A scenario file names a request in the Anthropic Messages shape, the status it must be answered with, the headers that must ride the response and, optionally, the off-path event that must follow. The runner sends it at your gateway's /v1/messages, reads the gateway's own answer, polls the NDJSON event logs the off-path services write, and folds everything into a report and an exit code a CI gate can act on. It never talks to anything but the gateway you name.</p>
+      <h3>Watch every guardrail answer for itself.</h3>
+      <p>The room's simulation replays five of the drills, and the shape is the real record: three of those five ran live against a real gateway on disposable boxes, twice, and held both times, 0 gaps, $0 real spend. The other two are the Wardryx scenarios that ship in the same set. The provider behind the gateway is fake, so the burn the runaway drill attempts never reaches an invoice.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="what-it-proves" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it proves</div>
+      <h2>Not a mock of your gateway. Your gateway.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Scenarios are YAML, not code</h3>
+      <p>One drill is one file: the request to send, the status the guardrail must answer, the headers it must stamp. It reads like the real call it imitates. A malformed file fails the whole load, because a safety check that vanishes silently is worse than one that fails loudly.</p>
+      <h3>In-path checks, on the real path</h3>
+      <p>Assertions read the gateway's own answers: the breaker's 402, DLP's 403, the deny or hold riding the x-fuse-wardryx header. No mocked gateway in the middle, so the code you rehearse is the code production traffic meets.</p>
+      <h3>Async reaction checks</h3>
+      <p>A drill can demand that the off-path services actually react, not only that the gateway answered. A gateway that blocks while nobody downstream notices is half a defence.</p>
+      <p><b>Proving the services that answer later answered at all.</b> The gateway's own status and headers can only speak for the guardrails standing in the request path. Verdryx, Idryx and Qryx never touch that response: they react off path, on their own schedule, and record what they did as an agent-event envelope in the same NDJSON format everything else in the stack writes.</p>
+      <p>So a scenario can assert on that too. Name the source and the event type it expects, optionally how long to wait, and after the synchronous check passes the runner polls those event logs for a matching event correlated by the exact run id it put on the wire. Not "an event appeared", but "the event this request should have caused appeared".</p>
+      <p>Order matters here. A synchronous mismatch is never followed by an event check: chasing a downstream reaction to a request that did not even trigger the guardrail would turn one clear failure into two confusing ones. The drill reports the thing that actually broke.</p>
+      <h3>A skip cannot hide a gap</h3>
+      <p>A guardrail that is off looks exactly like one that is broken. The runner insists on evidence before it calls a miss either one.</p>
+      <p><b>The difference between a gap and a feature you never turned on.</b> A finding means the guardrail was supposed to hold and did not: something to fix today. A scenario that declares an optional guardrail is telling the runner something narrower, that a miss counts as a real gap only if there is other evidence the feature is actually wired in.</p>
+      <p>The evidence is the gateway's own response headers. If the header for that feature appears even once anywhere in the run, whatever its value, the feature is clearly live and a mismatch is a genuine finding. If it never appears across every attempt, the gateway plainly does not have it configured, and the scenario reports itself as not configured, with its raw mismatches dropped: they describe an absent feature, not a broken defence.</p>
+      <p>Two things can never be excused this way. A scenario with no optional guardrail declared, the budget breaker, is core and always on, so a miss there is always a finding. And a transport error, where the gateway could not be reached at all, is always a finding too: being unreachable is never evidence that a feature is merely switched off.</p>
+      <p>When you know a guardrail must be there, one flag turns even a skip into a failure. That is the honest way round: the tool refuses to claim a pass it cannot prove, and it refuses to cry gap it cannot prove either.</p>
+      <h3>CI-native exit codes</h3>
+      <p>Exit 0: every drill held. Exit 1: a real defensive gap, fail the build. Exit 2: the harness itself is broken (bad flag, unreadable scenarios), so nothing was proven. Gate on 1, fix the pipeline on 2, and never let the two blur.</p>
+      <h3>Zero real spend by design</h3>
+      <p>The provider behind the gateway is fake, so the runaway scenario can burn all it wants: the meter it trips is real, the invoice is not. And every hostile input stays inside your perimeter; Mockryx only ever talks to the one gateway URL you hand it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="where-it-sits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>It picks fights with the rest of the stack. On purpose, in pre-prod.</h2>
+    </div>
+    <div class="prose rv">
+      <p>In the request path, Mockryx rehearses <a href="services/tokenfuse.html">TokenFuse</a>: the breaker's 402 and the DLP's 403, provoked deliberately and expected to answer. It does the same to <a href="services/wardryx.html">Wardryx</a>, asserting that deny and hold verdicts land in the x-fuse-wardryx header. Off path, expect.event demands that <a href="services/verdryx.html">Verdryx</a>, <a href="services/idryx.html">Idryx</a> and <a href="services/qryx.html">Qryx</a> visibly react to what just happened. And every finding it makes travels as sim_run and sim_finding events on the same bus as everything else: <a href="services/platform.html">the shared contract</a>.</p>
+      <p>Why rehearsal belongs in CI, and what else it sits beside: <a href="ai-agent-security.html">AI agent security</a> and <a href="ai-agent-governance.html">AI agent governance</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>Two commands, one gateway URL.</h2>
+    </div>
+    <div class="prose rv">
+      <div class="cmd">./bin/mockryx run --gateway http://127.0.0.1:8080 ./scenarios<br>./bin/mockryx report out/report.json</div>
+      <p>Add <span class="mono" style="font-size:12px">--save out/report.json</span> to keep the evidence. Point it at pre-prod, never at prod: the URL you pass is the only place it will ever send traffic.</p>
+      <h3>Download, any platform</h3>
+      <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/mockryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/mockryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
+      <p>Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">mockryx version</span> reads it back.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">on main, not yet released</div>
+      <h2>Four drills on main, not yet in a release</h2>
+    </div>
+    <div class="prose rv">
+      <p>The last release is v0.2.1. These four drills are on main and are not in any release yet.</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:18px">
+      <table class="tbl">
+        <thead><tr><th>drill</th><th>what it rehearses</th></tr></thead>
+        <tbody>
+          <tr><td>Token flood</td><td>One request asks for a very large completion on a one-cent run budget. The gateway must refuse it before it is forwarded.</td></tr>
+          <tr><td>PII in a prompt</td><td>A support prompt carries a customer's email address and phone number. With PII blocking on, the call must be refused before any model sees it.</td></tr>
+          <tr><td>Poisoned tool description</td><td>A request declares a tool whose description orders the model to call another tool first and not to mention it. The gateway must answer the request, then deny a dangerous action in the same run.</td></tr>
+          <tr><td>Respelled allow-listed tool</td><td>A policy allows a tool by its exact name. A request that declares the same tool under a respelled name must be refused by the allow-list.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <p>What changed from 1 to 15 October 2026, release by release, is in <a href="changes-2026-10.html#mockryx">the stack's changes for October</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What it does not do, and what is not released yet.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>The last release is v0.2.1. The four drills above are on main and are not in any release yet.</span></li>
+        <li><span>Of the five drills the room replays, three ran live against a real gateway on disposable boxes, twice; the other two are the Wardryx scenarios that ship in the same set.</span></li>
+        <li><span>It is pre-1.0, and main is supported.</span></li>
+        <li><span>A gateway response can only speak for the guardrails standing in the request path; off-path services are proven by their own events, and a synchronous mismatch is never followed by an event check.</span></li>
+        <li><span>A scenario that declares an optional guardrail reports itself as not configured when the gateway never shows that feature's header; one flag turns even a skip into a failure.</span></li>
+        <li><span>It only ever talks to the one gateway URL you hand it. Point it at pre-prod, never at prod.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/mockryx.html">Mockryx room</a> has the fire drill, the drawing and the common questions, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/mockryx.html"><span class="mono">&#8592;</span> Back to the Mockryx room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

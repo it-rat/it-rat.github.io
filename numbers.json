@@ -1905,6 +1905,19 @@
       "slow": false
     },
     {
+      "page": "mockryx-guide.html",
+      "claim": "v0.2.1",
+      "occurrences": 2,
+      "status": "measured",
+      "repo": "TAIPANBOX/mockryx",
+      "command": "gh api repos/TAIPANBOX/mockryx/releases/latest --jq .tag_name; the four drills named on the page are on main and in no release",
+      "measured_on": "2026-10-15",
+      "note": "Added 2026-10-15: v0.2.1 is the last release; the four drills on main are named beside it. Checked by the latest release, not by main. Copied 2026-10-16: the same release also stands in mockryx-guide.html, twice, beside the drills on main that the room no longer lists in full; same check.",
+      "repo_dir": null,
+      "check": "gh api repos/TAIPANBOX/mockryx/releases/latest --jq .tag_name",
+      "slow": false
+    },
+    {
       "page": "services/mockryx.md",
       "claim": "v0.2.1",
       "occurrences": 1,
