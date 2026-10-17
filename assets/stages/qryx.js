@@ -11,7 +11,7 @@ const U=Sim.util, P=U.PAL;
 Sim.registerStage("sweep",function(o){
   const [S0,S1]=o.sweep||[2,46];
   const rnd=U.rng(99);
-  let cols=0,rows=0,cell=9,gx=0,gy=0,gw=0,gh=0,cls=[];
+  let cols=0,rows=0,cell=9,gx=0,gy=0,gw=0,gh=0,cls=[],narrow=false;
 
   function classify(){
     cls=[];
@@ -25,7 +25,11 @@ Sim.registerStage("sweep",function(o){
   return{
     minHeight:300,
     init(w,h){
-      gx=24;gy=16;gw=w-48;gh=h-78;
+      /* a phone-width canvas cannot hold the "scanned" line, the legend and
+         the evidence seal on two rows: the seal gets a third row of its own
+         and the grid gives up the height */
+      narrow=w<480;
+      gx=24;gy=16;gw=w-48;gh=h-(narrow?118:78);
       cols=Math.max(24,Math.floor(gw/ cell /1.28));
       rows=Math.max(10,Math.floor(gh/ cell /1.28));
       const seeded=U.rng(99); let tmp=[];
@@ -83,7 +87,7 @@ Sim.registerStage("sweep",function(o){
       });
 
       /* footer strip: progress + legend + evidence seal */
-      const fy=h-40;
+      const fy=h-(narrow?80:40);
       ctx.textAlign="left";ctx.font="9.5px ui-monospace,Menlo,monospace";
       ctx.fillStyle="rgba("+P.dim+",.95)";
       const scanned=Math.round(25586*prog);
@@ -98,7 +102,14 @@ Sim.registerStage("sweep",function(o){
       /* evidence seal after signT */
       if(o.signT!=null&&t>=o.signT){
         const p=U.ease.outBack(U.between(t,o.signT,o.signT+0.8));
-        const cx2=w-92, cy2=fy+12, R=15*p;
+        /* wide: seal and label at the right of the footer, the label ending
+           10 px inside the edge (from w-92 it ran 15 px past it). Narrow: a
+           row of their own under the legend. The hexagon is 20 across the
+           points, wide enough to hold "ML-DSA" between its flat sides;
+           at 15 the word ran over both of them. */
+        ctx.font="9.5px ui-monospace,Menlo,monospace";
+        const sealW=ctx.measureText("evidence signed").width, R0=20;
+        const cx2=narrow?gx+R0:w-10-sealW-R0-7, cy2=narrow?fy+54:fy+12, R=R0*p;
         ctx.strokeStyle="rgba("+P.mint+",.9)";ctx.lineWidth=1.6;
         ctx.beginPath();
         for(let k=0;k<=6;k++){
@@ -111,7 +122,7 @@ Sim.registerStage("sweep",function(o){
         ctx.font="8px ui-monospace,Menlo,monospace";
         ctx.fillText("ML-DSA",cx2,cy2+2.5);
         ctx.textAlign="left";ctx.font="9.5px ui-monospace,Menlo,monospace";
-        ctx.fillText("evidence signed",cx2+22,cy2+3);
+        ctx.fillText("evidence signed",cx2+R0+7,cy2+3);
       }
       ctx.textAlign="center";
     }

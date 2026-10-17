@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 696" width="996" height="696" role="img" aria-label="Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a swappable backend, stub, openai-logprobs or jev, and every answer or refusal is journaled, with a calibration loop and the journal on the shared events volume">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 708" width="996" height="708" role="img" aria-label="Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a swappable backend, stub, openai-logprobs or jev, and every answer or refusal is journaled, with a calibration loop and the journal on the shared events volume">
   <title>Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a swappable backend, stub, openai-logprobs or jev, and every answer or refusal is journaled, with a calibration loop and the journal on the shared events volume</title>
-  <rect x="-18" y="-18" width="996" height="696" rx="16" fill="#0A0E13"/>
-  <rect x="-17.5" y="-17.5" width="995" height="695" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
+  <rect x="-18" y="-18" width="996" height="708" rx="16" fill="#0A0E13"/>
+  <rect x="-17.5" y="-17.5" width="995" height="707" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
         <defs>
           <marker id="txa1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
@@ -50,16 +50,16 @@
           <rect x="756" y="258" width="156" height="34" rx="8" fill="#141C27" stroke="#5A6675" stroke-dasharray="2 3"/><text x="834" y="279" fill="#8A97A6" font-size="10.5">calibration_drift</text>
           <text x="738" y="312" fill="#5A6675" font-size="10.5">a bound crossed, per template &#215; version &#215; backend &#215; model</text>
 
-          <rect x="546" y="340" width="384" height="300" rx="14" fill="none" stroke="#5A6675" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <rect x="546" y="340" width="384" height="312" rx="14" fill="none" stroke="#5A6675" stroke-width="1.2" stroke-dasharray="4 5"/>
           <text x="738" y="362" fill="#8A97A6" font-size="11" font-weight="700">still planned, or built and not run live</text>
           <rect x="555" y="376" width="366" height="30" rx="8" fill="#141C27" stroke="#FF7AA2" stroke-dasharray="3 3"/><text x="738" y="396" fill="#FF7AA2" font-size="10.5">verdryx: a typed grader beside the LLM judge</text>
           <rect x="555" y="414" width="366" height="30" rx="8" fill="#141C27" stroke="#2DD4BF" stroke-dasharray="3 3"/><text x="738" y="434" fill="#2DD4BF" font-size="10.5">wardryx: a signal that may become a hold, never a deny</text>
           <rect x="555" y="452" width="366" height="30" rx="8" fill="#141C27" stroke="#F4B23E" stroke-dasharray="3 3"/><text x="738" y="472" fill="#F4B23E" font-size="10.5">tokenfuse: router shadow mode</text>
-          <rect x="555" y="490" width="366" height="30" rx="8" fill="#141C27" stroke="#7DD3A0" stroke-dasharray="3 3"/><text x="738" y="510" fill="#7DD3A0" font-size="10.5">costcrew: a suggested class or priority at triage (built, opt-in)</text>
-          <rect x="555" y="528" width="366" height="30" rx="8" fill="#141C27" stroke="#B48CFF" stroke-dasharray="3 3"/><text x="738" y="548" fill="#B48CFF" font-size="10.5">genaryx: a panel, live only when configured</text>
-          <rect x="555" y="566" width="366" height="30" rx="8" fill="#141C27" stroke="#6C7BFF" stroke-dasharray="3 3"/><text x="738" y="586" fill="#6C7BFF" font-size="10.5">engram: an optional importance score</text>
-          <text x="738" y="614" fill="#5A6675" font-size="10.5">journal: on the shared events volume:</text>
-          <text x="738" y="630" fill="#5A6675" font-size="10.5">Trailryx refuses these four by design</text>
+          <rect x="555" y="490" width="366" height="42" rx="8" fill="#141C27" stroke="#7DD3A0" stroke-dasharray="3 3"/><text x="738" y="507" fill="#7DD3A0" font-size="10.5">costcrew: a suggested class or priority</text><text x="738" y="521" fill="#7DD3A0" font-size="10.5">at triage (built, opt-in)</text>
+          <rect x="555" y="540" width="366" height="30" rx="8" fill="#141C27" stroke="#B48CFF" stroke-dasharray="3 3"/><text x="738" y="560" fill="#B48CFF" font-size="10.5">genaryx: a panel, live only when configured</text>
+          <rect x="555" y="578" width="366" height="30" rx="8" fill="#141C27" stroke="#6C7BFF" stroke-dasharray="3 3"/><text x="738" y="598" fill="#6C7BFF" font-size="10.5">engram: an optional importance score</text>
+          <text x="738" y="626" fill="#5A6675" font-size="10.5">journal: on the shared events volume:</text>
+          <text x="738" y="642" fill="#5A6675" font-size="10.5">Trailryx refuses these four by design</text>
         </g>
         <g stroke="#5A6675" stroke-width="1.5" class="flow">
           <line x1="190" y1="66" x2="210" y2="94" marker-end="url(#txa1)"/>
@@ -74,7 +74,9 @@
         <!-- two animated tokens, both starting together: one an answered ask
              riding the whole path to the ledger, the other stopped at the
              cap and turning ember, which is the branch a reader cannot see
-             from the boxes alone -->
+             from the boxes alone. The ember one stops on the cap box's top
+             edge: parked at its centre it covered "hourly cap" for a quarter
+             of every loop -->
         <g class="flow">
           <circle r="5" fill="#34D399" opacity=".9" transform="translate(190,42)">
             <animateMotion begin="0s" dur="7s" repeatCount="indefinite"
@@ -82,7 +84,7 @@
           </circle>
           <circle r="5" fill="#FF574B" opacity="0" transform="translate(190,42)">
             <animateMotion begin="0s" dur="7s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.62;1" calcMode="linear"
-              path="M190 42 L190 94 L210 120 L250 190 L416 228"/>
+              path="M190 42 L190 94 L210 120 L250 190 L416 214"/>
             <animate attributeName="opacity" values="0.9;0.9;0.9;0;0" keyTimes="0;0.62;0.85;0.9;1" begin="0s" dur="7s" repeatCount="indefinite"/>
             <animate attributeName="fill" values="#34D399;#FF574B;#FF574B" keyTimes="0;0.6;1" begin="0s" dur="7s" repeatCount="indefinite"/>
           </circle>

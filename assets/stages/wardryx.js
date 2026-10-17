@@ -37,13 +37,18 @@ Sim.registerStage("gate",function(o){
     draw(ctx,w,h,t){
       ctx.font="9.5px ui-monospace,Menlo,monospace";ctx.textAlign="center";
 
-      /* the gate bar */
+      /* the gate bar. Where its one line does not fit (a phone-width
+         canvas), it breaks after "deterministic" and the bar grows downward
+         to hold the second line; chips still stop on its top edge. */
       const gx0=w*0.10,gx1=w*0.90;
-      U.rr(ctx,gx0,gateY-11,gx1-gx0,22,9);
+      const GATE="wardryx PDP · deterministic · no model in the decision path";
+      const gateLines=ctx.measureText(GATE).width>gx1-gx0-16
+        ?["wardryx PDP · deterministic","no model in the decision path"]:[GATE];
+      U.rr(ctx,gx0,gateY-11,gx1-gx0,22+12*(gateLines.length-1),9);
       ctx.fillStyle="rgba(16,22,31,1)";ctx.fill();
       ctx.strokeStyle="rgba("+P.teal+",.55)";ctx.lineWidth=1.2;ctx.stroke();
       ctx.fillStyle="rgba("+P.teal+",.95)";
-      ctx.fillText("wardryx PDP · deterministic · no model in the decision path",(gx0+gx1)/2,gateY+3);
+      gateLines.forEach((ln,i)=>ctx.fillText(ln,(gx0+gx1)/2,gateY+3+12*i));
 
       /* lanes */
       Object.keys(LANES).forEach(k=>{
@@ -118,7 +123,9 @@ Sim.registerStage("gate",function(o){
           if(tokenFlash>0){
             ctx.fillStyle="rgba("+P.mint+","+tokenFlash*.95+")";
             ctx.font="8px ui-monospace,Menlo,monospace";
-            ctx.fillText("approval token · bound to max_cost_usd",x,y-12);
+            /* centred on the chip, slid inside the canvas near the edge */
+            const tw=ctx.measureText("approval token · bound to max_cost_usd").width;
+            ctx.fillText("approval token · bound to max_cost_usd",U.clamp(x,6+tw/2,w-6-tw/2),y-12);
           }
         }
       });

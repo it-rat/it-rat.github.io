@@ -144,7 +144,12 @@ Sim.registerStage("reflect",function(o){
         }
         if(t>=checkT+SWEEP){
           const a=Math.min(1,U.between(t,checkT+SWEEP,checkT+SWEEP+0.6));
-          const cx=(fx0+fx1)/2, cy=frY0-26;
+          /* the mark and its label, 24 px plus the text, centred-ish over the
+             facts; on a narrow canvas they are slid left so the label ends
+             6 px inside the edge instead of 20 px past it */
+          ctx.font="9.5px ui-monospace,Menlo,monospace";
+          const okW=24+ctx.measureText("0 contradictions").width;
+          const cx=Math.min((fx0+fx1)/2,w-6-okW+22), cy=frY0-26;
           ctx.strokeStyle="rgba("+P.mint+","+a+")";ctx.lineWidth=1.8;
           ctx.beginPath();
           ctx.moveTo(cx-22,cy);ctx.lineTo(cx-16,cy+6);ctx.lineTo(cx-4,cy-9);
