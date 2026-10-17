@@ -53,7 +53,7 @@ ROOMS = {
     "platform":  ("services/platform.html", "#93A8C4",
                   "Platform: fourteen registered sources write one envelope onto one NDJSON bus, "
                   "and five consumers read it back",
-                  "b79f2b5dca1b"),
+                  "1e8315e2534b"),
     "genaryx":   ("genaryx.html", "#B48CFF",
                   "Genaryx: one browser control room over the stack, reached only over the tunnel",
                   "81bdf83f6f14"),
