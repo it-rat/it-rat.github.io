@@ -30,23 +30,31 @@ Sim.registerStage("envelope",function(o){
   const arrive=busEnd.map(b=>b+FLY2);
   const settle=arrive.map(a=>a+SETTLE);
   let W2=0,H2=0, emX=0,emTop=0,emW=0,emH=0,pitch=0, busY=0,busX0=0,busX1=0,
-      gateX=0,gateW=0,gateTop=0,gateBot=0, pileX0=0,pileX1=0;
+      gateX=0,gateW=0,gateTop=0,gateBot=0, pileX0=0,pileX1=0, narrow=false;
 
   function layout(w,h){
     W2=w;H2=h;
-    const padL=16,padR=16,padT=14,padB=24;
-    emW=U.clamp(w*0.13,84,116); emH=20; pitch=26;
+    /* Below 460px the wide layout left the lane shorter than its own label:
+       on a 390px phone 42px of lane under a 130px label, so the label ran
+       past both ends of the lane and under every envelope riding it
+       (scripts/svg-fit.sh, canvas-text-overlap at 390x844). Narrow, the
+       columns tighten so the lane is longer, and the label goes under the
+       lane in two lines, flush with its right end, where neither a riding
+       envelope nor one converging from the emitters passes. */
+    narrow=w<460;
+    const padL=narrow?10:16,padR=narrow?10:16,padT=14,padB=24;
+    emW=narrow?62:U.clamp(w*0.13,84,116); emH=20; pitch=26;
     emX=padL;
     const stackH=6*pitch+emH;
     emTop=Math.max(padT,(h-stackH)/2);
     busY=emTop+stackH/2;
-    busX0=emX+emW+38;
+    busX0=emX+emW+(narrow?26:38);
     gateW=12;
-    gateX=w-U.clamp(w*0.18,132,176);
+    gateX=narrow?w-92:w-U.clamp(w*0.18,132,176);
     busX1=gateX-16;
     gateTop=Math.max(padT+2,busY-U.clamp(h*0.32,80,120));
     gateBot=Math.min(h-padB,busY+U.clamp(h*0.32,80,120));
-    pileX0=gateX+30;
+    pileX0=gateX+(narrow?28:30);
     pileX1=w-padR;
   }
   function rowY(r){return emTop+r*pitch+emH/2;}
@@ -101,7 +109,14 @@ Sim.registerStage("envelope",function(o){
       ctx.strokeStyle="rgba("+P.steel+",.4)";ctx.lineWidth=1;ctx.stroke();
       ctx.fillStyle="rgba("+P.faint+",.9)";
       ctx.font="9px ui-monospace,Menlo,monospace";
-      ctx.fillText("agent-event bus · NDJSON",(busX0+busX1)/2,busY+3);
+      if(narrow){
+        ctx.textAlign="right";
+        ctx.fillText("agent-event bus",busX1-4,busY+21);
+        ctx.fillText("NDJSON",busX1-4,busY+32);
+        ctx.textAlign="center";
+      }else{
+        ctx.fillText("agent-event bus · NDJSON",(busX0+busX1)/2,busY+3);
+      }
 
       /* emitter nodes */
       ROWS.forEach((r,ri)=>{
@@ -188,7 +203,7 @@ Sim.registerStage("envelope",function(o){
       if(capA>0){
         ctx.fillStyle="rgba("+P.faint+","+(0.85*capA)+")";
         ctx.font="10px ui-monospace,Menlo,monospace";
-        ctx.fillText("seven sources, one grammar",(busX0+pileX1)/2,H2-8);
+        ctx.fillText("seven of fourteen sources, one grammar",(busX0+pileX1)/2,H2-8);
       }
       ctx.textAlign="left";
     }

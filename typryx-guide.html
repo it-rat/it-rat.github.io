@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typryx guide: how it works, the measurements, running it · IT-RAT</title>
+<meta name="description" content="How Typryx works, its measured runs in full, how to choose a data mode at install, what changed, and what it does not prove yet.">
+<link rel="canonical" href="https://it-rat.com/typryx-guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/typryx-guide.html">
+<meta property="og:title" content="Typryx guide: how it works, the measurements, running it · IT-RAT">
+<meta property="og:description" content="Everything the Typryx room leaves out: the path of one ask, what it holds to, the three data modes, your own model on your own questions, the speed and calibration runs in full, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.">
+<meta property="og:image" content="https://it-rat.com/assets/og/typryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Typryx guide: how it works, the measurements, running it · IT-RAT">
+<meta name="twitter:description" content="Everything the Typryx room leaves out: the path of one ask, what it holds to, the three data modes, your own model on your own questions, the speed and calibration runs in full, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/typryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/typryx-guide.md">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#60A5FA}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .cmd{margin-top:12px;border:1px solid var(--line);border-radius:10px;background:#0B1017;
+    padding:13px 15px;font-family:var(--font-m);font-size:12.5px;color:var(--fg);overflow-x:auto;line-height:1.7}
+  .cmd .c{color:var(--faint)}
+  .prose + .tbl-scroll,.tbl-scroll + .prose{margin-top:22px}
+  .tbl-scroll{max-width:96ch}
+  /* the room's three-way status chip: measured, planned, or built but not run live */
+  .chip{display:inline-block;font-family:var(--font-m);font-size:10.5px;letter-spacing:.03em;
+    border-radius:6px;padding:2px 8px;white-space:nowrap;line-height:1.6}
+  .chip-measured{color:var(--mint);border:1px solid rgba(52,211,153,.4)}
+  .chip-planned{color:var(--faint);border:1px dashed var(--line-2)}
+  .chip-builtnotlive{color:var(--amber);border:1px dashed rgba(244,178,62,.55)}
+  .chip-plain{color:var(--dim);border:1px solid var(--line-2)}
+  .defs{max-width:76ch}
+  .defs dt{font-family:var(--font-m);color:var(--fg);font-size:13px;margin-top:12px}
+  .defs dd{color:var(--dim);font-size:13.5px;line-height:1.6;margin:4px 0 0}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Typryx guide: how it works, the measurements, running it","name":"Typryx guide","url":"https://it-rat.com/typryx-guide.html","description":"How Typryx works, its measured runs in full, how to choose a data mode at install, what changed, and what it does not prove yet.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/typryx-guide.html","about":{"@type":"SoftwareApplication","name":"Typryx","url":"https://it-rat.com/services/typryx.html"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Typryx guide","item":"https://it-rat.com/typryx-guide.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">typryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; typryx</div>
+    <h1 class="rv d1">How Typryx works, what was measured, how to run it.</h1>
+    <p class="lede rv d2">The <a href="services/typryx.html">Typryx room</a> keeps the measured replay, the drawings and the widgets, and the common questions. This guide keeps the rest of what the room used to say: how an ask moves and what it holds to, the three data modes, your own model, the speed and calibration runs with their tables, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.</p>
+    <div class="back rv d3"><a class="btn" href="services/typryx.html"><span class="mono">&#8592;</span> Back to the Typryx room</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#overview">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#modes">Three modes</a></li><li><a href="#own-model">Your own model</a></li><li><a href="#measured">The measurements</a></li><li><a href="#plugs">Where it plugs in</a></li><li><a href="#where-it-sits">Where it sits</a></li><li><a href="#run">Running it</a></li><li><a href="#changes">What changed</a></li><li><a href="#limits">Limits</a></li></ol></nav></div></section>
+
+<section class="sec" id="overview" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2>Typryx at a glance.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>A typed answer with a probability</b>, never a guess.</span></li>
+        <li><span><b>Status:</b> an optional add-on. Off is the default, and the rest of the stack runs as it did before.</span></li>
+        <li><span><b>Shapes:</b> choice, score or yes/no, asked through a versioned template.</span></li>
+        <li><span><b>Deps:</b> one direct dependency.</span></li>
+        <li><span><b>Spend cap:</b> 1,000 calls an hour, by default.</span></li>
+        <li><span><b>Licence:</b> Apache-2.0, public on GitHub.</span></li>
+      </ul>
+      <h3>What it is</h3>
+      <p>Agents already ask each other, and their models, questions that have exactly one shape: choice (which option), score (how good, on an ordered scale) or yes/no. Typryx takes a question from a versioned template and returns a typed answer read off a probability distribution, or refuses with a named reason instead of inventing one. Only the fields the template names leave the box unless an operator switches freeform questions on (TYPRYX_ALLOW_FREEFORM=1, off by default). Every answer, refusal or timeout lands on a hash-chained journal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="how-it-works" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>The path of one ask.</h2>
+    </div>
+    <div class="prose rv">
+      <p>An agent reaches typryx over MCP, most often through tokenfuse's broker, both built. Inside, a call crosses the door, the template lookup, the egress filter and the hourly cap before it reaches a swappable backend; the answer is read off the probability distribution, never taken as the backend's own claim. Everything is journaled. On the right of the room's drawing: the calibration loop that scores a later truth, and the consumers, all still planned, that would read the journal.</p>
+      <h3>A probability, never an enforcement decision.</h3>
+      <p><b>No deny from a probability.</b> Not here, and not in a consumer. Wardryx's <span class="mono" style="font-size:12.5px">hold_if_signal</span> rule may turn a signal into a hold, which a person releases; nothing turns a probability into a deny. It is built and released, and measured on the stub backend only.</p>
+      <p><b>Calibration, never pooled.</b> <span class="mono" style="font-size:12.5px">typryx calibration</span> groups by template, template version, backend and model, never averaged across any of the four. Two models under the same question with opposite calibration would otherwise cancel out on paper while neither is fine.</p>
+      <p><b>A later truth, scored honestly.</b> An outcome posted later is scored against the exact template version an answer was asked under, read from the ledger's own record, never against whatever the live template says today. A second outcome for the same answer is refused.</p>
+      <p><b>One direct dependency.</b> agent-stack-go, the stack's shared envelope library, is the only import beyond the standard library. A hostile-input sweep runs against the backends that parse bytes from outside the process, and the ledger survives a torn write mid-crash without losing the record after it.</p>
+      <p><b>Spend capped by default.</b> 1,000 calls an hour by default, counted only against calls that got past the door, the template lookup and the egress filter. Disabling it logs a warning at boot rather than doing it quietly.</p>
+      <p><b>Offline by default.</b> The stub backend is deterministic and free, for tests and demos, and every answer it gives says so. The suite itself runs against httptest fakes; nothing in the test run reaches a live network.</p>
+      <h3>Never invents an answer</h3>
+      <p>A backend error, a timeout, missing or malformed probabilities, a cap hit: the answer is unanswered with a named reason, and the wire shape omits <span class="mono" style="font-size:12.5px">answer</span> and <span class="mono" style="font-size:12.5px">probabilities</span> entirely. No renormalizing, no fallback guess.</p>
+      <p>The served answer is always read back off the probability distribution itself: the argmax for a choice, the level for a score, <span class="mono" style="font-size:12.5px">probabilities["true"]</span> for a yes-or-no, never from a claim the backend states alongside a disagreeing distribution.</p>
+      <h3>Where Jev meets the stack.</h3>
+      <p>Three question shapes are the whole contract: <span class="mono" style="font-size:12.5px">choice</span>, <span class="mono" style="font-size:12.5px">score</span>, <span class="mono" style="font-size:12.5px">noul</span> (yes/no). A template goes to any backend unchanged, because the templates are the contract and the backend is swappable. Switch the backend and watch what is sent and what comes back change; the typed-answer shape at the far right never does.</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th>template</th><th>type</th><th>options</th><th>who would ask it</th><th>status</th></tr></thead>
+        <tbody>
+          <tr><td>eval.outcome_met</td><td>noul (yes/no)</td><td>n/a</td><td>Verdryx's grading; the calibration run below used it</td><td><span class="chip chip-measured">measured 2026-09-25</span></td></tr>
+          <tr><td>eval.answer_quality</td><td>score</td><td>4 ordered levels</td><td>Verdryx grader</td><td><span class="chip chip-measured">README example, 2026-09-25</span></td></tr>
+          <tr><td>request.complexity</td><td>choice</td><td>cheap / default / hard / reasoning</td><td>TokenFuse router, shadow mode only</td><td><span class="chip chip-planned">planned, shadow only</span></td></tr>
+          <tr><td>action.risk_class</td><td>choice</td><td>read_only / reversible_change / destructive / external_send / financial</td><td>Wardryx, through <span class="mono" style="font-size:12.5px">wardryx-proxy</span>, from the tool, its arguments and its target only</td><td><span class="chip chip-builtnotlive" style="white-space:normal">released in v0.4.0, run on the stub only</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <h3>What leaves the box</h3>
+      <p>Only <span class="mono" style="font-size:12.5px">task</span> and <span class="mono" style="font-size:12.5px">final_answer</span> are in the template's <span class="mono" style="font-size:12.5px">fields</span>, so on a template ask they are the only two that reach the backend, whatever else sits in the state. The type a backend receives for a template ask is constructible only inside the template package, so a map or raw state cannot reach one on that path, even by an implementation mistake. The one exception is a freeform question, which sends the whole state when TYPRYX_ALLOW_FREEFORM=1 is set (off by default).</p>
+      <p>Measured (undated, see the typryx README): a five-field state carrying <span class="mono" style="font-size:12.5px">user_email</span> and, separately, <span class="mono" style="font-size:12.5px">customer_iban</span>, neither ever reached the backend or the record. Through Claude Code over MCP, an extra <span class="mono" style="font-size:12.5px">api_token</span> field never reached the record either (<span class="mono" style="font-size:12.5px">held_back_fields: 1</span>).</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="modes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where your data goes &#183; measured 2026-09-30</div>
+      <h2>Three modes: where your data goes.</h2>
+    </div>
+    <div class="prose rv">
+      <p>You pick one when you install typryx, and you can change it later. With Jev, the fields a question names go to TypeSafe AI. With your own model, nothing leaves your hardware. With it off, the stack runs as it did before. All three were run on the same 434 questions, in the room's chart.</p>
+      <h3>Jev <span class="chip chip-measured">run live 2026-09-30</span></h3>
+      <p>A hosted service from TypeSafe AI. Only the fields a template names leave the box, to a third party that handles them under its own terms. Of the three modes it was the most accurate and the best calibrated on the test in the room's chart.</p>
+      <p>Whether that is worth sending those fields out is a decision for whoever answers for your data. It is never the default.</p>
+      <h3>Your own model <span class="chip chip-measured">measured 2026-09-30</span></h3>
+      <p>Any OpenAI-compatible server you run yourself, such as Ollama or vLLM. Nothing leaves your hardware. You choose the model, and you can tune it on your own questions (next section).</p>
+      <p>The one measured here is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.</p>
+      <h3>Off <span class="chip chip-plain">the default</span></h3>
+      <p>typryx is not started. The rest of the stack runs exactly as it did before, and this is what every launcher does until you choose another mode.</p>
+      <p>Without typryx, an agent that needs a typed answer gets one fixed default. That is the bottom row of the room's chart.</p>
+      <h3>How the accuracy chart reads</h3>
+      <p>ECE is expected calibration error: lower means the confidence a backend states matches how often it is right. The fixed answer states certainty every time, so its ECE is one minus its accuracy. The questions are synthetic and frozen, each label follows from how its question was built, and an independent re-label agreed on every one of the 434 questions. The benchmark and its runner are public: <a href="https://github.com/TAIPANBOX/typryx-evalset" target="_blank" rel="noopener">github.com/TAIPANBOX/typryx-evalset</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="own-model" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">your data, your model</div>
+      <h2>Your own model, on your own questions.</h2>
+    </div>
+    <div class="prose rv">
+      <p>typryx does not train, fine-tune, host or ship a model. It keeps the two records a tune needs, the question as the template let it through and the truth a person posted, and it measures the result against the model it replaces. The tuning is yours, on your hardware.</p>
+      <h3>What it keeps</h3>
+      <p>One line per answered, templated question, in a file on your own disk that only its owner can read: the template and its version, the answer's id, which backend and model answered, and the state as the template let it through. A field the template holds back is on your disk nowhere.</p>
+      <h3>What it never keeps</h3>
+      <p>The backend's answer or its probabilities. The record has no field for them, and the package that writes it cannot reach the code that knows them. Nothing is written for a question that was refused, unanswered or free-form.</p>
+      <p>It is off by default: with no directory set, nothing is written and no directory is created.</p>
+      <h3>Why labels are human truths only</h3>
+      <p>The export labels a question with the truth a person posted and with nothing else. A hosted model's answer never becomes a training label, which matters because TypeSafe's agreement forbids using Jev's output for model distillation or to build a similar or competing product.</p>
+      <p>What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through, and the poster's own word is the only record of where it came from.</p>
+      <p>Decided 2026-09-30: a customer picks one of three data modes for typed answers, typryx does not train or ship models, and a customer can tune their own model on their own questions and measure it with typryx.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="measured" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">measured, in full</div>
+      <h2>The replay, the speed run and the calibration run.</h2>
+    </div>
+    <div class="prose rv">
+      <h3>Every real judgement from one run, replayed in the same order.</h3>
+      <p>Not an illustration: the room's replay plays the 60 real arithmetic judgements from the calibration table below, qwen2.5:7b run locally on Ollama, wording v2, in the order they were asked (the real run took 9.44 seconds; this replay plays it about 2&#215; slower). Watch the resolved probability, the verdict, and how often "confident" and "right" turn out to be different things.</p>
+      <h3>The one-token shortcut is not always faster.</h3>
+      <p>Decision speed, measured 2026-09-25. Same 60 items, seed 1, timed end to end from the caller (<span class="mono" style="font-size:12.5px">go run ./examples/speed</span>, typryx f4045e0, one run each, so read the medians as indicative rather than final).</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:16px">
+      <table class="tbl">
+        <thead><tr><th>way of deciding</th><th>model</th><th>median</th><th>p95</th><th>accuracy</th></tr></thead>
+        <tbody>
+          <tr><td>typed, one token, through typryx</td><td>gpt-4.1-mini</td><td>538 ms</td><td>795 ms</td><td>71.7%</td></tr>
+          <tr><td>text judge, short verdict</td><td>gpt-4.1-mini</td><td>723 ms</td><td>1,012 ms</td><td>100%</td></tr>
+          <tr><td>reasoning judge</td><td>gpt-5.4-mini (current, reasoning)</td><td>562 ms</td><td>896 ms</td><td>100%</td></tr>
+          <tr><td>typed, one token, through typryx</td><td>qwen2.5:7b</td><td>148 ms</td><td>159 ms</td><td>66.7% (3 of 60 unparsed, counted wrong)</td></tr>
+          <tr><td>text judge, short verdict</td><td>qwen2.5:7b</td><td>1,509 ms</td><td>2,103 ms</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <p>Against a hosted API the network dominates: on gpt-4.1-mini the shortcut was about 1.3&#215; faster than a short text verdict and gave up 28 points of accuracy (71.7% against 100%), and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10&#215; faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page. Jev is not on this chart: it was measured on a different set of questions, the 434 in <a href="https://it-rat.com/services/typryx.html#modes">Three modes</a>, and the two sets are never mixed.</p>
+      <h3>Stated confidence and actual accuracy are not the same number.</h3>
+      <p>Calibration, measured 2026-09-25. Eight groups, 480 judgements, never pooled: <span class="mono" style="font-size:12.5px">typryx calibration --min-n 30 --json</span> over durable ledgers, 60 arithmetic judgements per group, seed 1, template <span class="mono" style="font-size:12.5px">eval.outcome_met</span>, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the hosted API (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time.</p>
+      <p>Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (gpt-4.1-nano in both wordings, and qwen2.5:3b) said "correct" to every one of 60 items, right exactly half the time, the base rate. gpt-4.1-mini passed half of the wrong answers as right (15 of 30 in each wording); gpt-4o-mini erred both ways; qwen2.5:7b never passed a wrong answer but failed two-thirds of the right ones (20 of 30). Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright (the typryx README records this probe: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th>model</th><th>wording</th><th>n</th><th>stated</th><th>accuracy</th><th>ECE</th><th>Brier</th><th>right</th><th>lenient</th><th>strict</th></tr></thead>
+        <tbody>
+          <tr><td>gpt-4.1-mini</td><td>v1</td><td>60</td><td>0.990</td><td>0.733</td><td>0.267</td><td>0.525</td><td>44</td><td>15</td><td>1</td></tr>
+          <tr><td>gpt-4.1-mini</td><td>v2</td><td>60</td><td>0.958</td><td>0.733</td><td>0.243</td><td>0.505</td><td>44</td><td>15</td><td>1</td></tr>
+          <tr><td>gpt-4o-mini</td><td>v1</td><td>60</td><td>0.987</td><td>0.583</td><td>0.414</td><td>0.823</td><td>35</td><td>11</td><td>14</td></tr>
+          <tr><td>gpt-4o-mini</td><td>v2</td><td>60</td><td>0.983</td><td>0.633</td><td>0.358</td><td>0.716</td><td>38</td><td>5</td><td>17</td></tr>
+          <tr><td>gpt-4.1-nano</td><td>v1</td><td>60</td><td>0.99999</td><td>0.500</td><td>0.500</td><td>1.000</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>gpt-4.1-nano</td><td>v2</td><td>60</td><td>0.9995</td><td>0.500</td><td>0.500</td><td>0.999</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>qwen2.5:3b</td><td>v2</td><td>60</td><td>0.998</td><td>0.500</td><td>0.498</td><td>0.995</td><td>30</td><td>30</td><td>0</td></tr>
+          <tr><td>qwen2.5:7b</td><td>v2</td><td>60</td><td>0.965</td><td>0.667</td><td>0.298</td><td>0.597</td><td>40</td><td>0</td><td>20</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose rv">
+      <p>Exact models: gpt-4.1-mini, gpt-4o-mini and gpt-4.1-nano over OpenAI's API; qwen2.5:3b and qwen2.5:7b on Ollama on a development Mac. Wording v1 is the example template (<span class="mono" style="font-size:12.5px">2d3ecbdc</span>), v2 asks plainly whether the answer is exactly correct (<span class="mono" style="font-size:12.5px">781efaaf</span>); the local models ran v2 only. Every figure here is one run of 60 items, reproducible with <span class="mono" style="font-size:12.5px">examples/calibration</span> in the repository.</p>
+    </div>
+    <dl class="defs rv" style="margin-top:20px">
+      <dt>stated confidence</dt><dd>The probability the model's own answer carried when it was given, averaged over the group.</dd>
+      <dt>ECE</dt><dd>Expected calibration error: the average gap between stated confidence and actual accuracy across the bins, 0 is perfect.</dd>
+      <dt>Brier</dt><dd>Mean squared error between the stated probabilities and the true outcome; here, multi-class, 0 is best and 2 is worst.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="plugs" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">where it plugs in</div>
+      <h2>What each part of the stack would get.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Three edges are built and wired in, but none is recorded as a live run yet. The Wardryx edge is built and released and runs only against the stub backend; the rest are what a later integration would read, not something built.</p>
+    </div>
+    <div class="tbl-scroll rv" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th></th><th>what typryx gives it</th><th>status</th></tr></thead>
+        <tbody>
+          <tr><td>MCP clients (Claude Code and others)</td><td>a typed answer with a probability, per call, over MCP</td><td class="yes">built</td></tr>
+          <tr><td>TokenFuse, as broker</td><td>a named upstream; one tool_call recorded against the agent</td><td class="yes">built</td></tr>
+          <tr><td>TokenFuse, router shadow mode</td><td>the class it would have routed to, alongside cost, recorded only</td><td class="warn">planned</td></tr>
+          <tr><td>Verdryx</td><td>a typed grader beside the existing LLM judge, opt-in per run with <span class="mono" style="font-size:12.5px">--typed-url</span></td><td class="yes">built, not run live</td></tr>
+          <tr><td>Wardryx</td><td>an <span class="mono" style="font-size:12.5px">action.risk_class</span> signal a <span class="mono" style="font-size:12.5px">hold_if_signal</span> rule may turn into a hold, never a deny; opt-in in the launchers, off by default</td><td class="warn">built and released, run only against a loopback stand-in (v0.4.0 release notes)</td></tr>
+          <tr><td>CostCrew</td><td>a suggested class or priority at triage; a person still decides</td><td class="warn">built and released in costcrew v0.4.0, opt-in via COSTCREW_TYPRYX_URL, not run live</td></tr>
+          <tr><td>Genaryx</td><td>a panel, live only when <span class="mono" style="font-size:12.5px">GENARYX_TYPRYX_URL</span> resolves</td><td class="warn">planned</td></tr>
+          <tr><td>Engram</td><td>an optional importance score</td><td class="warn">planned</td></tr>
+          <tr><td>Journal readers (Trailryx, Idryx)</td><td>the four event types reach the shared events volume; heraldyx renders them; Idryx lists typryx as a source and never calls it; Trailryx refuses them by design</td><td class="warn">on the shared bus</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="where-it-sits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>Optional, and it changes nothing when it is absent.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Typryx sits behind <a href="services/tokenfuse.html">TokenFuse</a>'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the <span class="mono" style="font-size:12.5px">request.complexity</span> template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. <a href="services/verdryx.html">Verdryx</a> can ask typryx for a typed verdict beside its existing LLM judge, opt-in per run, and post a person's label back as the truth; built and not yet run live. A typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. <a href="services/wardryx.html">Wardryx</a> can read one: <span class="mono" style="font-size:12.5px">typryx wardryx-proxy</span> sits in front of it, asks <span class="mono" style="font-size:12.5px">action.risk_class</span> about a pending tool call, and adds the answer to the decision request, where a <span class="mono" style="font-size:12.5px">hold_if_signal</span> rule may turn it into a hold, which a person releases. Nothing here or in a consumer turns a probability into a deny. The launchers carry it as an opt-in, off by default, from stack-single v1.1.17 and stack-k8s v1.1.23, and it was measured on the stub backend only, never with a real model behind it.</p>
+      <p>Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">run it</div>
+      <h2>How to choose it at install.</h2>
+    </div>
+    <div class="prose rv">
+      <div class="cmd"><span class="c"># stack-single</span><br>TYPED_MODE=jev|own-model|off<br><span class="c"># stack-k8s and stack-up</span><br>--typed-mode jev|own-model|off</div>
+      <p><span class="mono" style="font-size:12.5px">TYPED_MODE=jev|own-model|off</span> for stack-single, and <span class="mono" style="font-size:12.5px">--typed-mode jev|own-model|off</span> for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. <span class="chip chip-measured" style="margin-left:4px;white-space:normal">released in stack-single v1.1.16 and stack-k8s v1.1.22; stack-up runs from main</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="changes" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">status</div>
+      <h2>What changed, release by release.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Released as v0.4.0 on 2026-10-04, adding the <span class="mono" style="font-size:12.5px">action.risk_class</span> template and <span class="mono" style="font-size:12.5px">wardryx-proxy</span>, after v0.3.0 on 2026-09-30 and a first tag, v0.1.0, on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, with CI green on the v0.4.0 release run (2026-10-04). Built and tested: the HTTP and MCP surfaces, the stub, openai-logprobs and jev backends, the journal and ledger, calibration, and the opt-in training log and export. Jev ran live on 2026-09-30, and all three data modes were measured on the same 434 questions.</p>
+      <p>The releases from 1 to 15 October 2026, with what each one shipped, are in <a href="changes-2026-10.html#typryx">the stack's changes for October</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What it does not do, and what is not proven yet.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>Not yet:</b> a model tuned from an export and measured against the one it replaces, the Wardryx signal with a real backend behind it, and the deeper consumers in the tables above.</span></li>
+        <li><span>Three edges are built and wired in, but none is recorded as a live run yet. The Wardryx edge is built and released and runs only against the stub backend.</span></li>
+        <li><span>The launchers carry the Wardryx signal as an opt-in, off by default, and it was measured on the stub backend only, never with a real model behind it.</span></li>
+        <li><span>Verdryx's typed verdict is built and not yet run live; CostCrew's suggested class is built and released in costcrew v0.4.0 and not run live; the TokenFuse router, Genaryx and Engram readers are planned.</span></li>
+        <li><span>In the loop from a question to a tuned model, steps 1 to 5 are built, tested and run on the stub backend; steps 6 to 9 are not run end to end, and no tuned model is measured yet.</span></li>
+        <li><span>The own model measured is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.</span></li>
+        <li><span>OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright, so the openai-logprobs backend reaches only earlier hosted models and open models.</span></li>
+        <li><span>A freeform question sends the whole state when TYPRYX_ALLOW_FREEFORM=1 is set (off by default).</span></li>
+        <li><span>What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through.</span></li>
+        <li><span>The speed figures are one run each, so read the medians as indicative rather than final.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the room.</h2>
+      <p class="lede">The <a href="services/typryx.html">Typryx room</a> has the measured replay, the path of one ask, the widgets and the common questions, and <a href="guides.html">the guides index</a> has the field itself.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="services/typryx.html"><span class="mono">&#8592;</span> Back to the Typryx room</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

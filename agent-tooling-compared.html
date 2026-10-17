@@ -102,7 +102,7 @@
   .sv-wire{stroke:#252a35;stroke-width:2;fill:none}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What the stack refuses before a call, and how to check it","name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html","description":"The controls that answer before a call: what each one does, what it does not do yet, and how to check it.","inLanguage":"en","datePublished":"2026-08-11","dateModified":"2026-08-11","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Three shapes of agent tooling","item":"https://it-rat.com/agent-tooling-compared.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do we have to drop our tracing to use this?","acceptedAnswer":{"@type":"Answer","text":"No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are."}},{"@type":"Question","name":"Why describe products by shape instead of naming them?","acceptedAnswer":{"@type":"Answer","text":"Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes are also more useful: they say what a category of tool can and cannot do architecturally, which is the part that does not change with a release note."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What the stack refuses before a call, and how to check it","name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html","description":"The controls that answer before a call: what each one does, what it does not do yet, and how to check it.","inLanguage":"en","datePublished":"2026-08-11","dateModified":"2026-08-11","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Three shapes of agent tooling","item":"https://it-rat.com/agent-tooling-compared.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do we have to drop our tracing to use this?","acceptedAnswer":{"@type":"Answer","text":"No, and we would advise against it. Tracing answers a question this stack does not: why the model wanted to do the thing. Keep it, put the gateway in front of the model calls in shadow mode for a week, then turn on caps where the outliers are."}},{"@type":"Question","name":"Why describe products by shape instead of naming them?","acceptedAnswer":{"@type":"Answer","text":"Because a named comparison is wrong the week after a vendor ships a feature, and a reader who already runs one of these can map the shape to their tool in a second. The shapes are also more useful: they say what a category of tool can and cannot do architecturally, which is the part that does not change with a release note."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -171,17 +171,19 @@
           <text class="sv-lbl" id="gate-sub" x="480" y="220" text-anchor="middle" fill="#5c6b82">answers before the call</text>
         </g>
 
-        <!-- destination -->
-        <rect class="sv-box" x="774" y="98" width="140" height="64" rx="12"/>
-        <text class="sv-ttl" x="844" y="126" text-anchor="middle">Model, cloud</text>
-        <text class="sv-lbl" x="844" y="146" text-anchor="middle">the money, the action</text>
+        <!-- destination. 160 wide, because its second line is 148 and at 140
+             it ran 4 units past both sides; it grows to the right so the wire
+             still ends where it did, and the dashboard grows with it -->
+        <rect class="sv-box" x="774" y="98" width="160" height="64" rx="12"/>
+        <text class="sv-ttl" x="854" y="126" text-anchor="middle">Model, cloud</text>
+        <text class="sv-lbl" x="854" y="146" text-anchor="middle">the money, the action</text>
 
         <!-- dashboard -->
-        <rect class="sv-box" id="dash-body" x="700" y="186" width="214" height="106" rx="12"/>
+        <rect class="sv-box" id="dash-body" x="700" y="186" width="234" height="106" rx="12"/>
         <text class="sv-ttl" x="716" y="212">Dashboard</text>
         <text class="sv-lbl" x="716" y="231" fill="#5c6b82">traces, tokens, cost</text>
         <g id="dash-fill" opacity="0">
-          <rect x="716" y="244" width="182" height="1.5" rx="1" fill="#252a35"/>
+          <rect x="716" y="244" width="202" height="1.5" rx="1" fill="#252a35"/>
           <text class="sv-mono" id="dash-line" x="716" y="268" fill="#93a8c4">-</text>
           <text class="sv-lbl" id="dash-when" x="716" y="284" fill="#5c6b82"></text>
         </g>

@@ -77,6 +77,7 @@ Sim.registerStage("graph",function(o){
   const KIND_SHAPE={human:"circle",service:"square",key:"diamond",agent:"triangle",org:"circle"};
 
   let W2=0,H2=0,cxo=0,cyo=0,maxR=0;
+  const liftOf={};
 
   function pos(i,t){
     const n=N[i];
@@ -153,6 +154,34 @@ Sim.registerStage("graph",function(o){
 
       /* ---- detections ---- */
       function labelSide(x){ return x>cxo?{a:"left",dx:9}:{a:"right",dx:-9}; }
+      /* a detection label sits beside its node, on the side away from the
+         centre, and is slid back inside the canvas when that side has no
+         room: on a phone-width canvas the left-hand nodes are closer to the
+         edge than their labels are long. A label that had to slide is then
+         lifted or dropped to the first height where it crosses no other
+         node, checked against where the nodes sit when it fires (they drift
+         by 2.2 px at most, hence the 4 px margin), so the choice is fixed
+         for the whole run rather than flickering as they drift. */
+      function detLabel(text,x,y,ls,i,firedT,dys){
+        const tw=ctx.measureText(text).width;
+        const want=ls.a==="left"?x+ls.dx:x+ls.dx-tw;
+        const left=U.clamp(want,6,w-6-tw);
+        let dy=dys[0];
+        if(left!==want){
+          const key=text+"|"+w+"x"+h;
+          if(liftOf[key]==null){
+            const nodes=N.map((_,j)=>j===i?null:pos(j,firedT)).filter(Boolean);
+            const n0=pos(i,firedT);
+            liftOf[key]=dys.find(d=>{
+              const r=[left-4,n0.y+d-11,left+tw+4,n0.y+d+5];
+              return r[1]>2&&r[3]<h-22&&nodes.every(q=>q.x<r[0]-6||q.x>r[2]+6||q.y<r[1]-6||q.y>r[3]+6);
+            });
+            if(liftOf[key]==null) liftOf[key]=dys[0];
+          }
+          dy=liftOf[key];
+        }
+        ctx.textAlign="left"; ctx.fillText(text,left,y+dy);
+      }
 
       if(runawayT!=null && t>=runawayT){
         const {x,y}=pos(runawayIdx,t);
@@ -162,7 +191,7 @@ Sim.registerStage("graph",function(o){
         const ls=labelSide(x);
         ctx.textAlign=ls.a; ctx.fillStyle="rgba("+P.ember+",.95)";
         ctx.font="9.5px ui-monospace,Menlo,monospace";
-        ctx.fillText("runaway_agent · HIGH",x+ls.dx,y-12);
+        detLabel("runaway_agent · HIGH",x,y,ls,runawayIdx,runawayT,[-12,-22,-32,20,30]);
       }
       if(attestT!=null && t>=attestT){
         const {x,y}=pos(attestIdx,t);
@@ -172,7 +201,7 @@ Sim.registerStage("graph",function(o){
         const ls=labelSide(x);
         ctx.textAlign=ls.a; ctx.fillStyle="rgba("+P.amber+",.95)";
         ctx.font="9.5px ui-monospace,Menlo,monospace";
-        ctx.fillText("attestation_missing",x+ls.dx,y-12);
+        detLabel("attestation_missing",x,y,ls,attestIdx,attestT,[-12,-22,-32,20,30]);
       }
       if(orphanT!=null && t>=orphanT){
         const {x,y}=pos(orphanKeyIdx,t);
@@ -181,7 +210,7 @@ Sim.registerStage("graph",function(o){
         const ls=labelSide(x);
         ctx.textAlign=ls.a; ctx.fillStyle="rgba("+P.ember+",.9)";
         ctx.font="9.5px ui-monospace,Menlo,monospace";
-        ctx.fillText("orphaned key",x+ls.dx,y+16);
+        detLabel("orphaned key",x,y,ls,orphanKeyIdx,orphanT,[16,26,-14,-24]);
       }
 
       /* ---- legend ---- */
@@ -196,10 +225,16 @@ Sim.registerStage("graph",function(o){
         lx+=14+ctx.measureText(label).width+16;
       });
 
-      /* ---- CycloneDX Agent-BOM seal ---- */
+      /* ---- CycloneDX Agent-BOM seal ----
+         the label runs to 10 px from the right edge and the seal sits just
+         left of it; placed from the seal, the label ran 50 px off the canvas.
+         On a phone-width canvas the bottom right is where the orphaned key
+         and its label land, so there the seal takes the empty top right. */
       if(BOM!=null && t>=BOM){
         const p=U.ease.outBack(U.between(t,BOM,BOM+0.8));
-        const sx=w-70, sy=h-38, R=13*p;
+        ctx.font="9px ui-monospace,Menlo,monospace";
+        const bomW=ctx.measureText("CycloneDX Agent-BOM").width;
+        const sx=w-10-bomW-18, sy=w<480?24:h-38, R=13*p;
         ctx.strokeStyle="rgba("+P.steel+",.9)"; ctx.lineWidth=1.5;
         ctx.beginPath();
         for(let k=0;k<=6;k++){

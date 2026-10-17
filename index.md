@@ -4,37 +4,15 @@
 
 > Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted.
 
-A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source governance that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime, each installed on its own rather than adopted whole, and proven on real infrastructure before anyone saw a slide about it. Around them sit the parts a fleet needs and nobody builds first: a decision before an agent reaches the web, a delegation it can prove and a person can end, alerts by mail, a record nobody can quietly shorten, and a kill switch out of band, built and not yet wired into a running stack.
+A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source governance that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime.
 
 ## Validated on real infrastructure. Then torn down.
 
-Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key: four physical machines holding one budget over a real network, a partition with no split-brain, and a kill switch cutting real spend. Then the same stack came up again as a five-node Kubernetes cluster on each of those three clouds, which is where the cost of the governance itself finally got measured.
-
-**Q: How these numbers were produced**
-
-Every number above came from a run against real infrastructure, not a benchmark harness written to flatter us. The boxes were disposable, the model calls behind the cost and policy figures were real and paid for, and nothing from the campaign is still standing: the machines were deleted, the key revoked.
-
-**Money.** Four nodes across two datacenters held one budget through a leader kill and a real network partition: the majority kept serving, the isolated node could not overspend, and the state stayed byte-identical on every node. Under 500 concurrent agents against a fixed budget, the ledger admitted exactly what the budget allowed and no more.
-
-**Policy.** An enriched multi-agent campaign produced 176 real enforcement decisions with differentiated rights: an analyst agent refused a wire transfer that a treasury agent was allowed, an unattested agent refused until it attested, and shell execution refused for everyone regardless of identity. Fired as a 34-request concurrent burst, the decision point still sorted them exactly right.
-
-**The rest.** Qryx scanned 25,586 real Linux binaries, stripped, static and truncated among them, without a crash. Engram's reflection ran against real Claude output three times on three topologies with zero contradictions. Verdryx priced a correctly resolved case at $0.00042. Mockryx fired three hostile drills against a real gateway twice, with zero gaps and zero real spend, because the provider behind that gateway was fake while every guardrail in front of it was live.
-
-**At cluster scale.** The same manifests then came up as a five-node cluster on each of the three clouds, to answer the question the campaign above could not: what does the supervision itself cost. Several clusters went up in all: a quota ceiling capped the first GCP attempt at three nodes, and AWS was rebuilt twice, the last time a chip generation lower, once it turned out the first result had compared silicon rather than clouds. One policy pod peaks at about 2,449 decisions a second and answers in 3.2ms at p50 while the queue is short. On identical silicon the two hyperscalers land 1.2% apart, which makes choosing between them procurement rather than engineering. At full load the infrastructure under the control plane works out at EUR 0.024 per million governed decisions on Hetzner and about USD 0.21 to USD 0.23 on AWS and GCP. That is what the machines cost to run. What binds first is not the processor but the evidence: every decision is audited, not a sample of them, at 426 bytes each, which is 614 MB a day at a thousand calls a minute. Provability is measured in gigabytes and can be budgeted a year ahead from a single number.
-
-**On premises.** On 2026-09-17 the whole stack went onto a small Debian box behind a home router, carrier-grade NAT and all, with its gateway published only on a tunnel address. Two clusters standing in for a customer's, one in AWS and one in GCP, joined the tunnel and ran their agents through the box to the real Anthropic API: seventeen calls each, a 402 on the eighteenth, both inside one minute on one event log. The box told the clouds apart by key and by identity, froze one of them with a single policy while the other kept running, and then took sixteen injected failures: a killed node, a cut path, a stopped policy plane, a stopped store, a blocked provider, a loop, a storm, a reboot under load, a tampered evidence pack. Sixteen injected failures ran, and the run wrote up what each one showed: some held as designed, others found something to fix. The fixes have shipped in released images since stack-single v1.1.6, which [what is proven](https://it-rat.com/what-is-proven.html) sets out tile by tile. Both cloud accounts read back empty afterwards. The day cost about USD 0.18.
-
-**And what it caught.** Live testing found real bugs, which is the point of doing it. Two of them, both in the policy plane, were invisible to sequential test traffic: a request that merely declared a forbidden tool without calling it slipped past a deny rule, and a decision cache keyed without the attestation method let an unattested agent inherit a recently attested allow inside the cache window. Only the 34-agent concurrent burst surfaced the second one. Both were fixed, covered by regression tests, and re-verified live before any number here was taken as final.
-
-**And what we withdrew.** After the first cluster we wrote down that throughput collapses past 64 concurrent callers and that a fleet should be designed to that line. It does not. On both dedicated-core clouds there is no cliff at all out to 256 concurrent, on two chip generations; only latency rises, the way a queue should. The collapse was a property of a shared-vCPU instance whose hypervisor gives the tick to a neighbour under load, not of anything we built. The retraction is in the repositories next to the claim it replaces.
-
-The full ledger, every number and every bug, is public in each repository's `VALIDATION.md`. A validation write-up with no bug list is marketing.
-
-You do not have to take our word for it: [run the stack's live services locally](https://it-rat.com/services/platform.html#run) in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
+Before this site existed, the stack ran on disposable boxes across Hetzner, AWS and GCP with a real Anthropic key. Then the same stack came up again as a five-node Kubernetes cluster on each of those three clouds.
 
 ## One corridor, every door on it.
 
-Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Every room is Apache-2.0, with nothing behind a licence. Genaryx, first on the rail, is the control room, and it runs on your own infrastructure like the rest. After it come the planes themselves, in the order a fleet tends to adopt them: money and the crew that reads the bill, then policy, access, egress and delegation, then the planes that watch rather than decide. Platform, last, is the contract they all share. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
+Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Every room is Apache-2.0, with nothing behind a licence. Genaryx, first on the rail, is the control room, and it runs on your own infrastructure like the rest.
 
 ### Genaryx
 
@@ -102,21 +80,13 @@ Agent Passport, shared contract, Terraform.
 
 ## One passport, one event bus, four planes of control.
 
-Every request carries an Agent Passport. An agent has two ways out, not one: a call to a model, and a fetch of something on the internet, and each has a gate standing in it. Above them sit the two questions a gate asks, and they are asked differently. Policy answers per action. Delegation deliberately does not: it publishes keys and a revocation list that enforcement points poll, and it refuses to offer introspection precisely so that it never becomes a service every gate has to reach on every call. Below, memory, identity, crypto, quality, rehearsal and alerting read the same NDJSON stream off-path. Nothing here is a dashboard after the fact: the gates enforce in-line, in seconds. The drawing stops at the planes a request actually touches, so three that matter are named on the rail rather than here: Trailryx seals the bus into a record, Pocket, not yet wired into a running stack, is meant to hold the switch on a device this box never touches, and CostCrew's crew are agents the same gates govern like any other.
+Every request carries an Agent Passport. An agent has two ways out, not one: a call to a model, and a fetch of something on the internet, and each has a gate standing in it. Below, memory, identity, crypto, quality, rehearsal and alerting read the same NDJSON stream off-path. Nothing here is a dashboard after the fact: the gates enforce in-line, in seconds.
 
-New to this? [Seven guides](https://it-rat.com/guides.html) explain the field rather than the products: [agent governance](https://it-rat.com/ai-agent-governance.html), [FinOps for AI](https://it-rat.com/finops-for-ai.html), [agent security](https://it-rat.com/ai-agent-security.html), [observability versus governance](https://it-rat.com/ai-observability-vs-governance.html), [MCP security](https://it-rat.com/mcp-security.html), [agent identity](https://it-rat.com/agent-identity.html), and [the shapes of the tooling itself](https://it-rat.com/agent-tooling-compared.html). Four more cover this stack in practice: [a first alert](https://it-rat.com/first-alert.html), [one incident end to end](https://it-rat.com/one-incident-end-to-end.html), [what runs where and what it costs](https://it-rat.com/what-runs-where.html), and [what is proven and what is not](https://it-rat.com/what-is-proven.html).
+New to this? [The guides](https://it-rat.com/guides.html) are grouped by what you came for: [where to start](https://it-rat.com/first-alert.html), [how the stack is secured](https://it-rat.com/security-by-design.html), the practice of running agents, from [governance](https://it-rat.com/ai-agent-governance.html) to [FinOps for AI](https://it-rat.com/finops-for-ai.html), each service in depth, and [what changed in October](https://it-rat.com/changes-2026-10.html). Every room above links its own guide, and [the stack in depth](https://it-rat.com/stack-guide.html) holds the rest of this page.
 
 ## Governance you cannot read is governance you have to trust.
 
 Every part of this stack is Apache-2.0, the console included, and that is not a marketing posture. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust.
-
-**Q: The longer answer**
-
-Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces. Everything on this site runs, which is a different claim from everything on this site is described.
-
-And we are downstream of a great deal of work nobody billed us for. This stack stands on k3s, Calico, Longhorn, Postgres, SQLite and three language ecosystems, none of which sent an invoice. Publishing ours under Apache-2.0 is not charity and not a growth tactic; it is the ordinary way to be a participant in that rather than only a consumer of it.
-
-Take it, run it, fork it, and never speak to us. That is the point of publishing it.
 
 ## Two of us, plus the agents.
 
@@ -136,7 +106,7 @@ Cloud financial governance, cost optimization and multi-cloud strategy. Tania al
 Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.
 
 **Q: Is the stack open source?**
-Yes, all of it. Apache-2.0, source on [GitHub](https://github.com/TAIPANBOX): TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, the shared [contract](https://it-rat.com/services/platform.html) under them, and [Genaryx](https://it-rat.com/genaryx.html), the console over all of them.
+Yes, all of it. Apache-2.0, source on [GitHub](https://github.com/TAIPANBOX): TokenFuse, CostCrew, TokenFuse Pocket, Wardryx, Idryx, Scopyx, Vouchryx, Qryx, Verdryx, Typryx, Mockryx, Trailryx, Heraldyx and Engram, the shared [contract](https://it-rat.com/services/platform.html) under them, and [Genaryx](https://it-rat.com/genaryx.html), the console over all of them.
 
 **Q: Do you host any of this, or see our data?**
 No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem, and on-prem is measured rather than merely allowed: on 2026-09-17 the whole stack ran on a small box behind a home router, governing agents in AWS and GCP at the same time. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.

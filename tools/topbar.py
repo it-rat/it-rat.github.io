@@ -36,6 +36,8 @@ import pathlib
 import re
 import sys
 
+from stackguides import service_guides
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPACER = '<span class="spacer"></span>'
 CONSOLE = '<a class="tb-link" href="{root}console.html">Console</a>'
@@ -62,6 +64,11 @@ PAGES = {
     # it was in none of the four generators, so its bar, its JSON-LD and its
     # markdown twin have all been frozen since the day it was written.
     "agent-tooling-compared.html": "",
+    # Added 2026-10-16. The guide per room is not listed here; it is added
+    # below for every room in STACK, and a missing one stops this tool.
+    "security-by-design.html": "",
+    "stack-guide.html": "",
+    "changes-2026-10.html": "",
     "console.html": None,
     "404.html": "/",
     "services/costcrew.html": "../",
@@ -89,6 +96,9 @@ ELEMENT = re.compile(r'<(a|button)\b[^>]*>.*?</\1>', re.S)
 # that somehow lost the button gets it back rather than silently going without.
 JUMP = ('<button class="kbd-hint" data-cmdk type="button">'
         '<span>jump</span><kbd>&#8984;K</kbd></button>')
+
+for _path, _ in service_guides():
+    PAGES.setdefault(_path, "")
 
 written = 0
 

@@ -348,6 +348,54 @@ run_case "generated-blocks: a diagram redrawn without re-reading its title" fail
 	"$(py 'edit("services/platform.html", ">heraldyx</text>", ">heraldyx-renamed</text>")')" \
 	"read the drawing"
 
+# invariant 11, twins: a markdown link resolved against the hub instead of the
+# page it sits on is a 404 for every sibling room, and nobody reads the twin
+# by eye. The generator has to write the page's folder back in, so a link()
+# that forgets it rewrites the twins and the freshness half goes red.
+run_case "generated-blocks: a twin link drops the folder its page lives in" fail \
+	'./scripts/generated-blocks.sh' \
+	"$(py 'edit("tools/llms.py", "def link(href, label, page):", "def link(href, label, page):\n    page = \"\"")')" \
+	"a generator would rewrite it"
+
+# invariant 12: a room explains, and its guide holds the rest. Every case here
+# mutates the CostCrew room, the first one shortened, and the planted text sits
+# just above its FAQ, which is where an appended section would land.
+run_case "room-budget: a changes section planted on a room" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'edit("services/costcrew.html", "<!-- faq:auto -->",
+     "<section class=\"sec\" id=\"changes\"><div class=\"wrap\"><h2>What changed</h2><p>A release note.</p></div></section>\n<!-- faq:auto -->")')" \
+	"carries a changes block"
+
+# The same fault without the id, which is the shape a hand edit takes when it
+# renames the section to get past the first rule.
+run_case "room-budget: a dated release list under another id" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'edit("services/costcrew.html", "<!-- faq:auto -->",
+     "<section class=\"sec\" id=\"news\"><div class=\"wrap\"><div class=\"sec-head\"><div class=\"kicker\">1 to 31 October 2026</div><h2>New this month</h2></div></div></section>\n<!-- faq:auto -->")')" \
+	"dated release list"
+
+run_case "room-budget: a room padded past its ceiling" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'edit("services/costcrew.html", "<!-- faq:auto -->",
+     "<section class=\"sec\"><div class=\"wrap\"><p>" + "padding " * 1000 + "</p></div></section>\n<!-- faq:auto -->")')" \
+	"over the ceiling"
+
+run_case "room-budget: a room loses every link to its guide" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'import re
+p = "services/costcrew.html"
+s = open(p).read()
+s2, n = re.subn(r"href=\"\.\./costcrew-guide\.html[^\"]*\"", "href=\"#\"", s)
+assert n, p + " has no link to its guide to remove"
+open(p, "w").write(s2)')" \
+	"does not link to its guide"
+
+run_case "room-budget: a room's guide is deleted" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'import subprocess
+subprocess.run(["git", "rm", "-q", "costcrew-guide.html"], check=True)')" \
+	"no guide at costcrew-guide.html"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate
@@ -379,6 +427,14 @@ run_case "generated-blocks: a comment added to the stylesheet" pass \
 run_case "deploy-target: an uncommitted local change" pass \
 	'./scripts/deploy-target-current.sh' \
 	"$(py 'edit("index.html", "</body>", "<p>work in progress</p></body>")')"
+
+# A room under its ceiling can still grow a sentence. A gate that failed on
+# ordinary writing would be switched off inside a week; this one holds a
+# ceiling, not a word count frozen on the day it was written.
+run_case "room-budget: a short paragraph added to a room under budget" pass \
+	'./scripts/room-budget.sh' \
+	"$(py 'edit("services/costcrew.html", "<!-- faq:auto -->",
+     "<section class=\"sec\"><div class=\"wrap\"><p>One more sentence a reader reads, well inside the ceiling.</p></div></section>\n<!-- faq:auto -->")')"
 
 echo
 echo "=== and the one this estate learned the hard way ==="
@@ -425,6 +481,16 @@ for f in sorted(pathlib.Path(".").rglob("*.html")):
     subprocess.run(["git", "mv", str(f), str(f) + ".disabled"], check=True)
     n += 1
 assert n, "no HTML pages in this repo"')" \
+	"measured nothing"
+
+run_case "room-budget: no rooms left in the registry to measure" fail \
+	'./scripts/room-budget.sh' \
+	"$(py 'import re
+p = "assets/site.js"
+s = open(p).read()
+m = re.search(r"const STACK = \[.*?\n\];", s, re.S)
+assert m, "site.js has no STACK registry"
+open(p, "w").write(s.replace(m.group(0), "", 1))')" \
 	"measured nothing"
 
 echo

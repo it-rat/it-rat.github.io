@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What changed in the stack, 1 to 15 October 2026 · IT-RAT</title>
+<meta name="description" content="Prices that match the bill, money that is never forgotten, tool calls judged before they run: what changed in the stack from 1 to 15 October 2026.">
+<link rel="canonical" href="https://it-rat.com/changes-2026-10.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/changes-2026-10.html">
+<meta property="og:title" content="What changed in the stack, 1 to 15 October 2026 · IT-RAT">
+<meta property="og:description" content="532 pull requests and 86 release tags across 24 repositories in two weeks, grouped by the problem each change solves: prices, retained money, tool safety, safe defaults, identity and evidence, FinOps and operations. Then every service's own list.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What changed in the stack, 1 to 15 October 2026 · IT-RAT">
+<meta name="twitter:description" content="532 pull requests and 86 release tags across 24 repositories in two weeks, grouped by the problem each change solves: prices, retained money, tool safety, safe defaults, identity and evidence, FinOps and operations. Then every service's own list.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/changes-2026-10.md">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch;text-wrap:balance}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede b{color:var(--fg);font-weight:650}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p:first-child{margin-top:0}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose a{color:var(--accent)}
+  .prose h3{margin-top:34px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .prose code,.tbl code{font-family:var(--font-m);font-size:.9em;color:var(--fg)}
+  .prose .record{margin-top:18px;font-family:var(--font-m);font-size:12.5px;line-height:1.7;color:var(--dim);
+    border-left:2px solid var(--line-2);padding-left:13px}
+  .prose .record b{color:var(--fg);font-weight:600}
+  .gtoc-sec{padding:6px 0 0}
+  .gtoc{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:980px}
+  .gtoc ol{margin:12px 0 0;padding:0;list-style:none;columns:2 260px;column-gap:40px;font-size:14px;line-height:1.55}
+  .gtoc li{break-inside:avoid;padding:3px 0}
+  .gtoc a{color:var(--dim)}
+  .gtoc a:hover{color:var(--accent)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--rad-s);overflow:hidden;max-width:980px}
+  .stat{background:var(--panel);padding:20px 20px 18px}
+  .stat .n{font-family:var(--font-d);font-size:38px;font-weight:750;letter-spacing:-.02em;color:var(--fg);line-height:1}
+  .stat p{margin-top:10px;color:var(--dim);font-size:14px;line-height:1.5}
+  .themes{margin:14px 0 0;padding:0;list-style:none;counter-reset:t;max-width:84ch}
+  .themes li{counter-increment:t;display:grid;grid-template-columns:40px 1fr;gap:12px;padding:11px 0;border-top:1px solid var(--line);color:var(--dim);font-size:15px;line-height:1.6}
+  .themes li:first-child{border-top:0}
+  .themes li::before{content:counter(t,decimal-leading-zero);font-family:var(--font-m);font-size:12px;color:var(--accent);padding-top:3px;letter-spacing:.06em}
+  .themes a{color:var(--fg);font-weight:650}
+  .themes a:hover{color:var(--accent)}
+  .dfig{margin:28px 0 0;max-width:960px}
+  .dfig .frame{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--bg2);padding:18px 18px 14px;overflow-x:auto}
+  .dfig svg{width:100%;height:auto;min-width:760px}
+  .dfig figcaption{margin-top:10px;color:var(--dim);font-size:13.5px;line-height:1.6;max-width:84ch}
+  .tbl-wrap{margin-top:24px;max-width:980px}
+  .tbl caption{caption-side:bottom;text-align:left;padding:12px 14px;color:var(--dim);font-size:13.5px;line-height:1.6;border-top:1px solid var(--line)}
+  .tbl th{white-space:nowrap}
+  .tbl td.v{font-family:var(--font-m);font-size:12.5px;font-weight:500;white-space:nowrap}
+  .tbl td.v.open{color:var(--amber)}
+  .svc{padding:30px 0 4px;border-top:1px solid var(--line);max-width:980px}
+  .svc:first-of-type{border-top:0;padding-top:4px}
+  .svc h3{font-size:22px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  .svc h3 i{width:10px;height:10px;border-radius:50%;flex:0 0 10px}
+  .svc h3 .what{font-family:var(--font-t);font-size:14px;font-weight:500;letter-spacing:0;color:var(--dim)}
+  .svc .meta{margin-top:8px;font-family:var(--font-m);font-size:12px;letter-spacing:.02em;color:var(--dim)}
+  .svc .meta a{color:var(--accent)}
+  .svc .tbl-scroll{margin-top:14px}
+  .svc .prose{margin-top:14px}
+  .terms{margin:0;max-width:80ch}
+  .terms dt{margin-top:18px;color:var(--fg);font-weight:650;font-size:15.5px}
+  .terms dt:first-child{margin-top:0}
+  .terms dd{margin:6px 0 0;color:var(--dim);font-size:15px;line-height:1.7}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:24px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .note a{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"What changed in the stack, 1 to 15 October 2026","name":"What changed in the stack, 1 to 15 October 2026","url":"https://it-rat.com/changes-2026-10.html","description":"Prices that match the bill, money that is never forgotten, tool calls judged before they run: what changed in the stack from 1 to 15 October 2026.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/changes-2026-10.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"What changed in the stack, 1 to 15 October 2026","item":"https://it-rat.com/changes-2026-10.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">changes</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; what changed</div>
+    <h1 class="rv d1">What changed in the stack, 1 to 15 October 2026.</h1>
+    <p class="lede rv d2">What changed in the services in the first half of October, why each change matters, and what it improves for the people who run AI agents and pay for them. It is grouped by the problem each change solves, not by repository, because most problems were solved by several services moving together. <b>Each service's own list is at the end, under its name.</b></p>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#at-a-glance">At a glance</a></li><li><a href="#releases">Releases, day by day</a></li><li><a href="#method">How the work is done</a></li><li><a href="#prices">1. Prices that match the vendor's bill</a></li><li><a href="#retained-money">2. Money that is never forgotten</a></li><li><a href="#tool-calls">3. Tool calls judged before they run</a></li><li><a href="#safe-defaults">4. A typo can no longer switch a control off</a></li><li><a href="#identity-evidence">5. Every refusal filed under the right name</a></li><li><a href="#finops">6. FinOps that knows what was decided</a></li><li><a href="#operations">7. Running it day to day</a></li><li><a href="#failure-day">14 October: breaking it on purpose</a></li><li><a href="#finops-practice">What this means for a FinOps practice</a></li><li><a href="#by-service">By service</a></li><li><a href="#before-after">Every service, before and after</a></li><li><a href="#terms">A few terms</a></li></ol></nav></div></section>
+
+<section class="sec" style="padding-top:34px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2 id="at-a-glance">Two weeks, in five numbers.</h2>
+    </div>
+    <div class="stats rv" role="list">
+      <div class="stat" role="listitem"><div class="n">24</div><p>repositories changed</p></div>
+      <div class="stat" role="listitem"><div class="n">532</div><p>pull requests merged</p></div>
+      <div class="stat" role="listitem"><div class="n">86</div><p>release tags</p></div>
+      <div class="stat" role="listitem"><div class="n">111</div><p>new numbered rules in TokenFuse, CostCrew and Wardryx</p></div>
+      <div class="stat" role="listitem"><div class="n">1</div><p>day of deliberate failure on two clouds, a home server and two routers</p></div>
+    </div>
+    <div class="prose rv" style="margin-top:24px">
+      <p>Across 24 repositories we merged 532 pull requests (794 commits without merges) and cut 86 release tags. TokenFuse moved from 1.4.1 to 1.14.0, Wardryx from 1.1.3 to 1.5.0, CostCrew from 0.2.2 to 0.6.0 and Heraldyx from 0.2.5 to 0.7.0, and the two launchers shipped 45 releases between them to carry those versions to real machines.</p>
+      <p><b>How these were counted.</b> Releases count tags created between 1 and 15 October; "on main" means merged but not yet in a tagged release. Counts were read from each repository's main branch and its merged pull requests on 15 October.</p>
+      <h3 id="seven-themes">The seven themes</h3>
+      <p>Each theme opens with the problem in plain words, then lists what changed, then says why it matters for someone who runs agents and owns their cost. A short line at the end names the versions.</p>
+    </div>
+    <ol class="themes rv">
+      <li><span><a href="#prices">Prices that match the vendor's bill.</a> The gateway's price book now holds every listed model at its list rate, prices long prompts by the vendor's own tiers, and says when a call was priced from a fallback.</span></li>
+      <li><span><a href="#retained-money">Money that is never forgotten.</a> A call that may have been billed but never answered is kept as money owed, survives a restart, and is closed by a named person with evidence.</span></li>
+      <li><span><a href="#tool-calls">Tool calls judged before they run.</a> Tool descriptions are read for poisoning, a tool that changes after approval is refused, memory counts as untrusted text, and streamed answers are judged like any other.</span></li>
+      <li><span><a href="#safe-defaults">A typo can no longer switch a control off.</a> A setting the service cannot read now stops it at start, and a policy with a misspelled rule is refused instead of stored without the rule.</span></li>
+      <li><span><a href="#identity-evidence">Every refusal is filed under the right name and reaches the record.</a> Refusals are filed under the credential that made the call, and the record keeps a single writer per file.</span></li>
+      <li><span><a href="#finops">FinOps that knows what was decided.</a> CostCrew can announce a saving before it lands, so a planned change is judged as a step rather than raised as an anomaly.</span></li>
+      <li><span><a href="#operations">Running it day to day.</a> Alerts with quiet hours and acknowledgements, a console that shows silence and refusals, and launchers with safer defaults.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the period</div>
+      <h2 id="releases">Releases, day by day.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Most services released in two bursts: on 4 October, when the shared library, the typed risk signal and the source checks moved together, and from 12 to 15 October, when the work on retained money, tool safety and the failure day landed. The launchers, <a href="https://github.com/TAIPANBOX/stack-single">stack-single</a> for one machine and <a href="https://github.com/TAIPANBOX/stack-k8s">stack-k8s</a> for a cluster, release whenever a service they carry moves, which is why they lead the count.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Release timeline, 1 to 15 October 2026" style="font-family:var(--font-t)"><defs><marker id="f-releases-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-releases-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><rect x="838.9" y="28" width="40.7" height="380" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="859.2857142857143" y="22" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--amber)">failure day</text><rect x="8" y="34.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><rect x="8" y="102.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><rect x="8" y="170.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><rect x="8" y="238.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><rect x="8" y="306.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><rect x="8" y="374.0" width="904" height="34" opacity="0.55" style="fill:var(--panel-3)" /><line x1="330.0" y1="32" x2="330.0" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="330.0" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">1</text><line x1="370.7" y1="32" x2="370.7" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="370.7142857142857" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">2</text><line x1="411.4" y1="32" x2="411.4" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="411.42857142857144" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">3</text><line x1="452.1" y1="32" x2="452.1" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="452.1428571428571" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">4</text><line x1="492.9" y1="32" x2="492.9" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="492.8571428571429" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">5</text><line x1="533.6" y1="32" x2="533.6" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="533.5714285714286" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">6</text><line x1="574.3" y1="32" x2="574.3" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="574.2857142857142" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">7</text><line x1="615.0" y1="32" x2="615.0" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="615.0" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">8</text><line x1="655.7" y1="32" x2="655.7" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="655.7142857142858" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">9</text><line x1="696.4" y1="32" x2="696.4" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="696.4285714285714" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">10</text><line x1="737.1" y1="32" x2="737.1" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="737.1428571428571" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">11</text><line x1="777.9" y1="32" x2="777.9" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="777.8571428571429" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">12</text><line x1="818.6" y1="32" x2="818.6" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="818.5714285714286" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">13</text><line x1="859.3" y1="32" x2="859.3" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="859.2857142857143" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">14</text><line x1="900.0" y1="32" x2="900.0" y2="408" stroke-width="1" style="stroke:var(--line-2)" /><text x="900.0" y="434" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">15</text><text x="615.0" y="454" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">October 2026</text><text x="16" y="56.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">TokenFuse</text><text x="170" y="56.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.4.1 to 1.14.0</text><circle cx="452.1" cy="51.0" r="7.0" style="fill:var(--teal)" /><circle cx="492.9" cy="51.0" r="9.4" style="fill:var(--teal)" /><text x="492.8571428571429" y="55.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><circle cx="615.0" cy="51.0" r="9.4" style="fill:var(--teal)" /><text x="615.0" y="55.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><circle cx="777.9" cy="51.0" r="11.8" style="fill:var(--teal)" /><text x="777.8571428571429" y="55.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">3</text><circle cx="818.6" cy="51.0" r="14.2" style="fill:var(--teal)" /><text x="818.5714285714286" y="55.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">4</text><circle cx="859.3" cy="51.0" r="7.0" style="fill:var(--teal)" /><circle cx="900.0" cy="51.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="90.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Wardryx</text><text x="170" y="90.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.1.3 to 1.5.0</text><circle cx="452.1" cy="85.0" r="7.0" style="fill:var(--teal)" /><circle cx="818.6" cy="85.0" r="11.8" style="fill:var(--teal)" /><text x="818.5714285714286" y="89.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">3</text><circle cx="859.3" cy="85.0" r="9.4" style="fill:var(--teal)" /><text x="859.2857142857143" y="89.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><text x="16" y="124.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">CostCrew</text><text x="170" y="124.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">0.2.2 to 0.6.0</text><circle cx="452.1" cy="119.0" r="7.0" style="fill:var(--teal)" /><circle cx="615.0" cy="119.0" r="9.4" style="fill:var(--teal)" /><text x="615.0" y="123.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><circle cx="818.6" cy="119.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="158.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Heraldyx</text><text x="170" y="158.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">0.2.5 to 0.7.0</text><circle cx="452.1" cy="153.0" r="7.0" style="fill:var(--teal)" /><circle cx="777.9" cy="153.0" r="7.0" style="fill:var(--teal)" /><circle cx="818.6" cy="153.0" r="7.0" style="fill:var(--teal)" /><circle cx="859.3" cy="153.0" r="7.0" style="fill:var(--teal)" /><circle cx="900.0" cy="153.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="192.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Idryx</text><text x="170" y="192.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.0.0 to 1.2.1</text><circle cx="452.1" cy="187.0" r="7.0" style="fill:var(--teal)" /><circle cx="818.6" cy="187.0" r="7.0" style="fill:var(--teal)" /><circle cx="859.3" cy="187.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="226.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Trailryx</text><text x="170" y="226.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.0.0 to 1.2.1</text><circle cx="452.1" cy="221.0" r="7.0" style="fill:var(--teal)" /><circle cx="777.9" cy="221.0" r="7.0" style="fill:var(--teal)" /><circle cx="859.3" cy="221.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="260.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">agent-stack-go</text><text x="170" y="260.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.0.2 to 1.3.0</text><circle cx="452.1" cy="255.0" r="7.0" style="fill:var(--teal)" /><circle cx="859.3" cy="255.0" r="9.4" style="fill:var(--teal)" /><text x="859.2857142857143" y="259.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><text x="16" y="294.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Typryx</text><text x="170" y="294.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">0.3.0 to 0.4.1</text><circle cx="452.1" cy="289.0" r="7.0" style="fill:var(--teal)" /><circle cx="859.3" cy="289.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="328.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Vouchryx</text><text x="170" y="328.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">0.1.0 to 0.2.0</text><circle cx="452.1" cy="323.0" r="7.0" style="fill:var(--teal)" /><text x="16" y="362.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">stack-single</text><text x="170" y="362.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.1.15 to 1.1.35</text><circle cx="330.0" cy="357.0" r="7.0" style="fill:var(--teal)" /><circle cx="452.1" cy="357.0" r="7.0" style="fill:var(--teal)" /><circle cx="492.9" cy="357.0" r="11.8" style="fill:var(--teal)" /><text x="492.8571428571429" y="361.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">3</text><circle cx="615.0" cy="357.0" r="11.8" style="fill:var(--teal)" /><text x="615.0" y="361.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">3</text><circle cx="777.9" cy="357.0" r="15.0" style="fill:var(--teal)" /><text x="777.8571428571429" y="361.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">5</text><circle cx="818.6" cy="357.0" r="14.2" style="fill:var(--teal)" /><text x="818.5714285714286" y="361.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">4</text><circle cx="859.3" cy="357.0" r="7.0" style="fill:var(--teal)" /><circle cx="900.0" cy="357.0" r="9.4" style="fill:var(--teal)" /><text x="900.0" y="361.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">2</text><text x="16" y="396.5" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">stack-k8s</text><text x="170" y="396.5" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">1.1.21 to 1.1.46</text><circle cx="330.0" cy="391.0" r="7.0" style="fill:var(--teal)" /><circle cx="492.9" cy="391.0" r="15.0" style="fill:var(--teal)" /><text x="492.8571428571429" y="395.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">7</text><circle cx="615.0" cy="391.0" r="14.2" style="fill:var(--teal)" /><text x="615.0" y="395.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">4</text><circle cx="777.9" cy="391.0" r="15.0" style="fill:var(--teal)" /><text x="777.8571428571429" y="395.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">7</text><circle cx="818.6" cy="391.0" r="14.2" style="fill:var(--teal)" /><text x="818.5714285714286" y="395.5" font-size="12.5" text-anchor="middle" font-weight="700" style="fill:var(--ink)">4</text><circle cx="859.3" cy="391.0" r="7.0" style="fill:var(--teal)" /><circle cx="900.0" cy="391.0" r="7.0" style="fill:var(--teal)" /></svg></div>
+      <figcaption>Figure 1. Release tags per service per day; the number in a dot counts that day's tags. Ranges run from the latest release before 1 October to the latest on 15 October.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the method</div>
+      <h2 id="method">How the work is done.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The speed is only useful because of the method behind it, and the method is the part a reviewer can check. Every change follows the same loop.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The change loop" style="font-family:var(--font-t)"><defs><marker id="f-loop-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-loop-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><g class="bx"><rect x="8" y="10" width="208" height="100" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="112.0" y="44.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">1  Found</text><text x="112.0" y="65.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">in a review, a drill</text><text x="112.0" y="86.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">or a failure day</text></g><line x1="218" y1="60.0" x2="238" y2="60.0" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="240" y="10" width="208" height="100" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:var(--teal)" /><text x="344.0" y="44.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">2  Written</text><text x="344.0" y="65.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">as a numbered rule</text><text x="344.0" y="86.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">in the repository</text></g><line x1="450" y1="60.0" x2="470" y2="60.0" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="472" y="10" width="208" height="100" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:var(--teal)" /><text x="576.0" y="44.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">3  Red first</text><text x="576.0" y="65.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">a test that fails</text><text x="576.0" y="86.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">on the broken code</text></g><line x1="682" y1="60.0" x2="702" y2="60.0" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="704" y="10" width="208" height="100" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="808.0" y="44.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">4  Fixed</text><text x="808.0" y="65.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">the change turns</text><text x="808.0" y="86.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">the test green</text></g><g class="bx"><rect x="8" y="172" width="208" height="100" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:var(--teal)" /><text x="112.0" y="206.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">5  Gated</text><text x="112.0" y="227.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">a check proven</text><text x="112.0" y="248.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">able to catch it</text></g><line x1="218" y1="222.0" x2="238" y2="222.0" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="240" y="172" width="208" height="100" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="344.0" y="206.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">6  Released</text><text x="344.0" y="227.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">notes that say what</text><text x="344.0" y="248.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">is not proven yet</text></g><line x1="450" y1="222.0" x2="470" y2="222.0" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="472" y="172" width="208" height="100" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="576.0" y="206.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">7  Re-run</text><text x="576.0" y="227.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">live, and logged with</text><text x="576.0" y="248.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">date and evidence</text></g><path d="M808.0,112 V141.0 H112.0 V169" fill="none" stroke-width="1.8" marker-end="url(#f-loop-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="704" y="172" width="208" height="100" rx="8" stroke-width="1.2" style="fill:var(--panel);stroke:var(--teal)" /><text x="808.0" y="206.9" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--teal)">A live run that finds</text><text x="808.0" y="226.9" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--teal)">something new starts</text><text x="808.0" y="246.9" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--teal)">the loop again</text></g><line x1="682" y1="222.0" x2="702" y2="222.0" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f-loop-aht)" style="stroke:var(--teal)" /></svg></div>
+      <figcaption>Figure 2. The loop every fix on this page went through.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <ul>
+        <li><span><b>A defect becomes a numbered rule.</b> Each repository keeps its rules (we call them invariants) in its own instructions, next to the test or gate that holds each one. In these two weeks TokenFuse's list grew from 67 to 110 rules, CostCrew's from 52 to 107, and Wardryx's from 22 to 35. The next change cannot quietly undo a fix, because its rule fails first.</span></li>
+        <li><span><b>A test must fail on the broken code before it counts.</b> A test that has never been red proves nothing, so every new test is run against the unfixed code first.</span></li>
+        <li><span><b>Gates are proven able to catch what they guard.</b> Each repository plants the fault a gate is meant to catch and requires the gate to fail on it. In TokenFuse this harness was the slowest step of the build, at 27 minutes, so it now runs as four parallel shards, with one more gate proving that the shards together run every case exactly once. CostCrew and stack-k8s did the same.</span></li>
+        <li><span><b>Release notes say what is not proven.</b> A note states, for example, that a page fix was checked in a browser against a local stub and not on a deployed system. Nobody has to guess how far a claim goes.</span></li>
+        <li><span><b>Hygiene runs everywhere.</b> A secret scan now runs on every pull request and every push to main in every repository, with masked output. Security advisories in dependencies were closed within days of publication: the TLS library, the QUIC library, the WebAssembly runtime, a Parquet dependency, and 43 alerts in the gateway dashboard's dependencies. Every Go service moved to the same toolchain.</span></li>
+        <li><span><b>Facts that must agree are checked across repositories.</b> One cross-repository gate compares every built-in model price table with the vendors' current prices. Another keeps the tool-argument size limit identical in the gateway and in the policy service.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 1 &#183; finops accuracy</div>
+      <h2 id="prices">Prices that match the vendor's bill.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A gateway that enforces budgets is only as good as its price book. When the book did not know a model, the call was charged at a deliberately high fallback rate, USD 15 per million input tokens and 75 per million output. That is safe for a budget, because it never under-counts. It is wrong for a report, because finance reconciles against the invoice and the invoice uses the list rate.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 268" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Price accuracy, before and after" style="font-family:var(--font-t)"><defs><marker id="f-price-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-price-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><text x="8" y="22" font-size="15" text-anchor="start" font-weight="700" style="fill:var(--fg)">One call: 2,874 input and 200 output tokens</text><text x="8" y="68" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Fallback rate</text><text x="8" y="87" font-size="13" text-anchor="start" font-weight="400" style="fill:var(--dim)">USD 15 / 75 per million</text><rect x="200" y="52" width="300" height="34" rx="4" style="fill:var(--ember)" /><text x="490" y="75" font-size="15" text-anchor="end" font-weight="700" style="fill:var(--ink)">USD 0.05811</text><text x="8" y="138" font-size="15" text-anchor="start" font-weight="650" style="fill:var(--fg)">Vendor list rate</text><text x="8" y="157" font-size="13" text-anchor="start" font-weight="400" style="fill:var(--dim)">USD 2 / 10 per million</text><rect x="200" y="122" width="40.0" height="34" rx="4" style="fill:var(--mint)" /><text x="250.0" y="145" font-size="15" text-anchor="start" font-weight="700" style="fill:var(--mint)">USD 0.007748</text><text x="8" y="200" font-size="14" text-anchor="start" font-weight="400" font-style="italic" style="fill:var(--dim)">The same call, reported about 7.5 times too high.</text><text x="560" y="22" font-size="15" text-anchor="start" font-weight="700" style="fill:var(--fg)">Long-prompt tier</text><line x1="600" y1="210" x2="900" y2="210" stroke-width="1.4" style="stroke:var(--dim)" /><line x1="600" y1="210" x2="600" y2="40" stroke-width="1.4" style="stroke:var(--dim)" /><line x1="750.0" y1="40" x2="750.0" y2="210" stroke-dasharray="4 3" stroke-width="1.4" style="stroke:var(--amber)" /><path d="M600,210 L750.0,152 M750.0,106 L894,52" stroke-width="2.8" fill="none" style="stroke:var(--teal)" /><text x="612" y="140" font-size="13.5" text-anchor="start" font-weight="600" style="fill:var(--teal)">base rate</text><text x="790.0" y="150" font-size="13.5" text-anchor="start" font-weight="600" style="fill:var(--teal)">long rate on</text><text x="790.0" y="168" font-size="13.5" text-anchor="start" font-weight="600" style="fill:var(--teal)">the whole call</text><text x="750.0" y="230" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--amber)">threshold</text><text x="900" y="230" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">prompt size</text><text x="592" y="54" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">cost</text></svg></div>
+      <figcaption>Figure 3. Left: one real call from the TokenFuse 1.7.0 fix, charged at the fallback and at the list rate. Right: how a long-prompt tier applies to a whole call.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="prices-changed">What changed</h3>
+      <ul>
+        <li><span><b>A row for every listed model.</b> The book now holds every Claude id Anthropic lists (its own API, Bedrock, Google Cloud and OpenRouter), the Gemini models on Vertex AI, and, from 13 October, the vendors' current prices for Claude Haiku 5.5, the GPT-6 and GPT-5.6 families, GPT-5.5, GPT-5.4, DeepSeek, Kimi K3, GLM-5.3 and GLM-5.1 and Gemini 3.1 Pro Preview. Ids written as <code>openai/...</code> are priced at OpenAI's list rate. The rows cite the vendor page they were read from and the date.</span></li>
+        <li><span><b>Long prompts are priced the way the vendor prices them.</b> A model sold at two rates by prompt length is priced by the prompt each call actually sent: above the threshold (100,000 tokens for Claude Haiku 5.5, 272,000 for OpenAI's tiered models, 200,000 for Gemini 2.5 Pro and 3.1 Pro Preview) the whole call is priced at the long rate. The estimate that reserves a budget and the final settlement use the same rule.</span></li>
+        <li><span><b>Reasoning tokens are counted.</b> A Gemini thinking call is charged the reasoning tokens Google bills, and CostCrew counts a thinking model's reasoning as output tokens.</span></li>
+        <li><span><b>Every call says how it was priced.</b> A call priced from the fallback is marked in the Cloud, on the dashboard and in the FOCUS export (a new <code>x_price_basis</code> column says known or fallback). A gateway shows the book it charges with, and an operator can supply prices in a file.</span></li>
+        <li><span><b>The rest of the stack uses the same prices.</b> CostCrew's own table was corrected to Anthropic's list rates (Claude Sonnet 5 at 2 / 10 instead of 3 / 15, Claude Opus 5 at 5 / 25 instead of 15 / 75). Verdryx, which scores answer quality per dollar, mirrors the gateway's book. A re-exported trace is counted once in CostCrew, however many times the same calls are exported.</span></li>
+        <li><span><b>A gate keeps it true.</b> A cross-repository gate compares every built-in price table with the vendors' current prices, so a stale row fails the build instead of a report.</span></li>
+      </ul>
+      <h3 id="prices-why">Why it matters</h3>
+      <p>In FinOps the invoice is the source of truth, and every allocation, showback and forecast inherits the price it starts from. Before these changes, a call to a model the book did not know was reported several times too high, with nothing to say so. Now a price is either the vendor's list rate, cited and dated, or it is visibly a fallback, and the export tells finance which. The reconciliation question changes from "why is this number wrong" to "which rows were estimated".</p>
+      <p class="record"><b>For the record:</b> TokenFuse 1.7.0 (7 to 8 October), 1.8.0, 1.13.0 (13 October) and 1.14.0; CostCrew 0.5.0 and 0.6.0; Verdryx price-book mirrors; the cross-repository price gate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 2 &#183; spend that cannot leak</div>
+      <h2 id="retained-money">Money that is never forgotten.</h2>
+    </div>
+    <div class="prose rv">
+      <p>When a call reaches the provider and no answer comes back (the process crashes, the connection is cut, the request times out), the provider may still bill it. The gateway kept that reservation in memory, so a restart forgot it. A gateway that had just started could also let calls through before it had read which budgets were already spent, and a gateway being stopped could lose its most recent records.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 378" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lifecycle of a retained call" style="font-family:var(--font-t)"><defs><marker id="f-retained-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-retained-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><g class="bx"><rect x="8" y="8" width="210" height="86" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="113.0" y="45.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">Call sent to</text><text x="113.0" y="66.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">the provider</text></g><line x1="220" y1="51.0" x2="238" y2="51.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="240" y="8" width="210" height="86" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="345.0" y="45.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">No answer: a crash,</text><text x="345.0" y="66.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">a timeout, a cut line</text></g><line x1="452" y1="51.0" x2="470" y2="51.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="472" y="8" width="210" height="86" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:var(--teal)" /><text x="577.0" y="45.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">Reservation kept and</text><text x="577.0" y="66.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">written to a journal</text></g><line x1="684" y1="51.0" x2="702" y2="51.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="704" y="8" width="210" height="86" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:var(--teal)" /><text x="809.0" y="45.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">After a restart the</text><text x="809.0" y="66.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">journal is read back</text></g><g class="bx"><rect x="8" y="142" width="210" height="118" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:var(--amber)" /><text x="113.0" y="174.8" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">call_retained</text><text x="113.0" y="195.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">(medium): the</text><text x="113.0" y="216.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">notifier mails</text><text x="113.0" y="237.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">a person</text></g><line x1="220" y1="201.0" x2="238" y2="201.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="240" y="142" width="210" height="118" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="345.0" y="174.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">A person checks the</text><text x="345.0" y="195.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">bill and closes it</text><text x="345.0" y="216.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">with evidence and</text><text x="345.0" y="237.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">a passkey token</text></g><line x1="452" y1="201.0" x2="470" y2="201.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="472" y="142" width="210" height="118" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:var(--amber)" /><text x="577.0" y="185.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">retained_closed</text><text x="577.0" y="206.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">(high): the record</text><text x="577.0" y="227.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">keeps the closure</text></g><line x1="684" y1="201.0" x2="702" y2="201.0" stroke-width="1.8" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="704" y="142" width="210" height="118" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="809.0" y="174.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">The Cloud counts it</text><text x="809.0" y="195.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">like a settled call,</text><text x="809.0" y="216.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">so budgets stay</text><text x="809.0" y="237.8" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">right</text></g><path d="M577.0,96 V118 H113.0 V139" fill="none" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#f-retained-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="8" y="290" width="445" height="80" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="230.5" y="315.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">At start: nothing a budget governs</text><text x="230.5" y="335.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">is let through until the gateway</text><text x="230.5" y="355.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">has read its money state</text></g><g class="bx"><rect x="467" y="290" width="445" height="80" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="689.5" y="315.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">At stop: new calls refused, records</text><text x="689.5" y="335.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">delivered within five seconds,</text><text x="689.5" y="355.1" font-size="14.5" font-weight="400" text-anchor="middle" style="fill:var(--fg)">missing ones named in the log</text></g></svg></div>
+      <figcaption>Figure 4. The life of a retained call, from the missing answer to the closure.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="retained-money-changed">What changed</h3>
+      <ul>
+        <li><span><b>An unknown outcome is kept as money owed.</b> The reservation is written to a journal on disk and read back when the gateway starts, on its original run and budget window. A gateway that cannot read its journal refuses to start, rather than serve as if nothing were owed.</span></li>
+        <li><span><b>A person closes it, with evidence.</b> An administrator closes a retained reservation by attaching evidence and a short-lived token that the operator console mints only after a passkey check. The closure reaches the Cloud the way a settled call does, so budgets stay right after a restart. The feature is off unless a closure secret is set; both launchers can set one shared secret for the gateway and the console.</span></li>
+        <li><span><b>Both moments are on the event bus.</b> A retained call writes <code>call_retained</code> (medium) and a closure writes <code>retained_closed</code> (high). The notifier tells a person that money is waiting, with the amount in the subject, and the record keeps the closure beside the console's own log.</span></li>
+        <li><span><b>Nothing is let through before the money state is read.</b> At start, a call that a budget governs waits (a retryable 503 <code>seed_pending</code>) until the gateway has read its control plane. This was found on 14 October, when a freshly started gateway admitted calls for a unit already over its monthly cap.</span></li>
+        <li><span><b>A stop does not lose records.</b> On shutdown the gateway stops taking calls, delivers what it still holds to the Cloud within five seconds, and logs how many records did not arrive.</span></li>
+        <li><span><b>Ceilings an operator owns.</b> An operator can cap the budget a caller declares for a run, and the console lets an administrator set and change a business unit's monthly cap.</span></li>
+      </ul>
+      <h3 id="retained-money-why">Why it matters</h3>
+      <p>In agent systems, spend leaks at the edges: timeouts, crashes, retries, restarts. Finance treats a cost that has probably been incurred but not yet invoiced as an accrual, and these changes give the gateway the same discipline. An unknown is never rounded down to zero; it stays a liability, visible to a person, until someone with authority closes it with evidence, and the record shows who did.</p>
+      <p class="record"><b>For the record:</b> TokenFuse 1.5.0 (run ceiling), 1.9.0 and 1.10.0 (12 October), 1.14.0 (15 October); console money views; Heraldyx 0.4.0 and Trailryx 1.2.0 for the new events; the stack-single and stack-k8s closure secret.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 3 &#183; agent security</div>
+      <h2 id="tool-calls">Tool calls judged before they run.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The damage an agent can do arrives as a tool call: run a command, write a file, send a message, move money. With MCP, tools also describe themselves, and that description is text the model reads and follows. A poisoned description, or a tool that quietly changes after it was approved, can steer the agent. And one path, answers streamed token by token, was not judged at all.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The tool path with the new checks" style="font-family:var(--font-t)"><defs><marker id="f-tools-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-tools-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><g class="bx"><rect x="8" y="4" width="58" height="24" rx="12.0" stroke-width="1.3" style="fill:var(--amber);stroke:var(--amber)" /><text x="37.0" y="20.2" font-size="12" font-weight="600" text-anchor="middle" style="fill:var(--ink)">NEW</text></g><text x="76" y="22" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--dim)">added or changed between 1 and 15 October</text><g class="bx"><rect x="8" y="236" width="100" height="70" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="58.0" y="276.9" font-size="17" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Agent</text></g><g class="bx"><rect x="140" y="46" width="340" height="226" rx="10" stroke-width="1.8" style="fill:var(--panel);stroke:var(--teal)" /><text x="156" y="74" font-size="17" text-anchor="start" font-weight="700" style="fill:var(--teal)">TokenFuse gateway</text><text x="156" y="95" font-size="13.5" text-anchor="start" font-weight="400" style="fill:var(--dim)">judges the model's answer</text><g class="bx"><rect x="156" y="110" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="124.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="126" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">streamed tool calls judged</text><g class="bx"><rect x="156" y="137" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="151.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="153" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">memory is untrusted text</text><g class="bx"><rect x="156" y="164" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="178.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="180" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">declared tools checked</text><text x="212" y="207" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">after web or memory text:</text><text x="212" y="234" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">no exec, no write, no send</text></g><g class="bx"><rect x="140" y="290" width="340" height="226" rx="10" stroke-width="1.8" style="fill:var(--panel);stroke:var(--teal)" /><text x="156" y="318" font-size="17" text-anchor="start" font-weight="700" style="fill:var(--teal)">MCP broker</text><text x="156" y="339" font-size="13.5" text-anchor="start" font-weight="400" style="fill:var(--dim)">in front of every tool server</text><g class="bx"><rect x="156" y="354" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="368.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="370" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">metadata: 5 warning signs</text><g class="bx"><rect x="156" y="381" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="395.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="397" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">changed tool: refused</text><g class="bx"><rect x="156" y="408" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="422.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="424" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">args up to 12 KiB go whole</text><g class="bx"><rect x="156" y="435" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="179.0" y="449.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="212" y="451" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">waits 1,000 ms for policy</text><text x="212" y="478" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">secrets and PII checked</text></g><g class="bx"><rect x="512" y="290" width="290" height="226" rx="10" stroke-width="1.8" style="fill:var(--panel);stroke:var(--teal)" /><text x="528" y="318" font-size="17" text-anchor="start" font-weight="700" style="fill:var(--teal)">Wardryx policy</text><text x="528" y="339" font-size="13.5" text-anchor="start" font-weight="400" style="fill:var(--dim)">allow, deny or hold</text><g class="bx"><rect x="528" y="354" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="551.0" y="368.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="584" y="370" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">allow_tool: closed list</text><g class="bx"><rect x="528" y="381" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="551.0" y="395.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="584" y="397" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">allow_models: closed list</text><g class="bx"><rect x="528" y="408" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="551.0" y="422.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="584" y="424" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">no risk signal: hold</text><g class="bx"><rect x="528" y="435" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="551.0" y="449.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="584" y="451" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">approval bound to a call</text><g class="bx"><rect x="528" y="462" width="46" height="21" rx="10.5" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:color-mix(in srgb,var(--amber) 14%,var(--panel))" /><text x="551.0" y="476.2" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--amber)">NEW</text></g><text x="584" y="478" font-size="14" text-anchor="start" font-weight="400" style="fill:var(--fg)">unknown field: refused</text></g><g class="bx"><rect x="816" y="360" width="96" height="80" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="864.0" y="395.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Tool</text><text x="864.0" y="415.2" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">server</text></g><g class="bx"><rect x="560" y="120" width="220" height="76" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="670.0" y="163.6" font-size="16" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Model provider</text></g><line x1="108" y1="258" x2="138" y2="190" stroke-width="1.8" marker-end="url(#f-tools-ah)" style="stroke:var(--dim)" /><line x1="480" y1="158" x2="558" y2="158" stroke-width="1.8" marker-end="url(#f-tools-ah)" style="stroke:var(--dim)" /><line x1="108" y1="284" x2="138" y2="360" stroke-width="1.8" marker-end="url(#f-tools-ah)" style="stroke:var(--dim)" /><line x1="480" y1="403" x2="510" y2="403" stroke-width="1.8" marker-end="url(#f-tools-ah)" style="stroke:var(--dim)" /><line x1="802" y1="400" x2="814" y2="400" stroke-width="1.8" marker-end="url(#f-tools-ah)" style="stroke:var(--dim)" /></svg></div>
+      <figcaption>Figure 5. The path a tool call takes, with the checks added in this period marked.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="tool-calls-changed">What changed</h3>
+      <ul>
+        <li><span><b>Tool descriptions are read for five warning signs:</b> a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text. The same scan runs offline and live in the MCP broker.</span></li>
+        <li><span><b>A tool that changed after it was pinned cannot be called.</b> With the scan set to block, the broker refuses a call to a tool whose definition it saw change since it was pinned, the attack known as a rug pull.</span></li>
+        <li><span><b>Tools a request declares are read too.</b> A poisoned description marks the run as a suspected injection, so the policy can act on it; the request itself is not refused.</span></li>
+        <li><span><b>Memory is untrusted.</b> Text recalled from an agent's memory is judged like text read from a web page: under the starter policy, a run that carries it cannot then run a command, write or send. Engram, on its main branch, now records and returns where each memory came from.</span></li>
+        <li><span><b>Streamed answers are judged like any other.</b> A tool call inside a streamed answer was not judged; on 14 October one reached an agent and ran. Both wire formats now judge streamed tool calls, and a denied one is cut before it reaches the agent.</span></li>
+        <li><span><b>The policy always gets an answerable request.</b> Arguments up to 12 KiB go to the policy whole; larger ones are marked as truncated, so the policy still decides. The broker now waits up to 1,000 ms for a decision instead of 50 ms, because a slow deny used to arrive after the broker had given up.</span></li>
+        <li><span><b>Wardryx gained two closed lists and a missing-signal rule.</b> A policy can name the only tools its agents may use (<code>allow_tool</code>) and the only models (<code>allow_models</code>). A call whose risk signal never arrived is held for a person (<code>when_absent: hold</code>). A risk signal can hold a call but never deny it, and an approval is bound to the exact call a person read.</span></li>
+        <li><span><b>Safer defaults and drills.</b> The launchers now run the agent firewall in enforce mode by default, and the PII scanners in shadow (they record what they find without blocking). The compliance catalog cites the OWASP MCP Top 10, each row graded by the test that holds it. Mockryx gained drills for a token flood, PII in a prompt, a poisoned tool description and a respelled allow-listed tool, and the template catalog a guardrail for a customer-facing shop.</span></li>
+      </ul>
+      <h3 id="tool-calls-why">Why it matters</h3>
+      <p>A model can be persuaded; a check in the path cannot. Every item above moves a decision out of the model's judgement and into the path of the call, where it gives the same answer every time and can be tested. For a buyer this is the difference between hoping an agent behaves and knowing what stops it when it does not. <a href="security-by-design.html">Security by design</a> explains the eight decisions this rests on.</p>
+      <p class="record"><b>For the record:</b> TokenFuse 1.10.0 to 1.14.0 (12 to 15 October); Wardryx 1.2.0 (4 October), 1.3.0, 1.4.0 and 1.5.0 (13 to 14 October); stack-single 1.1.29 and 1.1.31; Mockryx and the template catalog on main.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 4 &#183; safe by default</div>
+      <h2 id="safe-defaults">A typo can no longer switch a control off.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Several settings read a value they did not recognise as "use the weaker mode". A gateway started with <code>TOKENFUSE_FIREWALL=enfroce</code> ran in shadow, refusing nothing, while its operator believed it was enforcing. A policy written with <code>deny_tolls</code> instead of <code>deny_tool</code> was accepted and stored without the rule, and the call it was meant to stop went through.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fail closed on a bad value" style="font-family:var(--font-t)"><defs><marker id="f-failclosed-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-failclosed-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><text x="12" y="22" font-size="14" text-anchor="start" font-weight="700" style="fill:var(--dim)">What was set</text><text x="302" y="22" font-size="14" text-anchor="start" font-weight="700" style="fill:var(--dim)">Before</text><text x="616" y="22" font-size="14" text-anchor="start" font-weight="700" style="fill:var(--dim)">Now</text><g class="bx"><rect x="8" y="36" width="276" height="92" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="22" y="76.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">FIREWALL=enfroce</text><text x="22" y="97.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">(a typo for enforce)</text></g><g class="bx"><rect x="298" y="36" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--ember) 14%,var(--panel));stroke:color-mix(in srgb,var(--ember) 14%,var(--panel))" /><text x="312" y="66.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">Started in the default</text><text x="312" y="87.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">mode, while the operator</text><text x="312" y="108.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">believed it enforced</text></g><g class="bx"><rect x="612" y="36" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--mint) 13%,var(--panel));stroke:color-mix(in srgb,var(--mint) 13%,var(--panel))" /><text x="626" y="66.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">Refuses to start and</text><text x="626" y="87.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">names the variable and</text><text x="626" y="108.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">the accepted words</text></g><g class="bx"><rect x="8" y="140" width="276" height="92" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="22" y="180.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">A policy written with</text><text x="22" y="201.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">deny_tolls for deny_tool</text></g><g class="bx"><rect x="298" y="140" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--ember) 14%,var(--panel));stroke:color-mix(in srgb,var(--ember) 14%,var(--panel))" /><text x="312" y="170.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">Answered 200, stored</text><text x="312" y="191.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">without the rule; the</text><text x="312" y="212.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">call it meant to stop ran</text></g><g class="bx"><rect x="612" y="140" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--mint) 13%,var(--panel));stroke:color-mix(in srgb,var(--mint) 13%,var(--panel))" /><text x="626" y="170.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">Answered 400, names</text><text x="626" y="191.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">the field, stores nothing;</text><text x="626" y="212.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">the live rules stay</text></g><g class="bx"><rect x="8" y="244" width="276" height="92" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="22" y="284.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">A policy file with two</text><text x="22" y="305.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">YAML documents</text></g><g class="bx"><rect x="298" y="244" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--ember) 14%,var(--panel));stroke:color-mix(in srgb,var(--ember) 14%,var(--panel))" /><text x="312" y="274.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">Only the first was read;</text><text x="312" y="295.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">the second was dropped</text><text x="312" y="316.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">without an error</text></g><g class="bx"><rect x="612" y="244" width="300" height="92" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--mint) 13%,var(--panel));stroke:color-mix(in srgb,var(--mint) 13%,var(--panel))" /><text x="626" y="274.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">Every document loaded,</text><text x="626" y="295.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">or the whole file refused</text><text x="626" y="316.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">naming the one that failed</text></g></svg></div>
+      <figcaption>Figure 6. Three real cases from this period, before and after.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="safe-defaults-changed">What changed</h3>
+      <ul>
+        <li><span><b>Security switches refuse a value they cannot read.</b> The gateway's mode, the firewall mode and nine more switches (data-loss and PII scanning, the MCP scan, the fail modes, the policy mode and two broker requirements) now stop the gateway at start, naming the variable and the accepted words.</span></li>
+        <li><span><b>Policies are read whole or not at all.</b> Wardryx refuses a policy write with a field the policy does not declare (400, nothing stored), and loads every document of a policy file or refuses the file, naming the one that failed.</span></li>
+        <li><span><b>No open doors by default.</b> The key that lifts a run's taint label is minted per install instead of being optional, the Cloud's development key fallback was removed, and client keys and the identity map are checked by the gateway image before anything restarts. CostCrew hashes its session tokens, gives one answer for every failed sign-in, signs people in through the organisation's identity provider (OIDC) and sets security headers.</span></li>
+        <li><span><b>On a cluster</b>, every server is now required to start with Kubernetes secrets encryption (on 14 October the secrets were found in plain text on the Google Cloud test cluster), and the cost script refuses a machine type it has no price for, instead of pricing it at zero.</span></li>
+      </ul>
+      <h3 id="safe-defaults-why">Why it matters</h3>
+      <p>Misconfiguration is the most common way real systems fail, and a control that fails silently is worse than none, because people stop watching what they believe is guarded. The rule now holds across the stack: <b>unset means the safe default, and misspelt means stop.</b></p>
+      <p class="record"><b>For the record:</b> TokenFuse 1.5.0, 1.11.1 and 1.12.0; Wardryx 1.3.1 and 1.3.2 (13 October); CostCrew 0.4.0; stack-single and stack-k8s releases of 4 to 14 October.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 5 &#183; identity and evidence</div>
+      <h2 id="identity-evidence">Every refusal filed under the right name.</h2>
+    </div>
+    <div class="prose rv">
+      <p>An audit asks who did something. When a call was refused because its key claimed to be another agent, the refusal was filed under the agent that was claimed, so a misused key could put the blame on an innocent agent. A refused key left no trace on the event bus. And on 14 October a replaced pod kept writing after its successor took over, which broke the chain of its own record.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Event types and consumers" style="font-family:var(--font-t)"><defs><marker id="f-events-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-events-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><g class="bx"><rect x="8" y="8" width="150" height="136" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="83.0" y="81.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">TokenFuse</text></g><g class="bx"><rect x="184" y="15.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="32.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">call_retained</text></g><line x1="158" y1="76.0" x2="182" y2="28.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="184" y="47.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="64.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">retained_closed</text></g><line x1="158" y1="76.0" x2="182" y2="60.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="184" y="79.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="96.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">refused client key</text></g><line x1="158" y1="76.0" x2="182" y2="92.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="184" y="111.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="128.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">dlp_shadow</text></g><line x1="158" y1="76.0" x2="182" y2="124.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="8" y="158" width="150" height="56" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="83.0" y="191.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Wardryx</text></g><g class="bx"><rect x="184" y="173.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="190.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">policy_updated, with key</text></g><line x1="158" y1="186.0" x2="182" y2="186.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="8" y="228" width="150" height="56" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="83.0" y="261.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">CostCrew</text></g><g class="bx"><rect x="184" y="243.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="260.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">anomaly_hinted</text></g><line x1="158" y1="256.0" x2="182" y2="256.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="8" y="298" width="150" height="72" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="83.0" y="339.2" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">agent-conform</text></g><g class="bx"><rect x="184" y="305.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="322.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">chain_broken</text></g><line x1="158" y1="334.0" x2="182" y2="318.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="184" y="337.0" width="220" height="26" rx="13.0" stroke-width="1.3" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel));stroke:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="294.0" y="354.7" font-size="13.5" font-weight="600" text-anchor="middle" style="fill:var(--teal)">chain_unchained</text></g><line x1="158" y1="334.0" x2="182" y2="350.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><rect x="428" y="8" width="40" height="362" rx="9" style="fill:var(--teal)" /><text x="448" y="189.0" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 448 189.0)" style="fill:var(--ink)">agent-event bus</text><line x1="404" y1="189.0" x2="426" y2="189.0" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="496" y="8" width="236" height="81.5" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="614.0" y="35.0" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Heraldyx</text><text x="614.0" y="54.0" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">mails a person,</text><text x="614.0" y="73.0" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">within its limits</text></g><line x1="470" y1="48.75" x2="494" y2="48.75" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="496" y="101.5" width="236" height="81.5" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="614.0" y="128.5" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Trailryx</text><text x="614.0" y="147.5" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">keeps the record,</text><text x="614.0" y="166.5" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">tamper-evident</text></g><line x1="470" y1="142.25" x2="494" y2="142.25" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="496" y="195.0" width="236" height="81.5" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="614.0" y="222.0" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Idryx</text><text x="614.0" y="241.0" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">maps who acts for</text><text x="614.0" y="260.0" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">whom, flags misuse</text></g><line x1="470" y1="235.75" x2="494" y2="235.75" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="496" y="288.5" width="236" height="81.5" rx="8" stroke-width="1.3" style="fill:var(--panel);stroke:var(--line-2)" /><text x="614.0" y="315.5" font-size="15" font-weight="700" text-anchor="middle" style="fill:var(--fg)">Console</text><text x="614.0" y="334.5" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">shows it beside</text><text x="614.0" y="353.5" font-size="15" font-weight="400" text-anchor="middle" style="fill:var(--fg)">money and runs</text></g><line x1="470" y1="329.25" x2="494" y2="329.25" stroke-width="1.8" marker-end="url(#f-events-ah)" style="stroke:var(--dim)" /><g class="bx"><rect x="752" y="8" width="160" height="362" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--amber) 14%,var(--panel));stroke:var(--amber)" /><text x="832.0" y="141.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">A file may carry</text><text x="832.0" y="162.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">only its own</text><text x="832.0" y="183.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">sources; a line</text><text x="832.0" y="204.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">claiming another</text><text x="832.0" y="225.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">plane is refused</text><text x="832.0" y="246.4" font-size="14" font-weight="400" text-anchor="middle" style="fill:var(--amber)">and raised once</text></g></svg></div>
+      <figcaption>Figure 7. Event types added in this period, who writes them and who reads them.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="identity-evidence-changed">What changed</h3>
+      <ul>
+        <li><span><b>Refusals are filed under the credential that made the call</b>, in the FOCUS export, the Cloud, the dashboard, the console and CostCrew. A call forwarded in identity warn mode is marked as such in every one of them.</span></li>
+        <li><span><b>A refused key is on the bus</b>, with the reason (missing or unknown) and a fingerprint, never the key itself, and rate-limited. A call that names no agent is filed under a reserved "unidentified caller" subject instead of being dropped.</span></li>
+        <li><span><b>A file may only carry its own sources.</b> Idryx and Heraldyx refuse an event that claims to come from a service its file is not allowed to carry, so one component cannot speak for another.</span></li>
+        <li><span><b>One writer per record file.</b> The shared library now locks the event file and chains from the line on disk (agent-stack-go 1.2.0 and 1.3.0). An on-box chain verifier with its own image checks the chains, and it is what flagged the break on 14 October.</span></li>
+        <li><span><b>Private by design.</b> PII that is found and let through is reported as kinds and counts, never the text. IBANs are detected with their check digits, and decimal numbers are no longer mistaken for card numbers. Vouchryx's public revocation list no longer says who revoked a token or why.</span></li>
+        <li><span><b>One shared vocabulary.</b> The event specification registered the new types (<code>call_retained</code>, <code>retained_closed</code>, <code>dlp_shadow</code>, <code>anomaly_hinted</code>, <code>chain_broken</code> and <code>chain_unchained</code>), and the record and the notifier learned to read them. Wardryx's <code>policy_updated</code> now also names the key that made each change (on main).</span></li>
+      </ul>
+      <h3 id="identity-evidence-why">Why it matters</h3>
+      <p>Accountability needs two things: the record must name who actually acted, and it must show that nothing was changed or lost. These changes close both gaps. A refusal now points at the key that made the call, and the record can prove it has one writer and an unbroken chain.</p>
+      <p class="record"><b>For the record:</b> TokenFuse 1.7.0, 1.8.0 and 1.14.0; Idryx 1.1.0 to 1.2.1; Heraldyx 0.3.0 to 0.6.0; agent-stack-go 1.1.0 to 1.3.0; Trailryx 1.1.0 to 1.2.1; Vouchryx 0.2.0; the agent-passport specification on main.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 6 &#183; finops for agents</div>
+      <h2 id="finops">FinOps that knows what was decided.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A cost optimisation looks like an anomaly to a detector that only sees the trend. Teams either learn to ignore the alerts after every planned change, or they stop announcing changes. CostCrew, the FinOps crew that works through the gateway, moved from 0.2.2 to 0.6.0 in this period.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Announced decision" style="font-family:var(--font-t)"><defs><marker id="f-announced-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-announced-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><line x1="74" y1="218.4" x2="634" y2="218.4" stroke-dasharray="3 3" style="stroke:var(--line-2)" /><text x="64" y="223.44444444444446" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">$700</text><line x1="74" y1="116.2" x2="634" y2="116.2" stroke-dasharray="3 3" style="stroke:var(--line-2)" /><text x="64" y="121.22222222222221" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">$900</text><line x1="74" y1="14.0" x2="634" y2="14.0" stroke-dasharray="3 3" style="stroke:var(--line-2)" /><text x="64" y="19.0" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">$1,100</text><rect x="286.4" y="14" width="347.6" height="230" opacity="0.7" style="fill:color-mix(in srgb,var(--teal) 14%,var(--panel))" /><text x="296.41379310344826" y="36" font-size="13.5" text-anchor="start" font-weight="700" style="fill:var(--teal)">announced: -$150 a day from day 12</text><line x1="74" y1="244" x2="634" y2="244" stroke-width="1.4" style="stroke:var(--dim)" /><line x1="74" y1="14" x2="74" y2="244" stroke-width="1.4" style="stroke:var(--dim)" /><polyline points="74.0,65.1 93.3,60.0 112.6,70.2 131.9,62.6 151.2,67.7 170.6,65.1 189.9,59.0 209.2,71.2 228.5,63.6 247.8,66.6 267.1,64.6 286.4,140.8 305.7,142.8 325.0,141.3 344.3,143.8 363.7,139.2 383.0,142.3 402.3,141.8 421.6,64.1 440.9,140.2 460.2,143.3 479.5,141.3 498.8,142.3 518.1,140.8 537.4,142.8 556.8,141.8 576.1,141.3 595.4,143.8 614.7,140.2 634.0,142.3" fill="none" stroke-width="2.4" style="stroke:var(--fg)" /><line x1="286.4" y1="141.8" x2="634.0" y2="141.8" stroke-width="1.8" stroke-dasharray="6 4" style="stroke:var(--teal)" /><circle cx="286.4" cy="140.8" r="3.4" style="fill:var(--mint)" /><circle cx="305.7" cy="142.8" r="3.4" style="fill:var(--mint)" /><circle cx="325.0" cy="141.3" r="3.4" style="fill:var(--mint)" /><circle cx="344.3" cy="143.8" r="3.4" style="fill:var(--mint)" /><circle cx="363.7" cy="139.2" r="3.4" style="fill:var(--mint)" /><circle cx="383.0" cy="142.3" r="3.4" style="fill:var(--mint)" /><circle cx="402.3" cy="141.8" r="3.4" style="fill:var(--mint)" /><circle cx="440.9" cy="140.2" r="3.4" style="fill:var(--mint)" /><circle cx="460.2" cy="143.3" r="3.4" style="fill:var(--mint)" /><circle cx="479.5" cy="141.3" r="3.4" style="fill:var(--mint)" /><circle cx="498.8" cy="142.3" r="3.4" style="fill:var(--mint)" /><circle cx="518.1" cy="140.8" r="3.4" style="fill:var(--mint)" /><circle cx="537.4" cy="142.8" r="3.4" style="fill:var(--mint)" /><circle cx="556.8" cy="141.8" r="3.4" style="fill:var(--mint)" /><circle cx="576.1" cy="141.3" r="3.4" style="fill:var(--mint)" /><circle cx="595.4" cy="143.8" r="3.4" style="fill:var(--mint)" /><circle cx="614.7" cy="140.2" r="3.4" style="fill:var(--mint)" /><circle cx="634.0" cy="142.3" r="3.4" style="fill:var(--mint)" /><circle cx="421.6" cy="64.1" r="9" fill="none" stroke-width="2.8" style="stroke:var(--ember)" /><text x="74" y="266" font-size="13" text-anchor="start" font-weight="400" style="fill:var(--dim)">day 1</text><text x="286.41379310344826" y="266" font-size="13" text-anchor="middle" font-weight="400" style="fill:var(--dim)">day 12</text><text x="421.58620689655174" y="266" font-size="13" text-anchor="middle" font-weight="700" style="fill:var(--ember)">day 19</text><text x="634" y="266" font-size="13" text-anchor="end" font-weight="400" style="fill:var(--dim)">day 30</text><g class="bx"><rect x="664" y="14" width="248" height="64" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--mint) 13%,var(--panel));stroke:color-mix(in srgb,var(--mint) 13%,var(--panel))" /><text x="678" y="40.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">Days that match the</text><text x="678" y="61.8" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--mint)">announcement: not raised</text></g><g class="bx"><rect x="664" y="90" width="248" height="86" rx="8" stroke-width="1.3" style="fill:color-mix(in srgb,var(--ember) 14%,var(--panel));stroke:color-mix(in srgb,var(--ember) 14%,var(--panel))" /><text x="678" y="117.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">Day 19 misses it, so it</text><text x="678" y="138.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">is raised with the</text><text x="678" y="159.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--ember)">decision's name</text></g><g class="bx"><rect x="664" y="188" width="248" height="86" rx="8" stroke-width="1.3" style="fill:var(--panel-3);stroke:var(--line-2)" /><text x="678" y="215.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">Before 0.6.0, every day</text><text x="678" y="236.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">after day 12 looked</text><text x="678" y="257.2" font-size="15" font-weight="400" text-anchor="start" style="fill:var(--fg)">like an anomaly</text></g></svg></div>
+      <figcaption>Figure 8. How an announced saving is judged. The numbers are invented for the illustration; the rule is the one CostCrew 0.6.0 applies.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="finops-changed">What changed</h3>
+      <ul>
+        <li><span><b>Announced decisions.</b> A recommended change can be announced before it lands: the service, the window, the expected daily change, and optionally the team. Only the owner can confirm it. From then on the anomaly detector judges each day against the announced step: a day that matches is not raised, a day that misses is raised with the decision's name. The forecast carries the step before it lands, and after the month closes each decision shows announced against measured. A saving larger than the service's median daily spend over 28 days is refused.</span></li>
+        <li><span><b>More data in, in FOCUS.</b> Readers for AWS Data Exports and Google Cloud billing exports in plain FOCUS; readers for the model providers' own usage, reconciled against the gateway's rows; and, on main, a month-to-date FOCUS 1.1 file of agent spend for a FinOps platform's custom ingress. No file has been accepted by a live tenant yet.</span></li>
+        <li><span><b>Showback per customer unit</b>, with an allocation rule a person stamps, and decided thresholds for anomalies (USD 2,500) and urgent ones (USD 12,500).</span></li>
+        <li><span><b>Control over what a model sees.</b> A setting decides whether a model is sent full data, masked data or aggregates only, and a model the organisation hosts itself can run the crew. Both were run on 7 and 8 October, from a fully closed network to a cloud model, and the evidence records what went over the wire in each mode.</span></li>
+        <li><span><b>AI spend that reads true.</b> Spend priced from a fallback is kept apart, PII let through is named, each run shows every model it used with its share, and each gateway door is shown as its own source.</span></li>
+      </ul>
+      <h3 id="finops-why">Why it matters</h3>
+      <p>This closes a loop most FinOps practices leave open. A planned saving no longer floods the anomaly queue, a saving that lands short or late is named, and the forecast and the queue agree with what the owner decided. For agent spend in particular, the data now arrives in the format finance tools already read.</p>
+      <p class="record"><b>For the record:</b> CostCrew 0.3.0 (4 October), 0.4.0 and 0.5.0 (8 October), 0.6.0 (13 October), and the changes merged on 14 and 15 October; runs recorded on 7 and 8 October.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">theme 7 &#183; operations</div>
+      <h2 id="operations">Running it day to day.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Controls only help if the people running them can trust the signals. An alert stream that pages at 3 a.m. for things that can wait gets muted, and a console that shows only successes hides the moment a gateway goes quiet.</p>
+    </div>
+    <figure class="dfig rv">
+      <div class="frame"><svg class="fig" viewBox="0 0 920 236" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alerts across a day" style="font-family:var(--font-t)"><defs><marker id="f-alerts-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dim)" /></marker><marker id="f-alerts-aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--teal)" /></marker></defs><rect x="40.0" y="106" width="245.0" height="44" style="fill:var(--panel-3)" /><rect x="810.0" y="106" width="70.0" height="44" style="fill:var(--panel-3)" /><text x="162.5" y="18" font-size="13.5" text-anchor="middle" font-weight="700" style="fill:var(--dim)">quiet hours</text><text x="845.0" y="18" font-size="13.5" text-anchor="middle" font-weight="700" style="fill:var(--dim)">quiet</text><line x1="40.0" y1="128" x2="880.0" y2="128" stroke-width="1.8" style="stroke:var(--dim)" /><line x1="40.0" y1="122" x2="40.0" y2="134" style="stroke:var(--dim)" /><text x="40.0" y="150" font-size="12.5" text-anchor="middle" font-weight="400" style="fill:var(--dim)">00:00</text><line x1="250.0" y1="122" x2="250.0" y2="134" style="stroke:var(--dim)" /><text x="250.0" y="150" font-size="12.5" text-anchor="middle" font-weight="400" style="fill:var(--dim)">06:00</text><line x1="460.0" y1="122" x2="460.0" y2="134" style="stroke:var(--dim)" /><text x="460.0" y="150" font-size="12.5" text-anchor="middle" font-weight="400" style="fill:var(--dim)">12:00</text><line x1="670.0" y1="122" x2="670.0" y2="134" style="stroke:var(--dim)" /><text x="670.0" y="150" font-size="12.5" text-anchor="middle" font-weight="400" style="fill:var(--dim)">18:00</text><line x1="880.0" y1="122" x2="880.0" y2="134" style="stroke:var(--dim)" /><text x="880.0" y="150" font-size="12.5" text-anchor="middle" font-weight="400" style="fill:var(--dim)">24:00</text><circle cx="92.5" cy="128" r="7.5" style="fill:var(--amber)" /><line x1="92.5" y1="137" x2="92.5" y2="159" stroke-width="1.2" style="stroke:var(--amber)" /><text x="92.5" y="174" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--amber)">warning: held</text><circle cx="169.5" cy="128" r="7.5" style="fill:var(--ember)" /><line x1="169.5" y1="119" x2="169.5" y2="93" stroke-width="1.2" style="stroke:var(--ember)" /><text x="169.5" y="88" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--ember)">critical: sent at once</text><circle cx="285.0" cy="128" r="7.5" style="fill:var(--teal)" /><line x1="285.0" y1="137" x2="285.0" y2="185" stroke-width="1.2" style="stroke:var(--teal)" /><text x="285.0" y="200" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--teal)">07:00 one mail on what was held</text><circle cx="390.0" cy="128" r="7.5" style="fill:var(--amber)" /><line x1="390.0" y1="119" x2="390.0" y2="93" stroke-width="1.2" style="stroke:var(--amber)" /><text x="390.0" y="88" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--amber)">warning: mailed</text><circle cx="425.0" cy="128" r="7.5" style="fill:var(--teal)" /><line x1="425.0" y1="137" x2="425.0" y2="159" stroke-width="1.2" style="stroke:var(--teal)" /><text x="425.0" y="174" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--teal)">acknowledged for 4 hours</text><circle cx="495.0" cy="128" r="7.5" style="fill:var(--amber)" /><line x1="495.0" y1="119" x2="495.0" y2="67" stroke-width="1.2" style="stroke:var(--amber)" /><text x="494.99999999999994" y="62" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--amber)">repeats: counted</text><circle cx="565.0" cy="128" r="7.5" style="fill:var(--teal)" /><line x1="565.0" y1="137" x2="565.0" y2="185" stroke-width="1.2" style="stroke:var(--teal)" /><text x="565.0" y="200" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--teal)">15:00 one mail: how many</text><circle cx="740.0" cy="128" r="7.5" style="fill:var(--teal)" /><line x1="740.0" y1="119" x2="740.0" y2="93" stroke-width="1.2" style="stroke:var(--teal)" /><text x="740.0" y="88" font-size="13.5" text-anchor="middle" font-weight="650" style="fill:var(--teal)">once a day: an 'alive' mail</text></svg></div>
+      <figcaption>Figure 9. A day of alerts with quiet hours from 22:00 to 07:00 and one acknowledgement. The times are examples; the rules are those of Heraldyx 0.7.0.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <h3 id="operations-changed">What changed</h3>
+      <ul>
+        <li><span><b>Alerts people can live with</b> (Heraldyx 0.7.0). Quiet hours and maintenance windows hold everything below critical and report it when they end. A person can acknowledge a condition for a few hours; its repeats are counted instead of mailed. A critical is never held. A quiet box sends one "alive" mail a day, so silence can no longer be mistaken for a dead notifier.</span></li>
+        <li><span><b>A console that shows what went wrong.</b> It shows a gateway the Cloud stopped hearing from, refused runs, fallback pricing and identity warnings in the runs table, every model a run used, and business units' monthly caps. Felyx, the console's assistant, checks its own statements about budgets against the data, uses a gateway key of its own, and refuses a provider key pasted where a reference belongs. The <a href="demo/">public demo</a> now shows the full signed-in console.</span></li>
+        <li><span><b>Launchers with safer defaults.</b> One-machine installs gained a status command that runs the install's checks against a running stack, an optional second gateway door that speaks the OpenAI wire format on its own keys, and the FinOps console as an optional add-on. On a cluster, DNS runs three replicas with a disruption budget, the policy store keeps a readable replica, a stopped node stops its pods before its network, and optional workloads leave a dead node within 30 seconds.</span></li>
+      </ul>
+      <h3 id="operations-why">Why it matters</h3>
+      <p>Operators judge a system by its bad nights. These changes make the quiet nights quieter and the bad ones louder, and they make the most important signal, that something went silent, visible.</p>
+      <p class="record"><b>For the record:</b> Heraldyx 0.7.0 (15 October); console image 1.1.46; stack-single 1.1.35 and stack-k8s 1.1.46.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">proof</div>
+      <h2 id="failure-day">14 October: breaking it on purpose.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A control nobody has fired is a guess, so on 14 October we broke the running stack deliberately: on a five-node cluster on Google Cloud, a five-node cluster on AWS, a home server, and two small routers running a third-party agent through the gateway. Every run is recorded with its date, machine and evidence. Some results, and what each one changed:</p>
+    </div>
+    <div class="tbl-wrap rv">
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>what we did</th><th>what happened</th><th>what changed</th></tr></thead>
+          <tbody>
+            <tr><td>Killed each of 14 services on the home server in turn</td><td>All 14 restarted in 0.38 to 0.85 s and were healthy within a second</td><td>Nothing needed; kept as a baseline</td></tr>
+            <tr><td>Reset all five servers of the Google Cloud cluster at once</td><td>Serving again in 327 s with the same state, no manual step</td><td>Nothing needed</td></tr>
+            <tr><td>Cut the policy service off from the gateway for about a minute</td><td>Calls refused from 2.5 s on, 126 of 155, each naming the closed failure mode</td><td>Confirms the failure answer is closed</td></tr>
+            <tr><td>Padded a tool call past 12 KiB</td><td>Its risk signal never arrived; the call was allowed</td><td>Wardryx 1.4.0 holds a call with no signal; re-measured on both clouds the same day</td></tr>
+            <tr><td>Streamed a tool call after a web read</td><td>It reached the agent and ran</td><td>TokenFuse 1.14.0 judges streamed tool calls</td></tr>
+            <tr><td>Started a gateway before its control plane</td><td>It admitted calls for a unit already over its cap</td><td>TokenFuse 1.14.0 waits for the money state</td></tr>
+            <tr><td>Replaced a policy pod</td><td>The old pod wrote after the new one; the on-box verifier flagged the broken chain</td><td>agent-stack-go 1.2.0 and 1.3.0: one writer per file</td></tr>
+            <tr><td>Ran the security tests on the Google Cloud cluster</td><td>Kubernetes secrets were stored in plain text</td><td>Every server is now required to start with encryption</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="prose rv" style="margin-top:22px">
+      <p>The TokenFuse 1.14.0 fixes were tested against stub providers, not re-measured live; the single-writer lock is pinned in Wardryx but not yet in a Wardryx release. Both are named as open in the run record. <a href="security-by-design.html#proven-by-breaking">Security by design</a> tells the same day from the side of the controls it tested.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">for finops</div>
+      <h2 id="finops-practice">What this means for a FinOps practice.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b>Reconcile on price basis.</b> Every exported row now says whether it was priced from the list rate or a fallback. Fallback rows are the ones to chase.</span></li>
+        <li><span><b>Treat unknown outcomes as accruals.</b> Retained calls are real liabilities with an owner and a closing step; the notifier tells you when one appears.</span></li>
+        <li><span><b>Announce optimisations.</b> A saving announced before it lands keeps the anomaly queue clean and makes the month-end review a comparison of decided against measured.</span></li>
+        <li><span><b>Feed the tools finance already uses.</b> Agent spend now arrives as FOCUS, including a file for a FinOps platform's custom ingress, beside the cloud bills it is reconciled with.</span></li>
+        <li><span><b>Ask what fails closed.</b> For any control, the useful question is what it does when its dependency is down or its setting is wrong. Across the stack the answer is now written down and tested.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">by service</div>
+      <h2 id="by-service">Every service's own list.</h2>
+      <p class="lede">The same changes, filed under the service that shipped them. "Shipped in" names the release; <span style="color:var(--amber)">on main</span> means merged but not yet in a tagged release. Where a service page used to carry its own list of changes, those lines are here.</p>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="genaryx"><i style="background:#B48CFF"></i>Genaryx <span class="what">the console</span></h3>
+      <div class="meta">console image 1.1.19 to 1.1.46 &#183; 40 pull requests merged &#183; no version tags &#183; <a href="genaryx.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span>An administrator closes a retained reservation by attaching evidence and a short-lived token that the console mints only after a passkey check.</span></li>
+          <li><span>An administrator can set and change a business unit's monthly cap.</span></li>
+          <li><span>It shows a gateway the Cloud stopped hearing from, refused runs, fallback pricing and identity warnings in the runs table, and every model a run used.</span></li>
+          <li><span>A call refused for identity is filed under the credential that made it, not under the agent it claimed.</span></li>
+          <li><span>Felyx, the console's assistant, checks its own statements about budgets against the data, uses a gateway key of its own, and refuses a provider key pasted where a reference belongs.</span></li>
+          <li><span>The <a href="demo/">public demo</a> now shows the full signed-in console.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="tokenfuse"><i style="background:#F4B23E"></i>TokenFuse <span class="what">the gateway</span></h3>
+      <div class="meta">1.4.1 to 1.14.0 &#183; 14 releases &#183; 97 pull requests merged &#183; <a href="services/tokenfuse.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v1.5.0</td><td>A gateway mode the gateway cannot read stops it at start.</td></tr>
+            <tr><td class="v">v1.5.0</td><td>An operator can cap the budget a caller declares for a run.</td></tr>
+            <tr><td class="v">v1.7.0</td><td>The price book holds a row for every Claude model Anthropic lists, at its list rate, and the Gemini models on Vertex AI. Before this, a call to a model the book did not know was charged at a fallback rate several times too high.</td></tr>
+            <tr><td class="v">v1.7.0</td><td>A Gemini thinking call is charged the reasoning tokens Google bills, and an operator can supply prices in a file.</td></tr>
+            <tr><td class="v">v1.7.0</td><td>A call refused because its key claimed another agent is exported under the credential that made it, not the agent it claimed.</td></tr>
+            <tr><td class="v">v1.8.0</td><td>The Cloud and the dashboard file that refusal under the credential too, show a refused run as refused, and mark calls priced from the fallback. A gateway shows the book it charges with, and a call forwarded in identity warn mode is marked as such.</td></tr>
+            <tr><td class="v">v1.9.0</td><td>A call whose outcome is unknown is kept as money owed. The reservation survives a restart, and a person closes it with evidence, using a short-lived token that the operator console mints after a passkey check.</td></tr>
+            <tr><td class="v">v1.9.0</td><td>The Cloud's development key fallback is removed.</td></tr>
+            <tr><td class="v">v1.10.0</td><td>A retained call and its closure are written to the event bus, so a notifier can tell a person that money is waiting.</td></tr>
+            <tr><td class="v">v1.10.0</td><td>The MCP broker waits up to 1,000 ms for a policy decision instead of 50 ms, because a slow deny used to arrive after the broker had given up.</td></tr>
+            <tr><td class="v">v1.11.0</td><td>Tool metadata is scanned for five warning signs: a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text.</td></tr>
+            <tr><td class="v">v1.11.0</td><td>With the scan set to block, a tool whose definition changed after it was pinned is refused on the call.</td></tr>
+            <tr><td class="v">v1.11.0</td><td>Tools a request declares are read for poisoning. A poisoned description marks the run as a suspected injection. The request itself is not refused.</td></tr>
+            <tr><td class="v">v1.11.1</td><td>A firewall mode the gateway cannot read, such as <code>enfroce</code>, stops it at start instead of running a firewall that refuses nothing.</td></tr>
+            <tr><td class="v">v1.12.0</td><td>Text recalled from an agent's memory is untrusted context. Under the starter policy, a run that carries it cannot then run a command, write a file or reach the network.</td></tr>
+            <tr><td class="v">v1.12.0</td><td>The compliance catalog cites the OWASP MCP Top 10, row by row, against the test that holds each control.</td></tr>
+            <tr><td class="v">v1.12.0</td><td>Nine more security switches (data-loss and PII scanning, the MCP scan, the fail modes, the policy mode and two broker requirements) stop the gateway at start on a value they cannot read.</td></tr>
+            <tr><td class="v">v1.13.0</td><td>Prices for the current OpenAI, Gemini, DeepSeek, Kimi and GLM models are at their vendors' rates. A model sold at two rates by prompt length is priced by the tier each call falls in. A model the book cannot price exactly keeps a fallback rate, and the call says so.</td></tr>
+            <tr><td class="v">v1.13.1</td><td>Tool arguments up to 12 KiB reach the policy whole. Larger arguments are marked as truncated, so the policy still decides.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>A tool call inside a streamed answer is judged like one in a buffered answer, and a denied call is cut before it reaches the agent.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>Nothing a budget governs is admitted until the gateway has read its money state, so a restart cannot admit calls for a unit already over its cap.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>A refused client key reaches the event bus with its reason and a fingerprint of the key, never the key itself.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>IBANs are a kind of personal data the scanner finds, checked by country code, length and check digits, and decimal numbers are no longer mistaken for card numbers. PII that is found and let through is reported as kinds and counts, never the text.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>Every FOCUS export row says whether it was priced from the price book or from the fallback, and ids written as <code>openai/...</code> are priced at OpenAI's list rate.</td></tr>
+            <tr><td class="v">v1.14.0</td><td>On shutdown the gateway stops taking calls, delivers what it still holds to the Cloud within five seconds, and logs how many records did not arrive.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="costcrew"><i style="background:#7DD3A0"></i>CostCrew <span class="what">the FinOps crew</span></h3>
+      <div class="meta">0.2.2 to 0.6.0 &#183; 4 releases &#183; 60 pull requests merged &#183; <a href="services/costcrew.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v0.3.0</td><td>Decided thresholds for anomalies (USD 2,500) and urgent ones (USD 12,500).</td></tr>
+            <tr><td class="v">v0.4.0</td><td>Provider usage is read from the vendors' own usage reports and reconciled against the gateway's rows, so the gap between the two is shown.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>Sign-in through the organisation's identity provider, over OpenID Connect with signed tokens and PKCE. Session tokens are stored hashed, every failed sign-in gets the same answer, and the console sets security headers.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>Readers for AWS Data Exports and Google Cloud billing exports in plain FOCUS.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>Showback per customer unit, with an allocation rule a person stamps.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>A setting decides whether a model is sent full data, masked data or aggregates only, and a model the organisation hosts itself can run the crew. Both were run on 7 and 8 October, from a fully closed network to a cloud model.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>A thinking model's reasoning is counted as output tokens.</td></tr>
+            <tr><td class="v">v0.5.0</td><td>A re-exported trace is counted once, however many times the same calls are exported, and a call refused for identity is filed under the credential that made it.</td></tr>
+            <tr><td class="v">v0.6.0</td><td>A cost decision the crew recommends can be announced before it lands. Only the owner can confirm it, and a day that matches the announcement is not raised as an anomaly.</td></tr>
+            <tr><td class="v">v0.6.0</td><td>A day that misses the announcement is raised with the decision's name. The forecast carries the step before it lands, after the month closes each decision shows announced against measured, and a saving larger than the service's median daily spend over 28 days is refused.</td></tr>
+            <tr><td class="v">v0.6.0</td><td>Its own price table is corrected to Anthropic's list rates: Claude Sonnet 5 at 2 / 10 instead of 3 / 15, Claude Opus 5 at 5 / 25 instead of 15 / 75.</td></tr>
+            <tr><td class="v open">on main</td><td>A FOCUS 1.1 file of agent spend, by agent, unit, model and credential, for a FinOps platform's custom ingress. No file has been accepted by a live tenant yet.</td></tr>
+            <tr><td class="v open">on main</td><td>Spend priced from a fallback is kept apart, PII let through is named, each run shows every model it used with its share, and each gateway door is shown as its own source.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="wardryx"><i style="background:#2DD4BF"></i>Wardryx <span class="what">the policy plane</span></h3>
+      <div class="meta">1.1.3 to 1.5.0 &#183; 6 releases &#183; 31 pull requests merged &#183; <a href="services/wardryx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v1.2.0</td><td>A typed risk signal can hold a call, never deny it, and an approval is bound to the exact tool call a person read.</td></tr>
+            <tr><td class="v">v1.3.0</td><td>A policy can name the only tools its agents may use. A requested tool the list does not name is denied, and no approval can lift that.</td></tr>
+            <tr><td class="v">v1.3.1</td><td>Every document of a YAML policy file, and every value of a JSON policy file, is loaded. A file that does not load stops the service at start, and the error names the part that failed.</td></tr>
+            <tr><td class="v">v1.3.2</td><td>A policy write with a field the policy does not declare is refused with a 400, and nothing is stored. Before, the field was dropped and the write still answered 200.</td></tr>
+            <tr><td class="v">v1.4.0</td><td>A policy can hold a tool call whose risk signal never arrives (<code>when_absent: hold</code>), for a person to decide.</td></tr>
+            <tr><td class="v">v1.5.0</td><td>A policy can name the only models its agents may use. A request for any other model is denied on that call.</td></tr>
+            <tr><td class="v open">on main</td><td>A policy change made through the API names, on the event bus, the fingerprint of the key that made it.</td></tr>
+            <tr><td class="v open">on main</td><td>The shared library's single-writer lock is pinned, so a replaced pod cannot break its own chain. Not yet in a Wardryx release.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="idryx"><i style="background:#34D399"></i>Idryx <span class="what">the identity graph</span></h3>
+      <div class="meta">1.0.0 to 1.2.1 &#183; 3 releases &#183; 16 pull requests merged &#183; <a href="services/idryx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v1.1.0</td><td>An event is ingested as the source it claims only when its file may carry that source, so one component cannot speak for another.</td></tr>
+            <tr><td class="v">v1.2.0</td><td>The second gateway door's file, the one that speaks the OpenAI wire format, is ingested as TokenFuse. Before, it was refused as a foreign source, so that door's agents never reached the graph.</td></tr>
+            <tr><td class="v">v1.2.1</td><td>Event types and sources that no detector reads are named as such, not reported as unknown.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="scopyx"><i style="background:#F0ABFC"></i>Scopyx <span class="what">the egress gate</span></h3>
+      <div class="meta">no release in the window, still 1.0.1 &#183; <a href="services/scopyx.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span>Documentation and toolchain only: the Go toolchain moved to 1.27.2, the shared library pin moved to 1.3.0, the secret scan runs on every pull request, and the README was corrected against the code.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="vouchryx"><i style="background:#8B9DFF"></i>Vouchryx <span class="what">delegation</span></h3>
+      <div class="meta">0.1.0 to 0.2.0 &#183; 1 release &#183; 10 pull requests merged &#183; <a href="services/vouchryx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v0.2.0</td><td>The public revocation list no longer says who revoked a token or why.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="qryx"><i style="background:#B48CFF"></i>Qryx <span class="what">the cryptography inventory</span></h3>
+      <div class="meta">no release in the window, still 1.0.0 &#183; <a href="services/qryx.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span>Documentation, tests and toolchain only: the Go toolchain moved to 1.27.2, the shared library pin moved to 1.3.0, the secret scan runs on every pull request, and a test now checks every environment read against the component manifest.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="verdryx"><i style="background:#FF7AA2"></i>Verdryx <span class="what">answer quality per dollar</span></h3>
+      <div class="meta">no release in the window &#183; 9 pull requests merged &#183; <a href="services/verdryx.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span><span style="color:var(--amber)">On main:</span> its price book mirrors the gateway's, row for row: every listed Claude id, the Gemini rows on Vertex AI, the vendors' prices of 13 October with their long-prompt tiers, and the <code>openai/...</code> rows.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="typryx"><i style="background:#60A5FA"></i>Typryx <span class="what">typed answers and risk signals</span></h3>
+      <div class="meta">0.3.0 to 0.4.1 &#183; 2 releases &#183; 16 pull requests merged &#183; <a href="services/typryx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v0.4.0</td><td>Ships the <code>action.risk_class</code> template, and a reverse proxy that adds a risk signal to a policy decision request.</td></tr>
+            <tr><td class="v">v0.4.1</td><td>A call whose arguments were truncated is counted as a skip, and its log line is rate-limited. Built with Go 1.27.2.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="mockryx"><i style="background:#FF8A5B"></i>Mockryx <span class="what">fire drills</span></h3>
+      <div class="meta">no release in the window, still 0.2.1 &#183; 13 pull requests merged &#183; <a href="services/mockryx.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span><span style="color:var(--amber)">On main:</span> four drills, for a token flood, PII in a prompt, a poisoned tool description and a respelled allow-listed tool.</span></li>
+          <li><span><span style="color:var(--amber)">On main:</span> a scenario can carry a tool history and ask the gateway whether a tool call may run.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="trailryx"><i style="background:#E4626F"></i>Trailryx <span class="what">the record</span></h3>
+      <div class="meta">1.0.0 to 1.2.1 &#183; 3 releases &#183; 19 pull requests merged &#183; <a href="services/trailryx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v1.1.0</td><td>A readiness path on the ingest listener answers 200 while ingest is healthy and 503 once it is degraded. A TLS library security update.</td></tr>
+            <tr><td class="v">v1.2.0</td><td>Reads the gateway's <code>call_retained</code> and <code>retained_closed</code>, so the record keeps a closure beside the console's own log.</td></tr>
+            <tr><td class="v">v1.2.1</td><td>A TLS library update for four published advisories.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="heraldyx"><i style="background:#5BC8F5"></i>Heraldyx <span class="what">the notifier</span></h3>
+      <div class="meta">0.2.5 to 0.7.0 &#183; 5 releases &#183; 31 pull requests merged &#183; <a href="services/heraldyx.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">v0.3.0</td><td>An event is processed as the source it claims only when its file may carry that source.</td></tr>
+            <tr><td class="v">v0.4.0</td><td>Describes the gateway's <code>call_retained</code> and <code>retained_closed</code>, so a person is told that money is waiting, with the amount in the subject, and the chain verifier's <code>chain_broken</code> and <code>chain_unchained</code>.</td></tr>
+            <tr><td class="v">v0.5.0</td><td>The second gateway door's file is read as TokenFuse.</td></tr>
+            <tr><td class="v">v0.6.0</td><td>A fix to how the notifier keeps its place in the event file.</td></tr>
+            <tr><td class="v">v0.7.0</td><td>A daily pulse mail says the notifier is running and gives the counts it saw, so a quiet box can no longer look like a dead one.</td></tr>
+            <tr><td class="v">v0.7.0</td><td>Quiet hours hold alerts below critical every day, in a window the operator sets and in the time zone the operator names.</td></tr>
+            <tr><td class="v">v0.7.0</td><td>A maintenance window, opened by hand for up to 24 hours, can hold alerts from one source while that source is being upgraded.</td></tr>
+            <tr><td class="v">v0.7.0</td><td>An operator can acknowledge a known condition for four hours by default, seven days at most. Its repeats are counted instead of mailed, and one mail says how many alerts were held when it ends.</td></tr>
+            <tr><td class="v">v0.7.0</td><td>A critical is never held, whether by quiet hours, a window or an acknowledgement.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="engram"><i style="background:#6C7BFF"></i>Engram <span class="what">agent memory</span></h3>
+      <div class="meta">no release in the window, still 2.4.1 &#183; 5 pull requests merged &#183; <a href="services/engram.html">the room</a></div>
+      <div class="prose">
+        <ul>
+          <li><span><span style="color:var(--amber)">On main:</span> every stored memory records where it came from, and recall returns it, so an agent framework can treat untrusted memory as untrusted context. The gateway judges recalled memory that way since TokenFuse 1.12.0.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="platform"><i style="background:#93A8C4"></i>Platform <span class="what">passport, shared library, Terraform</span></h3>
+      <div class="meta">agent-stack-go 1.0.2 to 1.3.0 &#183; agent-passport and the Terraform provider on main &#183; <a href="services/platform.html">the room</a></div>
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <thead><tr><th>shipped in</th><th>what it does</th></tr></thead>
+          <tbody>
+            <tr><td class="v">agent-stack-go v1.1.0</td><td>An on-box chain verifier (agent-conform) with a published image of its own.</td></tr>
+            <tr><td class="v">agent-stack-go v1.2.0</td><td>The chained event writer locks the file and chains from the line on disk, so several writers appending to one file keep one valid chain.</td></tr>
+            <tr><td class="v">agent-stack-go v1.3.0</td><td>A plain event writer takes the same file lock for each append.</td></tr>
+            <tr><td class="v open">agent-passport, on main</td><td>Six event types registered (<code>call_retained</code>, <code>retained_closed</code>, <code>dlp_shadow</code>, <code>anomaly_hinted</code>, <code>chain_broken</code>, <code>chain_unchained</code>), and a reserved "unidentified caller" subject.</td></tr>
+            <tr><td class="v open">Terraform provider, on main</td><td>Still 0.2.0 as a release; fixes merged since, among them the passport resource listing <code>dpop-key</code> among the attestation methods.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="kicker rv" id="launchers" style="margin-top:44px;padding-bottom:6px">launchers and templates</div>
+
+    <div class="svc rv">
+      <h3 id="stack-single">stack-single <span class="what">the launcher for one machine</span></h3>
+      <div class="meta">1.1.15 to 1.1.35 &#183; 20 releases &#183; 46 pull requests merged &#183; <a href="https://github.com/TAIPANBOX/stack-single">repository</a></div>
+      <div class="prose">
+        <ul>
+          <li><span>A status command runs the install's checks against a running stack.</span></li>
+          <li><span>An optional second gateway door that speaks the OpenAI wire format on its own keys, and the FinOps console as an optional add-on.</span></li>
+          <li><span>The agent firewall runs in enforce mode by default, and the PII scanners in shadow.</span></li>
+          <li><span>One shared closure secret can be set for the gateway and the console.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="stack-k8s">stack-k8s <span class="what">the launcher for a cluster</span></h3>
+      <div class="meta">1.1.21 to 1.1.46 &#183; 25 releases &#183; 55 pull requests merged &#183; <a href="https://github.com/TAIPANBOX/stack-k8s">repository</a></div>
+      <div class="prose">
+        <ul>
+          <li><span>DNS runs three replicas with a disruption budget, the policy store keeps a readable replica, a stopped node stops its pods before its network, and optional workloads leave a dead node within 30 seconds.</span></li>
+          <li><span>Every server is required to start with Kubernetes secrets encryption.</span></li>
+          <li><span>The cost script refuses a machine type it has no price for, instead of pricing it at zero.</span></li>
+          <li><span>The agent firewall runs in enforce mode by default, the PII scanners in shadow, and one shared closure secret can be set for the gateway and the console.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="stack-up">stack-up <span class="what">the developer launcher</span></h3>
+      <div class="meta">no release in the window &#183; 12 pull requests merged &#183; <a href="https://github.com/TAIPANBOX/stack-up">repository</a></div>
+      <div class="prose">
+        <ul>
+          <li><span><span style="color:var(--amber)">On main:</span> safer defaults.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc rv">
+      <h3 id="catalog">Template catalog <span class="what">policies and drills</span></h3>
+      <div class="meta">no release in the window &#183; 6 pull requests merged &#183; <a href="https://github.com/TAIPANBOX/catalog">repository</a></div>
+      <div class="prose">
+        <ul>
+          <li><span><span style="color:var(--amber)">On main:</span> a guardrail for a customer-facing shop, and drills that go with it.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">appendix</div>
+      <h2 id="before-after">Every service, before and after.</h2>
+    </div>
+    <div class="tbl-wrap rv">
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <caption>"Releases" counts tags created between 1 and 15 October; "on main" means merged but not yet in a tagged release. Counts were read from each repository's main branch and its merged pull requests on 15 October.</caption>
+          <thead><tr><th>service</th><th>what it does</th><th>before 1 Oct</th><th>15 Oct</th><th>releases</th><th>PRs merged</th></tr></thead>
+          <tbody>
+            <tr><td><a href="#tokenfuse">TokenFuse</a></td><td>Gateway, prices and budgets, MCP broker</td><td class="v">1.4.1</td><td class="v">1.14.0</td><td>14</td><td>97</td></tr>
+            <tr><td><a href="#wardryx">Wardryx</a></td><td>Policy decisions: allow, deny, hold</td><td class="v">1.1.3</td><td class="v">1.5.0</td><td>6</td><td>31</td></tr>
+            <tr><td><a href="#costcrew">CostCrew</a></td><td>FinOps crew and console</td><td class="v">0.2.2</td><td class="v">0.6.0</td><td>4</td><td>60</td></tr>
+            <tr><td><a href="#heraldyx">Heraldyx</a></td><td>Notifier</td><td class="v">0.2.5</td><td class="v">0.7.0</td><td>5</td><td>31</td></tr>
+            <tr><td><a href="#idryx">Idryx</a></td><td>Agent identity graph and detectors</td><td class="v">1.0.0</td><td class="v">1.2.1</td><td>3</td><td>16</td></tr>
+            <tr><td><a href="#trailryx">Trailryx</a></td><td>Tamper-evident record</td><td class="v">1.0.0</td><td class="v">1.2.1</td><td>3</td><td>19</td></tr>
+            <tr><td><a href="#platform">agent-stack-go</a></td><td>Shared library, event writer, chain verifier</td><td class="v">1.0.2</td><td class="v">1.3.0</td><td>3</td><td>16</td></tr>
+            <tr><td><a href="#typryx">Typryx</a></td><td>Typed answers and risk signals</td><td class="v">0.3.0</td><td class="v">0.4.1</td><td>2</td><td>16</td></tr>
+            <tr><td><a href="#vouchryx">Vouchryx</a></td><td>Delegation tokens</td><td class="v">0.1.0</td><td class="v">0.2.0</td><td>1</td><td>10</td></tr>
+            <tr><td><a href="#genaryx">Console (Genaryx)</a></td><td>Operator console and Felyx</td><td class="v">image 1.1.19</td><td class="v">image 1.1.46</td><td>-</td><td>40</td></tr>
+            <tr><td><a href="#engram">Engram</a></td><td>Agent memory</td><td class="v">2.4.1</td><td>2.4.1, provenance on main</td><td>0</td><td>5</td></tr>
+            <tr><td><a href="#mockryx">Mockryx</a></td><td>Drills</td><td class="v">0.2.1</td><td>0.2.1, four drills on main</td><td>0</td><td>13</td></tr>
+            <tr><td><a href="#verdryx">Verdryx</a></td><td>Answer quality per dollar</td><td class="v">-</td><td>price mirrors on main</td><td>0</td><td>9</td></tr>
+            <tr><td><a href="#qryx">Qryx</a>, <a href="#scopyx">Scopyx</a></td><td>Crypto inventory, egress gate</td><td class="v">1.0.0, 1.0.1</td><td>unchanged, docs and toolchain</td><td>0</td><td>22</td></tr>
+            <tr><td><a href="#platform">agent-passport</a></td><td>Event and identity specification</td><td class="v">1.0.0</td><td>six event types registered</td><td>0</td><td>9</td></tr>
+            <tr><td><a href="#platform">Terraform provider</a></td><td>Infrastructure as code</td><td class="v">0.2.0</td><td>0.2.0, fixes on main</td><td>0</td><td>11</td></tr>
+            <tr><td><a href="#catalog">Template catalog</a></td><td>Policies and drills</td><td class="v">-</td><td>shop guardrail and drills</td><td>0</td><td>6</td></tr>
+            <tr><td><a href="#stack-single">stack-single</a></td><td>Launcher for one machine</td><td class="v">1.1.15</td><td class="v">1.1.35</td><td>20</td><td>46</td></tr>
+            <tr><td><a href="#stack-k8s">stack-k8s</a></td><td>Launcher for a cluster</td><td class="v">1.1.21</td><td class="v">1.1.46</td><td>25</td><td>55</td></tr>
+            <tr><td><a href="#stack-up">stack-up</a></td><td>Developer launcher</td><td class="v">-</td><td>safer defaults on main</td><td>0</td><td>12</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">glossary</div>
+      <h2 id="terms">A few terms.</h2>
+    </div>
+    <dl class="terms rv">
+      <dt id="term-invariant">Invariant</dt>
+      <dd>A numbered rule a service must keep, written into its repository with the test or gate that holds it.</dd>
+      <dt id="term-fail-closed">Fail closed</dt>
+      <dd>When a dependency is down, refuse rather than allow. The opposite, fail open, lets everything through while nobody is checking.</dd>
+      <dt id="term-shadow-enforce">Shadow and enforce</dt>
+      <dd>In shadow a check records what it would have refused; in enforce it refuses.</dd>
+      <dt id="term-retained">Retained reservation</dt>
+      <dd>Money reserved for a call whose outcome is unknown, kept until a person closes it with evidence.</dd>
+      <dt id="term-mcp">MCP</dt>
+      <dd>The Model Context Protocol, the common way agents reach tools. The broker stands between the agent and every tool server.</dd>
+      <dt id="term-focus">FOCUS</dt>
+      <dd>The FinOps Foundation's open format for cost and usage data, which the gateway and CostCrew write and read.</dd>
+    </dl>
+    <div class="note rv">
+      <div class="t">read next</div>
+      <p><a href="security-by-design.html">Security by design</a> explains the eight decisions behind the tool-safety and fail-closed work on this page. <a href="glossary.html">The glossary</a> has the rest of the vocabulary, and <a href="guides.html">the guides index</a> has every guide.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Twelve guides: seven on the field of AI agent governance, and five on running this stack, from a first alert to what the numbers prove."
+      "description": "Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -115,6 +115,139 @@
       "title": "Three shapes of agent tooling",
       "kind": "guide",
       "description": "The controls that answer before a call: what each one does, what it does not do yet, and how to check it."
+    },
+    {
+      "url": "https://it-rat.com/security-by-design.html",
+      "markdown": "https://it-rat.com/security-by-design.md",
+      "title": "Security by design",
+      "kind": "guide",
+      "description": "An agent can be persuaded, so its controls sit where persuasion cannot reach. Eight design decisions in the stack, and what happened when we broke each one."
+    },
+    {
+      "url": "https://it-rat.com/stack-guide.html",
+      "markdown": "https://it-rat.com/stack-guide.md",
+      "title": "The stack in depth",
+      "kind": "guide",
+      "description": "Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open."
+    },
+    {
+      "url": "https://it-rat.com/changes-2026-10.html",
+      "markdown": "https://it-rat.com/changes-2026-10.md",
+      "title": "What changed in the stack, 1 to 15 October 2026",
+      "kind": "guide",
+      "description": "Prices that match the bill, money that is never forgotten, tool calls judged before they run: what changed in the stack from 1 to 15 October 2026."
+    },
+    {
+      "url": "https://it-rat.com/genaryx-guide.html",
+      "markdown": "https://it-rat.com/genaryx-guide.md",
+      "title": "Genaryx guide",
+      "kind": "guide",
+      "description": "How the Genaryx console works, how Felyx is held, what every frame shows, how to take it, and what is not yet in the record, in full."
+    },
+    {
+      "url": "https://it-rat.com/tokenfuse-guide.html",
+      "markdown": "https://it-rat.com/tokenfuse-guide.md",
+      "title": "TokenFuse guide",
+      "kind": "guide",
+      "description": "How TokenFuse works, how to install and configure it, what changed from 1 to 15 October 2026, and what the default install does not do, in full."
+    },
+    {
+      "url": "https://it-rat.com/costcrew-guide.html",
+      "markdown": "https://it-rat.com/costcrew-guide.md",
+      "title": "CostCrew guide",
+      "kind": "guide",
+      "description": "How CostCrew works, how to install and configure it, what changed from 1 to 15 October 2026, and what it does not prove yet, in full."
+    },
+    {
+      "url": "https://it-rat.com/pocket-guide.html",
+      "markdown": "https://it-rat.com/pocket-guide.md",
+      "title": "TokenFuse Pocket guide",
+      "kind": "guide",
+      "description": "How TokenFuse Pocket is designed to work, how it differs from Heraldyx, where it sits in the stack, and why it is not wired into a running stack yet."
+    },
+    {
+      "url": "https://it-rat.com/wardryx-guide.html",
+      "markdown": "https://it-rat.com/wardryx-guide.md",
+      "title": "Wardryx guide",
+      "kind": "guide",
+      "description": "How Wardryx decides allow, deny or hold, how to run it, what changed from 1 to 15 October 2026, and what is open by default or not proven yet."
+    },
+    {
+      "url": "https://it-rat.com/idryx-guide.html",
+      "markdown": "https://it-rat.com/idryx-guide.md",
+      "title": "Idryx guide",
+      "kind": "guide",
+      "description": "How Idryx builds one identity graph and what its detectors look for, how to run it, what it answers, and what it does not do or prove yet."
+    },
+    {
+      "url": "https://it-rat.com/scopyx-guide.html",
+      "markdown": "https://it-rat.com/scopyx-guide.md",
+      "title": "Scopyx guide",
+      "kind": "guide",
+      "description": "How Scopyx decides an agent's web egress, how to run its two images, what changed from 1 to 15 October 2026, and what it will not do, in full."
+    },
+    {
+      "url": "https://it-rat.com/vouchryx-guide.html",
+      "markdown": "https://it-rat.com/vouchryx-guide.md",
+      "title": "Vouchryx guide",
+      "kind": "guide",
+      "description": "How Vouchryx proves and ends an agent's delegation, its six endpoints, how to run and configure it, what changed in October 2026, and its limits."
+    },
+    {
+      "url": "https://it-rat.com/qryx-guide.html",
+      "markdown": "https://it-rat.com/qryx-guide.md",
+      "title": "Qryx guide",
+      "kind": "guide",
+      "description": "How Qryx finds every key and grades its post-quantum risk, the risk model, how to run it, what changed in October 2026, and what it leaves out."
+    },
+    {
+      "url": "https://it-rat.com/verdryx-guide.html",
+      "markdown": "https://it-rat.com/verdryx-guide.md",
+      "title": "Verdryx guide",
+      "kind": "guide",
+      "description": "How Verdryx turns agent spend into cost per resolved case, its six graders, how to run it offline, what changed in October 2026, and its limits."
+    },
+    {
+      "url": "https://it-rat.com/typryx-guide.html",
+      "markdown": "https://it-rat.com/typryx-guide.md",
+      "title": "Typryx guide",
+      "kind": "guide",
+      "description": "How Typryx works, its measured runs in full, how to choose a data mode at install, what changed, and what it does not prove yet."
+    },
+    {
+      "url": "https://it-rat.com/mockryx-guide.html",
+      "markdown": "https://it-rat.com/mockryx-guide.md",
+      "title": "Mockryx guide",
+      "kind": "guide",
+      "description": "How Mockryx fire drills work, how to run and download it, the drills on main not yet released, and what it does not prove yet."
+    },
+    {
+      "url": "https://it-rat.com/trailryx-guide.html",
+      "markdown": "https://it-rat.com/trailryx-guide.md",
+      "title": "Trailryx guide",
+      "kind": "guide",
+      "description": "How Trailryx proves an answer complete, how erasure leaves the chain intact, the durability runs, the offline verifier, and its limits."
+    },
+    {
+      "url": "https://it-rat.com/heraldyx-guide.html",
+      "markdown": "https://it-rat.com/heraldyx-guide.md",
+      "title": "Heraldyx guide",
+      "kind": "guide",
+      "description": "How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0, and its boundaries."
+    },
+    {
+      "url": "https://it-rat.com/engram-guide.html",
+      "markdown": "https://it-rat.com/engram-guide.md",
+      "title": "Engram guide",
+      "kind": "guide",
+      "description": "How Engram works, the live runs against real Claude, how to install it, what changed on main, and what it does not do yet, in full."
+    },
+    {
+      "url": "https://it-rat.com/platform-guide.html",
+      "markdown": "https://it-rat.com/platform-guide.md",
+      "title": "Platform guide",
+      "kind": "guide",
+      "description": "How the Agent Passport contract works, how to run the stack on a laptop, one box or a cluster, and what it does not claim, in full."
     },
     {
       "url": "https://it-rat.com/services/tokenfuse.html",

@@ -1,0 +1,240 @@
+<!-- https://it-rat.com/typryx-guide.html -->
+
+# Typryx guide
+
+> How Typryx works, its measured runs in full, how to choose a data mode at install, what changed, and what it does not prove yet.
+
+The [Typryx room](https://it-rat.com/services/typryx.html) keeps the measured replay, the drawings and the widgets, and the common questions. This guide keeps the rest of what the room used to say: how an ask moves and what it holds to, the three data modes, your own model, the speed and calibration runs with their tables, where it plugs into the stack, how to choose a mode at install, what changed, and what is not proven yet.
+
+- [At a glance](https://it-rat.com/typryx-guide.html#overview)
+
+- [How it works](https://it-rat.com/typryx-guide.html#how-it-works)
+
+- [Three modes](https://it-rat.com/typryx-guide.html#modes)
+
+- [Your own model](https://it-rat.com/typryx-guide.html#own-model)
+
+- [The measurements](https://it-rat.com/typryx-guide.html#measured)
+
+- [Where it plugs in](https://it-rat.com/typryx-guide.html#plugs)
+
+- [Where it sits](https://it-rat.com/typryx-guide.html#where-it-sits)
+
+- [Running it](https://it-rat.com/typryx-guide.html#run)
+
+- [What changed](https://it-rat.com/typryx-guide.html#changes)
+
+- [Limits](https://it-rat.com/typryx-guide.html#limits)
+
+## Typryx at a glance.
+
+- **A typed answer with a probability**, never a guess.
+
+- **Status:** an optional add-on. Off is the default, and the rest of the stack runs as it did before.
+
+- **Shapes:** choice, score or yes/no, asked through a versioned template.
+
+- **Deps:** one direct dependency.
+
+- **Spend cap:** 1,000 calls an hour, by default.
+
+- **Licence:** Apache-2.0, public on GitHub.
+
+### What it is
+
+Agents already ask each other, and their models, questions that have exactly one shape: choice (which option), score (how good, on an ordered scale) or yes/no. Typryx takes a question from a versioned template and returns a typed answer read off a probability distribution, or refuses with a named reason instead of inventing one. Only the fields the template names leave the box unless an operator switches freeform questions on (TYPRYX_ALLOW_FREEFORM=1, off by default). Every answer, refusal or timeout lands on a hash-chained journal.
+
+## The path of one ask.
+
+An agent reaches typryx over MCP, most often through tokenfuse's broker, both built. Inside, a call crosses the door, the template lookup, the egress filter and the hourly cap before it reaches a swappable backend; the answer is read off the probability distribution, never taken as the backend's own claim. Everything is journaled. On the right of the room's drawing: the calibration loop that scores a later truth, and the consumers, all still planned, that would read the journal.
+
+### A probability, never an enforcement decision.
+
+**No deny from a probability.** Not here, and not in a consumer. Wardryx's `hold_if_signal` rule may turn a signal into a hold, which a person releases; nothing turns a probability into a deny. It is built and released, and measured on the stub backend only.
+
+**Calibration, never pooled.** `typryx calibration` groups by template, template version, backend and model, never averaged across any of the four. Two models under the same question with opposite calibration would otherwise cancel out on paper while neither is fine.
+
+**A later truth, scored honestly.** An outcome posted later is scored against the exact template version an answer was asked under, read from the ledger's own record, never against whatever the live template says today. A second outcome for the same answer is refused.
+
+**One direct dependency.** agent-stack-go, the stack's shared envelope library, is the only import beyond the standard library. A hostile-input sweep runs against the backends that parse bytes from outside the process, and the ledger survives a torn write mid-crash without losing the record after it.
+
+**Spend capped by default.** 1,000 calls an hour by default, counted only against calls that got past the door, the template lookup and the egress filter. Disabling it logs a warning at boot rather than doing it quietly.
+
+**Offline by default.** The stub backend is deterministic and free, for tests and demos, and every answer it gives says so. The suite itself runs against httptest fakes; nothing in the test run reaches a live network.
+
+### Never invents an answer
+
+A backend error, a timeout, missing or malformed probabilities, a cap hit: the answer is unanswered with a named reason, and the wire shape omits `answer` and `probabilities` entirely. No renormalizing, no fallback guess.
+
+The served answer is always read back off the probability distribution itself: the argmax for a choice, the level for a score, `probabilities["true"]` for a yes-or-no, never from a claim the backend states alongside a disagreeing distribution.
+
+### Where Jev meets the stack.
+
+Three question shapes are the whole contract: `choice`, `score`, `noul` (yes/no). A template goes to any backend unchanged, because the templates are the contract and the backend is swappable. Switch the backend and watch what is sent and what comes back change; the typed-answer shape at the far right never does.
+
+| template | type | options | who would ask it | status |
+|---|---|---|---|---|
+| eval.outcome_met | noul (yes/no) | n/a | Verdryx's grading; the calibration run below used it | measured 2026-09-25 |
+| eval.answer_quality | score | 4 ordered levels | Verdryx grader | README example, 2026-09-25 |
+| request.complexity | choice | cheap / default / hard / reasoning | TokenFuse router, shadow mode only | planned, shadow only |
+| action.risk_class | choice | read_only / reversible_change / destructive / external_send / financial | Wardryx, through `wardryx-proxy`, from the tool, its arguments and its target only | released in v0.4.0, run on the stub only |
+
+### What leaves the box
+
+Only `task` and `final_answer` are in the template's `fields`, so on a template ask they are the only two that reach the backend, whatever else sits in the state. The type a backend receives for a template ask is constructible only inside the template package, so a map or raw state cannot reach one on that path, even by an implementation mistake. The one exception is a freeform question, which sends the whole state when TYPRYX_ALLOW_FREEFORM=1 is set (off by default).
+
+Measured (undated, see the typryx README): a five-field state carrying `user_email` and, separately, `customer_iban`, neither ever reached the backend or the record. Through Claude Code over MCP, an extra `api_token` field never reached the record either (`held_back_fields: 1`).
+
+## Three modes: where your data goes.
+
+You pick one when you install typryx, and you can change it later. With Jev, the fields a question names go to TypeSafe AI. With your own model, nothing leaves your hardware. With it off, the stack runs as it did before. All three were run on the same 434 questions, in the room's chart.
+
+### Jev run live 2026-09-30
+
+A hosted service from TypeSafe AI. Only the fields a template names leave the box, to a third party that handles them under its own terms. Of the three modes it was the most accurate and the best calibrated on the test in the room's chart.
+
+Whether that is worth sending those fields out is a decision for whoever answers for your data. It is never the default.
+
+### Your own model measured 2026-09-30
+
+Any OpenAI-compatible server you run yourself, such as Ollama or vLLM. Nothing leaves your hardware. You choose the model, and you can tune it on your own questions (next section).
+
+The one measured here is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.
+
+### Off the default
+
+typryx is not started. The rest of the stack runs exactly as it did before, and this is what every launcher does until you choose another mode.
+
+Without typryx, an agent that needs a typed answer gets one fixed default. That is the bottom row of the room's chart.
+
+### How the accuracy chart reads
+
+ECE is expected calibration error: lower means the confidence a backend states matches how often it is right. The fixed answer states certainty every time, so its ECE is one minus its accuracy. The questions are synthetic and frozen, each label follows from how its question was built, and an independent re-label agreed on every one of the 434 questions. The benchmark and its runner are public: [github.com/TAIPANBOX/typryx-evalset](https://github.com/TAIPANBOX/typryx-evalset).
+
+## Your own model, on your own questions.
+
+typryx does not train, fine-tune, host or ship a model. It keeps the two records a tune needs, the question as the template let it through and the truth a person posted, and it measures the result against the model it replaces. The tuning is yours, on your hardware.
+
+### What it keeps
+
+One line per answered, templated question, in a file on your own disk that only its owner can read: the template and its version, the answer's id, which backend and model answered, and the state as the template let it through. A field the template holds back is on your disk nowhere.
+
+### What it never keeps
+
+The backend's answer or its probabilities. The record has no field for them, and the package that writes it cannot reach the code that knows them. Nothing is written for a question that was refused, unanswered or free-form.
+
+It is off by default: with no directory set, nothing is written and no directory is created.
+
+### Why labels are human truths only
+
+The export labels a question with the truth a person posted and with nothing else. A hosted model's answer never becomes a training label, which matters because TypeSafe's agreement forbids using Jev's output for model distillation or to build a similar or competing product.
+
+What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through, and the poster's own word is the only record of where it came from.
+
+Decided 2026-09-30: a customer picks one of three data modes for typed answers, typryx does not train or ship models, and a customer can tune their own model on their own questions and measure it with typryx.
+
+## The replay, the speed run and the calibration run.
+
+### Every real judgement from one run, replayed in the same order.
+
+Not an illustration: the room's replay plays the 60 real arithmetic judgements from the calibration table below, qwen2.5:7b run locally on Ollama, wording v2, in the order they were asked (the real run took 9.44 seconds; this replay plays it about 2× slower). Watch the resolved probability, the verdict, and how often "confident" and "right" turn out to be different things.
+
+### The one-token shortcut is not always faster.
+
+Decision speed, measured 2026-09-25. Same 60 items, seed 1, timed end to end from the caller (`go run ./examples/speed`, typryx f4045e0, one run each, so read the medians as indicative rather than final).
+
+| way of deciding | model | median | p95 | accuracy |
+|---|---|---|---|---|
+| typed, one token, through typryx | gpt-4.1-mini | 538 ms | 795 ms | 71.7% |
+| text judge, short verdict | gpt-4.1-mini | 723 ms | 1,012 ms | 100% |
+| reasoning judge | gpt-5.4-mini (current, reasoning) | 562 ms | 896 ms | 100% |
+| typed, one token, through typryx | qwen2.5:7b | 148 ms | 159 ms | 66.7% (3 of 60 unparsed, counted wrong) |
+| text judge, short verdict | qwen2.5:7b | 1,509 ms | 2,103 ms | 100% |
+
+Against a hosted API the network dominates: on gpt-4.1-mini the shortcut was about 1.3× faster than a short text verdict and gave up 28 points of accuracy (71.7% against 100%), and gpt-5.4-mini, a current small reasoning model, was right on all 60 in about the same time as the shortcut. Locally, on qwen2.5:7b, the shortcut is about 10× faster. A typed decision earns its place by the probability it carries and where it runs, not by speed; vendor speed claims are not on this page. Jev is not on this chart: it was measured on a different set of questions, the 434 in [Three modes](https://it-rat.com/services/typryx.html#modes), and the two sets are never mixed.
+
+### Stated confidence and actual accuracy are not the same number.
+
+Calibration, measured 2026-09-25. Eight groups, 480 judgements, never pooled: `typryx calibration --min-n 30 --json` over durable ledgers, 60 arithmetic judgements per group, seed 1, template `eval.outcome_met`, backend openai-logprobs, half the items right and half wrong. Five models: three OpenAI models of the previous generation over the hosted API (gpt-4.1-mini, gpt-4o-mini, gpt-4.1-nano, each with two template wordings) and two open-weight Qwen 2.5 models run locally on Ollama (3B and 7B). Every group was 96% to 100% confident on average and right 50% to 73% of the time.
+
+Every group was 96% to 100% confident on average, right 50% to 73% of the time, and the errors do not lean one way: three groups (gpt-4.1-nano in both wordings, and qwen2.5:3b) said "correct" to every one of 60 items, right exactly half the time, the base rate. gpt-4.1-mini passed half of the wrong answers as right (15 of 30 in each wording); gpt-4o-mini erred both ways; qwen2.5:7b never passed a wrong answer but failed two-thirds of the right ones (20 of 30). Rewording (v1 to v2) barely moved accuracy, because a one-token judge has no room to work anything out before answering: it suits classification, not verification. OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright (the typryx README records this probe: "'logprobs' is not supported with this model"), so this backend reaches only earlier hosted models and open models.
+
+| model | wording | n | stated | accuracy | ECE | Brier | right | lenient | strict |
+|---|---|---|---|---|---|---|---|---|---|
+| gpt-4.1-mini | v1 | 60 | 0.990 | 0.733 | 0.267 | 0.525 | 44 | 15 | 1 |
+| gpt-4.1-mini | v2 | 60 | 0.958 | 0.733 | 0.243 | 0.505 | 44 | 15 | 1 |
+| gpt-4o-mini | v1 | 60 | 0.987 | 0.583 | 0.414 | 0.823 | 35 | 11 | 14 |
+| gpt-4o-mini | v2 | 60 | 0.983 | 0.633 | 0.358 | 0.716 | 38 | 5 | 17 |
+| gpt-4.1-nano | v1 | 60 | 0.99999 | 0.500 | 0.500 | 1.000 | 30 | 30 | 0 |
+| gpt-4.1-nano | v2 | 60 | 0.9995 | 0.500 | 0.500 | 0.999 | 30 | 30 | 0 |
+| qwen2.5:3b | v2 | 60 | 0.998 | 0.500 | 0.498 | 0.995 | 30 | 30 | 0 |
+| qwen2.5:7b | v2 | 60 | 0.965 | 0.667 | 0.298 | 0.597 | 40 | 0 | 20 |
+
+Exact models: gpt-4.1-mini, gpt-4o-mini and gpt-4.1-nano over OpenAI's API; qwen2.5:3b and qwen2.5:7b on Ollama on a development Mac. Wording v1 is the example template (`2d3ecbdc`), v2 asks plainly whether the answer is exactly correct (`781efaaf`); the local models ran v2 only. Every figure here is one run of 60 items, reproducible with `examples/calibration` in the repository.
+
+**stated confidence**
+The probability the model's own answer carried when it was given, averaged over the group.
+
+**ECE**
+Expected calibration error: the average gap between stated confidence and actual accuracy across the bins, 0 is perfect.
+
+**Brier**
+Mean squared error between the stated probabilities and the true outcome; here, multi-class, 0 is best and 2 is worst.
+
+## What each part of the stack would get.
+
+Three edges are built and wired in, but none is recorded as a live run yet. The Wardryx edge is built and released and runs only against the stub backend; the rest are what a later integration would read, not something built.
+
+|  | what typryx gives it | status |
+|---|---|---|
+| MCP clients (Claude Code and others) | a typed answer with a probability, per call, over MCP | built |
+| TokenFuse, as broker | a named upstream; one tool_call recorded against the agent | built |
+| TokenFuse, router shadow mode | the class it would have routed to, alongside cost, recorded only | planned |
+| Verdryx | a typed grader beside the existing LLM judge, opt-in per run with `--typed-url` | built, not run live |
+| Wardryx | an `action.risk_class` signal a `hold_if_signal` rule may turn into a hold, never a deny; opt-in in the launchers, off by default | built and released, run only against a loopback stand-in (v0.4.0 release notes) |
+| CostCrew | a suggested class or priority at triage; a person still decides | built and released in costcrew v0.4.0, opt-in via COSTCREW_TYPRYX_URL, not run live |
+| Genaryx | a panel, live only when `GENARYX_TYPRYX_URL` resolves | planned |
+| Engram | an optional importance score | planned |
+| Journal readers (Trailryx, Idryx) | the four event types reach the shared events volume; heraldyx renders them; Idryx lists typryx as a source and never calls it; Trailryx refuses them by design | on the shared bus |
+
+## Optional, and it changes nothing when it is absent.
+
+Typryx sits behind [TokenFuse](https://it-rat.com/services/tokenfuse.html)'s MCP broker as a named upstream, so a call an agent makes is priced and recorded there before it ever reaches typryx's own door; the `request.complexity` template maps directly onto that router's own task classes, in shadow mode only, planned rather than built. [Verdryx](https://it-rat.com/services/verdryx.html) can ask typryx for a typed verdict beside its existing LLM judge, opt-in per run, and post a person's label back as the truth; built and not yet run live. A typed answer is a single number a policy can threshold, calibrated against real outcomes rather than assumed honest, and it does not replace the judgement Verdryx already makes. [Wardryx](https://it-rat.com/services/wardryx.html) can read one: `typryx wardryx-proxy` sits in front of it, asks `action.risk_class` about a pending tool call, and adds the answer to the decision request, where a `hold_if_signal` rule may turn it into a hold, which a person releases. Nothing here or in a consumer turns a probability into a deny. The launchers carry it as an opt-in, off by default, from stack-single v1.1.17 and stack-k8s v1.1.23, and it was measured on the stub backend only, never with a real model behind it.
+
+Without it, the rest of the stack behaves exactly as it does today: nothing here is consumed by anything else unless an operator wires it in.
+
+## How to choose it at install.
+
+`TYPED_MODE=jev|own-model|off` for stack-single, and `--typed-mode jev|own-model|off` for stack-k8s and stack-up. Off is the default. A key is only ever a file you point at, never an environment value. released in stack-single v1.1.16 and stack-k8s v1.1.22; stack-up runs from main
+
+## What changed, release by release.
+
+Released as v0.4.0 on 2026-10-04, adding the `action.risk_class` template and `wardryx-proxy`, after v0.3.0 on 2026-09-30 and a first tag, v0.1.0, on 2026-09-25: a signed image on ghcr.io for amd64 and arm64, and a release page with SBOMs; public on GitHub, with CI green on the v0.4.0 release run (2026-10-04). Built and tested: the HTTP and MCP surfaces, the stub, openai-logprobs and jev backends, the journal and ledger, calibration, and the opt-in training log and export. Jev ran live on 2026-09-30, and all three data modes were measured on the same 434 questions.
+
+The releases from 1 to 15 October 2026, with what each one shipped, are in [the stack's changes for October](https://it-rat.com/changes-2026-10.html#typryx).
+
+## What it does not do, and what is not proven yet.
+
+- **Not yet:** a model tuned from an export and measured against the one it replaces, the Wardryx signal with a real backend behind it, and the deeper consumers in the tables above.
+
+- Three edges are built and wired in, but none is recorded as a live run yet. The Wardryx edge is built and released and runs only against the stub backend.
+
+- The launchers carry the Wardryx signal as an opt-in, off by default, and it was measured on the stub backend only, never with a real model behind it.
+
+- Verdryx's typed verdict is built and not yet run live; CostCrew's suggested class is built and released in costcrew v0.4.0 and not run live; the TokenFuse router, Genaryx and Engram readers are planned.
+
+- In the loop from a question to a tuned model, steps 1 to 5 are built, tested and run on the stub backend; steps 6 to 9 are not run end to end, and no tuned model is measured yet.
+
+- The own model measured is a small 7B model on a machine with no GPU. A model you have tuned, or a machine with a GPU, is not measured.
+
+- OpenAI's current models, gpt-5.x and gpt-6, refuse token probabilities outright, so the openai-logprobs backend reaches only earlier hosted models and open models.
+
+- A freeform question sends the whole state when TYPRYX_ALLOW_FREEFORM=1 is set (off by default).
+
+- What typryx cannot see is how a person reached a truth. A label copied from a model's answer would get through.
+
+- The speed figures are one run each, so read the medians as indicative rather than final.
+
+## Back to the room.
+
+The [Typryx room](https://it-rat.com/services/typryx.html) has the measured replay, the path of one ask, the widgets and the common questions, and [the guides index](https://it-rat.com/guides.html) has the field itself.

@@ -4,31 +4,21 @@
 
 > A drop-in gateway that gives every agent run a budget and answers 402 when it is crossed. Anthropic and OpenAI wires, proven on three clouds and on premises.
 
-A fire in next month's bill is too late to fight. TokenFuse is the extinguisher: a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.
+TokenFuse is a drop-in gateway that gives every run a budget, watches its burn in real time, and cuts the circuit with an HTTP 402 the moment a run crosses its budget. Adoption is one base-URL change; no agent framework rewrite, no SDK lock-in.
 
 ## Watch the breaker do its job.
 
-This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget. Four calls land. The reserve for the fifth would cross the cap, so the ledger refuses it.
+This is a simulation, but not a fantasy: it replays the exact shape of the live validation runs. An agent enters a retry loop against a $0.006 budget.
 
 ## One gateway in the path. One ledger everyone trusts.
 
-Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook. Behind it: the spend ledger, in one process by default; the optional cluster build replicates it with raft, so the gateways of one cluster still admit exactly what one budget allows.
+Your agent's SDK points at TokenFuse instead of the provider. In the hot path: budgets, loop detection, a model router that downgrades routine calls, a semantic cache, DLP and the Wardryx policy hook.
 
 ## Not a dashboard. A set of hands on the wheel.
 
 ### Per-run budgets
 
-The run is the unit that pays. A sub-agent's run rolls up into its parent run, so its spend has to fit inside every ancestor's budget. Cross the cap and the answer is a clean 402 your framework already understands, not a Slack message at 9am. Since v1.5.0 an operator can also cap the budget a caller declares for its own run: `TOKENFUSE_MAX_RUN_BUDGET_USD` lowers a larger one to the ceiling and the answer says so in `x-fuse-budget-clamped`. The launchers set it to USD 5.00. It bounds each run, not an agent's total: a new run id gets a new ceiling.
-
-**Q: How enforcement works**
-
-Budgets are hierarchical and checked all-or-nothing. A sub-agent's spend rolls up and is tested against every ancestor it belongs to, so a run cannot slip under its own cap while quietly breaking its parent's. The run is the unit that pays, because a per-key limit cannot tell one agent's afternoon of honest work from the same key looping on itself.
-
-A business unit can also carry a monthly cap, the first budget above the run. It is set in the gateway's identity map, or overridden from the Cloud, and counts the calendar month in UTC; in enforce mode a call that would cross it is refused with a 402. Each gateway counts its own calls on top of a tally it reads from the Cloud when it starts, so that cap is not yet shared across a fleet of gateways.
-
-Accounting is reserve then settle. Each call is priced before it happens, the reserve is taken, and the real cost settles afterwards; a call that would cross the cap is refused before the provider ever sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is exactly the failure mode this exists to remove.
-
-Adoption is a one-line base-URL swap, and the gateway runs in shadow mode first: it prices and records everything while refusing nothing, so you can see what would have been blocked before anything is. Its own bookkeeping fails open: a telemetry push, an event write or a control-plane call that fails never refuses a call. The one failure mode that is a choice is the policy hook, and the launchers make it for you: both ship it fail-closed, so a policy plane that cannot be reached refuses every governed call rather than waving it through. That is measured, not read off a config file: on 2026-09-17 the policy plane was stopped under a box governing two clouds and every call came back 403 in 0.3 s until it was started again. The enforcement decision itself is in-process Rust, about 0.4 microseconds at p99. The thing standing between an agent and a four-digit night should not be the slow part.
+The run is the unit that pays. A sub-agent's run rolls up into its parent run, so its spend has to fit inside every ancestor's budget.
 
 ### Loop detection
 
@@ -36,23 +26,7 @@ A retrying agent looks exactly like a compromised one from the budget's side. Su
 
 ### Burn forecast
 
-Reserve-then-settle accounting prices each call before it happens, with a built-in price book of the vendors' rates as they read on 2026-10-13, long-prompt tiers included, and a deliberately high fallback rate for a model id it does not know, flagged on the response, so an unknown model is refused sooner rather than tracked never. The estimate is fast and honest about being an estimate.
-
-### Model router
-
-Routine calls ride a cheaper model that still clears your quality bar; hard ones stay on the frontier model. In live runs the router and cache together stripped about 22% of routine spend. Both ship switched off: the router is off by default, and the cache is off in the gateway and in the launchers, so that figure arrives when you turn them on, not by default.
-
-### Cluster build: a raft-replicated ledger
-
-An optional build, not what the shipped images run. Four nodes on four machines held one shared budget through a leader kill and a real network partition: the majority kept serving, the isolated node could not overspend, nothing split-brained.
-
-**Q: What it survives**
-
-The images every launcher installs run one gateway with its ledger in memory, and a restart no longer starts every run at zero. Since v1.4.1 the gateway reads each run's spend back from the Cloud before it serves, for runs active in the last 31 days, and since v1.6.0 a gateway at a remote site does the same through a read scoped to its own site. With no Cloud configured there is nothing to read back, and a run starts from zero. The read-back is proven by tests, and the remote-site half on release binaries behind a stand-in for the hub entry, not yet on a live hub. A budget only means something if two gateways racing each other cannot both spend it, and that is what the cluster build is for, a separate build of the same binary: there the ledger is a raft state machine, and the affordability check is linearized across the whole fleet: four nodes on four machines admit exactly what one budget allows, not four copies of it.
-
-In that build, with durable storage on redb, a budget outlives more than a node crash: it survives a full process restart, because a cap that resets when a process dies is a cap an unlucky deploy can hand back to a runaway.
-
-That was tested rather than assumed. A four-node cluster across two datacenters took a leader kill and a real network partition: the majority side kept serving, the isolated node could not overspend, and nothing split-brained. Enforcement then held under a burst of 34 concurrent agents, and the cost accounting was run on the same protocol against Hetzner, AWS and GCP so the numbers could be compared honestly.
+Reserve-then-settle accounting prices each call before it happens. The estimate is fast and honest about being an estimate.
 
 ### FOCUS export
 
@@ -60,43 +34,25 @@ Agent spend lands in the same FinOps Foundation format as the rest of your cloud
 
 ### The loud neighbor everyone listens to.
 
-TokenFuse asks [Wardryx](https://it-rat.com/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Its Parquet traces are the raw material [Verdryx](https://it-rat.com/verdryx.html) prices outcomes from. [Mockryx](https://it-rat.com/mockryx.html) attacks it on purpose in pre-prod. [Idryx](https://it-rat.com/idryx.html) correlates its events into the identity graph. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
-
-Where this fits in the wider practice: [FinOps for AI](https://it-rat.com/finops-for-ai.html) on managing spend that creates itself, and [AI agent governance](https://it-rat.com/ai-agent-governance.html) on the rest of the runtime controls.
+TokenFuse asks [Wardryx](https://it-rat.com/services/wardryx.html) before letting a declared tool through, and stamps the verdict on the response. Everything travels as one envelope, the agent-event, and [Genaryx](https://it-rat.com/genaryx.html) lifts that same signed kill into a console you reach over your own tunnel, where it becomes a passkey break-glass ceremony.
 
 Run it from [the repository](https://github.com/TAIPANBOX/tokenfuse#-get-started), where the one-line command lives beside the image tag it pulls.
 
-Then point `ANTHROPIC_BASE_URL` at `localhost:4100` and give your next run a budget header. That's the whole migration. Behind a launcher, a header above USD 5.00 is lowered to the operator's ceiling unless the operator raises it.
-
-Want more than the gateway? [Run the live services locally](https://it-rat.com/platform.html#run) in one command.
-
-**Q: How this one ships**
-
-The current release is v1.14.0. The image is the way to run it in front of traffic; the binaries, since v0.4.3, are for a laptop and a first look: one file, `TOKENFUSE_UPSTREAM` set, and it listens. Each address always serves the newest release: the asset names carry no version, so a link saved today still works after the next one. No Windows build yet, and saying so is cheaper than a broken link.
+Then point `ANTHROPIC_BASE_URL` at `localhost:4100` and give your next run a budget header. That's the whole migration.
 
 ## It stops the spend. Two neighbours stop other things.
 
-A breaker is the right answer to a runaway and the wrong one to a compromised delegation, where the money is affordable and the problem is that the agent may act for somebody at all. [Vouchryx](https://it-rat.com/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/costcrew.html) is where a bill gets taken apart, allocated and closed, by a crew of agents whose work a person stamps.
+A breaker is the right answer to a runaway and the wrong one to a compromised delegation: [Vouchryx](https://it-rat.com/services/vouchryx.html) ends that authority at every enforcement point at once. And a ceiling in the request path says nothing about the invoice that arrives a month later: [CostCrew](https://it-rat.com/services/costcrew.html) is where a bill gets taken apart, allocated and closed.
 
-## What the gateway gained from 1 to 15 October
+## What the default install does not do.
 
-| shipped in | what it does |
-|---|---|
-| v1.7.0 | The price book holds a row for every Claude model Anthropic lists, at its list rate. Before this, a call to a model the book did not know was charged at a fallback rate several times too high. |
-| v1.9.0 | A call whose outcome is unknown is kept as money owed. The reservation survives a restart, and a person closes it with evidence, using a short-lived token that the operator console mints after a passkey check. |
-| v1.10.0 | A retained call and its closure are written to the event bus, so a notifier can tell a person that money is waiting. |
-| v1.11.0 | Tool metadata is scanned for five warning signs: a credential, an order to run another tool, a path to local credentials, text addressed to the model, and hidden text. |
-| v1.11.0 | With the scan set to block, a tool whose definition changed after it was pinned is refused on the call. |
-| v1.11.0 | Tools a request declares are read for poisoning. A poisoned description marks the run as a suspected injection. The request itself is not refused. |
-| v1.12.0 | Text recalled from an agent's memory is untrusted context. Under the starter policy, a run that carries it cannot then run a command, write a file or reach the network. |
-| v1.12.0 | The compliance catalog cites the OWASP MCP Top 10, row by row, against the test that holds each control. |
-| v1.13.0 | Prices for the current OpenAI, Gemini, DeepSeek, Kimi and GLM models are at their vendors' rates. A model sold at two rates by prompt length is priced by the tier each call falls in. A model the book cannot price exactly keeps a fallback rate, and the call says so. |
-| v1.13.1 | Tool arguments up to 12 KiB reach the policy whole. Larger arguments are marked as truncated, so the policy still decides. |
-| v1.14.0 | A tool call inside a streamed answer is judged like one in a buffered answer, and a denied call is cut before it reaches the agent. |
-| v1.14.0 | Nothing a budget governs is admitted until the gateway has read its money state, so a restart cannot admit calls for a unit already over its cap. |
-| v1.14.0 | A refused client key reaches the event bus with its reason and a fingerprint of the key, never the key itself. |
-| v1.14.0 | IBANs are a kind of personal data the scanner finds, checked by country code, length and check digits. |
-| v1.14.0 | Every FOCUS export row says whether it was priced from the price book or from the fallback. |
+- The raft cluster build is an optional build, not what the shipped images run: those run one gateway with its ledger in memory.
+
+- A business unit's monthly cap is not yet shared across a fleet of gateways: each gateway counts its own calls on top of a tally it reads from the Cloud when it starts.
+
+- The model router and the cache ship switched off: the router is off by default, and the cache is off in the gateway and in the launchers.
+
+### The TokenFuse guide
 
 ## How teams put a ceiling on agent spend
 

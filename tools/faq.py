@@ -118,7 +118,7 @@ FAQ = {
  ("What is AI agent governance?",
   "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"),
  ("Is the stack open source?",
-  "<p>Yes, all of it. Apache-2.0, source on <a href=\"https://github.com/TAIPANBOX\" target=\"_blank\" rel=\"noopener\">GitHub</a>: TokenFuse, Wardryx, Idryx, Engram, Qryx, Verdryx and Mockryx, the shared <a href=\"services/platform.html\">contract</a> under them, and <a href=\"genaryx.html\">Genaryx</a>, the console over all of them.</p>"),
+  "<p>Yes, all of it. Apache-2.0, source on <a href=\"https://github.com/TAIPANBOX\" target=\"_blank\" rel=\"noopener\">GitHub</a>: TokenFuse, CostCrew, TokenFuse Pocket, Wardryx, Idryx, Scopyx, Vouchryx, Qryx, Verdryx, Typryx, Mockryx, Trailryx, Heraldyx and Engram, the shared <a href=\"services/platform.html\">contract</a> under them, and <a href=\"genaryx.html\">Genaryx</a>, the console over all of them.</p>"),
  ("Do you host any of this, or see our data?",
   "<p>No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem, and on-prem is measured rather than merely allowed: on 2026-09-17 the whole stack ran on a small box behind a home router, governing agents in AWS and GCP at the same time. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.</p>"),
  ("What does it cost to try?",

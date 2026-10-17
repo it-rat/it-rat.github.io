@@ -80,8 +80,18 @@ Sim.registerStage("priced",function(o,cfg){
         ctx.beginPath();ctx.moveTo(padL,y1);ctx.lineTo(w-padR,y1);ctx.moveTo(padL,y2);ctx.lineTo(w-padR,y2);ctx.stroke();
         ctx.setLineDash([]);
         if(bp>0.6){
-          ctx.fillStyle="rgba("+P.rose+","+(0.7*bp)+")";ctx.font="9px ui-monospace,Menlo,monospace";
-          ctx.fillText("baseline &#177; tolerance".replace("&#177;","±"),padL+6,y1-4);
+          /* above the band, unless the pinned cost / resolved chip sits
+             there (it does on a phone-width canvas, where the chip is pushed
+             left); then under the band. Decided from geometry, not from t,
+             so the label never jumps while the run plays. */
+          ctx.font="10px ui-monospace,Menlo,monospace";
+          const chipW=ctx.measureText("cost / resolved = $"+lockV.toFixed(5)).width+14;
+          const chipX=Math.min(X(lockT)+10,w-padR-chipW-2), chipY=Y(lockV)-30;
+          ctx.font="9px ui-monospace,Menlo,monospace";
+          const bandLabel="baseline ± tolerance", blW=ctx.measureText(bandLabel).width;
+          const clash=padL+6<chipX+chipW+3&&chipX<padL+6+blW+3&&y1-11<chipY+18+3&&chipY<y1-2+3;
+          ctx.fillStyle="rgba("+P.rose+","+(0.7*bp)+")";
+          ctx.fillText(bandLabel,padL+6,clash?y2+11:y1-4);
         }
       }
 

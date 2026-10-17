@@ -12,6 +12,8 @@ import pathlib
 import re
 import sys
 
+from stackguides import service_guides
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://it-rat.com"
 MARK_OPEN = "<!-- seo:auto -->"
@@ -34,7 +36,17 @@ GUIDES = {
     # holding a comparison table and a section of competitors' strengths, both
     # of which came off the page on 2026-08-28.
     "agent-tooling-compared.html": "Three shapes of agent tooling",
+    # Added 2026-10-16 with the guide per room. Hand-written into their own
+    # heads by the preview commit and in no generator, the same shape as the
+    # entry above.
+    "security-by-design.html": "Security by design",
+    "stack-guide.html": "The stack in depth",
+    "changes-2026-10.html": "What changed in the stack, 1 to 15 October 2026",
 }
+# The sixteen service guides are NOT listed here. They are <id>-guide.html for
+# every room in STACK, derived by tools/stackguides.py, named "<registry name>
+# guide", and each says which room it is `about`. A room without its guide
+# stops this tool rather than being skipped.
 
 SERVICE_PAGES = [
     "services/engram.html", "services/tokenfuse.html", "services/wardryx.html",
@@ -186,11 +198,20 @@ PUBLISHED = {
     "one-incident-end-to-end.html": "2026-08-04",
     "what-runs-where.html": "2026-08-04",
     "what-is-proven.html": "2026-08-04",
+    "security-by-design.html": "2026-10-16",
+    "stack-guide.html": "2026-10-16",
+    "changes-2026-10.html": "2026-10-16",
 }
 
+# The service guides arrived together, on 2026-10-16, so a derived guide takes
+# that date unless PUBLISHED says otherwise. A guide for a room added to STACK
+# LATER is not from that day: give it its own entry above when it is written,
+# or this will claim it is older than it is.
+SERVICE_GUIDES_PUBLISHED = "2026-10-16"
 
-def article(bits, name, published="2026-07-26"):
-    return {
+
+def article(bits, name, published="2026-07-26", about=None):
+    art = {
         "@type": "TechArticle",
         "headline": bits["title"].split("\u00b7")[0].strip(),
         "name": name,
@@ -203,9 +224,27 @@ def article(bits, name, published="2026-07-26"):
         "publisher": {"@id": f"{SITE}/#org"},
         "mainEntityOfPage": bits["url"],
     }
+    if about:
+        art["about"] = about
+    return art
 
 
 def guide_crumbs(bits, name):
+    """IT-RAT > Guides > the page, which is what the visible crumb says.
+
+    It was two levels until 2026-10-16, IT-RAT > the page, while every guide's
+    top bar read "guides / ...": the structured data and the visible text
+    describing two different places, which is invariant 2's fault exactly.
+    """
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "IT-RAT", "item": f"{SITE}/"},
+        {"@type": "ListItem", "position": 2, "name": "Guides", "item": f"{SITE}/guides.html"},
+        {"@type": "ListItem", "position": 3, "name": name, "item": bits["url"]},
+    ]}
+
+
+def top_crumbs(bits, name):
+    """IT-RAT > the page: for a page under neither the stack nor the guides."""
     return {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "IT-RAT", "item": f"{SITE}/"},
         {"@type": "ListItem", "position": 2, "name": name, "item": bits["url"]},
@@ -268,6 +307,9 @@ def write(path, graph):
 
 
 def main():
+    # First, so a room without its guide stops this before any page is written.
+    derived = [(path, f"{s['name']} guide", s) for path, s in service_guides()]
+
     n = 0
     idx_html = (ROOT / "index.html").read_text(encoding="utf-8")
     idx = head_bits(idx_html, "index.html")
@@ -300,7 +342,8 @@ def main():
 
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
     hub = head_bits(hub_html, "guides.html")
-    n += write("guides.html", collection(hub, list(GUIDES.items())))
+    n += write("guides.html", collection(hub, list(GUIDES.items())
+                                         + [(path, name) for path, name, _ in derived]))
 
     gl_html = (ROOT / "glossary.html").read_text(encoding="utf-8")
     gl = head_bits(gl_html, "glossary.html")
@@ -311,6 +354,22 @@ def main():
         html = (ROOT / path).read_text(encoding="utf-8")
         bits = head_bits(html, path)
         graph = [article(bits, name, PUBLISHED.get(path, "2026-07-26")), guide_crumbs(bits, name)]
+        q = faq(html)
+        if q:
+            graph.append(q)
+        n += write(path, graph)
+
+    # The guide per room. Its name comes from the registry and its description
+    # from its own head; `about` names the room it deepens, by the room's URL,
+    # so a machine reading the guide can find what it is a guide TO.
+    for path, name, s in derived:
+        html = (ROOT / path).read_text(encoding="utf-8")
+        bits = head_bits(html, path)
+        if not bits["url"]:
+            sys.exit(f"{path}: no canonical to read, refusing to guess its URL")
+        about = {"@type": "SoftwareApplication", "name": s["name"], "url": f"{SITE}/{s['href']}"}
+        graph = [article(bits, name, PUBLISHED.get(path, SERVICE_GUIDES_PUBLISHED), about),
+                 guide_crumbs(bits, name)]
         q = faq(html)
         if q:
             graph.append(q)
@@ -351,7 +410,7 @@ def main():
     sp_app["operatingSystem"] = "iOS, watchOS"
     sp_app["applicationCategory"] = "LifestyleApplication"
     sp_app["license"] = "https://opensource.org/licenses/MIT"
-    n += write("services/sphere.html", [sp_app, guide_crumbs(sp, sp["name"])])
+    n += write("services/sphere.html", [sp_app, top_crumbs(sp, sp["name"])])
 
     print(f"\n{n} file(s) updated")
 

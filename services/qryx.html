@@ -45,9 +45,16 @@
     border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
     font-family:var(--font-m);font-size:13px;
   }
-  .install .cmd{color:var(--fg)}
+  .install .cmd{color:var(--fg);overflow-wrap:anywhere;min-width:0}
   .install .cmd b{color:var(--accent);font-weight:600}
   .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qryx","url":"https://it-rat.com/services/qryx.html","description":"Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/qryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Qryx","item":"https://it-rat.com/services/qryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I start a post-quantum migration?","acceptedAnswer":{"@type":"Answer","text":"With an inventory, because you cannot migrate what you have not found. Qryx scans binaries, containers, live TLS endpoints, certificates, dependencies and cloud KMS, and returns a cryptographic asset graph graded against the NCSC milestones: discovery by 2028, the highest-priority systems by 2031, everything by 2035."}},{"@type":"Question","name":"What is a CBOM?","acceptedAnswer":{"@type":"Answer","text":"A cryptographic bill of materials in CycloneDX 1.6: one component per unique asset and risk class, with every occurrence attached. It lives in the same supply-chain tooling as your SBOMs, so cryptography stops having its own isolated report nobody reads."}},{"@type":"Question","name":"Can it fail a build when someone ships a weak key?","acceptedAnswer":{"@type":"Answer","text":"Yes. Snapshot the graph as a baseline, and a new weak or quantum-vulnerable asset fails the build with a distinct exit code, with separate codes for a standards violation and a regressed compliance trend. That is the day it matters, not the next audit cycle."}},{"@type":"Question","name":"Does it find hardcoded keys?","acceptedAnswer":{"@type":"Answer","text":"It does, and it counts them honestly: cryptography that exists only in test fixtures is scanned, reported and kept out of the production inventory, with one line saying how much was set aside. Counting fixtures inflates the number you are trying to drive to zero."}}]}]}</script>
@@ -74,9 +81,10 @@
       <div>
         <div class="kicker rv">crypto plane &#183; wave 1</div>
         <h1 class="rv d1"><span class="nm">Qryx</span>. Find every key and algorithm, grade the quantum risk, migrate on your schedule.</h1>
-        <p class="lede rv d2">A crypto audit tells you what your architecture documents say you run. Qryx tells you what is actually running: it scans binaries, containers, live TLS, certificates, dependencies and cloud KMS, and comes back with a cryptographic asset graph instead of a slide deck. Every asset gets a post-quantum grade against the NCSC's 2028, 2031 and 2035 milestones, and CI fails the day a new weak key ships, not at the next audit cycle.</p>
+        <p class="lede rv d2">Qryx tells you what is actually running: it scans binaries, containers, live TLS, certificates, dependencies and cloud KMS, and comes back with a cryptographic asset graph instead of a slide deck.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#sim">Watch it find the keys <span class="mono">&#9654;</span></a>
+          <a class="btn" href="../qryx-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/qryx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -98,7 +106,7 @@
     <div class="sec-head rv">
       <div class="kicker">sixty seconds, one estate</div>
       <h2>Watch it find every key in the building.</h2>
-      <p class="lede">This is a simulation, but the shape is real: it replays a live run against 25,586 ELF binaries, a container image and a live TLS endpoint. A quantum-vulnerable cert turns up mid-sweep. The evidence at the end is signed with a post-quantum algorithm, not a promise.</p>
+      <p class="lede">This is a simulation, but the shape is real: it replays a live run against 25,586 ELF binaries, a container image and a live TLS endpoint. The evidence at the end is signed with a post-quantum algorithm, not a promise.</p>
     </div>
     <div class="rv" id="qx-sim"></div>
   </div>
@@ -110,7 +118,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>One graph. Every report reads the same one.</h2>
-      <p class="lede">Five kinds of sources feed one scan engine: binaries, containers, live TLS, cloud KMS, and source plus Terraform. Findings dedupe into an asset graph keyed on algorithm, key size and risk class, so a certificate that is both expired and quantum-vulnerable gets two nodes, not one silently overwriting the other. CBOM, the CNSA audit, the NCSC readiness report and the migration plan all read that same graph, so they cannot disagree with each other.</p>
+      <p class="lede">Five kinds of sources feed one scan engine: binaries, containers, live TLS, cloud KMS, and source plus Terraform. CBOM, the CNSA audit, the NCSC readiness report and the migration plan all read that same graph, so they cannot disagree with each other.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 350" role="img" aria-label="Qryx architecture">
@@ -180,95 +188,90 @@
   </div>
 </section>
 
-<!-- ================= FEATURES ================= -->
-<section class="sec" style="padding-top:18px">
+<!-- ================= HOW IT WORKS ================= -->
+<section class="sec" id="how" style="padding-top:18px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what it holds</div>
-      <h2>Not a PDF audit. A graph that grades itself.</h2>
+      <h2>A graph that grades itself.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>CBOM</h3><p>CycloneDX 1.6, one component per unique asset and risk class, every occurrence attached. It plugs into the same supply-chain tooling that already tracks your SBOMs, so cryptography stops living in its own isolated report.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Harvest now, decrypt later</h3><p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. The migration clock is already running.</p>
-        <details class="sheet" data-sheet-kicker="the risk model" data-sheet-title="Six risk classes, and a clock that started without you">
-          <summary>How an asset is scored</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">Every asset Qryx finds is scored against a post-quantum and hygiene model, not a single pass-or-fail line.</p>
-            <div class="tbl-scroll" style="margin-top:14px">
-              <table class="tbl">
-                <thead><tr><th>Class</th><th>Examples</th><th>Why it is called that</th></tr></thead>
-                <tbody>
-                  <tr><td class="mono">quantum-vulnerable</td><td>RSA, ECC, DSA, DH</td><td>breakable by Shor's algorithm on a capable quantum computer</td></tr>
-                  <tr><td class="mono">weak</td><td>MD5, SHA-1, DES, RC4, RSA under 2048</td><td>broken or deprecated already, no quantum computer required</td></tr>
-                  <tr><td class="mono">misconfig</td><td>TLS 1.0 and 1.1, unsafe cipher suites</td><td>a sound primitive used unsoundly</td></tr>
-                  <tr><td class="mono">expired</td><td>past-due certificates</td><td>the validity window has elapsed</td></tr>
-                  <tr><td class="mono">hardcoded</td><td>private keys in source or config</td><td>a secret committed into the tree</td></tr>
-                  <tr><td class="yes mono">safe</td><td>ML-KEM, ML-DSA, SLH-DSA</td><td>the post-quantum standards, FIPS 203, 204 and 205</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:16px">The timeline is not ours to argue with. NIST standardised the replacements in 2024, and the NCSC clock runs discovery by 2028, the highest-priority systems by 2031, and everything by 2035. The first of those dates is about knowing what you have, which is the part that takes longest and cannot be bought late.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d2"><h3>Post-quantum signing</h3><p>Evidence attestations sign with ML-DSA (FIPS 204) straight from Go's stdlib, crypto/mldsa, no cosign dependency. All three security levels, ML-DSA-44/65/87, live-verified end to end against real openssl-generated keys.</p></div>
-      <div class="card hover feature b-4 rv"><h3>Context beats compliance</h3><p>The asset graph keys on risk class as well as algorithm and key size, so a certificate that is both expired and quantum-vulnerable gets two findings instead of one silently overwriting the other.</p>
-        <details class="sheet" data-sheet-kicker="counting honestly" data-sheet-title="Two findings, not one, and why test crypto is not debt">
-          <summary>What the count leaves out</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">Keying the graph on risk class as well as algorithm and key size sounds like a detail until a certificate is both expired and quantum-vulnerable and you only hear about one of them. That exact bug turned up scanning a real endpoint, and it is fixed: an asset in two risk classes produces two findings, because they need two different fixes on two different clocks.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The opposite failure is inflation. Cryptography in test code is scanned and counted, then kept out of the production inventory: out of the asset graph, the compliance verdict, the policy gate, the saved baseline and every export. One line on stderr says how much was set aside and how much of it exists nowhere else, and a flag counts it as production if that is what you want.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">This is not cosmetic. Scanning Qryx's own repository, 8 of 13 assets existed only in test fixtures, and 21 of 40 occurrences were test code. In a sibling repository a hardcoded-key finding reported three occurrences, two of them fixtures. Counting those inflates the number an operator is trying to drive to zero, and buries the findings they actually have to migrate.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The classification is not merely path-based either: Rust's in-file test modules are recognised, so an inline test block inside a production file is set aside while the production code around it still counts.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d1"><h3>CI drift gate</h3><p>Snapshot the graph, then fail the build the moment a new weak or quantum-vulnerable asset appears: a baseline diff exits 2 on new high-risk findings. The policy engine exits 3 on a standards violation; a regressed compliance trend exits 3 too.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Agent-aware</h3><p>The agents connector inventories the governance stack's own trust surface: Agent Passport attestation crypto and the agent-event hash chain's prev_hash integrity. Identity stays Idryx's job; this connector stays strictly on the crypto axis.</p></div>
+      <div class="card hover feature b-6 rv"><h3>CBOM</h3><p>CycloneDX 1.6, one component per unique asset and risk class, every occurrence attached. It plugs into the same supply-chain tooling that already tracks your SBOMs.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Harvest now, decrypt later</h3><p>Data encrypted with a quantum-vulnerable algorithm today can be captured now and decrypted once a cryptographically relevant quantum computer exists. The migration clock is already running.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Post-quantum signing</h3><p>Evidence attestations sign with ML-DSA (FIPS 204) straight from Go's stdlib, crypto/mldsa, no cosign dependency.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>CI drift gate</h3><p>Snapshot the graph, then fail the build the moment a new weak or quantum-vulnerable asset appears: a baseline diff exits 2 on new high-risk findings.</p></div>
     </div>
-  </div>
-</section>
-
-<!-- ================= COMPARISON ================= -->
-<section class="sec" style="padding-top:14px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div class="kicker">what it reads</div>
-      <h2>You cannot migrate what you cannot see.</h2>
-      <p class="lede">Qryx reads binaries, container images, live TLS endpoints, certificates, dependencies, cloud KMS and source code, and puts them into one graph graded against the CNSA 2.0 and NCSC milestones.</p>
-    </div>
-    
   </div>
 </section>
 
 <!-- ================= IN THE STACK ================= -->
 <section class="sec" style="padding-top:14px">
   <div class="wrap">
-    <div class="bento">
-      <div class="card b-8 rv">
-        <div class="kicker">in the stack</div>
-        <h3 style="margin-top:12px">The inventory the rest of the stack borrows from.</h3>
-        <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-          Qryx emits every finding as an agent-event onto the shared bus that <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> defines and every service writes to. It watches the same estate <a href="tokenfuse.html" data-dir="fwd" style="color:var(--amber)">TokenFuse</a> spends against, the binaries, endpoints and keys underneath the calls TokenFuse meters. <a href="mockryx.html" data-dir="fwd" style="color:var(--coral)">Mockryx</a> can demand a crypto reaction in its drills too: an expect.event assertion that a fire drill actually produced a crypto_finding, not silence.</p>
-          <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.65">Crypto posture is one plane of a wider practice: <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a>, and the defensive picture in <a href="../ai-agent-security.html" style="color:var(--accent)">AI agent security</a>.</p>
-      </div>
-      <div class="card b-4 rv d1">
-        <div class="kicker" style="--accent:var(--mint)">try it now</div>
-        <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>scan</b> .</span></div>
-          <div class="install" style="border:none;padding:0;background:transparent"><span class="cmd">qryx <b>tls</b> api.anthropic.com:443</span></div>
-          <p class="dim" style="font-size:13px;line-height:1.6">Grab the latest binary from the <a href="https://github.com/TAIPANBOX/qryx/releases" style="color:var(--dim);text-decoration:underline">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source with Go 1.27; the pinned go1.27.2 toolchain downloads itself on the first build.</p>
-          <details class="sheet" data-sheet-kicker="download" data-sheet-title="qryx, every platform">
-            <summary>Download, any platform</summary>
-            <div class="sheet-in">
-              <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/qryx_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/qryx/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>
-              <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:14px">Every one of those addresses always serves the newest release, so a link saved today still works after the next one. The asset names carry no version, which is what makes that true; the version lives inside the binary, where <span class="mono" style="font-size:12px">qryx version</span> reads it back.</p>
-            </div>
-          </details>
-        </div>
+    <div class="sec-head rv">
+      <div class="kicker">in the stack</div>
+      <h2>The inventory the rest of the stack borrows from.</h2>
+      <p class="lede">Qryx emits every finding as an agent-event onto the shared bus that <a href="platform.html" data-dir="fwd" style="color:var(--steel)">Platform</a> defines and every service writes to. Crypto posture is one plane of a wider practice: <a href="../ai-agent-governance.html" style="color:var(--accent)">AI agent governance</a>, and the defensive picture in <a href="../ai-agent-security.html" style="color:var(--accent)">AI agent security</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RUN IT ================= -->
+<section class="sec" id="run" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">try it now</div>
+      <h2>One binary, any platform.</h2>
+      <p class="lede">Grab the latest binary from the <a href="https://github.com/TAIPANBOX/qryx/releases" style="color:var(--accent)">releases page</a> (Linux, macOS, Windows, SHA256SUMS included), or build from source with Go 1.27; the pinned go1.27.2 toolchain downloads itself on the first build.</p>
+    </div>
+    <div class="install rv">
+      <code class="cmd">qryx <b>scan</b> .</code>
+    </div>
+    <div class="install rv d1" style="margin-top:12px">
+      <code class="cmd">qryx <b>tls</b> api.anthropic.com:443</code>
+    </div>
+    <div class="cta-row rv d2" style="margin-top:18px">
+      <a class="btn" href="../qryx-guide.html#run">Full install and configuration in the guide <span class="mono">&#8594;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What it leaves out, on purpose.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>Identity stays Idryx's job; the agents connector stays strictly on the crypto axis.</li>
+        <li>Cryptography in test code is scanned and counted, then kept out of the production inventory; a flag counts it as production if that is what you want.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE CORRIDOR ================= -->
+<section class="sec" style="padding-top:6px;padding-bottom:10px">
+  <div class="wrap">
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Qryx guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../qryx-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="../qryx-guide.html#risk-model">The risk model</a>
+        <a class="btn" href="../qryx-guide.html#run">Running it</a>
+        <a class="btn" href="../qryx-guide.html#changes">What changed</a>
+        <a class="btn" href="../qryx-guide.html#limits">Limits</a>
       </div>
     </div>
-    <div data-edge-nav></div>
   </div>
 </section>
 
@@ -338,7 +341,7 @@
 
 <script src="../assets/site.js?v=e13"></script>
 <script src="../assets/sheet.js?v=e06"></script>
-<script src="../assets/sim.js?v=e13"></script>
+<script src="../assets/sim.js?v=e14"></script>
 <script src="../assets/stages/qryx.js"></script>
 <script src="../assets/diagram.js"></script>
 <script src="../assets/ambient.js"></script>

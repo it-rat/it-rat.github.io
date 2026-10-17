@@ -56,23 +56,33 @@ Sim.registerStage("typed",function(o,cfg){
   return{
     minHeight:400,
     draw(ctx,w,h,t){
-      const padL=16,padR=16,padT=34,padB=100, iw=w-padL-padR, ih=h-padT-padB;
+      /* a phone-width canvas (about 324 px) cannot hold the caption or the
+         readout on one line, and the door and filter sit too close for their
+         labels to share a row; there the caption and readout break into
+         stacked lines and the two gate labels lean away from each other. The
+         wide layout is the one it always had. */
+      const CAPTION="60 judgements · qwen2.5:7b · openai-logprobs · 2026-09-25 · real run 9.44 s, replayed about 2× slower";
+      ctx.font="10px ui-monospace,Menlo,monospace";
+      const narrow=ctx.measureText(CAPTION).width>w-32;
+      const capLines=narrow?["60 judgements · qwen2.5:7b · openai-logprobs","2026-09-25 · real run 9.44 s,","replayed about 2× slower"]:[CAPTION];
+      const padL=16,padR=16,padT=narrow?62:34,padB=narrow?126:100, iw=w-padL-padR, ih=h-padT-padB;
       const doorPx=padL+iw*doorX, gatePx=padL+iw*gateX;
       const histX0=padL+iw*0.28, histX1=w-padR;
       const Y=v=>padT+ih*(1-U.clamp(v,0,1));
 
       /* caption: what this is, and the real-time compression, in the canvas
          itself since the mount title above it is fixed text */
-      ctx.textAlign="left";ctx.font="10px ui-monospace,Menlo,monospace";
+      ctx.textAlign="left";
       ctx.fillStyle="rgba("+P.dim+",.7)";
-      ctx.fillText("60 judgements · qwen2.5:7b · openai-logprobs · 2026-09-25 · real run 9.44 s, replayed about 2× slower",padL,16);
+      capLines.forEach((ln,i)=>ctx.fillText(ln,padL,16+i*12));
 
       /* door and egress filter, near the left where new asks arrive */
-      [[doorPx,"door",P.steel],[gatePx,"egress filter",P.violet]].forEach(([gx,label,col])=>{
+      [[doorPx,"door",P.steel,"right",-4],[gatePx,"egress filter",P.violet,"left",4]].forEach(([gx,label,col,side,dx])=>{
         ctx.strokeStyle="rgba("+col+",.28)";ctx.lineWidth=1.4;ctx.setLineDash([3,4]);
         ctx.beginPath();ctx.moveTo(gx,padT);ctx.lineTo(gx,padT+ih);ctx.stroke();ctx.setLineDash([]);
-        ctx.fillStyle="rgba("+col+",.8)";ctx.font="9px ui-monospace,Menlo,monospace";ctx.textAlign="center";
-        ctx.fillText(label,gx,padT-6);
+        ctx.fillStyle="rgba("+col+",.8)";ctx.font="9px ui-monospace,Menlo,monospace";
+        if(narrow){ctx.textAlign=side;ctx.fillText(label,gx+dx,padT-8);}
+        else{ctx.textAlign="center";ctx.fillText(label,gx,padT-6);}
       });
 
       /* grid + 0/1 axis for the history strip */
@@ -133,11 +143,13 @@ Sim.registerStage("typed",function(o,cfg){
             ctx.fillText(lab,x+bw/2,by0+bh+12);
             if(rp>0.9) ctx.fillText(v.toFixed(3),x+bw/2,by0+bh-barH(v)-5>by0+8?by0+bh-barH(v)-5:by0+8);
           });
+          /* the verdict goes under the two bars, centred on them: above
+             them it sat on the egress-filter label and the 1.0 tick */
           if(u>0.92){
             const verdict=cur.pred===1?"true":"false";
-            ctx.textAlign="left";ctx.font="10.5px ui-monospace,Menlo,monospace";
+            ctx.textAlign="center";ctx.font="10.5px ui-monospace,Menlo,monospace";
             ctx.fillStyle="rgba("+P.fg+",.85)";
-            ctx.fillText("verdict: "+verdict,gx0,by0-8);
+            ctx.fillText("verdict: "+verdict,gx0+bw+4,by0+bh+27);
           }
         }
       }
@@ -146,10 +158,13 @@ Sim.registerStage("typed",function(o,cfg){
       const meanConf = arrived? items.slice(0,arrived).reduce((s,it)=>s+Math.max(it.p,1-it.p),0)/arrived : 0;
       ctx.textAlign="left";ctx.font="10.5px ui-monospace,Menlo,monospace";
       ctx.fillStyle="rgba("+P.fg+",.85)";
-      ctx.fillText("asked "+arrived+"/"+N+"   right "+right+"   failed-a-right-answer "+strict+"   stated conf (avg) "+meanConf.toFixed(3),padL,h-padB+16);
+      const rd=["asked "+arrived+"/"+N,"right "+right,"failed-a-right-answer "+strict,"stated conf (avg) "+meanConf.toFixed(3)];
+      const rdLines=narrow?[rd[0]+"   "+rd[1],rd[2],rd[3]]:[rd.join("   ")];
+      rdLines.forEach((ln,i)=>ctx.fillText(ln,padL,h-padB+16+i*13));
 
       /* reliability inset: this run's own 10 bins, filling in as items land */
-      const iy=h-padB+30, ih2=padB-38, ix=padL, iw2=w-padL-padR;
+      const extra=(rdLines.length-1)*13;
+      const iy=h-padB+30+extra, ih2=padB-38-extra, ix=padL, iw2=w-padL-padR;
       ctx.strokeStyle="rgba(255,255,255,.08)";ctx.lineWidth=1;
       ctx.strokeRect(ix,iy,iw2,Math.max(0,ih2));
       ctx.fillStyle="rgba("+P.dim+",.75)";ctx.font="9px ui-monospace,Menlo,monospace";ctx.textAlign="left";
@@ -174,7 +189,9 @@ Sim.registerStage("typed",function(o,cfg){
       /* playhead */
       const px=padL+iw*Math.min(t,W)/W;
       ctx.strokeStyle="rgba("+P.fg+",.35)";ctx.lineWidth=1;
-      ctx.beginPath();ctx.moveTo(px,4);ctx.lineTo(px,padT-2);ctx.stroke();
+      /* stacked, the caption would have the playhead through all three
+         lines; there it starts under them */
+      ctx.beginPath();ctx.moveTo(px,narrow?16+12*(capLines.length-1)+6:4);ctx.lineTo(px,padT-2);ctx.stroke();
     }
   };
 });

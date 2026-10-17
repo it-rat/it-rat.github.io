@@ -131,6 +131,7 @@
   .prov b{color:var(--fg);font-weight:600}
   .prov.loc{border-color:color-mix(in srgb,var(--mint) 45%,var(--line-2))}
   .prov.byo{border-color:color-mix(in srgb,var(--amber) 40%,var(--line-2))}
+  .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["SoftwareApplication","WebApplication"],"name":"Genaryx","url":"https://it-rat.com/genaryx.html","description":"Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/genaryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires a modern browser with WebAuthn support"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Genaryx","item":"https://it-rat.com/genaryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Genaryx free, or is there a paid tier above it?","acceptedAnswer":{"@type":"Answer","text":"It is Apache-2.0, the same licence as every service under it, and an Apache grant on a version already released cannot be taken back afterwards. There is no tier above it, no seat count, no licence key and no account to create."}},{"@type":"Question","name":"Is it open source, or open core with the useful parts held back?","acceptedAnswer":{"@type":"Answer","text":"Open source, and nothing is held back. The console is one repository, TAIPANBOX/genaryx , and every tab in the screenshots above is built from it. There is no edition kept beside it, held back or otherwise."}},{"@type":"Question","name":"Is Genaryx a desktop application?","acceptedAnswer":{"@type":"Answer","text":"No. The core is a Rust binary running on infrastructure you own, and you open the console in a browser. Nothing is installed on a laptop, which is the point at 2am when the person on call is using whatever machine is nearest. Reaching a private plane is the console's own WireGuard tunnel rather than a VPN somebody has to maintain."}},{"@type":"Question","name":"What does the console add that the services do not already do?","acceptedAnswer":{"@type":"Answer","text":"One window over every plane, and three things no single service has a place to put: a destructive action confirmed by the passkey in your hand and journaled with the reason you typed, an incident feed sorted worst-first across every plane, and one signed evidence pack carrying EU AI Act, SR 11-7 and SOC 2 mappings. You can run the open stack by hand in one command, and plenty of teams should. The console is for the point where the person on call is not the person who built it."}}]}]}</script>
@@ -162,10 +163,11 @@
       <div>
         <div class="kicker rv">genaryx &#183; the control room over the stack</div>
         <h1 class="rv d1"><span class="nm">Genaryx</span>. One control room over the whole agent stack.</h1>
-        <p class="lede rv d2">The open services each govern one plane of an agent fleet. Genaryx is the console built on top of them for companies that run real fleets. It runs on your own infrastructure and you open it in a browser: money, policy, identity, quality, crypto, memory, drills and evidence in one window, a kill switch confirmed per action by a passkey in your hand, remote reach over its own WireGuard tunnel, and Felyx - a local-first AI copilot that can read everything and touch nothing. Self-hosted on infrastructure you own, any cloud or on-prem: your plane, your data. It is Apache-2.0 like the services under it, and the people who wrote it are available if you want them.</p>
+        <p class="lede rv d2">The open services each govern one plane of an agent fleet. Genaryx is the console built on top of them for companies that run real fleets. It runs on your own infrastructure and you open it in a browser.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#console">See the real app <span class="mono">&#8594;</span></a>
           <a class="btn" href="#felyx">Felyx, the copilot</a>
+          <a class="btn" href="genaryx-guide.html">The full guide</a>
           <a class="btn" href="https://github.com/TAIPANBOX/genaryx" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="flex:0 0 auto"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg> GitHub</a>
         </div>
       </div>
@@ -190,7 +192,7 @@
       <div class="kicker" style="--accent:var(--mint)">first, the honest part</div>
       <h3 style="margin-top:12px">The open stack stays open.</h3>
       <p style="margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65">
-        Genaryx is Apache-2.0, like everything under it. It is the room built on top of the open services, for teams that want one pane of glass, passkey ceremonies and an incident feed instead of a dashboard per plane and a terminal, and you can read every line of it before you run it. The frames here are the real console UI from the demo build, on simulated data for a fictional tier-1 bank, <span class="mono" style="font-size:12.5px">meridian.example</span>. The live run is in what is proven.</p>
+        Genaryx is Apache-2.0, like everything under it. It is the room built on top of the open services, and you can read every line of it before you run it.</p>
     </div>
   </div>
 </section>
@@ -201,22 +203,9 @@
     <div class="sec-head rv">
       <div class="kicker">why a room over a stack</div>
       <h2>What the console adds that the stack alone does not.</h2>
-      <p class="lede">You can stand up the open stack's live services yourself in one command, and plenty of teams should. Genaryx exists for the moment the fleet stops being a side project: when the person on call is not the person who built it, when an auditor asks for proof, when 2am happens.</p>
+      <p class="lede">Genaryx exists for the moment the fleet stops being a side project: when the person on call is not the person who built it, when an auditor asks for proof, when 2am happens.</p>
     </div>
-    <div class="tbl-scroll rv">
-      <table class="tbl">
-        <thead><tr><th></th><th>The open stack, by hand</th><th>Genaryx</th></tr></thead>
-        <tbody>
-          <tr><td>One place to look</td><td class="warn">Per-service dashboards, curl, logs</td><td class="yes">One console, twenty tabs over one Rust core</td></tr>
-          <tr><td>Killing a runaway</td><td class="warn">A curl with an admin key</td><td class="yes">A break-glass ceremony over a device signature the plane already verifies: a passkey, a typed reason journaled beside it</td></tr>
-          <tr><td>Reaching a private plane</td><td class="warn">SSH tunnels you babysit</td><td class="yes">Your box issues each device its own peer config, lists what holds access, and revokes one in a click; the console answers only inside that tunnel</td></tr>
-          <tr><td>On call at 2am</td><td class="no">Laptop, VPN, luck</td><td class="yes">Your console from any browser over your own tunnel, incidents sorted worst-first, and the destructive step re-signed by the passkey in your hand</td></tr>
-          <tr><td>When something is off</td><td class="warn">You read six dashboards</td><td class="yes">Felyx explains it across planes with cited ids - and can only propose, never act</td></tr>
-          <tr><td>Proving it to an auditor</td><td class="warn">Exports from each service</td><td class="yes">One signed evidence pack: EU AI Act, SR 11-7, SOC 2 mappings built in</td></tr>
-          <tr><td>Where your data lives</td><td class="yes">Your infrastructure</td><td class="yes">Still yours: AWS, GCP, Hetzner and other clouds, or on-prem</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="cta-row rv" style="margin-top:0"><a class="btn" href="genaryx-guide.html#why">The console beside the stack by hand, in the guide <span class="mono">&#8594;</span></a></div>
   </div>
 </section>
 
@@ -226,7 +215,7 @@
     <div class="sec-head rv">
       <div class="kicker">the console, frame by frame</div>
       <h2>One Rust core. Fifteen frames you can open yourself.</h2>
-      <p class="lede">Every frame below is the demo above, which is the console itself on simulated data: $35,818 of AI spend in the rolling window across 42 agents and 4,466,489 model calls, one runaway already killed by hand and its cap proposed by the copilot. Nothing here is a mock-up and nothing leaves your browser, so you can open the demo, click the same tabs and land on the same screens. The view groups nav in a left rail, keeps a right dock of whatever you pinned to watch, and drills any agent into a single 360 drawer. What this console did on a real box against a live plane, where it killed a runaway on live traffic, is written up in <a href="what-is-proven.html">what is proven</a>.</p>
+      <p class="lede">Every frame below is the demo above, which is the console itself on simulated data. What this console did on a real box against a live plane, where it killed a runaway on live traffic, is written up in <a href="what-is-proven.html">what is proven</a>.</p>
     </div>
     <div class="gxc-demo rv">
       <a class="gxc-cta" href="demo/" target="_blank" rel="noopener">
@@ -244,67 +233,67 @@
         <div class="gxc-track" id="gxc-track" tabindex="0" role="region" aria-label="Frames from the demo above, use the arrow keys to move">
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-overview.webp?v=e04" alt="Genaryx Overview" width="1760" height="1138">
-            <figcaption><b>Overview</b>$35,818 of AI spend in the rolling window, $3,755 of it recovered by governance, 46 runs live across 4,466,489 model calls, and an incident centre naming every open one.</figcaption>
+            <figcaption><b>Overview</b>$35,818 of AI spend in the rolling window.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-incidents.webp?v=e04" alt="Genaryx Incidents stream" width="1760" height="1138">
-            <figcaption><b>Incidents</b>One stream for every plane: idryx shadow tools and an unsanctioned MCP server beside wardryx policy holds and a tokenfuse taint, filtered by source, by severity or by text.</figcaption>
+            <figcaption><b>Incidents</b>One stream for every plane, filtered by source, by severity or by text.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-money.webp?v=e04" alt="Genaryx Money board" width="1760" height="1138">
-            <figcaption><b>Money</b>Every run against its cap, with Replay, Cap and Kill on the row, and the governed savings split into blocked runaways, semantic cache and model router.</figcaption>
+            <figcaption><b>Money</b>Every run against its cap, with Replay, Cap and Kill on the row.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-agent360.webp?v=e04" alt="Genaryx Agent 360 drawer" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Agent 360</b>One agent in one drawer: who delegated to it and whom it delegates to, 140,148 events, its rhythm against a 52 day median, and 31 stops of which none named a person.</figcaption>
+            <figcaption><b>Agent 360</b>One agent in one drawer.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-statistics.webp?v=e04" alt="Genaryx Statistics by agent" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Statistics</b>42 agents attributed: spend, calls, what was blocked, what an operator stopped by hand, odd behaviour and the worst breach, out as CSV or JSON.</figcaption>
+            <figcaption><b>Statistics</b>42 agents attributed, out as CSV or JSON.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-policy.webp?v=e04" alt="Genaryx Policy decision stream" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Policy</b>Six approvals waiting on a human, and a live decision stream where every hold carries its reason: cost approaching the per-run ceiling, or past the human-approval threshold.</figcaption>
+            <figcaption><b>Policy</b>Six approvals waiting on a human.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-identity.webp?v=e04" alt="Genaryx Identity snapshot" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Identity</b>45 identities off the idryx snapshot, 14 of them privileged, 5 alerts, one attestation gap, and a line saying which button re-reads and which one runs a fresh detect pass.</figcaption>
+            <figcaption><b>Identity</b>45 identities off the idryx snapshot, 14 of them privileged.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-graph.webp?v=e04" alt="Genaryx delegation graph" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Graph</b>42 agents, 20 users, 61 links, node size following event volume, and the runaway sitting red in the middle of its own delegation chain.</figcaption>
+            <figcaption><b>Graph</b>The runaway sitting red in the middle of its own delegation chain.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-bus.webp?v=e04" alt="Genaryx Bus Explorer" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Bus Explorer</b>The raw bus, 500 events live, and 12 lines the envelope refused named at their file and offset, because a line nobody can parse must not quietly disappear.</figcaption>
+            <figcaption><b>Bus Explorer</b>12 lines the envelope refused, named at their file and offset.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-egress.webp?v=e04" alt="Genaryx Web Egress" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Web Egress</b>Ten fetches: eight through, two refused by policy and by address range, and a note saying a quarter of them were governed at navigation only rather than per request.</figcaption>
+            <figcaption><b>Web Egress</b>Ten fetches: eight through, two refused.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-quality.webp?v=e04" alt="Genaryx Quality evals" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Quality</b>Six eval runs read from verdryx, the latest scoring 0.950 over 30 cases for 36 cents, held against three saved baselines.</figcaption>
+            <figcaption><b>Quality</b>Six eval runs read from verdryx.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-copilot.webp?v=e04" alt="Genaryx Copilot, Felyx" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Copilot</b>Felyx on a local model, asked which agent was the runaway: it names it, prices it at $3,828.51, and proposes a cap that a person still has to approve.</figcaption>
+            <figcaption><b>Copilot</b>Felyx names the runaway and proposes a cap that a person still has to approve.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-memory.webp?v=e04" alt="Genaryx Memory, the engram store" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Memory</b>The engram store as the console sees it: 52 memories, 21 facts active, 31 episodic, and a procedural store this version says plainly it does not implement.</figcaption>
+            <figcaption><b>Memory</b>A procedural store this version says plainly it does not implement.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-posture.webp?v=e04" alt="Genaryx Posture zonds" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Posture</b>Zonds over the whole stack: governance fail-open with zero policies, idryx reachable off the box, attestation coverage flagged medium, each with the fix written under it.</figcaption>
+            <figcaption><b>Posture</b>Zonds over the whole stack, each with the fix written under it.</figcaption>
           </figure>
           <figure class="gxc-teaser">
             <img src="assets/shots/enterprise/gx-remote.webp?v=e04" alt="Genaryx Remote, any infrastructure" width="1760" height="1138" loading="lazy">
-            <figcaption><b>Remote</b>It reaches a stack you already run, on Hetzner, AWS, Azure, Google Cloud and eight more or bare metal, over your own WireGuard tunnel plus SSH.</figcaption>
+            <figcaption><b>Remote</b>It reaches a stack you already run over your own WireGuard tunnel.</figcaption>
           </figure>
         </div>
       </div>
-      <div class="gxc-note">fifteen frames from the demo, click any still to open it full screen &#183; the demo is the whole console, every tab, live &#183; one Rust core behind every screen</div>
+      <div class="gxc-note">click any still to open it full screen</div>
     </div>
   </div>
 </section>
@@ -315,19 +304,7 @@
     <div class="sec-head rv">
       <div class="kicker">felyx &#183; the copilot</div>
       <h2>An AI that reads everything and can touch nothing.</h2>
-      <p class="lede">Felyx is the fleet's analyst. It answers money questions with numbers pulled by tools, chains an incident across money, identity, policy and memory into a root cause with cited ids, drafts the kill you were about to write, and annotates the page that wakes you. It is also an AI we can honestly ask you to trust, because the trust is structural, not a system prompt.</p>
-    </div>
-    <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>Local first, by default</h3><p>Out of the box Felyx talks to a model on your own hardware: Ollama, LM Studio, vLLM - any OpenAI-compatible endpoint on localhost or your private network. A residency gate refuses any other destination unless the operator opts out (off by default) or names extra hosts in GENARYX_COPILOT_LOCAL_HOSTNAMES, so a sensitive install cannot leak a prompt or a number by misconfiguration.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Cloud only if you choose it</h3><p>An operator can explicitly opt into a bring-your-own-key cloud model - Anthropic or OpenRouter - per install, in config, off by default. The app's residency banner always states which mode you are in; there is no silent fallback.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Numbers from tools, never vibes</h3><p>Every figure in an answer comes from a typed read tool over the same connectors the tabs use. The model does not do arithmetic in prose, and when a plane is not configured Felyx says what it cannot see instead of inventing it. Budgets come from a tool that reads the Cloud's own run and unit budgets with their spend, and a draft that states a budget no tool returned is sent back once for revision. Measured on 2026-10-05 on the forge lab against the Cloud's own figures read the same minute; the check covers budget statements, not every run id an answer names.</p></div>
-      <div class="card hover feature b-4 rv"><h3>No signing key. Not restrained - absent.</h3><p>The copilot crate has no dependency on the signing crate, and a build-time test asserts it stays that way. A proposal becomes action only through the same passkey ceremony a human uses (Touch ID, Windows Hello or a security key); the journal names the human who approved a copilot proposal, and the copilot is never the actor.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>It cannot silence an alert</h3><p>The hard floor is deterministic code: an over-cap or runaway event fires immediately, before any model is called. Felyx may only add a short annotation inside a strict time budget. A slow, wrong or absent model changes nothing about whether you get alerted.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Metered like any other agent</h3><p>Felyx's own LLM calls carry their own run id and agent id, so pointed at the stack's TokenFuse gateway the assistant that watches your budgets has a budget: visible, cappable, killable. Where the gateway runs client keys, Felyx presents its own, named by GENARYX_COPILOT_FUSE_KEY_REF (env:NAME or file:PATH); without it the gateway refuses each question with a 401. Through that gateway, with policy enforced, it answered across the planes and stopped at its run budget with a 402. The thesis, dogfooded.</p></div>
-    </div>
-    <div class="felyx-quote rv">
-      <div class="q">&#8220;An annotation names a stuck batch job, says it is burning resources unattended, and asks for one decision: review it and kill it now.&#8221;</div>
-      <div class="src">a paraphrase of the annotation felyx writes on a HARD page, not a recorded capture &#183; the deterministic alert goes out first</div>
+      <p class="lede">Felyx is the fleet's analyst. It is also an AI we can honestly ask you to trust, because the trust is structural, not a system prompt.</p>
     </div>
     <div class="prov-row rv d1">
       <span class="prov loc"><b>Ollama</b> &#183; local</span>
@@ -337,6 +314,7 @@
       <span class="prov byo"><b>Anthropic</b> &#183; BYO key, opt-in</span>
       <span class="prov byo"><b>OpenRouter</b> &#183; BYO key, opt-in</span>
     </div>
+    <div class="cta-row rv" style="margin-top:18px"><a class="btn" href="genaryx-guide.html#felyx">How Felyx is held, in the guide <span class="mono">&#8594;</span></a></div>
   </div>
 </section>
 
@@ -346,7 +324,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>Your plane stays yours. Every path in is signed.</h2>
-      <p class="lede">The console reaches a client-hosted Cloud from inside your own WireGuard tunnel, so the control plane never faces the internet. Any browser on that tunnel is the whole client story: a desk at noon, a sofa at 2am, same console, same ceremonies. And Felyx sits beside it with no signing key at all.</p>
+      <p class="lede">The console reaches a client-hosted Cloud from inside your own WireGuard tunnel, so the control plane never faces the internet. And Felyx sits beside it with no signing key at all.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 980 360" role="img" aria-label="Genaryx architecture: console over WireGuard to a firewalled Cloud plane; any browser on the tunnel opens the same console; Felyx with no signer">
@@ -401,36 +379,17 @@
 </section>
 
 <!-- ================= TECHNOLOGY ================= -->
-<section class="sec" style="padding-top:14px">
+<section class="sec" id="how" style="padding-top:14px">
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">the technology</div>
       <h2>One shell. One Rust brain. Hardware where it counts.</h2>
     </div>
     <div class="bento">
-      <div class="card hover feature b-4 rv"><h3>One core, one shell</h3><p>The browser console is the product, and it is deliberately thin: every screen is a call into one shared Rust command layer - stores, connectors, ceremonies, the graph all live in the core, never in a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Hardware signatures, shipped</h3><p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action still works and is journaled software-signed, labeled honestly.</p>
-        <details class="sheet" data-sheet-kicker="hardware signatures" data-sheet-title="What the console signs, and what it writes down">
-          <summary>How the ceremony works</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">The console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. A signature over a different command, or over the same command with different arguments, does not verify.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">No passkey enrolled yet? The action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv d2"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name and nowhere else, and it never faces the internet.</p>
-        <details class="sheet" data-sheet-kicker="wireguard, but yours" data-sheet-title="Why the tunnel, and what the certificate is actually for">
-          <summary>The tunnel in detail</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">The tunnel is raised by your own client, not by anything of ours. On the box itself the console is bound to loopback, so the only way in is the tunnel.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">The certificate is not decoration: a passkey ceremony cannot run without one, because WebAuthn refuses both an insecure context and a bare IP as the party it binds credentials to.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Every device that holds a way in is listed, and revoking one cuts it off at the next handshake. Issuing and revoking both take a passkey, because a road into the control plane is not something a stolen session should mint quietly. SSH stays for ops; the console does not need it.</p>
-          </div>
-        </details>
-      </div>
-      <div class="card hover feature b-4 rv"><h3>An audit trail that proves itself</h3><p>Every governance event the stack emits carries the SHA-256 of the event before it, computed over RFC 8785 canonical JSON: one file, one chain, restarts included. Tampering does not hide, it breaks the chain exactly where it happened, and <span class="mono">agent-conform -chain</span> verifies a journal in one command.</p></div>
-      <div class="card hover feature b-4 rv d1"><h3>Post-quantum, already</h3><p>Evidence packs are tamper-evident two ways: every artifact is kept byte for byte, and a manifest signed with the console's device key (ES256) records each artifact's sha256. A Qryx artifact in the pack keeps its own ML-DSA (FIPS 204) signature; the console does not sign with ML-DSA. And Qryx audits your fleet's own crypto against the NCSC and CNSA 2.0 migration timelines, so you know what will break before an adversary does.</p></div>
-      <div class="card hover feature b-4 rv d2"><h3>Self-hosted, your cloud or on-prem</h3><p>We never run your Cloud plane or hold your data. The plane lives on infrastructure you own - AWS, GCP, Hetzner, any cloud or on-prem - reached only over WireGuard. Nothing to subpoena or breach on our side.</p></div>
+      <div class="card hover feature b-6 rv"><h3>One core, one shell</h3><p>The browser console is the product, and it is deliberately thin: every screen is a call into one shared Rust command layer.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Hardware signatures, shipped</h3><p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key.</p></div>
+      <div class="card hover feature b-6 rv"><h3>WireGuard, but yours</h3><p>Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>An audit trail that proves itself</h3><p>Every governance event the stack emits carries the SHA-256 of the event before it. Tampering does not hide, it breaks the chain exactly where it happened.</p></div>
     </div>
   </div>
 </section>
@@ -447,31 +406,39 @@
         <div class="kicker" style="--accent:var(--mint)">reported, not yet in the record</div>
         <ul class="proof">
           <li>A laptop on the public internet opened the console over a tunnel this box issued itself, with no other route in.</li>
-          <li>Issuing a device and revoking one each needed a touch on the operator's own authenticator, journaled <span class="mono" style="font-size:12.5px">webauthn-es256</span>.</li>
-          <li>Every one of those records carries the hash of the event before it, and the stack's own checker verifies the chain.</li>
           <li>A device-signed kill went through a real fleet, against a plane closed to the internet.</li>
           <li>Felyx, on a live local model, named the caught runaway and filed a capped proposal only a human could approve, on 42 agents.</li>
         </ul>
-        <details class="sheet" data-sheet-kicker="reported, not yet in the record" data-sheet-title="The runs described behind each of those lines; none is cited here yet">
-          <summary>What the reported runs describe</summary>
-          <div class="sheet-in">
-            <p class="dim" style="font-size:14px;line-height:1.7">A laptop on the public internet imported the peer config this box issued itself, completed a handshake against the box's published UDP port, and opened the console over TLS inside that tunnel, from a machine that had no other route to it. It then enrolled a passkey and issued a second device, and that action was refused until the operator confirmed it on their own authenticator: the journal records it signed <span class="mono" style="font-size:13px">webauthn-es256</span>, naming the credential they touched. Revoking a device cut it off the same way.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Every one of those records carries the hash of the event before it, and the stack's own conformance checker verifies the chain they sit in. The console has separately driven a real fleet and put a device-signed kill through it, against a plane closed to the internet.</p>
-            <p class="dim" style="font-size:14px;line-height:1.7;margin-top:12px">Felyx has run against a live local model, named the caught runaway and what it burned, and filed a capped-budget proposal only a human could approve, on a fleet of 42 agents. No run is cited for this yet.</p>
-          </div>
-        </details>
+        <div class="cta-row" style="margin-top:16px"><a class="btn" href="genaryx-guide.html#limits">The runs behind these, in the guide <span class="mono">&#8594;</span></a></div>
       </div>
       <div class="card b-6 rv d1">
         <div class="kicker" style="--accent:var(--cyan)">taking it</div>
-        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">Clone it, run it, fork it. Apache-2.0, the whole console, with no tier and no key. It comes up on infrastructure you own and it is reached over a tunnel your own box issues, which is the same on the first day as on the hundredth.</p>
+        <p style="margin-top:12px;color:var(--dim);font-size:14.5px;line-height:1.7">Clone it, run it, fork it. Apache-2.0, the whole console, with no tier and no key.</p>
         <div style="margin-top:18px">
           <a class="btn" href="https://github.com/TAIPANBOX/genaryx" target="_blank" rel="noopener">Source &#183; Apache-2.0</a>
         </div>
         <p style="margin-top:12px;color:var(--faint);font-size:13px;line-height:1.6">Or <a href="services/platform.html#run" data-dir="fwd" style="color:var(--accent)">run the open stack yourself in one command</a> today.</p>
       </div>
     </div>
-        <p class="dim" style="font-size:13.5px;line-height:1.7;margin-top:20px;max-width:76ch">The practice this console is built for is written up separately: <a href="ai-agent-governance.html" style="color:var(--accent)">AI agent governance and the runtime controls</a>, <a href="ai-agent-security.html" style="color:var(--accent)">AI agent security</a>, and <a href="finops-for-ai.html" style="color:var(--accent)">FinOps for AI</a>.</p>
     <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Genaryx guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="genaryx-guide.html#how-it-works">How it works in detail</a>
+        <a class="btn" href="genaryx-guide.html#felyx">Felyx</a>
+        <a class="btn" href="genaryx-guide.html#frames">Every frame</a>
+        <a class="btn" href="genaryx-guide.html#run">Taking it</a>
+        <a class="btn" href="genaryx-guide.html#changes">What changed</a>
+        <a class="btn" href="genaryx-guide.html#limits">Limits</a>
+      </div>
+    </div>
   </div>
 </section>
 

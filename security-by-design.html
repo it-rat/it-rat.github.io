@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security by design: eight decisions, each proven · IT-RAT</title>
+<meta name="description" content="An agent can be persuaded, so its controls sit where persuasion cannot reach. Eight design decisions in the stack, and what happened when we broke each one.">
+<link rel="canonical" href="https://it-rat.com/security-by-design.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/security-by-design.html">
+<meta property="og:title" content="Security by design: eight decisions, each proven · IT-RAT">
+<meta property="og:description" content="Security in a stack for AI agents is decided by where each decision sits, what happens when a part fails, and whether the record can prove itself. The eight decisions we made, why, and what happened when we broke each one on purpose.">
+<meta property="og:image" content="https://it-rat.com/assets/og/wardryx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Security by design: eight decisions, each proven · IT-RAT">
+<meta name="twitter:description" content="Security in a stack for AI agents is decided by where each decision sits, what happens when a part fails, and whether the record can prove itself. The eight decisions we made, why, and what happened when we broke each one on purpose.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/wardryx.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/security-by-design.md">
+<link rel="stylesheet" href="assets/site.css?v=e20">
+<style>
+  :root{--accent:#2DD4BF}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch;text-wrap:balance}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede b{color:var(--fg);font-weight:650}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p:first-child{margin-top:0}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose a{color:var(--accent)}
+  .prose h3{margin-top:34px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  .gtoc-sec{padding:6px 0 0}
+  .gtoc{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:980px}
+  .gtoc ol{margin:12px 0 0;padding:0;list-style:none;columns:2 260px;column-gap:40px;font-size:14px;line-height:1.55}
+  .gtoc li{break-inside:avoid;padding:3px 0}
+  .gtoc a{color:var(--dim)}
+  .gtoc a:hover{color:var(--accent)}
+  .glance{margin:0;padding:0;list-style:none;counter-reset:g;max-width:84ch;display:flex;flex-direction:column;gap:2px}
+  .glance li{counter-increment:g;display:grid;grid-template-columns:40px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line);color:var(--dim);font-size:15px;line-height:1.6}
+  .glance li:first-child{border-top:0}
+  .glance li::before{content:counter(g,decimal-leading-zero);font-family:var(--font-m);font-size:12px;color:var(--accent);padding-top:3px;letter-spacing:.06em}
+  .glance a{color:var(--fg);font-weight:650}
+  .glance a:hover{color:var(--accent)}
+  .fig{margin:28px 0 0;max-width:980px}
+  .fig .frame{border:1px solid var(--line);border-radius:var(--rad-s);background:#0B0F16;overflow:hidden}
+  .fig img{width:100%;height:auto}
+  .fig figcaption{margin-top:10px;color:var(--dim);font-size:13.5px;line-height:1.6;max-width:84ch}
+  .tbl-wrap{margin-top:26px;max-width:980px}
+  .tbl caption{caption-side:bottom;text-align:left;padding:12px 14px;color:var(--dim);font-size:13.5px;line-height:1.6;border-top:1px solid var(--line)}
+  .tbl th{white-space:nowrap}
+  .tbl td.when{font-family:var(--font-m);font-size:12.5px;white-space:nowrap}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--rad-s);overflow:hidden;margin-top:28px;max-width:980px}
+  .stat{background:var(--panel);padding:20px 20px 18px}
+  .stat .n{font-family:var(--font-d);font-size:38px;font-weight:750;letter-spacing:-.02em;color:var(--fg);line-height:1}
+  .stat .n small{font-size:17px;font-weight:600;color:var(--dim);margin-left:4px}
+  .stat p{margin-top:10px;color:var(--dim);font-size:14px;line-height:1.55}
+  .stat .src{margin-top:8px;font-family:var(--font-m);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+  .stats-cap{margin-top:10px;color:var(--dim);font-size:13.5px;line-height:1.6;max-width:84ch}
+  .note{border:1px solid var(--line-2);border-left:3px solid var(--accent);border-radius:12px;
+    background:var(--panel);padding:18px 20px;margin-top:24px;max-width:76ch}
+  .note .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .note p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.7}
+  .note a{color:var(--accent)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Security by design: eight decisions, each proven","name":"Security by design","url":"https://it-rat.com/security-by-design.html","description":"An agent can be persuaded, so its controls sit where persuasion cannot reach. Eight design decisions in the stack, and what happened when we broke each one.","inLanguage":"en","datePublished":"2026-10-16","dateModified":"2026-10-16","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/security-by-design.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Security by design","item":"https://it-rat.com/security-by-design.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">security</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="index.html#stack">The stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; security by design</div>
+    <h1 class="rv d1">Controls that cannot be talked to.</h1>
+    <p class="lede rv d2">An AI agent can be talked into anything, so everything that keeps it safe has to sit where persuasion cannot reach. Security in a stack for agents is decided by three things: where each decision sits, what happens when a part of the stack fails, and whether its record can prove itself. <b>These are the eight decisions we made, why we made them, and what happened when we broke each one on purpose.</b></p>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#at-a-glance">At a glance: the eight decisions</a></li><li><a href="#intro">A refusal we did not count</a></li><li><a href="#why-security-first">Why security comes first</a></li><li><a href="#shortcuts">The shortcuts agents usually run on</a></li><li><a href="#in-the-path">1. The decision sits in the path</a></li><li><a href="#no-model-in-the-decision">2. No model in the decision</a></li><li><a href="#stated-failure-answer">3. Every failure has a stated answer</a></li><li><a href="#identity-not-key">4. An identity, not a key</a></li><li><a href="#least-held">5. Each part holds only what it needs</a></li><li><a href="#self-proving-record">6. A record that proves itself</a></li><li><a href="#stays-in-your-building">7. It stays in your building</a></li><li><a href="#proven-by-breaking">8. Every control is proven by breaking it</a></li><li><a href="#what-we-built">What we built</a></li><li><a href="#monday">Three things to try on Monday</a></li></ol></nav></div></section>
+
+<section class="sec" style="padding-top:34px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">at a glance</div>
+      <h2 id="at-a-glance">Eight decisions, one line each.</h2>
+    </div>
+    <ol class="glance rv">
+      <li><span><a href="#in-the-path">The decision sits in the path, before the action.</a> Identity, policy and budget are decided before the model provider hears a call, and a tool call the model asks for is judged before the agent can run it.</span></li>
+      <li><span><a href="#no-model-in-the-decision">No model in the decision.</a> Plain rules give the same answer to the same request every time; a model may add a risk signal that can hold a call, never allow or deny one.</span></li>
+      <li><span><a href="#stated-failure-answer">Every failure has a stated answer.</a> For every dependency we wrote down what happens next, and the installers ship the policy service's answer set to closed.</span></li>
+      <li><span><a href="#identity-not-key">An identity, not a key.</a> Each agent has its own identifier, a key speaks only for the identities bound to it, and a revocation wins.</span></li>
+      <li><span><a href="#least-held">Each part holds only what it needs.</a> The part that decides is not the part that enforces, the part that alerts can act on nothing, and the stop is a person behind a passkey.</span></li>
+      <li><span><a href="#self-proving-record">A record that proves itself.</a> Hash-chained, sealed, and checkable offline by somebody who has no reason to trust us.</span></li>
+      <li><span><a href="#stays-in-your-building">It stays in your building.</a> Self-hosted and Apache-2.0, with no account and no telemetry; what leaves through the stack is decided first.</span></li>
+      <li><span><a href="#proven-by-breaking">Every control is proven by breaking it.</a> A check counts only after it has failed on a planted fault, and then we break the running system.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the starting point</div>
+      <h2 id="intro">A refusal we did not count.</h2>
+    </div>
+    <div class="prose rv">
+      <p>On 14 October we hid an instruction for an AI agent inside a configuration note on a small network router, the kind of text an agent reads while doing an ordinary job. The model read it, said it looked like an injection, and did not follow it.</p>
+      <p>We were glad, and we did not count it.</p>
+      <p>A model that refused today can comply tomorrow, after an update, a different phrasing or a longer conversation. An agent is a program that chooses its next step by asking a model, and a model can be persuaded. Everything that keeps an agent safe therefore has to sit where persuasion cannot reach it: in the path of the call, decided by code that gives the same answer every time, and still saying no when part of the system is broken.</p>
+      <p>That sentence is most of our architecture. Each decision below came from one question, <b>what could an agent do with its credentials if somebody talked it into it</b>, and each was tested by breaking it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">why</div>
+      <h2 id="why-security-first">Why security comes first.</h2>
+    </div>
+    <div class="prose rv">
+      <p>An agent holds three things a chatbot never did. A key to a model provider is a budget. Access to tools is the power to write, send and pay. A delegation from a person, which most agents acting for somebody carry, is that person's authority. The services we build sit in front of all three. They see every call an agent makes, which makes them the best place to stop a bad one and the most valuable thing in the building to attack.</p>
+      <p>Security was never one feature on our list; it was the condition every other feature had to meet. A budget that a retry loop can race past is not a budget, and a policy that switches itself off whenever its server restarts is a suggestion. An audit record that an administrator can quietly edit is a diary.</p>
+      <h3 id="what-supervisors-expect">What supervisors have started to write down</h3>
+      <p>There is a plainer reason too. The first organisations to run agents at scale are banks, insurers and public bodies, and the people who supervise them have started writing down what they expect.</p>
+      <ul>
+        <li><span>The <b>Financial Stability Board</b>'s consultation report of 10 June 2026 lists steps financial institutions take to oversee agents: an individual identifier for each agent, actions that are prohibited or need human approval at checkpoints, dual authorisation above a certain value, and audit trails.</span></li>
+        <li><span>On 3 July the <b>Monetary Authority of Singapore</b> and the industry published a white paper on governance checkpoints that verify and record an agent's proposed actions before it executes them.</span></li>
+        <li><span>In August the UK's <b>National Cyber Security Centre</b> asked for every agent to have its own identity, and for technically enforced controls beside human oversight wherever the risk is higher.</span></li>
+        <li><span>The <b>OWASP Top 10 for agentic applications</b> opens with goal hijack, tool misuse, and identity and privilege abuse.</span></li>
+      </ul>
+      <p>Most of those lines describe a control that sits in the path of the action, the rest describe the evidence it leaves behind, and none of them describes a dashboard. How the decisions below line up with those texts is our reading of them, not a compliance claim.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common practice</div>
+      <h2 id="shortcuts">The shortcuts agents usually run on.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Most agents today run on a handful of shortcuts, and each one is reasonable on the day somebody takes it: a shared provider key in an environment variable, a dashboard of yesterday's spend, a system prompt that asks the model not to do certain things, a second model that reads the conversations and scores them. Then come the default that lets traffic through when the policy service is down, because an outage looks worse than a risk, the log the platform team can edit, and the stop link in an alert email.</p>
+      <p>Each of them moves the decision somewhere an agent, or a tired person at three in the morning, can get around it. The eight decisions below move it back.</p>
+    </div>
+    <div class="tbl-wrap rv">
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <caption>Six common shortcuts in running agents, the decision we took instead of each, and what holds it.</caption>
+          <thead><tr><th>shortcut</th><th>decision instead</th><th>held by</th></tr></thead>
+          <tbody>
+            <tr><td>A shared key</td><td>An identity per agent</td><td>403 for a key posing as another</td></tr>
+            <tr><td>Yesterday's dashboard</td><td>A decision before the call</td><td>402 before the provider hears it</td></tr>
+            <tr><td>A model scoring a model</td><td>Fixed rules, and the kernel</td><td>Same request, same answer</td></tr>
+            <tr><td>Open during an outage</td><td>Closed, chosen out loud</td><td>Refused from 2.5 s</td></tr>
+            <tr><td>An editable log</td><td>A hash-chained record</td><td>One flipped byte fails</td></tr>
+            <tr><td>A stop link in email</td><td>A stop behind a passkey</td><td>Journaled with its outcome</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 1</div>
+      <h2 id="in-the-path">The decision sits in the path, before the action.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Every call an agent makes to a model passes through a gateway (<a href="services/tokenfuse.html">TokenFuse</a>), and three questions are answered before the provider hears it. Who is calling? May it do this? Can it afford it? A no arrives at once as an ordinary HTTP status: 401 when the caller has no identity, 403 when the action is refused, 402 when the budget is spent. A call refused there costs nothing. It never left.</p>
+      <p>The fourth question comes back with the model's answer: when the model asks for a tool call, may that call run? A refused one is withheld from the agent and replaced with a refusal.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/four-questions.webp" width="1800" height="682" loading="lazy" alt="Diagram: an agent's call passes the gateway, which asks who is calling (401), may it do this (403 or hold), can it afford it (402), and may the tool call it asks for run (withheld). The model provider is reached only after the first three. A call refused before the provider costs nothing, because it never left."></div>
+      <figcaption>Every model call passes the gateway: identity, policy and budget are decided before the provider hears it, and a tool call the model asks for is judged before the agent can run it.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>In August, on a cluster in AWS with a real provider key behind the gateway, a request against a budget smaller than one call came back 402 with no request id from the provider, because the provider never saw it.</p>
+      <p>On 14 October, on a test box, the gateway refused the tool calls that untrusted text tried to reach: a command after a web page was read, a message out after a planted instruction, an email built from memory. The same day showed why the path matters more than the model. On the router from the opening, a tool call inside a streamed answer reached the agent unjudged, because only buffered answers were being checked. The release that shipped that night judges both.</p>
+      <p>A report after the call tells you what an agent already did. <b>A decision before the call is the one place where no is still cheap.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 2</div>
+      <h2 id="no-model-in-the-decision">No model in the decision.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The policy point that answers allow, deny or hold (<a href="services/wardryx.html">Wardryx</a>) runs plain rules. A cost line above which a named person must approve. A hard ceiling no approval can pass. Tools an agent may never use, and domains it may reach. The detectors that look for excess privilege or an agent going around the gateway are fixed rules as well, and the sensor that watches outbound connections works inside the Linux kernel, without touching the application (both in <a href="services/idryx.html">Idryx</a>).</p>
+      <p>The same request under the same policy gets the same answer every time, which is what an auditor means by reproducible. It is also fast. On 13 September, thirty-four concurrent requests with different rights were decided correctly, 34 of 34, in 16 milliseconds, and one policy instance reached 27,210 decisions a second in runs of 3,000 decisions.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/rules-not-a-judge.webp" width="1800" height="427" loading="lazy" alt="Diagram: on the left, the same request asked twice goes through policy rules and is allowed both times; on the right, the same request asked twice goes through a judge model and is allowed once and denied once."></div>
+      <figcaption>Rules give the same answer to the same request every time; a model judging a model can be talked round. Policy decisions measured on Google Cloud, 13 September 2026.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>Putting a second model in charge of the first looks like a control and behaves like a second opinion. The text that persuaded one model can persuade the next, and their mistakes tend to travel together.</p>
+      <p>In our stack a model may add exactly one thing to a decision: a typed risk signal (<a href="services/typryx.html">Typryx</a>), the probability that a tool call destroys something, sends data out or moves money. <b>A signal can only hold a call for a person. It can never allow a call, and it can never deny one.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 3</div>
+      <h2 id="stated-failure-answer">Every failure has a stated answer.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Parts of any system fail. A policy service restarts, a node dies, a site loses its link to the hub. For every dependency we wrote down what happens next, and for the policy service the installers ship that answer set to closed.</p>
+      <p>On 14 October we cut the policy service off from a running gateway for about a minute. From 2.5 seconds on, every call was refused with a 403 that named the closed failure mode, 126 of 155, and the gateway answered again 0.7 seconds after the link came back. In September a second site was cut from its hub: its gateway refused in 255 milliseconds, queued its telemetry and replayed it with nothing lost.</p>
+    </div>
+    <div class="tbl-wrap rv">
+      <div class="tbl-scroll">
+        <table class="tbl">
+          <caption>What the stack does when a part it depends on fails, as measured on 26 September and 14 October 2026, and two defaults that follow the same rule.</caption>
+          <thead><tr><th>failure</th><th>answer</th><th>measured</th></tr></thead>
+          <tbody>
+            <tr><td>Policy service cut off</td><td>Refuses from 2.5 s; back 0.7 s after the link returns</td><td class="when">14 Oct 2026</td></tr>
+            <tr><td>A site loses its hub</td><td>Refuses in 255 ms; telemetry queued and replayed</td><td class="when">26 Sep 2026</td></tr>
+            <tr><td>Policy database pod deleted</td><td>Back in 17 s; pending approvals kept</td><td class="when">14 Oct 2026</td></tr>
+            <tr><td>Five servers reset at once</td><td>Serving in 327 s, with the same state</td><td class="when">14 Oct 2026</td></tr>
+            <tr><td>An unpriced model</td><td>Priced high, not waved through</td><td class="when">by design</td></tr>
+            <tr><td>A misspelt security switch</td><td>Refuses to start</td><td class="when">by design</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="prose rv" style="margin-top:22px">
+      <p>The same rule runs through the defaults. A model with no price on file is priced high rather than waved through. A call that does not say which run it belongs to is refused. Secret scanning that nobody configured blocks, and a security switch whose value the gateway cannot read stops it from starting.</p>
+      <p>Failing closed has a cost. We state it. During an outage some legitimate calls are refused. The alternative is that during an outage nothing is checked while every run still looks clean, and that is the outage an attacker waits for.</p>
+
+      <h3 id="missing-signal">A missing signal is not a clean one</h3>
+      <p>The most useful thing the October tests found belonged to the same family. The risk signal from decision 2 arrives for each tool call. Above about 12 kilobytes of arguments the classifier handed over nothing, and a call with no signal was treated like a call with nothing to worry about. The same tool call was held for a person at 11,264 bytes and answered at 13,312. Twelve kilobytes sounds like a lot for one tool call, until you remember that padding a field costs an attacker nothing.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/missing-signal.webp" width="1800" height="672" loading="lazy" alt="Diagram: before 14 October, a tool call of 11,264 bytes had its risk signal read and was held, while the same call at 13,312 bytes sent no signal and was allowed. With when_absent: hold, released 14 October, the same 13,312-byte call with no signal is held for a person."></div>
+      <figcaption>A tool call padded past 12 kilobytes arrived with no risk signal and was allowed; a rule for absence now holds it for a person. Found and fixed on 14 October 2026, held on two clouds the same day.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>The fix was a rule about absence. The policy point can now be told what a missing signal means, and the rule our installers document says hold the call for a person. It was released the same afternoon, and on two clouds the same day the padded call was held. <b>A control that only judges what it can see has to decide, in advance, what it does about what it cannot.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 4</div>
+      <h2 id="identity-not-key">An identity, not a key.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Each agent has its own identifier, and a key is bound to the identities it may speak for. On 14 October a key issued to one agent presented another agent's identity. The answer was 403 <span class="mono">identity_mismatch</span>, a high-severity event on the bus, and zero spend. A missing or unknown key gets 401.</p>
+      <p>When an agent acts for a person, it carries a short-lived token bound to its own key (<a href="services/vouchryx.html">Vouchryx</a>), so a stolen token is useless without that key. Delegation can only narrow on the way down a chain, never widen.</p>
+      <p>A revocation wins over whatever the token says about its own expiry: the gateway refuses the token once its next poll of the revocation list lands, every 12 seconds by default. On Google Cloud on 14 October, with the poll set to one second, a revoked delegation was refused 1.5 seconds later.</p>
+      <p>A key answers one question: does the caller know a secret. <b>An identity answers who is acting, for whom, with which rights, and how to take them away.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 5</div>
+      <h2 id="least-held">Each part holds only what it needs.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The service that decides is not the one that enforces. The one that tells people about incidents (<a href="services/heraldyx.html">Heraldyx</a>) holds no credential for any other service and can act on nothing, and its only way out is mail.</p>
+      <p>A mail never carries the stop, because mail security gateways open links before people do. The stop is a button in your own console (<a href="genaryx.html">Genaryx</a>), behind a fresh passkey, and every attempt that passes the passkey, carried out or refused, is written to the console's own journal with its outcome. Eight console commands that move money or authority work that way, from killing a run to changing a business unit's monthly cap.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/four-duties.webp" width="1800" height="682" loading="lazy" alt="Diagram of four parts with four duties: the policy point decides with plain rules and never acts on anything; the gateway enforces in the path of every call and cannot change the rules; alerts tell, holding no other service's key and sending mail only, and cannot stop or start anything; a person stops, with a fresh passkey, journaled with its outcome, never through a link in an email. Decisions, refusals, stops and approvals go to hash-chained logs. One compromised part does not hand over the others."></div>
+      <figcaption>Four parts with four separate duties: the policy point decides, the gateway enforces, alerts tell, a person stops.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>Two recent changes follow the same idea. The newest change to the policy service makes every policy change made through its API name, on the event bus, the fingerprint of the key that made it, so "who changed the rules" has an answer that does not depend on anyone's memory. The alert service's new quiet hours and maintenance windows can hold an alert, but never a critical one. Both are in <a href="changes-2026-10.html">what changed from 1 to 15 October</a>.</p>
+      <p>Separation of duties is the oldest control in banking, and here it means <b>one compromised part does not hand over the others.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 6</div>
+      <h2 id="self-proving-record">A record that proves itself.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service (<a href="services/trailryx.html">Trailryx</a>) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness, both of which the record supports, close that last door.</p>
+      <p>The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/sealed-chain.webp" width="1800" height="506" loading="lazy" alt="Diagram: five sealed records in a chain; one byte changed in record 2 makes the seals of records 3, 4 and 5 stop matching. Anyone can check it offline, without trusting us: on 13 September the sealed record verified, then one flipped byte made it fail. A break is caught, not hidden: on 14 October a replaced pod wrote after its successor, and the verifier on the box flagged it."></div>
+      <figcaption>Each record carries the hash of the one before it, so a changed record breaks every seal after it. Verified offline on 13 September 2026; a break flagged on the box on 14 October.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>A chain is only worth something if somebody checks it. A verifier on the box reads every stream, and on 14 October it earned its place. When a policy-service pod was replaced, the old one wrote two lines after its successor had taken over the chain, and the verifier flagged the break that afternoon. The fix, one writer at a time held by a file lock, is merged.</p>
+      <p>The record keeps metadata only. Prompts and payloads never enter it. It also answers the question an ordinary log cannot: whether a reply to "everything agent X did in March" is complete, or partial, with the reason.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 7</div>
+      <h2 id="stays-in-your-building">It stays in your building.</h2>
+    </div>
+    <div class="prose rv">
+      <p>Everything we build is self-hosted and Apache-2.0, with no account, no licence key, no seats and no telemetry. The source is public and the container images pull without a login. Prompts and bills never pass through us. We are not in the path.</p>
+      <p>What goes out through the stack is decided first. A secret pasted into a prompt is refused before the provider sees it. Card numbers, email addresses, phone numbers and IBANs can be masked, or the call blocked. Where the egress gate (<a href="services/scopyx.html">Scopyx</a>) is installed, a web fetch is decided before it goes out, and the cloud's own metadata address and private ranges are refused. A typed question to an outside model sends only the fields its template names. Where the kernel sensor from decision 2 runs, it sees what tries to go around the stack.</p>
+    </div>
+    <figure class="fig rv">
+      <div class="frame"><img src="assets/img/guides/security/stays-in-your-building.webp" width="1800" height="745" loading="lazy" alt="Diagram: agents, gateway, policy point, record, console and alerts run inside your infrastructure. Four kinds of traffic may leave through the stack: to a model provider, with a pasted secret refused and cards, emails and phones masked or blocked; to the web, decided first by the egress gate, with the metadata address refused; to an outside model, carrying only the fields a template names; to a mailbox, carrying identifiers and one console link, never content. Nothing goes to us: no account, no telemetry, no licence key."></div>
+      <figcaption>The stack runs in your own infrastructure; four kinds of traffic may leave through it, each decided first; none goes to us.</figcaption>
+    </figure>
+    <div class="prose rv" style="margin-top:22px">
+      <p>For a regulated firm, "where does our data go" is the first question in any review. The best answer is "nowhere you did not choose", and it is easiest to prove when the code is yours to read.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">decision 8</div>
+      <h2 id="proven-by-breaking">Every control is proven by breaking it.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A control nobody has fired is a guess. In our repositories a check counts only after it has been shown to fail on a planted fault, and every new test must fail on the broken code before it passes on the fixed one.</p>
+      <p>Releases of the gateway, the policy point, the record and the delegation service are signed and carry a software bill of materials and build provenance. The verifier for the record has no third-party dependencies and forbids unsafe code, and 650,000 fuzzed inputs to the record's parsers produced no crash.</p>
+      <p>Then we break the running system. On 14 October, on two clouds and on a server at home, we killed every service's process, deleted the policy database's pod, stopped a node, rebooted a server and reset all five machines of a cluster at once.</p>
+    </div>
+    <div class="stats rv" role="list">
+      <div class="stat" role="listitem"><div class="n">327<small>s</small></div><p>five servers reset at once, back with the same state</p><div class="src">14 Oct 2026, Google Cloud</div></div>
+      <div class="stat" role="listitem"><div class="n">2.5<small>s</small></div><p>policy service cut off, and every call after it refused</p><div class="src">14 Oct 2026, home server</div></div>
+      <div class="stat" role="listitem"><div class="n">0<small>lost</small></div><p>event lines, after 14 processes were killed one by one</p><div class="src">14 Oct 2026, home server</div></div>
+      <div class="stat" role="listitem"><div class="n">650,000</div><p>fuzzed inputs to the record's parsers, no crash</p><div class="src">31 Jul 2026, fuzzing</div></div>
+    </div>
+    <p class="stats-cap rv">Four numbers from breaking the stack on purpose: 14 October 2026 on Google Cloud and a home server, and the record's fuzzing run of 31 July 2026.</p>
+    <div class="prose rv" style="margin-top:22px">
+      <p>Each of the fourteen processes we killed on the home server came back by itself in under a second, and no event line was lost. The five-machine cluster was serving again 327 seconds after the reset, with no manual step and the same state as before: the same policies, the same approvals, 977 events on the bus and 977 in the console. A home server rebooted and was healthy 86 seconds later.</p>
+      <p>That is what a test day is for. Four of the defects it turned up were fixed in released versions before the next morning: the padded tool call, the streamed tool call that skipped the check a buffered one gets, a gateway that could admit calls before it had read its budgets after a restart, and a refused key that left no event behind. The padded call was re-tested live on two clouds the same day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">the stack</div>
+      <h2 id="what-we-built">What we built.</h2>
+    </div>
+    <div class="prose rv">
+      <p>We build fourteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.</p>
+      <ul>
+        <li><span><b>The gateway</b>, <a href="services/tokenfuse.html">TokenFuse</a>, and <b>the policy point</b>, <a href="services/wardryx.html">Wardryx</a>.</span></li>
+        <li><span><b>Delegation</b>, <a href="services/vouchryx.html">Vouchryx</a>, and <b>an identity graph with its kernel sensor</b>, <a href="services/idryx.html">Idryx</a>.</span></li>
+        <li><span><b>The egress gate</b>, <a href="services/scopyx.html">Scopyx</a>, and <b>a cryptography inventory</b>, <a href="services/qryx.html">Qryx</a>.</span></li>
+        <li><span><b>Memory</b>, <a href="services/engram.html">Engram</a>; <b>quality grading</b>, <a href="services/verdryx.html">Verdryx</a>; <b>typed answers</b>, <a href="services/typryx.html">Typryx</a>.</span></li>
+        <li><span><b>The record</b>, <a href="services/trailryx.html">Trailryx</a>; <b>alerts</b>, <a href="services/heraldyx.html">Heraldyx</a>; <b>drills</b>, <a href="services/mockryx.html">Mockryx</a>.</span></li>
+        <li><span><b>A FinOps crew</b>, <a href="services/costcrew.html">CostCrew</a>, and <b>a console</b>, <a href="genaryx.html">Genaryx</a>.</span></li>
+      </ul>
+      <p>All of it is Apache-2.0 and self-hosted, with no seats, licence key or telemetry.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">monday</div>
+      <h2 id="monday">Three things to try on Monday.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span>Find one decision about an agent that today happens after the fact, in a report or a review, and <b>move it into the path of the call.</b></span></li>
+        <li><span>Write down what each control does when the thing it depends on is down. <b>Then switch that thing off and watch.</b></span></li>
+        <li><span>Give one agent its own identity, revoke it, and <b>time how long it takes until the next call is refused.</b></span></li>
+      </ul>
+    </div>
+    <div class="note rv">
+      <div class="t">read next</div>
+      <p><a href="changes-2026-10.html">What changed in the stack from 1 to 15 October 2026</a> lists the releases behind several fixes named here. <a href="ai-agent-security.html">AI agent security</a> covers the failure modes an agent introduces, and <a href="guides.html">the guides index</a> has the rest.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/ambient.js"></script>
+</body>
+</html>

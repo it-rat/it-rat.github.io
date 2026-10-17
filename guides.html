@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides: AI agent governance, FinOps and security · IT-RAT</title>
-<meta name="description" content="Twelve guides: seven on the field of AI agent governance, and five on running this stack, from a first alert to what the numbers prove.">
+<meta name="description" content="Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October.">
 <link rel="canonical" href="https://it-rat.com/guides.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/guides.html">
 <meta property="og:title" content="Guides: AI agent governance, FinOps and security · IT-RAT">
-<meta property="og:description" content="Twelve guides on running AI agents in production. Seven explain the field: governance, cost, security, MCP, identity, observability, and the shapes of the tooling itself. Five cover this stack in practice.">
+<meta property="og:description" content="Thirty-one guides on running AI agents in production. Seven explain the field: governance, cost, security, MCP, identity, observability, and the shapes of the tooling itself. Twenty-four cover this stack in practice.">
 <meta property="og:image" content="https://it-rat.com/assets/og/index.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Guides: AI agent governance, FinOps and security · IT-RAT">
-<meta name="twitter:description" content="Twelve guides on running AI agents in production. Seven explain the field: governance, cost, security, MCP, identity, observability, and the shapes of the tooling itself. Five cover this stack in practice.">
+<meta name="twitter:description" content="Thirty-one guides on running AI agents in production. Seven explain the field: governance, cost, security, MCP, identity, observability, and the shapes of the tooling itself. Twenty-four cover this stack in practice.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" href="favicon.png">
@@ -35,7 +35,7 @@
   .gcard:hover{transform:translateY(-2px);border-color:var(--line-2);border-left-color:var(--c,var(--accent));
     box-shadow:0 18px 44px -26px rgba(0,0,0,.8)}
   .gcard .n{font-family:var(--font-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--accent))}
-  .gcard h2{margin-top:10px;font-size:23px;letter-spacing:-.02em}
+  .gcard h3{margin-top:10px;font-size:23px;letter-spacing:-.02em}
   .gcard p{margin-top:10px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:82ch}
   .gcard .in{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
   .gcard .in span{font-family:var(--font-m);font-size:11.5px;color:var(--faint);
@@ -43,9 +43,24 @@
   .gcard .go{margin-top:16px;font-family:var(--font-m);font-size:12.5px;color:var(--c,var(--accent));display:inline-flex;gap:7px}
   .gcard .go::after{content:"\2192";transition:transform .18s}
   .gcard:hover .go::after{transform:translateX(4px)}
+  /* groups: a kicker-sized h2 above each list */
+  .ggroup{margin:52px 0 16px;font-weight:600}
+  .ggroup:first-child{margin-top:0}
+  /* one row per room in the STACK registry */
+  .svc-rows{border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel);overflow:hidden}
+  .svc-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;padding:11px 18px;border-top:1px solid var(--line);font-size:14.5px}
+  .svc-row:first-child{border-top:0}
+  .svc-row i{flex:0 0 8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+  .svc-row b{color:var(--fg);font-weight:650}
+  .svc-row .pl{font-family:var(--font-m);font-size:11.5px;color:var(--faint)}
+  .svc-row .st{margin-left:auto;font-family:var(--font-m);font-size:11px;letter-spacing:.06em;color:var(--faint)}
+  a.svc-row{transition:background .15s}
+  a.svc-row:hover{background:rgba(255,255,255,.03)}
+  a.svc-row .st{color:var(--c)}
+  a.svc-row .st::after{content:" \2192"}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps and security","description":"Twelve guides: seven on the field of AI agent governance, and five on running this stack, from a first alert to what the numbers prove.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html"},{"@type":"ListItem","position":6,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"},{"@type":"ListItem","position":7,"name":"One incident, end to end","url":"https://it-rat.com/one-incident-end-to-end.html"},{"@type":"ListItem","position":8,"name":"What runs where and what it costs","url":"https://it-rat.com/what-runs-where.html"},{"@type":"ListItem","position":9,"name":"From zero to your first alert","url":"https://it-rat.com/first-alert.html"},{"@type":"ListItem","position":10,"name":"Two sites, one control plane, no VPN","url":"https://it-rat.com/two-sites.html"},{"@type":"ListItem","position":11,"name":"What is proven and what is not","url":"https://it-rat.com/what-is-proven.html"},{"@type":"ListItem","position":12,"name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/guides.html","name":"Guides: AI agent governance, FinOps and security","description":"Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October.","inLanguage":"en","isPartOf":{"@id":"https://it-rat.com/#website"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI agent governance","url":"https://it-rat.com/ai-agent-governance.html"},{"@type":"ListItem","position":2,"name":"FinOps for AI","url":"https://it-rat.com/finops-for-ai.html"},{"@type":"ListItem","position":3,"name":"AI agent security","url":"https://it-rat.com/ai-agent-security.html"},{"@type":"ListItem","position":4,"name":"MCP security","url":"https://it-rat.com/mcp-security.html"},{"@type":"ListItem","position":5,"name":"Agent identity and authentication","url":"https://it-rat.com/agent-identity.html"},{"@type":"ListItem","position":6,"name":"AI observability vs governance","url":"https://it-rat.com/ai-observability-vs-governance.html"},{"@type":"ListItem","position":7,"name":"One incident, end to end","url":"https://it-rat.com/one-incident-end-to-end.html"},{"@type":"ListItem","position":8,"name":"What runs where and what it costs","url":"https://it-rat.com/what-runs-where.html"},{"@type":"ListItem","position":9,"name":"From zero to your first alert","url":"https://it-rat.com/first-alert.html"},{"@type":"ListItem","position":10,"name":"Two sites, one control plane, no VPN","url":"https://it-rat.com/two-sites.html"},{"@type":"ListItem","position":11,"name":"What is proven and what is not","url":"https://it-rat.com/what-is-proven.html"},{"@type":"ListItem","position":12,"name":"Three shapes of agent tooling","url":"https://it-rat.com/agent-tooling-compared.html"},{"@type":"ListItem","position":13,"name":"Security by design","url":"https://it-rat.com/security-by-design.html"},{"@type":"ListItem","position":14,"name":"The stack in depth","url":"https://it-rat.com/stack-guide.html"},{"@type":"ListItem","position":15,"name":"What changed in the stack, 1 to 15 October 2026","url":"https://it-rat.com/changes-2026-10.html"},{"@type":"ListItem","position":16,"name":"Genaryx guide","url":"https://it-rat.com/genaryx-guide.html"},{"@type":"ListItem","position":17,"name":"TokenFuse guide","url":"https://it-rat.com/tokenfuse-guide.html"},{"@type":"ListItem","position":18,"name":"CostCrew guide","url":"https://it-rat.com/costcrew-guide.html"},{"@type":"ListItem","position":19,"name":"TokenFuse Pocket guide","url":"https://it-rat.com/pocket-guide.html"},{"@type":"ListItem","position":20,"name":"Wardryx guide","url":"https://it-rat.com/wardryx-guide.html"},{"@type":"ListItem","position":21,"name":"Idryx guide","url":"https://it-rat.com/idryx-guide.html"},{"@type":"ListItem","position":22,"name":"Scopyx guide","url":"https://it-rat.com/scopyx-guide.html"},{"@type":"ListItem","position":23,"name":"Vouchryx guide","url":"https://it-rat.com/vouchryx-guide.html"},{"@type":"ListItem","position":24,"name":"Qryx guide","url":"https://it-rat.com/qryx-guide.html"},{"@type":"ListItem","position":25,"name":"Verdryx guide","url":"https://it-rat.com/verdryx-guide.html"},{"@type":"ListItem","position":26,"name":"Typryx guide","url":"https://it-rat.com/typryx-guide.html"},{"@type":"ListItem","position":27,"name":"Mockryx guide","url":"https://it-rat.com/mockryx-guide.html"},{"@type":"ListItem","position":28,"name":"Trailryx guide","url":"https://it-rat.com/trailryx-guide.html"},{"@type":"ListItem","position":29,"name":"Heraldyx guide","url":"https://it-rat.com/heraldyx-guide.html"},{"@type":"ListItem","position":30,"name":"Engram guide","url":"https://it-rat.com/engram-guide.html"},{"@type":"ListItem","position":31,"name":"Platform guide","url":"https://it-rat.com/platform-guide.html"}]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-root="">
@@ -65,95 +80,144 @@
   <div class="wrap">
     <div class="kicker rv">guides</div>
     <h1 class="rv d1">Running AI agents in production, written down.</h1>
-    <p class="lede rv d2">Twelve guides. Seven are about the practice rather than about our tools: what it means to govern an agent while it is running, how to manage spend that nobody provisions, how to secure a fleet that holds credentials and calls tools, where observability stops being enough, what changes when tools arrive over a protocol, and what the tools on this market can and cannot actually do. Each one names the open-source tool that does the job, and none of them needs you to buy anything to be useful. The other five are about this stack specifically: getting a first alert, connecting a second site without a VPN, following one incident through every plane, what the shapes cost, and what the numbers do and do not establish.</p>
+    <p class="lede rv d2">Thirty-one guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.</p>
   </div>
 </section>
 
 <section class="sec" style="padding-top:6px">
   <div class="wrap">
+    <h2 class="kicker ggroup rv">Start here</h2>
     <div class="glist rv">
       <a class="gcard" style="--c:#5BC8F5" href="first-alert.html">
         <div class="n">start here</div>
-        <h2>From zero to your first alert</h2>
+        <h3>From zero to your first alert</h3>
         <p>One command on a box you own, one agent pointed at it, one address to write to, and then make it fire on purpose. Four steps, what each is for, and where each one goes wrong.</p>
         <div class="in"><span>no account, no key, no cloud</span><span>it comes up closed</span><span>the severity floor</span><span>firing it deliberately</span></div>
         <span class="go">Read the guide</span>
       </a>
-      <a class="gcard" style="--c:#F4B23E" href="ai-agent-governance.html">
-        <div class="n">the umbrella</div>
-        <h2>AI agent governance, and what it means at runtime</h2>
-        <p>Governance is the set of controls that decide what an agent may do while it is doing it. Every question a fleet has to answer at runtime with the tool that owns it, the five decisions every governed team ends up making, and the order to adopt them in.</p>
-        <div class="in"><span>observability vs control</span><span>shadow mode</span><span>fail-open or fail-closed</span><span>the run as the unit</span><span>human in the loop</span><span>evidence</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#F4B23E" href="finops-for-ai.html">
-        <div class="n">the money</div>
-        <h2>FinOps for AI: managing spend that creates itself</h2>
-        <p>Cloud FinOps assumes somebody provisioned the thing. Agent spend appears when an agent decides to try again. What breaks, what to instrument first, and how to report it in a format finance already reads.</p>
-        <div class="in"><span>LLM cost control</span><span>per-run budgets</span><span>reserve then settle</span><span>cache and router</span><span>FOCUS export</span><span>cost per resolved case</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#2DD4BF" href="ai-agent-security.html">
-        <div class="n">the defensive half</div>
-        <h2>AI agent security: an old discipline with a new blast radius</h2>
-        <p>The damage does not arrive as a sentence, it arrives as a tool call. Eight failure modes a fleet actually hits, the control that answers each, and what to rehearse in CI so a broken guardrail fails a build rather than an incident review.</p>
-        <div class="in"><span>prompt injection at the tool boundary</span><span>excessive agency</span><span>shadow MCP</span><span>blast radius</span><span>guardrail drills</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#6C7BFF" href="ai-observability-vs-governance.html">
-        <div class="n">the record and the control</div>
-        <h2>The record and the control are different jobs</h2>
-        <p>One explains what happened, the other decides what may happen. The same incident seen by each, why the control alone is opaque, and the single integration decision that makes them meet: one run id.</p>
-        <div class="in"><span>record vs control</span><span>what to ask of a control</span><span>OTLP</span><span>joining on the run id</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#F4B23E" href="agent-tooling-compared.html">
-        <div class="n">the controls</div>
-        <h2>What the stack refuses before a call, and how to check it</h2>
-        <p>Twelve controls that answer before a call: what each one does, what it does not do yet, and how to check it, one at a time.</p>
-        <div class="in"><span>a budget per run</span><span>enforcement in the path</span><span>what to verify</span><span>limits, stated</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#F4B23E" href="what-runs-where.html">
-        <div class="n">the operational half</div>
-        <h2>What runs where, and what it costs</h2>
-        <p>One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: how each performed, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.</p>
-        <div class="in"><span>a storage line 108 times apart</span><span>the RWX trap</span><span>1.2% apart on matched silicon</span><span>426 bytes per decision</span><span>a retraction</span></div>
-        <span class="go">Read the guide</span>
-      </a>
-      <a class="gcard" style="--c:#F4B23E" href="two-sites.html">
-        <div class="n">the second site</div>
-        <h2>Two sites, one control plane, no VPN</h2>
-        <p>A hub that holds the control plane and the policy, and a gateway at every site that reaches it over outbound HTTPS through one narrow door. One script on the hub, one command per site, four variables at the site, and what the runs showed.</p>
-        <div class="in"><span>no VPN, no inbound port</span><span>a key that names the site</span><span>one policy everywhere</span><span>a cut link</span><span>the heartbeat</span></div>
-        <span class="go">Read the guide</span>
-      </a>
       <a class="gcard" style="--c:#E4626F" href="what-is-proven.html">
         <div class="n">the honest half</div>
-        <h2>What is proven here, and what is not</h2>
+        <h3>What is proven here, and what is not</h3>
         <p>What a measurement on this stack actually established, the limit published beside each one, three conclusions we withdrew, and the list of what nobody has established yet.</p>
         <div class="in"><span>a number that cannot fail</span><span>three retractions</span><span>what is not measured</span><span>how to read anyone's claims</span></div>
         <span class="go">Read the guide</span>
       </a>
-      <a class="gcard" style="--c:#FF574B" href="one-incident-end-to-end.html">
-        <div class="n">the walk-through</div>
-        <h2>One incident, end to end: a runaway agent through every plane</h2>
-        <p>One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.</p>
-        <div class="in"><span>402 in the request path</span><span>allow, deny, hold</span><span>why three weak signals join</span><span>one link, never a button</span><span>completeness proofs</span></div>
+      <a class="gcard" style="--c:#F4B23E" href="what-runs-where.html">
+        <div class="n">the operational half</div>
+        <h3>What runs where, and what it costs</h3>
+        <p>One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: how each performed, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.</p>
+        <div class="in"><span>a storage line 108 times apart</span><span>the RWX trap</span><span>1.2% apart on matched silicon</span><span>426 bytes per decision</span><span>a retraction</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#E9EFF6" href="stack-guide.html">
+        <div class="n">the home page, in full</div>
+        <h3>The stack in depth</h3>
+        <p>Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.</p>
+        <span class="go">Read the guide</span>
+      </a>
+    </div>
+    <h2 class="kicker ggroup rv">Security</h2>
+    <div class="glist rv">
+      <a class="gcard" style="--c:#2DD4BF" href="security-by-design.html">
+        <div class="n">the decisions</div>
+        <h3>Security by design: eight decisions, each proven by breaking it</h3>
+        <p>Why every control sits where an agent cannot talk to it.</p>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#2DD4BF" href="ai-agent-security.html">
+        <div class="n">the defensive half</div>
+        <h3>AI agent security: an old discipline with a new blast radius</h3>
+        <p>The damage does not arrive as a sentence, it arrives as a tool call. Eight failure modes a fleet actually hits, the control that answers each, and what to rehearse in CI so a broken guardrail fails a build rather than an incident review.</p>
+        <div class="in"><span>prompt injection at the tool boundary</span><span>excessive agency</span><span>shadow MCP</span><span>blast radius</span><span>guardrail drills</span></div>
         <span class="go">Read the guide</span>
       </a>
       <a class="gcard" style="--c:#34D399" href="mcp-security.html">
         <div class="n">the newest surface</div>
-        <h2>MCP security: your tools are now a fetch, not a build</h2>
+        <h3>MCP security: your tools are now a fetch, not a build</h3>
         <p>A tool used to be code you shipped. Over the Model Context Protocol it is a description you fetched, from a server that can change it after you approved it. Six failure modes, and the control that answers each.</p>
         <div class="in"><span>poisoned tool descriptions</span><span>rug pulls</span><span>shadow MCP servers</span><span>credential brokering</span><span>stdio vs HTTP</span></div>
         <span class="go">Read the guide</span>
       </a>
       <a class="gcard" style="--c:#34D399" href="agent-identity.html">
         <div class="n">the join key</div>
-        <h2>Agent identity and authentication: how an agent proves who it is</h2>
+        <h3>Agent identity and authentication: how an agent proves who it is</h3>
         <p>A static key answers one question, badly. What an identity has to be instead, nameable, attributable, attestable and revocable, plus delegation chains, when to demand a signature per action, and how to evaluate anything in this space.</p>
         <div class="in"><span>agent authentication</span><span>attestation</span><span>delegation chains</span><span>non-human identity</span><span>credential brokering</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+    </div>
+    <h2 class="kicker ggroup rv">The practice</h2>
+    <div class="glist rv">
+      <a class="gcard" style="--c:#F4B23E" href="ai-agent-governance.html">
+        <div class="n">the umbrella</div>
+        <h3>AI agent governance, and what it means at runtime</h3>
+        <p>Governance is the set of controls that decide what an agent may do while it is doing it. Every question a fleet has to answer at runtime with the tool that owns it, the five decisions every governed team ends up making, and the order to adopt them in.</p>
+        <div class="in"><span>observability vs control</span><span>shadow mode</span><span>fail-open or fail-closed</span><span>the run as the unit</span><span>human in the loop</span><span>evidence</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#F4B23E" href="finops-for-ai.html">
+        <div class="n">the money</div>
+        <h3>FinOps for AI: managing spend that creates itself</h3>
+        <p>Cloud FinOps assumes somebody provisioned the thing. Agent spend appears when an agent decides to try again. What breaks, what to instrument first, and how to report it in a format finance already reads.</p>
+        <div class="in"><span>LLM cost control</span><span>per-run budgets</span><span>reserve then settle</span><span>cache and router</span><span>FOCUS export</span><span>cost per resolved case</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#6C7BFF" href="ai-observability-vs-governance.html">
+        <div class="n">the record and the control</div>
+        <h3>The record and the control are different jobs</h3>
+        <p>One explains what happened, the other decides what may happen. The same incident seen by each, why the control alone is opaque, and the single integration decision that makes them meet: one run id.</p>
+        <div class="in"><span>record vs control</span><span>what to ask of a control</span><span>OTLP</span><span>joining on the run id</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#F4B23E" href="agent-tooling-compared.html">
+        <div class="n">the controls</div>
+        <h3>What the stack refuses before a call, and how to check it</h3>
+        <p>Twelve controls that answer before a call: what each one does, what it does not do yet, and how to check it, one at a time.</p>
+        <div class="in"><span>a budget per run</span><span>enforcement in the path</span><span>what to verify</span><span>limits, stated</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#F4B23E" href="two-sites.html">
+        <div class="n">the second site</div>
+        <h3>Two sites, one control plane, no VPN</h3>
+        <p>A hub that holds the control plane and the policy, and a gateway at every site that reaches it over outbound HTTPS through one narrow door. One script on the hub, one command per site, four variables at the site, and what the runs showed.</p>
+        <div class="in"><span>no VPN, no inbound port</span><span>a key that names the site</span><span>one policy everywhere</span><span>a cut link</span><span>the heartbeat</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+      <a class="gcard" style="--c:#FF574B" href="one-incident-end-to-end.html">
+        <div class="n">the walk-through</div>
+        <h3>One incident, end to end: a runaway agent through every plane</h3>
+        <p>One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.</p>
+        <div class="in"><span>402 in the request path</span><span>allow, deny, hold</span><span>why three weak signals join</span><span>one link, never a button</span><span>completeness proofs</span></div>
+        <span class="go">Read the guide</span>
+      </a>
+    </div>
+    <h2 class="kicker ggroup rv">Each service in depth</h2>
+<!-- guidehub:auto -->
+    <div class="svc-rows rv">
+      <a class="svc-row" style="--c:#B48CFF" href="genaryx-guide.html"><i></i><b>Genaryx</b><span class="pl">control room</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#F4B23E" href="tokenfuse-guide.html"><i></i><b>TokenFuse</b><span class="pl">money</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#7DD3A0" href="costcrew-guide.html"><i></i><b>CostCrew</b><span class="pl">finops</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#22D3EE" href="pocket-guide.html"><i></i><b>TokenFuse Pocket</b><span class="pl">out of band &#183; not wired in yet</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#2DD4BF" href="wardryx-guide.html"><i></i><b>Wardryx</b><span class="pl">policy</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#34D399" href="idryx-guide.html"><i></i><b>Idryx</b><span class="pl">access</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#F0ABFC" href="scopyx-guide.html"><i></i><b>Scopyx</b><span class="pl">egress</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#8B9DFF" href="vouchryx-guide.html"><i></i><b>Vouchryx</b><span class="pl">delegation</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#B48CFF" href="qryx-guide.html"><i></i><b>Qryx</b><span class="pl">crypto</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#FF7AA2" href="verdryx-guide.html"><i></i><b>Verdryx</b><span class="pl">quality</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#60A5FA" href="typryx-guide.html"><i></i><b>Typryx</b><span class="pl">typed answers &#183; optional add-on</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#FF8A5B" href="mockryx-guide.html"><i></i><b>Mockryx</b><span class="pl">pre-prod</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#E4626F" href="trailryx-guide.html"><i></i><b>Trailryx</b><span class="pl">the record</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#5BC8F5" href="heraldyx-guide.html"><i></i><b>Heraldyx</b><span class="pl">alerts</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#6C7BFF" href="engram-guide.html"><i></i><b>Engram</b><span class="pl">memory</span><span class="st">Read the guide</span></a>
+      <a class="svc-row" style="--c:#93A8C4" href="platform-guide.html"><i></i><b>Platform</b><span class="pl">contract</span><span class="st">Read the guide</span></a>
+    </div>
+<!-- /guidehub:auto -->
+    <h2 class="kicker ggroup rv">What changed</h2>
+    <div class="glist rv">
+      <a class="gcard" style="--c:#F4B23E" href="changes-2026-10.html">
+        <div class="n">what changed</div>
+        <h3>What changed in the stack, 1 to 15 October 2026</h3>
+        <p>What changed across the stack between 1 and 15 October 2026, in one place.</p>
         <span class="go">Read the guide</span>
       </a>
     </div>
