@@ -171,6 +171,34 @@ assert m, "index.html has no meta description"
 open("index.html","w").write(s.replace(m.group(0), "", 1))')" \
 	"has no meta description"
 
+# An apostrophe inside a double-quoted attribute is text, not the end of the
+# value. The old pattern closed on EITHER kind of quote, so content="It's ..."
+# was measured as "It". Python source below uses \x22 and \x27 so the quotes
+# need no shell escaping.
+run_case "page-metadata: an apostrophe inside a double-quoted description is text (non-fault)" pass \
+	'./scripts/page-metadata.sh' \
+	"$(py 'import re
+s = open("index.html").read()
+m = re.search("<meta name=\x22description\x22 content=\x22[^\x22]*\x22>", s)
+assert m, "index.html has no meta description"
+d = "It\x27s open-source runtime governance for AI agents: budgets, policy and drills, self-hosted under Apache-2.0."
+assert 25 <= len(d) <= 160, len(d)
+open("index.html","w").write(s.replace(m.group(0), "<meta name=\x22description\x22 content=\x22" + d + "\x22>", 1))')"
+
+# The same fault as the case above, in the direction that matters: the apostrophe
+# comes early, so the old pattern measured a two-character fragment, and the
+# description is 240 characters. The reported length is what this case pins.
+run_case "page-metadata: an early apostrophe does not hide a description over 160 characters (fault)" fail \
+	'./scripts/page-metadata.sh' \
+	"$(py 'import re
+s = open("index.html").read()
+m = re.search("<meta name=\x22description\x22 content=\x22[^\x22]*\x22>", s)
+assert m, "index.html has no meta description"
+d = "It\x27s the control room for AI agent governance: budgets, policy, memory, identity, cryptography, quality and pre-production drills, all open-source under Apache-2.0, self-hosted, with every figure on the page owned and dated in the manifest."
+assert len(d) > 160, len(d)
+open("index.html","w").write(s.replace(m.group(0), "<meta name=\x22description\x22 content=\x22" + d + "\x22>", 1))')" \
+	"description is 240 characters, outside 25-160"
+
 # invariant 3: a number on this site is a claim with an owner.
 run_case "service-numbers: a figure on a page that numbers.json does not own" fail \
 	'./scripts/service-numbers.sh' \

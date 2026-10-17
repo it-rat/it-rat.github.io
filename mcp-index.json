@@ -268,7 +268,7 @@
       "markdown": "https://it-rat.com/services/vouchryx.md",
       "title": "Vouchryx, the delegation plane",
       "kind": "service",
-      "description": "RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and can end before it expires at every point that polls the list."
+      "description": "RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, ended early wherever the list is polled."
     },
     {
       "url": "https://it-rat.com/services/wardryx.html",

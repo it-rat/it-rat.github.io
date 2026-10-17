@@ -46,9 +46,13 @@ def note(msg):
     problems.append(msg)
 
 
+# Every quoted attribute pattern below captures its opening quote and closes on
+# the same kind of quote (a backreference), so an apostrophe inside a
+# double-quoted value is text, not the end of it. The value is the LAST group,
+# whatever the pattern before it captured.
 def attr(text, pattern):
     m = re.search(pattern, text, re.S | re.I)
-    return html.unescape(m.group(1)).strip() if m else None
+    return html.unescape(m.group(m.lastindex)).strip() if m else None
 
 
 pages = sorted(p for p in pathlib.Path(".").rglob("*.html") if ".git" not in str(p))
@@ -69,11 +73,11 @@ for p in pages:
     is_generated = bool(re.search(r'<script type="module" crossorigin src="\./assets/', text))
 
     title = attr(text, r"<title>(.*?)</title>")
-    desc = attr(text, r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']')
-    og_title = attr(text, r'<meta\s+property=["\']og:title["\']\s+content=["\'](.*?)["\']')
-    has_canonical = bool(re.search(r'rel=["\']canonical["\']', text, re.I))
+    desc = attr(text, r'<meta\s+name=(["\'])description\1\s+content=(["\'])(.*?)\2')
+    og_title = attr(text, r'<meta\s+property=(["\'])og:title\1\s+content=(["\'])(.*?)\2')
+    has_canonical = bool(re.search(r'rel=(["\'])canonical\1', text, re.I))
     has_noindex = bool(
-        re.search(r'name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', text, re.I)
+        re.search(r'name=(["\'])robots\1[^>]*content=(["\'])(?:(?!\2).)*?noindex', text, re.I | re.S)
     )
 
     # ------------------------------------------------ invariant 2, every page

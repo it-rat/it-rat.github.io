@@ -2,7 +2,7 @@
 
 # Vouchryx, the delegation plane
 
-> RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, and can end before it expires at every point that polls the list.
+> RFC 8693 token exchange with nested act, bound to the caller's key by DPoP. A delegation an agent can prove it holds, ended early wherever the list is polled.
 
 An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline.
 
