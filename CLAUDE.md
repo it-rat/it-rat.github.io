@@ -194,15 +194,17 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 30 cases: twenty real faults, five
+   *(gate: `scripts/gates-have-teeth.sh`, 33 cases: twenty-two real faults, six
    non-faults, and five subjects taken away entirely, counted from the
-   harness's own "OK: 30 cases" on 2026-10-16. The non-faults are the
+   harness's own "OK: 33 cases" on 2026-10-17 (27 cases that must fail, 6 that
+   must pass). The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
    a paragraph arriving on a page is not a change of footer shape, a
    comment added to the stylesheet is not a generator that stopped running,
-   and a sentence added to a room under its ceiling is not a room outgrowing
-   its guide. A gate flagging any of them would be switched off inside a week. This line said
+   a sentence added to a room under its ceiling is not a room outgrowing
+   its guide, and an apostrophe inside a description is not where the
+   description ends. A gate flagging any of them would be switched off inside a week. This line said
    nine until 2026-08-29 while eleven cases ran, which is the same class of
    drift the site's own figures have: a count restated by hand and never
    measured.)*

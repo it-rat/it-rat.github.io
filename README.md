@@ -44,11 +44,19 @@ and stop their own agents. Nothing here is offensive tooling, and the site is wr
 
 Push to `master`. That is the whole procedure.
 
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) checks out the tree, runs three cheap
-gates, and publishes. Each one exists because this repo has actually shipped the mistake it catches:
-a page pointing at a deleted screenshot (every local `src`/`href` must resolve), a page carrying both
-a canonical and a noindex (`scripts/page-metadata.sh`), and a `/demo` built from a Genaryx that has
-since moved on (`scripts/demo-bundle-current.sh`).
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) checks out the tree, runs nine gates,
+and publishes only when all of them pass. Most exist because this repo actually shipped the mistake
+each one catches:
+
+- every local `src` and `href` must resolve (a page once pointed at a deleted screenshot);
+- `scripts/page-metadata.sh`: titles and descriptions within their limits, no canonical beside a noindex;
+- `scripts/service-numbers.sh`: every figure a page states has an owner in `numbers.json`;
+- `scripts/footer-shelves.sh`: the footer's shelves and the stylesheet's columns agree;
+- `scripts/generated-blocks.sh`: every generated block is on its page, and every generator is a no-op;
+- `scripts/room-budget.sh`: each service page stays under 1000 words of prose and links to its guide;
+- `scripts/gates-have-teeth.sh`: every gate above still fails on its own planted fault;
+- `scripts/demo-bundle-current.sh`: `/demo` is a build of the current Genaryx;
+- `scripts/deploy-target-current.sh`: the live domain is not behind the mirror.
 
 Pages is set to **GitHub Actions** as its source (since 2026-07-21), not the built-in branch builder,
 so a failed publish has a log and a re-run button instead of a silent "Page build failed". The custom
