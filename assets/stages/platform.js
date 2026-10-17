@@ -203,7 +203,7 @@ Sim.registerStage("envelope",function(o){
       if(capA>0){
         ctx.fillStyle="rgba("+P.faint+","+(0.85*capA)+")";
         ctx.font="10px ui-monospace,Menlo,monospace";
-        ctx.fillText("seven sources, one grammar",(busX0+pileX1)/2,H2-8);
+        ctx.fillText("seven of fourteen sources, one grammar",(busX0+pileX1)/2,H2-8);
       }
       ctx.textAlign="left";
     }
