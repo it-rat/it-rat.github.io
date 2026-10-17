@@ -70,6 +70,35 @@ function glow(ctx,x,y,r,col,core){
   ctx.fillStyle="rgba("+col+","+(core==null?1:core)+")";
   ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();
 }
+/* break text into lines no wider than maxW in the context's current font.
+   balance:true keeps the same number of lines but evens their lengths, so a
+   two-line label does not end on one orphaned word. Cached per font, width
+   and text: stages call it every frame, and the answer only changes when the
+   canvas is resized. A single word wider than maxW keeps a line of its own. */
+const wrapCache=new Map();
+function wrap(ctx,text,maxW,balance){
+  const key=ctx.font+"|"+maxW+"|"+(balance?1:0)+"|"+text;
+  const hit=wrapCache.get(key); if(hit) return hit;
+  const words=text.split(" ");
+  const greedy=lim=>{
+    const out=[]; let line="";
+    words.forEach(wd=>{
+      const next=line?line+" "+wd:wd;
+      if(line&&ctx.measureText(next).width>lim){out.push(line);line=wd;}else line=next;
+    });
+    if(line) out.push(line);
+    return out;
+  };
+  let lines=greedy(maxW);
+  if(balance&&lines.length>1){
+    let lo=0,hi=maxW;
+    for(let k=0;k<14;k++){const mid=(lo+hi)/2; if(greedy(mid).length>lines.length) lo=mid; else hi=mid;}
+    lines=greedy(hi);
+  }
+  if(wrapCache.size>400) wrapCache.clear();
+  wrapCache.set(key,lines);
+  return lines;
+}
 const PAL={fg:"233,239,246",dim:"138,151,166",faint:"90,102,117",
   mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,255",
   teal:"45,212,191",violet:"180,140,255",rose:"255,122,162",coral:"255,138,91",
@@ -372,6 +401,6 @@ window.Sim={
   mount:(el,cfg)=>Sim(el,cfg),
   registerStage,
   stages,
-  util:{interp,clamp,between,pulse,ease,rng,fmt,rr,glow,PAL}
+  util:{interp,clamp,between,pulse,ease,rng,fmt,rr,glow,wrap,PAL}
 };
 })();
