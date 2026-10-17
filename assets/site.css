@@ -608,6 +608,16 @@ canvas.ambient-deep{position:fixed;inset:0;width:100vw;height:100vh;pointer-even
   transition:color .15s,border-color .15s,transform .15s;
 }
 .dg-btn:hover{color:var(--fg);border-color:color-mix(in srgb, var(--accent) 55%, var(--line-2));transform:translateY(-1px)}
+/* Below 860px the drawing is drawn small (on a phone it is held at 640px
+   inside a sideways scroller), so the control's 24px in the top right corner
+   covered a box or a label on seven rooms: measured by scripts/svg-fit.sh at
+   390 and at 768 (qryx). There it gets a strip of its own above the drawing
+   instead of floating over it. Above 860px the corner is empty on every
+   room, measured the same way at 1024, 1280 and 1440, so nothing moves. */
+@media(max-width:860px){
+  .diagram{padding-top:40px}
+  .diagram > .dg-btn{top:8px}
+}
 .dg-lock{overflow:hidden}
 .dg-ov{
   position:fixed;inset:0;z-index:130;display:flex;flex-direction:column;

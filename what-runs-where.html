@@ -168,28 +168,30 @@
       <div class="rig-stage"><svg viewBox="0 0 960 372" role="img" aria-label="Two cloud clusters calling through a tunnel into a box behind a home router, where a gateway, a policy plane, a notifier and a record decide before the call reaches the model provider">
         <!-- the premises boundary -->
         <rect x="446" y="22" width="286" height="318" rx="16" fill="none" stroke="#252a35" stroke-width="1.5" stroke-dasharray="6 6"/>
-        <text class="sv-lbl" x="589" y="44" text-anchor="middle" fill="#5c6b82">your premises · carrier-grade NAT · nothing inbound</text>
+        <!-- two lines: on one it ran 37 units past both sides of the boundary -->
+        <text class="sv-lbl" x="589" y="43" text-anchor="middle" fill="#5c6b82"><tspan x="589">your premises · carrier-grade NAT</tspan><tspan x="589" dy="14">nothing inbound</tspan></text>
 
         <!-- the tunnel corridor -->
-        <path class="sv-wire" d="M206 106 C 320 106, 340 150, 470 150"/>
-        <path class="sv-wire" d="M206 246 C 320 246, 340 194, 470 194"/>
-        <text class="sv-lbl" x="322" y="96" text-anchor="middle" fill="#5c6b82">tunnel · 23 ms</text>
-        <text class="sv-lbl" x="322" y="270" text-anchor="middle" fill="#5c6b82">tunnel · 29 ms</text>
+        <path class="sv-wire" d="M256 106 C 348 106, 365 150, 470 150"/>
+        <path class="sv-wire" d="M256 246 C 348 246, 365 194, 470 194"/>
+        <text class="sv-lbl" x="360" y="96" text-anchor="middle" fill="#5c6b82">tunnel · 23 ms</text>
+        <text class="sv-lbl" x="360" y="270" text-anchor="middle" fill="#5c6b82">tunnel · 29 ms</text>
         <text class="sv-lbl" x="322" y="180" text-anchor="middle" fill="#5c6b82">WireGuard mesh, ephemeral nodes</text>
 
         <!-- the box to the provider -->
         <path class="sv-wire" d="M700 172 H 786"/>
 
-        <!-- AWS cluster -->
+        <!-- AWS cluster. 210 wide, because the machine line is 176 and at 160
+             it ran 32 units out of the box and under the tunnel's start -->
         <g id="ap-aws">
-          <rect class="sv-box" x="46" y="70" width="160" height="72" rx="12"/>
+          <rect class="sv-box" x="46" y="70" width="210" height="72" rx="12"/>
           <text class="sv-ttl" x="62" y="96">AWS · Frankfurt</text>
           <text class="sv-lbl" x="62" y="114" fill="#5c6b82">t3.medium · k3s · one Job</text>
           <text class="sv-mono" id="ap-aws-n" x="62" y="132" fill="#6C7BFF">calls 0</text>
         </g>
         <!-- GCP cluster -->
         <g id="ap-gcp">
-          <rect class="sv-box" x="46" y="210" width="160" height="72" rx="12"/>
+          <rect class="sv-box" x="46" y="210" width="210" height="72" rx="12"/>
           <text class="sv-ttl" x="62" y="236">GCP · Frankfurt</text>
           <text class="sv-lbl" x="62" y="254" fill="#5c6b82">e2-medium · k3s · one Job</text>
           <text class="sv-mono" id="ap-gcp-n" x="62" y="272" fill="#34D399">calls 0</text>
@@ -205,8 +207,11 @@
           <g id="ap-gate">
             <rect id="ap-gate-body" x="486" y="136" width="52" height="70" rx="12" fill="#12151c" stroke="#F4B23E" stroke-width="2"/>
             <path id="ap-gate-bar" d="M512 150 V 192" stroke="#F4B23E" stroke-width="4" stroke-linecap="round"/>
-            <text class="sv-lbl" x="512" y="224" text-anchor="middle" fill="#F4B23E">gateway</text>
-            <text class="sv-lbl" id="ap-gate-sub" x="512" y="240" text-anchor="middle" fill="#5c6b82">budgets · keys</text>
+            <!-- flush left with the gate rather than centred on it: centred, the
+                 longest state ("back in 40 s, on its own") ran 43 units out of
+                 the box on the left and under the record box on the right -->
+            <text class="sv-lbl" x="486" y="231" fill="#F4B23E">gateway</text>
+            <text class="sv-lbl" id="ap-gate-sub" x="486" y="248" fill="#5c6b82">budgets · keys</text>
           </g>
 
           <!-- the planes beside it -->
@@ -225,8 +230,8 @@
 
         <!-- the verdict badge -->
         <g id="ap-verdict" opacity="0">
-          <rect id="ap-v-box" x="440" y="8" width="0" height="26" rx="13" fill="#12151c" stroke="#F4B23E"/>
-          <text class="sv-mono" id="ap-v-text" x="0" y="26" text-anchor="middle" fill="#F4B23E"></text>
+          <rect id="ap-v-box" x="440" y="2" width="0" height="26" rx="13" fill="#12151c" stroke="#F4B23E"/>
+          <text class="sv-mono" id="ap-v-text" x="0" y="20" text-anchor="middle" fill="#F4B23E"></text>
         </g>
 
         <!-- the event log strip -->
@@ -235,8 +240,8 @@
         <g id="ap-log"></g>
 
         <!-- the packets -->
-        <circle id="ap-p1" cx="206" cy="106" r="6" fill="#6C7BFF" opacity="0"/>
-        <circle id="ap-p2" cx="206" cy="246" r="6" fill="#34D399" opacity="0"/>
+        <circle id="ap-p1" cx="256" cy="106" r="6" fill="#6C7BFF" opacity="0"/>
+        <circle id="ap-p2" cx="256" cy="246" r="6" fill="#34D399" opacity="0"/>
       </svg></div>
 
       <div class="rig-cap" id="ap-cap"></div>
