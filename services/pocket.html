@@ -63,6 +63,19 @@
   .limits li+li{margin-top:9px}
   .limits li::marker{color:var(--accent)}
   .deeper .cta-row{margin-top:16px}
+  /* Narrow screens, panel opened inline (no script, or before it loads): the
+     trigger takes its own line, the panel reads in the body face at 14px rather
+     than the band's 11px mono, and the dot stays level with the sentence's first
+     line instead of sitting at the middle of the whole band. The script path
+     opens the same text in a centred sheet and does not use these rules. */
+  @media(max-width:640px){
+    .side-ribbon .wrap:has(.ribbon-more[open]){align-items:flex-start}
+    .side-ribbon .wrap:has(.ribbon-more[open]) .dot{margin-top:6px}
+    .side-ribbon .ribbon-more[open]{display:block;margin-top:10px}
+    .side-ribbon .ribbon-more[open]>summary{display:inline-block;margin-bottom:12px}
+    .side-ribbon .ribbon-more .sheet-in{font-family:var(--font-t);font-size:14px;line-height:1.6;letter-spacing:normal;color:var(--dim);max-width:60ch}
+    .side-ribbon .ribbon-more .sheet-in b{color:var(--fg)}
+  }
 </style>
 <!-- seo:auto -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"TokenFuse Pocket","url":"https://it-rat.com/services/pocket.html","description":"Our iPhone and Apple Watch app for TokenFuse: the fleet's burn live, and a kill signed by the Secure Enclave. Built, and not wired into a running stack yet.","applicationCategory":"DeveloperApplication","operatingSystem":"iOS, watchOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/tokenfuse-mobile","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"TokenFuse Pocket","item":"https://it-rat.com/services/pocket.html"}]}]}</script>
