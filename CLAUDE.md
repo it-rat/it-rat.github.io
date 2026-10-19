@@ -197,9 +197,9 @@ true.
    refuse.
    *(gate: `scripts/gates-have-teeth.sh`, 38 cases: twenty-five real faults, seven
    non-faults, and six subjects taken away entirely, counted from the
-   harness's own "1 of 38 cases failed" on 2026-10-19 (31 cases that must fail, 7 that
-   must pass; the one was demo-bundle-current, UNJUDGEABLE because the published
-   demo is older than genaryx `apps/web`, which is invariant 7 doing its job). The non-faults are the
+   harness's own "OK: 38 cases" on 2026-10-19, after the demo was rebuilt (31 cases
+   that must fail, 7 that must pass; before that rebuild demo-bundle-current was
+   UNJUDGEABLE, which is invariant 7 doing its job). The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
    a paragraph arriving on a page is not a change of footer shape, a
