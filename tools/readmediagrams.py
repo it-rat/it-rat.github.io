@@ -43,7 +43,7 @@ ROOMS = {
                   "11ec58689354"),
     "keyryx":   ("services/keyryx.html", "#FDE68A",
                   "Keyryx: custody signs for granted consumers and publishes key sets, and a read-only witness signs its tree heads and reports a rewritten stream",
-                  "cdc3278fcf03"),
+                  "1ceacabe4322"),
     "verdryx":   ("services/verdryx.html", "#FF7AA2",
                   "Verdryx: outcomes judged and priced per resolved case, with drift watched over time",
                   "c61935fe07c8"),
