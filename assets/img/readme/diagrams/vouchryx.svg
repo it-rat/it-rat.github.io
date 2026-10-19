@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 418" width="996" height="418" role="img" aria-label="Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a short-lived delegation token, verified offline and revoked by a polled list">
   <title>Vouchryx: a subject token, an actor token and a DPoP proof are exchanged for a short-lived delegation token, verified offline and revoked by a polled list</title>
+  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>
   <rect x="-18" y="-18" width="996" height="418" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="995" height="417" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
@@ -92,7 +93,7 @@
           <text x="250" y="368" fill="#5A6675" font-size="10.5" text-anchor="start">nothing here asks vouchryx at request time, on purpose</text>
         </g>
       
-  <g fill="none">
+  <g fill="none" class="rd-anim">
   <path d="M238 49 L332 96" fill="none" pathLength="100" stroke="#8B9DFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></path>
   <path d="M238 111 L332 111" fill="none" pathLength="100" stroke="#8B9DFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></path>
   <path d="M238 173 L332 126" fill="none" pathLength="100" stroke="#8B9DFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></path>

@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 1016 396" width="1016" height="396" role="img" aria-label="Genaryx: one browser control room over the stack, reached only over the tunnel">
   <title>Genaryx: one browser control room over the stack, reached only over the tunnel</title>
+  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>
   <rect x="-18" y="-18" width="1016" height="396" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="1015" height="395" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
@@ -15,7 +16,7 @@
           <text x="124" y="106" fill="#8A97A6" font-size="10.5">one Rust core &#183; thin shell</text>
           <text x="124" y="122" fill="#8A97A6" font-size="10.5">passkey ES256 &#183; on your device</text>
 
-          <rect x="24" y="240" width="200" height="80" rx="14" fill="#10161F" stroke="#B48CFF" stroke-width="1.4" stroke-dasharray="5 4"><animate attributeName="stroke-opacity" values="1;.45;1" dur="3.4s" repeatCount="indefinite"/></rect>
+          <rect x="24" y="240" width="200" height="80" rx="14" fill="#10161F" stroke="#B48CFF" stroke-width="1.4" stroke-dasharray="5 4"/><rect x="24" y="240" width="200" height="80" rx="14" stroke-dasharray="5 4" fill="none" stroke="#0A0E13" stroke-width="1.6" class="rd-anim" opacity="0"><animate attributeName="opacity" values="0;.55;0" dur="3.4s" repeatCount="indefinite"/></rect>
           <text x="124" y="268" fill="#B48CFF" font-size="12.5" font-weight="700">any device, any browser</text>
           <text x="124" y="286" fill="#8A97A6" font-size="10.5">a desk at noon, a sofa at 2am</text>
           <text x="124" y="302" fill="#8A97A6" font-size="10.5">opens the console on the tunnel</text>
@@ -49,7 +50,7 @@
         <line x1="620" y1="140" x2="770" y2="146" stroke="#34D399" stroke-width="1.6" class="flow"/><line x1="755.0" y1="145.4" x2="770" y2="146" stroke="#34D399" stroke-width="1.6" marker-end="url(#enarrMint)"/>
         <line x1="849" y1="252" x2="849" y2="210" stroke="#B48CFF" stroke-width="1.2" stroke-dasharray="4 3" class="flow flow-dot"/><line x1="849.0" y1="225.0" x2="849" y2="210" stroke="#B48CFF" stroke-width="1.2" marker-end="url(#enarrVio)"/>
       
-  <g fill="none">
+  <g fill="none" class="rd-anim">
   <line x1="375.1" y1="128.2" x2="390" y2="130" pathLength="100" stroke="#B48CFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></line>
   <line x1="124" y1="155" x2="124" y2="140" pathLength="100" stroke="#B48CFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></line>
   <line x1="755.0" y1="145.4" x2="770" y2="146" pathLength="100" stroke="#B48CFF" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></line>

@@ -62,7 +62,7 @@ Kills, budget changes and approval grants are confirmed per action with a passke
 
 No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
-From genaryx 03c6c88. The console image the launchers pin today, v1.1.48, gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, which both set.
+From genaryx 03c6c88. On 2026-10-19 stack-single and stack-k8s pin the console image v1.1.48, which gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, and both launchers set that variable. stack-up starts no console.
 
 ### WireGuard, but yours
 

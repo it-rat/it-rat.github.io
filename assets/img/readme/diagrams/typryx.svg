@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 708" width="996" height="708" role="img" aria-label="Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a swappable backend, stub, openai-logprobs or jev, and every answer or refusal is journaled, with a calibration loop and the journal on the shared events volume">
   <title>Typryx: an ask crosses the door, template lookup, egress filter and hourly cap to a swappable backend, stub, openai-logprobs or jev, and every answer or refusal is journaled, with a calibration loop and the journal on the shared events volume</title>
+  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>
   <rect x="-18" y="-18" width="996" height="708" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="995" height="707" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
         <defs>
           <marker id="txa1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
           <marker id="txa2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#8A97A6"/></marker>
+        <style>@media (prefers-reduced-motion: reduce){.tx-anim{display:none}}</style>
         </defs>
         <g font-family="ui-monospace,Menlo" text-anchor="middle">
           <rect x="30" y="18" width="320" height="48" rx="10" fill="#141C27" stroke="#34D399"/>
@@ -16,7 +18,7 @@
           <text x="210" y="118" fill="#E9EFF6" font-size="11.5" font-weight="700">tokenfuse MCP broker</text>
           <text x="210" y="135" fill="#34D399" font-size="10.5">built: named upstream, tool_call recorded</text>
 
-          <rect x="30" y="178" width="440" height="126" rx="14" fill="#10161F" stroke="#60A5FA" stroke-width="1.4"><animate attributeName="stroke-opacity" values="1;.45;1" dur="3.4s" repeatCount="indefinite"/></rect>
+          <rect x="30" y="178" width="440" height="126" rx="14" fill="#10161F" stroke="#60A5FA" stroke-width="1.4"/><rect x="30" y="178" width="440" height="126" rx="14" fill="none" stroke="#0A0E13" stroke-width="1.6" class="rd-anim" opacity="0"><animate attributeName="opacity" values="0;.55;0" dur="3.4s" repeatCount="indefinite"/></rect>
           <text x="250" y="202" fill="#60A5FA" font-size="13.5" font-weight="700">typryx</text>
           <rect x="48" y="214" width="82" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="89" y="232" fill="#E9EFF6" font-size="10.5">door</text>
           <rect x="138" y="214" width="98" height="28" rx="7" fill="#141C27" stroke="#2a3547"/><text x="187" y="232" fill="#E9EFF6" font-size="10.5">template</text>
@@ -77,20 +79,20 @@
              from the boxes alone. The ember one stops on the cap box's top
              edge: parked at its centre it covered "hourly cap" for a quarter
              of every loop -->
-        <g class="flow">
+        <g class="tx-anim">
           <circle r="5" fill="#34D399" opacity=".9">
-            <animateMotion begin="0s" dur="7s" repeatCount="indefinite"
+            <animateMotion dur="7s" repeatCount="indefinite"
               path="M190 42 L190 94 L210 120 L250 190 L250 290 L250 375 L250 479 L250 570"/>
           </circle>
           <circle r="5" fill="#FF574B" opacity="0">
-            <animateMotion begin="0s" dur="7s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.62;1" calcMode="linear"
+            <animateMotion dur="7s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.62;1" calcMode="linear"
               path="M190 42 L190 94 L210 120 L250 190 L416 214"/>
-            <animate attributeName="opacity" values="0.9;0.9;0.9;0;0" keyTimes="0;0.62;0.85;0.9;1" begin="0s" dur="7s" repeatCount="indefinite"/>
-            <animate attributeName="fill" values="#34D399;#FF574B;#FF574B" keyTimes="0;0.6;1" begin="0s" dur="7s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.9;0.9;0.9;0;0" keyTimes="0;0.62;0.85;0.9;1" dur="7s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="#34D399;#FF574B;#FF574B" keyTimes="0;0.6;1" dur="7s" repeatCount="indefinite"/>
           </circle>
         </g>
       
-  <g fill="none">
+  <g fill="none" class="rd-anim">
   <line x1="190" y1="66" x2="210" y2="94" pathLength="100" stroke="#60A5FA" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></line>
   <line x1="210" y1="150" x2="230" y2="176" pathLength="100" stroke="#60A5FA" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></line>
   <line x1="250" y1="304" x2="250" y2="324" pathLength="100" stroke="#60A5FA" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></line>

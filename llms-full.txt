@@ -1980,7 +1980,7 @@ Separation of duties is the oldest control in banking, and here it means **one c
 
 ## A record that proves itself.
 
-Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root is no longer missing, but it is not on by default: Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release). Keyryx also runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume, so it is not an outside party; it points the witness at no Trailryx record and leaves the root signer off, so a pack from the default install carries neither a root signature nor a witness yet. A witness off the host is not built.
+Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root is no longer missing, but it is not on by default: Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release). Keyryx also runs a witness that reads the event bus read-only and writes its findings to its own volume. The stack-single launcher runs that witness on the same host, as a separate user and volume, so it is not an outside party; it points the witness at no Trailryx record and leaves the root signer off, so a stack-single pack from the default install carries neither a root signature nor a witness yet. A witness off the host is not built.
 
 The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.
 
@@ -2751,7 +2751,7 @@ Kills, budget changes and approval grants are confirmed per action with a passke
 
 No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
-From genaryx 03c6c88. The console image the launchers pin today, v1.1.48, gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, which both set.
+From genaryx 03c6c88. On 2026-10-19 stack-single and stack-k8s pin the console image v1.1.48, which gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, and both launchers set that variable. stack-up starts no console.
 
 ### WireGuard, but yours
 
@@ -4286,7 +4286,7 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
 
-- Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
+- Trailryx reads the witness's attestations into a pack only when its attestations folder is set to the witness's output. stack-single does not set it. stack-up has set it by default since 2026-10-19, and stack-k8s does not yet. At keyryx v0.1.1, which every launcher pins, the witness writes each attestation readable only by its own user, so a record plane running as another user cannot open it; stack-up runs both roles as one user, so it can. keyryx v0.1.2, tagged on 2026-10-19, writes them readable by the group, and no launcher pins it yet. None of this has run live.
 
 - The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
 
@@ -4906,7 +4906,7 @@ The same harness, the honest-disk assumption removed (as recorded, undated, in V
 
 ### What the installed profile seals today
 
-What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers set neither the Keyryx signer nor the witness's attestations folder, both opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
+What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and a stack-single pack is written that way, because stack-single sets neither the Keyryx signer nor the witness's attestations folder, both opt-in since 1.3.0. Since 2026-10-19 stack-up signs each sealed root through Keyryx by default and attaches the witness's attestations, and stack-k8s main signs through Keyryx by default with no attestations yet; none of this has run live. So a stack-single pack's verdict proves the chain was not altered, not who published it or when.
 
 ## The offline verifier.
 
@@ -4932,7 +4932,7 @@ What changed from 1 to 15 October 2026, release by release, is in [the stack's c
 
 - SQL is a facade in the tree and not yet a port in the shipped node: today you read the records through `read`.
 
-- The `record-seal` job the launchers run keeps the typed metadata plane and declines the payload. A pack carries no root signature and no witness, so the verdict proves the chain was not altered, not who published it or when.
+- The `record-seal` job the launchers run keeps the typed metadata plane and declines the payload. A pack from stack-single carries no root signature and no witness, so the verdict proves the chain was not altered, not who published it or when. Since 2026-10-19 stack-up signs each sealed root through Keyryx by default and attaches the witness's attestations, and stack-k8s main signs through Keyryx by default with no attestations yet. None of this has run live.
 
 - The durability figures are as recorded, undated, in the repository's VALIDATION.md.
 

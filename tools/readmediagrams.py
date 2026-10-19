@@ -43,7 +43,7 @@ ROOMS = {
                   "11ec58689354"),
     "keyryx":   ("services/keyryx.html", "#FDE68A",
                   "Keyryx: custody signs for granted consumers and publishes key sets, and a read-only witness signs its tree heads and reports a rewritten stream",
-                  "1ceacabe4322"),
+                  "6fda500faf99"),
     "verdryx":   ("services/verdryx.html", "#FF7AA2",
                   "Verdryx: outcomes judged and priced per resolved case, with drift watched over time",
                   "c61935fe07c8"),
@@ -123,7 +123,10 @@ def pulses(svg, accent):
     diagonal each take one full `DUR` to travel: without it the dash pattern is
     in user units and the pulse crawls across long wires and blinks past short
     ones. The negative `begin` starts each animation mid-flight, so the very
-    first frame already reads as flowing rather than empty.
+    first frame already reads as flowing rather than empty. The negative begins
+    are by design: a pulse never starts late, so nothing sits at the origin. The
+    whole group is in the reduced-motion group (rd-anim), so a reader who asks
+    for reduced motion sees the still wires.
     """
     out = []
     wires = re.findall(r'<line\b[^>]*marker-end[^>]*/>', svg)
@@ -150,15 +153,22 @@ def pulses(svg, accent):
 
 
 def breathe(svg, accent):
-    """Make the room's own box pulse in its accent, the way the page does."""
+    """Pulse the room's own box in its accent, the way the page does.
+
+    The box itself stays still. A veil in the background colour sits on its
+    outline and fades in and out, so the accent dips the way the page's box
+    does. The veil is in the reduced-motion group (rd-anim), so a reader who
+    asks for reduced motion gets the box at full strength and no motion.
+    """
     m = re.search(r'<rect\b[^>]*stroke="' + re.escape(accent) + r'"[^>]*stroke-width="1.4"[^>]*/>', svg)
     if not m:
         return svg
-    animated = m.group(0)[:-2] + (
-        '><animate attributeName="stroke-opacity" values="1;.45;1" '
-        'dur="3.4s" repeatCount="indefinite"/></rect>'
-    )
-    return svg[:m.start()] + animated + svg[m.end():]
+    base = m.group(0)
+    geom = re.sub(r'\s(fill|stroke|stroke-width|stroke-opacity|class|style|opacity)="[^"]*"', "", base[:-2])
+    veil = (geom + f' fill="none" stroke="{BG}" stroke-width="1.6" class="rd-anim" opacity="0">'
+            '<animate attributeName="opacity" values="0;.55;0" dur="3.4s" repeatCount="indefinite"/>'
+            '</rect>')
+    return svg[:m.end()] + veil + svg[m.end():]
 
 
 def park_motion_tokens(svg):
@@ -208,11 +218,12 @@ def build(room, page, accent, title):
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{x:g} {y:g} {w:g} {h:g}" '
         f'width="{w:g}" height="{h:g}" role="img" aria-label="{title}">\n'
         f'  <title>{title}</title>\n'
+        '  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>\n'
         f'  <rect x="{x:g}" y="{y:g}" width="{w:g}" height="{h:g}" rx="16" fill="{BG}"/>\n'
         f'  <rect x="{x + .5:g}" y="{y + .5:g}" width="{w - 1:g}" height="{h - 1:g}" rx="15.5" '
         f'fill="none" stroke="rgba(255,255,255,.09)"/>\n'
         f'{inner}\n'
-        f'  <g fill="none">\n  {pulses(svg, accent)}\n  </g>\n'
+        f'  <g fill="none" class="rd-anim">\n  {pulses(svg, accent)}\n  </g>\n'
         f'</svg>\n'
     )
 

@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 428" width="996" height="428" role="img" aria-label="CostCrew: charges arrive from the connectors built so far (the TokenFuse FOCUS export, seats, recommendations; the AWS and GCP billing exports are read, the Azure one is specified), a two-sided detector opens anomalies, and an agent analyst drafts a fix a person posts or returns">
   <title>CostCrew: charges arrive from the connectors built so far (the TokenFuse FOCUS export, seats, recommendations; the AWS and GCP billing exports are read, the Azure one is specified), a two-sided detector opens anomalies, and an agent analyst drafts a fix a person posts or returns</title>
+  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>
   <rect x="-18" y="-18" width="996" height="428" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="995" height="427" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
@@ -22,7 +23,7 @@
           <path d="M196 61 L246 61" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#cc-a)"/>
 
           <!-- the detector -->
-          <rect x="250" y="30" width="196" height="62" rx="12" fill="#161F2C" stroke="#7DD3A0" stroke-width="1.4"><animate attributeName="stroke-opacity" values="1;.45;1" dur="3.4s" repeatCount="indefinite"/></rect>
+          <rect x="250" y="30" width="196" height="62" rx="12" fill="#161F2C" stroke="#7DD3A0" stroke-width="1.4"/><rect x="250" y="30" width="196" height="62" rx="12" fill="none" stroke="#0A0E13" stroke-width="1.6" class="rd-anim" opacity="0"><animate attributeName="opacity" values="0;.55;0" dur="3.4s" repeatCount="indefinite"/></rect>
           <text x="348" y="53" fill="#7DD3A0" font-size="12" font-weight="700">the detector</text>
           <text x="348" y="70" fill="#8A97A6" font-size="10.5">median and robust deviation,</text>
           <text x="348" y="84" fill="#8A97A6" font-size="10.5">two-sided, ranked by money</text>
@@ -99,7 +100,7 @@
           </g>
         </g>
       
-  <g fill="none">
+  <g fill="none" class="rd-anim">
   <path d="M196 61 L246 61" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></path>
   <path d="M450 61 L500 61" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></path>
   <path d="M604 96 L604 132" fill="none" pathLength="100" stroke="#7DD3A0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></path>

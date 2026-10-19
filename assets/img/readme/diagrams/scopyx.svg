@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 336" width="996" height="336" role="img" aria-label="Scopyx: a request passes five gates in order, scheme, host, resolved addresses, your policy and robots.txt, before anything leaves">
   <title>Scopyx: a request passes five gates in order, scheme, host, resolved addresses, your policy and robots.txt, before anything leaves</title>
+  <style>@media (prefers-reduced-motion: reduce){.rd-anim{display:none}}</style>
   <rect x="-18" y="-18" width="996" height="336" rx="16" fill="#0A0E13"/>
   <rect x="-17.5" y="-17.5" width="995" height="335" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
@@ -75,7 +76,7 @@
           <text x="796" y="259" fill="#F0ABFC" font-size="10" font-weight="700">redirect is a destination nobody named</text>
         </g>
       
-  <g fill="none">
+  <g fill="none" class="rd-anim">
   <path d="M150 58 L158 58" fill="none" pathLength="100" stroke="#F0ABFC" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></path>
   <path d="M304 58 L312 58" fill="none" pathLength="100" stroke="#F0ABFC" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></path>
   <path d="M458 58 L466 58" fill="none" pathLength="100" stroke="#F0ABFC" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></path>
