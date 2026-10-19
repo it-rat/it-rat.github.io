@@ -22,7 +22,7 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 ### It refuses to start rather than start permissive
 
-Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.
+Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS (unless VOUCHRYX_AGENTS enrols an agent). A missing or malformed value aborts the process and names the variable.
 
 ## Mint, prove, verify, end.
 

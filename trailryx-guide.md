@@ -70,7 +70,7 @@ The same harness, the honest-disk assumption removed (as recorded, undated, in V
 
 ### What the installed profile seals today
 
-What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers leave off the Keyryx signer, which trailryx has offered as an opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
+What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers set neither the Keyryx signer nor the witness's attestations folder, both opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
 
 ## The offline verifier.
 

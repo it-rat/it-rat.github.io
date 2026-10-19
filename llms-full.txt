@@ -1749,7 +1749,7 @@ Apache-2.0 throughout, the console included. Nothing in the governance layer sit
 
 ### An alert is a coordinate, and a session is not an authority
 
-The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, ten commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, and closing a retained reservation.
+The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, ten commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, closing a retained reservation, setting a unit's monthly cap, and stopping an agent or lifting its ban.
 
 ### Post-quantum sits inside the agent loop, and it has legal dates attached
 
@@ -2751,6 +2751,8 @@ Kills, budget changes and approval grants are confirmed per action with a passke
 
 No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
+From genaryx 03c6c88. The console image the launchers pin today, v1.1.48, gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, which both set.
+
 ### WireGuard, but yours
 
 Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name and nowhere else, and it never faces the internet.
@@ -3482,11 +3484,11 @@ A big spend becomes a hold, not a guess. A human grants it out of band and the a
 
 The agent asks, Wardryx answers `hold` with an approval id, and the call ends there. A human decides out of band, Wardryx mints an approval token, and the agent asks again with the token in hand; that second answer is `allow`. No connection is parked waiting for a signature, and Wardryx does not have to remember an open request: the grant is proven by the token, not by anyone's memory of it.
 
-The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification checks the signature over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
+The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification checks the signature over the still-encoded payload before reading any claim, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
 
 Since v1.2.0 an approval is also bound to the tool call a person read, when the held request carried one. The person is shown the tool and its target, and the token carries a digest of the name, the target and the exact arguments, so it is refused for any other call, the same JSON re-spaced included. A call whose arguments were too large to send binds only its name and target.
 
-The signing is fail-closed. The token is signed by Keyryx custody (ES256) when WARDRYX_APPROVAL_SIGNER=keyryx, which the stack-single and stack-up launchers set (stack-k8s sets it in its Keyryx overlay), and with an HMAC secret otherwise. With neither a signer nor the secret, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
+The signing is fail-closed. The token is signed by Keyryx custody (ES256) when WARDRYX_APPROVAL_SIGNER=keyryx, which the stack-single and stack-up launchers set (stack-k8s sets it in its opt-in Keyryx overlay, keyryx/up.sh), and with an HMAC secret otherwise. With neither a signer nor the secret, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
 
 ### A hard ceiling that outranks approvals
 
@@ -3706,7 +3708,7 @@ Idryx's releases from 1 to 15 October 2026 are listed in [the October changelog]
 
 - The companion detector bom_incomplete flags the agents the BOM cannot yet prove.
 
-- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12; a 12-second capture in a container, not against an agent: 3 flows on the fixed build, after the first run counted 16 of its 21 flows as its own) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
+- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12; a 12-second capture in a container, not against an agent: 3 flows on the fixed build, after 16 of the first run's 21 flows turned out to be the sensor's own traffic) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
 
 - The room's runaway is a simulation, but it replays the shape of the live validation run.
 
@@ -3967,7 +3969,7 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 ## It refuses to start rather than start permissive.
 
-Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
+Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS (unless VOUCHRYX_AGENTS enrols an agent). The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
 
 In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so tokens there are signed with the file key, not with a working key that Keyryx certifies.
 
@@ -4282,6 +4284,8 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
 
+- No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
+
 - Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
 
 - The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
@@ -4302,7 +4306,7 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.
 
-- On one machine the witness is a separate user and volume, not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.
+- In stack-single the witness is a separate user and volume; in stack-up both roles run as the user that started them. Either way, on one machine, it is not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.
 
 - Post-quantum signatures come from Go's standard library, and no verifier outside this repository checks ML-DSA yet. The key set's AKP form follows a JOSE draft, not an RFC.
 
@@ -4902,7 +4906,7 @@ The same harness, the honest-disk assumption removed (as recorded, undated, in V
 
 ### What the installed profile seals today
 
-What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers leave off the Keyryx signer, which trailryx has offered as an opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
+What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers set neither the Keyryx signer nor the witness's attestations folder, both opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
 
 ## The offline verifier.
 
@@ -5041,6 +5045,7 @@ This plane mails about what other planes wrote, so its reach grows when theirs d
 | v0.8.0 | Every SMTP connection has a 10 second dial deadline and a 60 second session deadline. |
 | v0.8.0 | Stream files the notifier creates are mode 0640, so only their owner and its group can read them. |
 | v0.8.0 | The checkpoint gate is off by default; with it on, a stream is read only while a signed checkpoint covers it (see the boundaries). |
+| v0.8.0 | Heraldyx reads a stream another service wrote only as the file's owner or in its group: a stream created at 0640 needs Heraldyx in that group. |
 
 ## What the notifier gained in v0.7.0
 
@@ -5307,7 +5312,7 @@ The room's simulation is labeled as one: a replay of the envelope's normal day. 
 
 ### Everything meets at the envelope.
 
-Fifteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas and, on the box, re-checks every stream's hash chain and writes what it finds to a stream of its own, which is how it is also the fourteenth source; Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
+Fifteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas and, on the box, re-checks every stream's hash chain and writes what it finds to a stream of its own, which is how it is also the fourteenth source; Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. The keyryx witness also reads every stream; in the launchers its findings stay on its own volume. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
 
 ### The passport
 

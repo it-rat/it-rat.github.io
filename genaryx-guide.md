@@ -62,6 +62,8 @@ Kills, budget changes and approval grants are confirmed per action with a passke
 
 No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
+From genaryx 03c6c88. The console image the launchers pin today, v1.1.48, gets the same refusal from GENARYX_WEB_REQUIRE_PASSKEY=1, which both set.
+
 ### WireGuard, but yours
 
 Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name and nowhere else, and it never faces the internet.

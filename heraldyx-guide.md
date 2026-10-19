@@ -98,6 +98,7 @@ This plane mails about what other planes wrote, so its reach grows when theirs d
 | v0.8.0 | Every SMTP connection has a 10 second dial deadline and a 60 second session deadline. |
 | v0.8.0 | Stream files the notifier creates are mode 0640, so only their owner and its group can read them. |
 | v0.8.0 | The checkpoint gate is off by default; with it on, a stream is read only while a signed checkpoint covers it (see the boundaries). |
+| v0.8.0 | Heraldyx reads a stream another service wrote only as the file's owner or in its group: a stream created at 0640 needs Heraldyx in that group. |
 
 ## What the notifier gained in v0.7.0
 

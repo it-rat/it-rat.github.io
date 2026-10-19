@@ -243,6 +243,7 @@ keyryx verify streams --events events/ --checkpoints checkpoints/ \
     <div class="prose rv">
       <ul>
         <li>The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).</li>
+        <li>No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.</li>
         <li>Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.</li>
         <li>The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.</li>
         <li>No public time-stamping authority has been asked. The client is tested against an authority the tests build.</li>
@@ -253,7 +254,7 @@ keyryx verify streams --events events/ --checkpoints checkpoints/ \
         <li>Challenges live in memory, so a restart drops the outstanding ones.</li>
         <li>No consumer has yet authenticated with a projected service-account token on a real cluster; that path is tested against tokens the repository mints. On a kind cluster custody has served a bearer-key consumer and refused a wrong key (stack-k8s, 2026-10-18).</li>
         <li>No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.</li>
-        <li>On one machine the witness is a separate user and volume, not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.</li>
+        <li>In stack-single the witness is a separate user and volume; in stack-up both roles run as the user that started them. Either way, on one machine, it is not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.</li>
         <li>Post-quantum signatures come from Go's standard library, and no verifier outside this repository checks ML-DSA yet. The key set's AKP form follows a JOSE draft, not an RFC.</li>
       </ul>
     </div>

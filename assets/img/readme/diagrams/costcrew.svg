@@ -92,7 +92,7 @@
 
           <!-- one finding walking the line -->
           <g class="cc-anim">
-            <circle r="4.5" fill="#F4B23E" opacity=".9" transform="translate(102,61)">
+            <circle r="4.5" fill="#F4B23E" opacity=".9">
               <animateMotion dur="11s" repeatCount="indefinite"
                 path="M102 61 L348 61 L604 61 L604 167 L348 167 L348 262 L348 353 L578 353"/>
             </circle>

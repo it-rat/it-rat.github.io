@@ -60,11 +60,13 @@ Verifiers read the published key sets and never call custody for each request. I
 
 - Its findings stay on its own volume: Heraldyx does not read them yet, so a finding sends no mail. An operator reads alerts.ndjson, or checks the witness log with keyryx verify.
 
+- No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
+
 ## What is not proven yet.
 
-- Two released consumers can ask for and renew a delegated key, each opt-in: Vouchryx from 0.5.0 (its token key) and TokenFuse from 1.18.0 (its checkpoint key). No launcher turns either on, and the round trip has run once against a real keyryx binary.
+- Two released consumers can ask for and renew a delegated key, each opt-in: Vouchryx from 0.5.0 (its token key) and TokenFuse from 1.18.0 (its checkpoint key). No launcher turns either on, and only Vouchryx's round trip has run against a real keyryx binary, once.
 
-- The witness and custody share a host. They are separate users, volumes and keys, not separate trust domains. An anchor off the host is the operator's to add, and no public time-stamping authority has been asked.
+- The witness and custody share a host. In stack-single they are separate users, volumes and keys; in stack-up they share the user that started them. Either way they are not separate trust domains. An anchor off the host is the operator's to add, and no public time-stamping authority has been asked.
 
 - The first witness read pins the delegation root that custody serves, unless an operator sets the pin before it starts.
 

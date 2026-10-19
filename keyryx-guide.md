@@ -126,6 +126,8 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
 
+- No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
+
 - Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
 
 - The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
@@ -146,7 +148,7 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.
 
-- On one machine the witness is a separate user and volume, not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.
+- In stack-single the witness is a separate user and volume; in stack-up both roles run as the user that started them. Either way, on one machine, it is not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.
 
 - Post-quantum signatures come from Go's standard library, and no verifier outside this repository checks ML-DSA yet. The key set's AKP form follows a JOSE draft, not an RFC.
 

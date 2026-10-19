@@ -191,6 +191,7 @@
           <tr><td>v0.8.0</td><td>Every SMTP connection has a 10 second dial deadline and a 60 second session deadline.</td></tr>
           <tr><td>v0.8.0</td><td>Stream files the notifier creates are mode 0640, so only their owner and its group can read them.</td></tr>
           <tr><td>v0.8.0</td><td>The checkpoint gate is off by default; with it on, a stream is read only while a signed checkpoint covers it (see the boundaries).</td></tr>
+          <tr><td>v0.8.0</td><td>Heraldyx reads a stream another service wrote only as the file's owner or in its group: a stream created at 0640 needs Heraldyx in that group.</td></tr>
         </tbody>
       </table>
     </div>

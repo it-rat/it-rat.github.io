@@ -43,7 +43,7 @@ ROOMS = {
                   "11ec58689354"),
     "keyryx":   ("services/keyryx.html", "#FDE68A",
                   "Keyryx: custody signs for granted consumers and publishes key sets, and a read-only witness signs its tree heads and reports a rewritten stream",
-                  "21c9aca50ccd"),
+                  "cdc3278fcf03"),
     "verdryx":   ("services/verdryx.html", "#FF7AA2",
                   "Verdryx: outcomes judged and priced per resolved case, with drift watched over time",
                   "c61935fe07c8"),
@@ -162,34 +162,39 @@ def breathe(svg, accent):
 
 
 def park_motion_tokens(svg):
-    """Put every animateMotion token at the start of its own path.
+    """Give every late-starting animateMotion token its delay inside its own timing.
 
-    An element carrying `animateMotion` sits at its authored coordinates until
-    the animation begins, and these are authored centred on the origin because
-    the motion supplies the position. On the page that is invisible: every
-    token there begins at 0s. Vouchryx has one that begins at 3.6s, so for the
-    first three and a half seconds, and in any still of the file, a red dot sits
-    in the top-left corner of the picture.
+    A token with `begin="Ns"` sits at the origin corner until it starts, which
+    put a dot in the top-left of the picture on the page and in the lift. Its
+    path stays absolute and its element stays at the origin, so the lift has no
+    transform to compose with (SVG motion is additive to a transform, and a
+    translate in front of an absolute path counts the offset twice). The delay
+    moves into keyTimes: the token holds at the first point of its own path
+    until the move starts, the same frame the page shows.
 
-    A transform equal to the path's first point fixes it and cannot affect
-    anything else: animateMotion replaces the transform the moment it starts,
-    so this is only ever what the frame before the start should have looked
-    like.
+    Refuses anything it does not understand (a transform on the animated element,
+    a path with other commands, a begin that is not a plain number of seconds)
+    rather than guessing, because a guess here is a token in the wrong place.
     """
-    out, cursor = [], 0
-    for m in re.finditer(r'<(circle|rect|g|path|ellipse)\b([^>]*)>(\s*<animateMotion\b[^>]*>)',
-                         svg):
-        tag, attrs, motion = m.group(1), m.group(2), m.group(3)
-        if "transform=" in attrs:
-            continue
-        d = re.search(r'path="M\s*(-?[\d.]+)[ ,]+(-?[\d.]+)', motion)
-        if not d:
-            continue
-        out.append(svg[cursor:m.start()])
-        out.append(f"<{tag}{attrs} transform=\"translate({d.group(1)},{d.group(2)})\">{motion}")
-        cursor = m.end()
-    out.append(svg[cursor:])
-    return "".join(out)
+    def fix(m):
+        el = m.group(0)
+        if "transform=" in el:
+            raise ValueError("animated element carries a transform: " + el[:120])
+        begin = re.search(r'\sbegin="(-?[\d.]+)s"', el)
+        if not begin or float(begin.group(1)) <= 0:
+            return el
+        if "keyTimes=" in el:
+            raise ValueError("delayed token already has keyTimes: " + el[:120])
+        delay = float(begin.group(1))
+        dur = re.search(r'\sdur="([\d.]+)s"', el)
+        if not dur:
+            raise ValueError("delayed token has no dur: " + el[:120])
+        move = float(dur.group(1))
+        total = delay + move
+        el = el.replace(begin.group(0), "")
+        el = el.replace(dur.group(0), f' dur="{total:g}s" keyPoints="0;0;1" keyTimes="0;{delay/total:.5f};1" calcMode="linear"')
+        return el
+    return re.sub(r'<animateMotion\b[^>]*/>', fix, svg)
 
 
 def build(room, page, accent, title):

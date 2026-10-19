@@ -108,7 +108,7 @@
       <div class="card hover feature b-6 rv"><h3>Proof of possession, per request</h3><p>The minted token carries <span class="mono">cnf.jkt</span>, the thumbprint of the caller's own key. Spending it needs a fresh DPoP proof from that same key on every call.</p></div>
       <div class="card hover feature b-6 rv d1"><h3>Revocation an incident can use</h3><p>By one token id, or by subject for every token an agent already holds. The list carries <span class="mono">as_of</span>, so an empty answer and an unreachable service are never the same answer to a machine reading it.</p></div>
       <div class="card hover feature b-6 rv"><h3>Verification without a round trip</h3><p>Public keys at a JWKS endpoint, so an enforcement point verifies offline. That is also why there is no introspection endpoint, on purpose.</p></div>
-      <div class="card hover feature b-6 rv d1"><h3>It refuses to start rather than start permissive</h3><p>Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>It refuses to start rather than start permissive</h3><p>Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS (unless VOUCHRYX_AGENTS enrols an agent). A missing or malformed value aborts the process and names the variable.</p></div>
     </div>
   </div>
 </section>
@@ -205,7 +205,7 @@
               <animateMotion path="M536 112 L636 112 L794 172 L794 214" dur="4.2s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
             </rect>
             <circle r="4" fill="#FF574B" opacity=".9">
-              <animateMotion path="M212 275 L332 275 L536 275 L700 268" dur="9s" begin="3.6s" repeatCount="indefinite"/>
+              <animateMotion path="M212 275 L332 275 L536 275 L700 268" dur="12.6s" keyPoints="0;0;1" keyTimes="0;0.28571;1" calcMode="linear" repeatCount="indefinite"/>
             </circle>
           </g>
 

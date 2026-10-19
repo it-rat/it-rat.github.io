@@ -239,7 +239,7 @@
       <ul>
         <li>A baseline engine learns what is normal per identity and stays quiet during its learning period.</li>
         <li>Least privilege fires only where usage data exists, so a source with no observed-usage signal produces no recommendations.</li>
-        <li>The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12; a 12-second capture in a container, not against an agent: 3 flows on the fixed build, after the first run counted 16 of its 21 flows as its own) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.</li>
+        <li>The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12; a 12-second capture in a container, not against an agent: 3 flows on the fixed build, after 16 of the first run's 21 flows turned out to be the sensor's own traffic) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.</li>
       </ul>
     </div>
   </div>

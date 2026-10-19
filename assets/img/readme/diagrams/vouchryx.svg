@@ -81,11 +81,11 @@
 
           <!-- the token travelling, and the revocation catching it -->
           <g class="vx-anim">
-            <rect x="-11" y="-4" width="22" height="8" rx="4" fill="#8B9DFF" opacity=".85" transform="translate(536,112)">
+            <rect x="-11" y="-4" width="22" height="8" rx="4" fill="#8B9DFF" opacity=".85">
               <animateMotion path="M536 112 L636 112 L794 172 L794 214" dur="4.2s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
             </rect>
-            <circle r="4" fill="#FF574B" opacity=".9" transform="translate(212,275)">
-              <animateMotion path="M212 275 L332 275 L536 275 L700 268" dur="9s" begin="3.6s" repeatCount="indefinite"/>
+            <circle r="4" fill="#FF574B" opacity=".9">
+              <animateMotion path="M212 275 L332 275 L536 275 L700 268" dur="12.6s" keyPoints="0;0;1" keyTimes="0;0.28571;1" calcMode="linear" repeatCount="indefinite"/>
             </circle>
           </g>
 
