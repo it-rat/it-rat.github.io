@@ -128,7 +128,7 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
 
-- Trailryx reads the witness's attestations into a pack only when its attestations folder is set to the witness's output. stack-single does not set it. stack-up has set it by default since 2026-10-19, and stack-k8s does not yet. At keyryx v0.1.1, which every launcher pins, the witness writes each attestation readable only by its own user, so a record plane running as another user cannot open it; stack-up runs both roles as one user, so it can. keyryx v0.1.2, tagged on 2026-10-19, writes them readable by the group, and no launcher pins it yet. None of this has run live.
+- Trailryx reads the witness's attestations into a pack only when its attestations folder is set to the witness's output. stack-single does not set it. stack-up has set it by default since 2026-10-19, and stack-k8s does not yet. At keyryx v0.1.1, which every launcher pins, the witness writes each attestation readable only by its own user, so a record plane running as another user cannot open it; stack-up runs the witness and the record plane as one user, so it can. keyryx v0.1.2, tagged on 2026-10-19, writes them readable by the group, and no launcher pins it yet. None of this has run live.
 
 - The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
 
