@@ -1,74 +1,128 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 396" width="996" height="396" role="img" aria-label="Keyryx: custody signs for the consumers it grants and publishes key sets, and a read-only witness reports what changed on the record">
-  <title>Keyryx: custody signs for the consumers it grants and publishes key sets, and a read-only witness reports what changed on the record</title>
-  <rect x="-18" y="-18" width="996" height="396" rx="16" fill="#0A0E13"/>
-  <rect x="-17.5" y="-17.5" width="995" height="395" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 996 516" width="996" height="516" role="img" aria-label="Keyryx: custody signs for granted consumers and publishes key sets, and a read-only witness signs its tree heads and reports a rewritten stream">
+  <title>Keyryx: custody signs for granted consumers and publishes key sets, and a read-only witness signs its tree heads and reports a rewritten stream</title>
+  <rect x="-18" y="-18" width="996" height="516" rx="16" fill="#0A0E13"/>
+  <rect x="-17.5" y="-17.5" width="995" height="515" rx="15.5" fill="none" stroke="rgba(255,255,255,.09)"/>
 
         <defs>
           <marker id="kx-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <marker id="kx-r" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#FF574B"/></marker>
           <style>
             .kx-t{font-family:ui-monospace,Menlo,monospace}
-            .kx-h{fill:#E9EFF6;font-size:12.5px;font-weight:700}
-            .kx-s{fill:#8A97A6;font-size:10.5px}
-            .kx-f{fill:#5A6675;font-size:10.5px}
-            @media (prefers-reduced-motion: reduce){ .kx-anim{display:none} }
+            @media (prefers-reduced-motion: reduce){
+              .kx-anim{display:none}
+            }
           </style>
         </defs>
-        <g>
-          <rect x="20" y="30" width="236" height="150" rx="14" fill="#10161F" stroke="#2a3547"/>
-          <text x="40" y="58" class="kx-h">Consumers</text>
-          <text x="40" y="84" class="kx-s">wardryx: approval tokens</text>
-          <text x="40" y="104" class="kx-s">trailryx: sealed roots</text>
-          <text x="40" y="124" class="kx-s">vouchryx: its token key</text>
-          <text x="40" y="144" class="kx-s">tokenfuse: checkpoint key</text>
-          <text x="40" y="170" class="kx-f">granted by policy, one way in each</text>
-
-          <rect x="330" y="30" width="270" height="150" rx="14" fill="#10161F" stroke="#FDE68A"/>
-          <text x="350" y="58" class="kx-h">keyryx custody</text>
-          <text x="350" y="84" class="kx-s">wrapped keys, state MAC</text>
-          <text x="350" y="104" class="kx-s">use log, one line per use</text>
-          <text x="350" y="124" class="kx-s">publishes key sets with overlap</text>
-          <text x="350" y="160" class="kx-f">never on a request path</text>
-
-          <rect x="690" y="30" width="250" height="150" rx="14" fill="#10161F" stroke="#2a3547"/>
-          <text x="710" y="58" class="kx-h">Verifiers</text>
-          <text x="710" y="84" class="kx-s">cache /v1/jwks/{name}</text>
-          <text x="710" y="104" class="kx-s">cache /v1/statements/{kid}</text>
-          <text x="710" y="124" class="kx-s">verify offline</text>
-          <text x="710" y="160" class="kx-f">keep working when custody is down</text>
-
-          <rect x="20" y="230" width="236" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
-          <text x="40" y="258" class="kx-h">Event bus</text>
-          <text x="40" y="284" class="kx-s">events/*.ndjson</text>
-          <text x="40" y="304" class="kx-f">read only</text>
-
-          <rect x="330" y="230" width="270" height="110" rx="14" fill="#10161F" stroke="#FDE68A"/>
-          <text x="350" y="258" class="kx-h">keyryx witness</text>
-          <text x="350" y="284" class="kx-s">own key, own volume, own uid</text>
-          <text x="350" y="304" class="kx-f">no network, reads only</text>
-
-          <rect x="690" y="230" width="250" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
-          <text x="710" y="258" class="kx-h">Findings</text>
-          <text x="710" y="284" class="kx-s">alerts.ndjson, agent-events</text>
-          <text x="710" y="304" class="kx-f">signed tree heads in its log</text>
+        <g class="kx-t" text-anchor="middle">
+          <rect x="12" y="28" width="212" height="50" rx="11" fill="#141C27" stroke="#E4626F" stroke-width="1.2"/>
+          <text x="118" y="47" fill="#E4626F" font-size="12" font-weight="700">trailryx</text>
+          <text x="118" y="64" fill="#8A97A6" font-size="10.5">sealed root, opt-in</text>
+          <rect x="12" y="86" width="212" height="50" rx="11" fill="#141C27" stroke="#2DD4BF" stroke-width="1.2"/>
+          <text x="118" y="105" fill="#2DD4BF" font-size="12" font-weight="700">wardryx</text>
+          <text x="118" y="122" fill="#8A97A6" font-size="10.5">approval tokens</text>
+          <rect x="12" y="144" width="212" height="50" rx="11" fill="#141C27" stroke="#8B9DFF" stroke-width="1.2"/>
+          <text x="118" y="163" fill="#8B9DFF" font-size="12" font-weight="700">vouchryx</text>
+          <text x="118" y="180" fill="#8A97A6" font-size="10.5">token key, opt-in</text>
+          <rect x="12" y="202" width="212" height="50" rx="11" fill="#141C27" stroke="#F4B23E" stroke-width="1.2"/>
+          <text x="118" y="221" fill="#F4B23E" font-size="12" font-weight="700">tokenfuse</text>
+          <text x="118" y="238" fill="#8A97A6" font-size="10.5">checkpoint key, opt-in</text>
+          <path d="M224 47 L300 47" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <path d="M300 59 L224 59" stroke="#34D399" stroke-width="1.2" fill="none" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
+          <circle r="3.5" fill="#E4626F" opacity=".9" transform="translate(224,47)"><animateMotion dur="3.2s" begin="0.0s" repeatCount="indefinite" path="M224 47 L300 47"/></circle>
+          <circle r="3.5" fill="#34D399" opacity=".9" transform="translate(300,59)"><animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite" path="M300 59 L224 59"/></circle>
+          <path d="M224 105 L300 105" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <path d="M300 117 L224 117" stroke="#34D399" stroke-width="1.2" fill="none" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
+          <circle r="3.5" fill="#2DD4BF" opacity=".9" transform="translate(224,105)"><animateMotion dur="3.2s" begin="0.8s" repeatCount="indefinite" path="M224 105 L300 105"/></circle>
+          <circle r="3.5" fill="#34D399" opacity=".9" transform="translate(300,117)"><animateMotion dur="3.2s" begin="2.4s" repeatCount="indefinite" path="M300 117 L224 117"/></circle>
+          <path d="M224 163 L300 163" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <path d="M300 175 L224 175" stroke="#34D399" stroke-width="1.2" fill="none" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
+          <circle r="3.5" fill="#8B9DFF" opacity=".9" transform="translate(224,163)"><animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite" path="M224 163 L300 163"/></circle>
+          <circle r="3.5" fill="#34D399" opacity=".9" transform="translate(300,175)"><animateMotion dur="3.2s" begin="3.2s" repeatCount="indefinite" path="M300 175 L224 175"/></circle>
+          <path d="M224 221 L300 221" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <path d="M300 233 L224 233" stroke="#34D399" stroke-width="1.2" fill="none" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
+          <circle r="3.5" fill="#F4B23E" opacity=".9" transform="translate(224,221)"><animateMotion dur="3.2s" begin="2.4s" repeatCount="indefinite" path="M224 221 L300 221"/></circle>
+          <circle r="3.5" fill="#34D399" opacity=".9" transform="translate(300,233)"><animateMotion dur="3.2s" begin="4.0s" repeatCount="indefinite" path="M300 233 L224 233"/></circle>
+          <rect x="300" y="24" width="256" height="232" rx="13" fill="#161F2C" stroke="#FDE68A" stroke-width="1.4"><animate attributeName="stroke-opacity" values="1;.45;1" dur="3.4s" repeatCount="indefinite"/></rect>
+          <text x="428" y="48" fill="#FDE68A" font-size="13" font-weight="700">keyryx custody</text>
+          <text x="428" y="72" fill="#8A97A6" font-size="10.5">signs for the consumers it grants</text>
+          <text x="428" y="90" fill="#E9EFF6" font-size="10.5">statement in, signature back</text>
+          <text x="428" y="112" fill="#8A97A6" font-size="10.5">wrapped keys, state MAC</text>
+          <text x="428" y="130" fill="#8A97A6" font-size="10.5">use log, one line per use</text>
+          <text x="428" y="148" fill="#8A97A6" font-size="10.5">certifies short-lived keys</text>
+          <text x="428" y="166" fill="#8A97A6" font-size="10.5">publishes key sets, with overlap</text>
+          <text x="428" y="240" fill="#5A6675" font-size="10.5">never on a request path</text>
+          <rect x="600" y="24" width="348" height="100" rx="13" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="774" y="48" fill="#93A8C4" font-size="13" font-weight="700">verifiers</text>
+          <text x="774" y="72" fill="#E9EFF6" font-size="10.5">cache /v1/jwks/{name}</text>
+          <text x="774" y="90" fill="#8A97A6" font-size="10.5">verify offline, no call to custody</text>
+          <text x="774" y="108" fill="#8A97A6" font-size="10.5">keep verifying when custody is down</text>
+          <path d="M556 96 L600 96" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <circle r="3.5" fill="#FDE68A" opacity=".9" transform="translate(556,96)"><animateMotion dur="3.0s" begin="0.4s" repeatCount="indefinite" path="M556 96 L600 96"/></circle>
+          <rect x="600" y="140" width="348" height="124" rx="13" fill="#141C27" stroke="#5A6675" stroke-width="1.2"/>
+          <text x="774" y="162" fill="#93A8C4" font-size="12" font-weight="700">key rotation</text>
+          <rect x="620" y="176" width="130" height="34" rx="8" fill="#161F2C" stroke="#93A8C4" stroke-width="1.2"/>
+          <rect x="798" y="176" width="130" height="34" rx="8" fill="#161F2C" stroke="#FDE68A" stroke-width="1.2"/>
+          <text x="685" y="197" fill="#93A8C4" font-size="11" font-weight="700">key n-1</text>
+          <text x="863" y="197" fill="#FDE68A" font-size="11" font-weight="700">key n</text>
+          <path d="M752 193 L796 193" stroke="#5A6675" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <text x="774" y="242" fill="#8A97A6" font-size="10">published side by side for the overlap,</text>
+          <text x="774" y="257" fill="#8A97A6" font-size="10">then the old one is retired</text>
+          <rect x="12" y="292" width="212" height="50" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="118" y="312" fill="#93A8C4" font-size="12" font-weight="700">event streams</text>
+          <text x="118" y="330" fill="#8A97A6" font-size="10.5">events/*.ndjson, read only</text>
+          <rect x="192" y="300" width="20" height="14" rx="3" fill="none" stroke="#FF574B" stroke-width="1" stroke-opacity=".5"/>
+          <rect x="12" y="354" width="212" height="50" rx="11" fill="#141C27" stroke="#E4626F" stroke-width="1.2"/>
+          <text x="118" y="374" fill="#E4626F" font-size="12" font-weight="700">trailryx manifests</text>
+          <text x="118" y="392" fill="#8A97A6" font-size="10.5">sealed, when a folder is set</text>
+          <rect x="300" y="292" width="256" height="112" rx="13" fill="#161F2C" stroke="#FDE68A" stroke-width="1.4"/>
+          <text x="428" y="314" fill="#FDE68A" font-size="13" font-weight="700">keyryx witness</text>
+          <text x="428" y="334" fill="#8A97A6" font-size="10.5">its own process and uid</text>
+          <text x="428" y="352" fill="#8A97A6" font-size="10.5">its own volume, no network</text>
+          <text x="428" y="370" fill="#E9EFF6" font-size="10.5">reads, writes only its own files</text>
+          <text x="428" y="388" fill="#5A6675" font-size="10.5">off every request path</text>
+          <path d="M224 317 L300 336" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <path d="M224 379 L300 360" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <rect x="600" y="292" width="348" height="68" rx="13" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="612" y="309" fill="#93A8C4" font-size="12" font-weight="700" text-anchor="start">its own log</text>
+          <rect x="612" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="652" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="692" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="732" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="772" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="812" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="852" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <rect x="892" y="316" width="32" height="22" rx="4" fill="none" stroke="#5A6675" stroke-dasharray="3 3"/>
+          <text x="612" y="352" fill="#8A97A6" font-size="10" text-anchor="start">one entry per observation</text>
+          <path d="M556 330 L600 330" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <rect x="600" y="372" width="348" height="32" rx="11" fill="#141C27" stroke="#93A8C4" stroke-width="1.2"/>
+          <text x="612" y="392" fill="#E9EFF6" font-size="10.5" text-anchor="start">tree head per interval</text>
+          <rect x="760" y="380" width="86" height="18" rx="6" fill="#161F2C" stroke="#93A8C4" stroke-width="1"/>
+          <rect x="854" y="380" width="86" height="18" rx="6" fill="#161F2C" stroke="#93A8C4" stroke-width="1"/>
+          <text x="803" y="393" fill="#93A8C4" font-size="9.5">ECDSA P-384</text>
+          <text x="897" y="393" fill="#93A8C4" font-size="9.5">ML-DSA-65</text>
+          <path d="M556 388 L600 388" stroke="#93A8C4" stroke-width="1.2" fill="none" marker-end="url(#kx-a)"/>
+          <rect x="12" y="428" width="212" height="44" rx="11" fill="#141C27" stroke="#FF574B" stroke-width="1.2"/>
+          <text x="118" y="446" fill="#FF574B" font-size="12" font-weight="700">keyryx.ndjson</text>
+          <text x="118" y="463" fill="#E9EFF6" font-size="10">witness_stream_rewritten</text>
+          <path d="M330 404 L224 450" stroke="#FF574B" stroke-width="1.2" fill="none" marker-end="url(#kx-r)"/>
+          <g class="kx-anim"><circle r="3.5" fill="#93A8C4" opacity=".9" transform="translate(224,317)"><animateMotion dur="3.4s" repeatCount="indefinite" path="M224 317 L300 336"/></circle><circle r="3.5" fill="#E4626F" opacity=".9" transform="translate(224,379)"><animateMotion dur="3.4s" begin="1.7s" repeatCount="indefinite" path="M224 379 L300 360"/></circle><circle r="3.5" fill="#93A8C4" opacity=".9" transform="translate(556,330)"><animateMotion dur="4s" repeatCount="indefinite" path="M556 330 L600 330"/></circle><circle r="3.5" fill="#34D399" opacity=".9" transform="translate(556,388)"><animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M556 388 L600 388"/></circle><rect x="612" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.001;0.011;1" dur="12s" repeatCount="indefinite"/></rect><rect x="652" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.101;0.111;1" dur="12s" repeatCount="indefinite"/></rect><rect x="692" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.201;0.211;1" dur="12s" repeatCount="indefinite"/></rect><rect x="732" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.301;0.311;1" dur="12s" repeatCount="indefinite"/></rect><rect x="772" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.401;0.411;1" dur="12s" repeatCount="indefinite"/></rect><rect x="812" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.501;0.511;1" dur="12s" repeatCount="indefinite"/></rect><rect x="852" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.601;0.611;1" dur="12s" repeatCount="indefinite"/></rect><rect x="892" y="316" width="32" height="22" rx="4" fill="#93A8C4" fill-opacity=".35" stroke="#93A8C4" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.701;0.711;1" dur="12s" repeatCount="indefinite"/></rect><rect x="192" y="300" width="20" height="14" rx="3" fill="#FF574B" opacity="0"><animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.06;0.22;0.3" dur="12s" repeatCount="indefinite"/></rect><circle r="4" fill="#FF574B" opacity="0"><animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.04;0.5;0.52" dur="12s" repeatCount="indefinite"/><animateMotion dur="12s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear" path="M202 307 L300 336 L330 404 L224 450"/></circle><rect x="12" y="428" width="212" height="44" rx="11" fill="none" stroke="#FF574B" stroke-width="1.6" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.55;0.6;0.9;0.95" dur="12s" repeatCount="indefinite"/></rect><rect x="620" y="176" width="130" height="34" rx="8" fill="none" stroke="#FF574B" stroke-width="1.2" stroke-dasharray="4 3" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.56;0.92;0.97" dur="12s" repeatCount="indefinite"/></rect></g>
         </g>
-        <g stroke="#5A6675" stroke-width="1.5" fill="none">
-          <line x1="256" y1="105" x2="330" y2="105" marker-end="url(#kx-a)"/>
-          <line x1="600" y1="105" x2="690" y2="105" marker-end="url(#kx-a)"/>
-          <line x1="256" y1="285" x2="330" y2="285" marker-end="url(#kx-a)"/>
-          <line x1="600" y1="285" x2="690" y2="285" marker-end="url(#kx-a)"/>
-          <line x1="465" y1="230" x2="465" y2="180" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
-        </g>
-        <text x="262" y="98" class="kx-s">sign</text>
-        <text x="606" y="98" class="kx-s">JWKS</text>
-        <text x="262" y="278" class="kx-s">read</text>
-        <text x="606" y="278" class="kx-s">findings</text>
-        <text x="472" y="212" class="kx-f">statements, when a URL is set</text>
       
   <g fill="none">
-  <line x1="256" y1="105" x2="330" y2="105" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></line>
-  <line x1="600" y1="105" x2="690" y2="105" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></line>
-  <line x1="256" y1="285" x2="330" y2="285" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></line>
-  <line x1="600" y1="285" x2="690" y2="285" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.11s" repeatCount="indefinite"/></line>
-  <line x1="465" y1="230" x2="465" y2="180" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.48s" repeatCount="indefinite"/></line>
+  <path d="M224 47 L300 47" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.00s" repeatCount="indefinite"/></path>
+  <path d="M300 59 L224 59" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.37s" repeatCount="indefinite"/></path>
+  <path d="M224 105 L300 105" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-0.74s" repeatCount="indefinite"/></path>
+  <path d="M300 117 L224 117" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.11s" repeatCount="indefinite"/></path>
+  <path d="M224 163 L300 163" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.48s" repeatCount="indefinite"/></path>
+  <path d="M300 175 L224 175" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-1.85s" repeatCount="indefinite"/></path>
+  <path d="M224 221 L300 221" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.22s" repeatCount="indefinite"/></path>
+  <path d="M300 233 L224 233" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.59s" repeatCount="indefinite"/></path>
+  <path d="M556 96 L600 96" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-2.96s" repeatCount="indefinite"/></path>
+  <path d="M752 193 L796 193" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-3.33s" repeatCount="indefinite"/></path>
+  <path d="M224 317 L300 336" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-3.70s" repeatCount="indefinite"/></path>
+  <path d="M224 379 L300 360" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-4.07s" repeatCount="indefinite"/></path>
+  <path d="M556 330 L600 330" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-4.44s" repeatCount="indefinite"/></path>
+  <path d="M556 388 L600 388" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-4.81s" repeatCount="indefinite"/></path>
+  <path d="M330 404 L224 450" fill="none" pathLength="100" stroke="#FDE68A" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 100" stroke-dashoffset="7"><animate attributeName="stroke-dashoffset" from="7" to="-100" dur="2.4s" begin="-5.18s" repeatCount="indefinite"/></path>
   </g>
 </svg>
