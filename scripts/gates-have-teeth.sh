@@ -424,6 +424,19 @@ run_case "room-budget: a room's guide is deleted" fail \
 subprocess.run(["git", "rm", "-q", "costcrew-guide.html"], check=True)')" \
 	"no guide at costcrew-guide.html"
 
+# invariant 13: a list item in prose is one block. The fault is the one the
+# owner saw on 2026-10-19: the span that holds an item together taken away, so
+# the bold lead and each run of text become columns of their own.
+run_case "list-items: a list item in prose loses its one span" fail \
+	'./scripts/list-items-are-one-block.sh' \
+	"$(py 'import re
+p = "what-is-proven.html"
+s = open(p).read()
+s2, n = re.subn(r"<li><span>(<b>One machine has lost power, once\.</b>.*?)</span></li>", r"<li>\1</li>", s, count=1, flags=re.S)
+assert n, p + " has no wrapped item to unwrap"
+open(p, "w").write(s2)')" \
+	"splits into columns"
+
 echo "=== and what they must NOT catch ==="
 
 # Prose that happens to contain digits is not a claim with an owner. A gate
@@ -463,6 +476,13 @@ run_case "room-budget: a short paragraph added to a room under budget" pass \
 	'./scripts/room-budget.sh' \
 	"$(py 'edit("services/costcrew.html", "<!-- faq:auto -->",
      "<section class=\"sec\"><div class=\"wrap\"><p>One more sentence a reader reads, well inside the ceiling.</p></div></section>\n<!-- faq:auto -->")')"
+
+# One span may hold anything: bold, code, links. The rule is about the
+# children of the <li>, not about how rich the sentence inside it is.
+run_case "list-items: one span holding bold, code and a link" pass \
+	'./scripts/list-items-are-one-block.sh' \
+	"$(py 'edit("what-is-proven.html", "<li><span><b>One machine has lost power, once.</b>",
+     "<li><span><b>A lead.</b> Text with <span class=\"mono\">code</span> and <a href=\"#\">a link</a>.</span></li>\n        <li><span><b>One machine has lost power, once.</b>")')"
 
 echo
 echo "=== and the one this estate learned the hard way ==="
@@ -519,6 +539,21 @@ s = open(p).read()
 m = re.search(r"const STACK = \[.*?\n\];", s, re.S)
 assert m, "site.js has no STACK registry"
 open(p, "w").write(s.replace(m.group(0), "", 1))')" \
+	"measured nothing"
+
+run_case "list-items: no page styles .prose li as flex any more" fail \
+	'./scripts/list-items-are-one-block.sh' \
+	"$(py 'import re, pathlib
+n = 0
+for f in sorted(pathlib.Path(".").rglob("*.html")):
+    if ".git" in str(f) or str(f).startswith("demo"):
+        continue
+    s = f.read_text(encoding="utf-8")
+    s2, k = re.subn(r"(\.prose\s+li\s*\{[^}]*display\s*:\s*)flex", r"\1block", s)
+    if k:
+        f.write_text(s2, encoding="utf-8")
+        n += 1
+assert n, "no page sets .prose li to flex"')" \
 	"measured nothing"
 
 echo

@@ -138,11 +138,11 @@
       <p>In this stack the run id is the unit everything keys on, and the governance planes deliberately emit rather than hoard: policy decisions and quality runs export over OTLP when an endpoint is set, into whatever tracing backend you run, the gateway writes its own traces as Parquet, and every plane emits the same agent-event envelope. <b>Governance data can sit in your tracing backend; the enforcement decision is made on the call.</b></p>
       <h3>What any control in the path should answer</h3>
       <ul>
-        <li><b>Does it act in the path, or after it?</b> If the answer arrives after the call, it is a record, not a control.</li>
-        <li><b>Is the answer binding?</b> A warning an agent can proceed past is a note, not a control.</li>
-        <li><b>What happens when it is unreachable?</b> Fail-open or fail-closed, chosen and documented, is the honest answer; silence is not.</li>
-        <li><b>Can somebody else verify the record?</b> A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. Stronger still is a completeness proof on every answer: a short receipt, checkable on its own, that the rows you were shown are all the rows that matched the question. A chain proves nothing was altered. Only a completeness proof says nothing was left out, and that is the half an auditor actually needs. An export on its own offers neither.</li>
-        <li><b>Does it join on the same id as everything else?</b> If a component invents its own identifier, the join has to be built by hand.</li>
+        <li><span><b>Does it act in the path, or after it?</b> If the answer arrives after the call, it is a record, not a control.</span></li>
+        <li><span><b>Is the answer binding?</b> A warning an agent can proceed past is a note, not a control.</span></li>
+        <li><span><b>What happens when it is unreachable?</b> Fail-open or fail-closed, chosen and documented, is the honest answer; silence is not.</span></li>
+        <li><span><b>Can somebody else verify the record?</b> A journal whose entries each carry the hash of the one before it can be checked by a person who does not trust you. Stronger still is a completeness proof on every answer: a short receipt, checkable on its own, that the rows you were shown are all the rows that matched the question. A chain proves nothing was altered. Only a completeness proof says nothing was left out, and that is the half an auditor actually needs. An export on its own offers neither.</span></li>
+        <li><span><b>Does it join on the same id as everything else?</b> If a component invents its own identifier, the join has to be built by hand.</span></li>
       </ul>
     </div>
   </div>

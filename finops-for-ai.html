@@ -107,9 +107,9 @@
       <h3>2. Budgets that nest, enforced in the path</h3>
       <p>A budget per run, rolling up into the parent run it was spawned by, checked all-or-nothing so a run cannot fit under its own cap while breaking its parent's. A business unit can also carry a monthly cap. Accounting is reserve then settle: the call is priced before it happens, the reserve taken, the real cost settled afterwards, and the call that would cross the cap is refused before the provider sees it. Models the price book does not recognise get a fallback price rather than passing through untracked, because untracked spend is the failure mode this exists to remove. The fallback is a conservative rate, so for a model the book does not yet carry, the figure a team sees is a ceiling rather than the bill. Keep the book current and read the flag on the response that says a fallback was used.</p>
       <ul>
-        <li><b>Start in shadow mode.</b> Price and record everything, refuse nothing, and look at what would have been blocked before anything is.</li>
-        <li><b>Decide the failure mode on purpose.</b> A cost control's own bookkeeping should fail open: a lost telemetry line must never refuse a call. Whether its policy hook fails open or closed is a real choice with a real cost either way; write it down and fire it once. The shipped launchers fire closed, and that was measured on 2026-09-17: the policy plane stopped, every governed call refused within a third of a second, none of them reaching the provider.</li>
-        <li><b>Enforce where the money is spent,</b> in the request path, not in a nightly job that reads yesterday's logs.</li>
+        <li><span><b>Start in shadow mode.</b> Price and record everything, refuse nothing, and look at what would have been blocked before anything is.</span></li>
+        <li><span><b>Decide the failure mode on purpose.</b> A cost control's own bookkeeping should fail open: a lost telemetry line must never refuse a call. Whether its policy hook fails open or closed is a real choice with a real cost either way; write it down and fire it once. The shipped launchers fire closed, and that was measured on 2026-09-17: the policy plane stopped, every governed call refused within a third of a second, none of them reaching the provider.</span></li>
+        <li><span><b>Enforce where the money is spent,</b> in the request path, not in a nightly job that reads yesterday's logs.</span></li>
       </ul>
 
       <h3>3. Savings you can name, not a vague percentage</h3>

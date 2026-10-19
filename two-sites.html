@@ -165,12 +165,12 @@
     <div class="prose rv">
       <p>On 2026-09-26 and 2026-09-27, a hub of three virtual machines on a public cloud and a second site on a small box at home, the site reaching the hub only by outbound HTTPS:</p>
       <ol>
-        <li><b>From the public internet, the entry answered exactly as designed in 16 cases out of 16:</b> the site's calls with its key succeeded, a call with no key was refused, and the console and every other path answered 404 at the edge.</li>
+        <li><span><b>From the public internet, the entry answered exactly as designed in 16 cases out of 16:</b> the site's calls with its key succeeded, a call with no key was refused, and the console and every other path answered 404 at the edge.</span></li>
         <li><b>The hub script, certificates included, finished in 66 seconds.</b></li>
-        <li><b>One policy written once at the hub</b> refused calls at both sites' gateways, and both answered again within 5 seconds of its removal.</li>
-        <li><b>With the home site cut off from the hub,</b> its gateway refused in 255 ms, the hub was untouched, and the site's telemetry was queued and replayed with nothing lost when the link came back.</li>
-        <li><b>A run killed through the hub</b> was refused at the site within 4 seconds.</li>
-        <li><b>With the site idle,</b> its last report at the hub aged from 34 to 286 seconds in four minutes without the heartbeat; with it, the hub kept hearing from the site, so the gap between reports stayed short.</li>
+        <li><span><b>One policy written once at the hub</b> refused calls at both sites' gateways, and both answered again within 5 seconds of its removal.</span></li>
+        <li><span><b>With the home site cut off from the hub,</b> its gateway refused in 255 ms, the hub was untouched, and the site's telemetry was queued and replayed with nothing lost when the link came back.</span></li>
+        <li><span><b>A run killed through the hub</b> was refused at the site within 4 seconds.</span></li>
+        <li><span><b>With the site idle,</b> its last report at the hub aged from 34 to 286 seconds in four minutes without the heartbeat; with it, the hub kept hearing from the site, so the gap between reports stayed short.</span></li>
       </ol>
     </div>
   </div>

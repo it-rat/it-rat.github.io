@@ -26,6 +26,7 @@ committed is published.
 ./scripts/footer-shelves.sh       # invariant 10
 ./scripts/generated-blocks.sh     # invariant 11
 ./scripts/room-budget.sh          # invariant 12
+./scripts/list-items-are-one-block.sh  # invariant 13
 ./scripts/demo-bundle-current.sh
 ./scripts/deploy-target-current.sh  # invariant 9; needs network
 # demo-bundle-current.sh also runs daily on its own schedule; see invariant 7
@@ -194,17 +195,19 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 33 cases: twenty-two real faults, six
-   non-faults, and five subjects taken away entirely, counted from the
-   harness's own "OK: 33 cases" on 2026-10-17 (27 cases that must fail, 6 that
-   must pass). The non-faults are the
+   *(gate: `scripts/gates-have-teeth.sh`, 36 cases: twenty-three real faults, seven
+   non-faults, and six subjects taken away entirely, counted from the
+   harness's own "1 of 36 cases failed" on 2026-10-19 (29 cases that must fail, 7 that
+   must pass; the one was demo-bundle-current, UNJUDGEABLE because the published
+   demo is older than genaryx `apps/web`, which is invariant 7 doing its job). The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
    an owner, an uncommitted local edit is not a deploy that failed to arrive,
    a paragraph arriving on a page is not a change of footer shape, a
    comment added to the stylesheet is not a generator that stopped running,
    a sentence added to a room under its ceiling is not a room outgrowing
-   its guide, and an apostrophe inside a description is not where the
-   description ends. A gate flagging any of them would be switched off inside a week. This line said
+   its guide, an apostrophe inside a description is not where the
+   description ends, and one span holding bold, code and a link is not a list
+   item split into columns. A gate flagging any of them would be switched off inside a week. This line said
    nine until 2026-08-29 while eleven cases ran, which is the same class of
    drift the site's own figures have: a count restated by hand and never
    measured.)*
@@ -421,6 +424,24 @@ true.
    measurement with a date and passes. It does not judge whether the prose is
    good, whether a guide holds what left its room, or whether 1000 is the right
    number.)*
+
+13. **A list item in prose is one block.** Every page styles `.prose li` as a
+   flex row, the accent dot a `::before` beside the content, and a flex row
+   makes each child of the item a column. So `<li><b>Lead.</b> text
+   <span class="mono">x</span> more</li>` is drawn as narrow columns of one or
+   two words each. The house form is `<li><span>...</span></li>`: one child,
+   which may hold anything.
+
+   `@claude 2026-10-19`: found on opening the new Keyryx guide, whose
+   witness section had three such items and its releases list two. The same
+   check then found twenty more already live, on what-is-proven, two-sites,
+   finops-for-ai and ai-observability-vs-governance. Every gate was green and
+   no reader had said so, because a page that renders is not a page that reads.
+   *(gate: `scripts/list-items-are-one-block.sh`, in the Pages workflow before
+   the upload. It finds the pages whose own `<style>` sets the flex rule, and
+   on each one requires every `<li>` inside `.prose` to hold one element or one
+   run of text; it says "measured nothing" when no page sets the rule. It does
+   not judge a list outside `.prose` or one styled another way.)*
 
 ## Decisions that have no gate yet
 

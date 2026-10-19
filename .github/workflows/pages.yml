@@ -119,6 +119,12 @@ jobs:
         ## crosses it. Rooms are read from the registry, not from a list.
         run: ./scripts/room-budget.sh
 
+      - name: Fail on a list item that splits into columns
+        ## Invariant 13: every page styles .prose li as a flex row, so each
+        ## child of an item is a column. An item in prose holds one child,
+        ## the house form <li><span>...</span></li>.
+        run: ./scripts/list-items-are-one-block.sh
+
       # Last, because it mutates tracked files and restores them. It needs a
       # clean tree and says so plainly, so it also reports any earlier step
       # that starts writing into the checkout.
