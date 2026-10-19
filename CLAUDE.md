@@ -195,9 +195,9 @@ true.
    now runs the gate on the UNMUTATED tree first and reports `UNJUDGEABLE`
    rather than a pass. Verified by writing exactly that case and watching it
    refuse.
-   *(gate: `scripts/gates-have-teeth.sh`, 36 cases: twenty-three real faults, seven
+   *(gate: `scripts/gates-have-teeth.sh`, 38 cases: twenty-five real faults, seven
    non-faults, and six subjects taken away entirely, counted from the
-   harness's own "1 of 36 cases failed" on 2026-10-19 (29 cases that must fail, 7 that
+   harness's own "1 of 38 cases failed" on 2026-10-19 (31 cases that must fail, 7 that
    must pass; the one was demo-bundle-current, UNJUDGEABLE because the published
    demo is older than genaryx `apps/web`, which is invariant 7 doing its job). The non-faults are the
    ones worth keeping: prose that happens to contain digits is not a claim with
@@ -440,8 +440,11 @@ true.
    *(gate: `scripts/list-items-are-one-block.sh`, in the Pages workflow before
    the upload. It finds the pages whose own `<style>` sets the flex rule, and
    on each one requires every `<li>` inside `.prose` to hold one element or one
-   run of text; it says "measured nothing" when no page sets the rule. It does
-   not judge a list outside `.prose` or one styled another way.)*
+   run of text; it says "measured nothing" when no page sets the rule. The rule
+   is found in a selector list too, and an end tag with nothing open is ignored
+   rather than closing everything, the two ways a review found it could pass a
+   split item. It does not judge a list outside `.prose` or one styled another
+   way.)*
 
 ## Decisions that have no gate yet
 

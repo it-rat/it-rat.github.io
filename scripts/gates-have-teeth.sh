@@ -424,9 +424,9 @@ run_case "room-budget: a room's guide is deleted" fail \
 subprocess.run(["git", "rm", "-q", "costcrew-guide.html"], check=True)')" \
 	"no guide at costcrew-guide.html"
 
-# invariant 13: a list item in prose is one block. The fault is the one the
-# owner saw on 2026-10-19: the span that holds an item together taken away, so
-# the bold lead and each run of text become columns of their own.
+# invariant 13: a list item in prose is one block. The fault is the one seen on
+# 2026-10-19: the span that holds an item together taken away, so the bold lead
+# and each run of text become columns of their own.
 run_case "list-items: a list item in prose loses its one span" fail \
 	'./scripts/list-items-are-one-block.sh' \
 	"$(py 'import re
@@ -435,6 +435,33 @@ s = open(p).read()
 s2, n = re.subn(r"<li><span>(<b>One machine has lost power, once\.</b>.*?)</span></li>", r"<li>\1</li>", s, count=1, flags=re.S)
 assert n, p + " has no wrapped item to unwrap"
 open(p, "w").write(s2)')" \
+	"splits into columns"
+
+# The same fault behind a stray end tag inside the list. An end tag with
+# nothing open used to empty the parser's stack, and every later item went
+# unchecked (found in review, 2026-10-19).
+run_case "list-items: a split item after a stray end tag" fail \
+	'./scripts/list-items-are-one-block.sh' \
+	"$(py 'import re
+p = "what-is-proven.html"
+s = open(p).read()
+s2, n = re.subn(r"<li><span>(<b>One machine has lost power, once\.</b>.*?)</span></li>", r"<li>\1</li>", s, count=1, flags=re.S)
+assert n, p + " has no wrapped item to unwrap"
+i = s2.index("<li><b>One machine has lost power, once.</b>")
+open(p, "w").write(s2[:i] + "</em>" + s2[i:])')" \
+	"splits into columns"
+
+# The same fault on a page that writes the flex rule as a selector list. A
+# pattern that read only ".prose li{" let that page drop out of the check.
+run_case "list-items: a split item on a page whose flex rule is a selector list" fail \
+	'./scripts/list-items-are-one-block.sh' \
+	"$(py 'import re
+p = "what-is-proven.html"
+s = open(p).read()
+s2, n = re.subn(r"<li><span>(<b>One machine has lost power, once\.</b>.*?)</span></li>", r"<li>\1</li>", s, count=1, flags=re.S)
+assert n, p + " has no wrapped item to unwrap"
+assert ".prose li{display:flex" in s2, p + " writes its flex rule another way"
+open(p, "w").write(s2.replace(".prose li{display:flex", ".prose li,.prose ol li{display:flex", 1))')" \
 	"splits into columns"
 
 echo "=== and what they must NOT catch ==="

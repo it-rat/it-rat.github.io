@@ -36,7 +36,19 @@ import re
 import sys
 from html.parser import HTMLParser
 
-FLEX = re.compile(r"\.prose\s+li\s*\{[^}]*display\s*:\s*flex", re.S)
+RULE = re.compile(r"([^{}]*)\{([^{}]*)\}")
+PROSE_LI = re.compile(r"\.prose(?:\s*>?\s*[a-z]+)*\s*>?\s*li(?![\w-])")
+FLEX = re.compile(r"display\s*:\s*(?:inline-)?flex")
+
+
+def styles_li_as_flex(css):
+    """Any rule whose selector list names an li under .prose, with a flex display.
+    A selector list (`.prose li, .prose ol li {`) counts as much as one selector."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    for sel, body in RULE.findall(css):
+        if FLEX.search(body) and any(PROSE_LI.search(part.strip()) for part in sel.split(",")):
+            return True
+    return False
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
         "meta", "source", "track", "wbr"}
 
@@ -64,6 +76,11 @@ class Items(HTMLParser):
     def handle_endtag(self, tag):
         if tag in VOID:
             return
+        # An end tag with nothing open to close (a stray </p>) is ignored, not taken
+        # as closing everything: popping the whole stack would drop every later item
+        # out of its .prose context, and they would go unchecked.
+        if not any(t == tag for t, _ in self.stack):
+            return
         while self.stack:
             t, _ = self.stack.pop()
             if t == tag:
@@ -88,7 +105,7 @@ bad = 0
 for page in pages:
     src = page.read_text(encoding="utf-8")
     styles = " ".join(re.findall(r"<style\b[^>]*>(.*?)</style>", src, re.S))
-    if not FLEX.search(styles):
+    if not styles_li_as_flex(styles):
         continue
     measured += 1
     parser = Items()
