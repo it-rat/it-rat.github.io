@@ -74,13 +74,13 @@ deny_if_unattested demands a live attestation before an agent touches the sensit
 
 ### Fail-open or fail-closed, your call
 
-When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override. Every default is documented, and so is the tradeoff.
+When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing; both launchers set it closed on purpose. The egress point fails closed with no override. Every default is documented, and so is the tradeoff.
 
 ### Three modes at the call site, and one honest choice about outages
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
 
-Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary defaults to open, because a money plane that refused every call whenever the policy plane blinked would cost an operator production traffic over a network partition; both launchers override that to closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
+Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. Both launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 
@@ -120,7 +120,7 @@ The whole stack's fortnight, Wardryx among it, is in [the October changelog](htt
 
 ## What is open by default, and what is not proven yet.
 
-- When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override.
+- When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing; both launchers set it closed on purpose. The egress point fails closed with no override.
 
 - Started with no policy configured, it starts anyway and allows, and it says so in the log rather than pretending to enforce something it was never given.
 

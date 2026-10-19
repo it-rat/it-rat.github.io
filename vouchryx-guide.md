@@ -75,6 +75,8 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
 
+In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so the signing key that issues tokens there is the file, not a key held by Keyryx.
+
 ## Mint it, prove it, then end it.
 
 An RFC 8693 exchange takes two signed input tokens and a DPoP proof whose public key travels in the JWS header, which is a JOSE client before it is a curl command. So the client ships with the service: `vouchryx-demo` makes the keys, performs the exchange and prints a proof.

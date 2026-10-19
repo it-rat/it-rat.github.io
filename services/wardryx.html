@@ -244,7 +244,7 @@
     </div>
     <div class="card limits rv">
       <ul>
-        <li>When the decision point is unreachable, the gateway's binary defaults to open; both launchers set it closed on purpose.</li>
+        <li>When the decision point is unreachable, the TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. The unset default under enforce became closed on 2026-10-17. Both launchers set the failure mode to closed on purpose.</li>
         <li>With no shared database, an approval token's single-use guarantee is per process, and the server says so at startup.</li>
         <li>The typed risk signal from Typryx is an opt-in the launchers leave off by default, and it was measured on the stub backend only.</li>
       </ul>
@@ -323,7 +323,7 @@
             <div class="foot-chips"><span class="foot-chip here" aria-current="page"><i style="background:#2DD4BF"></i>Wardryx</span><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="../services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
-            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="../services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
             <div class="foot-chips"><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>

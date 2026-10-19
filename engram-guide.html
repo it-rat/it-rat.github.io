@@ -272,12 +272,12 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what changed</div>
-      <h2>What changed, and what is on main.</h2>
+      <h2>What changed in v3.0.0, and what is on main.</h2>
       <p class="lede">Engram's own list for 1 to 15 October 2026 is in <a href="changes-2026-10.html#engram">the stack's changes</a>.</p>
     </div>
     <div class="prose rv">
       <h3>Where each memory came from</h3>
-      <p>On main, not yet released. Every observation now records its provenance: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. This is on main; the last release is v2.4.1.</p>
+      <p>Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server serves one agent, and a fact is private to its writer unless it is shared.</p>
     </div>
   </div>
 </section>
@@ -286,11 +286,11 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">limits</div>
-      <h2>What it does not do, and what is not released yet.</h2>
+      <h2>What it does not do, and what is still open.</h2>
     </div>
     <div class="prose rv">
       <ul>
-        <li><span>Provenance on every observation, returned by recall and reported by why(), is on main and not yet released.</span></li>
+        <li><span>The server cannot see what an agent read outside engram. A session is marked untrusted only when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.</span></li>
         <li><span>reflect() is deliberately not exposed to MCP clients.</span></li>
         <li><span>Agent events (memory_written, reflection_run, contradiction_found, memory_forgotten) are opt-in and off by default.</span></li>
         <li><span>The only part that ever touches a network is reflect(), through a pluggable LLM adapter.</span></li>
@@ -331,7 +331,7 @@
             <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
-            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
             <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>

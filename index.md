@@ -50,6 +50,10 @@ A delegation an agent can prove it holds, and a person can end.
 
 Cryptography inventory and post-quantum risk.
 
+### Keyryx
+
+Keys that sign the record, held apart from the code that uses them.
+
 ### Verdryx
 
 Cost per correctly resolved case, not per token.

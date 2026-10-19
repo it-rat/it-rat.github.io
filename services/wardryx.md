@@ -44,7 +44,7 @@ This plane answers about an action. What it cannot answer is whether the caller 
 
 ## What is open by default, and what is not proven yet.
 
-- When the decision point is unreachable, the gateway's binary defaults to open; both launchers set it closed on purpose.
+- When the decision point is unreachable, the TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. The unset default under enforce became closed on 2026-10-17. Both launchers set the failure mode to closed on purpose.
 
 - With no shared database, an approval token's single-use guarantee is per process, and the server says so at startup.
 

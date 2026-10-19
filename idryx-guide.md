@@ -141,7 +141,7 @@ Idryx's releases from 1 to 15 October 2026 are listed in [the October changelog]
 
 - The companion detector bom_incomplete flags the agents the BOM cannot yet prove.
 
-- The eBPF network sensor is Linux-only. Its live run was one agent turn on one lab node, on 2026-09-27; it has not yet run on a fleet or a cloud host.
+- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12, 21 flows) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
 
 - The room's runaway is a simulation, but it replays the shape of the live validation run.
 

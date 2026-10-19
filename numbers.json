@@ -2155,13 +2155,13 @@
     },
     {
       "page": "services/heraldyx.html",
-      "claim": "v0.7.0",
-      "occurrences": 1,
+      "claim": "v0.8.0",
+      "occurrences": 2,
       "status": "measured",
       "repo": "TAIPANBOX/heraldyx",
-      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'; the tag is the shipped thing (no GitHub release is cut). stack-single main compose.yaml and stack-k8s main manifests/45-heraldyx.yaml both pin v0.7.0, checked 2026-10-15",
-      "measured_on": "2026-10-15",
-      "note": "Updated 2026-10-15 from v0.4.0: v0.7.0 is the latest tag. The hero row and the sentence on the launchers say what main pins; the changes table cites the same release. stack-k8s release v1.1.46 still pins v0.6.0. On 2026-10-16 the decision paragraph and the changes table moved to heraldyx-guide.html; the room keeps the fact table's shipped row.",
+      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
+      "measured_on": "2026-10-19",
+      "note": "Updated 2026-10-19: the newest tag is v0.8.0 (released 2026-10-19, pinned by stack-single and stack-k8s). The room names it twice: the shipped line and the checkpoint gate. Previously v0.7.0, measured 2026-10-15.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
       "slow": false
@@ -2232,40 +2232,14 @@
       "slow": false
     },
     {
-      "page": "services/engram.html",
-      "claim": "v2.4.1",
-      "occurrences": 1,
-      "status": "measured",
-      "repo": "TAIPANBOX/engram",
-      "command": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name; the provenance work named on the page is in CHANGELOG.md [Unreleased] on main",
-      "measured_on": "2026-10-15",
-      "note": "Added 2026-10-15: v2.4.1 is the last release; provenance is on main and in no release.",
-      "repo_dir": null,
-      "check": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
-      "slow": false
-    },
-    {
       "page": "engram-guide.html",
-      "claim": "v2.4.1",
-      "occurrences": 1,
-      "status": "measured",
-      "repo": "TAIPANBOX/engram",
-      "command": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name; the provenance work named on the page is in CHANGELOG.md [Unreleased] on main",
-      "measured_on": "2026-10-15",
-      "note": "Added 2026-10-15: v2.4.1 is the last release; provenance is on main and in no release. Copied 2026-10-16 with the provenance paragraph: the Engram room keeps v2.4.1 in its limits, engram-guide.html carries the paragraph verbatim in What changed.",
-      "repo_dir": null,
-      "check": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
-      "slow": false
-    },
-    {
-      "page": "services/engram.md",
-      "claim": "v2.4.1",
-      "occurrences": 1,
+      "claim": "v3.0.0",
+      "occurrences": 2,
       "status": "measured",
       "repo": "TAIPANBOX/engram",
       "command": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
-      "measured_on": "2026-10-15",
-      "note": "Added 2026-10-15 with the twin of the provenance section.",
+      "measured_on": "2026-10-19",
+      "note": "Updated 2026-10-19: the latest release is v3.0.0, published 2026-10-18. Previously v2.4.1, measured 2026-10-15.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/engram/releases/latest --jq .tag_name",
       "slow": false
@@ -2307,6 +2281,32 @@
       "note": "Added 2026-10-15: v0.4.1 is the latest release, and its README measures the image at 16.8 MB with version=v0.4.1.",
       "repo_dir": null,
       "check": "gh api repos/TAIPANBOX/typryx/releases/latest --jq .tag_name",
+      "slow": false
+    },
+    {
+      "page": "services/heraldyx.md",
+      "claim": "v0.8.0",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/heraldyx",
+      "command": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
+      "status": "measured",
+      "measured_on": "2026-10-19",
+      "note": "The markdown twin of services/heraldyx.html, generated from it by tools/llms.py.",
+      "repo_dir": "heraldyx",
+      "check": "gh api repos/TAIPANBOX/heraldyx/tags --jq '.[0].name'",
+      "slow": false
+    },
+    {
+      "page": "services/keyryx.html",
+      "claim": "v0.1.1",
+      "occurrences": 1,
+      "repo": "TAIPANBOX/keyryx",
+      "command": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
+      "status": "measured",
+      "measured_on": "2026-10-19",
+      "note": "The newest release. The room's status row names it; the tag v0.1.1 is also the digest pinned by stack-single's Compose file.",
+      "repo_dir": "keyryx",
+      "check": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
       "slow": false
     }
   ]

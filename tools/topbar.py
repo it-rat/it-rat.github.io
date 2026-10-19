@@ -82,6 +82,7 @@ PAGES = {
     "services/sphere.html": "../",
     "services/platform.html": "../",
     "services/qryx.html": "../",
+    "services/keyryx.html": "../",
     # Added 2026-08-29, missing since the room was written on 2026-08-10.
     "services/scopyx.html": "../",
     "services/tokenfuse.html": "../",

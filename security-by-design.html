@@ -281,6 +281,7 @@
       <p>Each agent has its own identifier, and a key is bound to the identities it may speak for. On 14 October a key issued to one agent presented another agent's identity. The answer was 403 <span class="mono">identity_mismatch</span>, a high-severity event on the bus, and zero spend. A missing or unknown key gets 401.</p>
       <p>When an agent acts for a person, it carries a short-lived token bound to its own key (<a href="services/vouchryx.html">Vouchryx</a>), so a stolen token is useless without that key. Delegation can only narrow on the way down a chain, never widen.</p>
       <p>A revocation wins over whatever the token says about its own expiry: the gateway refuses the token once its next poll of the revocation list lands, every 12 seconds by default. On Google Cloud on 14 October, with the poll set to one second, a revoked delegation was refused 1.5 seconds later.</p>
+      <p>Agent tokens are the default now, not an option. In the shipped Docker Compose launcher (stack-single 1.3.0, released 2026-10-19) the gateway and the MCP broker require an agent's own token, a static key is admitted only when its id is on a named list and is refused with 401 otherwise, and vouchryx, which issues the tokens, starts on every default box. The Kubernetes launcher does the same from 1.5.0. On a stack-single box one agent can be enrolled for a token so far; the others stay on the list until the registry takes more than one.</p>
       <p>A key answers one question: does the caller know a secret. <b>An identity answers who is acting, for whom, with which rights, and how to take them away.</b></p>
     </div>
   </div>
@@ -314,7 +315,7 @@
       <h2 id="self-proving-record">A record that proves itself.</h2>
     </div>
     <div class="prose rv">
-      <p>Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service (<a href="services/trailryx.html">Trailryx</a>) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness, both of which the record supports, close that last door.</p>
+      <p>Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service (<a href="services/trailryx.html">Trailryx</a>) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness are no longer missing, but they are not on by default. Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release), and Keyryx runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume rather than as an outside party, and it leaves the root signer off, so a pack from the default install carries no root signature yet.</p>
       <p>The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.</p>
     </div>
     <figure class="fig rv">
@@ -380,11 +381,12 @@
       <h2 id="what-we-built">What we built.</h2>
     </div>
     <div class="prose rv">
-      <p>We build fourteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.</p>
+      <p>We build fifteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.</p>
       <ul>
         <li><span><b>The gateway</b>, <a href="services/tokenfuse.html">TokenFuse</a>, and <b>the policy point</b>, <a href="services/wardryx.html">Wardryx</a>.</span></li>
         <li><span><b>Delegation</b>, <a href="services/vouchryx.html">Vouchryx</a>, and <b>an identity graph with its kernel sensor</b>, <a href="services/idryx.html">Idryx</a>.</span></li>
         <li><span><b>The egress gate</b>, <a href="services/scopyx.html">Scopyx</a>, and <b>a cryptography inventory</b>, <a href="services/qryx.html">Qryx</a>.</span></li>
+        <li><span><b>Key custody and a witness</b>, <a href="services/keyryx.html">Keyryx</a>.</span></li>
         <li><span><b>Memory</b>, <a href="services/engram.html">Engram</a>; <b>quality grading</b>, <a href="services/verdryx.html">Verdryx</a>; <b>typed answers</b>, <a href="services/typryx.html">Typryx</a>.</span></li>
         <li><span><b>The record</b>, <a href="services/trailryx.html">Trailryx</a>; <b>alerts</b>, <a href="services/heraldyx.html">Heraldyx</a>; <b>drills</b>, <a href="services/mockryx.html">Mockryx</a>.</span></li>
         <li><span><b>A FinOps crew</b>, <a href="services/costcrew.html">CostCrew</a>, and <b>a console</b>, <a href="genaryx.html">Genaryx</a>.</span></li>
@@ -433,7 +435,7 @@
             <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
-            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
             <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>

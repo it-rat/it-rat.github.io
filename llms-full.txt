@@ -4,9 +4,9 @@
 
 # Guides index
 
-> Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October.
+> Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October.
 
-Thirty-one guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
+Thirty-two guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
 
 ## Start here
 
@@ -117,6 +117,8 @@ One ordinary failure, an agent stuck in a retry loop, followed from its first ov
 - [Vouchryx](https://it-rat.com/vouchryx-guide.html), delegation
 
 - [Qryx](https://it-rat.com/qryx-guide.html), crypto
+
+- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody · delegated keys not wired in yet
 
 - [Verdryx](https://it-rat.com/verdryx-guide.html), quality
 
@@ -1962,6 +1964,8 @@ When an agent acts for a person, it carries a short-lived token bound to its own
 
 A revocation wins over whatever the token says about its own expiry: the gateway refuses the token once its next poll of the revocation list lands, every 12 seconds by default. On Google Cloud on 14 October, with the poll set to one second, a revoked delegation was refused 1.5 seconds later.
 
+Agent tokens are the default now, not an option. In the shipped Docker Compose launcher (stack-single 1.3.0, released 2026-10-19) the gateway and the MCP broker require an agent's own token, a static key is admitted only when its id is on a named list and is refused with 401 otherwise, and vouchryx, which issues the tokens, starts on every default box. The Kubernetes launcher does the same from 1.5.0. On a stack-single box one agent can be enrolled for a token so far; the others stay on the list until the registry takes more than one.
+
 A key answers one question: does the caller know a secret. **An identity answers who is acting, for whom, with which rights, and how to take them away.**
 
 ## Each part holds only what it needs.
@@ -1976,7 +1980,7 @@ Separation of duties is the oldest control in banking, and here it means **one c
 
 ## A record that proves itself.
 
-Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness, both of which the record supports, close that last door.
+Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness are no longer missing, but they are not on by default. Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release), and Keyryx runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume rather than as an outside party, and it leaves the root signer off, so a pack from the default install carries no root signature yet.
 
 The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.
 
@@ -2024,13 +2028,15 @@ That is what a test day is for. Four of the defects it turned up were fixed in r
 
 ## What we built.
 
-We build fourteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.
+We build fifteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.
 
 - **The gateway**, [TokenFuse](https://it-rat.com/services/tokenfuse.html), and **the policy point**, [Wardryx](https://it-rat.com/services/wardryx.html).
 
 - **Delegation**, [Vouchryx](https://it-rat.com/services/vouchryx.html), and **an identity graph with its kernel sensor**, [Idryx](https://it-rat.com/services/idryx.html).
 
 - **The egress gate**, [Scopyx](https://it-rat.com/services/scopyx.html), and **a cryptography inventory**, [Qryx](https://it-rat.com/services/qryx.html).
+
+- **Key custody and a witness**, [Keyryx](https://it-rat.com/services/keyryx.html).
 
 - **Memory**, [Engram](https://it-rat.com/services/engram.html); **quality grading**, [Verdryx](https://it-rat.com/services/verdryx.html); **typed answers**, [Typryx](https://it-rat.com/services/typryx.html).
 
@@ -3492,13 +3498,13 @@ deny_if_unattested demands a live attestation before an agent touches the sensit
 
 ### Fail-open or fail-closed, your call
 
-When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override. Every default is documented, and so is the tradeoff.
+When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing; both launchers set it closed on purpose. The egress point fails closed with no override. Every default is documented, and so is the tradeoff.
 
 ### Three modes at the call site, and one honest choice about outages
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
 
-Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary defaults to open, because a money plane that refused every call whenever the policy plane blinked would cost an operator production traffic over a network partition; both launchers override that to closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
+Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. Both launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 
@@ -3538,7 +3544,7 @@ The whole stack's fortnight, Wardryx among it, is in [the October changelog](htt
 
 ## What is open by default, and what is not proven yet.
 
-- When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The gateway's binary defaults to open and both launchers set it closed on purpose; the egress point fails closed with no override.
+- When the decision point is unreachable, the enforcement point picks the failure mode per deployment. The TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing; both launchers set it closed on purpose. The egress point fails closed with no override.
 
 - Started with no policy configured, it starts anyway and allows, and it says so in the log rather than pretending to enforce something it was never given.
 
@@ -3700,7 +3706,7 @@ Idryx's releases from 1 to 15 October 2026 are listed in [the October changelog]
 
 - The companion detector bom_incomplete flags the agents the BOM cannot yet prove.
 
-- The eBPF network sensor is Linux-only. Its live run was one agent turn on one lab node, on 2026-09-27; it has not yet run on a fleet or a cloud host.
+- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12, 21 flows) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
 
 - The room's runaway is a simulation, but it replays the shape of the live validation run.
 
@@ -3963,6 +3969,8 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
 
+In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so the signing key that issues tokens there is the file, not a key held by Keyryx.
+
 ## Mint it, prove it, then end it.
 
 An RFC 8693 exchange takes two signed input tokens and a DPoP proof whose public key travels in the JWS header, which is a JOSE client before it is a curl command. So the client ships with the service: `vouchryx-demo` makes the keys, performs the exchange and prints a proof.
@@ -4142,6 +4150,163 @@ No release in the window, still 1.0.0. The same entry, beside every other servic
 ## Back to the room.
 
 The [Qryx room](https://it-rat.com/services/qryx.html) has the sweep, the drawing and the common questions, and [the guides index](https://it-rat.com/guides.html) has the field itself.
+
+
+---
+
+<!-- https://it-rat.com/keyryx-guide.html -->
+
+# Keyryx guide
+
+> How Keyryx signs, publishes and witnesses keys and the record, its routes, how to configure, run and verify it offline, its releases, and its limits.
+
+The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of the two roles, the common questions and the short version of each part. This guide keeps the rest: the routes, the configuration it refuses to start without, the witness's findings, how to run it and verify it offline, the releases so far, and every limit it states about itself.
+
+- [At a glance](https://it-rat.com/keyryx-guide.html#overview)
+
+- [How the roles work](https://it-rat.com/keyryx-guide.html#how-it-works)
+
+- [The routes](https://it-rat.com/keyryx-guide.html#surface)
+
+- [Configuration](https://it-rat.com/keyryx-guide.html#configuration)
+
+- [The witness](https://it-rat.com/keyryx-guide.html#witness)
+
+- [Running and verifying it](https://it-rat.com/keyryx-guide.html#run)
+
+- [Releases](https://it-rat.com/keyryx-guide.html#changes)
+
+- [Limits](https://it-rat.com/keyryx-guide.html#limits)
+
+## A key service and a witness, in one binary that runs as two processes.
+
+Keyryx is a service of its own: public, Apache-2.0, written in Go, and off every request path. It has two roles, **custody** and **witness**. The binary has one command for each role and a third for offline checks. The roles never share a process, a key, a uid or a data directory, and the witness refuses to start if it is given custody's directory or root key.
+
+Custody holds signing keys and signs low-rate statements for consumers that were granted a key: approval tokens, record seal roots and audit manifests. It certifies the short-lived keys that high-rate signers generate for themselves, and it publishes each key set with an overlap so that a rotation is never an outage.
+
+The witness reads the record without writing to it. It checks that every byte it saw before is still there, reads each Trailryx store's sealed manifests, and keeps its own append-only log. Each head of that log is signed with ECDSA P-384 and ML-DSA-65 side by side.
+
+## What custody keeps, and what a consumer receives.
+
+### The key store
+
+Each key is one file under the data directory. Its private half is wrapped with AES-256-GCM under a key derived by HKDF from the root key, and the derivation is bound to the key's name, id and algorithm, so a record moved or swapped refuses the start. The root key is 64 hex characters in a file that no group or other account can read. Every key and statement record carries a state MAC under a second derived key: a record whose MAC does not hold is treated as revoked, is never published or used, and raises an alarm until an admin revokes the key it names.
+
+### Algorithms
+
+ES256 and ES384 keys use fixed-width R and S over SHA-256 or SHA-384. ML-DSA-65 follows FIPS 204 through Go 1.27's standard library. Key ids are RFC 7638 thumbprints for elliptic keys and `mldsa65:` plus the base64url SHA-256 of the public key for ML-DSA. Custody never publishes a private member, and a route that tried to would fail its own test.
+
+### Delegated keys
+
+A high-rate signer keeps its own key in memory and asks custody to certify it in three steps: it asks for a challenge, it signs the challenge with the key being certified, and it sends its public key, the challenge, that proof and the life it wants. Custody answers with a key statement: a JWS with one payload and exactly two signatures, ES384 and ML-DSA-65, made by the two halves of the delegation root. The key is published until its end plus the name's overlap. A key id is certified once, and a revoked one is never published or certified again. At most four keys of one name are live at once.
+
+### The use log
+
+Custody writes one line per signature, statement, rotation and revocation to `use.ndjson`, each line naming the SHA-256 of the line before it. A signature or statement is answered only after its line is on disk, and the log holds the digest of what was signed, never the statement itself.
+
+### Consumers and their one way in
+
+Each consumer in the policy authenticates exactly one way: a unix socket of its own, a bearer key held as a digest and compared in constant time, or a Kubernetes projected service-account token checked against the cluster's keys for this service's audience. A consumer signs only with a key it was granted. The policy file is read whole and strictly, and an unknown field, a duplicate, or a grant of an undeclared key refuses the start.
+
+## Custody and witness HTTP surfaces.
+
+### Custody
+
+| Route | Who | What |
+|---|---|---|
+| `GET /healthz` | anyone | liveness |
+| `GET /v1/state` | anyone | the role, the version, each key's active and next id, and the alarms: every state on disk custody could not vouch for |
+| `GET /v1/keys` | anyone | the inventory, revoked keys included; never a private member |
+| `GET /v1/jwks/{name}` | anyone, cacheable | the key set a verifier caches; for the delegation root, both halves |
+| `GET /v1/statements/{kid}` | anyone, cacheable | the statement that certified a delegated key, and when it was revoked |
+| `POST /v1/keys/{name}/sign` | a consumer granted sign | signs a statement of at most 4 KiB |
+| `POST /v1/keys/{name}/challenge` and `/delegate` | a consumer granted delegate | the proof-of-possession steps for a delegated key |
+| `POST /v1/keys/{name}/rotate` | an admin key | creates the next key, published before it signs |
+| `POST /v1/kids/{kid}/revoke` | an admin key | takes a key id out of every key set at once |
+
+A refusal answers its status and a word, and the reason goes to the operator's log. Admin routes answer 403 when no admin key is configured and 401 for a wrong one.
+
+### Witness
+
+| Route | What |
+|---|---|
+| `GET /healthz` | liveness |
+| `GET /v1/witness/head` | the latest signed tree head |
+| `GET /v1/witness/keys` | the key set the witness's heads and attestations verify under |
+| `GET /v1/witness/inclusion` and `/consistency` | RFC 9162 proofs for a leaf, or between two sizes of the tree |
+| `GET /v1/witness/entries` | the entries in a range, at most 1000 per answer |
+
+The witness routes take no credential and only read. Its listener is on the loopback address by default, and its compose service in the stack-single launcher has no network at all.
+
+## What it will not start without.
+
+Anything missing or malformed refuses the start with exit code 2, and the message names the variable. Custody needs its data directory (mode 0700), its root key file, and a policy file of at most 1 MiB. Its listen address defaults to `127.0.0.1:4340`, and `KEYRYX_PUBLISH_AHEAD` sets how long a next or renewed key is published before it signs, 15 minutes by default.
+
+The witness needs its own data directory (mode 0700, never custody's), its own root key file, and the bus directory it reads. The rest are optional: `KEYRYX_WITNESS_CHECKPOINTS` with a custody URL and a stream-key list, a records list for Trailryx data directories, a pin for the delegation root, an alert path, an interval (one minute by default), and an RFC 3161 time-stamping authority. Nothing calls an authority unless `KEYRYX_WITNESS_TSA_URL` is set.
+
+Nothing has a default that signs. A key service that came up holding nothing would answer and sign nothing and look healthy, and one that came up with a default key would sign anything. Both refusals are deliberate.
+
+## What it reads, and what it reports.
+
+Every interval the witness reads, without writing to what it reads. It keeps the bytes it has read and their SHA-256, in the prefix form of agent-passport SPEC 6.5.1, and it hashes each stream again from byte zero. The prefix matters: the SPEC chain hash leaves `prev_hash` out, so a line rewritten with its successor re-linked would pass a chain check alone.
+
+- **Streams.** A changed byte is `witness_stream_rewritten`. A stream holding fewer bytes than it was seen to hold is `witness_stream_truncated`. A new chain in the middle of a stream is `witness_chain_restarted`.
+
+- **Checkpoints.** When a checkpoint directory is set, each record is checked by the steps of SPEC 6.5.1 against a key custody certifies for the stream's key name. A record that does not hold is `witness_checkpoint_invalid`; an unsigned one is `witness_checkpoint_unsigned`. While custody does not answer, a record waits.
+
+- **Trailryx records.** For each store root it computes, the witness writes an ES384 attestation of trailryx's witness statement to its own volume. A sealed manifest that is rewritten or gone is `witness_root_equivocated`; a record that grows past a seal's worth with no new root is `witness_root_missing`.
+
+Every finding is an agent-event in `keyryx.ndjson` in the alert path, with counts and clipped hashes and never record content. Every observation is an entry in the witness's own RFC 9162 log over SHA-384, and each interval ends with a tree head signed by both halves of its key. The witness does not read custody's use log.
+
+The witness pins the delegation root the first time it reads it, unless an operator sets `KEYRYX_WITNESS_DELEGATION_ROOT_PIN` beforehand. A different set served later is a high-severity finding and is not used until an operator pins it.
+
+## Build, run, and check the outputs offline.
+
+Build with `go build -o keyryx ./cmd/keyryx`, then start custody and the witness with their own variables, each as its own process and under its own account:
+
+The health checks are `/healthz` on the two listeners. Outputs can be checked with no service running:
+
+Each check prints ok, weak or broken for each item and ends with VERIFIED (exit 0) or NOT VERIFIED (exit 1). A directory with nothing in it is reported as measured nothing, never as verified.
+
+The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/arm64, with no moving tag. The stack-single Compose file pins v0.1.1 by digest.
+
+## What each release is.
+
+- **v0.1.0**, tagged 2026-10-18: the first release. Custody and the witness, both roles, the offline checks, and the image signed keyless with cosign by digest, with an SBOM and a build-provenance attestation.
+
+- **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads. Nothing an operator sets moves with it, with one exception below.
+
+**An operator-visible change in v0.1.1.** Since agent-stack-go v2, a stream file this service creates is mode 0640, not 0644, so only its owner and its group can read it. A new stream is created only in a directory this service's account owns. A bus directory shared with other services, and not owned by this account, gets no new stream unless each file is created beforehand by the uid of the service that writes it. Check the owner of the bus directory and the mode of each stream before upgrading.
+
+## What is not proven yet, stated here.
+
+- Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
+
+- The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
+
+- No public time-stamping authority has been asked. The client is tested against an authority the tests build.
+
+- The first root is taken on first use unless the operator pins it. A real rotation of the delegation root reads as a changed root until an operator pins the new set, and no rotation has been run against a witness.
+
+- The witness reads the bus and the record, not custody's use log, and custody writes no key rotation or revocation event yet.
+
+- Nothing consumes a key statement yet. The delegation service, the producers' checkpoint writers and the shared client that would renew delegated keys are later changes in their own repositories.
+
+- The state MAC proves custody wrote a state, not that it is the latest. Whoever can write the data directory can restore an earlier copy of a record whose MAC still holds.
+
+- Challenges live in memory, so a restart drops the outstanding ones.
+
+- No real Kubernetes cluster has authenticated a consumer. The projected-token path is tested against tokens the repository mints.
+
+- No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.
+
+- On one machine the witness is a separate user and volume, not a separate trust domain. An off-host anchor closes that, and it is the operator's to switch on.
+
+- Post-quantum signatures come from Go's standard library, and no verifier outside this repository checks ML-DSA yet. The key set's AKP form follows a JOSE draft, not an RFC.
+
+## Back to the room.
+
+The [Keyryx room](https://it-rat.com/services/keyryx.html) has the picture of the two roles and the common questions, and [the guides index](https://it-rat.com/guides.html) has the rest of the field.
 
 
 ---
@@ -4860,7 +5025,7 @@ A tool that could mend the chain would be a tool that could forge it. It exits n
 
 The image is distroless: there is no shell in it to read the file with.
 
-Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, `HERALDYX_STREAMS` declares anything else, and a line in the wrong file is refused, counted and raised once as `foreign_source`; a file nobody declared is raised once as `unknown_stream`. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, `HERALDYX_STREAMS` declares anything else, and a line in the wrong file is refused, counted and raised once as `foreign_source`; a file nobody declared is raised once as `unknown_stream`. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs, and it is off by default.
 
 ## Two more sources arrived on the bus.
 
@@ -4882,7 +5047,7 @@ Every release from 1 to 15 October 2026, with what each one shipped, is in [the 
 
 ### It does not queue
 
-A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process.
+A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.
 
 ### It does not talk to any plane
 
@@ -4900,7 +5065,7 @@ A first run starts at the end of the log. A month of old incidents arriving at o
 
 - Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.
 
-- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.
 
 - The record says a mail server accepted a message, never that it was delivered, and the first record of a chain cannot be verified.
 
@@ -5052,17 +5217,17 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 
 No per-platform binaries here either: this one is a Python library you import, so the package index is the download. The install command lives in the repository, next to the version it resolves.
 
-## What changed, and what is on main.
+## What changed in v3.0.0, and what is on main.
 
 Engram's own list for 1 to 15 October 2026 is in [the stack's changes](https://it-rat.com/changes-2026-10.html#engram).
 
 ### Where each memory came from
 
-On main, not yet released. Every observation now records its provenance: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. This is on main; the last release is v2.4.1.
+Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server serves one agent, and a fact is private to its writer unless it is shared.
 
-## What it does not do, and what is not released yet.
+## What it does not do, and what is still open.
 
-- Provenance on every observation, returned by recall and reported by why(), is on main and not yet released.
+- The server cannot see what an agent read outside engram. A session is marked untrusted only when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.
 
 - reflect() is deliberately not exposed to MCP clients.
 

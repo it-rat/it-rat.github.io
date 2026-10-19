@@ -339,6 +339,14 @@ FAQ = {
  ("How do we keep API keys out of the model's context?",
   "<p>Hand the agent a handle rather than a value, and attach the real credential at the last hop before the call leaves. Anything in the context window is quotable, loggable and memorable, so a token given to the model is a token in the trace and in whatever it repeats next. Brokering also gives revocation exactly one place to act.</p>"),
 ]),
+"services/keyryx.html": ("common questions", "Custody and the witness, in short", [
+ ("Is Keyryx a cloud key vault?",
+  "<p>No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default.</p>"),
+ ("Does a request wait on Keyryx?",
+  "<p>No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key.</p>"),
+ ("Can the witness stop a bad write?",
+  "<p>No. It reads the record, reports what it finds and countersigns what it sees. Whatever follows from a finding is the operator's decision, and the finding stays in its own log either way.</p>"),
+]),
 }
 
 

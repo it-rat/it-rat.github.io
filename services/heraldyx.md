@@ -45,11 +45,11 @@ Not from the event, which carries the agent and who it acted for, and neither of
 
 ## The boundaries, stated rather than discovered at three in the morning.
 
-- It does not queue: a message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped.
+- It does not queue: a message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.
 
 - Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.
 
-- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.
 
 ## Two more sources arrived on the bus.
 

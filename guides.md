@@ -2,9 +2,9 @@
 
 # Guides index
 
-> Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October.
+> Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October.
 
-Thirty-one guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
+Thirty-two guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
 
 ## Start here
 
@@ -115,6 +115,8 @@ One ordinary failure, an agent stuck in a retry loop, followed from its first ov
 - [Vouchryx](https://it-rat.com/vouchryx-guide.html), delegation
 
 - [Qryx](https://it-rat.com/qryx-guide.html), crypto
+
+- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody · delegated keys not wired in yet
 
 - [Verdryx](https://it-rat.com/verdryx-guide.html), quality
 

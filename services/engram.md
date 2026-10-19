@@ -38,9 +38,9 @@ Engram is the knowledge plane of the stack. Every memory_written, reflection_run
 
 The PyPI name is engdbram (the plain name was taken); the import stays `from engram import Engram`.
 
-## Not released yet, and off by default.
+## Agent events are off by default, and reflect() is not an MCP tool.
 
-- Provenance on every observation (user, tool or external), returned by recall and reported by why(), is on main; the last release is v2.4.1.
+- Version 3.0.0, released 2026-10-18, sets provenance and scope on the MCP server: a call cannot claim user, the server's ceiling is external unless its operator raises it, and a server serves one agent. The server cannot see what an agent read outside engram, so a session is marked untrusted only when the caller says so or the flag is set.
 
 - reflect() is deliberately not exposed to MCP clients.
 

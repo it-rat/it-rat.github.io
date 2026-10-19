@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyryx - key custody and a witness &#183; IT-RAT</title>
+<meta name="description" content="Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.">
+<link rel="canonical" href="https://it-rat.com/services/keyryx.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/services/keyryx.html">
+<meta property="og:title" content="Keyryx - key custody and a witness &#183; IT-RAT">
+<meta property="og:description" content="Keys that sign the record, held apart from the code that uses them, and a read-only witness that keeps what it saw.">
+<meta property="og:image" content="https://it-rat.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keyryx - key custody and a witness &#183; IT-RAT">
+<meta name="twitter:description" content="Keys that sign the record, held apart from the code that uses them, and a witness that reads it without writing to it.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/services/keyryx.md">
+<link rel="stylesheet" href="../assets/site.css?v=e20">
+<style>
+  :root{--accent:#FDE68A}
+  .svc-hero{padding:clamp(52px,8vw,96px) 0 34px}
+  .svc-hero h1{margin-top:14px}
+  .svc-hero h1 .nm{color:var(--accent)}
+  .svc-hero .lede{margin-top:20px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,48px);align-items:end}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  .hero-side{display:flex;flex-direction:column;gap:10px}
+  .hero-side .row{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:9px 2px;font-size:13.5px}
+  .hero-side .row .k{color:var(--faint)}
+  .hero-side .row .v{font-family:var(--font-m);color:var(--fg);text-align:right}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .feature h3{display:flex;align-items:center;gap:10px}
+  .feature h3::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .feature p{margin-top:9px;color:var(--dim);font-size:14px;line-height:1.6}
+  .install{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line-2);border-radius:var(--rad-s);padding:14px 18px;background:var(--panel);
+    font-family:var(--font-m);font-size:13px}
+  .install .cmd{color:var(--fg);overflow-wrap:anywhere;min-width:0}
+  .install .cmd b{color:var(--accent);font-weight:600}
+  .install .note{color:var(--faint);font-size:11.5px;margin-left:auto}
+  /* commands are code, so a reader and a word count both see them as code */
+  .install code{font:inherit}
+  /* what is not proven stays on the page (invariant 5); the full list is in the guide */
+  .limits ul{margin:0;padding-left:18px;color:var(--dim);font-size:14.5px;line-height:1.65;max-width:80ch}
+  .limits li+li{margin-top:9px}
+  .limits li::marker{color:var(--accent)}
+  .deeper .cta-row{margin-top:16px}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Keyryx","url":"https://it-rat.com/services/keyryx.html","description":"Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/keyryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Keyryx","item":"https://it-rat.com/services/keyryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Keyryx a cloud key vault?","acceptedAnswer":{"@type":"Answer","text":"No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default."}},{"@type":"Question","name":"Does a request wait on Keyryx?","acceptedAnswer":{"@type":"Answer","text":"No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key."}},{"@type":"Question","name":"Can the witness stop a bad write?","acceptedAnswer":{"@type":"Answer","text":"No. It reads the record, reports what it finds and countersigns what it sees. Whatever follows from a finding is the operator's decision, and the finding stays in its own log either way."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-service="keyryx" data-root="../">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html" data-dir="back"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">the stack<span class="sep">/</span><span class="here">keyryx</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="../demo/">Live demo</a>
+    <a class="tb-link" href="../guides.html">Guides</a>
+    <a class="tb-link" href="../console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="svc-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker rv">key custody and a witness &#183; proof &#183; delegated keys not wired in yet</div>
+        <h1 class="rv d1"><span class="nm">Keyryx</span>. The keys that sign the record, held apart from the code that uses them.</h1>
+        <p class="lede rv d2">One Go binary with two roles that never share a process. Custody holds the signing keys and signs for the consumers it grants a key. The witness reads the record without writing to it, keeps what it saw, and reports when something it saw is gone. Neither role sits on a request path.</p>
+        <div class="cta-row rv d3">
+          <a class="btn primary" href="#roles">Walk the two roles <span class="mono">&#8595;</span></a>
+          <a class="btn" href="../keyryx-guide.html">The full guide</a>
+          <a class="btn" href="https://github.com/TAIPANBOX/keyryx" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-side rv d2">
+        <div class="row"><span class="k">status</span><span class="v">v0.1.1 &#183; released 2026-10-19</span></div>
+        <div class="row"><span class="k">core</span><span class="v">Go 1.27 &#183; standard library first</span></div>
+        <div class="row"><span class="k">algorithms</span><span class="v">ES256 &#183; ES384 &#183; ML-DSA-65</span></div>
+        <div class="row"><span class="k">listens on</span><span class="v">custody 4340 &#183; witness 4341</span></div>
+        <div class="row"><span class="k">licence</span><span class="v">Apache-2.0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROLES ================= -->
+<section class="sec" id="roles" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">two roles, one binary</div>
+      <h2>Custody signs. The witness remembers.</h2>
+      <p class="lede">Each role can check the other's work, which is why they run as separate processes with separate keys, uids and data directories.</p>
+    </div>
+    <div class="bento">
+      <div class="card hover feature b-6 rv"><h3>Keys that stay in the store</h3><p>Keys of three algorithms, each wrapped under AES-256-GCM with a key derived from the root key and bound to its name and id. A private half is never written in the clear, and a record that is moved or edited refuses to start.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>Consumers get what they were granted</h3><p>A consumer authenticates one way: its own socket, a bearer key compared by digest, or a Kubernetes token. It signs only with the keys its policy grants. A refusal answers a status and nothing else, and the reason goes to the operator's log.</p></div>
+      <div class="card hover feature b-6 rv"><h3>Delegated keys, proven first</h3><p>A high-rate signer generates its own key and proves it holds it. Custody certifies the key for a bounded life and publishes it with an overlap, so a verifier that caches the set keeps verifying through a rotation.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>A witness that keeps what it saw</h3><p>The witness keeps the bytes it read and hashes them again each interval. A changed byte is reported as a rewrite, a shorter stream as a truncation, and a new chain in the middle as a restart. Its own log is an RFC 9162 tree, and each head is signed with ECDSA P-384 and ML-DSA-65 side by side.</p></div>
+      <div class="card hover feature b-12 rv"><h3>A check you can run without the service</h3><p><span class="mono">keyryx verify</span> checks a witness log, or streams and their checkpoints, from files alone. An empty directory is reported as measured nothing, never as OK.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE SCHEMATIC ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">under the hood</div>
+      <h2>Who signs, who watches, and who only reads.</h2>
+      <p class="lede">Verifiers read the published key sets and never call custody for each request. The witness reads the event bus and writes its own findings to a volume of its own.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 360" role="img" aria-label="Keyryx: custody signs for the consumers it grants and publishes key sets, and a read-only witness reports what changed on the record">
+        <defs>
+          <marker id="kx-a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+          <style>
+            .kx-t{font-family:ui-monospace,Menlo,monospace}
+            .kx-h{fill:#E9EFF6;font-size:12.5px;font-weight:700}
+            .kx-s{fill:#8A97A6;font-size:10.5px}
+            .kx-f{fill:#5A6675;font-size:10.5px}
+            @media (prefers-reduced-motion: reduce){ .kx-anim{display:none} }
+          </style>
+        </defs>
+        <g>
+          <rect x="20" y="30" width="236" height="150" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="40" y="58" class="kx-h">Consumers</text>
+          <text x="40" y="84" class="kx-s">wardryx: approval tokens</text>
+          <text x="40" y="104" class="kx-s">trailryx: sealed roots</text>
+          <text x="40" y="124" class="kx-s">vouchryx: its token key</text>
+          <text x="40" y="160" class="kx-f">granted by policy, one way in each</text>
+
+          <rect x="330" y="30" width="270" height="150" rx="14" fill="#10161F" stroke="#FDE68A"/>
+          <text x="350" y="58" class="kx-h">keyryx custody</text>
+          <text x="350" y="84" class="kx-s">wrapped keys, state MAC</text>
+          <text x="350" y="104" class="kx-s">use log, one line per use</text>
+          <text x="350" y="124" class="kx-s">publishes key sets with overlap</text>
+          <text x="350" y="160" class="kx-f">never on a request path</text>
+
+          <rect x="690" y="30" width="250" height="150" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="710" y="58" class="kx-h">Verifiers</text>
+          <text x="710" y="84" class="kx-s">cache /v1/jwks/{name}</text>
+          <text x="710" y="104" class="kx-s">cache /v1/statements/{kid}</text>
+          <text x="710" y="124" class="kx-s">verify offline</text>
+          <text x="710" y="160" class="kx-f">keep working when custody is down</text>
+
+          <rect x="20" y="230" width="236" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="40" y="258" class="kx-h">Event bus</text>
+          <text x="40" y="284" class="kx-s">events/*.ndjson</text>
+          <text x="40" y="304" class="kx-f">read only</text>
+
+          <rect x="330" y="230" width="270" height="110" rx="14" fill="#10161F" stroke="#FDE68A"/>
+          <text x="350" y="258" class="kx-h">keyryx witness</text>
+          <text x="350" y="284" class="kx-s">own key, own volume, own uid</text>
+          <text x="350" y="304" class="kx-f">no network, reads only</text>
+
+          <rect x="690" y="230" width="250" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
+          <text x="710" y="258" class="kx-h">Findings</text>
+          <text x="710" y="284" class="kx-s">keyryx.ndjson, agent-events</text>
+          <text x="710" y="304" class="kx-f">signed tree heads in its log</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.5" fill="none">
+          <line x1="256" y1="105" x2="330" y2="105" marker-end="url(#kx-a)"/>
+          <line x1="600" y1="105" x2="690" y2="105" marker-end="url(#kx-a)"/>
+          <line x1="256" y1="285" x2="330" y2="285" marker-end="url(#kx-a)"/>
+          <line x1="600" y1="285" x2="690" y2="285" marker-end="url(#kx-a)"/>
+          <line x1="465" y1="230" x2="465" y2="180" stroke-dasharray="4 4" marker-end="url(#kx-a)"/>
+        </g>
+        <text x="262" y="98" class="kx-s">sign</text>
+        <text x="606" y="98" class="kx-s">JWKS</text>
+        <text x="262" y="278" class="kx-s">read</text>
+        <text x="606" y="278" class="kx-s">findings</text>
+        <text x="472" y="212" class="kx-f">statements, when a URL is set</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT IT REFUSES ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what it does not do</div>
+      <h2>Stated rather than discovered later.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>It is on no request path. Enforcement points and agents never wait on it, and verifiers keep verifying when it is down.</li>
+        <li>It makes no decision. It signs what a granted consumer asks, and it judges no tool call and refuses nothing for money.</li>
+        <li>It issues no agent identity and holds no provider key.</li>
+        <li>It never holds a delegated private key. That half stays with its consumer.</li>
+        <li>It calls no paid service. A time-stamping authority is called only when an operator names one.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHIPPED ================= -->
+<section class="sec" id="shipped" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">what the default launcher runs</div>
+      <h2>Running in stack-single today.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>Custody and the witness run as separate containers in the stack-single Compose file, each under its own uid.</li>
+        <li>Wardryx signs its approval tokens through Keyryx, so the approval key is held by custody.</li>
+        <li>Vouchryx still signs its tokens with its own key file. The Keyryx signer for it is optional, and the launcher does not set it.</li>
+        <li>The witness reads the event bus. The launcher sets no Trailryx record folder and no checkpoint folder, so the witness reads no Trailryx pack and no checkpoint yet.</li>
+        <li>Trailryx packs are unsigned by default. The Keyryx root signer is opt-in, and the launcher leaves it off.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIMITS ================= -->
+<section class="sec" id="limits" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">limits</div>
+      <h2>What is not proven yet.</h2>
+    </div>
+    <div class="card limits rv">
+      <ul>
+        <li>No shipped consumer asks for or renews a delegated key yet, so that part of the design has been tested only in the repository.</li>
+        <li>The witness and custody share a host. They are separate users, volumes and keys, not separate trust domains. An anchor off the host is the operator's to add, and no public time-stamping authority has been asked.</li>
+        <li>The first witness read pins the delegation root that custody serves, unless an operator sets the pin before it starts.</li>
+        <li>No real Kubernetes cluster has authenticated a consumer yet. The projected-token path is tested against tokens the repository mints.</li>
+        <li>Custody's use log is protected against edits in its middle, not against a rewrite from its first line, and the witness does not read it.</li>
+        <li>The root key is a file. No cloud key management is wired in.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRY IT ================= -->
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">try it now</div>
+      <h3 style="margin-top:12px">Build the binary and read its version.</h3>
+      <div class="install" style="margin-top:14px"><code class="cmd"><b>go build</b> -o keyryx ./cmd/keyryx &amp;&amp; ./keyryx version</code></div>
+      <div class="cta-row">
+        <a class="btn" href="../keyryx-guide.html#run">Running it, with the configuration it refuses without</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE CORRIDOR ================= -->
+<section class="sec" style="padding-top:6px;padding-bottom:10px">
+  <div class="wrap">
+    <div data-edge-nav></div>
+  </div>
+</section>
+
+<!-- ================= GO DEEPER ================= -->
+<section class="sec deeper" id="deeper" style="padding-top:14px">
+  <div class="wrap">
+    <div class="card rv">
+      <div class="kicker">go deeper</div>
+      <h3 style="margin-top:12px">The Keyryx guide</h3>
+      <div class="cta-row">
+        <a class="btn" href="../keyryx-guide.html#how-it-works">How the roles work</a>
+        <a class="btn" href="../keyryx-guide.html#surface">The routes</a>
+        <a class="btn" href="../keyryx-guide.html#configuration">Configuration</a>
+        <a class="btn" href="../keyryx-guide.html#witness">The witness</a>
+        <a class="btn" href="../keyryx-guide.html#limits">Limits</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>Custody and the witness, in short</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Is Keyryx a cloud key vault?</summary>
+        <div class="a"><p>No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default.</p></div>
+      </details>
+      <details>
+        <summary>Does a request wait on Keyryx?</summary>
+        <div class="a"><p>No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key.</p></div>
+      </details>
+      <details>
+        <summary>Can the witness stop a bad write?</summary>
+        <div class="a"><p>No. It reads the record, reports what it finds and countersigns what it sees. Whatever follows from a finding is the operator's decision, and the finding stays in its own log either way.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="../index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="../genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="../services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="../services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="../services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="../services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="../services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><span class="foot-chip here" aria-current="page"><i style="background:#FDE68A"></i>Keyryx</span><a class="foot-chip" href="../services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="../services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="../services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="../services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="../services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="../services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="../services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg> &#183; Apache-2.0</div>
+  </div>
+</footer>
+
+<script src="../assets/site.js?v=e13"></script>
+<script src="../assets/sheet.js?v=e06"></script>
+<script src="../assets/diagram.js"></script>
+<script src="../assets/ambient.js"></script>
+</body>
+</html>

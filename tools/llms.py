@@ -64,6 +64,7 @@ SERVICES = [
     ("services/idryx.html", "Idryx, the access plane"),
     ("services/engram.html", "Engram, the knowledge plane"),
     ("services/qryx.html", "Qryx, the crypto plane"),
+    ("services/keyryx.html", "Keyryx, the key custody and witness plane"),
     ("services/verdryx.html", "Verdryx, the quality plane"),
     ("services/mockryx.html", "Mockryx, the pre-production plane"),
     ("services/heraldyx.html", "Heraldyx, the alerts plane"),

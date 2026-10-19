@@ -23,7 +23,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Thirty-one guides: seven on the field of AI agent governance, and twenty-four on running this stack, from a first alert to what changed in October."
+      "description": "Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -201,6 +201,13 @@
       "description": "How Qryx finds every key and grades its post-quantum risk, the risk model, how to run it, what changed in October 2026, and what it leaves out."
     },
     {
+      "url": "https://it-rat.com/keyryx-guide.html",
+      "markdown": "https://it-rat.com/keyryx-guide.md",
+      "title": "Keyryx guide",
+      "kind": "guide",
+      "description": "How Keyryx signs, publishes and witnesses keys and the record, its routes, how to configure, run and verify it offline, its releases, and its limits."
+    },
+    {
       "url": "https://it-rat.com/verdryx-guide.html",
       "markdown": "https://it-rat.com/verdryx-guide.md",
       "title": "Verdryx guide",
@@ -297,6 +304,13 @@
       "title": "Qryx, the crypto plane",
       "kind": "service",
       "description": "Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence."
+    },
+    {
+      "url": "https://it-rat.com/services/keyryx.html",
+      "markdown": "https://it-rat.com/services/keyryx.md",
+      "title": "Keyryx, the key custody and witness plane",
+      "kind": "service",
+      "description": "Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it."
     },
     {
       "url": "https://it-rat.com/services/verdryx.html",

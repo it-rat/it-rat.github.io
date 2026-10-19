@@ -71,6 +71,7 @@ PAGES = {
     "services/costcrew.html": ("../", "Apache-2.0"),
     "services/vouchryx.html": ("../", "Apache-2.0"),
     "services/qryx.html": ("../", "Apache-2.0"),
+    "services/keyryx.html": ("../", "Apache-2.0"),
     "services/tokenfuse.html": ("../", "Apache-2.0"),
     "services/verdryx.html": ("../", "Apache-2.0"),
     "services/wardryx.html": ("../", "Apache-2.0"),

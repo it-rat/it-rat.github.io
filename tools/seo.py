@@ -53,7 +53,7 @@ SERVICE_PAGES = [
     "services/idryx.html", "services/qryx.html", "services/verdryx.html",
     "services/mockryx.html", "services/heraldyx.html", "services/pocket.html",
     "services/trailryx.html", "services/platform.html", "services/costcrew.html",
-    "services/vouchryx.html",
+    "services/vouchryx.html", "services/keyryx.html",
     # Added 2026-08-29. The room was written on 2026-08-10 and never listed
     # here, so it was the one indexable page on this site carrying no JSON-LD
     # while sitting in the sitemap next to fourteen pages that do.

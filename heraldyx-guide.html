@@ -160,7 +160,7 @@
     <div class="prose rv">
       <div class="cmd">heraldyx --journal</div>
       <p>The image is distroless: there is no shell in it to read the file with.</p>
-      <p>Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, <span class="mono">HERALDYX_STREAMS</span> declares anything else, and a line in the wrong file is refused, counted and raised once as <span class="mono">foreign_source</span>; a file nobody declared is raised once as <span class="mono">unknown_stream</span>. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.</p>
+      <p>Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, <span class="mono">HERALDYX_STREAMS</span> declares anything else, and a line in the wrong file is refused, counted and raised once as <span class="mono">foreign_source</span>; a file nobody declared is raised once as <span class="mono">unknown_stream</span>. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs, and it is off by default.</p>
     </div>
   </div>
 </section>
@@ -209,7 +209,7 @@
     </div>
     <div class="prose rv">
       <h3>It does not queue</h3>
-      <p>A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process.</p>
+      <p>A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.</p>
       <h3>It does not talk to any plane</h3>
       <p>No API, no credential, no client. It holds nothing that could act on an agent. If a fact is not in the event log, heraldyx does not know it.</p>
       <h3>It does not report anything about a whole organisation</h3>
@@ -219,7 +219,7 @@
       <h3>And what is not closed yet</h3>
       <ul>
         <li><span>Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.</span></li>
-        <li><span>The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.</span></li>
+        <li><span>The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.</span></li>
         <li><span>The record says a mail server accepted a message, never that it was delivered, and the first record of a chain cannot be verified.</span></li>
         <li><span>The burst of 120 events is a scripted scenario for the rules, not a measurement of a real fleet.</span></li>
       </ul>
@@ -257,7 +257,7 @@
             <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
-            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
           </div>
           <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
             <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>

@@ -137,17 +137,17 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 
 No per-platform binaries here either: this one is a Python library you import, so the package index is the download. The install command lives in the repository, next to the version it resolves.
 
-## What changed, and what is on main.
+## What changed in v3.0.0, and what is on main.
 
 Engram's own list for 1 to 15 October 2026 is in [the stack's changes](https://it-rat.com/changes-2026-10.html#engram).
 
 ### Where each memory came from
 
-On main, not yet released. Every observation now records its provenance: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. This is on main; the last release is v2.4.1.
+Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server serves one agent, and a fact is private to its writer unless it is shared.
 
-## What it does not do, and what is not released yet.
+## What it does not do, and what is still open.
 
-- Provenance on every observation, returned by recall and reported by why(), is on main and not yet released.
+- The server cannot see what an agent read outside engram. A session is marked untrusted only when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.
 
 - reflect() is deliberately not exposed to MCP clients.
 

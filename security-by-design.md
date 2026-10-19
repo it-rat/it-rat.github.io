@@ -152,6 +152,8 @@ When an agent acts for a person, it carries a short-lived token bound to its own
 
 A revocation wins over whatever the token says about its own expiry: the gateway refuses the token once its next poll of the revocation list lands, every 12 seconds by default. On Google Cloud on 14 October, with the poll set to one second, a revoked delegation was refused 1.5 seconds later.
 
+Agent tokens are the default now, not an option. In the shipped Docker Compose launcher (stack-single 1.3.0, released 2026-10-19) the gateway and the MCP broker require an agent's own token, a static key is admitted only when its id is on a named list and is refused with 401 otherwise, and vouchryx, which issues the tokens, starts on every default box. The Kubernetes launcher does the same from 1.5.0. On a stack-single box one agent can be enrolled for a token so far; the others stay on the list until the registry takes more than one.
+
 A key answers one question: does the caller know a secret. **An identity answers who is acting, for whom, with which rights, and how to take them away.**
 
 ## Each part holds only what it needs.
@@ -166,7 +168,7 @@ Separation of duties is the oldest control in banking, and here it means **one c
 
 ## A record that proves itself.
 
-Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness, both of which the record supports, close that last door.
+Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness are no longer missing, but they are not on by default. Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release), and Keyryx runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume rather than as an outside party, and it leaves the root signer off, so a pack from the default install carries no root signature yet.
 
 The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.
 
@@ -214,13 +216,15 @@ That is what a test day is for. Four of the defects it turned up were fixed in r
 
 ## What we built.
 
-We build fourteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.
+We build fifteen open-source services for running AI agents the way a company runs a workforce. Each one installs on its own, and all of them share one way of naming an agent and one event format, which is what lets a decision in one become evidence in another.
 
 - **The gateway**, [TokenFuse](https://it-rat.com/services/tokenfuse.html), and **the policy point**, [Wardryx](https://it-rat.com/services/wardryx.html).
 
 - **Delegation**, [Vouchryx](https://it-rat.com/services/vouchryx.html), and **an identity graph with its kernel sensor**, [Idryx](https://it-rat.com/services/idryx.html).
 
 - **The egress gate**, [Scopyx](https://it-rat.com/services/scopyx.html), and **a cryptography inventory**, [Qryx](https://it-rat.com/services/qryx.html).
+
+- **Key custody and a witness**, [Keyryx](https://it-rat.com/services/keyryx.html).
 
 - **Memory**, [Engram](https://it-rat.com/services/engram.html); **quality grading**, [Verdryx](https://it-rat.com/services/verdryx.html); **typed answers**, [Typryx](https://it-rat.com/services/typryx.html).
 

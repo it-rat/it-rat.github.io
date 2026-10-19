@@ -84,7 +84,7 @@ A tool that could mend the chain would be a tool that could forge it. It exits n
 
 The image is distroless: there is no shell in it to read the file with.
 
-Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, `HERALDYX_STREAMS` declares anything else, and a line in the wrong file is refused, counted and raised once as `foreign_source`; a file nobody declared is raised once as `unknown_stream`. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+Since v0.3.0 a line counts as the source it claims only when the file it came from may carry that source. Each plane's file carries its own name, `HERALDYX_STREAMS` declares anything else, and a line in the wrong file is refused, counted and raised once as `foreign_source`; a file nobody declared is raised once as `unknown_stream`. It does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs, and it is off by default.
 
 ## Two more sources arrived on the bus.
 
@@ -106,7 +106,7 @@ Every release from 1 to 15 October 2026, with what each one shipped, is in [the 
 
 ### It does not queue
 
-A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process.
+A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.
 
 ### It does not talk to any plane
 
@@ -124,7 +124,7 @@ A first run starts at the end of the log. A month of old incidents arriving at o
 
 - Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.
 
-- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream: only signing closes those.
+- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.
 
 - The record says a mail server accepted a message, never that it was delivered, and the first record of a chain cannot be verified.
 
