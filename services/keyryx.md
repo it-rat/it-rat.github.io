@@ -8,7 +8,7 @@ One Go binary with two roles that never share a process. Custody holds the signi
 
 ## Custody signs. The witness remembers.
 
-Each role can check the other's work, which is why they run as separate processes with separate keys, uids and data directories.
+The witness is there to disagree with custody if custody is ever compromised, so the two run as separate processes with separate keys, uids and data directories.
 
 ### Keys that stay in the store
 
