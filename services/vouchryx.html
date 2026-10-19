@@ -108,7 +108,7 @@
       <div class="card hover feature b-6 rv"><h3>Proof of possession, per request</h3><p>The minted token carries <span class="mono">cnf.jkt</span>, the thumbprint of the caller's own key. Spending it needs a fresh DPoP proof from that same key on every call.</p></div>
       <div class="card hover feature b-6 rv d1"><h3>Revocation an incident can use</h3><p>By one token id, or by subject for every token an agent already holds. The list carries <span class="mono">as_of</span>, so an empty answer and an unreachable service are never the same answer to a machine reading it.</p></div>
       <div class="card hover feature b-6 rv"><h3>Verification without a round trip</h3><p>Public keys at a JWKS endpoint, so an enforcement point verifies offline. That is also why there is no introspection endpoint, on purpose.</p></div>
-      <div class="card hover feature b-6 rv d1"><h3>It refuses to start rather than start permissive</h3><p>Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>It refuses to start rather than start permissive</h3><p>Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.</p></div>
     </div>
   </div>
 </section>
@@ -258,7 +258,7 @@
     </div>
     <div class="card limits rv">
       <ul>
-        <li>Today only the TokenFuse gateway polls that list; no other enforcement point does yet.</li>
+        <li>The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.</li>
         <li>Revoking ends the right to act at every enforcement point on its next poll of the list, 12 seconds by default at the gateway; a call admitted before that poll is not pulled back.</li>
         <li>The revocation timing was measured on 2026-09-27 on the forge lab, with a lab image of vouchryx rather than a published release.</li>
       </ul>

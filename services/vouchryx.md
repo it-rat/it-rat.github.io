@@ -22,7 +22,7 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 ### It refuses to start rather than start permissive
 
-Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.
+Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. A missing or malformed value aborts the process and names the variable.
 
 ## Mint, prove, verify, end.
 
@@ -38,7 +38,7 @@ The client ships with the service: `vouchryx-demo` makes the keys, performs the 
 
 ## What is not proven yet.
 
-- Today only the TokenFuse gateway polls that list; no other enforcement point does yet.
+- The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.
 
 - Revoking ends the right to act at every enforcement point on its next poll of the list, 12 seconds by default at the gateway; a call admitted before that poll is not pulled back.
 

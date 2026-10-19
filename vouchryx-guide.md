@@ -38,7 +38,7 @@ The [Vouchryx room](https://it-rat.com/services/vouchryx.html) keeps the loop dr
 
 ### What it is
 
-An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway, whatever the token still says about its own expiry; a call admitted before that poll is not pulled back. Today only the TokenFuse gateway polls that list; no other enforcement point does yet.
+An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway, whatever the token still says about its own expiry; a call admitted before that poll is not pulled back. The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.
 
 ## The record said who acted for whom. Nothing proved it.
 
@@ -73,9 +73,9 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 ## It refuses to start rather than start permissive.
 
-Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
+Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
 
-In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so the signing key that issues tokens there is the file, not a key held by Keyryx.
+In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so tokens there are signed with the file key, not with a working key that Keyryx certifies.
 
 ## Mint it, prove it, then end it.
 
@@ -95,7 +95,7 @@ Measured on 2026-09-27 on the forge lab, with a lab image of vouchryx rather tha
 
 ## What it does not do, and what is not proven yet.
 
-- Today only the TokenFuse gateway polls that list; no other enforcement point does yet.
+- The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.
 
 - Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway; a call admitted before that poll is not pulled back.
 

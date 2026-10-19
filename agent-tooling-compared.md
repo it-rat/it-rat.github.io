@@ -80,7 +80,7 @@ Apache-2.0 throughout, the console included. Nothing in the governance layer sit
 
 ### An alert is a coordinate, and a session is not an authority
 
-The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, seven commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, and closing a retained reservation.
+The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, ten commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, and closing a retained reservation.
 
 ### Post-quantum sits inside the agent loop, and it has legal dates attached
 

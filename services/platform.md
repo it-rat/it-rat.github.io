@@ -12,7 +12,7 @@ This is a simulation, labeled as one: a replay of the envelope's normal day. A p
 
 ## Everything meets at the envelope.
 
-Fourteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
+Fifteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
 
 ## Boring on purpose. Load-bearing anyway.
 

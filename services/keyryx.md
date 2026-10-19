@@ -2,13 +2,13 @@
 
 # Keyryx, the key custody and witness plane
 
-> Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.
+> Key custody and a separate witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.
 
-One Go binary with two roles that never share a process. Custody holds the signing keys and signs for the consumers it grants a key. The witness reads the record without writing to it, keeps what it saw, and reports when something it saw is gone. Neither role sits on a request path.
+One Go binary with two roles that never share a process. Custody holds the signing keys and signs for the consumers it grants a key. The witness reads the record without writing to it, remembers how much of it has been read and the hash of that, and reports when something it saw is gone. Neither role sits on a request path.
 
 ## Custody signs. The witness remembers.
 
-The witness is there to disagree with custody if custody is ever compromised, so the two run as separate processes with separate keys, uids and data directories.
+The witness is there to disagree with custody if custody is ever compromised, so the two run as separate processes with separate keys and data directories, and the launcher gives each its own uid (stack-single does).
 
 ### Keys that stay in the store
 
@@ -22,9 +22,9 @@ A consumer authenticates one way: its own socket, a bearer key compared by diges
 
 A high-rate signer generates its own key and proves it holds it. Custody certifies the key for a bounded life and publishes it with an overlap, so a verifier that caches the set keeps verifying through a rotation.
 
-### A witness that keeps what it saw
+### A witness that remembers what it saw
 
-The witness keeps the bytes it read and hashes them again each interval. A changed byte is reported as a rewrite, a shorter stream as a truncation, and a new chain in the middle as a restart. Its own log is an RFC 9162 tree, and each head is signed with ECDSA P-384 and ML-DSA-65 side by side.
+The witness records how many bytes of each stream it has read and their SHA-256, and hashes the stream again from byte zero each interval (hourly for a stream over 256 MiB). It keeps no copy, so it can tell that a byte changed, never what it was. A changed byte is reported as a rewrite, a shorter stream as a truncation, and a new chain in the middle as a restart. Its own log is an RFC 9162 tree, and each head is signed with ECDSA P-384 and ML-DSA-65 side by side.
 
 ### A check you can run without the service
 
@@ -32,7 +32,7 @@ The witness keeps the bytes it read and hashes them again each interval. A chang
 
 ## Who signs, who watches, and who only reads.
 
-Verifiers read the published key sets and never call custody for each request. The witness reads the event bus and writes its own findings to a volume of its own.
+Verifiers read the published key sets and never call custody for each request. In stack-single the witness reads the event bus and writes its findings to a volume of its own; by default the binary writes them to keyryx.ndjson on the bus.
 
 ## Stated rather than discovered later.
 
@@ -58,15 +58,17 @@ Verifiers read the published key sets and never call custody for each request. T
 
 - Trailryx packs are unsigned by default. The Keyryx root signer is opt-in, and the launcher leaves it off.
 
+- Its findings stay on its own volume: Heraldyx does not read them yet, so a finding sends no mail. An operator reads alerts.ndjson, or checks the witness log with keyryx verify.
+
 ## What is not proven yet.
 
-- No shipped consumer asks for or renews a delegated key yet, so that part of the design has been tested only in the repository.
+- Two released consumers can ask for and renew a delegated key, each opt-in: Vouchryx from 0.5.0 (its token key) and TokenFuse from 1.18.0 (its checkpoint key). No launcher turns either on, and the round trip has run once against a real keyryx binary.
 
 - The witness and custody share a host. They are separate users, volumes and keys, not separate trust domains. An anchor off the host is the operator's to add, and no public time-stamping authority has been asked.
 
 - The first witness read pins the delegation root that custody serves, unless an operator sets the pin before it starts.
 
-- No real Kubernetes cluster has authenticated a consumer yet. The projected-token path is tested against tokens the repository mints.
+- No consumer has yet authenticated with a projected service-account token on a real cluster; that path is tested against tokens the repository mints. On a kind cluster custody has served a bearer-key consumer and refused a wrong key (stack-k8s, 2026-10-18).
 
 - Custody's use log is protected against edits in its middle, not against a rewrite from its first line, and the witness does not read it.
 
@@ -79,7 +81,7 @@ Verifiers read the published key sets and never call custody for each request. T
 ## Custody and the witness, in short
 
 **Q: Is Keyryx a cloud key vault?**
-No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default.
+No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. None is built: a cloud key adapter would be a metered dependency, which is an operator's decision and never a default.
 
 **Q: Does a request wait on Keyryx?**
 No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key.

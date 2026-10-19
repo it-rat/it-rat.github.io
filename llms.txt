@@ -41,7 +41,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Typryx guide](https://it-rat.com/typryx-guide.md): How Typryx works, its measured runs in full, how to choose a data mode at install, what changed, and what it does not prove yet.
 - [Mockryx guide](https://it-rat.com/mockryx-guide.md): How Mockryx fire drills work, how to run and download it, the drills on main not yet released, and what it does not prove yet.
 - [Trailryx guide](https://it-rat.com/trailryx-guide.md): How Trailryx proves an answer complete, how erasure leaves the chain intact, the durability runs, the offline verifier, and its limits.
-- [Heraldyx guide](https://it-rat.com/heraldyx-guide.md): How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0, and its boundaries.
+- [Heraldyx guide](https://it-rat.com/heraldyx-guide.md): How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0 and v0.8.0, and its boundaries.
 - [Engram guide](https://it-rat.com/engram-guide.md): How Engram works, the live runs against real Claude, how to install it, what changed on main, and what it does not do yet, in full.
 - [Platform guide](https://it-rat.com/platform-guide.md): How the Agent Passport contract works, how to run the stack on a laptop, one box or a cluster, and what it does not claim, in full.
 
@@ -54,7 +54,7 @@ Every page below is available as markdown at the same path with a .md extension.
 - [Idryx, the access plane](https://it-rat.com/services/idryx.md): One identity graph for humans, keys, service accounts and AI agents: delegation chains, blast radius, 27 deterministic detectors and a CycloneDX Agent-BOM.
 - [Engram, the knowledge plane](https://it-rat.com/services/engram.md): Embeddable agent memory in one SQLite file: bitemporal facts, hybrid BM25 and vector recall, why() provenance and GDPR forget. No server, no API key to start.
 - [Qryx, the crypto plane](https://it-rat.com/services/qryx.md): Inventory every key, certificate and algorithm you actually run, grade the post-quantum risk against the NCSC 2028, 2031 and 2035 dates, sign the evidence.
-- [Keyryx, the key custody and witness plane](https://it-rat.com/services/keyryx.md): Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.
+- [Keyryx, the key custody and witness plane](https://it-rat.com/services/keyryx.md): Key custody and a separate witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.
 - [Verdryx, the quality plane](https://it-rat.com/services/verdryx.md): Cost per correctly resolved case, not cost per token: six graders, statistical drift detection and a metered LLM judge, scored on your own outcome tags.
 - [Mockryx, the pre-production plane](https://it-rat.com/services/mockryx.md): Fire drills for your guardrails: YAML scenarios fired at a real gateway, asserting the 402, the 403 and the downstream reaction. Zero real spend, CI-native.
 - [Heraldyx, the alerts plane](https://it-rat.com/services/heraldyx.md): The part of the agent stack that writes to you: it reads the event log, decides what is worth a human tonight, and mails it with links into your console.

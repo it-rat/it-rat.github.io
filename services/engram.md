@@ -40,7 +40,7 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 
 ## Agent events are off by default, and reflect() is not an MCP tool.
 
-- Version 3.0.0, released 2026-10-18, sets provenance and scope on the MCP server: a call cannot claim user, the server's ceiling is external unless its operator raises it, and a server serves one agent. The server cannot see what an agent read outside engram, so a session is marked untrusted only when the caller says so or the flag is set.
+- Version 3.0.0, released 2026-10-18, sets provenance and scope on the MCP server: a call cannot claim user, the server's ceiling is external unless its operator raises it, and a server started with an agent id serves that agent alone (one started without serves the whole file and says so). A session turns untrusted when recall or why returns a memory that is not the user's own or is quarantined, when the caller labels what it writes as tool or external, or passes read_untrusted=true, or when the flag is set. The server cannot see what an agent read outside engram.
 
 - reflect() is deliberately not exposed to MCP clients.
 

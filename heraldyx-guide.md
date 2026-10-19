@@ -2,9 +2,9 @@
 
 # Heraldyx guide
 
-> How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0, and its boundaries.
+> How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0 and v0.8.0, and its boundaries.
 
-The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0, and the boundaries in full.
+The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0 and v0.8.0, and the boundaries in full.
 
 - [At a glance](https://it-rat.com/heraldyx-guide.html#overview)
 
@@ -90,6 +90,15 @@ Since v0.3.0 a line counts as the source it claims only when the file it came fr
 
 This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/services/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/services/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding. CostCrew's events have their own sentences here. Vouchryx's delegation events have none yet, so a mail about one says the box has no description for the event until one is written.
 
+## What changed in v0.8.0
+
+| shipped in | what it does |
+|---|---|
+| v0.8.0 | Mail is sent only over TLS: STARTTLS by default, implicit TLS on port 465, and plain only to a loopback relay. A server that does not offer STARTTLS is refused, so set HERALDYX_SMTP_TLS for your server before you upgrade. |
+| v0.8.0 | Every SMTP connection has a 10 second dial deadline and a 60 second session deadline. |
+| v0.8.0 | Stream files the notifier creates are mode 0640, so only their owner and its group can read them. |
+| v0.8.0 | The checkpoint gate is off by default; with it on, a stream is read only while a signed checkpoint covers it (see the boundaries). |
+
 ## What the notifier gained in v0.7.0
 
 | shipped in | what it does |
@@ -106,7 +115,7 @@ Every release from 1 to 15 October 2026, with what each one shipped, is in [the 
 
 ### It does not queue
 
-A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.
+A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and, when the hours or the window end, send one mail saying how many were held. A critical is never held.
 
 ### It does not talk to any plane
 
@@ -124,7 +133,7 @@ A first run starts at the end of the log. A month of old incidents arriving at o
 
 - Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.
 
-- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.
+- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, narrows that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a checkpoint signed by a pinned key covers it. It is off by default, it trusts a pinned key until an operator removes it, and it holds only if each producer alone can write its stream and checkpoints. No launcher has a producer writing signed checkpoints yet.
 
 - The record says a mail server accepted a message, never that it was delivered, and the first record of a chain cannot be verified.
 

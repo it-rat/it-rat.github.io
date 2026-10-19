@@ -52,7 +52,7 @@ Cryptography inventory and post-quantum risk.
 
 ### Keyryx
 
-Keys that sign the record, held apart from the code that uses them.
+Signing keys held apart from the code that uses them, and a read-only witness of the record.
 
 ### Verdryx
 

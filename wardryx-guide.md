@@ -22,7 +22,7 @@ The [Wardryx room](https://it-rat.com/services/wardryx.html) keeps the simulatio
 
 - **Deterministic allow, deny or hold, with a human on the expensive actions.**
 
-- **Status:** v1.3.2, surface frozen at 1.0 · main is supported.
+- **Status:** v2.4.0, surface frozen at 1.0 · main is supported.
 
 - **Core:** Go 1.27 · deterministic PDP. **API:** POST /v1/decide on :8090.
 
@@ -58,11 +58,11 @@ A big spend becomes a hold, not a guess. A human grants it out of band and the a
 
 The agent asks, Wardryx answers `hold` with an approval id, and the call ends there. A human decides out of band, Wardryx mints an approval token, and the agent asks again with the token in hand; that second answer is `allow`. No connection is parked waiting for a signature, and Wardryx does not have to remember an open request: the grant is proven by the token, not by anyone's memory of it.
 
-The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification recomputes the HMAC over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
+The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification checks the signature over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
 
 Since v1.2.0 an approval is also bound to the tool call a person read, when the held request carried one. The person is shown the tool and its target, and the token carries a digest of the name, the target and the exact arguments, so it is refused for any other call, the same JSON re-spaced included. A call whose arguments were too large to send binds only its name and target.
 
-The signing secret is fail-closed. With it unset, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
+The signing is fail-closed. The token is signed by Keyryx custody (ES256) when WARDRYX_APPROVAL_SIGNER=keyryx, which the stack-single and stack-up launchers set (stack-k8s sets it in its Keyryx overlay), and with an HMAC secret otherwise. With neither a signer nor the secret, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
 
 ### A hard ceiling that outranks approvals
 
@@ -80,7 +80,7 @@ When the decision point is unreachable, the enforcement point picks the failure 
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
 
-Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. Both launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
+Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. All three launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 

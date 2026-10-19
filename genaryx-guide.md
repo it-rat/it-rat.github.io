@@ -56,11 +56,11 @@ The browser console is the product, and it is deliberately thin: every screen is
 
 ### Hardware signatures, shipped
 
-Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action still works and is journaled software-signed, labeled honestly.
+Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action is refused until one is enrolled, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it still works and is journaled software-signed, labeled honestly.
 
 **What the console signs, and what it writes down.** The console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. A signature over a different command, or over the same command with different arguments, does not verify.
 
-No passkey enrolled yet? The action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.
+No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
 ### WireGuard, but yours
 
@@ -218,7 +218,7 @@ The practice this console is built for is written up separately: [AI agent gover
 
 - Felyx's budget check was measured on 2026-10-05 on the forge lab against the Cloud's own figures; it covers budget statements, not every run id an answer names.
 
-- With no passkey enrolled an action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.
+- With no passkey enrolled an action is refused, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it is journaled software-signed, labeled honestly, never dressed up as hardware.
 
 - A Qryx artifact in an evidence pack keeps its own ML-DSA (FIPS 204) signature; the console does not sign with ML-DSA.
 

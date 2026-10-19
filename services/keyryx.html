@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Keyryx - key custody and a witness &#183; IT-RAT</title>
-<meta name="description" content="Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.">
+<meta name="description" content="Key custody and a separate witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.">
 <link rel="canonical" href="https://it-rat.com/services/keyryx.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="IT-RAT">
 <meta property="og:url" content="https://it-rat.com/services/keyryx.html">
 <meta property="og:title" content="Keyryx - key custody and a witness &#183; IT-RAT">
-<meta property="og:description" content="Keys that sign the record, held apart from the code that uses them, and a read-only witness that keeps what it saw.">
+<meta property="og:description" content="Signing keys held apart from the code that uses them, and a read-only witness of the record.">
 <meta property="og:image" content="https://it-rat.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Keyryx - key custody and a witness &#183; IT-RAT">
-<meta name="twitter:description" content="Keys that sign the record, held apart from the code that uses them, and a witness that reads it without writing to it.">
+<meta name="twitter:description" content="Signing keys held apart from the code that uses them, and a read-only witness of the record.">
 <meta name="twitter:image" content="https://it-rat.com/assets/og.png">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -54,7 +54,7 @@
   .deeper .cta-row{margin-top:16px}
 </style>
 <!-- seo:auto -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Keyryx","url":"https://it-rat.com/services/keyryx.html","description":"Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/keyryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Keyryx","item":"https://it-rat.com/services/keyryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Keyryx a cloud key vault?","acceptedAnswer":{"@type":"Answer","text":"No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default."}},{"@type":"Question","name":"Does a request wait on Keyryx?","acceptedAnswer":{"@type":"Answer","text":"No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key."}},{"@type":"Question","name":"Can the witness stop a bad write?","acceptedAnswer":{"@type":"Answer","text":"No. It reads the record, reports what it finds and countersigns what it sees. Whatever follows from a finding is the operator's decision, and the finding stays in its own log either way."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Keyryx","url":"https://it-rat.com/services/keyryx.html","description":"Key custody and a separate witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it.","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","publisher":{"@id":"https://it-rat.com/#org"},"isAccessibleForFree":true,"codeRepository":"https://github.com/TAIPANBOX/keyryx","license":"https://www.apache.org/licenses/LICENSE-2.0","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"The stack","item":"https://it-rat.com/#stack"},{"@type":"ListItem","position":3,"name":"Keyryx","item":"https://it-rat.com/services/keyryx.html"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Keyryx a cloud key vault?","acceptedAnswer":{"@type":"Answer","text":"No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. None is built: a cloud key adapter would be a metered dependency, which is an operator's decision and never a default."}},{"@type":"Question","name":"Does a request wait on Keyryx?","acceptedAnswer":{"@type":"Answer","text":"No. Verifiers cache the key sets it publishes and keep verifying when it is down. The synchronous calls are rare by design: an approval being granted, a seal, and the renewal of a delegated key."}},{"@type":"Question","name":"Can the witness stop a bad write?","acceptedAnswer":{"@type":"Answer","text":"No. It reads the record, reports what it finds and countersigns what it sees. Whatever follows from a finding is the operator's decision, and the finding stays in its own log either way."}}]}]}</script>
 <!-- /seo:auto -->
 </head>
 <body data-service="keyryx" data-root="../">
@@ -77,8 +77,8 @@
     <div class="hero-grid">
       <div>
         <div class="kicker rv">key custody and a witness &#183; proof &#183; delegated keys not wired in yet</div>
-        <h1 class="rv d1"><span class="nm">Keyryx</span>. The keys that sign the record, held apart from the code that uses them.</h1>
-        <p class="lede rv d2">One Go binary with two roles that never share a process. Custody holds the signing keys and signs for the consumers it grants a key. The witness reads the record without writing to it, keeps what it saw, and reports when something it saw is gone. Neither role sits on a request path.</p>
+        <h1 class="rv d1"><span class="nm">Keyryx</span>. Signing keys held apart from the code that uses them.</h1>
+        <p class="lede rv d2">One Go binary with two roles that never share a process. Custody holds the signing keys and signs for the consumers it grants a key. The witness reads the record without writing to it, remembers how much of it has been read and the hash of that, and reports when something it saw is gone. Neither role sits on a request path.</p>
         <div class="cta-row rv d3">
           <a class="btn primary" href="#roles">Walk the two roles <span class="mono">&#8595;</span></a>
           <a class="btn" href="../keyryx-guide.html">The full guide</a>
@@ -102,13 +102,13 @@
     <div class="sec-head rv">
       <div class="kicker">two roles, one binary</div>
       <h2>Custody signs. The witness remembers.</h2>
-      <p class="lede">The witness is there to disagree with custody if custody is ever compromised, so the two run as separate processes with separate keys, uids and data directories.</p>
+      <p class="lede">The witness is there to disagree with custody if custody is ever compromised, so the two run as separate processes with separate keys and data directories, and the launcher gives each its own uid (stack-single does).</p>
     </div>
     <div class="bento">
       <div class="card hover feature b-6 rv"><h3>Keys that stay in the store</h3><p>Keys of three algorithms, each wrapped under AES-256-GCM with a key derived from the root key and bound to its name and id. A private half is never written in the clear, and a record that is moved or edited refuses to start.</p></div>
       <div class="card hover feature b-6 rv d1"><h3>Consumers get what they were granted</h3><p>A consumer authenticates one way: its own socket, a bearer key compared by digest, or a Kubernetes token. It signs only with the keys its policy grants. A refusal answers a status and nothing else, and the reason goes to the operator's log.</p></div>
       <div class="card hover feature b-6 rv"><h3>Delegated keys, proven first</h3><p>A high-rate signer generates its own key and proves it holds it. Custody certifies the key for a bounded life and publishes it with an overlap, so a verifier that caches the set keeps verifying through a rotation.</p></div>
-      <div class="card hover feature b-6 rv d1"><h3>A witness that keeps what it saw</h3><p>The witness keeps the bytes it read and hashes them again each interval. A changed byte is reported as a rewrite, a shorter stream as a truncation, and a new chain in the middle as a restart. Its own log is an RFC 9162 tree, and each head is signed with ECDSA P-384 and ML-DSA-65 side by side.</p></div>
+      <div class="card hover feature b-6 rv d1"><h3>A witness that remembers what it saw</h3><p>The witness records how many bytes of each stream it has read and their SHA-256, and hashes the stream again from byte zero each interval (hourly for a stream over 256 MiB). It keeps no copy, so it can tell that a byte changed, never what it was. A changed byte is reported as a rewrite, a shorter stream as a truncation, and a new chain in the middle as a restart. Its own log is an RFC 9162 tree, and each head is signed with ECDSA P-384 and ML-DSA-65 side by side.</p></div>
       <div class="card hover feature b-12 rv"><h3>A check you can run without the service</h3><p><span class="mono">keyryx verify</span> checks a witness log, or streams and their checkpoints, from files alone. An empty directory is reported as measured nothing, never as OK.</p></div>
     </div>
   </div>
@@ -120,7 +120,7 @@
     <div class="sec-head rv">
       <div class="kicker">under the hood</div>
       <h2>Who signs, who watches, and who only reads.</h2>
-      <p class="lede">Verifiers read the published key sets and never call custody for each request. The witness reads the event bus and writes its own findings to a volume of its own.</p>
+      <p class="lede">Verifiers read the published key sets and never call custody for each request. In stack-single the witness reads the event bus and writes its findings to a volume of its own; by default the binary writes them to keyryx.ndjson on the bus.</p>
     </div>
     <div class="diagram rv">
       <svg viewBox="0 0 960 360" role="img" aria-label="Keyryx: custody signs for the consumers it grants and publishes key sets, and a read-only witness reports what changed on the record">
@@ -140,7 +140,8 @@
           <text x="40" y="84" class="kx-s">wardryx: approval tokens</text>
           <text x="40" y="104" class="kx-s">trailryx: sealed roots</text>
           <text x="40" y="124" class="kx-s">vouchryx: its token key</text>
-          <text x="40" y="160" class="kx-f">granted by policy, one way in each</text>
+          <text x="40" y="144" class="kx-s">tokenfuse: checkpoint key</text>
+          <text x="40" y="170" class="kx-f">granted by policy, one way in each</text>
 
           <rect x="330" y="30" width="270" height="150" rx="14" fill="#10161F" stroke="#FDE68A"/>
           <text x="350" y="58" class="kx-h">keyryx custody</text>
@@ -168,7 +169,7 @@
 
           <rect x="690" y="230" width="250" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
           <text x="710" y="258" class="kx-h">Findings</text>
-          <text x="710" y="284" class="kx-s">keyryx.ndjson, agent-events</text>
+          <text x="710" y="284" class="kx-s">alerts.ndjson, agent-events</text>
           <text x="710" y="304" class="kx-f">signed tree heads in its log</text>
         </g>
         <g stroke="#5A6675" stroke-width="1.5" fill="none">
@@ -221,6 +222,7 @@
         <li>Vouchryx still signs its tokens with its own key file. The Keyryx signer for it is optional, and the launcher does not set it.</li>
         <li>The witness reads the event bus. The launcher sets no Trailryx record folder and no checkpoint folder, so the witness reads no Trailryx pack and no checkpoint yet.</li>
         <li>Trailryx packs are unsigned by default. The Keyryx root signer is opt-in, and the launcher leaves it off.</li>
+        <li>Its findings stay on its own volume: Heraldyx does not read them yet, so a finding sends no mail. An operator reads alerts.ndjson, or checks the witness log with keyryx verify.</li>
       </ul>
     </div>
   </div>
@@ -235,10 +237,10 @@
     </div>
     <div class="card limits rv">
       <ul>
-        <li>No shipped consumer asks for or renews a delegated key yet, so that part of the design has been tested only in the repository.</li>
+        <li>Two released consumers can ask for and renew a delegated key, each opt-in: Vouchryx from 0.5.0 (its token key) and TokenFuse from 1.18.0 (its checkpoint key). No launcher turns either on, and the round trip has run once against a real keyryx binary.</li>
         <li>The witness and custody share a host. They are separate users, volumes and keys, not separate trust domains. An anchor off the host is the operator's to add, and no public time-stamping authority has been asked.</li>
         <li>The first witness read pins the delegation root that custody serves, unless an operator sets the pin before it starts.</li>
-        <li>No real Kubernetes cluster has authenticated a consumer yet. The projected-token path is tested against tokens the repository mints.</li>
+        <li>No consumer has yet authenticated with a projected service-account token on a real cluster; that path is tested against tokens the repository mints. On a kind cluster custody has served a bearer-key consumer and refused a wrong key (stack-k8s, 2026-10-18).</li>
         <li>Custody's use log is protected against edits in its middle, not against a rewrite from its first line, and the witness does not read it.</li>
         <li>The root key is a file. No cloud key management is wired in.</li>
       </ul>
@@ -294,7 +296,7 @@
     <div class="faq rv">
       <details>
         <summary>Is Keyryx a cloud key vault?</summary>
-        <div class="a"><p>No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. A cloud key adapter would be a metered dependency, so it is an option an operator decides on, never a default.</p></div>
+        <div class="a"><p>No. It is a process you run beside the stack, with a wrapped key store on disk under a root key that is a file. It has no cloud key management. None is built: a cloud key adapter would be a metered dependency, which is an operator's decision and never a default.</p></div>
       </details>
       <details>
         <summary>Does a request wait on Keyryx?</summary>

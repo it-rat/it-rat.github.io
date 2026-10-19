@@ -167,9 +167,9 @@
       <h3>One core, one shell</h3>
       <p>The browser console is the product, and it is deliberately thin: every screen is a call into one shared Rust command layer - stores, connectors, ceremonies, the graph all live in the core, never in a screen. Written once, tested once, so a command cannot mean one thing in one place and something else in another.</p>
       <h3>Hardware signatures, shipped</h3>
-      <p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action still works and is journaled software-signed, labeled honestly.</p>
+      <p>Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action is refused until one is enrolled, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it still works and is journaled software-signed, labeled honestly.</p>
       <p><b>What the console signs, and what it writes down.</b> The console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. A signature over a different command, or over the same command with different arguments, does not verify.</p>
-      <p>No passkey enrolled yet? The action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.</p>
+      <p>No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.</p>
       <h3>WireGuard, but yours</h3>
       <p>Your box runs the WireGuard side and issues each device its own peer config as a QR: scan, connect, done. Inside that tunnel the console answers over HTTPS on its own name and nowhere else, and it never faces the internet.</p>
       <p><b>Why the tunnel, and what the certificate is actually for.</b> The tunnel is raised by your own client, not by anything of ours. On the box itself the console is bound to loopback, so the only way in is the tunnel.</p>
@@ -322,7 +322,7 @@
         <li><span>The frames are the real console UI from the demo build, on simulated data for a fictional tier-1 bank, <span class="mono">meridian.example</span>. The live run is in <a href="what-is-proven.html">what is proven</a>.</span></li>
         <li><span>The Felyx annotation quoted above is a paraphrase of the annotation felyx writes on a HARD page, not a recorded capture; the deterministic alert goes out first.</span></li>
         <li><span>Felyx's budget check was measured on 2026-10-05 on the forge lab against the Cloud's own figures; it covers budget statements, not every run id an answer names.</span></li>
-        <li><span>With no passkey enrolled an action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.</span></li>
+        <li><span>With no passkey enrolled an action is refused, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it is journaled software-signed, labeled honestly, never dressed up as hardware.</span></li>
         <li><span>A Qryx artifact in an evidence pack keeps its own ML-DSA (FIPS 204) signature; the console does not sign with ML-DSA.</span></li>
         <li><span>The Memory tab shows a procedural store this version says plainly it does not implement.</span></li>
         <li><span>A cloud model for Felyx is opt-in per install, off by default, and the residency banner always states which mode you are in.</span></li>

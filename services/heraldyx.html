@@ -388,9 +388,9 @@
     </div>
     <div class="card limits rv">
       <ul>
-        <li>It does not queue: a message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.</li>
+        <li>It does not queue: a message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and, when the hours or the window end, send one mail saying how many were held. A critical is never held.</li>
         <li>Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.</li>
-        <li>The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.</li>
+        <li>The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, narrows that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a checkpoint signed by a pinned key covers it. It is off by default, it trusts a pinned key until an operator removes it, and it holds only if each producer alone can write its stream and checkpoints. No launcher has a producer writing signed checkpoints yet.</li>
       </ul>
     </div>
   </div>

@@ -240,7 +240,7 @@
       "markdown": "https://it-rat.com/heraldyx-guide.md",
       "title": "Heraldyx guide",
       "kind": "guide",
-      "description": "How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0, and its boundaries."
+      "description": "How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0 and v0.8.0, and its boundaries."
     },
     {
       "url": "https://it-rat.com/engram-guide.html",
@@ -310,7 +310,7 @@
       "markdown": "https://it-rat.com/services/keyryx.md",
       "title": "Keyryx, the key custody and witness plane",
       "kind": "service",
-      "description": "Key custody and an independent witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it."
+      "description": "Key custody and a separate witness for the agent-governance record. Custody signs for granted consumers; the witness reads the record without writing to it."
     },
     {
       "url": "https://it-rat.com/services/verdryx.html",

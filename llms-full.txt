@@ -1101,7 +1101,7 @@ The mail itself carries identifiers and numbers and never content, because the e
 
 Following the link opens the panel showing that exact incident. It does not kill anything, and the difference is not fussiness. A link that acts is an unauthenticated capability held by whoever can see or forward the message, and mail security gateways **prefetch links**, so a one-click kill would fire before a human read the sentence next to it.
 
-So the action happens in the console, behind a sign-in, and the kill also takes a fresh passkey confirmation bound to that exact command and its arguments once a passkey is enrolled or the operator requires one, because a stolen session should not be able to pull the switch. What the operator typed as a reason is journaled with it.
+So the action happens in the console, behind a sign-in, and the kill also takes a fresh passkey confirmation bound to that exact command and its arguments, unless an operator has switched the software fallback on, because a stolen session should not be able to pull the switch. What the operator typed as a reason is journaled with it.
 
 ### The same failure, rehearsed before it was real
 
@@ -1113,7 +1113,7 @@ It exits with differentiated codes so a CI job can tell a genuine guardrail gap 
 
 The question that arrives late is rarely what happened . It is show me that this is all of it , and an ordinary log cannot answer it: anyone with access could have edited it, and nothing about the remaining lines shows whether one was removed.
 
-So the events are sealed into a chain, the chain into a signed pack, and the pack is checked by a verifier with no third-party dependencies at all, small enough that an auditor can read the whole thing before trusting any of it. A query answer comes back with a completeness proof, which is the harder claim and the one an auditor actually needs: not here are five records but five is all there ever were .
+So the events are sealed into a chain, the chain into a sealed pack (signed when the operator turns on Trailryx's Keyryx signer), and the pack is checked by a verifier with no third-party dependencies at all, small enough that an auditor can read the whole thing before trusting any of it. A query answer comes back with a completeness proof, which is the harder claim and the one an auditor actually needs: not here are five records but five is all there ever were .
 
 One class of event never reaches your inbox at all, and it is worth knowing why. The shared envelope requires an agent identifier, so a signal about a whole organisation rather than one agent has no subject to travel under. Its producer skips it rather than inventing one, because a fabricated subject makes every downstream count wrong and puts a name in a subject line that did not do the thing. Those signals show up in the console instead.
 
@@ -1160,7 +1160,7 @@ Two: the money plane and the policy plane, because both sit in the request path.
 Because on its own it is an agent having a bad afternoon. The detector wants at least two corroborating facts before it will call something high, and in this walk it gets two on top of the spend event: an agent with no attestation on record, and a delegation chain two hops deep. None of the three services holds all three facts. The severity comes from the join, which is the argument for a separate identity plane rather than a rule inside the gateway.
 
 **Q: Why does the alert email contain a link instead of a kill button?**
-Because a link that acts is an unauthenticated capability held by whoever can see or forward the message, and mail security gateways prefetch links, so the action would fire before a human read the sentence beside it. The link is a coordinate: it opens the panel showing that incident in your own console. The action happens there, behind a sign-in, and anything destructive additionally needs a fresh passkey confirmation bound to that exact command, once a passkey is enrolled or the operator requires one.
+Because a link that acts is an unauthenticated capability held by whoever can see or forward the message, and mail security gateways prefetch links, so the action would fire before a human read the sentence beside it. The link is a coordinate: it opens the panel showing that incident in your own console. The action happens there, behind a sign-in, and anything destructive additionally needs a fresh passkey confirmation bound to that exact command, unless an operator has switched the software fallback on.
 
 **Q: What does the notifier hold, and what can it reach?**
 It reads a file and sends mail. It holds no credential for any plane, opens no connection to one, has no API of its own, and can take no action on any agent. That narrowness is the design rather than an implementation detail: it is the one component allowed out of the box, so its blast radius has to stay small enough to state in a sentence.
@@ -1749,7 +1749,7 @@ Apache-2.0 throughout, the console included. Nothing in the governance layer sit
 
 ### An alert is a coordinate, and a session is not an authority
 
-The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, seven commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, and closing a retained reservation.
+The mail that wakes somebody at night carries one link into a view, and never a button that acts. A link that acts is a permission held by everyone who received or forwarded the mail, and security gateways follow links before a human reads the sentence next to them. In the console, ten commands take a fresh passkey assertion bound to that command and its arguments, rather than to whoever is signed in: a kill, a budget change, an approval, issuing or revoking a tunnel peer, revoking a delegation, and closing a retained reservation.
 
 ### Post-quantum sits inside the agent loop, and it has legal dates attached
 
@@ -1964,7 +1964,7 @@ When an agent acts for a person, it carries a short-lived token bound to its own
 
 A revocation wins over whatever the token says about its own expiry: the gateway refuses the token once its next poll of the revocation list lands, every 12 seconds by default. On Google Cloud on 14 October, with the poll set to one second, a revoked delegation was refused 1.5 seconds later.
 
-Agent tokens are the default now, not an option. In the shipped Docker Compose launcher (stack-single 1.3.0, released 2026-10-19) the gateway and the MCP broker require an agent's own token, a static key is admitted only when its id is on a named list and is refused with 401 otherwise, and vouchryx, which issues the tokens, starts on every default box. The Kubernetes launcher does the same from 1.5.0. On a stack-single box one agent can be enrolled for a token so far; the others stay on the list until the registry takes more than one.
+Agent tokens are the default now, not an option. In the shipped Docker Compose launcher (from stack-single 1.3.0, released 2026-10-19) the gateway and the MCP broker require an agent's own token, a static key is admitted only when its id is on a named list and is refused with 401 otherwise, and vouchryx, which issues the tokens, starts on every default box. The Kubernetes launcher does the same from 1.5.0. On a stack-single box one agent can be enrolled for a token so far; the others stay on the list until the registry takes more than one.
 
 A key answers one question: does the caller know a secret. **An identity answers who is acting, for whom, with which rights, and how to take them away.**
 
@@ -1972,7 +1972,7 @@ A key answers one question: does the caller know a secret. **An identity answers
 
 The service that decides is not the one that enforces. The one that tells people about incidents ([Heraldyx](https://it-rat.com/services/heraldyx.html)) holds no credential for any other service and can act on nothing, and its only way out is mail.
 
-A mail never carries the stop, because mail security gateways open links before people do. The stop is a button in your own console ([Genaryx](https://it-rat.com/genaryx.html)), behind a fresh passkey, and every attempt that passes the passkey, carried out or refused, is written to the console's own journal with its outcome. Eight console commands that move money or authority work that way, from killing a run to changing a business unit's monthly cap.
+A mail never carries the stop, because mail security gateways open links before people do. The stop is a button in your own console ([Genaryx](https://it-rat.com/genaryx.html)), behind a fresh passkey, and every attempt that passes the passkey, carried out or refused, is written to the console's own journal with its outcome. Ten console commands that move money or authority work that way, from killing a run to changing a business unit's monthly cap.
 
 Two recent changes follow the same idea. The newest change to the policy service makes every policy change made through its API name, on the event bus, the fingerprint of the key that made it, so "who changed the rules" has an answer that does not depend on anyone's memory. The alert service's new quiet hours and maintenance windows can hold an alert, but never a critical one. Both are in [what changed from 1 to 15 October](https://it-rat.com/changes-2026-10.html).
 
@@ -1980,7 +1980,7 @@ Separation of duties is the oldest control in banking, and here it means **one c
 
 ## A record that proves itself.
 
-Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root and an outside witness are no longer missing, but they are not on by default. Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release), and Keyryx runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume rather than as an outside party, and it leaves the root signer off, so a pack from the default install carries no root signature yet.
+Decisions, refusals, stops and approvals go into append-only event logs in which each entry carries the hash of the one before it, and a record service ([Trailryx](https://it-rat.com/services/trailryx.html)) seals finished segments. Change one record and every seal after it stops matching, so an edit cannot hide in the middle: it has to rewrite everything after it. Signing the root is no longer missing, but it is not on by default: Trailryx can sign sealed roots with Keyryx (opt-in, from its 1.3.0 release). Keyryx also runs a witness that reads the event bus read-only and writes its findings to its own volume. The shipped launcher runs that witness on the same host, as a separate user and volume, so it is not an outside party; it points the witness at no Trailryx record and leaves the root signer off, so a pack from the default install carries neither a root signature nor a witness yet. A witness off the host is not built.
 
 The check runs offline, by somebody who has no reason to trust us. On Google Cloud in September a sealed record verified, and one flipped byte made it fail.
 
@@ -2745,11 +2745,11 @@ The browser console is the product, and it is deliberately thin: every screen is
 
 ### Hardware signatures, shipped
 
-Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action still works and is journaled software-signed, labeled honestly.
+Kills, budget changes and approval grants are confirmed per action with a passkey on your own device: Touch ID, Windows Hello or a security key. With no passkey enrolled the action is refused until one is enrolled, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it still works and is journaled software-signed, labeled honestly.
 
 **What the console signs, and what it writes down.** The console mints a challenge bound to that exact command and its exact arguments, verifies the ES256 assertion server-side, and journals which enrolled credential confirmed it, next to the typed break-glass reason. A signature over a different command, or over the same command with different arguments, does not verify.
 
-No passkey enrolled yet? The action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.
+No passkey enrolled yet? The action is refused until you enroll one. Only an operator who sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY gets the software-signed fallback, labeled honestly, never dressed up as hardware.
 
 ### WireGuard, but yours
 
@@ -2907,7 +2907,7 @@ The practice this console is built for is written up separately: [AI agent gover
 
 - Felyx's budget check was measured on 2026-10-05 on the forge lab against the Cloud's own figures; it covers budget statements, not every run id an answer names.
 
-- With no passkey enrolled an action still works and is journaled software-signed, labeled honestly, never dressed up as hardware.
+- With no passkey enrolled an action is refused, unless an operator sets GENARYX_WEB_ALLOW_SOFTWARE_CEREMONY; then it is journaled software-signed, labeled honestly, never dressed up as hardware.
 
 - A Qryx artifact in an evidence pack keeps its own ML-DSA (FIPS 204) signature; the console does not sign with ML-DSA.
 
@@ -3446,7 +3446,7 @@ The [Wardryx room](https://it-rat.com/services/wardryx.html) keeps the simulatio
 
 - **Deterministic allow, deny or hold, with a human on the expensive actions.**
 
-- **Status:** v1.3.2, surface frozen at 1.0 · main is supported.
+- **Status:** v2.4.0, surface frozen at 1.0 · main is supported.
 
 - **Core:** Go 1.27 · deterministic PDP. **API:** POST /v1/decide on :8090.
 
@@ -3482,11 +3482,11 @@ A big spend becomes a hold, not a guess. A human grants it out of band and the a
 
 The agent asks, Wardryx answers `hold` with an approval id, and the call ends there. A human decides out of band, Wardryx mints an approval token, and the agent asks again with the token in hand; that second answer is `allow`. No connection is parked waiting for a signature, and Wardryx does not have to remember an open request: the grant is proven by the token, not by anyone's memory of it.
 
-The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification recomputes the HMAC over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
+The token is bound to what was actually approved. Its claims name the agent, the run and the exact sorted set of tools, and carry an expiry, ten minutes by default; verification checks the signature over the still-encoded payload before decoding anything, then checks that what is being asked matches what was granted. A token for one run does not quietly authorise another.
 
 Since v1.2.0 an approval is also bound to the tool call a person read, when the held request carried one. The person is shown the tool and its target, and the token carries a digest of the name, the target and the exact arguments, so it is refused for any other call, the same JSON re-spaced included. A call whose arguments were too large to send binds only its name and target.
 
-The signing secret is fail-closed. With it unset, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
+The signing is fail-closed. The token is signed by Keyryx custody (ES256) when WARDRYX_APPROVAL_SIGNER=keyryx, which the stack-single and stack-up launchers set (stack-k8s sets it in its Keyryx overlay), and with an HMAC secret otherwise. With neither a signer nor the secret, Wardryx refuses to mint or verify rather than accepting anything, because there is no such thing as an unsigned or always-valid approval. Since 1.0 a token works once by default: the first redemption is recorded atomically, so presenting the same token twice falls back to a fresh hold instead of silently allowing the action again. Setting `WARDRYX_APPROVAL_SINGLE_USE=false` makes it reusable within its window. With no shared database that single-use guarantee is per process, and the server says so at startup rather than letting you assume otherwise.
 
 ### A hard ceiling that outranks approvals
 
@@ -3504,7 +3504,7 @@ When the decision point is unreachable, the enforcement point picks the failure 
 
 Wardryx itself never acts. It answers; the enforcement point, a gateway or a proxy, decides how much weight to give the answer. There are three settings at that call site.
 
-Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. Both launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
+Two enforcement points ask this plane, and the answer lives at the call site rather than here. **TokenFuse**'s binary closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. It was open under enforce until 2026-10-17, for the reason a money plane gives: a call refused on every policy blink costs production traffic during a network partition. All three launchers set it closed, because on a box that exists to govern, policy wins. That is not a reading of the configuration. On 2026-09-17 the policy plane was stopped under a box governing two clouds, and every call came back `403 wardryx unreachable` in 0.3 s, none reaching the provider, until it was started again. **Scopyx** fails closed with no override: an egress point that failed open is an unrestricted fetch proxy wearing a governance label, and that failure would be silent.
 
 **off** never calls the decision point at all: local development, or an environment with no policy loaded. **shadow** asks on every call and records the answer while the action always proceeds, which is how a new policy set is validated against real traffic before it can block anything. **enforce** makes the answer binding: a deny stops the call, a hold pauses it until a signed approval token is presented.
 
@@ -3706,7 +3706,7 @@ Idryx's releases from 1 to 15 October 2026 are listed in [the October changelog]
 
 - The companion detector bom_incomplete flags the agents the BOM cannot yet prove.
 
-- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12, 21 flows) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
+- The eBPF network sensor is Linux-only. It has attached and captured live flows on two kernels: a Docker Desktop Linux VM on a Mac (2026-09-08, arm64 kernel 7.0.12; a 12-second capture in a container, not against an agent: 3 flows on the fixed build, after the first run counted 16 of its 21 flows as its own) and one x86_64 lab node (2026-09-27, one agent turn, 349 flows in 70 seconds). It has not yet run on a fleet or a cloud host.
 
 - The room's runaway is a simulation, but it replays the shape of the live validation run.
 
@@ -3932,7 +3932,7 @@ The [Vouchryx room](https://it-rat.com/services/vouchryx.html) keeps the loop dr
 
 ### What it is
 
-An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway, whatever the token still says about its own expiry; a call admitted before that poll is not pulled back. Today only the TokenFuse gateway polls that list; no other enforcement point does yet.
+An RFC 8693 token exchange that mints a short-lived token carrying nested `act`, sender-constrained with RFC 9449 DPoP so a lifted token is useless to whoever lifted it. A revocation list enforcement points poll, and public keys anybody can verify against offline. Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway, whatever the token still says about its own expiry; a call admitted before that poll is not pulled back. The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.
 
 ## The record said who acted for whom. Nothing proved it.
 
@@ -3967,9 +3967,9 @@ Public keys at a JWKS endpoint, so an enforcement point verifies offline. That i
 
 ## It refuses to start rather than start permissive.
 
-Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
+Three values are required and have no default: VOUCHRYX_ISSUER, VOUCHRYX_SIGNING_KEY (for the file signer; the Keyryx signer needs its own four values instead) and VOUCHRYX_TRUSTED_ISSUERS. The listen address and the token lifetime have defaults, and the others switch optional features on. A missing or malformed value aborts the process and names the variable. The reason is the shape of the two failures: a token service that came up trusting nothing would issue nothing and look healthy, and one that came up trusting a default would issue everything.
 
-In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so the signing key that issues tokens there is the file, not a key held by Keyryx.
+In the stack-single launcher from 1.3.0 (released 2026-10-19), vouchryx starts on every default box and signs with its own key file, VOUCHRYX_SIGNING_KEY. Its optional Keyryx signer (VOUCHRYX_SIGNER=keyryx) is not set by the launcher, so tokens there are signed with the file key, not with a working key that Keyryx certifies.
 
 ## Mint it, prove it, then end it.
 
@@ -3989,7 +3989,7 @@ Measured on 2026-09-27 on the forge lab, with a lab image of vouchryx rather tha
 
 ## What it does not do, and what is not proven yet.
 
-- Today only the TokenFuse gateway polls that list; no other enforcement point does yet.
+- The TokenFuse gateway polls that list, and so does Wardryx from 2.3.0; no other enforcement point does yet.
 
 - Revoking a delegation ends the right to act on somebody's behalf at every enforcement point on its next poll of the list, 12 seconds by default at the gateway; a call admitted before that poll is not pulled back.
 
@@ -4160,7 +4160,7 @@ The [Qryx room](https://it-rat.com/services/qryx.html) has the sweep, the drawin
 
 > How Keyryx signs, publishes and witnesses keys and the record, its routes, how to configure, run and verify it offline, its releases, and its limits.
 
-The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of the two roles, the common questions and the short version of each part. This guide keeps the rest: the routes, the configuration it refuses to start without, the witness's findings, how to run it and verify it offline, the releases so far, and every limit it states about itself.
+The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of the two roles, the common questions and the short version of each part. This guide keeps the rest: the routes, the configuration it refuses to start without, the witness's findings, how to run it and verify it offline, the releases so far, and the limits an operator meets. The README's NOT PROVEN section has the full list.
 
 - [At a glance](https://it-rat.com/keyryx-guide.html#overview)
 
@@ -4180,7 +4180,7 @@ The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of 
 
 ## A key service and a witness, in one binary that runs as two processes.
 
-Keyryx is a service of its own: public, Apache-2.0, written in Go, and off every request path. It has two roles, **custody** and **witness**. The binary has one command for each role and a third for offline checks. The roles never share a process, a key, a uid or a data directory, and the witness refuses to start if it is given custody's directory or root key.
+Keyryx is a service of its own: public, Apache-2.0, written in Go, and off every request path. It has two roles, **custody** and **witness**. The binary has one command for each role and a third for offline checks. The roles never share a process, a key or a data directory, the launcher gives each its own uid (stack-single does), and the witness refuses to start if it is given custody's directory or root key.
 
 Custody holds signing keys and signs low-rate statements for consumers that were granted a key: approval tokens, record seal roots and audit manifests. It certifies the short-lived keys that high-rate signers generate for themselves, and it publishes each key set with an overlap so that a rotation is never an outage.
 
@@ -4248,7 +4248,7 @@ Nothing has a default that signs. A key service that came up holding nothing wou
 
 ## What it reads, and what it reports.
 
-Every interval the witness reads, without writing to what it reads. It keeps the bytes it has read and their SHA-256, in the prefix form of agent-passport SPEC 6.5.1, and it hashes each stream again from byte zero. The prefix matters: the SPEC chain hash leaves `prev_hash` out, so a line rewritten with its successor re-linked would pass a chain check alone.
+Every interval the witness reads, without writing to what it reads. It keeps the count of lines and bytes it has read and their SHA-256, not the bytes, in the prefix form of agent-passport SPEC 6.5.1, and it hashes each stream again from byte zero (hourly for a stream over 256 MiB). The prefix matters: the SPEC chain hash leaves `prev_hash` out, so a line rewritten with its successor re-linked would pass a chain check alone.
 
 - **Streams.** A changed byte is `witness_stream_rewritten`. A stream holding fewer bytes than it was seen to hold is `witness_stream_truncated`. A new chain in the middle of a stream is `witness_chain_restarted`.
 
@@ -4256,7 +4256,7 @@ Every interval the witness reads, without writing to what it reads. It keeps the
 
 - **Trailryx records.** For each store root it computes, the witness writes an ES384 attestation of trailryx's witness statement to its own volume. A sealed manifest that is rewritten or gone is `witness_root_equivocated`; a record that grows past a seal's worth with no new root is `witness_root_missing`.
 
-Every finding is an agent-event in `keyryx.ndjson` in the alert path, with counts and clipped hashes and never record content. Every observation is an entry in the witness's own RFC 9162 log over SHA-384, and each interval ends with a tree head signed by both halves of its key. The witness does not read custody's use log.
+Every finding is an agent-event in the alert file (by default `keyryx.ndjson` in the events directory), with counts and clipped hashes and never record content. Every observation is an entry in the witness's own RFC 9162 log over SHA-384, and each interval ends with a tree head signed by both halves of its key. The witness does not read custody's use log.
 
 The witness pins the delegation root the first time it reads it, unless an operator sets `KEYRYX_WITNESS_DELEGATION_ROOT_PIN` beforehand. A different set served later is a high-severity finding and is not used until an operator pins it.
 
@@ -4272,13 +4272,15 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 ## What each release is.
 
-- **v0.1.0**, tagged 2026-10-18: the first release. Custody and the witness, both roles, the offline checks, and the image signed keyless with cosign by digest, with an SBOM and a build-provenance attestation.
+- **v0.1.0**, tagged 2026-10-18: the first release. Custody and the witness, both roles, the offline checks, an SBOM and a build-provenance attestation. Its image carries no cosign signature.
 
-- **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads. Nothing an operator sets moves with it, with one exception below.
+- **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads; that signature has not yet been checked with cosign. Nothing an operator sets moves with it, with one exception below.
 
 **An operator-visible change in v0.1.1.** Since agent-stack-go v2, a stream file this service creates is mode 0640, not 0644, so only its owner and its group can read it. A new stream is created only in a directory this service's account owns. A bus directory shared with other services, and not owned by this account, gets no new stream unless each file is created beforehand by the uid of the service that writes it. Check the owner of the bus directory and the mode of each stream before upgrading.
 
 ## What is not proven yet, stated here.
+
+- The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
 
 - Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
 
@@ -4290,13 +4292,13 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - The witness reads the bus and the record, not custody's use log, and custody writes no key rotation or revocation event yet.
 
-- Nothing consumes a key statement yet. The delegation service, the producers' checkpoint writers and the shared client that would renew delegated keys are later changes in their own repositories.
+- Vouchryx consumes key statements from 0.5.0 and, from 0.6.0, checks each one against a pinned root. TokenFuse consumes them for its checkpoint key from 1.18.0. Both are opt-in, no launcher switches either on, and no producer in a launcher writes signed checkpoints yet.
 
 - The state MAC proves custody wrote a state, not that it is the latest. Whoever can write the data directory can restore an earlier copy of a record whose MAC still holds.
 
 - Challenges live in memory, so a restart drops the outstanding ones.
 
-- No real Kubernetes cluster has authenticated a consumer. The projected-token path is tested against tokens the repository mints.
+- No consumer has yet authenticated with a projected service-account token on a real cluster; that path is tested against tokens the repository mints. On a kind cluster custody has served a bearer-key consumer and refused a wrong key (stack-k8s, 2026-10-18).
 
 - No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.
 
@@ -4900,7 +4902,7 @@ The same harness, the honest-disk assumption removed (as recorded, undated, in V
 
 ### What the installed profile seals today
 
-What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because signing needs a key custodian the node does not have yet. So the verdict proves the chain was not altered, not who published it or when.
+What the installed profile seals today, stated beside the verdict rather than under it: the `record-seal` job the launchers run keeps the typed metadata plane and writes down that it declined the payload, because a node cannot choose an operator's custody for them. Its pack verifies as self-consistent, and `trailryx-verify` says in plain words that a pack carries no root signature and no witness, and the shipped node writes packs that way, because the launchers leave off the Keyryx signer, which trailryx has offered as an opt-in since 1.3.0. So the verdict proves the chain was not altered, not who published it or when.
 
 ## The offline verifier.
 
@@ -4943,9 +4945,9 @@ The [Trailryx room](https://it-rat.com/services/trailryx.html) has the replay, t
 
 # Heraldyx guide
 
-> How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0, and its boundaries.
+> How Heraldyx decides what reaches a human, what its mail may carry, what its dispatch record proves, what changed in v0.7.0 and v0.8.0, and its boundaries.
 
-The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0, and the boundaries in full.
+The [Heraldyx room](https://it-rat.com/services/heraldyx.html) keeps the burst replay, the drawing of the four checks, the sample mail and the short version of each part. This guide keeps the rest of what the room used to say: why the checks run in that order and what changed in them, what a mail may carry and who it names, what the dispatch record proves, who else writes to the log it reads, what shipped in v0.7.0 and v0.8.0, and the boundaries in full.
 
 - [At a glance](https://it-rat.com/heraldyx-guide.html#overview)
 
@@ -5031,6 +5033,15 @@ Since v0.3.0 a line counts as the source it claims only when the file it came fr
 
 This plane mails about what other planes wrote, so its reach grows when theirs does. [Vouchryx](https://it-rat.com/services/vouchryx.html) reports a delegation issued, denied or revoked, and [CostCrew](https://it-rat.com/services/costcrew.html) reports spend spikes, budget thresholds and every move its crew makes on a finding. CostCrew's events have their own sentences here. Vouchryx's delegation events have none yet, so a mail about one says the box has no description for the event until one is written.
 
+## What changed in v0.8.0
+
+| shipped in | what it does |
+|---|---|
+| v0.8.0 | Mail is sent only over TLS: STARTTLS by default, implicit TLS on port 465, and plain only to a loopback relay. A server that does not offer STARTTLS is refused, so set HERALDYX_SMTP_TLS for your server before you upgrade. |
+| v0.8.0 | Every SMTP connection has a 10 second dial deadline and a 60 second session deadline. |
+| v0.8.0 | Stream files the notifier creates are mode 0640, so only their owner and its group can read them. |
+| v0.8.0 | The checkpoint gate is off by default; with it on, a stream is read only while a signed checkpoint covers it (see the boundaries). |
+
 ## What the notifier gained in v0.7.0
 
 | shipped in | what it does |
@@ -5047,7 +5058,7 @@ Every release from 1 to 15 October 2026, with what each one shipped, is in [the 
 
 ### It does not queue
 
-A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and report them when the hours or the window end. A critical is never held.
+A message that cannot be delivered is logged, written into the dispatch record as a refusal, and dropped. A retry queue inside the one process allowed out would be the opposite of the design, and the event itself is still in the log, which outlives this process. Quiet hours and maintenance windows are holds, not a queue: they hold alerts below critical and, when the hours or the window end, send one mail saying how many were held. A critical is never held.
 
 ### It does not talk to any plane
 
@@ -5065,7 +5076,7 @@ A first run starts at the end of the log. A month of old incidents arriving at o
 
 - Vouchryx's delegation events have no sentences yet, so a mail about one says the box has no description for the event until one is written.
 
-- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, answers that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a signed checkpoint covers it. It is off by default.
+- The source check does not stop a process that creates a plane's file before that plane does, or a writer forging its own stream. The checkpoint gate, from v0.8.0, narrows that for streams a producer signs: with HERALDYX_CHECKPOINT_GATE=on, a stream is read only while a checkpoint signed by a pinned key covers it. It is off by default, it trusts a pinned key until an operator removes it, and it holds only if each producer alone can write its stream and checkpoints. No launcher has a producer writing signed checkpoints yet.
 
 - The record says a mail server accepted a message, never that it was delivered, and the first record of a chain cannot be verified.
 
@@ -5217,17 +5228,17 @@ The PyPI name is engdbram (the plain name was taken); the import stays `from eng
 
 No per-platform binaries here either: this one is a Python library you import, so the package index is the download. The install command lives in the repository, next to the version it resolves.
 
-## What changed in v3.0.0, and what is on main.
+## What changed in v3.0.0.
 
 Engram's own list for 1 to 15 October 2026 is in [the stack's changes](https://it-rat.com/changes-2026-10.html#engram).
 
 ### Where each memory came from
 
-Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server serves one agent, and a fact is private to its writer unless it is shared.
+Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server started with an agent id serves that agent alone; one started without serves the whole file and says so on stderr. A fact is private to its writer unless it is shared.
 
 ## What it does not do, and what is still open.
 
-- The server cannot see what an agent read outside engram. A session is marked untrusted only when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.
+- The server cannot see what an agent read outside engram. A session turns untrusted when recall or why returns a memory that is not the user's own or is quarantined, when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.
 
 - reflect() is deliberately not exposed to MCP clients.
 
@@ -5296,7 +5307,7 @@ The room's simulation is labeled as one: a replay of the envelope's normal day. 
 
 ### Everything meets at the envelope.
 
-Fourteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas and, on the box, re-checks every stream's hash chain and writes what it finds to a stream of its own, which is how it is also the fourteenth source; Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
+Fifteen registered sources write one shape onto one NDJSON bus: five required fields, six optional ones. Five consumers read it back: the agent-conform CLI validates against embedded copies of the canonical JSON Schemas and, on the box, re-checks every stream's hash chain and writes what it finds to a stream of its own, which is how it is also the fourteenth source; Idryx folds events into the identity graph, TokenFuse Cloud files them into evidence packs, Heraldyx mails the operator about the few worth interrupting them for, and Trailryx seals the stream into a hash-chained record. On the right, the part your platform team owns: budgets, passports and policies as Terraform resources.
 
 ### The passport
 

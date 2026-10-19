@@ -4,7 +4,7 @@
 
 > How Keyryx signs, publishes and witnesses keys and the record, its routes, how to configure, run and verify it offline, its releases, and its limits.
 
-The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of the two roles, the common questions and the short version of each part. This guide keeps the rest: the routes, the configuration it refuses to start without, the witness's findings, how to run it and verify it offline, the releases so far, and every limit it states about itself.
+The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of the two roles, the common questions and the short version of each part. This guide keeps the rest: the routes, the configuration it refuses to start without, the witness's findings, how to run it and verify it offline, the releases so far, and the limits an operator meets. The README's NOT PROVEN section has the full list.
 
 - [At a glance](https://it-rat.com/keyryx-guide.html#overview)
 
@@ -24,7 +24,7 @@ The [Keyryx room](https://it-rat.com/services/keyryx.html) keeps the picture of 
 
 ## A key service and a witness, in one binary that runs as two processes.
 
-Keyryx is a service of its own: public, Apache-2.0, written in Go, and off every request path. It has two roles, **custody** and **witness**. The binary has one command for each role and a third for offline checks. The roles never share a process, a key, a uid or a data directory, and the witness refuses to start if it is given custody's directory or root key.
+Keyryx is a service of its own: public, Apache-2.0, written in Go, and off every request path. It has two roles, **custody** and **witness**. The binary has one command for each role and a third for offline checks. The roles never share a process, a key or a data directory, the launcher gives each its own uid (stack-single does), and the witness refuses to start if it is given custody's directory or root key.
 
 Custody holds signing keys and signs low-rate statements for consumers that were granted a key: approval tokens, record seal roots and audit manifests. It certifies the short-lived keys that high-rate signers generate for themselves, and it publishes each key set with an overlap so that a rotation is never an outage.
 
@@ -92,7 +92,7 @@ Nothing has a default that signs. A key service that came up holding nothing wou
 
 ## What it reads, and what it reports.
 
-Every interval the witness reads, without writing to what it reads. It keeps the bytes it has read and their SHA-256, in the prefix form of agent-passport SPEC 6.5.1, and it hashes each stream again from byte zero. The prefix matters: the SPEC chain hash leaves `prev_hash` out, so a line rewritten with its successor re-linked would pass a chain check alone.
+Every interval the witness reads, without writing to what it reads. It keeps the count of lines and bytes it has read and their SHA-256, not the bytes, in the prefix form of agent-passport SPEC 6.5.1, and it hashes each stream again from byte zero (hourly for a stream over 256 MiB). The prefix matters: the SPEC chain hash leaves `prev_hash` out, so a line rewritten with its successor re-linked would pass a chain check alone.
 
 - **Streams.** A changed byte is `witness_stream_rewritten`. A stream holding fewer bytes than it was seen to hold is `witness_stream_truncated`. A new chain in the middle of a stream is `witness_chain_restarted`.
 
@@ -100,7 +100,7 @@ Every interval the witness reads, without writing to what it reads. It keeps the
 
 - **Trailryx records.** For each store root it computes, the witness writes an ES384 attestation of trailryx's witness statement to its own volume. A sealed manifest that is rewritten or gone is `witness_root_equivocated`; a record that grows past a seal's worth with no new root is `witness_root_missing`.
 
-Every finding is an agent-event in `keyryx.ndjson` in the alert path, with counts and clipped hashes and never record content. Every observation is an entry in the witness's own RFC 9162 log over SHA-384, and each interval ends with a tree head signed by both halves of its key. The witness does not read custody's use log.
+Every finding is an agent-event in the alert file (by default `keyryx.ndjson` in the events directory), with counts and clipped hashes and never record content. Every observation is an entry in the witness's own RFC 9162 log over SHA-384, and each interval ends with a tree head signed by both halves of its key. The witness does not read custody's use log.
 
 The witness pins the delegation root the first time it reads it, unless an operator sets `KEYRYX_WITNESS_DELEGATION_ROOT_PIN` beforehand. A different set served later is a high-severity finding and is not used until an operator pins it.
 
@@ -116,13 +116,15 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 ## What each release is.
 
-- **v0.1.0**, tagged 2026-10-18: the first release. Custody and the witness, both roles, the offline checks, and the image signed keyless with cosign by digest, with an SBOM and a build-provenance attestation.
+- **v0.1.0**, tagged 2026-10-18: the first release. Custody and the witness, both roles, the offline checks, an SBOM and a build-provenance attestation. Its image carries no cosign signature.
 
-- **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads. Nothing an operator sets moves with it, with one exception below.
+- **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads; that signature has not yet been checked with cosign. Nothing an operator sets moves with it, with one exception below.
 
 **An operator-visible change in v0.1.1.** Since agent-stack-go v2, a stream file this service creates is mode 0640, not 0644, so only its owner and its group can read it. A new stream is created only in a directory this service's account owns. A bus directory shared with other services, and not owned by this account, gets no new stream unless each file is created beforehand by the uid of the service that writes it. Check the owner of the bus directory and the mode of each stream before upgrading.
 
 ## What is not proven yet, stated here.
+
+- The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
 
 - Trailryx reads the witness's attestations into a pack only when the operator sets its attestations folder to the witness's output. The stack-single launcher does not set it.
 
@@ -134,13 +136,13 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - The witness reads the bus and the record, not custody's use log, and custody writes no key rotation or revocation event yet.
 
-- Nothing consumes a key statement yet. The delegation service, the producers' checkpoint writers and the shared client that would renew delegated keys are later changes in their own repositories.
+- Vouchryx consumes key statements from 0.5.0 and, from 0.6.0, checks each one against a pinned root. TokenFuse consumes them for its checkpoint key from 1.18.0. Both are opt-in, no launcher switches either on, and no producer in a launcher writes signed checkpoints yet.
 
 - The state MAC proves custody wrote a state, not that it is the latest. Whoever can write the data directory can restore an earlier copy of a record whose MAC still holds.
 
 - Challenges live in memory, so a restart drops the outstanding ones.
 
-- No real Kubernetes cluster has authenticated a consumer. The projected-token path is tested against tokens the repository mints.
+- No consumer has yet authenticated with a projected service-account token on a real cluster; that path is tested against tokens the repository mints. On a kind cluster custody has served a bearer-key consumer and refused a wrong key (stack-k8s, 2026-10-18).
 
 - No cloud key management. The root key is a file, and a KMS adapter would be a metered dependency, which is the operator's decision and not a default.
 

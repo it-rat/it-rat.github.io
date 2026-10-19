@@ -19,7 +19,8 @@
           <text x="40" y="84" class="kx-s">wardryx: approval tokens</text>
           <text x="40" y="104" class="kx-s">trailryx: sealed roots</text>
           <text x="40" y="124" class="kx-s">vouchryx: its token key</text>
-          <text x="40" y="160" class="kx-f">granted by policy, one way in each</text>
+          <text x="40" y="144" class="kx-s">tokenfuse: checkpoint key</text>
+          <text x="40" y="170" class="kx-f">granted by policy, one way in each</text>
 
           <rect x="330" y="30" width="270" height="150" rx="14" fill="#10161F" stroke="#FDE68A"/>
           <text x="350" y="58" class="kx-h">keyryx custody</text>
@@ -47,7 +48,7 @@
 
           <rect x="690" y="230" width="250" height="110" rx="14" fill="#10161F" stroke="#2a3547"/>
           <text x="710" y="258" class="kx-h">Findings</text>
-          <text x="710" y="284" class="kx-s">keyryx.ndjson, agent-events</text>
+          <text x="710" y="284" class="kx-s">alerts.ndjson, agent-events</text>
           <text x="710" y="304" class="kx-f">signed tree heads in its log</text>
         </g>
         <g stroke="#5A6675" stroke-width="1.5" fill="none">

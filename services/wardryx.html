@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="hero-side rv d2">
-        <div class="row"><span class="k">status</span><span class="v">v1.3.2, surface frozen at 1.0 &#183; main is supported</span></div>
+        <div class="row"><span class="k">status</span><span class="v">v2.4.0, surface frozen at 1.0 &#183; main is supported</span></div>
         <div class="row"><span class="k">core</span><span class="v">Go 1.27 &#183; deterministic PDP</span></div>
         <div class="row"><span class="k">API</span><span class="v">POST /v1/decide on :8090</span></div>
         <div class="row"><span class="k">rules</span><span class="v" style="text-align:right">deny_tool &#183; allow_tool &#183; deny_if_unattested &#183; deny_if_chain_unproven &#183; max_steps &#183; allow_domains &#183; deny_above_usd &#183; require_human_above_usd &#183; hold_if_signal</span></div>
@@ -159,7 +159,7 @@
 
           <rect x="742" y="28" width="200" height="112" rx="14" fill="#10161F" stroke="#2a3547"/>
           <text x="842" y="54" fill="#E9EFF6" font-size="12.5" font-weight="700">approval tokens</text>
-          <text x="842" y="76" fill="#8A97A6" font-size="10.5">HMAC-signed &#183; short-lived</text>
+          <text x="842" y="76" fill="#8A97A6" font-size="10.5">signed &#183; short-lived</text>
           <text x="842" y="92" fill="#8A97A6" font-size="10.5">cost-bound &#183; single-use</text>
           <text x="842" y="108" fill="#F4B23E" font-size="10.5">a hold resolves out of band</text>
 
@@ -244,7 +244,7 @@
     </div>
     <div class="card limits rv">
       <ul>
-        <li>When the decision point is unreachable, the TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. The unset default under enforce became closed on 2026-10-17. Both launchers set the failure mode to closed on purpose.</li>
+        <li>When the decision point is unreachable, the TokenFuse gateway closes under enforce when its failure mode is unset, and stays open in shadow mode, where it blocks nothing. The unset default under enforce became closed on 2026-10-17. All three launchers set the failure mode to closed on purpose.</li>
         <li>With no shared database, an approval token's single-use guarantee is per process, and the server says so at startup.</li>
         <li>The typed risk signal from Typryx is an opt-in the launchers leave off by default, and it was measured on the stub backend only.</li>
       </ul>

@@ -42,7 +42,7 @@
 
           <rect x="742" y="28" width="200" height="112" rx="14" fill="#10161F" stroke="#2a3547"/>
           <text x="842" y="54" fill="#E9EFF6" font-size="12.5" font-weight="700">approval tokens</text>
-          <text x="842" y="76" fill="#8A97A6" font-size="10.5">HMAC-signed &#183; short-lived</text>
+          <text x="842" y="76" fill="#8A97A6" font-size="10.5">signed &#183; short-lived</text>
           <text x="842" y="92" fill="#8A97A6" font-size="10.5">cost-bound &#183; single-use</text>
           <text x="842" y="108" fill="#F4B23E" font-size="10.5">a hold resolves out of band</text>
 

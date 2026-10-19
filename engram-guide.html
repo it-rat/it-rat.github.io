@@ -272,12 +272,12 @@
   <div class="wrap">
     <div class="sec-head rv">
       <div class="kicker">what changed</div>
-      <h2>What changed in v3.0.0, and what is on main.</h2>
+      <h2>What changed in v3.0.0.</h2>
       <p class="lede">Engram's own list for 1 to 15 October 2026 is in <a href="changes-2026-10.html#engram">the stack's changes</a>.</p>
     </div>
     <div class="prose rv">
       <h3>Where each memory came from</h3>
-      <p>Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server serves one agent, and a fact is private to its writer unless it is shared.</p>
+      <p>Released as v3.0.0 on 2026-10-18. The library records a source for every observation: user for what the person typed, tool for what a tool returned, and external for anything else. Recall returns the source with each result, and why() reports the least trusted source behind a fact. Over MCP the server sets the most a write may carry, which defaults to external, so a caller cannot claim user. A server started with an agent id serves that agent alone; one started without serves the whole file and says so on stderr. A fact is private to its writer unless it is shared.</p>
     </div>
   </div>
 </section>
@@ -290,7 +290,7 @@
     </div>
     <div class="prose rv">
       <ul>
-        <li><span>The server cannot see what an agent read outside engram. A session is marked untrusted only when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.</span></li>
+        <li><span>The server cannot see what an agent read outside engram. A session turns untrusted when recall or why returns a memory that is not the user's own or is quarantined, when the caller labels its input or passes read_untrusted, or when the server is started with the untrusted flag.</span></li>
         <li><span>reflect() is deliberately not exposed to MCP clients.</span></li>
         <li><span>Agent events (memory_written, reflection_run, contradiction_found, memory_forgotten) are opt-in and off by default.</span></li>
         <li><span>The only part that ever touches a network is reflect(), through a pluggable LLM adapter.</span></li>

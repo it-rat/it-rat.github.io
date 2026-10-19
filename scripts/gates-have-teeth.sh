@@ -424,7 +424,7 @@ run_case "room-budget: a room's guide is deleted" fail \
 subprocess.run(["git", "rm", "-q", "costcrew-guide.html"], check=True)')" \
 	"no guide at costcrew-guide.html"
 
-# invariant 13: a list item in prose is one block. The fault is the one seen on
+# invariant 13: a list item in prose is one block. The fault is the one found on
 # 2026-10-19: the span that holds an item together taken away, so the bold lead
 # and each run of text become columns of their own.
 run_case "list-items: a list item in prose loses its one span" fail \
