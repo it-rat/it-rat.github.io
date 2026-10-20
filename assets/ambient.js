@@ -22,8 +22,9 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
   steel:"147,168,196",gold:"253,230,138",cyan:"34,211,238",lime:"163,230,53",dim:"138,151,166"};
 
 /* keyryx's motif keeps its ring phase between frames, and decides its wide
-   layout by the same media query its page uses for the hero grid */
-const MQ_CUSTODY=typeof matchMedia==="function"?matchMedia("(min-width:941px)"):null;
+   layout by negating the very media query its page uses for the hero grid,
+   so no fractional width falls between two tests */
+const MQ_CUSTODY=typeof matchMedia==="function"?matchMedia("(max-width:940px)"):null;
 let custodySpin=0, custodyT=null;
 
 const MOTIFS={
@@ -770,7 +771,7 @@ custody(ctx,w,h,t,ptr){
   /* the room's hero grid goes to two columns above 940px of viewport, by
      the page's own media query; there the motif takes the right column
      above the fact rail. Below it, a faint band across the top. */
-  const wide=MQ_CUSTODY?MQ_CUSTODY.matches:w>=941;
+  const wide=MQ_CUSTODY?!MQ_CUSTODY.matches:w>=941;
   const R=wide?{x0:w*0.62,x1:w*0.97,y0:h*0.05,y1:h*0.50}
               :{x0:w*0.04,x1:w*0.96,y0:h*0.03,y1:h*0.36};
   const RW=R.x1-R.x0, RH=R.y1-R.y0;
@@ -909,7 +910,7 @@ custody(ctx,w,h,t,ptr){
   ctx.beginPath();ctx.moveTo(rootX,rootY);ctx.lineTo(X(0.01),leafY-3*lvH);ctx.stroke();ctx.setLineDash([]);
   /* the tree head, signed by both halves; it glows as each new head is signed */
   const lastB=Math.floor((L+1)/8)*8-1, glow=Math.max(0,1-(t-(lastB+1)/rate)/1.6);
-  const lit=ask>=0;
+  const lit=ask>=0&&ask<=lastB;              /* a leaf after the last head has no proof yet */
   ctx.save();ctx.translate(rootX,rootY);ctx.rotate(Math.PI/4);
   ctx.strokeStyle=`rgba(${G},${.30+.4*glow+(lit?.2:0)})`;ctx.lineWidth=1.2;
   ctx.strokeRect(-3.4,-3.4,6.8,6.8);ctx.restore();
