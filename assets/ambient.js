@@ -1097,15 +1097,51 @@ function deepField(){
       ctx.beginPath();ctx.moveTo(0,yline);ctx.lineTo(w,yline);ctx.stroke();
     }
   }
+  /* Quiet zones (2026-10-20). An element marked data-ambient="quiet" draws a
+     scene of its own (the home page's rings, its live floor), and the field
+     gives way over it rather than drawing a second graph and a second answer
+     to the cursor on top of it: what the field painted there is carved out,
+     with a soft edge above and below, and while quiet zones fill the screen
+     the field paints nothing at all. A page with no quiet zone is unchanged. */
+  const quiet=[...document.querySelectorAll('[data-ambient="quiet"]')];
+  const FEATHER=140;
+  function zones(){
+    const out=[];
+    for(const el of quiet){
+      const r=el.getBoundingClientRect();
+      if(r.bottom>-FEATHER&&r.top<h+FEATHER) out.push({top:r.top,bottom:r.bottom});
+    }
+    return out;
+  }
+  function carve(zs){
+    ctx.save();ctx.globalCompositeOperation="destination-out";
+    for(const z of zs){
+      const H=z.bottom-z.top+2*FEATHER, f=FEATHER/H;
+      const g=ctx.createLinearGradient(0,z.top-FEATHER,0,z.bottom+FEATHER);
+      g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(f,"rgba(0,0,0,1)");
+      g.addColorStop(1-f,"rgba(0,0,0,1)");g.addColorStop(1,"rgba(0,0,0,0)");
+      ctx.fillStyle=g;ctx.fillRect(0,z.top-FEATHER,w,H);
+    }
+    ctx.restore();
+  }
+  function draw(t){
+    const doc=document.documentElement;
+    const depth=reduce?0.5:Math.min(1,scrollY/Math.max(1,doc.scrollHeight-innerHeight));
+    ctx.clearRect(0,0,w,h);
+    const zs=quiet.length?zones():[];
+    if(zs.some(z=>z.top<=0&&z.bottom>=h)) return;   // a quiet zone fills the screen
+    paint(t,depth);
+    if(zs.length) carve(zs);
+  }
   resize();addEventListener("resize",resize);
-  if(reduce) return;
+  if(reduce){
+    /* still, but the carving has to follow the page */
+    if(quiet.length){draw(9);addEventListener("scroll",()=>draw(9),{passive:true});addEventListener("resize",()=>draw(9));}
+    return;
+  }
   const t0=performance.now();
   (function frame(now){
-    const t=(now-t0)/1000;
-    const doc=document.documentElement;
-    const depth=Math.min(1,scrollY/Math.max(1,doc.scrollHeight-innerHeight));
-    ctx.clearRect(0,0,w,h);
-    paint(t,depth);
+    draw((now-t0)/1000);
     requestAnimationFrame(frame);
   })(t0);
 }
