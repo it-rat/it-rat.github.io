@@ -54,15 +54,16 @@ function shuffle(n,seed){const r=rng(seed),a=[...Array(n).keys()];for(let i=n-1;
 const ADM100=shuffle(100,7).slice(0,20), ADM500=shuffle(500,11).slice(0,50);
 const AWS=[[1,521.2],[8,2389.1],[16,2418.9],[32,2445.2],[64,2449.1],[128,2397.4],[256,2330.6]];
 const GCP=[[1,994.2],[8,2348.9],[16,2357.4],[32,2478.6],[64,2416.9],[128,2306.3],[256,2353.0]];
+/* the burst, as the records state it: three counted groups and the attestation
+   pair (no count given). The shared-cap race is the same campaign, drawn apart,
+   because no record says it was part of the 34. */
 const BURST=[
   {who:"good agents",ans:"served, 200",cells:"gggggg",res:"6 / 6"},
   {who:"money-oversteppers",ans:"blocked, 402",cells:"bbbbbbbbbb",res:"10 / 10"},
-  {who:"10 agents, one $0.0010 cap",short:"10 agents, $0.0010 cap",ans:"3 admitted, 7 blocked",cells:"gggbbbbbbb",res:"exactly 3"},
   {who:"permission-oversteppers",ans:"denied, 403",cells:"bbbbbb",res:"6 / 6"},
-  {who:"unattested, attested",ans:"403, then 200",cells:"bg",res:"1 / 1"},
+  {who:"unattested calls, attested calls",short:"unattested, attested",ans:"unattested 403, attested 200",ansShort:"403 and 200",cells:"",res:"held"},
 ];
-const SLOT=[];BURST.forEach((g,gi)=>[...g.cells].forEach((c,ci)=>SLOT.push({gi,ci,good:c==="g"})));
-const FIRE=shuffle(SLOT.length,23);   /* where each request stood in the burst */
+const RACE={who:"10 agents, one $0.0010 cap",short:"10 agents, $0.0010 cap",ans:"3 admitted, 7 blocked",cells:"gggbbbbbbb",res:"exactly 3"};
 const N_ELF=25586;
 
 const FIGS=[
@@ -107,8 +108,8 @@ const FIGS=[
   }
  }},
 {kicker:"Money, per unit of work",
- title:"What a correctly resolved case cost, beside what a failed one cost",
- meta:"Verdryx over a live support-agent run, every case tagged with its outcome",
+ title:"What a correctly resolved case cost, beside what the abandoned ones spent for nothing",
+ meta:"Verdryx over a live support-agent run, its cases tagged with their real outcomes",
  src:[["verdryx / VALIDATION.md",GH+"verdryx/blob/main/VALIDATION.md"]],
  sr:"60% of cases were resolved, at $0.00042 per correctly resolved case; 20% were abandoned, at $0.00025 spent for nothing; 20% were escalated to a person. Quality drift across the run was stable.",
  draw(W,H,t,cmp,ac){
@@ -141,8 +142,8 @@ const FIGS=[
  }},
 {kicker:"Policy, throughput",
  title:"Decisions per second from one pod, as concurrent callers rise",
- meta:"Wardryx on five-node k3s clusters, 8 vCPU AMD EPYC Milan on both clouds, 25 to 27 July 2026",
- src:[["stack-k8s / aws-run-verified.md",GH+"stack-k8s/blob/main/cloud/aws/evidence/aws-run-verified.md"],["gcp-run-verified.md",GH+"stack-k8s/blob/main/cloud/gcp/evidence/gcp-run-verified.md"]],
+ meta:"Wardryx on five-node k3s clusters, 8 vCPU AMD EPYC Milan on both clouds, both sweeps on 26 July 2026",
+ src:[["stack-k8s / aws-run-verified.md",GH+"stack-k8s/blob/main/cloud/aws/evidence/aws-run-verified.md#third-run-2026-07-26-2307-to-2340-the-same-silicon-as-gcp"],["gcp-run-verified.md",GH+"stack-k8s/blob/main/cloud/gcp/evidence/gcp-run-verified.md"]],
  sr:"AWS c6a.2xlarge: 521 decisions a second at 1 caller, 2,389 at 8, 2,419 at 16, 2,445 at 32, 2,449 at 64, 2,397 at 128 and 2,331 at 256. GCP c2d-highcpu-8: 994, 2,349, 2,357, 2,479, 2,417, 2,306 and 2,353. No cliff out to 256 callers. An earlier run on Hetzner's shared cores fell from 2,344 at 64 to 1,059 at 128, a conclusion since withdrawn.",
  draw(W,H,t,cmp,ac){
   const mx=cmp?12:22, x0=mx+(cmp?30:44), x1=W-mx-(cmp?6:170), y0=cmp?24:22, y1=H-(cmp?30:34);
@@ -182,36 +183,42 @@ const FIGS=[
  title:"34 requests fired in the same instant, each answered by its own rule",
  meta:"TokenFuse gateway and the Wardryx decision point, different agents, credentials, budgets and policies",
  src:[["tokenfuse / VALIDATION.md",GH+"tokenfuse/blob/main/VALIDATION.md"],["wardryx",GH+"wardryx/blob/main/VALIDATION.md"]],
- sr:"Good agents: 6 of 6 served, 200. Money-oversteppers: 10 of 10 blocked, 402. Ten agents racing one $0.0010 cap: exactly 3 admitted, 7 blocked. Permission-oversteppers: 6 of 6 denied, 403. An unattested call denied, 403, and the attested call served, 200.",
+ sr:"34 requests from different agents, with different credentials, budgets and policies, fired at once. Good agents: 6 of 6 served, 200. Money-oversteppers: 10 of 10 blocked, 402. Permission-oversteppers: 6 of 6 denied, 403. Unattested calls denied, 403, and attested calls served, 200. In the same campaign, ten agents racing one $0.0010 cap: exactly 3 admitted, 7 blocked.",
  draw(W,H,t,cmp,ac){
-  const mx=cmp?12:22, top=cmp?30:32, n=SLOT.length;
-  const cs=Math.min((H-top-18)/n,7), sx=mx+(cmp?2:34);
-  const xc=cmp?W*.26:W*.38, rh=(H-top-10)/BURST.length, csz=cmp?6:9;
+  const mx=cmp?12:22, top=cmp?30:32, n=34, rows=BURST.length+1.35, rh=(H-top-8)/rows;
+  const cs=Math.min((BURST.length*rh-6)/n,6.4), sx=mx+(cmp?2:30), sy=top;
+  const xc=cmp?W*.3:W*.4, csz=cmp?6:9, lx=xc+10*(csz+3)+(cmp?5:22);
   T(cmp?"34 at once":"34 at the same instant",mx,top-12,{s:10.5,c:C.fg});
-  const go=out(k(t,.7,1.1)), lit=k(t,.15,.2);
-  /* where each one lands */
-  const tgt=SLOT.map(s=>[xc+s.ci*(csz+3)+csz/2, top+s.gi*rh+rh*.42]);
-  FIRE.forEach((si,pos)=>{const s=SLOT[si], fx=sx+cs/2, fy=top+pos*cs+cs/2, [tx,ty]=tgt[si];
-    R(sx,fy-cs/2+.75,cs*1.3,cs-1.5,C.fg,lit*(go>0?.12:.75));
-    if(go>0){ctx.globalAlpha=.1*Math.min(1,go*3);ctx.strokeStyle=C.fg;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(fx+cs,fy);
-      ctx.bezierCurveTo(fx+(tx-fx)*.5,fy,tx-(tx-fx)*.5,ty,tx-csz/2,ty);ctx.stroke();ctx.globalAlpha=1;
-      if(go<1){const u=go,mt=1-u,bx=mt*mt*mt*(fx+cs)+3*mt*mt*u*(fx+(tx-fx)*.5)+3*mt*u*u*(tx-(tx-fx)*.5)+u*u*u*(tx-csz/2),
-        by=mt*mt*mt*fy+3*mt*mt*u*fy+3*mt*u*u*ty+u*u*u*ty;R(bx-2,by-2,4,4,C.fg,.9);}}
-  });
-  BURST.forEach((g,gi)=>{const y=top+gi*rh+rh*.42, settle=k(t,1.8,.2+gi*.12), lx=xc+10*(csz+3)+(cmp?5:22);
+  const lit=k(t,.15,.2), go=out(k(t,.7,1));
+  for(let i=0;i<n;i++) R(sx,sy+i*cs+.75,cs*1.3,cs-1.5,C.fg,lit*(go>.98?.28:.8));
+  const ex=sx+cs*1.3+2;
+  BURST.forEach((g,gi)=>{const y=top+gi*rh+rh*.42, tx=xc-6, nC=g.cells.length;
+    /* one band per group, as wide as its count; the pair with no count is a dashed hairline */
+    const fy=sy+(gi+.5)/BURST.length*n*cs, ux=ex+(tx-ex)*go, uy=fy+(y-fy)*go;
+    ctx.save();ctx.globalAlpha=(nC?.2:.35)*Math.min(1,go*2);ctx.strokeStyle=C.fg;ctx.lineWidth=nC?Math.max(1,nC*.9):1;ctx.setLineDash(nC?[]:[3,3]);
+    ctx.beginPath();ctx.moveTo(ex,fy);ctx.bezierCurveTo(ex+(ux-ex)*.5,fy,ux-(ux-ex)*.5,uy,ux,uy);ctx.stroke();ctx.restore();
+    const settle=k(t,1.6,.25+gi*.1);
     [...g.cells].forEach((c,ci)=>{const x=xc+ci*(csz+3);SR(x,y-csz/2,csz,csz,C.line,.8);
       if(settle>0) R(x+1,y-csz/2+1,csz-2,csz-2,c==="g"?C.mint:C.ember,.85*settle);});
-    const a=k(t,1.9+gi*.12,.35);
-    if(cmp){T(g.short||g.who,lx,y-3,{s:10,c:C.fg,a});T(g.ans,lx,y+10,{s:9.5,a});}
+    if(!nC&&settle>0){const w=TW("403",{s:10,w:700});T("403",xc,y+4,{s:10,w:700,c:C.ember,a:settle});T("200",xc+w+10,y+4,{s:10,w:700,c:C.mint,a:settle});}
+    const a=k(t,1.7+gi*.12,.35);
+    if(cmp){T(g.short||g.who,lx,y-3,{s:10,c:C.fg,a});T(g.ansShort||g.ans,lx,y+10,{s:9.5,a});}
     else{T(g.who,lx,y-2,{s:12,f:"t",c:C.fg,a});T(g.ans,lx,y+13,{s:10.5,a});
-      T(g.res,W-mx,y+4,{s:13,w:700,c:g.cells.includes("g")&&g.cells.includes("b")?C.fg:g.cells[0]==="g"?C.mint:C.ember,a,al:"right"});}
+      T(g.res,W-mx,y+4,{s:13,w:700,c:!nC?C.fg:g.cells[0]==="g"?C.mint:C.ember,a,al:"right"});}
   });
+  /* the same campaign, a separate test: ten agents racing one shared cap */
+  const dy=top+BURST.length*rh+rh*.05, ry=dy+rh*.62, ra=k(t,2.3,.4);
+  HL(xc,W-mx,dy,C.line,ra);T(cmp?"same campaign, separate test":"the same campaign, a separate test",xc,dy+12,{s:9.5,a:ra});
+  [...RACE.cells].forEach((c,ci)=>{const x=xc+ci*(csz+3), f=k(t,2.5+ci*.06,.2);SR(x,ry-csz/2+4,csz,csz,C.line,.8*ra);
+    if(f>0) R(x+1,ry-csz/2+5,csz-2,csz-2,c==="g"?C.mint:C.ember,.85*f);});
+  if(cmp){T(RACE.short,lx,ry+1,{s:10,c:C.fg,a:ra});T(RACE.ans,lx,ry+14,{s:9.5,a:ra});}
+  else{T(RACE.who,lx,ry+2,{s:12,f:"t",c:C.fg,a:ra});T(RACE.ans,lx,ry+17,{s:10.5,a:ra});T(RACE.res,W-mx,ry+8,{s:13,w:700,c:C.fg,a:k(t,3,.3),al:"right"});}
  }},
 {kicker:"Evidence, per decision",
  title:"Every decision writes a hash-linked record, and the disk fills before the processor does",
- meta:"Wardryx audit on the k3s clusters: 23,700 decisions, 23,700 records, none sampled",
+ meta:"Wardryx audit on the k3s clusters; on GCP, 23,700 decisions wrote 23,700 records, none sampled",
  src:[["wardryx / VALIDATION.md",GH+"wardryx/blob/main/VALIDATION.md"]],
- sr:"Bytes of audit per decision: 393 on Hetzner, 427.6 on AWS, 426.4 on GCP. At a thousand calls a minute that is 614 MB a day, and a 5 GiB volume fills in nine days.",
+ sr:"Bytes of audit per decision: 393 on Hetzner, 427.6 on AWS, 426.4 on GCP. On the GCP cluster 23,700 decisions wrote 23,700 hash-linked records. At a thousand calls a minute that is 614 MB a day, and a 5 GiB volume fills in nine days.",
  draw(W,H,t,cmp,ac){
   const mx=cmp?12:22, top=cmp?26:34;
   const bx0=mx, bx1=cmp?W-mx:W*.34, bars=[["Hetzner",393],["AWS",427.6],["GCP",426.4]];
@@ -220,7 +227,7 @@ const FIGS=[
   bars.forEach(([n,v],i)=>{const y=top+8+i*gap, f=out(k(t,.2+i*.2,.8));T(n,bx0,y+bh-1,{s:10.5});
     HL(bx0+lw,bx0+lw+bw,y+bh+3,C.faint);R(bx0+lw,y,bw*v/450*f,bh,ac,.85);
     T(`${v} B`,bx0+lw+bw*v/450*f+8,y+bh-1,{s:11,w:700,c:C.fg,a:k(t,.6+i*.2,.3)});});
-  if(!cmp){const a=k(t,1.2,.4),y=top+8+3*gap+18;T("23,700 decisions,",bx0,y,{s:11,c:C.fg,a});T("23,700 records,",bx0,y+16,{s:11,c:C.fg,a});T("each linked to the last",bx0,y+32,{s:11,a});
+  if(!cmp){const a=k(t,1.2,.4),y=top+8+3*gap+18;T("on the GCP cluster, 23,700",bx0,y,{s:11,c:C.fg,a});T("decisions wrote 23,700 records,",bx0,y+16,{s:11,c:C.fg,a});T("each linked to the last",bx0,y+32,{s:11,a});
     /* a short stretch of the chain itself */
     const cy=y+58, n=Math.floor((bx1-bx0)/22);for(let i=0;i<n;i++){const x=bx0+i*22, s=k(t,1.4+i*.05,.3);if(s<=0) break;
       SR(x,cy-5,11,11,ac,.7*s);if(i) LN(x-11,cy+.5,x,cy+.5,ac,1,.45*s);}}
@@ -241,23 +248,22 @@ const FIGS=[
  title:"The same 12 deliberate overruns, refused the same way on three clouds",
  meta:"TokenFuse gateway with real model calls: Hetzner, AWS t3.medium in eu-central-1, GCP e2-medium in europe-west3",
  src:[["tokenfuse / VALIDATION.md",GH+"tokenfuse/blob/main/VALIDATION.md"]],
- sr:"Each cloud ran 176 real allowed calls and 12 budget-block attempts. The breaker blocked 12 of 12 on Hetzner, on AWS and on GCP. Model spend: $0.0206, $0.050971 and $0.051214.",
+ sr:"Each cloud ran 176 real allowed calls and 12 deliberate budget overruns. The breaker blocked 12 of 12 on Hetzner, on AWS and on GCP.",
  draw(W,H,t,cmp,ac){
-  const mx=cmp?12:22, top=cmp?30:40, rows=[["Hetzner","$0.0206"],["AWS","$0.050971"],["GCP","$0.051214"]];
+  const mx=cmp?12:22, top=cmp?30:40, rows=[["Hetzner"],["AWS"],["GCP"]];
   const lw=cmp?0:110, xs=mx+lw, sw=cmp?W*.42:W*.38, bs=cmp?7:10, bx=xs+sw+(cmp?10:22), rx=bx+12*(bs+3)+(cmp?8:20);
   const rh=(H-top-(cmp?6:26))/3;
-  if(!cmp){T("176 real calls",xs,top-14,{s:10.5});T("12 overruns",bx,top-14,{s:10.5});T("breaker",rx,top-14,{s:10.5});T("spend",W-mx,top-14,{s:10.5,al:"right"});}
+  if(!cmp){T("176 real calls",xs,top-14,{s:10.5});T("12 overruns",bx,top-14,{s:10.5});T("breaker",rx,top-14,{s:10.5});}
   const run=k(t,.3,1.5);
-  rows.forEach(([n,sp],i)=>{const y=top+i*rh+(cmp?16:8), a=1;
+  rows.forEach(([n],i)=>{const y=top+i*rh+(cmp?16:8), a=1;
     if(cmp) T(n,mx,y-8,{s:11,c:C.fg});else T(n,mx,y+7,{s:13,f:"t",w:600,c:C.fg});
     for(let j=0;j<176;j++){const x=xs+j/176*sw, on=j/176<run;VL(x,y-2,y+12,C.fg,on?.42:.08);}
     for(let j=0;j<12;j++){const x=bx+j*(bs+3), s=k(t,1.9+j*.09,.15);SR(x,y-1,bs,bs+2,C.line,.8);if(s>0) R(x+1,y,bs-2,bs,ac,.9*s);}
     const ra=k(t,3,.4);
     if(cmp){T("12/12",W-mx,y+10,{s:11,w:700,c:ac,a:ra,al:"right"});}
-    else{T("12 / 12",rx,y+6,{s:15,w:700,c:ac,a:ra});T("blocked, 402",rx,y+22,{s:10.5,a:ra});
-      const sa=k(t,3.2,.4);T(sp,W-mx,y+6,{s:12,w:600,c:C.fg,a:sa,al:"right"});T("model spend",W-mx,y+22,{s:10.5,a:sa,al:"right"});}
+    else{T("12 / 12",rx,y+6,{s:15,w:700,c:ac,a:ra});T("blocked",rx,y+22,{s:10.5,a:ra});}
   });
-  if(!cmp) T("What differs between the clouds is the price of the machine, not the behaviour of the control.",mx,H-12,{s:11,c:C.fg,a:k(t,3.4,.5)});
+  if(!cmp) T("The breaker behaved identically on all three.",mx,H-12,{s:11,c:C.fg,a:k(t,3.4,.5)});
  }},
 {kicker:"Crypto inventory",
  title:"A live filesystem's Linux binaries, scanned without one crash",
@@ -282,7 +288,7 @@ const FIGS=[
  title:"Three hostile drills, fired twice at a real gateway",
  meta:"Mockryx: live guardrails in front of a stub provider, two separate campaigns",
  src:[["mockryx / VALIDATION.md",GH+"mockryx/blob/main/VALIDATION.md"]],
- sr:"dlp-secret-leak: the DLP guardrail must block the secret. runaway-budget: the breaker must trip 402. wardryx-denied-tool: the decision point must deny 403. Held in both campaigns: 0 gaps, $0 real spend.",
+ sr:"dlp-secret-leak: the DLP guardrail must block the secret. runaway-budget: the breaker must trip, 402. wardryx-denied-tool: the enforcement point must deny it, 403. Held in both campaigns: 0 gaps, $0 real spend.",
  draw(W,H,t,cmp,ac){
   const mx=cmp?12:22, top=cmp?30:38;
   const rows=[["dlp-secret-leak","an agent leaks a secret","blocked"],["runaway-budget","an agent overspends","402"],["wardryx-denied-tool","a forbidden tool call","403"]];
@@ -302,12 +308,12 @@ const FIGS=[
  }},
 {kicker:"Then torn down",
  title:"Nothing from the campaign is still standing",
- meta:"Disposable machines on three clouds, and one real model key",
+ meta:"Disposable machines on three clouds, and the real model key behind the campaign's paid calls",
  src:[["How these numbers were produced","stack-guide.html#proof"]],
- sr:"Afterwards the machines on Hetzner, AWS and GCP were deleted and the model key was revoked. The records stay public.",
+ sr:"Afterwards the machines on Hetzner, AWS and GCP were deleted and the campaign's model key was revoked. The records stay public.",
  draw(W,H,t,cmp,ac){
   const mx=cmp?12:22, top=cmp?34:44, rh=cmp?38:42;
-  const rows=[["Hetzner","machines and a k3s cluster","deleted"],["AWS","k3s clusters","deleted"],["GCP","k3s clusters","deleted"],["Model key","the real key behind the paid calls","revoked"]];
+  const rows=[["Hetzner","machines and a k3s cluster","deleted"],["AWS","machines and k3s clusters","deleted"],["GCP","machines and k3s clusters","deleted"],["Model key","the real key behind the paid calls","revoked"]];
   rows.forEach(([n,d,end],i)=>{const y=top+i*rh, s=k(t,.6+i*.45,.5), sx=cmp?W*.62:W*.6;
     const nw=T(n,mx,y,{s:cmp?13:15,f:"t",w:600,c:C.fg,a:1-.55*s});if(!cmp) T(d,mx+170,y,{s:12,f:"t",a:1-.5*s});
     if(s>0) LN(mx,y-5,mx+(cmp?nw:170+TW(d,{s:12,f:"t"}))*out(s),y-5,C.fg,1,.6);
