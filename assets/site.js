@@ -33,7 +33,7 @@ const STACK = [
   {id:"scopyx",    name:"Scopyx",     plane:"egress",    cat:"guardrails", color:"#F0ABFC", what:"Agents reach the web through a decision, not around one", href:"services/scopyx.html"},
   {id:"vouchryx",  name:"Vouchryx",   plane:"delegation",cat:"guardrails", color:"#8B9DFF", what:"A delegation an agent can prove it holds, and a person can end", href:"services/vouchryx.html"},
   {id:"qryx",      name:"Qryx",       plane:"crypto",    cat:"proof",      color:"#B48CFF", what:"Cryptography inventory and post-quantum risk",    href:"services/qryx.html"},
-  {id:"keyryx",   name:"Keyryx",    plane:"key custody",cat:"proof",      color:"#FDE68A", what:"Signing keys held apart from the code that uses them, and a read-only witness of the record", href:"services/keyryx.html", note:"delegated keys not wired in yet"},
+  {id:"keyryx",   name:"Keyryx",    plane:"key custody",cat:"proof",      color:"#FDE68A", what:"Signing keys held apart from the code that uses them, and a read-only witness of the record", href:"services/keyryx.html"},
   {id:"verdryx",   name:"Verdryx",    plane:"quality",   cat:"proof",      color:"#FF7AA2", what:"Cost per correctly resolved case, not per token", href:"services/verdryx.html"},
   {id:"typryx",    name:"Typryx",     plane:"typed answers", cat:"proof",  color:"#60A5FA", what:"A typed answer with a probability, never a guess", href:"services/typryx.html", note:"optional add-on"},
   {id:"mockryx",   name:"Mockryx",    plane:"pre-prod",  cat:"proof",      color:"#FF8A5B", what:"Fire drills that prove guardrails hold",          href:"services/mockryx.html"},

@@ -923,7 +923,10 @@ html.slide-back::view-transition-new(root){animation:vt-in-l .38s cubic-bezier(.
    three items to spread and parked the marker in the MIDDLE, between the words
    and the arrow. `order` puts it after the arrow and `margin-left:auto` does
    the pushing, which is what "opposite the invitation" actually needs. */
-.svc .go{align-items:center;gap:8px}
+/* The invitation stays on one line, and the status moves to the next row
+   when the two do not fit side by side: a long status squeezed "open the
+   room" into a column of three words on the Keyryx card (2026-10-20). */
+.svc .go{align-items:center;gap:8px;flex-wrap:wrap;row-gap:6px;white-space:nowrap}
 .svc .go .note{order:2;margin-left:auto}
 .svc .go .note{
   font-family:var(--font-m);font-size:10px;letter-spacing:.06em;

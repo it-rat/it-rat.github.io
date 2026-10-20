@@ -118,7 +118,7 @@ One ordinary failure, an agent stuck in a retry loop, followed from its first ov
 
 - [Qryx](https://it-rat.com/qryx-guide.html), crypto
 
-- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody · delegated keys not wired in yet
+- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody
 
 - [Verdryx](https://it-rat.com/verdryx-guide.html), quality
 
