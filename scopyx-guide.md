@@ -28,7 +28,7 @@ The [Scopyx room](https://it-rat.com/services/scopyx.html) keeps the request in 
 
 ## Scopyx at a glance.
 
-- **Shipped:** v1.0.1, two images (default and -chromium).
+- **Shipped:** v1.1.0, two images (default and -chromium).
 
 - **Core:** Go 1.27 · one direct dependency.
 

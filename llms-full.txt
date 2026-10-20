@@ -1640,7 +1640,7 @@ Three published conclusions. That throughput collapses past 64 concurrent caller
 Power has been pulled from a running machine once, on one small box, so durability is still mainly a claim about process death rather than power loss. There has been no external audit of the cryptographic layer. Not every shipped pre-production drill has been fired at a real gateway; the ledger records the ones that have. The detectors have not been driven at production scale, and the federation completeness rule is specified with its transport unbuilt.
 
 **Q: Why publish the things that went wrong?**
-Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 132 entries and 61 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.
+Because a repository whose history only records its successes is a repository whose claims cannot be checked. The deployment ledger for the cluster now holds 154 entries and 78 of them are our own mistakes rather than platform behaviour, and that ratio is what makes the other classifications worth believing.
 
 
 ---
@@ -3602,7 +3602,7 @@ This plane answers about an action. What it cannot answer is whether the caller 
 
 ## Running it.
 
-Boots on `:8090` with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
+Boots on `127.0.0.1:8090` with an in-memory store. `serve` refuses to start without `WARDRYX_KEYS`, so `make serve` opts in to the dev key on loopback only: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
 
 ## What the policy plane gained from 1 to 15 October
 
@@ -3821,7 +3821,7 @@ The [Scopyx room](https://it-rat.com/services/scopyx.html) keeps the request in 
 
 ## Scopyx at a glance.
 
-- **Shipped:** v1.0.1, two images (default and -chromium).
+- **Shipped:** v1.1.0, two images (default and -chromium).
 
 - **Core:** Go 1.27 · one direct dependency.
 
@@ -5481,7 +5481,7 @@ For teams whose answer to everything is a cluster. One script brings up k3s acro
 | proven on | Hetzner, AWS and GCP |
 | what it buys | high availability |
 | what it costs | a ReadWriteMany volume |
-| traps | 132 documented, with whose fault each was |
+| traps | 154 documented, with whose fault each was |
 
 **The commands, and the one thing a cluster costs you.**
 

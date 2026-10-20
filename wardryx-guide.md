@@ -104,7 +104,7 @@ This plane answers about an action. What it cannot answer is whether the caller 
 
 ## Running it.
 
-Boots on `:8090` with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
+Boots on `127.0.0.1:8090` with an in-memory store. `serve` refuses to start without `WARDRYX_KEYS`, so `make serve` opts in to the dev key on loopback only: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:
 
 ## What the policy plane gained from 1 to 15 October
 

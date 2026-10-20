@@ -228,8 +228,8 @@
       <h2>Running it.</h2>
     </div>
     <div class="prose rv">
-      <div class="cmd">make build &amp;&amp; ./bin/wardryx serve</div>
-      <p>Boots on <span class="mono">:8090</span> with an in-memory store: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:</p>
+      <div class="cmd">make serve</div>
+      <p>Boots on <span class="mono">127.0.0.1:8090</span> with an in-memory store. <span class="mono">serve</span> refuses to start without <span class="mono">WARDRYX_KEYS</span>, so <span class="mono">make serve</span> opts in to the dev key on loopback only: allow-all until you load a policy, and it logs that choice. Then dry-run a policy offline against a directory of Agent Passports:</p>
       <div class="cmd">./bin/wardryx check ./passports ./policies/finance.yaml</div>
     </div>
   </div>

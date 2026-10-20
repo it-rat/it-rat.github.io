@@ -109,7 +109,7 @@
     </div>
     <div class="prose rv">
       <ul>
-        <li><span><b>Shipped:</b> v1.0.1, two images (default and -chromium).</span></li>
+        <li><span><b>Shipped:</b> v1.1.0, two images (default and -chromium).</span></li>
         <li><span><b>Core:</b> Go 1.27 &#183; one direct dependency.</span></li>
         <li><span><b>One way out:</b> http and https, and nothing else.</span></li>
         <li><span><b>Fails:</b> closed, and says which refusal.</span></li>
@@ -265,8 +265,8 @@
       <h2>Two images: default and -chromium.</h2>
     </div>
     <div class="prose rv">
-      <div class="cmd"><span class="c"># it refuses to start bound wide with no credentials, deliberately</span><br>docker run ghcr.io/taipanbox/scopyx:v1.0.1</div>
-      <div class="cmd"><span class="c"># the same service with a browser: 267 MB to pull against 3.5 MB (measured on v0.1.2, 2026-08-10)</span><br>docker run ghcr.io/taipanbox/scopyx:v1.0.1-chromium</div>
+      <div class="cmd"><span class="c"># full command, environment and volume: https://github.com/TAIPANBOX/scopyx#run-it</span><br><span class="c"># it refuses to start bound wide with no credentials, deliberately</span></div>
+      <div class="cmd"><span class="c"># the -chromium image, the same service with a browser: https://github.com/TAIPANBOX/scopyx#backends</span><br><span class="c"># 267 MB to pull against 3.5 MB (measured on v0.1.2, 2026-08-10)</span></div>
       <h3>Configuration the room names</h3>
       <ul>
         <li><span><b>SCOPYX_EXTERNAL_ENDPOINT:</b> point it at the fetching service you already run, through an HTTP endpoint that speaks scopyx's external contract. A vendor API needs an adapter in front of it, and this repository ships none.</span></li>
