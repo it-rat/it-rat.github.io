@@ -2285,13 +2285,13 @@
     },
     {
       "page": "services/keyryx.html",
-      "claim": "v0.1.1",
+      "claim": "v0.1.2",
       "occurrences": 1,
       "repo": "TAIPANBOX/keyryx",
       "command": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
       "status": "measured",
-      "measured_on": "2026-10-19",
-      "note": "The newest release. The room's status row names it; the tag v0.1.1 is also the digest pinned by stack-single's Compose file.",
+      "measured_on": "2026-10-20",
+      "note": "The newest release, tagged 2026-10-19 (21edb5c). The room's status row names it; stack-single and stack-k8s still pin v0.1.1, stack-up pins v0.1.2.",
       "repo_dir": "keyryx",
       "check": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
       "slow": false

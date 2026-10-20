@@ -19,7 +19,7 @@ function dot(ctx,x,y,r,col,a){
 
 const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,255",
   teal:"45,212,191",violet:"180,140,255",rose:"255,122,162",coral:"255,138,91",
-  steel:"147,168,196",cyan:"34,211,238",lime:"163,230,53",dim:"138,151,166"};
+  steel:"147,168,196",gold:"253,230,138",cyan:"34,211,238",lime:"163,230,53",dim:"138,151,166"};
 
 const MOTIFS={
 
@@ -737,6 +737,170 @@ typed(ctx,w,h,t,ptr){
 
 /* platform - tiled matrix multiply: activation waves sweep a grid of
    cells diagonally, the tensor language every event speaks. */
+/* keyryx - key custody and a witness of the record.
+
+   Upper half: custody. A vault ring holds the keys and turns slowly; nothing
+   leaves it but signatures and the public key set. Consumers on the left
+   send a statement in and get a signature back. Two keys at the top of the
+   ring are a rotation: the new key is published beside the old for the
+   overlap, then the old one is retired. The key set fans out to verifiers on
+   the right, who cache it, so nothing waits on custody.
+
+   Lower half: the witness, its own process. Every observation is a leaf on
+   an append-only log that grows to the right; pairs of leaves are hashed
+   into a tree, and every eighth leaf closes a tree head signed by two
+   halves of one key (ECDSA P-384 and ML-DSA-65). The pointer is a question
+   about one leaf: the path that proves it is in the tree lights up, leaf to
+   head. Now and then a byte under a leaf changes and the witness says so.
+
+   Written 2026-10-20. */
+custody(ctx,w,h,t,ptr){
+  /* the room's hero grid goes to two columns above 940px; there the motif
+     takes the right column above the fact rail. Measured on the drawn
+     pixels at 941, 1024, 1280 and 1600 wide: the nearest is 84 to 150px
+     right of the hero's text and 38 to 60px above the rail. Below 941, a
+     faint band across the top. */
+  const wide=w>=941;
+  const R=wide?{x0:w*0.62,x1:w*0.97,y0:h*0.05,y1:h*0.50}
+              :{x0:w*0.04,x1:w*0.96,y0:h*0.03,y1:h*0.36};
+  const RW=R.x1-R.x0, RH=R.y1-R.y0;
+  const X=u=>R.x0+RW*u, Y=v=>R.y0+RH*v;
+  const font=px=>ctx.font=px+"px ui-monospace,Menlo,monospace";
+  const G=C.gold;
+  function key(x,y,s,col,a,ang){
+    ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);
+    ctx.strokeStyle=`rgba(${col},${a})`;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.arc(0,0,s,0,TAU);ctx.stroke();            /* the bow */
+    ctx.beginPath();ctx.moveTo(s,0);ctx.lineTo(s*3.2,0);           /* the shaft */
+    ctx.moveTo(s*2.4,0);ctx.lineTo(s*2.4,s*1.1);                   /* a tooth */
+    ctx.moveTo(s*3.0,0);ctx.lineTo(s*3.0,s*0.8);ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ---- custody: the vault ring and its keys ---- */
+  const cx=X(0.46), cy=Y(0.27), rC=Math.min(RW,RH)*0.19;
+  ctx.strokeStyle=`rgba(${G},.16)`;ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.arc(cx,cy,rC,0,TAU);ctx.stroke();
+  ctx.setLineDash([2,5]);ctx.strokeStyle=`rgba(${G},.12)`;
+  ctx.beginPath();ctx.arc(cx,cy,rC*1.22,0,TAU);ctx.stroke();ctx.setLineDash([]);
+  const near=ptr&&Math.hypot(ptr.x-cx,ptr.y-cy)<rC*1.6;
+  const spin=t*(near?0.22:0.08);
+  for(let k=0;k<6;k++){                      /* wrapped keys, held, never handed out */
+    const a=spin+k*TAU/6;
+    key(cx+Math.cos(a)*rC*0.62,cy+Math.sin(a)*rC*0.62,2.4,C.steel,near?.30:.18,a);
+  }
+  /* rotation: the old key and the new one, side by side for the overlap */
+  const rp=(t%14)/14, gen=Math.floor(t/14)%2;
+  const oldA=rp<0.70?.42:Math.max(0,.42*(1-(rp-0.70)/0.30));
+  const newA=rp<0.35?.06+.36*(rp/0.35):.42;
+  const kx=cx-rC*0.34, ky=cy-rC*1.55;
+  key(kx,ky,3.2,gen?C.steel:G,oldA,0);
+  key(kx+rC*0.68,ky,3.2,gen?G:C.steel,newA,0);
+  if(rp>=0.70){                              /* retired: struck through */
+    ctx.strokeStyle=`rgba(${C.dim},${.30*(rp-0.70)/0.30})`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(kx-5,ky-5);ctx.lineTo(kx+13,ky+5);ctx.stroke();
+  }
+
+  /* consumers on the left: a statement in, a signature back */
+  for(let i=0;i<3;i++){
+    const ux=X(0.04), uy=Y(0.12+i*0.14);
+    dot(ctx,ux,uy,1.9,C.steel,.24);
+    const per=4.2, ph=i*1.37, u=((t+ph)%per)/per;
+    const ex=cx-rC*1.02, ey=cy+(uy-cy)*0.35;
+    ctx.strokeStyle=`rgba(${C.dim},.08)`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(ux,uy);ctx.lineTo(ex,ey);ctx.stroke();
+    if(u<0.45){                               /* the statement travels in */
+      const v=u/0.45, x=ux+(ex-ux)*v, y=uy+(ey-uy)*v;
+      ctx.fillStyle=`rgba(${C.steel},${.34*(1-v*0.3)})`;ctx.fillRect(x-3,y-3,6,6);
+    }else if(u>0.55){                         /* the signature comes back */
+      const v=(u-0.55)/0.45, x=ex+(ux-ex)*v, y=ey+(uy-ey)*v;
+      ctx.strokeStyle=`rgba(${G},${.42*(1-v*0.4)})`;ctx.lineWidth=1.3;
+      ctx.beginPath();ctx.arc(x,y,3.4,0,TAU);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(x-1.6,y);ctx.lineTo(x-0.3,y+1.4);ctx.lineTo(x+1.8,y-1.5);ctx.stroke();
+    }
+  }
+  /* the key set fans out to verifiers, who cache it */
+  const pub=((t*0.16)%1);
+  for(let i=0;i<3;i++){
+    const vx=X(0.96), vy=Y(0.10+i*0.15);
+    ctx.setLineDash([3,6]);ctx.strokeStyle=`rgba(${G},.09)`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx+rC*1.05,cy);ctx.lineTo(vx,vy);ctx.stroke();ctx.setLineDash([]);
+    dot(ctx,vx,vy,1.8,G,.20+.18*Math.max(0,1-Math.abs(pub-0.95)*12));
+    if(pub<0.9){
+      const v=pub/0.9, x=cx+rC*1.05+(vx-cx-rC*1.05)*v, y=cy+(vy-cy)*v;
+      key(x,y,1.6,G,.30*(1-v*0.5),Math.atan2(vy-cy,vx-cx));
+    }
+  }
+
+  /* ---- the witness: an append-only log and its tree ---- */
+  const N=16, rate=1.05;
+  const L=Math.floor(t*rate), f=(t*rate)%1;   /* L leaves so far; the window slides */
+  const cell=RW*0.92/(N+1), leafY=Y(0.95), lvH=RH*0.085;
+  const x0=X(0.04);
+  const gx=gi=>x0+(gi-(L-N+1)+1-f)*cell;      /* x of global leaf gi */
+  ctx.strokeStyle=`rgba(${C.dim},.10)`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(X(0.02),Y(0.60));ctx.lineTo(X(0.98),Y(0.60));ctx.stroke();
+  font(9);ctx.textAlign="left";ctx.fillStyle=`rgba(${C.dim},.22)`;
+  ctx.fillText("witness",X(0.02),Y(0.60)-5);
+  /* the leaf the pointer asks about */
+  let ask=-1;
+  if(ptr&&ptr.y>Y(0.58)&&ptr.y<leafY+cell){
+    const gi=Math.round((ptr.x-x0)/cell+(L-N+1)-1+f);
+    if(gi>L-N&&gi<=L) ask=gi;
+  }
+  /* a byte under a leaf changes, now and then */
+  const ev=Math.floor(t/17), ep=(t%17);
+  const hitLeaf=L-2-Math.floor(rng(ev*31+7)()*8);
+  const hit=ep<1.8;
+  for(let gi=L-N+1;gi<=L;gi++){
+    const x=gx(gi);
+    if(x<X(0.01)) continue;
+    const fresh=gi===L?f:1;
+    const bad=hit&&gi===hitLeaf;
+    ctx.fillStyle=`rgba(${bad?C.ember:G},${(bad?.44:.13)*fresh})`;
+    ctx.fillRect(x-cell*0.38,leafY-cell*0.34,cell*0.76,cell*0.68);
+  }
+  /* the tree: a node over every aligned pair, four, eight leaves present */
+  const path=new Set();
+  if(ask>=0){ for(let l=1;l<=3;l++) path.add(l+":"+(ask>>l)); }
+  for(let l=1;l<=3;l++){
+    const span=1<<l;
+    const first=Math.ceil((L-N+1)/span), last=Math.floor((L+1)/span)-1;
+    for(let g=first;g<=last;g++){
+      const a=g*span, b=a+span-1;
+      const x=(gx(a)+gx(b))/2, y=leafY-l*lvH;
+      if(x<X(0.01)) continue;
+      const on=path.has(l+":"+g);
+      const lx=(gx(a)+gx(a+span/2-1))/2, rx=(gx(a+span/2)+gx(b))/2, cyl=leafY-(l-1)*lvH;
+      ctx.strokeStyle=`rgba(${on?G:C.dim},${on?.55:.10})`;ctx.lineWidth=on?1.4:1;
+      ctx.beginPath();ctx.moveTo(lx,cyl);ctx.lineTo(x,y);ctx.lineTo(rx,cyl);ctx.stroke();
+      if(l<3){ dot(ctx,x,y,1.3,on?G:C.dim,on?.5:.16); continue; }
+      /* a tree head, signed by both halves */
+      const age=t-(b+1)/rate;
+      const glow=Math.max(0,1-age/1.6);
+      ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);
+      ctx.strokeStyle=`rgba(${G},${.30+.4*glow+(on?.2:0)})`;ctx.lineWidth=1.2;
+      ctx.strokeRect(-3.4,-3.4,6.8,6.8);ctx.restore();
+      ctx.strokeStyle=`rgba(${G},${.22+.4*glow})`;ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(x-6,y-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* P-384 */
+      ctx.beginPath();ctx.arc(x+6,y-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* ML-DSA-65 */
+    }
+  }
+  if(ask>=0){                                  /* the asked leaf, outlined */
+    const x=gx(ask);
+    ctx.strokeStyle=`rgba(${G},.6)`;ctx.lineWidth=1.2;
+    ctx.strokeRect(x-cell*0.42,leafY-cell*0.38,cell*0.84,cell*0.76);
+  }
+  if(hit){                                     /* the witness says so */
+    const x=gx(hitLeaf), p=ep/1.8;
+    ctx.strokeStyle=`rgba(${C.ember},${.5*(1-p)})`;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.arc(x,leafY,6+p*22,0,TAU);ctx.stroke();
+    font(9);ctx.textAlign="center";ctx.fillStyle=`rgba(${C.ember},${.45*(1-p)})`;
+    ctx.fillText("witness_stream_rewritten",U_clamp(x,X(0.18),X(0.82)),leafY-4.2*lvH);
+    ctx.textAlign="left";
+  }
+},
+
 tensor(ctx,w,h,t){
   const s=26, cols=Math.ceil(w/s), rows=Math.ceil(h/s);
   for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
@@ -761,7 +925,7 @@ tensor(ctx,w,h,t){
 const MAP={tokenfuse:"descent",wardryx:"boundary",engram:"web",idryx:"graphid",
   scopyx:"egress",heraldyx:"dispatch",trailryx:"contiguity",
   qryx:"lattice",verdryx:"train",mockryx:"adversary",platform:"tensor",
-  vouchryx:"delegate",costcrew:"ledger",typryx:"typed"};
+  vouchryx:"delegate",costcrew:"ledger",typryx:"typed",keyryx:"custody"};
 
 /* ---- the deep field: a page-length backdrop that keeps the dark canvas
    alive below the hero. One fixed layer behind all content, evolving with
@@ -925,7 +1089,8 @@ function mount(){
   let w=0,h=0,seen=!1,raf=null;
   /* the pointer, in hero-local pixels; null off-hero or untouched. Passed as
      a 5th argument to every motif so one of them (typryx's "typed") can lean
-     its state capsules toward it; every other motif's signature is
+     its state capsules toward it, and keyryx's "custody" can light the proof
+     path of the leaf under it; every other motif's signature is
      (ctx,w,h,t) and simply ignores the extra argument. */
   const heroPtr={x:null,y:null};
   function trackPtr(e){

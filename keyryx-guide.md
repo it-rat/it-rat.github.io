@@ -120,15 +120,17 @@ The image is published as `ghcr.io/taipanbox/keyryx` for linux/amd64 and linux/a
 
 - **v0.1.1**, tagged 2026-10-19: a patch on v0.1.0. It moves the shared wire-type import to agent-stack-go v2 and signs the image in the legacy `.sig` format that the cluster admission controller reads; that signature has not yet been checked with cosign. Nothing an operator sets moves with it, with one exception below.
 
+- **v0.1.2**, tagged 2026-10-19: a patch on v0.1.1. The witness writes each attestation with mode 0640, in directories of mode 0750, so a record plane in the witness's group can read it; v0.1.1 wrote them 0600. It also moves agent-stack-go to v2.0.1, which changes no code. Attestations written by v0.1.1 keep their mode until an operator changes it once, as the release notes say.
+
 **An operator-visible change in v0.1.1.** Since agent-stack-go v2, a stream file this service creates is mode 0640, not 0644, so only its owner and its group can read it. A new stream is created only in a directory this service's account owns. A bus directory shared with other services, and not owned by this account, gets no new stream unless each file is created beforehand by the uid of the service that writes it. Check the owner of the bus directory and the mode of each stream before upgrading.
 
 ## What is not proven yet, stated here.
 
-- The cosign signature of v0.1.1 has not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
+- The cosign signatures of v0.1.1 and v0.1.2 have not been verified. The build-provenance attestation of each release has (gh attestation verify, 2026-10-19).
 
 - No admin key is set, so custody refuses every rotation and revocation (403) until an operator sets one.
 
-- Trailryx reads the witness's attestations into a pack only when its attestations folder is set to the witness's output. stack-single does not set it. stack-up has set it by default since 2026-10-19, and stack-k8s does not yet. At keyryx v0.1.1, which every launcher pins, the witness writes each attestation readable only by its own user, so a record plane running as another user cannot open it; stack-up runs the witness and the record plane as one user, so it can. keyryx v0.1.2, tagged on 2026-10-19, writes them readable by the group, and no launcher pins it yet. None of this has run live.
+- Trailryx reads the witness's attestations into a pack only when its attestations folder is set to the witness's output. stack-single does not set it. stack-up has set it by default since 2026-10-19, and stack-k8s does not yet. At keyryx v0.1.1, which stack-single and stack-k8s pin, the witness writes each attestation readable only by its own user, so a record plane running as another user cannot open it; stack-up runs the witness and the record plane as one user, so it can. keyryx v0.1.2, tagged on 2026-10-19, writes them readable by the group; stack-up has pinned it since 2026-10-19, and the other two launchers do not yet. None of this has run live.
 
 - The store root is rebuilt by hand in the tests from trailryx's construction. It is checked against trailryx's source, not against a store that trailryx itself sealed in this repository.
 
