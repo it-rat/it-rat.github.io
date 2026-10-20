@@ -100,7 +100,7 @@
   </div>
 </header>
 
-<section class="ex">
+<section class="ex" data-ambient="quiet">
   <div class="ex-stage gl-wrap"><canvas id="ex" aria-label="An AI agent inside four rings of control, inside a workforce of agents"></canvas><div class="gl-labels"></div><div class="gl-fallback"></div></div>
   <div class="wrap">
     <div class="ex-copy">
@@ -123,7 +123,7 @@
   </div>
 </section>
 
-<section class="floor" id="floor-sec">
+<section class="floor" id="floor-sec" data-ambient="quiet">
   <div class="floor-stage gl-wrap"><canvas id="floor" aria-label="A simulated floor of AI agents, the four gates around it and the record in the middle"></canvas><div class="gl-labels"></div><div class="gl-fallback"></div></div>
   <div class="floor-ui wrap">
     <div class="floor-head">
@@ -281,6 +281,8 @@
 </footer>
 <script src="assets/site.js?v=e13"></script>
 <script src="assets/concierge.js"></script>
+<!-- the page-length backdrop goes first: it is light, and it should not wait behind the first WebGL frame -->
+<script src="assets/ambient.js?v=e06"></script>
 <script src="assets/home/gl3.js?v=2"></script>
 <script src="assets/home/parts.js?v=3"></script>
 <script src="assets/home/e.js?v=6"></script>
