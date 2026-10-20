@@ -18,7 +18,7 @@ Point at a ring above to see what it does. Click to keep it.
 
 ## Now a floor of them. Make one misbehave.
 
-Point at an agent to read its passport. Press a button below to make one misbehave, then switch the governance off and press it again.
+Point at an agent to read its passport. Click it, then click a door to send it there, or press a button below to make one misbehave. Then switch the governance off and do it again.
 
 ### The stack
 
