@@ -55,8 +55,8 @@ const ADM100=shuffle(100,7).slice(0,20), ADM500=shuffle(500,11).slice(0,50);
 const AWS=[[1,521.2],[8,2389.1],[16,2418.9],[32,2445.2],[64,2449.1],[128,2397.4],[256,2330.6]];
 const GCP=[[1,994.2],[8,2348.9],[16,2357.4],[32,2478.6],[64,2416.9],[128,2306.3],[256,2353.0]];
 /* the burst, as the records state it: three counted groups and the attestation
-   pair (no count given). The shared-cap race is the same campaign, drawn apart,
-   because no record says it was part of the 34. */
+   pair (no count given). The shared-cap race is reported with the burst; no
+   record says whether it was part of the 34, so it is drawn apart and claims neither. */
 const BURST=[
   {who:"good agents",ans:"served, 200",cells:"gggggg",res:"6 / 6"},
   {who:"money-oversteppers",ans:"blocked, 402",cells:"bbbbbbbbbb",res:"10 / 10"},
@@ -206,9 +206,9 @@ const FIGS=[
     else{T(g.who,lx,y-2,{s:12,f:"t",c:C.fg,a});T(g.ans,lx,y+13,{s:10.5,a});
       T(g.res,W-mx,y+4,{s:13,w:700,c:!nC?C.fg:g.cells[0]==="g"?C.mint:C.ember,a,al:"right"});}
   });
-  /* the same campaign, a separate test: ten agents racing one shared cap */
+  /* ten agents racing one shared cap, reported with the burst */
   const dy=top+BURST.length*rh+rh*.05, ry=dy+rh*.62, ra=k(t,2.3,.4);
-  HL(xc,W-mx,dy,C.line,ra);T(cmp?"same campaign, separate test":"the same campaign, a separate test",xc,dy+12,{s:9.5,a:ra});
+  HL(xc,W-mx,dy,C.line,ra);T("reported with the burst",xc,dy+12,{s:9.5,a:ra});
   [...RACE.cells].forEach((c,ci)=>{const x=xc+ci*(csz+3), f=k(t,2.5+ci*.06,.2);SR(x,ry-csz/2+4,csz,csz,C.line,.8*ra);
     if(f>0) R(x+1,ry-csz/2+5,csz-2,csz-2,c==="g"?C.mint:C.ember,.85*f);});
   if(cmp){T(RACE.short,lx,ry+1,{s:10,c:C.fg,a:ra});T(RACE.ans,lx,ry+14,{s:9.5,a:ra});}
