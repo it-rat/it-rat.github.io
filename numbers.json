@@ -2291,7 +2291,7 @@
       "command": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
       "status": "measured",
       "measured_on": "2026-10-20",
-      "note": "The newest release, tagged 2026-10-19 (21edb5c). The room's status row names it; stack-single and stack-k8s still pin v0.1.1, stack-up pins v0.1.2.",
+      "note": "The newest release, tagged 2026-10-19 (21edb5c). The room's status row names it; stack-up and stack-k8s v1.6.1 (tagged 2026-10-20) pin v0.1.2; stack-single still pins v0.1.1.",
       "repo_dir": "keyryx",
       "check": "gh api repos/TAIPANBOX/keyryx/releases/latest --jq .tag_name",
       "slow": false

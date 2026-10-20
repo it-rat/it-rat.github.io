@@ -21,6 +21,11 @@ const C={mint:"52,211,153",amber:"244,178,62",ember:"255,87,75",iris:"108,123,25
   teal:"45,212,191",violet:"180,140,255",rose:"255,122,162",coral:"255,138,91",
   steel:"147,168,196",gold:"253,230,138",cyan:"34,211,238",lime:"163,230,53",dim:"138,151,166"};
 
+/* keyryx's motif keeps its ring phase between frames, and decides its wide
+   layout by the same media query its page uses for the hero grid */
+const MQ_CUSTODY=typeof matchMedia==="function"?matchMedia("(min-width:941px)"):null;
+let custodySpin=0, custodyT=null;
+
 const MOTIFS={
 
 /* vouchryx - the delegation plane: a right that travels, proves itself, and
@@ -735,38 +740,45 @@ typed(ctx,w,h,t,ptr){
   });
 },
 
-/* platform - tiled matrix multiply: activation waves sweep a grid of
-   cells diagonally, the tensor language every event speaks. */
 /* keyryx - key custody and a witness of the record.
 
-   Upper half: custody. A vault ring holds the keys and turns slowly; nothing
-   leaves it but signatures and the public key set. Consumers on the left
-   send a statement in and get a signature back. Two keys at the top of the
-   ring are a rotation: the new key is published beside the old for the
-   overlap, then the old one is retired. The key set fans out to verifiers on
-   the right, who cache it, so nothing waits on custody.
+   Upper half: custody. A vault ring holds the keys and turns slowly, faster
+   while the pointer is near; nothing leaves it but signatures and the
+   public key set. Consumers on the left send a statement in and get a
+   signature back. The row of keys above the ring is a rotation: the next
+   key is published ahead, then becomes the active one, and the old one is
+   retired. A retired key never signs again and stays in the key set, so
+   what it signed still verifies; only a revoked key leaves the set, and
+   none is drawn here. The row slides one place per rotation, so the oldest
+   retired key leaves the window, not the set. The key set fans out to
+   verifiers on the right, who cache it, so nothing waits on custody.
 
    Lower half: the witness, its own process. Every observation is a leaf on
    an append-only log that grows to the right; pairs of leaves are hashed
-   into a tree, and every eighth leaf closes a tree head signed by two
-   halves of one key (ECDSA P-384 and ML-DSA-65). The pointer is a question
-   about one leaf: the path that proves it is in the tree lights up, leaf to
-   head. Now and then a byte under a leaf changes and the witness says so.
+   into a tree whose head commits to the whole log, signed by two halves of
+   one key (ECDSA P-384 and ML-DSA-65). The faint line to the left is the
+   log before the window. A new head is drawn every eighth leaf here;
+   keyryx signs one per interval. The pointer is a question about one leaf:
+   the path that proves it is in the log lights up, leaf to head. Under the
+   leaves runs the stream the witness reads. Now and then a byte it already
+   read changes: the mark is on the stream, the leaf stays as it was, and
+   the witness appends a new entry, witness_stream_rewritten, which the next
+   head covers.
 
    Written 2026-10-20. */
 custody(ctx,w,h,t,ptr){
-  /* the room's hero grid goes to two columns above 940px; there the motif
-     takes the right column above the fact rail. Measured on the drawn
-     pixels at 941, 1024, 1280 and 1600 wide: the nearest is 84 to 150px
-     right of the hero's text and 38 to 60px above the rail. Below 941, a
-     faint band across the top. */
-  const wide=w>=941;
+  /* the room's hero grid goes to two columns above 940px of viewport, by
+     the page's own media query; there the motif takes the right column
+     above the fact rail. Below it, a faint band across the top. */
+  const wide=MQ_CUSTODY?MQ_CUSTODY.matches:w>=941;
   const R=wide?{x0:w*0.62,x1:w*0.97,y0:h*0.05,y1:h*0.50}
               :{x0:w*0.04,x1:w*0.96,y0:h*0.03,y1:h*0.36};
   const RW=R.x1-R.x0, RH=R.y1-R.y0;
   const X=u=>R.x0+RW*u, Y=v=>R.y0+RH*v;
   const font=px=>ctx.font=px+"px ui-monospace,Menlo,monospace";
   const G=C.gold;
+  const mix=(a,b,k)=>{const A=a.split(","),B=b.split(",");
+    return A.map((v,i)=>Math.round(+v+(+B[i]-v)*k)).join(",");};
   function key(x,y,s,col,a,ang){
     ctx.save();ctx.translate(x,y);ctx.rotate(ang||0);
     ctx.strokeStyle=`rgba(${col},${a})`;ctx.lineWidth=1.2;
@@ -784,23 +796,26 @@ custody(ctx,w,h,t,ptr){
   ctx.setLineDash([2,5]);ctx.strokeStyle=`rgba(${G},.12)`;
   ctx.beginPath();ctx.arc(cx,cy,rC*1.22,0,TAU);ctx.stroke();ctx.setLineDash([]);
   const near=ptr&&Math.hypot(ptr.x-cx,ptr.y-cy)<rC*1.6;
-  const spin=t*(near?0.22:0.08);
+  /* the phase is integrated, so a change of speed never jumps the ring */
+  const dt=custodyT==null?0:U_clamp(t-custodyT,0,0.1);
+  custodyT=t; custodySpin+=dt*(near?0.22:0.08);
   for(let k=0;k<6;k++){                      /* wrapped keys, held, never handed out */
-    const a=spin+k*TAU/6;
+    const a=custodySpin+k*TAU/6;
     key(cx+Math.cos(a)*rC*0.62,cy+Math.sin(a)*rC*0.62,2.4,C.steel,near?.30:.18,a);
   }
-  /* rotation: the old key and the new one, side by side for the overlap */
-  const rp=(t%14)/14, gen=Math.floor(t/14)%2;
-  const oldA=rp<0.70?.42:Math.max(0,.42*(1-(rp-0.70)/0.30));
-  const newA=rp<0.35?.06+.36*(rp/0.35):.42;
-  const kx=cx-rC*0.34, ky=cy-rC*1.55;
-  key(kx,ky,3.2,gen?C.steel:G,oldA,0);
-  key(kx+rC*0.68,ky,3.2,gen?G:C.steel,newA,0);
-  if(rp>=0.70){                              /* retired: struck through */
-    ctx.strokeStyle=`rgba(${C.dim},${.30*(rp-0.70)/0.30})`;ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(kx-5,ky-5);ctx.lineTo(kx+13,ky+5);ctx.stroke();
+  /* rotation: next (steel, fading in), active (gold), retired (dim, still
+     published). Over the last 15% of each 14 s the row slides one place. */
+  const per=14, u=(t%per)/per;
+  const e=U_clamp((u-0.85)/0.15,0,1), sl=e*e*(3-2*e);
+  const gap=rC*0.62, ky=cy-rC*1.55, kx=cx-3;
+  for(let r=-3;r<=1;r++){
+    const pos=r-sl;                          /* 1 next, 0 active, below 0 retired */
+    let col,a;
+    if(pos>=0){ col=mix(G,C.steel,pos); a=.42-.12*pos; if(r===1) a*=U_clamp(u/0.35,0,1); }
+    else if(pos>=-1){ col=mix(G,C.dim,-pos); a=.42-.24*(-pos); }
+    else { col=C.dim; a=.18*U_clamp(pos+3,0,1); }
+    if(a>0.004) key(kx+pos*gap,ky,3.2,col,a,0);
   }
-
   /* consumers on the left: a statement in, a signature back */
   for(let i=0;i<3;i++){
     const ux=X(0.04), uy=Y(0.12+i*0.14);
@@ -832,35 +847,43 @@ custody(ctx,w,h,t,ptr){
     }
   }
 
-  /* ---- the witness: an append-only log and its tree ---- */
+  /* ---- the witness: an append-only log, its tree and the stream it reads ---- */
   const N=16, rate=1.05;
   const L=Math.floor(t*rate), f=(t*rate)%1;   /* L leaves so far; the window slides */
   const cell=RW*0.92/(N+1), leafY=Y(0.95), lvH=RH*0.085;
   const x0=X(0.04);
   const gx=gi=>x0+(gi-(L-N+1)+1-f)*cell;      /* x of global leaf gi */
+  const divY=Y(0.57), laneY=leafY+cell*0.6;
+  const rootX=X(0.52), rootY=leafY-3.7*lvH;
   ctx.strokeStyle=`rgba(${C.dim},.10)`;ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(X(0.02),Y(0.60));ctx.lineTo(X(0.98),Y(0.60));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(X(0.02),divY);ctx.lineTo(X(0.98),divY);ctx.stroke();
   font(9);ctx.textAlign="left";ctx.fillStyle=`rgba(${C.dim},.22)`;
-  ctx.fillText("witness",X(0.02),Y(0.60)-5);
+  ctx.fillText("witness",X(0.02),divY-5);
+  /* the stream under the log, the bytes the witness reads */
+  ctx.setLineDash([2,4]);ctx.strokeStyle=`rgba(${C.steel},.10)`;
+  ctx.beginPath();ctx.moveTo(X(0.02),laneY);ctx.lineTo(X(0.98),laneY);ctx.stroke();ctx.setLineDash([]);
   /* the leaf the pointer asks about */
   let ask=-1;
-  if(ptr&&ptr.y>Y(0.58)&&ptr.y<leafY+cell){
+  if(ptr&&ptr.y>Y(0.56)&&ptr.y<laneY+cell*0.5){
     const gi=Math.round((ptr.x-x0)/cell+(L-N+1)-1+f);
     if(gi>L-N&&gi<=L) ask=gi;
   }
-  /* a byte under a leaf changes, now and then */
-  const ev=Math.floor(t/17), ep=(t%17);
-  const hitLeaf=L-2-Math.floor(rng(ev*31+7)()*8);
-  const hit=ep<1.8;
+  /* now and then a byte the witness already read changes. The leaf that
+     observed it stays as it was; the finding is the next entry appended. */
+  const ev=Math.floor(t/17), ep=t%17, hit=ep<1.8;
+  const Le=Math.floor(ev*17*rate);
+  const hitLeaf=Le-2-Math.floor(rng(ev*31+7)()*8);
+  const finds=[Le+1, Math.floor((ev-1)*17*rate)+1];
   for(let gi=L-N+1;gi<=L;gi++){
     const x=gx(gi);
     if(x<X(0.01)) continue;
     const fresh=gi===L?f:1;
-    const bad=hit&&gi===hitLeaf;
-    ctx.fillStyle=`rgba(${bad?C.ember:G},${(bad?.44:.13)*fresh})`;
+    const found=finds.indexOf(gi)>=0;
+    ctx.fillStyle=`rgba(${found?C.ember:G},${(found?.40:.13)*fresh})`;
     ctx.fillRect(x-cell*0.38,leafY-cell*0.34,cell*0.76,cell*0.68);
   }
-  /* the tree: a node over every aligned pair, four, eight leaves present */
+  /* the tree: a node over every aligned pair, four, eight leaves present,
+     and the head over the whole log */
   const path=new Set();
   if(ask>=0){ for(let l=1;l<=3;l++) path.add(l+":"+(ask>>l)); }
   for(let l=1;l<=3;l++){
@@ -874,33 +897,43 @@ custody(ctx,w,h,t,ptr){
       const lx=(gx(a)+gx(a+span/2-1))/2, rx=(gx(a+span/2)+gx(b))/2, cyl=leafY-(l-1)*lvH;
       ctx.strokeStyle=`rgba(${on?G:C.dim},${on?.55:.10})`;ctx.lineWidth=on?1.4:1;
       ctx.beginPath();ctx.moveTo(lx,cyl);ctx.lineTo(x,y);ctx.lineTo(rx,cyl);ctx.stroke();
-      if(l<3){ dot(ctx,x,y,1.3,on?G:C.dim,on?.5:.16); continue; }
-      /* a tree head, signed by both halves */
-      const age=t-(b+1)/rate;
-      const glow=Math.max(0,1-age/1.6);
-      ctx.save();ctx.translate(x,y);ctx.rotate(Math.PI/4);
-      ctx.strokeStyle=`rgba(${G},${.30+.4*glow+(on?.2:0)})`;ctx.lineWidth=1.2;
-      ctx.strokeRect(-3.4,-3.4,6.8,6.8);ctx.restore();
-      ctx.strokeStyle=`rgba(${G},${.22+.4*glow})`;ctx.lineWidth=1;
-      ctx.beginPath();ctx.arc(x-6,y-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* P-384 */
-      ctx.beginPath();ctx.arc(x+6,y-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* ML-DSA-65 */
+      if(l===3){                              /* up to the head */
+        ctx.strokeStyle=`rgba(${on?G:C.dim},${on?.5:.09})`;ctx.lineWidth=on?1.3:1;
+        ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(rootX,rootY);ctx.stroke();
+      }
+      dot(ctx,x,y,l===3?1.5:1.3,on?G:C.dim,on?.5:.16);
     }
   }
+  /* the log before the window, also under the head */
+  ctx.setLineDash([2,5]);ctx.strokeStyle=`rgba(${C.dim},.07)`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(rootX,rootY);ctx.lineTo(X(0.01),leafY-3*lvH);ctx.stroke();ctx.setLineDash([]);
+  /* the tree head, signed by both halves; it glows as each new head is signed */
+  const lastB=Math.floor((L+1)/8)*8-1, glow=Math.max(0,1-(t-(lastB+1)/rate)/1.6);
+  const lit=ask>=0;
+  ctx.save();ctx.translate(rootX,rootY);ctx.rotate(Math.PI/4);
+  ctx.strokeStyle=`rgba(${G},${.30+.4*glow+(lit?.2:0)})`;ctx.lineWidth=1.2;
+  ctx.strokeRect(-3.4,-3.4,6.8,6.8);ctx.restore();
+  ctx.strokeStyle=`rgba(${G},${.22+.4*glow})`;ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(rootX-6,rootY-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* P-384 */
+  ctx.beginPath();ctx.arc(rootX+6,rootY-7,3,Math.PI*1.1,Math.PI*1.9);ctx.stroke();  /* ML-DSA-65 */
   if(ask>=0){                                  /* the asked leaf, outlined */
     const x=gx(ask);
     ctx.strokeStyle=`rgba(${G},.6)`;ctx.lineWidth=1.2;
     ctx.strokeRect(x-cell*0.42,leafY-cell*0.38,cell*0.84,cell*0.76);
   }
-  if(hit){                                     /* the witness says so */
+  if(hit){                                     /* the changed byte, on the stream */
     const x=gx(hitLeaf), p=ep/1.8;
-    ctx.strokeStyle=`rgba(${C.ember},${.5*(1-p)})`;ctx.lineWidth=1.2;
-    ctx.beginPath();ctx.arc(x,leafY,6+p*22,0,TAU);ctx.stroke();
-    font(9);ctx.textAlign="center";ctx.fillStyle=`rgba(${C.ember},${.45*(1-p)})`;
-    ctx.fillText("witness_stream_rewritten",U_clamp(x,X(0.18),X(0.82)),leafY-4.2*lvH);
+    ctx.strokeStyle=`rgba(${C.ember},${.55*(1-p)})`;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.moveTo(x,laneY-3);ctx.lineTo(x,laneY+3);ctx.stroke();
+    ctx.beginPath();ctx.arc(x,laneY,3+p*12,0,TAU);ctx.stroke();
+    font(9);ctx.textAlign="right";ctx.fillStyle=`rgba(${C.ember},${.45*(1-p)})`;
+    ctx.fillText("witness_stream_rewritten",X(0.98),divY-5);
     ctx.textAlign="left";
   }
 },
 
+/* platform - tiled matrix multiply: activation waves sweep a grid of
+   cells diagonally, the tensor language every event speaks. */
 tensor(ctx,w,h,t){
   const s=26, cols=Math.ceil(w/s), rows=Math.ceil(h/s);
   for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
