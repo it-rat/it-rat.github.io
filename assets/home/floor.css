@@ -1,0 +1,95 @@
+/* floor.css: the live floor of agents (variant B, and the mixes D and E).
+   The page supplies the section; assets/home/b.js drives it by these ids.
+   An instrument panel: heavy display type for the one claim, mono for
+   everything the floor reports. */
+:root{--glass:rgba(9,13,19,.72)}
+.floor{position:relative;height:calc(100svh - 58px);min-height:660px;overflow:hidden;
+  background:radial-gradient(80% 70% at 50% 62%,#0E1622 0%,var(--ink) 70%)}
+.floor-stage{position:absolute;inset:0}
+.floor-stage canvas{touch-action:pan-y;cursor:grab}
+.floor-stage canvas.on-agent{cursor:pointer}
+.floor-stage canvas:active{cursor:grabbing}
+.floor-ui{position:absolute;inset:0;pointer-events:none;display:grid;
+  grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto 1fr auto;gap:18px;
+  padding-top:clamp(22px,4vh,44px);padding-bottom:22px}
+.floor-ui > *{pointer-events:auto}
+.floor-head{grid-column:1;grid-row:1;max-width:560px}
+.floor-head h1{font-family:var(--font-d);font-weight:800;font-size:clamp(32px,3.7vw,52px);line-height:1.02;letter-spacing:-.035em;margin:16px 0 0;text-wrap:balance}
+.floor-head h2{font-family:var(--font-d);font-weight:800;font-size:clamp(30px,3.4vw,48px);line-height:1.04;letter-spacing:-.035em;margin:14px 0 0;text-wrap:balance}
+.floor-head h1 span,.floor-head h2 span{color:var(--teal)}
+.floor-head p{margin:14px 0 0;color:#AEB9C6;font-size:16.5px;line-height:1.6;max-width:46ch}
+
+.hud{grid-column:2;grid-row:1 / span 2;align-self:start;display:flex;flex-direction:column;gap:10px}
+.hud-box{background:var(--glass);border:1px solid var(--line-2);border-radius:16px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.meters{display:grid;grid-template-columns:1fr 1fr;padding:6px}
+.meter{padding:12px 12px 11px}
+.meter .l{font:600 9.5px/1.2 var(--font-m);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.meter .v{font:700 24px/1 var(--font-m);margin-top:8px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;transition:color .3s}
+.meter .v.hot{color:#FF8A80}
+.log{padding:12px 14px 10px}
+.log-h{display:flex;justify-content:space-between;align-items:center;font:600 9.5px/1 var(--font-m);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.log ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;min-height:212px}
+.log li{font:12px/1.45 var(--font-m);color:#AEB9C6;padding-left:12px;position:relative;animation:logIn .35s ease-out}
+.log li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--k,var(--faint))}
+.log li time{color:var(--faint);margin-right:6px}
+.log li b{color:var(--fg);font-weight:600}
+@keyframes logIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.deck{grid-column:1 / span 2;grid-row:3;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--glass);border:1px solid var(--line-2);border-radius:18px;padding:10px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.gov{display:flex;padding:3px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.gov button{font:600 13px/1 var(--font-t);color:var(--dim);padding:10px 13px;border-radius:9px;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;gap:8px}
+.gov button i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+.gov button[aria-pressed="true"]{background:var(--panel-3);color:var(--fg)}
+.gov button.on[aria-pressed="true"] i{background:var(--teal);box-shadow:0 0 10px var(--teal)}
+.gov button.off[aria-pressed="true"] i{background:var(--ember);box-shadow:0 0 10px var(--ember)}
+.deck .say{font:600 10px/1 var(--font-m);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-left:6px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.act{font:600 13px/1 var(--font-t);color:var(--fg);padding:10px 13px;border-radius:11px;cursor:pointer;
+  border:1px solid color-mix(in srgb,var(--k) 40%,var(--line));background:color-mix(in srgb,var(--k) 9%,transparent);
+  display:flex;align-items:center;gap:8px;transition:background .15s,transform .15s}
+.act:hover{background:color-mix(in srgb,var(--k) 20%,transparent);transform:translateY(-1px)}
+.act i{width:7px;height:7px;border-radius:2px;background:var(--k)}
+.act.busy{opacity:.55}
+.deck .hint{margin-left:auto;font:11px/1.3 var(--font-m);color:var(--faint);padding-right:6px}
+
+.floor .gl-label{font:600 10.5px/1 var(--font-m);letter-spacing:.05em;padding:5px 7px;border-radius:6px;background:rgba(7,10,15,.7);border:1px solid rgba(255,255,255,.08)}
+.floor .gl-label.pop{font-size:12px;padding:6px 9px;border-color:rgba(255,87,75,.5);color:#FFB4AD}
+.floor .gl-label.ok{border-color:rgba(52,211,153,.45);color:#9FF0CC}
+
+/* an agent's passport: on hover, pinned on click */
+.passport{position:absolute;left:0;top:0;z-index:3;width:252px;pointer-events:none;
+  background:rgba(9,13,19,.92);border:1px solid var(--line-2);border-radius:14px;padding:12px 14px 11px;
+  box-shadow:0 18px 40px -18px #000;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font:12px/1.4 var(--font-m);color:var(--dim);opacity:0;transition:opacity .2s}
+.passport.on{opacity:1}
+.passport.pinned{border-color:color-mix(in srgb,var(--teal) 55%,var(--line-2))}
+.pp-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.pp-h b{color:var(--fg);font-size:13px}
+.pp-state{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:999px;border:1px solid var(--line-2)}
+.pp-state.hot{color:#FFB4AD;border-color:rgba(255,87,75,.5)}
+.pp-state.ok{color:#9FF0CC;border-color:rgba(52,211,153,.4)}
+.passport dl{margin:0;display:grid;gap:7px}
+.passport dl div{display:grid;grid-template-columns:84px 1fr;gap:8px;align-items:center}
+.passport dt{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.passport dd{margin:0;color:var(--fg)}
+.pp-bar{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:4px}
+.pp-bar i{display:block;height:100%;background:var(--amber);border-radius:3px}
+.pp-bar.full i{background:var(--ember)}
+.pp-reach span{display:inline-block;margin:0 4px 3px 0;padding:2px 6px;border-radius:6px;font-size:10.5px;border:1px solid}
+.pp-reach .y{color:#9FF0CC;border-color:rgba(52,211,153,.35)}
+.pp-reach .n{color:#FFB4AD;border-color:rgba(255,87,75,.35);text-decoration:line-through}
+.pp-foot{margin-top:9px;font-size:10px;color:var(--faint)}
+
+@media(max-width:860px){
+  .floor{height:auto;min-height:0;background:none;overflow:visible;display:flex;flex-direction:column}
+  .floor-ui{display:contents}
+  .floor-head,.deck,.hud{margin-left:clamp(18px,4vw,44px);margin-right:clamp(18px,4vw,44px)}
+  .floor-head{order:0;padding:26px 0 6px}
+  .floor-stage{position:relative;order:1;height:58svh;min-height:360px}
+  .deck{order:2;margin-top:-6px}
+  .hud{order:3;margin-top:10px}
+  .log ol{min-height:0}
+  .deck .hint{display:none}
+  .passport{width:220px}
+}

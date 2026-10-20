@@ -1,29 +1,22 @@
 #!/usr/bin/env python3
-"""Write the guides hub's list of service guides, and the counts the hub states.
+"""Keep the counts the guides hub states true.
 
-Two things on guides.html were typed by hand from facts other files own. One
-row per room under "Each service in depth", copied out of the STACK registry
-in assets/site.js, which goes stale the day a room is added. And the number of
-guides, spelled out in the meta description, both social cards and the lede,
-which goes stale the day any guide is added: the rollout of 2026-10-16 takes it
-from fifteen to thirty in one step.
+Until 2026-10-20 this also wrote one row per room under "Each service in
+depth". That list moved to the Stack page (stack.html), where each service sits
+with its room and its guide side by side, built from the same STACK registry;
+the hub now carries the guides about the field and about running the stack,
+and its lede points at the Stack page for the rest. A service guide is still
+reached from its room, from the Stack page and from llms.txt.
 
-1. THE ROWS, between the guidehub:auto markers. One per STACK entry, in
-   registry order, with its colour, its plane and its registry note ("not wired
-   in yet", "optional add-on"), each linking to <id>-guide.html. A room whose
-   guide is not on disk stops this, as it stops every generator that writes the
-   guides (tools/stackguides.py).
+THE COUNTS, read off the page: the distinct guides the hub links as a card, how
+many of those explain the field (FIELD, below), and the rest, which cover this
+stack. So the number is what a reader can click on the hub, not the length of
+some list. They are written as words into PLACES and nowhere else, and a place
+that no longer states a total stops this rather than being skipped.
 
-2. THE COUNTS, read off the page this has just written: the distinct guides the
-   hub links as a card or a row, how many of those explain the field (FIELD,
-   below), and the rest, which cover this stack. So the number is what a reader
-   can click on the hub, not the length of some list. They are written as words
-   into PLACES and nowhere else, and a place that no longer states a total stops
-   this rather than being skipped.
-
-   FIELD is a hand-kept classification, and the one list here: which guides are
-   about the discipline rather than about this stack. It cannot be derived, and
-   it is checked: each one must be linked from the hub.
+FIELD is a hand-kept classification, and the one list here: which guides are
+about the discipline rather than about this stack. It cannot be derived, and
+it is checked: each one must be linked from the hub.
 
 Run from the repo root:  python3 tools/guidehub.py   (idempotent)
 Run it before seo.py and llms.py: both read the hub's description and its rows.
@@ -32,12 +25,9 @@ import pathlib
 import re
 import sys
 
-from stackguides import service_guides
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HUB = "guides.html"
-MARK_OPEN = "<!-- guidehub:auto -->"
-MARK_CLOSE = "<!-- /guidehub:auto -->"
 DESC_MAX = 160  # scripts/page-metadata.sh, invariant 1
 
 FIELD = {
@@ -80,17 +70,6 @@ def words(n):
     return TENS[tens] + (f"-{ONES[ones]}" if ones else "")
 
 
-def rows():
-    out = []
-    for path, s in service_guides():
-        plane = s["plane"] + (f' &#183; {s["note"]}' if s["note"] else "")
-        out.append(f'      <a class="svc-row" style="--c:{s["color"]}" href="{path}"><i></i>'
-                   f'<b>{s["name"]}</b><span class="pl">{plane}</span>'
-                   f'<span class="st">Read the guide</span></a>')
-    return (f"{MARK_OPEN}\n    <div class=\"svc-rows rv\">\n" + "\n".join(out)
-            + f"\n    </div>\n{MARK_CLOSE}")
-
-
 def recount(h):
     linked = []
     for href in re.findall(r'<a class="(?:gcard|svc-row)"[^>]*?href="([^"#]+)', h):
@@ -130,18 +109,10 @@ def recount(h):
 def main():
     p = ROOT / HUB
     h = p.read_text(encoding="utf-8")
-    if h.count(MARK_OPEN) != 1 or h.count(MARK_CLOSE) != 1:
-        sys.exit(f"{HUB}: expected one pair of guidehub:auto markers around the service "
-                 f"rows. Refusing to write them somewhere arbitrary.")
-    block = rows()
-    h2 = re.sub(re.escape(MARK_OPEN) + r".*?" + re.escape(MARK_CLOSE), lambda _: block,
-                h, flags=re.S)
-    h2, total, field = recount(h2)
+    h2, total, field = recount(h)
     if h2 != h:
         p.write_text(h2, encoding="utf-8")
-    n_rows = block.count('class="svc-row"')
-    print(f"{HUB:28} {n_rows} service rows, {total} guides "
-          f"({field} on the field, {total - field} on this stack), "
+    print(f"{HUB:28} {total} guides ({field} on the field, {total - field} on this stack), "
           f"{'written' if h2 != h else 'unchanged'}")
 
 

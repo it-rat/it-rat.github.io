@@ -12,6 +12,13 @@
       "description": "Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted."
     },
     {
+      "url": "https://it-rat.com/stack.html",
+      "markdown": "https://it-rat.com/stack.md",
+      "title": "The stack: every service, with its room and its guide",
+      "kind": "page",
+      "description": "Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story."
+    },
+    {
       "url": "https://it-rat.com/genaryx.html",
       "markdown": "https://it-rat.com/genaryx.md",
       "title": "Genaryx, the console over the stack",
@@ -23,7 +30,7 @@
       "markdown": "https://it-rat.com/guides.md",
       "title": "Guides index",
       "kind": "guide",
-      "description": "Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October."
+      "description": "Sixteen guides: seven on the field of AI agent governance, and nine on running this stack, from a first alert to what changed in October."
     },
     {
       "url": "https://it-rat.com/ai-agent-governance.html",
@@ -126,9 +133,16 @@
     {
       "url": "https://it-rat.com/stack-guide.html",
       "markdown": "https://it-rat.com/stack-guide.md",
-      "title": "The stack in depth",
+      "title": "How the numbers were produced",
       "kind": "guide",
-      "description": "Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open."
+      "description": "The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is."
+    },
+    {
+      "url": "https://it-rat.com/install.html",
+      "markdown": "https://it-rat.com/install.md",
+      "title": "Install the stack, all of it or one service at a time",
+      "kind": "guide",
+      "description": "One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own."
     },
     {
       "url": "https://it-rat.com/changes-2026-10.html",

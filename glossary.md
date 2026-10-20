@@ -121,4 +121,4 @@ A gradual fall in output quality that a flat threshold misses. Detected properly
 
 ## Each of these has a guide behind it.
 
-The [twelve guides](https://it-rat.com/guides.html) cover governance, cost, security, MCP, identity and the line between observability and control, and the [stack](https://it-rat.com/index.html#stack) is the open implementation of everything named here.
+The [twelve guides](https://it-rat.com/guides.html) cover governance, cost, security, MCP, identity and the line between observability and control, and the [stack](https://it-rat.com/stack.html) is the open implementation of everything named here.

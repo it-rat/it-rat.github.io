@@ -1,0 +1,91 @@
+/* home.css: the home page's shared parts (the three doors deeper, the HTML
+   labels that ride on a WebGL scene, the proof tiles) and the Stack page's list. */
+
+/* ---- labels pinned to points of a 3D scene ---- */
+.gl-wrap{position:relative}
+.gl-wrap canvas{display:block;width:100%;height:100%}
+.gl-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.gl-label{position:absolute;left:0;top:0;transform:translate3d(-50%,-50%,0);white-space:nowrap;
+  font:600 11px/1 var(--font-m);letter-spacing:.06em;color:var(--fg);opacity:0;transition:opacity .35s}
+.gl-label.on{opacity:1}
+.gl-fallback{display:none}
+html.no-gl .gl-wrap canvas{display:none}
+html.no-gl .gl-fallback{display:block;position:absolute;inset:0;
+  background:radial-gradient(60% 50% at 62% 45%,rgba(108,123,255,.22),transparent 70%),
+             radial-gradient(40% 35% at 70% 60%,rgba(244,178,62,.14),transparent 70%)}
+
+/* ---- three doors deeper ---- */
+.doors{padding:clamp(24px,4vw,40px) 0 clamp(56px,8vw,96px)}
+.doors-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:14px}
+.door{position:relative;display:flex;flex-direction:column;gap:10px;padding:24px 24px 22px;border-radius:var(--rad);
+  border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  transition:transform .2s cubic-bezier(.2,.7,.2,1.2),border-color .2s}
+.door:hover{transform:translateY(-2px);border-color:var(--line-2)}
+.door:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.door .d-k{font:600 10.5px/1 var(--font-m);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.door h3{font-size:22px;letter-spacing:-.02em}
+.door p{margin:0;color:var(--dim);font-size:14.5px;line-height:1.6}
+.door .d-go{margin-top:auto;padding-top:10px;font:600 12.5px/1 var(--font-m);color:var(--fg)}
+.door.main{border-color:color-mix(in srgb,var(--accent) 38%,var(--line-2));
+  background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 16%,var(--panel-2)),var(--panel) 70%)}
+@media(max-width:860px){.doors-grid{grid-template-columns:1fr}}
+
+
+/* the label every simulation carries, as everywhere else on the site */
+.sim-tag{display:inline-flex;align-items:center;gap:7px;font:600 10px/1 var(--font-m);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+.sim-tag i{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+/* ---- stack.html: every service, grouped by ring, a room and a guide each ---- */
+.svc-groups{display:grid;gap:16px}
+.svc-group{border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+.sg-head{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--c) 9%,transparent),transparent 60%)}
+.sg-head i{width:12px;height:12px;border-radius:50%;border:2px solid var(--c);box-shadow:0 0 10px color-mix(in srgb,var(--c) 70%,transparent)}
+.sg-head h3{font-size:18px;letter-spacing:-.01em;margin:0}
+.sg-head p{margin:0;color:var(--dim);font-size:14px}
+.sg-rows{list-style:none;margin:0;padding:0}
+.sg-row{display:grid;grid-template-columns:10px minmax(180px,230px) minmax(0,1fr) auto;gap:16px;align-items:center;padding:13px 20px;border-top:1px solid var(--line)}
+.sg-row:first-child{border-top:0}
+.sg-row > i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.sg-name b{display:block;font:650 15px/1.25 var(--font-d)}
+.sg-name span{font:500 10.5px/1.4 var(--font-m);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.sg-note{display:inline-block;margin-left:8px;font:600 9.5px/1 var(--font-m);font-style:normal;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 7px;border-radius:999px;border:1px solid rgba(244,178,62,.4);color:var(--amber);vertical-align:1px}
+.sg-row p{margin:0;color:var(--dim);font-size:14.5px;line-height:1.5}
+.sg-go{display:flex;gap:6px}
+.sg-go a{font:600 12.5px/1 var(--font-m);padding:8px 11px;border-radius:9px;border:1px solid var(--line-2);color:var(--fg);white-space:nowrap;transition:background .15s,border-color .15s}
+.sg-go a:first-child{border-color:color-mix(in srgb,var(--c) 45%,var(--line-2));background:color-mix(in srgb,var(--c) 10%,transparent)}
+.sg-go a:hover{background:rgba(255,255,255,.07)}
+@media(max-width:760px){
+  .sg-head{grid-template-columns:auto 1fr}
+  .sg-head p{grid-column:1 / -1}
+  .sg-row{grid-template-columns:10px minmax(0,1fr);gap:8px 12px;padding:14px 16px}
+  .sg-row p,.sg-go{grid-column:2}
+}
+
+/* ---- the proof, moved from the old home: eight tiles, so four columns, decided
+   together with the count (auto-fit gave six across and one orphan at 1440) ---- */
+#proof .stats{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){#proof .stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){#proof .stats{grid-template-columns:1fr}}
+#proof .stat .l b{color:var(--fg);font-weight:650;display:block;margin-bottom:2px}
+
+/* the tiles, alive: a light passes over the eight in turn while nobody touches
+   them; under the cursor a tile lifts (card hover), takes the spotlight, grows
+   a bar in its own colour and its number glows */
+#proof .stat.card{padding:16px 16px 14px;border-radius:var(--rad-s);
+  background-image:linear-gradient(105deg,transparent 38%,color-mix(in srgb,var(--accent) 10%,transparent) 50%,transparent 62%),linear-gradient(180deg,var(--panel-2),var(--panel));
+  background-size:260% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0,0 0;
+  animation:tileSheen 9s ease-in-out infinite}
+#proof .stat.card:nth-child(2){animation-delay:.3s}#proof .stat.card:nth-child(3){animation-delay:.6s}#proof .stat.card:nth-child(4){animation-delay:.9s}
+#proof .stat.card:nth-child(5){animation-delay:1.2s}#proof .stat.card:nth-child(6){animation-delay:1.5s}#proof .stat.card:nth-child(7){animation-delay:1.8s}#proof .stat.card:nth-child(8){animation-delay:2.1s}
+@keyframes tileSheen{0%,72%{background-position:160% 0,0 0}100%{background-position:-60% 0,0 0}}
+#proof .stat.card::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--accent);box-shadow:0 0 12px var(--accent);transition:width .45s cubic-bezier(.2,.7,.2,1)}
+#proof .stat.card:hover::before{width:100%}
+#proof .stat.card:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line-2))}
+#proof .stat.card .n{transition:text-shadow .3s}
+#proof .stat.card:hover .n{text-shadow:0 0 18px color-mix(in srgb,var(--accent) 60%,transparent)}
+@media(prefers-reduced-motion:reduce){#proof .stat.card{animation:none}}

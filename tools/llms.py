@@ -49,7 +49,8 @@ GUIDES = [
     ("agent-tooling-compared.html", "Three shapes of agent tooling"),
     # Added 2026-10-16 with the guide per room.
     ("security-by-design.html", "Security by design"),
-    ("stack-guide.html", "The stack in depth"),
+    ("stack-guide.html", "How the numbers were produced"),
+    ("install.html", "Install the stack, all of it or one service at a time"),
     ("changes-2026-10.html", "What changed in the stack, 1 to 15 October 2026"),
 ]
 # Then one guide per room in STACK, derived rather than listed (see
@@ -81,6 +82,7 @@ SERVICES = [
 ]
 OTHER = [
     ("index.html", "IT-RAT, open-source governance for AI agents"),
+    ("stack.html", "The stack: every service, with its room and its guide"),
     ("genaryx.html", "Genaryx, the console over the stack"),
 ]
 ALL = OTHER + GUIDES + SERVICES
@@ -256,12 +258,17 @@ def main():
     # The hub's twin is how a machine reader finds the guides, so it has to
     # reach every one of them. A guide the hub does not link is a guide only a
     # search engine can find.
+    # The one exception, since 2026-10-20: the guide for each service is listed
+    # on the Stack page beside its room, not on the hub, and llms.txt below
+    # still names every one of them.
+    by_room = {p for p, _ in service_guides()}
     unlinked = [p for p, _ in GUIDES
-                if p != "guides.html" and f"({SITE}/{p})" not in written["guides.html"]
+                if p != "guides.html" and p not in by_room
+                and f"({SITE}/{p})" not in written["guides.html"]
                 and f"({SITE}/{p}#" not in written["guides.html"]]
     if unlinked:
         sys.exit(f"guides.md links to none of: {', '.join(unlinked)}. Link each from "
-                 f"guides.html (tools/guidehub.py writes the service rows), then run this again.")
+                 f"guides.html as a card, then run this again.")
 
     def line(path, title):
         raw = (ROOT / path).read_text(encoding="utf-8")
