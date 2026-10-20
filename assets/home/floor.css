@@ -14,8 +14,9 @@
   padding-top:clamp(22px,4vh,44px);padding-bottom:22px}
 .floor-ui > *{pointer-events:auto}
 .floor-head{grid-column:1;grid-row:1;max-width:560px}
-.floor-head h1{font-family:var(--font-d);font-weight:800;font-size:clamp(32px,3.7vw,52px);line-height:1.02;letter-spacing:-.035em;margin:16px 0 0;text-wrap:balance}
-.floor-head h2{font-family:var(--font-d);font-weight:800;font-size:clamp(30px,3.4vw,48px);line-height:1.04;letter-spacing:-.035em;margin:14px 0 0;text-wrap:balance}
+.floor-head h1{font-family:var(--font-d);font-weight:300;font-size:clamp(32px,3.7vw,52px);line-height:1.02;letter-spacing:-.04em;margin:16px 0 0;text-wrap:balance}
+.floor-head h2{font-family:var(--font-d);font-weight:300;font-size:clamp(30px,3.4vw,48px);line-height:1.04;letter-spacing:-.04em;margin:14px 0 0;text-wrap:balance}
+.floor-head h1 b,.floor-head h2 span{font-weight:650}
 .floor-head h1 span,.floor-head h2 span{color:var(--teal)}
 .floor-head p{margin:14px 0 0;color:#AEB9C6;font-size:16.5px;line-height:1.6;max-width:46ch}
 

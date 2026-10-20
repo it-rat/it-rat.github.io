@@ -48,8 +48,12 @@ img,svg,canvas{max-width:100%;display:block}
 
 /* ---------- type ---------- */
 h1,h2,h3{font-family:var(--font-d);letter-spacing:-.02em;line-height:1.08;margin:0}
-h1{font-size:clamp(34px,6vw,64px);font-weight:800}
-h2{font-size:clamp(24px,3.4vw,36px);font-weight:750}
+/* every headline takes the home hero's cut: a light display weight set tight,
+   with the words that carry the line (b, strong, a service's name) in semibold */
+h1,h2{font-weight:300;letter-spacing:-.04em;line-height:1.04}
+h1{font-size:clamp(34px,6vw,64px)}
+h2{font-size:clamp(24px,3.4vw,36px)}
+h1 b,h1 strong,h1 .nm,h2 b,h2 strong,h2 .nm{font-weight:650}
 h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
 p{margin:0}
 .kicker{

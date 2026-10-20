@@ -3,7 +3,7 @@
  * Each of the eight figures under the panel is drawn from the run it came
  * from: the measured points, counts and costs as the validation records hold
  * them, and nothing in between. Pointing at a figure opens its record; left
- * alone the panel walks the eight and ends on what happened to the machines.
+ * alone the panel walks the eight in turn.
  * Every number drawn here is in a public VALIDATION.md or evidence file, and
  * the footer links the one each chart was read from.
  *
@@ -306,21 +306,6 @@ const FIGS=[
   const w2=TW("0",{s:cmp?18:24,w:700})+8+TW("gaps",{s:12})+28;
   const w3=T("$0",mx+w2,y,{s:cmp?18:24,w:700,c:C.fg,a});T("real spend",mx+w2+w3+8,y,{s:cmp?11:12,a});
  }},
-{kicker:"Then torn down",
- title:"Nothing from the campaign is still standing",
- meta:"Disposable machines on three clouds, and the real model key behind the campaign's paid calls",
- src:[["How these numbers were produced","stack-guide.html#proof"]],
- sr:"Afterwards the machines on Hetzner, AWS and GCP were deleted and the campaign's model key was revoked. The records stay public.",
- draw(W,H,t,cmp,ac){
-  const mx=cmp?12:22, top=cmp?34:44, rh=cmp?38:42;
-  const rows=[["Hetzner","machines and a k3s cluster","deleted"],["AWS","machines and k3s clusters","deleted"],["GCP","machines and k3s clusters","deleted"],["Model key","the real key behind the paid calls","revoked"]];
-  rows.forEach(([n,d,end],i)=>{const y=top+i*rh, s=k(t,.6+i*.45,.5), sx=cmp?W*.62:W*.6;
-    const nw=T(n,mx,y,{s:cmp?13:15,f:"t",w:600,c:C.fg,a:1-.55*s});if(!cmp) T(d,mx+170,y,{s:12,f:"t",a:1-.5*s});
-    if(s>0) LN(mx,y-5,mx+(cmp?nw:170+TW(d,{s:12,f:"t"}))*out(s),y-5,C.fg,1,.6);
-    if(s<1) PILL(sx,y-5,"running",C.mint,1-s);else PILL(sx,y-5,end,C.dim,1);
-    HL(mx,W-mx,y+rh/2-4,C.faint);});
-  const a=k(t,2.6,.5);T("The machines are gone. The records are public.",mx,H-(cmp?12:18),{s:cmp?12:14,f:"t",w:600,c:C.fg,a});
- }},
 ];
 
 /* the binaries raster lives in its own canvas and only paints what is new */
@@ -344,7 +329,7 @@ function raster(w,h,ac){
 }
 
 /* ---------- which record shows ---------- */
-const DUR=9.5, LAST=FIGS.length-1;
+const DUR=9.5;
 let cur=0, t0=null, now=0, hold=false, resumeAt=0, visible=true, raf=0, W=0, H=0, dpr=1;
 const steps=FIGS.map((f,i)=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Show "+f.kicker.toLowerCase());
   b.addEventListener("click",()=>{show(i);hold=false;resumeAt=now+6;});stepsEl.appendChild(b);return b;});
@@ -387,8 +372,8 @@ function frame(ms){
   raf=0;
   now=ms/1000;if(t0===null) t0=now;
   const still=reduceMQ.matches, u=still?99:now-t0, f=FIGS[cur];
-  const dur=cur===LAST?7:DUR;
-  if(!still&&!hold&&now>=resumeAt&&u>dur) show(cur===LAST?0:cur+1);
+  const dur=DUR;
+  if(!still&&!hold&&now>=resumeAt&&u>dur) show((cur+1)%FIGS.length);
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
   f.draw(W,H,still?99:Math.max(0,now-t0),W<640,AC[cur]);
   const p=still?1:clamp((now-t0)/dur,0,1);
