@@ -330,12 +330,12 @@
             <tr><td>proven on</td><td>Hetzner, AWS and GCP</td></tr>
             <tr><td>what it buys</td><td>high availability</td></tr>
             <tr><td>what it costs</td><td>a ReadWriteMany volume</td></tr>
-            <tr><td>traps</td><td>132 documented, with whose fault each was</td></tr>
+            <tr><td>traps</td><td>154 documented, with whose fault each was</td></tr>
           </tbody>
         </table>
       </div>
       <p><b>The commands, and the one thing a cluster costs you.</b></p>
-      <div class="cmd">git clone https://github.com/TAIPANBOX/stack-k8s<br>cd stack-k8s &amp;&amp; ./deploy.sh --servers ... --hcloud-token ...</div>
+      <div class="cmd">git clone https://github.com/TAIPANBOX/stack-k8s<br>cd stack-k8s &amp;&amp; ./deploy.sh --servers ... --hcloud-token ... --trust-domain &lt;your domain&gt;</div>
       <p>Both paths are one command, and both ask what they need before the long part rather than failing on it afterwards. So the trade is not convenience. Kubernetes buys high availability and costs you the one thing a single box gets for free: the planes couple through a shared event log, so a cluster needs a ReadWriteMany volume for it.</p>
       <p>That trade, and every other thing that bites, are documented in the repositories rather than discovered by you. The same manifests came up on six clusters across Hetzner, AWS and GCP, and exactly one line of Kubernetes configuration differs between the three: Calico has to encapsulate unconditionally on GCP, because a GCE VPC routes every packet by destination and a pod address matches no route. Every trap we hit is written down and already fixed in the files.</p>
       <div class="back"><a class="btn" href="https://github.com/TAIPANBOX/stack-k8s" target="_blank" rel="noopener">stack-k8s on GitHub &#183; Apache-2.0</a></div>
@@ -350,7 +350,7 @@
       <h2>The contract for an agent of your own.</h2>
     </div>
     <div class="prose rv">
-      <div class="cmd">go get github.com/TAIPANBOX/agent-stack-go@v1.3.0<br>go install github.com/TAIPANBOX/agent-stack-go/cmd/agent-conform@latest<br>agent-conform passport.json events.ndjson</div>
+      <div class="cmd"><span class="c"># install: https://github.com/TAIPANBOX/agent-stack-go#install</span><br>agent-conform passport.json events.ndjson</div>
       <p>This installs nothing of the stack: it is the contract itself, for an agent of your own. Exit 0 means every file and every NDJSON line conforms; exit 1 means at least one did not. That is the whole interface.</p>
       <h3>agent-conform, every platform</h3>
       <div class="dl-row"><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_linux_amd64.tar.gz">Linux x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_linux_arm64.tar.gz">Linux arm64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_darwin_arm64.tar.gz">macOS Apple silicon</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_darwin_amd64.tar.gz">macOS Intel</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/agent-conform_windows_amd64.zip">Windows x86-64</a><a class="pill" href="https://github.com/TAIPANBOX/agent-stack-go/releases/latest/download/SHA256SUMS">SHA256SUMS</a></div>

@@ -191,7 +191,7 @@
       <h2>Grade with a stub, then price the traces.</h2>
     </div>
     <div class="prose rv">
-      <div class="cmd">pip install git+https://github.com/TAIPANBOX/verdryx</div>
+      <div class="cmd">git clone https://github.com/TAIPANBOX/verdryx &amp;&amp; cd verdryx<br>python -m venv .venv &amp;&amp; source .venv/bin/activate<br>pip install -e .</div>
       <p>Into a virtual environment: system Python is usually externally managed. There is no PyPI package, so the version you run is the commit you can read.</p>
       <div class="cmd">verdryx eval evalset.json --model stub --db verdryx.db</div>
       <p>No network, no key: <span class="mono">--model stub</span> is deterministic. Then price the traces it left behind.</p>
