@@ -114,7 +114,7 @@ FAQ = {
   "<p>Yes, and you should not trust the path until you have. The pre-production harness replays the same shape at a gateway standing in front of a fake provider: burn the budget and require the 402, request a denied tool and require the refusal, present a forged delegation chain and require rejection. It exits with differentiated codes so CI can tell a real guardrail gap from a broken harness.</p>"),
 ]),
 
-"index.html": ("common questions", "The questions that come before the demo", [
+"stack.html": ("common questions", "The questions that come before the demo", [
  ("What is AI agent governance?",
   "<p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p>"),
  ("Is the stack open source?",

@@ -10,7 +10,7 @@ Every page below is available as markdown at the same path with a .md extension.
 
 ## Guides
 
-- [Guides index](https://it-rat.com/guides.md): Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October.
+- [Guides index](https://it-rat.com/guides.md): Sixteen guides: seven on the field of AI agent governance, and nine on running this stack, from a first alert to what changed in October.
 - [AI agent governance](https://it-rat.com/ai-agent-governance.md): What AI agent governance means in practice: budgets, policy, identity, delegation, egress, provenance, quality, drills and an auditable record.
 - [FinOps for AI](https://it-rat.com/finops-for-ai.md): FinOps applied to LLM and agent spend: the unit of work, per-run budgets, reserve-then-settle, FOCUS showback and cost per resolved case.
 - [AI agent security](https://it-rat.com/ai-agent-security.md): The failure modes an autonomous agent introduces, the runtime guardrail that answers each one, and how to rehearse them in CI. Defensive practice.
@@ -25,7 +25,8 @@ Every page below is available as markdown at the same path with a .md extension.
 - [What is proven and what is not](https://it-rat.com/what-is-proven.md): How to read a validation claim: what was measured on this stack, what the measurement does not cover, and the conclusions we published and had to withdraw.
 - [Three shapes of agent tooling](https://it-rat.com/agent-tooling-compared.md): The controls that answer before a call: what each one does, what it does not do yet, and how to check it.
 - [Security by design](https://it-rat.com/security-by-design.md): An agent can be persuaded, so its controls sit where persuasion cannot reach. Eight design decisions in the stack, and what happened when we broke each one.
-- [The stack in depth](https://it-rat.com/stack-guide.md): Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
+- [How the numbers were produced](https://it-rat.com/stack-guide.md): The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is.
+- [Install the stack, all of it or one service at a time](https://it-rat.com/install.md): One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.
 - [What changed in the stack, 1 to 15 October 2026](https://it-rat.com/changes-2026-10.md): Prices that match the bill, money that is never forgotten, tool calls judged before they run: what changed in the stack from 1 to 15 October 2026.
 - [Genaryx guide](https://it-rat.com/genaryx-guide.md): How the Genaryx console works, how Felyx is held, what every frame shows, how to take it, and what is not yet in the record, in full.
 - [TokenFuse guide](https://it-rat.com/tokenfuse-guide.md): How TokenFuse works, how to install and configure it, what changed from 1 to 15 October 2026, and what the default install does not do, in full.
@@ -67,6 +68,7 @@ Every page below is available as markdown at the same path with a .md extension.
 ## Other
 
 - [IT-RAT, open-source governance for AI agents](https://it-rat.com/index.md): Open-source runtime governance for AI agents: budgets, policy, memory, identity, cryptography, quality and pre-production drills. Apache-2.0, self-hosted.
+- [The stack: every service, with its room and its guide](https://it-rat.com/stack.md): Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story.
 - [Genaryx, the console over the stack](https://it-rat.com/genaryx.md): Genaryx: one browser control room over the whole agent stack, on your own box. Passkey-signed kills, WireGuard-only reach and signed evidence packs.
 
 ## Optional

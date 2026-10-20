@@ -4,9 +4,23 @@
 
 # Guides index
 
-> Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October.
+> Sixteen guides: seven on the field of AI agent governance, and nine on running this stack, from a first alert to what changed in October.
 
-Thirty-two guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
+Sixteen guides, grouped by what you came for: how to install it, where to start, how the stack is secured, the practice of running agents, and what changed in October. Each service has its own guide too, listed beside its room on [the Stack page](https://it-rat.com/stack.html).
+
+## Install
+
+*all of it*
+
+### [The whole stack, in one command](https://it-rat.com/install.html#all)
+
+On a Debian or Ubuntu box you own, on a Kubernetes cluster, or as a sandbox on your laptop. It comes up closed, checks itself, and adds the rest when you ask.
+
+*one piece*
+
+### [One service at a time](https://it-rat.com/install.html#one)
+
+Every service is its own repository with its own releases. How each one ships, whether it runs alone, and where its install command lives.
 
 ## Start here
 
@@ -28,11 +42,11 @@ What a measurement on this stack actually established, the limit published besid
 
 One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: how each performed, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.
 
-*the home page, in full*
+*the numbers, in full*
 
-### [The stack in depth](https://it-rat.com/stack-guide.html)
+### [How the numbers were produced](https://it-rat.com/stack-guide.html)
 
-Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
+The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is.
 
 ## Security
 
@@ -98,42 +112,6 @@ A hub that holds the control plane and the policy, and a gateway at every site t
 
 One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.
 
-## Each service in depth
-
-- [Genaryx](https://it-rat.com/genaryx-guide.html), control room
-
-- [TokenFuse](https://it-rat.com/tokenfuse-guide.html), money
-
-- [CostCrew](https://it-rat.com/costcrew-guide.html), finops
-
-- [TokenFuse Pocket](https://it-rat.com/pocket-guide.html), out of band · not wired in yet
-
-- [Wardryx](https://it-rat.com/wardryx-guide.html), policy
-
-- [Idryx](https://it-rat.com/idryx-guide.html), access
-
-- [Scopyx](https://it-rat.com/scopyx-guide.html), egress
-
-- [Vouchryx](https://it-rat.com/vouchryx-guide.html), delegation
-
-- [Qryx](https://it-rat.com/qryx-guide.html), crypto
-
-- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody
-
-- [Verdryx](https://it-rat.com/verdryx-guide.html), quality
-
-- [Typryx](https://it-rat.com/typryx-guide.html), typed answers · optional add-on
-
-- [Mockryx](https://it-rat.com/mockryx-guide.html), pre-prod
-
-- [Trailryx](https://it-rat.com/trailryx-guide.html), the record
-
-- [Heraldyx](https://it-rat.com/heraldyx-guide.html), alerts
-
-- [Engram](https://it-rat.com/engram-guide.html), memory
-
-- [Platform](https://it-rat.com/platform-guide.html), contract
-
 ## What changed
 
 *what changed*
@@ -144,7 +122,7 @@ What changed across the stack between 1 and 15 October 2026, in one place.
 
 ## Every control in the guides has an open implementation.
 
-Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
+Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/stack.html), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
 
 
 ---
@@ -273,7 +251,7 @@ Governance that has to be reconstructed for an audit will be reconstructed badly
 
 Nobody governs every plane on the first day. This is the order we deploy in, and the reasoning behind it.
 
-All of it is Apache-2.0 and runs on infrastructure you own. [One command starts the live services locally](https://it-rat.com/services/platform.html#run) if you want to see the shape before you commit to any of it, and the whole corridor is [on the stack page](https://it-rat.com/index.html#stack). The defensive half of the same job is in [AI agent security](https://it-rat.com/ai-agent-security.html).
+All of it is Apache-2.0 and runs on infrastructure you own. [One command starts the live services locally](https://it-rat.com/services/platform.html#run) if you want to see the shape before you commit to any of it, and the whole corridor is [on the stack page](https://it-rat.com/stack.html). The defensive half of the same job is in [AI agent security](https://it-rat.com/ai-agent-security.html).
 
 - **Does it act in the request path, or after it?** Everything else is a detail if the answer arrives once the call has already been made.
 
@@ -944,7 +922,7 @@ A gradual fall in output quality that a flat threshold misses. Detected properly
 
 ## Each of these has a guide behind it.
 
-The [twelve guides](https://it-rat.com/guides.html) cover governance, cost, security, MCP, identity and the line between observability and control, and the [stack](https://it-rat.com/index.html#stack) is the open implementation of everything named here.
+The [twelve guides](https://it-rat.com/guides.html) cover governance, cost, security, MCP, identity and the line between observability and control, and the [stack](https://it-rat.com/stack.html) is the open implementation of everything named here.
 
 
 ---
@@ -1149,7 +1127,7 @@ Each line under a step is a real event on a shared contract, which is why an inc
 
 ## Where this sits.
 
-Two moves in this walk are newer than the walk itself. Stopping the spend and stopping the authority are different acts, and the second one is [a revocation](https://it-rat.com/services/vouchryx.html) that lands at every enforcement point that polls, within one poll interval, rather than a 402 on the next call. And what the incident leaves behind is [sealed](https://it-rat.com/services/trailryx.html) daily by default, so the record of it can be shown to somebody who was not there. This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [the record and the control](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/index.html#stack).
+Two moves in this walk are newer than the walk itself. Stopping the spend and stopping the authority are different acts, and the second one is [a revocation](https://it-rat.com/services/vouchryx.html) that lands at every enforcement point that polls, within one poll interval, rather than a 402 on the next call. And what the incident leaves behind is [sealed](https://it-rat.com/services/trailryx.html) daily by default, so the record of it can be shown to somebody who was not there. This walk is the products in motion. [AI agent governance](https://it-rat.com/ai-agent-governance.html) is the field it belongs to, [the record and the control](https://it-rat.com/ai-observability-vs-governance.html) is why watching is not the same as stopping, and [what runs where and what it costs](https://it-rat.com/what-runs-where.html) is the same stack seen from the infrastructure side. Every service named above is Apache-2.0 and runs on hardware you own; the whole set opens from [the corridor](https://it-rat.com/stack.html).
 
 ## What people ask about the incident path
 
@@ -2061,13 +2039,11 @@ All of it is Apache-2.0 and self-hosted, with no seats, licence key or telemetry
 
 <!-- https://it-rat.com/stack-guide.html -->
 
-# The stack in depth
+# How the numbers were produced
 
-> Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
+> The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is.
 
-The [home page](https://it-rat.com/index.html) keeps the short version: the opening, the eight figures from the validation campaign, the corridor of rooms and the wiring drawing. This guide keeps the rest of what it used to say: the opening in full, each figure in full, what the campaign ran and what it caught, how the stack wires, why all of it is open, and how to run the stack yourself. [What is proven](https://it-rat.com/what-is-proven.html) sets out every claim with what it stops short of.
-
-- [The opening, in full](https://it-rat.com/stack-guide.html#overview)
+The [home page](https://it-rat.com/index.html#proof) shows eight figures from the validation campaign. This guide says how each one was measured, what the live runs caught along the way, and where the rest of the record is kept.
 
 - [The eight figures](https://it-rat.com/stack-guide.html#proof)
 
@@ -2077,17 +2053,7 @@ The [home page](https://it-rat.com/index.html) keeps the short version: the open
 
 - [Where the rest is recorded](https://it-rat.com/stack-guide.html#elsewhere)
 
-- [The corridor](https://it-rat.com/stack-guide.html#corridor)
-
-- [How it wires](https://it-rat.com/stack-guide.html#wiring)
-
-- [Why all of it is open](https://it-rat.com/stack-guide.html#open)
-
 - [Run it yourself](https://it-rat.com/stack-guide.html#run)
-
-## Run AI agents like a workforce, not a wildfire.
-
-A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source governance that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime, each installed on its own rather than adopted whole, and proven on real infrastructure before anyone saw a slide about it. Around them sit the parts a fleet needs and nobody builds first: a decision before an agent reaches the web, a delegation it can prove and a person can end, alerts by mail, a record nobody can quietly shorten, and a kill switch out of band, built and not yet wired into a running stack.
 
 ## Validated on real infrastructure. Then torn down.
 
@@ -2133,35 +2099,141 @@ The full ledger, every number and every bug, is public in each repository's `VAL
 
 - **What we withdrew.** The throughput cliff past 64 concurrent callers that turned out to be a shared-vCPU instance is in [what is proven](https://it-rat.com/what-is-proven.html), under "Three things we published and had to withdraw", and in [what runs where](https://it-rat.com/what-runs-where.html).
 
-## One corridor, every door on it.
-
-The rail of rooms this introduces is on the [home page](https://it-rat.com/index.html#stack).
-
-Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Every room is Apache-2.0, with nothing behind a licence. Genaryx, first on the rail, is the control room, and it runs on your own infrastructure like the rest. After it come the planes themselves, in the order a fleet tends to adopt them: money and the crew that reads the bill, then policy, access, egress and delegation, then the planes that watch rather than decide. Platform, last, is the contract they all share. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
-
-## One passport, one event bus, four planes of control.
-
-The drawing this describes is on the [home page](https://it-rat.com/index.html#wiring).
-
-Every request carries an Agent Passport. An agent has two ways out, not one: a call to a model, and a fetch of something on the internet, and each has a gate standing in it. Above them sit the two questions a gate asks, and they are asked differently. Policy answers per action. Delegation deliberately does not: it publishes keys and a revocation list that enforcement points poll, and it refuses to offer introspection precisely so that it never becomes a service every gate has to reach on every call. Below, memory, identity, crypto, quality, rehearsal and alerting read the same NDJSON stream off-path. Nothing here is a dashboard after the fact: the gates enforce in-line, in seconds. The drawing stops at the planes a request actually touches, so three that matter are named on the rail rather than here: Trailryx seals the bus into a record, Pocket, not yet wired into a running stack, is meant to hold the switch on a device this box never touches, and CostCrew's crew are agents the same gates govern like any other.
-
-## Governance you cannot read is governance you have to trust.
-
-Every part of this stack is Apache-2.0, the console included, and that is not a marketing posture. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust.
-
-Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces. Everything on this site runs, which is a different claim from everything on this site is described.
-
-And we are downstream of a great deal of work nobody billed us for. This stack stands on k3s, Calico, Longhorn, Postgres, SQLite and three language ecosystems, none of which sent an invoice. Publishing ours under Apache-2.0 is not charity and not a growth tactic; it is the ordinary way to be a participant in that rather than only a consumer of it.
-
-Take it, run it, fork it, and never speak to us. That is the point of publishing it.
-
 ## You do not have to take our word for it.
 
-You do not have to take our word for it: [run the stack's live services locally](https://it-rat.com/services/platform.html#run) in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
+You do not have to take our word for it: [install the stack](https://it-rat.com/install.html) in one command, on a box you own or on your laptop, and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
 
 ## Back to the home page.
 
-The [home page](https://it-rat.com/index.html) has the eight figures, the stack's corridor and the wiring, and [the guides index](https://it-rat.com/guides.html) has the field itself.
+The [home page](https://it-rat.com/index.html) has the eight figures and the people behind them, [the Stack page](https://it-rat.com/stack.html) has every service with its room and its guide, and [the guides index](https://it-rat.com/guides.html) has the field itself.
+
+
+---
+
+<!-- https://it-rat.com/install.html -->
+
+# Install the stack, all of it or one service at a time
+
+> One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.
+
+Every service is its own repository with its own releases, so nothing here has to be adopted whole. If you want all of it, one command brings it up on a box you own. If you want one piece, it installs and runs on its own. The exact commands, pinned to a version, live in each repository, because a second copy of an install procedure is a second thing to keep true.
+
+- [Four ways in](https://it-rat.com/install.html#ways)
+
+- [All of it, on one box](https://it-rat.com/install.html#all)
+
+- [All of it, on Kubernetes](https://it-rat.com/install.html#cluster)
+
+- [On your laptop](https://it-rat.com/install.html#laptop)
+
+- [One service at a time](https://it-rat.com/install.html#one)
+
+- [After it is up](https://it-rat.com/install.html#next)
+
+## Four ways in.
+
+one box
+
+### All of it, on one machine
+
+A Debian or Ubuntu machine you own, one command, every service pulled as a published image and nothing compiled.
+
+a cluster
+
+### All of it, on Kubernetes
+
+The same services as plain manifests: one script for bare servers, or one apply on a cluster you already run.
+
+your laptop
+
+### A sandbox to look around
+
+Built from source and run natively, with no Docker, bound to your own machine and gone when you press Ctrl-C.
+
+one piece
+
+### One service at a time
+
+Any single service from its own repository. Most run on their own; the list says which lean on another.
+
+## All of it, in one command.
+
+You need a Debian or Ubuntu machine you control, root on it, and outbound internet. Everything else the installer brings: it adds Docker if the machine has none, pulls every service as a published image, and compiles nothing.
+
+It brings up the core: the gateway and the ledger behind it, policy, identity, key custody and its witness, alerts by mail, a check on the record's chain, the console, and the tunnel an operator uses to reach it. It ends by checking itself, and the last line it prints says whether every check passed.
+
+**It comes up closed.** The gateway listens on the machine's loopback, so nothing faces the internet until you open it, and opening it is one word:
+
+Then point an agent at the gateway, wherever that agent runs. Every call carries a client key, and the installer mints one for your agents when you bring none, in **/opt/agent-stack/agent-key**.
+
+To check an installed box again without changing anything on it:
+
+### Add the rest when you want it
+
+- **Delegation**, so an agent can prove whose authority it carries: `WITH_DELEGATION=1 ./install.sh`
+
+- **Typed answers**, on a free, deterministic stub that makes no outbound call until you choose a model: `WITH_TYPED=1 ./install.sh`
+
+- **Governed web access** for agents that fetch: `docker compose --profile egress up -d scopyx`
+
+- **The FinOps console**: `docker compose --profile finops up -d costcrew`
+
+Every flag, and what a second run does and does not change, is in the [stack-single repository](https://github.com/TAIPANBOX/stack-single#readme).
+
+## All of it, on Kubernetes.
+
+The same services as plain YAML and a kustomization, with no Helm. On bare servers, one script builds the cluster and the stack together:
+
+That script is written for Hetzner: it puts up the cloud firewall, a cluster with secrets encrypted at rest and network policy that is actually enforced, and storage, then applies the manifests and runs the stack's own checks and its containment tests. AWS and GCP have deploy scripts of their own, and on a cluster you already run the manifests apply with one command:
+
+Some services are opt-in on a cluster too, each one more manifest to apply. The [stack-k8s repository](https://github.com/TAIPANBOX/stack-k8s#readme) names them, along with every trap found while building it.
+
+## On your laptop, to look around.
+
+A sandbox, not a deployment. It builds each service from source and runs it natively, with no Docker, binds everything to 127.0.0.1, and stops cleanly when you press Ctrl-C. If a toolchain or a port is missing, it says which.
+
+Delegation, the FinOps console and typed answers join with `--with-delegation`, `--with-finops` and `--with-typed`. The [stack-up repository](https://github.com/TAIPANBOX/stack-up#readme) has the port map and the rest.
+
+## One service at a time.
+
+Nothing here has to be adopted whole. Each service is its own repository with its own releases, and most of them run alone. The list says how each one ships and what, if anything, it leans on; its repository has the command, pinned to a version.
+
+| service | how it ships | on its own | install |
+|---|---|---|---|
+| the control room |  |  |  |
+| Genaryx | The console of the one-box and cluster installs; built from source on its own. | Reads the stack it sits on. | [genaryx ↗](https://github.com/TAIPANBOX/genaryx#readme) |
+| money |  |  |  |
+| TokenFuse | A container image: a proxy you start and point your agent at. | Yes, with a model provider behind it, or its stub for a dry run. | [tokenfuse ↗](https://github.com/TAIPANBOX/tokenfuse#readme) |
+| CostCrew | A Go binary, or the `finops` profile of the one-box install. | Yes. It listens on loopback and reads your bills. | [costcrew ↗](https://github.com/TAIPANBOX/costcrew#readme) |
+| TokenFuse Pocket | An iPhone app, not wired in yet, so there is nothing to install. | Not yet. | not yet |
+| guardrails |  |  |  |
+| Wardryx | A signed container image, or built from source with Go. | Yes. It answers policy questions over HTTP. | [wardryx ↗](https://github.com/TAIPANBOX/wardryx#readme) |
+| Idryx | A prebuilt binary for your platform. | Yes. It reads an event log. | [idryx ↗](https://github.com/TAIPANBOX/idryx#readme) |
+| Scopyx | A container image. | Asks Wardryx for every decision. | [scopyx ↗](https://github.com/TAIPANBOX/scopyx#readme) |
+| Vouchryx | A container image. | Needs an issuer, a signing key and the issuers it trusts. | [vouchryx ↗](https://github.com/TAIPANBOX/vouchryx#readme) |
+| proof |  |  |  |
+| Qryx | A prebuilt binary, with checksums. | Yes. Point it at a path. | [qryx ↗](https://github.com/TAIPANBOX/qryx#readme) |
+| Keyryx | A container image whose build you can verify. | Holds the signing keys the others use; the one-box install includes it. | [keyryx ↗](https://github.com/TAIPANBOX/keyryx#readme) |
+| Verdryx | A Python package, installed from its repository. | Yes. A dry run uses a stub model, with no network and no key. | [verdryx ↗](https://github.com/TAIPANBOX/verdryx#readme) |
+| Typryx | A Go binary or a container image. An optional add-on. | Yes, on its stub backend until you choose a model. | [typryx ↗](https://github.com/TAIPANBOX/typryx#readme) |
+| Mockryx | A prebuilt binary. | Needs a pre-production gateway to fire its drills at. | [mockryx ↗](https://github.com/TAIPANBOX/mockryx#readme) |
+| Trailryx | Container images: a receiver and a store. No Rust toolchain needed. | Takes events from the stack and keeps the record. | [trailryx ↗](https://github.com/TAIPANBOX/trailryx#readme) |
+| ground |  |  |  |
+| Heraldyx | A container image. | Reads an event file, and can write the mail to a file instead of sending it. | [heraldyx ↗](https://github.com/TAIPANBOX/heraldyx#readme) |
+| Engram | A Python package, `pip install engdbram`: a library in your own process. | Yes. | [engram ↗](https://github.com/TAIPANBOX/engram#readme) |
+| Platform | Agent Passport is a specification; agent-stack-go is a Go module with the `agent-conform` binary; the Terraform provider is on the Terraform Registry as `TAIPANBOX/taipan`. | Yes, each of them. | [agent-stack-go ↗](https://github.com/TAIPANBOX/agent-stack-go#readme) |
+
+## Where to go next.
+
+- **[From zero to your first alert](https://it-rat.com/first-alert.html)**: point one agent at the box and make it fire on purpose.
+
+- **[What runs where, and what it costs](https://it-rat.com/what-runs-where.html)**: one machine, a five-node cluster or a hyperscaler, measured.
+
+- **[The Stack page](https://it-rat.com/stack.html)**: every service with its room and its guide.
+
+## Back to the guides.
+
+[The guides index](https://it-rat.com/guides.html) has the rest: how the stack is secured, the practice of running agents, and what changed in October.
 
 
 ---

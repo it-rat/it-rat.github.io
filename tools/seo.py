@@ -40,7 +40,8 @@ GUIDES = {
     # heads by the preview commit and in no generator, the same shape as the
     # entry above.
     "security-by-design.html": "Security by design",
-    "stack-guide.html": "The stack in depth",
+    "stack-guide.html": "How the numbers were produced",
+    "install.html": "Install the stack",
     "changes-2026-10.html": "What changed in the stack, 1 to 15 October 2026",
 }
 # The sixteen service guides are NOT listed here. They are <id>-guide.html for
@@ -140,7 +141,7 @@ def website():
 def breadcrumbs(bits):
     return {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "IT-RAT", "item": f"{SITE}/"},
-        {"@type": "ListItem", "position": 2, "name": "The stack", "item": f"{SITE}/#stack"},
+        {"@type": "ListItem", "position": 2, "name": "The stack", "item": f"{SITE}/stack.html"},
         {"@type": "ListItem", "position": 3, "name": bits["name"], "item": bits["url"]},
     ]}
 
@@ -200,6 +201,7 @@ PUBLISHED = {
     "what-is-proven.html": "2026-08-04",
     "security-by-design.html": "2026-10-16",
     "stack-guide.html": "2026-10-16",
+    "install.html": "2026-10-20",
     "changes-2026-10.html": "2026-10-16",
 }
 
@@ -321,6 +323,17 @@ def main():
         graph.append(q)
     n += write("index.html", graph)
 
+    # The Stack page, since 2026-10-20: every service with its room and guide,
+    # and the questions that used to sit on the home page.
+    st_html = (ROOT / "stack.html").read_text(encoding="utf-8")
+    st = head_bits(st_html, "stack.html")
+    st_graph = [{"@type": "CollectionPage", "url": f"{SITE}/stack.html", "name": st["title"],
+                 "description": st["desc"], "isPartOf": {"@id": f"{SITE}/#website"}}]
+    q = faq(st_html)
+    if q:
+        st_graph.append(q)
+    n += write("stack.html", st_graph)
+
     # Genaryx is Apache-2.0 and public like the seven services under it. This
     # block used to say free=False and strip the repository, from the months it
     # was going to be the one thing we sold. The prose was rewritten when that
@@ -342,8 +355,9 @@ def main():
 
     hub_html = (ROOT / "guides.html").read_text(encoding="utf-8")
     hub = head_bits(hub_html, "guides.html")
-    n += write("guides.html", collection(hub, list(GUIDES.items())
-                                         + [(path, name) for path, name, _ in derived]))
+    # what the hub shows, and nothing it does not: the service guides are listed
+    # on stack.html since 2026-10-20, so they are not in the hub's ItemList either
+    n += write("guides.html", collection(hub, list(GUIDES.items())))
 
     gl_html = (ROOT / "glossary.html").read_text(encoding="utf-8")
     gl = head_bits(gl_html, "glossary.html")

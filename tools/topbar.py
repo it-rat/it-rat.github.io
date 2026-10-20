@@ -2,8 +2,8 @@
 """Own the order of the top bar's controls, and the console link inside it.
 
 Why a script for a hand-written bar. The bar genuinely differs per page: the
-index carries its own anchors, a guide page spells its links out ("All guides",
-"The stack"), a service page carries a crumb instead. There is nothing to
+index carries its own anchors, a guide page spells its links out ("All guides"),
+a service page carries a crumb instead; every page has Stack (since 2026-10-20). There is nothing to
 generate wholesale. What there IS is a shape every page has to share, and a
 shape pasted into 28 files is a shape that drifts. This owns exactly two things
 and touches nothing else in the bar:
@@ -40,12 +40,16 @@ from stackguides import service_guides
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPACER = '<span class="spacer"></span>'
-CONSOLE = '<a class="tb-link" href="{root}console.html">Console</a>'
+# tb-opt since 2026-10-20: with Stack in every bar, a phone has room for the
+# action, Stack and Guides; Console is the one that waits for a wider screen.
+CONSOLE = '<a class="tb-link tb-opt" href="{root}console.html">Console</a>'
 
 # path -> root prefix. console.html is deliberately absent from the console
 # link but still needs its bar ordered, so it carries a None root instead.
 PAGES = {
     "index.html": "",
+    # Added 2026-10-20: the Stack page, every service with its room and guide.
+    "stack.html": "",
     "genaryx.html": "",
     "ai-agent-governance.html": "",
     "finops-for-ai.html": "",
@@ -68,6 +72,8 @@ PAGES = {
     # below for every room in STACK, and a missing one stops this tool.
     "security-by-design.html": "",
     "stack-guide.html": "",
+    # Added 2026-10-20: the install guide, first on the hub.
+    "install.html": "",
     "changes-2026-10.html": "",
     "console.html": None,
     "404.html": "/",
@@ -131,7 +137,18 @@ for path, root in PAGES.items():
     items = [i for i in items
              if 'kbd-hint' not in i and 'tb-cta' not in i and 'console.html' not in i]
 
-    ordered = cta + items
+    # 2026-10-20: every page carries the Stack tab, the list of every service
+    # with its room and its guide (stack.html), placed before Guides. The guide
+    # pages' old action, "The stack" pointing at the home page's corridor, went
+    # with the corridor; their action is the live demo, as everywhere else.
+    r = root or ""
+    cta = ([c for c in cta if "index.html#stack" not in c]
+           or [f'<a class="tb-link tb-cta" href="{r}demo/">Live demo</a>'])
+    # and the "Proof" shortcut is gone from every bar (2026-10-20): the proof
+    # sits on the home page itself, a scroll away, and in its own guide
+    items = [i for i in items if 'stack.html"' not in i and "index.html#stack" not in i
+             and not re.search(r">\s*Proof\s*</a>", i)]
+    ordered = cta + [f'<a class="tb-link" href="{r}stack.html">Stack</a>'] + items
     if root is not None:
         ordered.append(CONSOLE.format(root=root))
     ordered += (jump or [JUMP])

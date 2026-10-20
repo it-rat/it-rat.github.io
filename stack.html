@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The stack: every service in its own room · IT-RAT</title>
+<meta name="description" content="Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story.">
+<link rel="canonical" href="https://it-rat.com/stack.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/stack.html">
+<meta property="og:title" content="The stack: every service in its own room · IT-RAT">
+<meta property="og:description" content="Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="IT-RAT: run AI agents like a workforce, not a wildfire">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The stack: every service in its own room · IT-RAT">
+<meta name="twitter:description" content="Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/stack.md">
+<link rel="stylesheet" href="assets/site.css?v=e21">
+<link rel="stylesheet" href="assets/home/home.css?v=1">
+<style>
+  :root{--accent:#F4B23E}
+  /* ---- the proof grid ----
+     Eight tiles, one per plane, so the count and the column count have to be
+     decided together. site.css's shared `.stats` uses auto-fit, which picks a
+     column count from the available width and knows nothing about how many
+     tiles there are: at 1440px that gave six across and one orphan below.
+     Fixed here rather than in site.css because this is the only page that
+     uses `.stats`, and the rule is about these eight tiles specifically. */
+  .stats{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:430px){.stats{grid-template-columns:1fr}}
+  .stat .l b{color:var(--fg);font-weight:650;display:block;margin-bottom:2px}
+  /* ---- hero ---- */
+  .hero{position:relative;min-height:min(86vh,920px);display:flex;align-items:center;overflow:hidden}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+  .hero .wrap{position:relative;width:100%;padding-top:70px;padding-bottom:70px}
+  .hero h1{max-width:13ch}
+  .hero h1 .grad{
+    background:linear-gradient(92deg,#34D399 0%,#F4B23E 55%,#FF574B 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .lede{margin-top:22px}
+  .hero .cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+  .ticker{
+    display:flex;gap:clamp(18px,4vw,44px);flex-wrap:wrap;margin-top:56px;
+    border-top:1px solid var(--line);padding-top:22px;
+  }
+  .tick .n{font-family:var(--font-m);font-weight:700;font-size:clamp(20px,2.4vw,28px);font-variant-numeric:tabular-nums}
+  .tick .l{font-size:12px;color:var(--faint);margin-top:3px;max-width:170px;line-height:1.4}
+  /* ---- rail cards ---- */
+  .svc{min-height:210px;display:flex;flex-direction:column;gap:10px;border-top:2px solid transparent}
+  .svc:hover{border-top-color:var(--c)}
+  .svc .head{display:flex;align-items:center;gap:10px}
+  .svc .plane{white-space:nowrap}
+  .svc .g{width:11px;height:11px;border-radius:4px;background:var(--c);box-shadow:0 0 14px var(--c)}
+  .svc .plane{margin-left:auto;font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .svc h3{font-size:20px}
+  .svc .what{color:var(--dim);font-size:14px;line-height:1.55;flex:1}
+  .svc .go{font-family:var(--font-m);font-size:12px;color:var(--c);display:flex;align-items:center;gap:7px}
+  .svc .go::after{content:"\2192";transition:transform .18s}
+  .svc:hover .go::after{transform:translateX(4px)}
+  .rail-hint{display:flex;align-items:center;gap:10px;color:var(--faint);font-family:var(--font-m);font-size:11px;margin-top:6px}
+  .rail-hint .bar{flex:0 0 90px;height:1px;background:linear-gradient(90deg,var(--line-2),transparent)}
+  /* ---- planes strip ---- */
+  .planes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:900px){.planes{grid-template-columns:repeat(2,1fr)}}
+  .plane-card{padding:18px;border:1px solid var(--line);border-radius:var(--rad-s);background:var(--panel)}
+  .plane-card .t{font-family:var(--font-m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase}
+  .plane-card .d{font-size:13px;color:var(--dim);margin-top:7px;line-height:1.5}
+  /* ---- quote ---- */
+  .pull{
+    border-left:2px solid var(--accent);padding:8px 0 8px 28px;
+    font-family:var(--font-d);font-size:clamp(21px,3vw,30px);font-weight:650;letter-spacing:-.015em;line-height:1.35;max-width:26ch;
+  }
+  .pull .who{display:block;margin-top:16px;font:12.5px var(--font-m);color:var(--faint);letter-spacing:.04em}
+  /* ---- why open ---- */
+  .consult{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,4vw,56px);align-items:start}
+  @media(max-width:900px){.consult{grid-template-columns:1fr}}
+  .consult ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+  .consult li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.55}
+  .consult li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .consult li b{color:var(--fg)}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","url":"https://it-rat.com/stack.html","name":"The stack: every service in its own room · IT-RAT","description":"Every service in the stack, grouped by the ring it belongs to, each with a room that shows it working and a guide with the full story.","isPartOf":{"@id":"https://it-rat.com/#website"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AI agent governance?","acceptedAnswer":{"@type":"Answer","text":"Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards."}},{"@type":"Question","name":"Is the stack open source?","acceptedAnswer":{"@type":"Answer","text":"Yes, all of it. Apache-2.0, source on GitHub : TokenFuse, CostCrew, TokenFuse Pocket, Wardryx, Idryx, Scopyx, Vouchryx, Qryx, Verdryx, Typryx, Mockryx, Trailryx, Heraldyx and Engram, the shared contract under them, and Genaryx , the console over all of them."}},{"@type":"Question","name":"Do you host any of this, or see our data?","acceptedAnswer":{"@type":"Answer","text":"No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem, and on-prem is measured rather than merely allowed: on 2026-09-17 the whole stack ran on a small box behind a home router, governing agents in AWS and GCP at the same time. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach."}},{"@type":"Question","name":"What does it cost to try?","acceptedAnswer":{"@type":"Answer","text":"Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see run the live stack locally . The four that are libraries and CLIs each carry a one-line try-it on their own page."}}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">agent governance<span class="sep">/</span><span class="here">the stack</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="demo/">Live demo</a>
+    <a class="tb-link" href="stack.html">Stack</a>
+    <a class="tb-link" href="guides.html">Guides</a>
+    <a class="tb-link tb-opt" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<!-- ======================= STACK RAIL ======================= -->
+<!-- The proof section sits directly above this one and both carried the
+     default .sec padding, so the gap between them measured 240px at 1440
+     while every other seam on the page is 130 to 146. Matched to the one
+     below it, which overrides the same way. -->
+<section class="sec" id="stack" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">the stack</div>
+      <h1 style="font-size:clamp(32px,4.4vw,50px)">Every service, by the ring it belongs to.</h1>
+      <p class="lede">Each service has a room, with its drawing, its replay and its numbers, and a guide with the full story. Every one is Apache-2.0 and installs on its own.</p>
+    </div>
+    <!-- stacklist:auto -->
+    <div class="svc-groups">
+      <div class="svc-group" style="--c:#B48CFF"><div class="sg-head"><i></i><h3>The control room</h3><p>One room over all of it, in your browser, on your own box.</p></div><ul class="sg-rows"><li class="sg-row" style="--c:#B48CFF"><i></i><div class="sg-name"><b>Genaryx</b><span>control room</span></div><p>The control room over all of it, in your browser on your own box.</p><div class="sg-go"><a href="genaryx.html" data-dir="fwd">Room &#8594;</a><a href="genaryx-guide.html">Guide &#8594;</a></div></li></ul></div>
+      <div class="svc-group" style="--c:#F4B23E"><div class="sg-head"><i></i><h3>Money</h3><p>What it may spend, and the switch that stops it.</p></div><ul class="sg-rows"><li class="sg-row" style="--c:#F4B23E"><i></i><div class="sg-name"><b>TokenFuse</b><span>money</span></div><p>Runtime spend control and the in-line kill switch.</p><div class="sg-go"><a href="services/tokenfuse.html" data-dir="fwd">Room &#8594;</a><a href="tokenfuse-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#7DD3A0"><i></i><div class="sg-name"><b>CostCrew</b><span>finops</span></div><p>A crew of agents takes your cloud bill apart, a person signs it off.</p><div class="sg-go"><a href="services/costcrew.html" data-dir="fwd">Room &#8594;</a><a href="costcrew-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#22D3EE"><i></i><div class="sg-name"><b>TokenFuse Pocket</b><span>out of band</span><em class="sg-note">not wired in yet</em></div><p>The kill switch on a device the agent's host never touches.</p><div class="sg-go"><a href="services/pocket.html" data-dir="fwd">Room &#8594;</a><a href="pocket-guide.html">Guide &#8594;</a></div></li></ul></div>
+      <div class="svc-group" style="--c:#2DD4BF"><div class="sg-head"><i></i><h3>Guardrails</h3><p>Who it is, what it may do, who signs the big things.</p></div><ul class="sg-rows"><li class="sg-row" style="--c:#2DD4BF"><i></i><div class="sg-name"><b>Wardryx</b><span>policy</span></div><p>Policy decisions with a human in the loop.</p><div class="sg-go"><a href="services/wardryx.html" data-dir="fwd">Room &#8594;</a><a href="wardryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#34D399"><i></i><div class="sg-name"><b>Idryx</b><span>access</span></div><p>One identity graph for humans, keys and agents.</p><div class="sg-go"><a href="services/idryx.html" data-dir="fwd">Room &#8594;</a><a href="idryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#F0ABFC"><i></i><div class="sg-name"><b>Scopyx</b><span>egress</span></div><p>Agents reach the web through a decision, not around one.</p><div class="sg-go"><a href="services/scopyx.html" data-dir="fwd">Room &#8594;</a><a href="scopyx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#8B9DFF"><i></i><div class="sg-name"><b>Vouchryx</b><span>delegation</span></div><p>A delegation an agent can prove it holds, and a person can end.</p><div class="sg-go"><a href="services/vouchryx.html" data-dir="fwd">Room &#8594;</a><a href="vouchryx-guide.html">Guide &#8594;</a></div></li></ul></div>
+      <div class="svc-group" style="--c:#FF7AA2"><div class="sg-head"><i></i><h3>Proof</h3><p>What it did, written so nobody can quietly change it.</p></div><ul class="sg-rows"><li class="sg-row" style="--c:#B48CFF"><i></i><div class="sg-name"><b>Qryx</b><span>crypto</span></div><p>Cryptography inventory and post-quantum risk.</p><div class="sg-go"><a href="services/qryx.html" data-dir="fwd">Room &#8594;</a><a href="qryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#FDE68A"><i></i><div class="sg-name"><b>Keyryx</b><span>key custody</span></div><p>Signing keys held apart from the code that uses them, and a read-only witness of the record.</p><div class="sg-go"><a href="services/keyryx.html" data-dir="fwd">Room &#8594;</a><a href="keyryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#FF7AA2"><i></i><div class="sg-name"><b>Verdryx</b><span>quality</span></div><p>Cost per correctly resolved case, not per token.</p><div class="sg-go"><a href="services/verdryx.html" data-dir="fwd">Room &#8594;</a><a href="verdryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#60A5FA"><i></i><div class="sg-name"><b>Typryx</b><span>typed answers</span><em class="sg-note">optional add-on</em></div><p>A typed answer with a probability, never a guess.</p><div class="sg-go"><a href="services/typryx.html" data-dir="fwd">Room &#8594;</a><a href="typryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#FF8A5B"><i></i><div class="sg-name"><b>Mockryx</b><span>pre-prod</span></div><p>Fire drills that prove guardrails hold.</p><div class="sg-go"><a href="services/mockryx.html" data-dir="fwd">Room &#8594;</a><a href="mockryx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#E4626F"><i></i><div class="sg-name"><b>Trailryx</b><span>the record</span></div><p>A record nobody can quietly change or shorten.</p><div class="sg-go"><a href="services/trailryx.html" data-dir="fwd">Room &#8594;</a><a href="trailryx-guide.html">Guide &#8594;</a></div></li></ul></div>
+      <div class="svc-group" style="--c:#6C7BFF"><div class="sg-head"><i></i><h3>Ground</h3><p>Memory, alerts and one contract under all of it.</p></div><ul class="sg-rows"><li class="sg-row" style="--c:#5BC8F5"><i></i><div class="sg-name"><b>Heraldyx</b><span>alerts</span></div><p>The box writes to you, with a link and never a button.</p><div class="sg-go"><a href="services/heraldyx.html" data-dir="fwd">Room &#8594;</a><a href="heraldyx-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#6C7BFF"><i></i><div class="sg-name"><b>Engram</b><span>memory</span></div><p>The SQLite of agent memory.</p><div class="sg-go"><a href="services/engram.html" data-dir="fwd">Room &#8594;</a><a href="engram-guide.html">Guide &#8594;</a></div></li><li class="sg-row" style="--c:#93A8C4"><i></i><div class="sg-name"><b>Platform</b><span>contract</span></div><p>Agent Passport, shared contract, Terraform.</p><div class="sg-go"><a href="services/platform.html" data-dir="fwd">Room &#8594;</a><a href="platform-guide.html">Guide &#8594;</a></div></li></ul></div>
+    </div>
+    <!-- /stacklist:auto -->
+  </div>
+</section>
+
+<!-- ======================= WIRING ======================= -->
+<section class="sec" id="wiring" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">how it wires</div>
+      <h2>One passport, one event bus, four planes of control.</h2>
+      <p class="lede">Every request carries an Agent Passport. An agent has two ways out, not one: a call to a model, and a fetch of something on the internet, and each has a gate standing in it. Below, memory, identity, crypto, quality, rehearsal and alerting read the same NDJSON stream off-path. Nothing here is a dashboard after the fact: the gates enforce in-line, in seconds.</p>
+    </div>
+    <div class="diagram rv">
+      <svg viewBox="0 0 960 460" role="img" aria-label="Stack wiring diagram: an agent with two outbound lanes, each gated in the request path, both emitting to one event bus">
+        <defs>
+          <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5A6675"/></marker>
+        </defs>
+        <!-- Consulted above the spine, and the two are consulted differently.
+             Wardryx answers per action, so its arrow is a request. Vouchryx
+             publishes keys and a revocation list that enforcement points POLL,
+             and it refuses to offer introspection precisely so it never lands
+             on the request path, so its line is dotted and points the other
+             way: what arrives at the gateway is data it already fetched. -->
+        <!-- vouchryx -->
+        <rect x="60" y="20" width="170" height="64" rx="14" fill="#141C27" stroke="#8B9DFF" stroke-width="1.4"/>
+        <text x="145" y="47" text-anchor="middle" fill="#8B9DFF" font-family="ui-monospace,Menlo" font-size="13" font-weight="700">Vouchryx</text>
+        <text x="145" y="64" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">mints &#183; revokes &#183; jwks</text>
+        <!-- wardryx -->
+        <rect x="300" y="20" width="170" height="64" rx="14" fill="#141C27" stroke="#2DD4BF" stroke-width="1.4"/>
+        <text x="385" y="47" text-anchor="middle" fill="#2DD4BF" font-family="ui-monospace,Menlo" font-size="13" font-weight="700">Wardryx</text>
+        <text x="385" y="64" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">allow &#183; deny &#183; hold</text>
+        <!-- agent -->
+        <rect x="20" y="170" width="130" height="84" rx="14" fill="#141C27" stroke="#2a3547"/>
+        <text x="85" y="205" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="13" font-weight="700">agent</text>
+        <text x="85" y="223" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">carries a passport</text>
+        <text x="85" y="238" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">two ways out</text>
+        <!-- tokenfuse -->
+        <rect x="240" y="140" width="170" height="84" rx="14" fill="#141C27" stroke="#F4B23E" stroke-width="1.4"/>
+        <text x="325" y="172" text-anchor="middle" fill="#F4B23E" font-family="ui-monospace,Menlo" font-size="14" font-weight="700">TokenFuse</text>
+        <text x="325" y="190" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">budgets &#183; breaker &#183; router</text>
+        <text x="325" y="205" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">402 when the money stops</text>
+        <!-- provider -->
+        <rect x="485" y="150" width="170" height="64" rx="14" fill="#141C27" stroke="#2a3547"/>
+        <text x="570" y="178" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="12.5" font-weight="700">model provider</text>
+        <text x="570" y="196" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">Anthropic &#183; OpenAI &#183; local</text>
+        <!-- scopyx -->
+        <rect x="180" y="252" width="170" height="84" rx="14" fill="#141C27" stroke="#F0ABFC" stroke-width="1.4"/>
+        <text x="265" y="284" text-anchor="middle" fill="#F0ABFC" font-family="ui-monospace,Menlo" font-size="14" font-weight="700">Scopyx</text>
+        <text x="265" y="302" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">scheme &#183; host &#183; addresses</text>
+        <text x="265" y="317" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">policy, then robots.txt</text>
+        <!-- the web -->
+        <rect x="485" y="262" width="170" height="64" rx="14" fill="#141C27" stroke="#2a3547"/>
+        <text x="570" y="290" text-anchor="middle" fill="#E9EFF6" font-family="ui-monospace,Menlo" font-size="12.5" font-weight="700">the web</text>
+        <text x="570" y="308" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="10">any host, every redirect</text>
+        <!-- bus -->
+        <line x1="390" y1="224" x2="390" y2="238" stroke="#5A6675" stroke-width="1.4" class="flow"/><line x1="390" y1="238" x2="700" y2="238" stroke="#5A6675" stroke-width="1.4" class="flow"/><line x1="700" y1="238" x2="700" y2="362" stroke="#5A6675" stroke-width="1.4" class="flow"/><line x1="700" y1="347" x2="700" y2="362" stroke="#5A6675" stroke-width="1.4" marker-end="url(#arr)"/>
+        <line x1="265" y1="336" x2="265" y2="362" stroke="#5A6675" stroke-width="1.4" class="flow"/><line x1="265" y1="347" x2="265" y2="362" stroke="#5A6675" stroke-width="1.4" marker-end="url(#arr)"/>
+        <rect x="60" y="364" width="840" height="34" rx="10" fill="#0F151E" stroke="#2a3547"/>
+        <text x="480" y="385" text-anchor="middle" fill="#8A97A6" font-family="ui-monospace,Menlo" font-size="11" letter-spacing="2">agent-event bus &#183; NDJSON &#183; taipanbox.dev/agent-event</text>
+        <!-- request path: the model lane -->
+        <line x1="150" y1="190" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="217" y1="183.4" x2="232" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <line x1="410" y1="182" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="462" y1="182" x2="477" y2="182" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <!-- request path: the egress lane, which leaves the same agent -->
+        <line x1="85" y1="254" x2="85" y2="294" stroke="#5A6675" stroke-width="1.6" class="flow"/>
+        <line x1="85" y1="294" x2="172" y2="294" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="157" y1="294" x2="172" y2="294" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <line x1="350" y1="294" x2="477" y2="294" stroke="#5A6675" stroke-width="1.6" class="flow"/><line x1="462" y1="294" x2="477" y2="294" stroke="#5A6675" stroke-width="1.6" marker-end="url(#arr)"/>
+        <!-- consulted per action -->
+        <line x1="325" y1="140" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" class="flow"/><line x1="325" y1="107" x2="325" y2="92" stroke="#2DD4BF" stroke-width="1.4" marker-end="url(#arr)"/>
+        <text x="338" y="120" fill="#2DD4BF" font-family="ui-monospace,Menlo" font-size="9.5">/v1/decide</text>
+        <!-- minted before the call, then verified offline -->
+        <line x1="85" y1="170" x2="85" y2="88" stroke="#8B9DFF" stroke-width="1.4" class="flow"/><line x1="85" y1="103" x2="85" y2="88" stroke="#8B9DFF" stroke-width="1.4" marker-end="url(#arr)"/>
+        <text x="76" y="130" text-anchor="end" fill="#8B9DFF" font-family="ui-monospace,Menlo" font-size="9.5">/v1/token</text>
+        <line x1="205" y1="88" x2="285" y2="136" stroke="#8B9DFF" stroke-width="1.3" class="flow-dot"/><line x1="272" y1="128.2" x2="285" y2="136" stroke="#8B9DFF" stroke-width="1.3" marker-end="url(#arr)"/>
+        <text x="252" y="124" text-anchor="end" fill="#8B9DFF" font-family="ui-monospace,Menlo" font-size="9">polled, not per call</text>
+        <!-- off-path consumers -->
+        <g font-family="ui-monospace,Menlo" font-size="12" font-weight="700" text-anchor="middle">
+          <rect x="70" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#6C7BFF"/><text x="130" y="438" fill="#6C7BFF">Engram</text>
+          <rect x="210" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#34D399"/><text x="270" y="438" fill="#34D399">Idryx</text>
+          <rect x="350" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#B48CFF"/><text x="410" y="438" fill="#B48CFF">Qryx</text>
+          <rect x="490" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#FF7AA2"/><text x="550" y="438" fill="#FF7AA2">Verdryx</text>
+          <rect x="630" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#FF8A5B"/><text x="690" y="438" fill="#FF8A5B">Mockryx</text>
+          <rect x="770" y="418" width="120" height="30" rx="9" fill="#141C27" stroke="#5BC8F5"/><text x="830" y="438" fill="#5BC8F5">Heraldyx</text>
+        </g>
+        <g stroke="#5A6675" stroke-width="1.1" class="flow">
+          <line x1="130" y1="398" x2="130" y2="416"/><line x1="270" y1="398" x2="270" y2="416"/>
+          <line x1="410" y1="398" x2="410" y2="416"/><line x1="550" y1="398" x2="550" y2="416"/>
+          <line x1="690" y1="398" x2="690" y2="416"/><line x1="830" y1="398" x2="830" y2="416"/>
+        </g>
+      </svg>
+    </div>
+    <div class="planes rv" style="margin-top:14px">
+      <div class="plane-card"><div class="t" style="color:var(--amber)">money</div><div class="d">Per-run budgets, loop detection, burn forecast, a breaker that answers 402 in seconds.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--teal)">policy</div><div class="d">Deterministic allow, deny or hold-for-a-human. No model in the decision path.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--iris)">knowledge</div><div class="d">Memory with provenance: what the agent knew, when it knew it, and why.</div></div>
+      <div class="plane-card"><div class="t" style="color:var(--mint)">trust</div><div class="d">Identity, crypto posture, quality drift and pre-prod drills over the same events.</div></div>
+    </div>
+    <!-- Routes by the guides hub's own groups rather than listing guides: a
+         list here said "four more cover this stack" while the hub held
+         twenty-four, and named one guide by a title it no longer has. No count
+         is stated, because tools/guidehub.py keeps the hub's and nothing would
+         keep one here. -->
+    <p class="rv" style="margin-top:22px;font-size:15px;line-height:1.65;color:var(--dim);max-width:78ch">New to this? <a href="guides.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">The guides</a> are grouped by what you came for: <a href="first-alert.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">where to start</a>, <a href="security-by-design.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">how the stack is secured</a>, the practice of running agents, from <a href="ai-agent-governance.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">governance</a> to <a href="finops-for-ai.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">FinOps for AI</a>, each service in depth, and <a href="changes-2026-10.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">what changed in October</a>. Every room above links its own guide, and <a href="stack-guide.html" style="color:var(--fg);border-bottom:1px solid var(--line-2)">the stack in depth</a> holds the rest of this page.</p>
+  </div>
+</section>
+
+<!-- ======================= QUOTE ======================= -->
+<section class="sec" style="padding-top:10px">
+  <div class="wrap">
+    <blockquote class="pull rv">
+      &#8220;Your AI agents are employees. You just forgot to onboard them.&#8221;
+      <span class="who">Tania Fedirko, FinOps Expert, on why this stack exists</span>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ======================= WHY OPEN ======================= -->
+<section class="sec" id="open" style="padding-top:26px">
+  <div class="wrap">
+    <div class="rv" style="max-width:78ch">
+      <div class="kicker">why all of it is open</div>
+      <h2 style="margin-top:14px">Governance you cannot read is governance you have to trust.</h2>
+      <p class="lede" style="margin-top:16px">Every part of this stack is Apache-2.0, the console included, and that is not a marketing posture. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust.</p>
+      <div class="cta" style="display:flex;gap:12px;margin-top:22px;flex-wrap:wrap">
+        <a class="btn" href="stack-guide.html#open">The longer answer <span class="mono">&#8594;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PEOPLE ======================= -->
+<!-- ======================= FOOTER ======================= -->
+<!-- faq:auto -->
+<section class="sec" id="faq" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">common questions</div>
+      <h2>The questions that come before the demo</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>What is AI agent governance?</summary>
+        <div class="a"><p>Governance is the set of controls that decide what an agent is allowed to do while it is running: a budget it cannot exceed, a policy it must ask before acting, an identity that records who it acts for, a memory that can say where a belief came from, and evidence an auditor can verify afterwards.</p></div>
+      </details>
+      <details>
+        <summary>Is the stack open source?</summary>
+        <div class="a"><p>Yes, all of it. Apache-2.0, source on <a href="https://github.com/TAIPANBOX" target="_blank" rel="noopener">GitHub</a>: TokenFuse, CostCrew, TokenFuse Pocket, Wardryx, Idryx, Scopyx, Vouchryx, Qryx, Verdryx, Typryx, Mockryx, Trailryx, Heraldyx and Engram, the shared <a href="services/platform.html">contract</a> under them, and <a href="genaryx.html">Genaryx</a>, the console over all of them.</p></div>
+      </details>
+      <details>
+        <summary>Do you host any of this, or see our data?</summary>
+        <div class="a"><p>No. Every plane runs on infrastructure you own: AWS, GCP, Hetzner, any cloud or on-prem, and on-prem is measured rather than merely allowed: on 2026-09-17 the whole stack ran on a small box behind a home router, governing agents in AWS and GCP at the same time. We never run your control plane, hold your keys or store your traffic, so there is nothing on our side to subpoena or breach.</p></div>
+      </details>
+      <details>
+        <summary>What does it cost to try?</summary>
+        <div class="a"><p>Nothing, and no account. Every part of it is Apache-2.0, the console included. One command builds and starts the long-running services locally: see <a href="services/platform.html#run">run the live stack locally</a>. The four that are libraries and CLIs each carry a one-line try-it on their own page.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- /faq:auto -->
+
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="foot-cta">
+      <div class="rv">
+        <div class="kicker" style="--accent:var(--mint)">before you go</div>
+        <h2 style="margin-top:14px">Leave a note with the desk agent.</h2>
+        <p class="lede" style="margin-top:14px">A question about the stack, an idea for a pilot, or just a hello. The agent collects your note and hands it to your own mail client: deterministic, transparent, and it keeps no copy. Prefer plain email? <a href="mailto:itratmail@gmail.com" style="color:var(--fg);border-bottom:1px solid var(--line-2)">itratmail@gmail.com</a></p>
+      </div>
+      <div class="rv d1" data-concierge></div>
+    </div>
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+      <!-- Hand-kept: only foot-groups is generated here, by tools/footer.py.
+           This page has NO link column at all, where the other 27 have one
+           holding the address. Here the footer IS the contact section
+           (footer#contact), so the address already sits in the "before you go"
+           block a few hundred pixels above and printing it twice inside one
+           footer was what it looked like. Everywhere else that block does not
+           exist and the column is the only way to write to us, which is why
+           the generator still emits it there. Do not "sync" this back. -->
+    </div>
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js?v=e05"></script>
+<script src="assets/concierge.js"></script>
+</body>
+</html>

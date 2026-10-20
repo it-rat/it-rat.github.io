@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install the stack: all of it, or one service at a time · IT-RAT</title>
+<meta name="description" content="One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.">
+<link rel="canonical" href="https://it-rat.com/install.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="IT-RAT">
+<meta property="og:url" content="https://it-rat.com/install.html">
+<meta property="og:title" content="Install the stack: all of it, or one service at a time · IT-RAT">
+<meta property="og:description" content="One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.">
+<meta property="og:image" content="https://it-rat.com/assets/og/index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Install the stack: all of it, or one service at a time · IT-RAT">
+<meta name="twitter:description" content="One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.">
+<meta name="twitter:image" content="https://it-rat.com/assets/og/index.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="alternate" type="text/markdown" href="https://it-rat.com/install.md">
+<link rel="stylesheet" href="assets/site.css?v=e21">
+<style>
+  :root{--accent:#F4B23E}
+  .guide-hero{padding:clamp(48px,7vw,84px) 0 30px}
+  .guide-hero h1{margin-top:14px;max-width:22ch}
+  .guide-hero .lede{margin-top:20px;max-width:74ch}
+  .guide-hero .lede a,.sec-head .lede a,.prose a{color:var(--accent)}
+  .back{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .prose{max-width:76ch}
+  .prose p{color:var(--dim);font-size:15.5px;line-height:1.75;margin-top:14px}
+  .prose p b{color:var(--fg);font-weight:650}
+  .prose h3{margin-top:30px;font-size:19px}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .prose li{display:flex;gap:12px;color:var(--dim);font-size:15px;line-height:1.65}
+  .prose li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--accent);margin-top:8px}
+  .prose li b{color:var(--fg)}
+  /* "on this page": a compact list in two columns where there is room for two */
+  .gtoc-sec{padding:6px 0 30px}
+  .gtoc{border:1px solid var(--line-2);border-radius:var(--rad-s);background:var(--panel);padding:18px 22px 16px;max-width:76ch}
+  .gtoc ol{margin:12px 0 0;padding-left:22px;columns:2 260px;column-gap:36px}
+  .gtoc li{break-inside:avoid;padding:3px 0;color:var(--faint);font-family:var(--font-m);font-size:12px}
+  .gtoc a{color:var(--dim);font-family:var(--font-t);font-size:14.5px;transition:color .15s}
+  .gtoc a:hover{color:var(--accent)}
+  /* install: four ways in, a command block, and the per-service table */
+  .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+  @media(max-width:980px){.ways{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.ways{grid-template-columns:1fr}}
+  .way{display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;border:1px solid var(--line);border-radius:var(--rad-s);background:linear-gradient(180deg,var(--panel-2),var(--panel));position:relative;overflow:hidden}
+  .way::before{content:"";position:absolute;left:0;top:0;right:0;height:2px;background:var(--c)}
+  .way .k{font:600 10.5px/1 var(--font-m);letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+  .way h3{font-size:18px;letter-spacing:-.01em;margin:0}
+  .way p{margin:0;color:var(--dim);font-size:14px;line-height:1.6}
+  .way a.go{margin-top:auto;font:600 12px/1 var(--font-m);color:var(--fg);padding-top:8px}
+  .cmd{margin-top:14px;max-width:76ch;font:13px/1.6 var(--font-m);color:var(--fg);background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .cmd .c{color:var(--faint)}
+  .svc-table{width:100%;max-width:1000px;border-collapse:collapse;margin-top:18px;font-size:14px}
+  .svc-table th{text-align:left;font:600 10.5px/1.3 var(--font-m);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding:10px 12px;border-bottom:1px solid var(--line-2)}
+  .svc-table td{padding:12px;border-bottom:1px solid var(--line);color:var(--dim);line-height:1.55;vertical-align:top}
+  .svc-table td:first-child{color:var(--fg);font-weight:650;white-space:nowrap}
+  .svc-table td:first-child i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:9px;vertical-align:1px}
+  .svc-table td a{color:var(--accent);white-space:nowrap}
+  .svc-table tr.grp td{color:var(--fg);font:700 10.5px/1 var(--font-m);letter-spacing:.14em;text-transform:uppercase;padding-top:22px;border-bottom:1px solid var(--line-2)}
+  @media(max-width:760px){.svc-table thead{display:none}.svc-table tr{display:grid;grid-template-columns:1fr;padding:8px 0;border-bottom:1px solid var(--line)}.svc-table td{border:0;padding:3px 0}.svc-table tr.grp{border:0}}
+</style>
+<!-- seo:auto -->
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Install the stack: all of it, or one service at a time","name":"Install the stack","url":"https://it-rat.com/install.html","description":"One command for the whole stack on a box you own, a cluster or your laptop, and how each service installs and runs on its own.","inLanguage":"en","datePublished":"2026-10-20","dateModified":"2026-10-20","author":{"@id":"https://it-rat.com/#org"},"publisher":{"@id":"https://it-rat.com/#org"},"mainEntityOfPage":"https://it-rat.com/install.html"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IT-RAT","item":"https://it-rat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://it-rat.com/guides.html"},{"@type":"ListItem","position":3,"name":"Install the stack","item":"https://it-rat.com/install.html"}]}]}</script>
+<!-- /seo:auto -->
+</head>
+<body data-root="">
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+    <span class="crumb">guides<span class="sep">/</span><span class="here">install</span></span>
+    <span class="spacer"></span>
+    <a class="tb-link tb-cta" href="demo/">Live demo</a>
+    <a class="tb-link" href="stack.html">Stack</a>
+    <a class="tb-link" href="guides.html">All guides</a>
+    <a class="tb-link tb-opt" href="console.html">Console</a>
+    <button class="kbd-hint" data-cmdk type="button"><span>jump</span><kbd>&#8984;K</kbd></button>
+  </div>
+</header>
+
+<section class="guide-hero">
+  <div class="wrap">
+    <div class="kicker rv">a guide &#183; install</div>
+    <h1 class="rv d1">Install it all at once, or one service at a time.</h1>
+    <p class="lede rv d2">Every service is its own repository with its own releases, so nothing here has to be adopted whole. If you want all of it, one command brings it up on a box you own. If you want one piece, it installs and runs on its own. The exact commands, pinned to a version, live in each repository, because a second copy of an install procedure is a second thing to keep true.</p>
+    <div class="back rv d3"><a class="btn" href="guides.html"><span class="mono">&#8592;</span> All guides</a></div>
+  </div>
+</section>
+
+<section class="sec gtoc-sec"><div class="wrap"><nav class="gtoc" aria-label="On this page"><div class="kicker">on this page</div><ol><li><a href="#ways">Four ways in</a></li><li><a href="#all">All of it, on one box</a></li><li><a href="#cluster">All of it, on Kubernetes</a></li><li><a href="#laptop">On your laptop</a></li><li><a href="#one">One service at a time</a></li><li><a href="#next">After it is up</a></li></ol></nav></div></section>
+
+<section class="sec" id="ways" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">pick a shape</div>
+      <h2>Four ways in.</h2>
+    </div>
+    <div class="ways rv">
+      <div class="way" style="--c:#F4B23E"><div class="k">one box</div><h3>All of it, on one machine</h3><p>A Debian or Ubuntu machine you own, one command, every service pulled as a published image and nothing compiled.</p><a class="go" href="#all">One command &#8595;</a></div>
+      <div class="way" style="--c:#2DD4BF"><div class="k">a cluster</div><h3>All of it, on Kubernetes</h3><p>The same services as plain manifests: one script for bare servers, or one apply on a cluster you already run.</p><a class="go" href="#cluster">The cluster &#8595;</a></div>
+      <div class="way" style="--c:#6C7BFF"><div class="k">your laptop</div><h3>A sandbox to look around</h3><p>Built from source and run natively, with no Docker, bound to your own machine and gone when you press Ctrl-C.</p><a class="go" href="#laptop">The sandbox &#8595;</a></div>
+      <div class="way" style="--c:#FF7AA2"><div class="k">one piece</div><h3>One service at a time</h3><p>Any single service from its own repository. Most run on their own; the list says which lean on another.</p><a class="go" href="#one">The list &#8595;</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="all" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">one box</div>
+      <h2>All of it, in one command.</h2>
+    </div>
+    <div class="prose rv">
+      <p>You need a Debian or Ubuntu machine you control, root on it, and outbound internet. Everything else the installer brings: it adds Docker if the machine has none, pulls every service as a published image, and compiles nothing.</p>
+      <div class="cmd">curl -fsSL https://raw.githubusercontent.com/TAIPANBOX/stack-single/main/install.sh | bash</div>
+      <p>It brings up the core: the gateway and the ledger behind it, policy, identity, key custody and its witness, alerts by mail, a check on the record's chain, the console, and the tunnel an operator uses to reach it. It ends by checking itself, and the last line it prints says whether every check passed.</p>
+      <p><b>It comes up closed.</b> The gateway listens on the machine's loopback, so nothing faces the internet until you open it, and opening it is one word:</p>
+      <div class="cmd">GATEWAY_BIND=0.0.0.0 ./install.sh</div>
+      <p>Then point an agent at the gateway, wherever that agent runs. Every call carries a client key, and the installer mints one for your agents when you bring none, in <b>/opt/agent-stack/agent-key</b>.</p>
+      <div class="cmd">ANTHROPIC_BASE_URL=http://&lt;your box&gt;:4100</div>
+      <p>To check an installed box again without changing anything on it:</p>
+      <div class="cmd">STACK_DIR=/opt/agent-stack ./install.sh status</div>
+      <h3>Add the rest when you want it</h3>
+      <ul>
+        <li><span><b>Delegation</b>, so an agent can prove whose authority it carries: <code>WITH_DELEGATION=1 ./install.sh</code></span></li>
+        <li><span><b>Typed answers</b>, on a free, deterministic stub that makes no outbound call until you choose a model: <code>WITH_TYPED=1 ./install.sh</code></span></li>
+        <li><span><b>Governed web access</b> for agents that fetch: <code>docker compose --profile egress up -d scopyx</code></span></li>
+        <li><span><b>The FinOps console</b>: <code>docker compose --profile finops up -d costcrew</code></span></li>
+      </ul>
+      <p>Every flag, and what a second run does and does not change, is in the <a href="https://github.com/TAIPANBOX/stack-single#readme" rel="noopener">stack-single repository</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="cluster" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">a cluster</div>
+      <h2>All of it, on Kubernetes.</h2>
+    </div>
+    <div class="prose rv">
+      <p>The same services as plain YAML and a kustomization, with no Helm. On bare servers, one script builds the cluster and the stack together:</p>
+      <div class="cmd">git clone https://github.com/TAIPANBOX/stack-k8s &amp;&amp; cd stack-k8s
+./deploy.sh --servers ip1,ip2,ip3 --agents ip4,ip5 --hcloud-token &lt;token&gt; \
+  --trust-domain &lt;your domain&gt;</div>
+      <p>That script is written for Hetzner: it puts up the cloud firewall, a cluster with secrets encrypted at rest and network policy that is actually enforced, and storage, then applies the manifests and runs the stack's own checks and its containment tests. AWS and GCP have deploy scripts of their own, and on a cluster you already run the manifests apply with one command:</p>
+      <div class="cmd">kubectl apply -k manifests/</div>
+      <p>Some services are opt-in on a cluster too, each one more manifest to apply. The <a href="https://github.com/TAIPANBOX/stack-k8s#readme" rel="noopener">stack-k8s repository</a> names them, along with every trap found while building it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="laptop" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">your laptop</div>
+      <h2>On your laptop, to look around.</h2>
+    </div>
+    <div class="prose rv">
+      <p>A sandbox, not a deployment. It builds each service from source and runs it natively, with no Docker, binds everything to 127.0.0.1, and stops cleanly when you press Ctrl-C. If a toolchain or a port is missing, it says which.</p>
+      <div class="cmd">git clone https://github.com/TAIPANBOX/stack-up &amp;&amp; cd stack-up &amp;&amp; ./up.sh</div>
+      <p>Delegation, the FinOps console and typed answers join with <code>--with-delegation</code>, <code>--with-finops</code> and <code>--with-typed</code>. The <a href="https://github.com/TAIPANBOX/stack-up#readme" rel="noopener">stack-up repository</a> has the port map and the rest.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="one" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">one piece</div>
+      <h2>One service at a time.</h2>
+      <p class="lede">Nothing here has to be adopted whole. Each service is its own repository with its own releases, and most of them run alone. The list says how each one ships and what, if anything, it leans on; its repository has the command, pinned to a version.</p>
+    </div>
+    <table class="svc-table rv">
+      <thead><tr><th>service</th><th>how it ships</th><th>on its own</th><th>install</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="4">the control room</td></tr>
+        <tr style="--c:#B48CFF"><td><i></i>Genaryx</td><td>The console of the one-box and cluster installs; built from source on its own.</td><td>Reads the stack it sits on.</td><td><a href="https://github.com/TAIPANBOX/genaryx#readme" rel="noopener">genaryx &#8599;</a></td></tr>
+        <tr class="grp"><td colspan="4">money</td></tr>
+        <tr style="--c:#F4B23E"><td><i></i>TokenFuse</td><td>A container image: a proxy you start and point your agent at.</td><td>Yes, with a model provider behind it, or its stub for a dry run.</td><td><a href="https://github.com/TAIPANBOX/tokenfuse#readme" rel="noopener">tokenfuse &#8599;</a></td></tr>
+        <tr style="--c:#7DD3A0"><td><i></i>CostCrew</td><td>A Go binary, or the <code>finops</code> profile of the one-box install.</td><td>Yes. It listens on loopback and reads your bills.</td><td><a href="https://github.com/TAIPANBOX/costcrew#readme" rel="noopener">costcrew &#8599;</a></td></tr>
+        <tr style="--c:#22D3EE"><td><i></i>TokenFuse Pocket</td><td>An iPhone app, not wired in yet, so there is nothing to install.</td><td>Not yet.</td><td>not yet</td></tr>
+        <tr class="grp"><td colspan="4">guardrails</td></tr>
+        <tr style="--c:#2DD4BF"><td><i></i>Wardryx</td><td>A signed container image, or built from source with Go.</td><td>Yes. It answers policy questions over HTTP.</td><td><a href="https://github.com/TAIPANBOX/wardryx#readme" rel="noopener">wardryx &#8599;</a></td></tr>
+        <tr style="--c:#34D399"><td><i></i>Idryx</td><td>A prebuilt binary for your platform.</td><td>Yes. It reads an event log.</td><td><a href="https://github.com/TAIPANBOX/idryx#readme" rel="noopener">idryx &#8599;</a></td></tr>
+        <tr style="--c:#F0ABFC"><td><i></i>Scopyx</td><td>A container image.</td><td>Asks Wardryx for every decision.</td><td><a href="https://github.com/TAIPANBOX/scopyx#readme" rel="noopener">scopyx &#8599;</a></td></tr>
+        <tr style="--c:#8B9DFF"><td><i></i>Vouchryx</td><td>A container image.</td><td>Needs an issuer, a signing key and the issuers it trusts.</td><td><a href="https://github.com/TAIPANBOX/vouchryx#readme" rel="noopener">vouchryx &#8599;</a></td></tr>
+        <tr class="grp"><td colspan="4">proof</td></tr>
+        <tr style="--c:#B48CFF"><td><i></i>Qryx</td><td>A prebuilt binary, with checksums.</td><td>Yes. Point it at a path.</td><td><a href="https://github.com/TAIPANBOX/qryx#readme" rel="noopener">qryx &#8599;</a></td></tr>
+        <tr style="--c:#FDE68A"><td><i></i>Keyryx</td><td>A container image whose build you can verify.</td><td>Holds the signing keys the others use; the one-box install includes it.</td><td><a href="https://github.com/TAIPANBOX/keyryx#readme" rel="noopener">keyryx &#8599;</a></td></tr>
+        <tr style="--c:#FF7AA2"><td><i></i>Verdryx</td><td>A Python package, installed from its repository.</td><td>Yes. A dry run uses a stub model, with no network and no key.</td><td><a href="https://github.com/TAIPANBOX/verdryx#readme" rel="noopener">verdryx &#8599;</a></td></tr>
+        <tr style="--c:#60A5FA"><td><i></i>Typryx</td><td>A Go binary or a container image. An optional add-on.</td><td>Yes, on its stub backend until you choose a model.</td><td><a href="https://github.com/TAIPANBOX/typryx#readme" rel="noopener">typryx &#8599;</a></td></tr>
+        <tr style="--c:#FF8A5B"><td><i></i>Mockryx</td><td>A prebuilt binary.</td><td>Needs a pre-production gateway to fire its drills at.</td><td><a href="https://github.com/TAIPANBOX/mockryx#readme" rel="noopener">mockryx &#8599;</a></td></tr>
+        <tr style="--c:#E4626F"><td><i></i>Trailryx</td><td>Container images: a receiver and a store. No Rust toolchain needed.</td><td>Takes events from the stack and keeps the record.</td><td><a href="https://github.com/TAIPANBOX/trailryx#readme" rel="noopener">trailryx &#8599;</a></td></tr>
+        <tr class="grp"><td colspan="4">ground</td></tr>
+        <tr style="--c:#5BC8F5"><td><i></i>Heraldyx</td><td>A container image.</td><td>Reads an event file, and can write the mail to a file instead of sending it.</td><td><a href="https://github.com/TAIPANBOX/heraldyx#readme" rel="noopener">heraldyx &#8599;</a></td></tr>
+        <tr style="--c:#6C7BFF"><td><i></i>Engram</td><td>A Python package, <code>pip install engdbram</code>: a library in your own process.</td><td>Yes.</td><td><a href="https://github.com/TAIPANBOX/engram#readme" rel="noopener">engram &#8599;</a></td></tr>
+        <tr style="--c:#93A8C4"><td><i></i>Platform</td><td>Agent Passport is a specification; agent-stack-go is a Go module with the <code>agent-conform</code> binary; the Terraform provider is on the Terraform Registry as <code>TAIPANBOX/taipan</code>.</td><td>Yes, each of them.</td><td><a href="https://github.com/TAIPANBOX/agent-stack-go#readme" rel="noopener">agent-stack-go &#8599;</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="next" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">after it is up</div>
+      <h2>Where to go next.</h2>
+    </div>
+    <div class="prose rv">
+      <ul>
+        <li><span><b><a href="first-alert.html">From zero to your first alert</a></b>: point one agent at the box and make it fire on purpose.</span></li>
+        <li><span><b><a href="what-runs-where.html">What runs where, and what it costs</a></b>: one machine, a five-node cluster or a hyperscaler, measured.</span></li>
+        <li><span><b><a href="stack.html">The Stack page</a></b>: every service with its room and its guide.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:14px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="kicker">next</div>
+      <h2>Back to the guides.</h2>
+      <p class="lede"><a href="guides.html">The guides index</a> has the rest: how the stack is secured, the practice of running agents, and what changed in October.</p>
+    </div>
+    <div class="back rv"><a class="btn" href="guides.html"><span class="mono">&#8592;</span> All guides</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+<!-- footer:auto -->
+    <div class="cols">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px"><svg class="glyph" viewBox="0 0 24 24" fill="none"><path d="M13.5 2 5 13.2h5.1L9.4 22l9-11.8h-5.3L13.5 2Z" fill="#F4B23E"/></svg>IT<b>-</b>RAT</a>
+      </div>
+      <div class="foot-groups">
+        <div class="foot-row">
+          <div class="foot-group"><div class="l"><i style="background:#B48CFF"></i>the room</div>
+            <div class="foot-chips"><a class="foot-chip" href="genaryx.html"><i style="background:#B48CFF"></i>Genaryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#F4B23E"></i>money</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/tokenfuse.html"><i style="background:#F4B23E"></i>TokenFuse</a><a class="foot-chip" href="services/costcrew.html"><i style="background:#7DD3A0"></i>CostCrew</a><a class="foot-chip" href="services/pocket.html"><i style="background:#22D3EE"></i>TokenFuse Pocket</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#2DD4BF"></i>guardrails</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/wardryx.html"><i style="background:#2DD4BF"></i>Wardryx</a><a class="foot-chip" href="services/idryx.html"><i style="background:#34D399"></i>Idryx</a><a class="foot-chip" href="services/scopyx.html"><i style="background:#F0ABFC"></i>Scopyx</a><a class="foot-chip" href="services/vouchryx.html"><i style="background:#8B9DFF"></i>Vouchryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#FF7AA2"></i>proof</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/qryx.html"><i style="background:#B48CFF"></i>Qryx</a><a class="foot-chip" href="services/keyryx.html"><i style="background:#FDE68A"></i>Keyryx</a><a class="foot-chip" href="services/verdryx.html"><i style="background:#FF7AA2"></i>Verdryx</a><a class="foot-chip" href="services/typryx.html"><i style="background:#60A5FA"></i>Typryx</a><a class="foot-chip" href="services/mockryx.html"><i style="background:#FF8A5B"></i>Mockryx</a><a class="foot-chip" href="services/trailryx.html"><i style="background:#E4626F"></i>Trailryx</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#6C7BFF"></i>ground</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/heraldyx.html"><i style="background:#5BC8F5"></i>Heraldyx</a><a class="foot-chip" href="services/engram.html"><i style="background:#6C7BFF"></i>Engram</a><a class="foot-chip" href="services/platform.html"><i style="background:#93A8C4"></i>Platform</a></div>
+          </div>
+          <div class="foot-group"><div class="l"><i style="background:#A3E635"></i>side project</div>
+            <div class="foot-chips"><a class="foot-chip" href="services/sphere.html"><i style="background:#A3E635"></i>Sphere</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- /footer:auto -->
+    <div class="foot-note">&#169; 2026 IT-RAT <svg style="display:inline-block;width:15px;height:11px;vertical-align:-1px;margin:0 3px;border-radius:2px" viewBox="0 0 3 2" role="img" aria-label="Ukraine"><title>Ukraine</title><rect width="3" height="1" fill="#005BBB"/><rect y="1" width="3" height="1" fill="#FFD500"/></svg></div>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=e13"></script>
+<script src="assets/sheet.js?v=e06"></script>
+<script src="assets/diagram.js"></script>
+<script src="assets/ambient.js?v=e05"></script>
+</body>
+</html>

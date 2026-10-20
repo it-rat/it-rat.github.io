@@ -53,6 +53,7 @@ PAGES = {
     # every room in STACK, and stops if any is missing (tools/stackguides.py).
     "security-by-design.html": ("", ""),
     "stack-guide.html": ("", ""),
+    "install.html": ("", ""),
     "changes-2026-10.html": ("", ""),
     "console.html": ("", ""),
     "404.html": ("/", ""),
@@ -291,30 +292,6 @@ def service_id(path):
     return m.group(1) if m else ""
 
 
-def rail_cards():
-    """The corridor rail on the home page, as real links rather than JS output.
-
-    Written when the rail was hand-maintained and then never called, which is
-    the same defect the footer had: on 2026-08-03 the registry carried twelve
-    services and this grid carried eleven, because adding one meant editing
-    two places and somebody only edited one. Now main() writes it."""
-    out = []
-    for s in stack():
-        out.append(
-            f'      <a class="card hover svc" style="--c:{s["color"]}" href="{s["href"]}" data-dir="fwd">\n'
-            f'        <span class="head"><span class="g"></span>'
-            f'<span class="mono" style="font-size:11px;color:var(--faint)">{s["id"]}</span>'
-            f'<span class="plane">{s["plane"]}</span></span>\n'
-
-            f'        <h3>{s["name"]}</h3>\n'
-            f'        <p class="what">{s["what"]}.</p>\n'
-            f'        <span class="go">open the room'
-            + (f'<span class="note">{s["note"]}</span>' if s["note"] else "")
-            + '</span>\n'
-            f'      </a>')
-    return "\n".join(out)
-
-
 def main():
     written = 0
     pages = dict(PAGES)
@@ -333,44 +310,25 @@ def main():
             written += 1
         print(f"{path:28} {'written' if h2 != h else 'unchanged'}")
 
-    # the home page keeps its desk-agent block; only the injected slot changes
-    p = ROOT / "index.html"
-    h = p.read_text(encoding="utf-8")
-    # Match the whole foot-groups block, ending at its own closing tag rather
-    # than the first </div> inside it.
-    #
-    # This used to be guarded by `id="foot-stack"` being present, which was
-    # true only during the one-off migration away from the JS-rendered footer.
-    # The id went with that migration, so the guard has been false ever since
-    # and the home page silently stopped tracking the registry: adding a
-    # service updated nineteen footers and not the one a stranger sees first.
-    # The corridor rail, from the same registry. Anchored on the container's own
-    # id rather than on the first and last card, so an empty rail can still be
-    # filled and a hand-edited one is replaced whole.
-    rail = re.search(r'(<div class="rail rv" id="svc-rail">\n)(.*?)(\n    </div>)', h, re.S)
-    if not rail:
-        sys.exit("index.html: could not find the corridor rail to update")
-    want = rail_cards()
-    if rail.group(2).strip() != want.strip():
-        h = h[:rail.start(2)] + want + h[rail.end(2):]
-        p.write_text(h, encoding="utf-8")
-        print(f"{'index.html rail':28} written")
-        written += 1
-    else:
-        print(f"{'index.html rail':28} unchanged")
-
-    slot = re.search(r'<div class="foot-groups">.*?\n      </div>', h, re.S)
+    # Two pages keep their desk-agent block: the home page and, since
+    # 2026-10-20, the Stack page that took over the old home's content. On both
+    # only the injected slot changes. The corridor rail that used to be written
+    # here went with the old home; the Stack page's list is tools/stacklist.py.
     static = groups("", "")
-    if slot:
+    for path in ("index.html", "stack.html"):
+        p = ROOT / path
+        h = p.read_text(encoding="utf-8")
+        # Match the whole foot-groups block, ending at its own closing tag rather
+        # than the first </div> inside it.
+        slot = re.search(r'<div class="foot-groups">.*?\n      </div>', h, re.S)
+        if not slot:
+            sys.exit(f"{path}: could not find the foot-groups block to update")
         if slot.group(0) == static:
-            print(f"{'index.html':28} unchanged")
+            print(f"{path:28} unchanged")
         else:
-            h = h[:slot.start()] + static + h[slot.end():]
-            p.write_text(h, encoding="utf-8")
-            print(f"{'index.html':28} written")
+            p.write_text(h[:slot.start()] + static + h[slot.end():], encoding="utf-8")
+            print(f"{path:28} written")
             written += 1
-    else:
-        sys.exit("index.html: could not find the foot-groups block to update")
     print(f"\n{written} file(s) updated")
 
 

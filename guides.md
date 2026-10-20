@@ -2,9 +2,23 @@
 
 # Guides index
 
-> Thirty-two guides: seven on the field of AI agent governance, and twenty-five on running this stack, from a first alert to what changed in October.
+> Sixteen guides: seven on the field of AI agent governance, and nine on running this stack, from a first alert to what changed in October.
 
-Thirty-two guides, grouped by what you came for: where to start, how the stack is secured, the practice of running agents, each service in depth, and what changed in October. The service pages stay short; the full story lives here.
+Sixteen guides, grouped by what you came for: how to install it, where to start, how the stack is secured, the practice of running agents, and what changed in October. Each service has its own guide too, listed beside its room on [the Stack page](https://it-rat.com/stack.html).
+
+## Install
+
+*all of it*
+
+### [The whole stack, in one command](https://it-rat.com/install.html#all)
+
+On a Debian or Ubuntu box you own, on a Kubernetes cluster, or as a sandbox on your laptop. It comes up closed, checks itself, and adds the rest when you ask.
+
+*one piece*
+
+### [One service at a time](https://it-rat.com/install.html#one)
+
+Every service is its own repository with its own releases. How each one ships, whether it runs alone, and where its install command lives.
 
 ## Start here
 
@@ -26,11 +40,11 @@ What a measurement on this stack actually established, the limit published besid
 
 One machine, a five-node cluster, or a hyperscaler. Six clusters measured across three clouds and then destroyed: how each performed, the storage line that differs by a factor of 108, and a published conclusion we had to withdraw.
 
-*the home page, in full*
+*the numbers, in full*
 
-### [The stack in depth](https://it-rat.com/stack-guide.html)
+### [How the numbers were produced](https://it-rat.com/stack-guide.html)
 
-Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
+The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is.
 
 ## Security
 
@@ -96,42 +110,6 @@ A hub that holds the control plane and the policy, and a gateway at every site t
 
 One ordinary failure, an agent stuck in a retry loop, followed from its first over-budget call to the evidence an auditor reads months later. Eight steps, the event each one writes, and what only becomes visible in that order.
 
-## Each service in depth
-
-- [Genaryx](https://it-rat.com/genaryx-guide.html), control room
-
-- [TokenFuse](https://it-rat.com/tokenfuse-guide.html), money
-
-- [CostCrew](https://it-rat.com/costcrew-guide.html), finops
-
-- [TokenFuse Pocket](https://it-rat.com/pocket-guide.html), out of band · not wired in yet
-
-- [Wardryx](https://it-rat.com/wardryx-guide.html), policy
-
-- [Idryx](https://it-rat.com/idryx-guide.html), access
-
-- [Scopyx](https://it-rat.com/scopyx-guide.html), egress
-
-- [Vouchryx](https://it-rat.com/vouchryx-guide.html), delegation
-
-- [Qryx](https://it-rat.com/qryx-guide.html), crypto
-
-- [Keyryx](https://it-rat.com/keyryx-guide.html), key custody
-
-- [Verdryx](https://it-rat.com/verdryx-guide.html), quality
-
-- [Typryx](https://it-rat.com/typryx-guide.html), typed answers · optional add-on
-
-- [Mockryx](https://it-rat.com/mockryx-guide.html), pre-prod
-
-- [Trailryx](https://it-rat.com/trailryx-guide.html), the record
-
-- [Heraldyx](https://it-rat.com/heraldyx-guide.html), alerts
-
-- [Engram](https://it-rat.com/engram-guide.html), memory
-
-- [Platform](https://it-rat.com/platform-guide.html), contract
-
 ## What changed
 
 *what changed*
@@ -142,4 +120,4 @@ What changed across the stack between 1 and 15 October 2026, in one place.
 
 ## Every control in the guides has an open implementation.
 
-Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/index.html#stack), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.
+Every control the guides describe has an Apache-2.0 service behind it, and they run on infrastructure you own. [Walk the stack](https://it-rat.com/stack.html), or [start the live services locally in one command](https://it-rat.com/services/platform.html#run) and watch the money plane light up. Unfamiliar term? The [glossary](https://it-rat.com/glossary.html) defines the vocabulary these guides use.

@@ -272,7 +272,11 @@ true.
 11. **A page's generated blocks are on it, and they are what the generators
    would write today.** Five tools write into these pages: the footer, the top
    bar, the visible FAQ, the JSON-LD, and the markdown twins with the `llms.txt`
-   index. Each keeps its own hand-written list of pages, and until 2026-08-29
+   index. Since 2026-10-20 a sixth content writer joins them: `tools/stacklist.py`
+   writes the Stack page's list of every service (stack.html, between the
+   `stacklist:auto` markers) from STACK and from RINGS in `assets/home/parts.js`,
+   and the gate runs it with the rest. The old home's corridor rail, which
+   `tools/footer.py` used to write, went with the old home. Each keeps its own hand-written list of pages, and until 2026-08-29
    nothing compared those five lists with each other or with the pages on disk.
 
    Two pages were outside all of them, both for months.

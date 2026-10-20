@@ -1,12 +1,10 @@
 <!-- https://it-rat.com/stack-guide.html -->
 
-# The stack in depth
+# How the numbers were produced
 
-> Everything the home page leaves out: how its eight figures were produced and what the runs caught, how the stack wires, and why all of it is open.
+> The eight figures on the home page: how each was measured on real infrastructure, the bugs the live runs caught, and where the rest of the record is.
 
-The [home page](https://it-rat.com/index.html) keeps the short version: the opening, the eight figures from the validation campaign, the corridor of rooms and the wiring drawing. This guide keeps the rest of what it used to say: the opening in full, each figure in full, what the campaign ran and what it caught, how the stack wires, why all of it is open, and how to run the stack yourself. [What is proven](https://it-rat.com/what-is-proven.html) sets out every claim with what it stops short of.
-
-- [The opening, in full](https://it-rat.com/stack-guide.html#overview)
+The [home page](https://it-rat.com/index.html#proof) shows eight figures from the validation campaign. This guide says how each one was measured, what the live runs caught along the way, and where the rest of the record is kept.
 
 - [The eight figures](https://it-rat.com/stack-guide.html#proof)
 
@@ -16,17 +14,7 @@ The [home page](https://it-rat.com/index.html) keeps the short version: the open
 
 - [Where the rest is recorded](https://it-rat.com/stack-guide.html#elsewhere)
 
-- [The corridor](https://it-rat.com/stack-guide.html#corridor)
-
-- [How it wires](https://it-rat.com/stack-guide.html#wiring)
-
-- [Why all of it is open](https://it-rat.com/stack-guide.html#open)
-
 - [Run it yourself](https://it-rat.com/stack-guide.html#run)
-
-## Run AI agents like a workforce, not a wildfire.
-
-A new hire gets a contract, a budget, a badge and a manager. An AI agent usually gets an admin key and a prayer. We build the open-source governance that closes that gap: services that meter, police, remember, identify, audit and rehearse your agents at runtime, each installed on its own rather than adopted whole, and proven on real infrastructure before anyone saw a slide about it. Around them sit the parts a fleet needs and nobody builds first: a decision before an agent reaches the web, a delegation it can prove and a person can end, alerts by mail, a record nobody can quietly shorten, and a kill switch out of band, built and not yet wired into a running stack.
 
 ## Validated on real infrastructure. Then torn down.
 
@@ -72,32 +60,10 @@ The full ledger, every number and every bug, is public in each repository's `VAL
 
 - **What we withdrew.** The throughput cliff past 64 concurrent callers that turned out to be a shared-vCPU instance is in [what is proven](https://it-rat.com/what-is-proven.html), under "Three things we published and had to withdraw", and in [what runs where](https://it-rat.com/what-runs-where.html).
 
-## One corridor, every door on it.
-
-The rail of rooms this introduces is on the [home page](https://it-rat.com/index.html#stack).
-
-Every service has its own room: what it does, how it behaves over a live time window, and where it sits in the wiring. Every room is Apache-2.0, with nothing behind a licence. Genaryx, first on the rail, is the control room, and it runs on your own infrastructure like the rest. After it come the planes themselves, in the order a fleet tends to adopt them: money and the crew that reads the bill, then policy, access, egress and delegation, then the planes that watch rather than decide. Platform, last, is the contract they all share. Walk it with the arrows on each page, scroll this rail sideways, or hit `⌘K` and type two letters.
-
-## One passport, one event bus, four planes of control.
-
-The drawing this describes is on the [home page](https://it-rat.com/index.html#wiring).
-
-Every request carries an Agent Passport. An agent has two ways out, not one: a call to a model, and a fetch of something on the internet, and each has a gate standing in it. Above them sit the two questions a gate asks, and they are asked differently. Policy answers per action. Delegation deliberately does not: it publishes keys and a revocation list that enforcement points poll, and it refuses to offer introspection precisely so that it never becomes a service every gate has to reach on every call. Below, memory, identity, crypto, quality, rehearsal and alerting read the same NDJSON stream off-path. Nothing here is a dashboard after the fact: the gates enforce in-line, in seconds. The drawing stops at the planes a request actually touches, so three that matter are named on the rail rather than here: Trailryx seals the bus into a record, Pocket, not yet wired into a running stack, is meant to hold the switch on a device this box never touches, and CostCrew's crew are agents the same gates govern like any other.
-
-## Governance you cannot read is governance you have to trust.
-
-Every part of this stack is Apache-2.0, the console included, and that is not a marketing posture. These services decide what an AI agent may do: what it may spend, which tools it may call, whose authority it acts under, and what evidence exists afterwards. A control whose entire job is to remove the need for trust cannot itself be a thing you take on trust.
-
-Closed governance software asks you to believe a claim precisely where you came to stop believing claims. So the source is readable, the validation records name their own bugs, and a conclusion we got wrong is corrected in public next to the one it replaces. Everything on this site runs, which is a different claim from everything on this site is described.
-
-And we are downstream of a great deal of work nobody billed us for. This stack stands on k3s, Calico, Longhorn, Postgres, SQLite and three language ecosystems, none of which sent an invoice. Publishing ours under Apache-2.0 is not charity and not a growth tactic; it is the ordinary way to be a participant in that rather than only a consumer of it.
-
-Take it, run it, fork it, and never speak to us. That is the point of publishing it.
-
 ## You do not have to take our word for it.
 
-You do not have to take our word for it: [run the stack's live services locally](https://it-rat.com/services/platform.html#run) in one command and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
+You do not have to take our word for it: [install the stack](https://it-rat.com/install.html) in one command, on a box you own or on your laptop, and watch the money plane light up. The four that are not servers, Engram, Qryx, Verdryx and Mockryx, each carry a one-line try-it on their own page.
 
 ## Back to the home page.
 
-The [home page](https://it-rat.com/index.html) has the eight figures, the stack's corridor and the wiring, and [the guides index](https://it-rat.com/guides.html) has the field itself.
+The [home page](https://it-rat.com/index.html) has the eight figures and the people behind them, [the Stack page](https://it-rat.com/stack.html) has every service with its room and its guide, and [the guides index](https://it-rat.com/guides.html) has the field itself.
